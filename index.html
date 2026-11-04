@@ -5,45 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>HeroesVault - HotS Specs & Strategy Hub</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Lucide Icons for clean UI elements -->
+  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
-    /* Custom scrollbar for hero sidebar */
-    ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #0f172a;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #334155;
-      border-radius: 3px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #475569;
-    }
-    .nexus-glow {
-      box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
-    }
-    .nexus-glow-purple {
-      box-shadow: 0 0 15px rgba(168, 85, 247, 0.25);
-    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #475569; }
   </style>
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col selection:bg-sky-500 selection:text-white">
 
-  <!-- ================================================================= --->
-  <!-- TOP HEADER / LOGO SECTION                                         --->
-  <!-- ================================================================= --->
+  <!-- TOP HEADER -->
   <header class="bg-slate-900/90 border-b border-slate-800 backdrop-blur-md sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col items-center">
       
-      <!-- Top Mid HotS Logo & Title Branding -->
       <div class="flex items-center gap-3 mb-3 cursor-pointer" onclick="switchTab('heroes')">
         <div class="relative flex items-center justify-center">
           <div class="absolute inset-0 bg-sky-500/20 blur-md rounded-full"></div>
-          <!-- HotS Hex Icon Representation -->
           <svg class="w-9 h-9 text-sky-400 relative z-10 filter drop-shadow-[0_0_8px_rgba(56,189,248,0.8)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polygon points="12 2 22 7 22 17 12 22 2 17 2 7 12 2" />
             <circle cx="12" cy="12" r="3" fill="currentColor" />
@@ -57,252 +36,181 @@
         </div>
       </div>
 
-      <!-- Navigation Bar Menu -->
-      <nav class="flex items-center gap-2 bg-slate-950/80 p-1.5 rounded-xl border border-slate-800/80 shadow-inner">
-        
-        <!-- Heroes Button -->
+      <!-- Navigation Bar -->
+      <nav class="flex items-center gap-2 bg-slate-950/80 p-1.5 rounded-xl border border-slate-800/80 shadow-inner relative">
         <button id="nav-heroes" onclick="switchTab('heroes')" 
-          class="nav-btn px-5 py-2 rounded-lg text-sm font-semibold transition-all duration-200 flex items-center gap-2 bg-sky-500/20 text-sky-300 border border-sky-500/40 shadow-sm">
-          <i data-lucide="shield" class="w-4 h-4"></i>
-          Heroes
+          class="px-5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 bg-sky-500/20 text-sky-300 border border-sky-500/40 shadow-sm">
+          <i data-lucide="shield" class="w-4 h-4"></i> Heroes
         </button>
 
-        <!-- Maps Dropdown Menu -->
-        <div class="relative group">
-          <button class="nav-btn px-5 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-all duration-200 flex items-center gap-2">
-            <i data-lucide="map" class="w-4 h-4"></i>
-            Maps
-            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400 transition-transform group-hover:rotate-180"></i>
+        <!-- Fixed Clickable Maps Dropdown -->
+        <div class="relative">
+          <button onclick="toggleMapsDropdown(event)" 
+            class="px-5 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-all flex items-center gap-2">
+            <i data-lucide="map" class="w-4 h-4"></i> Maps
+            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400"></i>
           </button>
           
-          <!-- Dropdown items -->
-          <div class="absolute left-0 mt-1 w-56 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl py-2 hidden group-hover:block z-50 backdrop-blur-xl">
-            <div class="px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-500">Standard Battlegrounds</div>
-            <a href="#" onclick="selectMap('Cursed Hollow')" class="block px-4 py-2 text-sm text-slate-300 hover:bg-sky-500/10 hover:text-sky-300 transition-colors">Cursed Hollow</a>
-            <a href="#" onclick="selectMap('Dragon Shire')" class="block px-4 py-2 text-sm text-slate-300 hover:bg-sky-500/10 hover:text-sky-300 transition-colors">Dragon Shire</a>
-            <a href="#" onclick="selectMap('Infernal Shrines')" class="block px-4 py-2 text-sm text-slate-300 hover:bg-sky-500/10 hover:text-sky-300 transition-colors">Infernal Shrines</a>
-            <a href="#" onclick="selectMap('Tomb of the Spider Queen')" class="block px-4 py-2 text-sm text-slate-300 hover:bg-sky-500/10 hover:text-sky-300 transition-colors">Tomb of Spider Queen</a>
-            <a href="#" onclick="selectMap('Towers of Doom')" class="block px-4 py-2 text-sm text-slate-300 hover:bg-sky-500/10 hover:text-sky-300 transition-colors">Towers of Doom</a>
-            <div class="border-t border-slate-800 my-1"></div>
-            <a href="#" onclick="selectMap('All Battlegrounds')" class="block px-4 py-2 text-sm text-amber-400 hover:bg-amber-400/10 font-semibold">View All Maps Matrix</a>
+          <div id="maps-dropdown-menu" class="absolute left-0 mt-2 w-56 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl py-2 hidden z-50 backdrop-blur-xl">
+            <div class="px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-500">Battlegrounds</div>
+            <a href="#" onclick="selectMap('Cursed Hollow')" class="block px-4 py-2 text-sm text-slate-300 hover:bg-sky-500/10 hover:text-sky-300">Cursed Hollow</a>
+            <a href="#" onclick="selectMap('Dragon Shire')" class="block px-4 py-2 text-sm text-slate-300 hover:bg-sky-500/10 hover:text-sky-300">Dragon Shire</a>
+            <a href="#" onclick="selectMap('Infernal Shrines')" class="block px-4 py-2 text-sm text-slate-300 hover:bg-sky-500/10 hover:text-sky-300">Infernal Shrines</a>
+            <a href="#" onclick="selectMap('Tomb of the Spider Queen')" class="block px-4 py-2 text-sm text-slate-300 hover:bg-sky-500/10 hover:text-sky-300">Tomb of Spider Queen</a>
+            <a href="#" onclick="selectMap('Towers of Doom')" class="block px-4 py-2 text-sm text-slate-300 hover:bg-sky-500/10 hover:text-sky-300">Towers of Doom</a>
           </div>
         </div>
 
-        <!-- Tier List Button -->
         <button id="nav-tierlist" onclick="switchTab('tierlist')" 
-          class="nav-btn px-5 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-all duration-200 flex items-center gap-2">
-          <i data-lucide="layers" class="w-4 h-4"></i>
-          Tier List
+          class="px-5 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-all flex items-center gap-2">
+          <i data-lucide="layers" class="w-4 h-4"></i> Tier List
         </button>
-
       </nav>
 
     </div>
   </header>
 
-  <!-- ================================================================= -->
-  <!-- MAIN LAYOUT WRAPPER (1/5 Sidebar vs 4/5 Content Area)               -->
-  <!-- ================================================================= -->
+  <!-- MAIN LAYOUT -->
   <div class="flex-1 max-w-7xl w-full mx-auto p-4 flex gap-6 overflow-hidden" style="max-height: calc(100vh - 120px);">
 
-    <!-- LEFT SIDEBAR: 1/5 Width Scrollable Alphabetical Heroes List -->
-    <aside id="heroes-sidebar" class="w-1/5 flex-shrink-0 bg-slate-900/60 border border-slate-800/80 rounded-2xl flex flex-col overflow-hidden shadow-lg backdrop-blur-sm">
-      
-      <!-- Search & Filter Bar -->
+    <!-- LEFT SIDEBAR -->
+    <aside class="w-1/5 flex-shrink-0 bg-slate-900/60 border border-slate-800/80 rounded-2xl flex flex-col overflow-hidden shadow-lg">
       <div class="p-3 border-b border-slate-800 bg-slate-900/80 flex flex-col gap-2">
         <div class="relative">
           <i data-lucide="search" class="w-4 h-4 absolute left-3 top-2.5 text-slate-400"></i>
           <input type="text" id="hero-search" onkeyup="filterHeroes()" placeholder="Search heroes..." 
-            class="w-full pl-9 pr-3 py-1.5 bg-slate-950 border border-slate-700/80 rounded-lg text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-all" />
+            class="w-full pl-9 pr-3 py-1.5 bg-slate-950 border border-slate-700/80 rounded-lg text-sm text-slate-200 focus:outline-none focus:border-sky-500" />
         </div>
-        <div class="flex items-center justify-between px-1 text-xs text-slate-400 font-medium">
+        <div class="flex items-center justify-between px-1 text-xs text-slate-400">
           <span>Roster</span>
           <span id="hero-count" class="text-sky-400 font-mono">0 Heroes</span>
         </div>
       </div>
-
-      <!-- Scrollable List of Hero Rectangles -->
-      <div id="hero-list" class="flex-1 overflow-y-auto p-2 space-y-1.5">
-        <!-- Rendered dynamically via JS -->
-      </div>
+      <div id="hero-list" class="flex-1 overflow-y-auto p-2 space-y-1.5"></div>
     </aside>
 
-    <!-- RIGHT MAIN PANEL: 4/5 Width Content Area -->
+    <!-- RIGHT MAIN PANEL -->
     <main class="flex-1 bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 overflow-y-auto flex flex-col shadow-lg relative">
       
-      <!-- HERO VIEW CONTAINER -->
+      <!-- HERO VIEW -->
       <div id="view-heroes" class="space-y-6">
-        
-        <!-- Hero Header Badge Card -->
-        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-slate-900/80 border border-slate-800 p-5 rounded-2xl shadow-md">
+        <div class="flex items-center justify-between bg-slate-900/80 border border-slate-800 p-5 rounded-2xl shadow-md">
           <div class="flex items-center gap-4">
-            <img id="detail-portrait" src="" alt="Hero Portrait" class="w-20 h-20 rounded-2xl border-2 border-purple-500/80 shadow-lg object-cover" />
+            <img id="detail-portrait" src="" onerror="this.src='https://via.placeholder.com/80?text=Hero'" alt="Portrait" class="w-20 h-20 rounded-2xl border-2 border-purple-500/80 object-cover bg-slate-950" />
             <div>
               <div class="flex items-center gap-3">
                 <h2 id="detail-name" class="text-2xl font-bold text-white">Hero Name</h2>
-                <span id="detail-role" class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-purple-500/20 text-purple-300 border border-purple-500/30">
-                  Role
-                </span>
+                <span id="detail-role" class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-purple-500/20 text-purple-300 border border-purple-500/30">Role</span>
               </div>
-              <p id="detail-title" class="text-xs text-slate-400 mt-0.5">Hero Title / Tagline</p>
+              <p id="detail-title" class="text-xs text-slate-400 mt-0.5">Title</p>
             </div>
           </div>
         </div>
 
-        <!-- MULTI-BUILD TABS CONTAINER (Build 1, Build 2, etc.) -->
-        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-4 shadow-sm">
+        <!-- BUILD TABS -->
+        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-4">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
             <div>
-              <h3 class="text-md font-bold text-sky-400 flex items-center gap-2">
-                <i data-lucide="git-branch" class="w-4 h-4"></i> Spec Loadouts & Builds
-              </h3>
+              <h3 class="text-md font-bold text-sky-400 flex items-center gap-2"><i data-lucide="git-branch" class="w-4 h-4"></i> Spec Loadouts</h3>
               <p class="text-xs text-slate-400">Select build variations configured for this hero</p>
             </div>
-            <!-- Dynamic Build Tabs rendered here -->
             <div id="build-tabs" class="flex flex-wrap gap-2"></div>
           </div>
 
-          <!-- In-Game Build Code String Bar -->
           <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-slate-950 p-4 rounded-xl border border-slate-800">
             <div>
               <span class="text-xs text-slate-400 font-medium block">In-Game Build String Code:</span>
-              <code id="detail-build-code" class="text-sm bg-slate-900 px-3 py-1 rounded-md text-emerald-400 border border-emerald-500/30 font-mono tracking-wide mt-1 inline-block">
-                [T0000000,Hero]
-              </code>
+              <code id="detail-build-code" class="text-sm bg-slate-900 px-3 py-1 rounded-md text-emerald-400 border border-emerald-500/30 font-mono mt-1 inline-block">[T0000000,Hero]</code>
             </div>
-            <button onclick="copyBuildCode()" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-lg border border-slate-600 transition-all flex items-center gap-1.5 shadow">
+            <button onclick="copyBuildCode()" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-lg border border-slate-600 flex items-center gap-1.5">
               <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Build String
             </button>
           </div>
         </div>
 
-        <!-- TALENT VIEWER COMPONENT (Level-by-Level Tree) -->
-        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-4 shadow-sm">
+        <!-- TALENT TREE -->
+        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-4">
           <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-            <h3 class="text-md font-bold text-sky-400 flex items-center gap-2">
-              <i data-lucide="zap" class="w-4 h-4"></i> Talent Viewer & Selected Path
-            </h3>
-            <span class="text-xs text-slate-400">Level 1 to 20 Talent Progression</span>
+            <h3 class="text-md font-bold text-sky-400 flex items-center gap-2"><i data-lucide="zap" class="w-4 h-4"></i> Talent Viewer</h3>
           </div>
-
-          <!-- Talent Level Rows (1, 4, 7, 10, 13, 16, 20) -->
-          <div id="talent-viewer-tree" class="space-y-3">
-            <!-- Dynamic Talent Rows Rendered Here -->
-          </div>
+          <div id="talent-viewer-tree" class="space-y-3"></div>
         </div>
 
-        <!-- STRATEGY & PERSONAL NOTES PANEL -->
-        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-3 shadow-sm">
-          <h3 class="text-md font-bold text-amber-400 flex items-center gap-2 border-b border-slate-800 pb-3">
-            <i data-lucide="file-text" class="w-4 h-4"></i> Personal Notes & Matchup Guide
-          </h3>
-          <div id="detail-notes" class="text-sm text-slate-300 leading-relaxed space-y-2 bg-slate-950/60 p-4 rounded-xl border border-slate-800/80 font-normal">
-            <!-- Dynamic Notes Rendered Here -->
-          </div>
+        <!-- NOTES -->
+        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-3">
+          <h3 class="text-md font-bold text-amber-400 flex items-center gap-2 border-b border-slate-800 pb-3"><i data-lucide="file-text" class="w-4 h-4"></i> Notes & Matchup Guide</h3>
+          <div id="detail-notes" class="text-sm text-slate-300 leading-relaxed bg-slate-950/60 p-4 rounded-xl border border-slate-800/80"></div>
         </div>
-
       </div>
 
-      <!-- TIER LIST VIEW CONTAINER (Hidden by default) -->
+      <!-- TIER LIST VIEW -->
       <div id="view-tierlist" class="space-y-4 hidden">
         <div class="flex items-center justify-between border-b border-slate-800 pb-4">
-          <div>
-            <h2 class="text-xl font-bold text-white">Personal Ranked Tier List</h2>
-            <p class="text-xs text-slate-400">Current comfort picks and draft priority breakdown</p>
-          </div>
-          <span class="px-3 py-1 bg-amber-500/10 text-amber-400 text-xs font-semibold rounded-lg border border-amber-500/20">Read-Only Overview</span>
+          <div><h2 class="text-xl font-bold text-white">Personal Ranked Tier List</h2></div>
         </div>
-
-        <!-- Tier Rows -->
         <div class="space-y-3">
-          <!-- S Tier -->
           <div class="flex rounded-xl overflow-hidden border border-slate-800 bg-slate-900/60">
             <div class="w-28 bg-red-600/30 text-red-400 border-r border-red-500/30 flex items-center justify-center font-extrabold text-lg">S TIER</div>
             <div id="tier-s" class="p-3 flex flex-wrap gap-2 flex-1"></div>
           </div>
-          <!-- A Tier -->
           <div class="flex rounded-xl overflow-hidden border border-slate-800 bg-slate-900/60">
             <div class="w-28 bg-orange-600/30 text-orange-400 border-r border-orange-500/30 flex items-center justify-center font-extrabold text-lg">A TIER</div>
             <div id="tier-a" class="p-3 flex flex-wrap gap-2 flex-1"></div>
-          </div>
-          <!-- B Tier -->
-          <div class="flex rounded-xl overflow-hidden border border-slate-800 bg-slate-900/60">
-            <div class="w-28 bg-yellow-600/30 text-yellow-400 border-r border-yellow-500/30 flex items-center justify-center font-extrabold text-lg">B TIER</div>
-            <div id="tier-b" class="p-3 flex flex-wrap gap-2 flex-1"></div>
           </div>
         </div>
       </div>
 
     </main>
-
   </div>
 
-  <!-- ================================================================= -->
-  <!-- JAVASCRIPT LOGIC & DATA MANAGEMENT                                -->
-  <!-- ================================================================= -->
+  <!-- JAVASCRIPT -->
   <script>
     let HERO_DATABASE = [];
     let currentSelectedHero = null;
     let currentBuildIndex = 0;
 
-    // Load from data/builds.json with fallback safety net
     document.addEventListener("DOMContentLoaded", async () => {
       try {
         const response = await fetch('./data/builds.json');
-        if (response.ok) {
-          HERO_DATABASE = await response.json();
-        } else {
-          throw new Error("Local builds.json not found");
-        }
+        if (response.ok) HERO_DATABASE = await response.json();
+        else throw new Error();
       } catch (err) {
-        console.warn("Could not load data/builds.json, loading fallback data...", err);
-        // Fallback safety net data so the page never errors out if json is missing
         HERO_DATABASE = [
           {
-            id: "abathur",
-            name: "Abathur",
-            title: "Evolution Master",
-            role: "Support",
-            tier: "S",
+            id: "abathur", name: "Abathur", title: "Evolution Master", role: "Support", tier: "S",
             portrait: "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroes/portraits/abathur.png",
-            builds: [
-              {
-                buildName: "Locust Swarm & Split Push",
-                buildCode: "[T3211232,Abathur]",
-                notes: "• <strong>Strategy:</strong> Body-soak aggressive off-lanes during objective spawns.",
-                talents: []
-              },
-              {
-                buildName: "Symbiote Support",
-                buildCode: "[T1233211,Abathur]",
-                notes: "• <strong>Strategy:</strong> Pocket high-attack-speed hypercarries.",
-                talents: []
-              }
-            ]
+            builds: [{ buildName: "Locust Push", buildCode: "[T3211232,Abathur]", notes: "Body soak lanes.", talents: [] }]
           }
         ];
       }
-
       renderHeroSidebar(HERO_DATABASE);
-      if (HERO_DATABASE.length > 0) {
-        selectHero(HERO_DATABASE[0].id);
-      }
+      if (HERO_DATABASE.length > 0) selectHero(HERO_DATABASE[0].id);
       renderTierList();
       if (window.lucide) lucide.createIcons();
+
+      // Close dropdown when clicking outside
+      window.onclick = function(event) {
+        if (!event.target.closest('.relative')) {
+          document.getElementById('maps-dropdown-menu').classList.add('hidden');
+        }
+      }
     });
 
-    // Render Left Sidebar Hero Rectangles
+    function toggleMapsDropdown(e) {
+      e.stopPropagation();
+      const menu = document.getElementById('maps-dropdown-menu');
+      menu.classList.toggle('hidden');
+    }
+
     function renderHeroSidebar(heroes) {
       const listContainer = document.getElementById("hero-list");
       listContainer.innerHTML = "";
-
       heroes.forEach(hero => {
         const heroCard = document.createElement("div");
-        heroCard.className = `hero-card flex items-center gap-3 p-2 rounded-xl cursor-pointer border transition-all ${currentSelectedHero && currentSelectedHero.id === hero.id ? 'bg-sky-500/15 border-sky-500/70 shadow-sm' : 'border-slate-800/60 bg-slate-900/50 hover:bg-slate-800/80 hover:border-sky-500/50'}`;
+        heroCard.className = `flex items-center gap-3 p-2 rounded-xl cursor-pointer border transition-all ${currentSelectedHero && currentSelectedHero.id === hero.id ? 'bg-sky-500/15 border-sky-500/70' : 'border-slate-800/60 bg-slate-900/50 hover:bg-slate-800/80'}`;
         heroCard.onclick = () => selectHero(hero.id);
-
         heroCard.innerHTML = `
-          <img src="${hero.portrait}" alt="${hero.name}" class="w-10 h-10 rounded-lg border border-slate-700 object-cover flex-shrink-0" />
+          <img src="${hero.portrait}" onerror="this.src='https://via.placeholder.com/40?text=H'" alt="${hero.name}" class="w-10 h-10 rounded-lg border border-slate-700 object-cover flex-shrink-0 bg-slate-950" />
           <div class="flex-1 min-w-0">
             <div class="flex items-center justify-between">
               <h4 class="text-xs font-bold text-slate-100 truncate">${hero.name}</h4>
@@ -313,75 +221,56 @@
         `;
         listContainer.appendChild(heroCard);
       });
-
       document.getElementById("hero-count").innerText = `${heroes.length} Heroes`;
     }
 
-    // Select Hero & Populate Main Area
     function selectHero(heroId) {
       const hero = HERO_DATABASE.find(h => h.id === heroId);
       if (!hero) return;
       currentSelectedHero = hero;
-      currentBuildIndex = 0; // Default to Build 1
-
-      // Re-render sidebar active state
+      currentBuildIndex = 0;
       renderHeroSidebar(HERO_DATABASE);
 
-      // Populate Header Info
       document.getElementById("detail-portrait").src = hero.portrait;
       document.getElementById("detail-name").innerText = hero.name;
       document.getElementById("detail-role").innerText = hero.role;
       document.getElementById("detail-title").innerText = hero.title || "Nexus Combatant";
-
       renderActiveBuild();
     }
 
-    // Render Build Tabs & Active Build Details
     function renderActiveBuild() {
       const hero = currentSelectedHero;
       const tabsContainer = document.getElementById("build-tabs");
       tabsContainer.innerHTML = "";
 
-      if (!hero.builds || hero.builds.length === 0) {
-        document.getElementById("detail-build-code").innerText = "No builds added";
-        document.getElementById("detail-notes").innerText = "No notes available.";
-        document.getElementById("talent-viewer-tree").innerHTML = "";
-        return;
-      }
+      if (!hero.builds || hero.builds.length === 0) return;
 
-      // Render Build Switcher Buttons
       hero.builds.forEach((build, idx) => {
         const btn = document.createElement("button");
         const isActive = idx === currentBuildIndex;
-        btn.className = `px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all border ${isActive ? 'bg-amber-500/20 text-amber-300 border-amber-500/50 shadow-sm' : 'bg-slate-950 text-slate-400 border-slate-800 hover:text-white hover:bg-slate-900'}`;
+        btn.className = `px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all border ${isActive ? 'bg-amber-500/20 text-amber-300 border-amber-500/50' : 'bg-slate-950 text-slate-400 border-slate-800 hover:text-white'}`;
         btn.innerText = `Build ${idx + 1}: ${build.buildName}`;
-        btn.onclick = () => {
-          currentBuildIndex = idx;
-          renderActiveBuild();
-        };
+        btn.onclick = () => { currentBuildIndex = idx; renderActiveBuild(); };
         tabsContainer.appendChild(btn);
       });
 
       const activeBuild = hero.builds[currentBuildIndex];
       document.getElementById("detail-build-code").innerText = activeBuild.buildCode || "[T0000000,Hero]";
-      document.getElementById("detail-notes").innerHTML = activeBuild.notes || "No notes added for this spec yet.";
+      document.getElementById("detail-notes").innerHTML = activeBuild.notes || "No notes added yet.";
 
-      // Render Talent Viewer Tree
       const talentTree = document.getElementById("talent-viewer-tree");
       talentTree.innerHTML = "";
-
       if (activeBuild.talents && activeBuild.talents.length > 0) {
         activeBuild.talents.forEach(t => {
           const row = document.createElement("div");
-          row.className = "flex items-center gap-4 bg-slate-950/70 p-2.5 rounded-xl border border-slate-800/80 hover:border-slate-700 transition-colors";
+          row.className = "flex items-center gap-4 bg-slate-950/70 p-2.5 rounded-xl border border-slate-800";
           row.innerHTML = `
-            <div class="w-12 text-center font-bold text-xs text-sky-400 font-mono flex-shrink-0">LVL ${t.level}</div>
-            <img src="${t.icon || ''}" alt="${t.name}" class="w-10 h-10 rounded-lg border border-purple-500/60 object-cover flex-shrink-0 shadow bg-slate-900" />
+            <div class="w-12 text-center font-bold text-xs text-sky-400 font-mono">LVL ${t.level}</div>
+            <img src="${t.icon || ''}" onerror="this.src='https://via.placeholder.com/40?text=T'" class="w-10 h-10 rounded-lg border border-purple-500/60 object-cover bg-slate-900" />
             <div class="flex-1 min-w-0">
               <h5 class="text-sm font-semibold text-slate-200">${t.name}</h5>
               <p class="text-xs text-slate-400 truncate">${t.desc}</p>
             </div>
-            <span class="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-1 rounded font-mono">SELECTED</span>
           `;
           talentTree.appendChild(row);
         });
@@ -390,66 +279,39 @@
       }
     }
 
-    // Filter Hero Sidebar
     function filterHeroes() {
       const query = document.getElementById("hero-search").value.toLowerCase();
-      const filtered = HERO_DATABASE.filter(h => h.name.toLowerCase().includes(query) || h.role.toLowerCase().includes(query));
-      renderHeroSidebar(filtered);
+      renderHeroSidebar(HERO_DATABASE.filter(h => h.name.toLowerCase().includes(query)));
     }
 
-    // Switch Navigation Tabs
     function switchTab(tab) {
-      const heroesView = document.getElementById("view-heroes");
-      const tierlistView = document.getElementById("view-tierlist");
-      const navHeroes = document.getElementById("nav-heroes");
-      const navTierlist = document.getElementById("nav-tierlist");
-
-      if (tab === 'heroes') {
-        heroesView.classList.remove("hidden");
-        tierlistView.classList.add("hidden");
-        navHeroes.className = "nav-btn px-5 py-2 rounded-lg text-sm font-semibold transition-all duration-200 flex items-center gap-2 bg-sky-500/20 text-sky-300 border border-sky-500/40 shadow-sm";
-        navTierlist.className = "nav-btn px-5 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-all duration-200 flex items-center gap-2";
-      } else if (tab === 'tierlist') {
-        heroesView.classList.add("hidden");
-        tierlistView.classList.remove("hidden");
-        navTierlist.className = "nav-btn px-5 py-2 rounded-lg text-sm font-semibold transition-all duration-200 flex items-center gap-2 bg-sky-500/20 text-sky-300 border border-sky-500/40 shadow-sm";
-        navHeroes.className = "nav-btn px-5 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-all duration-200 flex items-center gap-2";
-      }
+      document.getElementById("view-heroes").classList.toggle("hidden", tab !== 'heroes');
+      document.getElementById("view-tierlist").classList.toggle("hidden", tab !== 'tierlist');
     }
 
-    // Copy Build Code String
     function copyBuildCode() {
       const code = document.getElementById("detail-build-code").innerText;
       navigator.clipboard.writeText(code);
-      alert(`Copied build code string: ${code}`);
+      alert(`Copied: ${code}`);
     }
 
-    // Map Dropdown Filter trigger
     function selectMap(mapName) {
-      alert(`Filtered specs optimized for map: ${mapName}`);
+      alert(`Filtered for map: ${mapName}`);
+      document.getElementById('maps-dropdown-menu').classList.add('hidden');
     }
 
-    // Render Tier List Overview Matrix
     function renderTierList() {
-      const sTier = document.getElementById("tier-s");
-      const aTier = document.getElementById("tier-a");
-      const bTier = document.getElementById("tier-b");
-
-      if (!sTier || !aTier || !bTier) return;
-
-      sTier.innerHTML = "";
-      aTier.innerHTML = "";
-      bTier.innerHTML = "";
-
+      const s = document.getElementById("tier-s");
+      const a = document.getElementById("tier-a");
+      if (!s || !a) return;
+      s.innerHTML = ""; a.innerHTML = "";
       HERO_DATABASE.forEach(hero => {
         const badge = document.createElement("div");
-        badge.className = "flex items-center gap-2 bg-slate-950 px-2.5 py-1.5 rounded-lg border border-slate-800 cursor-pointer hover:border-sky-500/60 shadow-sm transition-all";
+        badge.className = "flex items-center gap-2 bg-slate-950 px-2.5 py-1.5 rounded-lg border border-slate-800 cursor-pointer hover:border-sky-500";
         badge.onclick = () => { switchTab('heroes'); selectHero(hero.id); };
-        badge.innerHTML = `<img src="${hero.portrait}" class="w-6 h-6 rounded-md object-cover border border-slate-700"/> <span class="text-xs font-semibold">${hero.name}</span>`;
-
-        if (hero.tier === "S") sTier.appendChild(badge);
-        else if (hero.tier === "A") aTier.appendChild(badge);
-        else bTier.appendChild(badge);
+        badge.innerHTML = `<img src="${hero.portrait}" onerror="this.src='https://via.placeholder.com/24?text=H'" class="w-6 h-6 rounded-md object-cover"/> <span class="text-xs font-semibold">${hero.name}</span>`;
+        if (hero.tier === "S") s.appendChild(badge);
+        else a.appendChild(badge);
       });
     }
   </script>
