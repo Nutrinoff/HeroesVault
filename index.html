@@ -24,6 +24,7 @@
 
     .container { max-width: 1200px; margin: 0 auto; }
     
+    /* Header / Navbar */
     header {
       display: flex;
       justify-content: space-between;
@@ -33,10 +34,99 @@
       border-bottom: 1px solid var(--card-border);
     }
 
+    .logo {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text-main);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-blue);
+    }
+
+    /* Main App Layout with Sidebar */
+    .app-layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .app-layout { grid-template-columns: 1fr; }
+    }
+
+    /* Sidebar list */
+    .sidebar {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 16px;
+      height: fit-content;
+    }
+
+    .sidebar h3 {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .hero-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-height: 500px;
+      overflow-y: auto;
+    }
+
+    .hero-item {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-main);
+      padding: 10px 12px;
+      border-radius: 6px;
+      text-align: left;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .hero-item:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .hero-item.active {
+      background: rgba(0, 210, 255, 0.1);
+      border-color: var(--accent-blue);
+      color: var(--accent-blue);
+    }
+
+    /* Content Area */
+    .content-area {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
     .controls-bar {
       display: flex;
       gap: 16px;
-      margin-bottom: 24px;
     }
 
     select {
@@ -47,32 +137,29 @@
       border-radius: 6px;
       font-size: 14px;
       cursor: pointer;
+      flex-grow: 1;
     }
 
-    /* Hero Banner & Horizontal Build Strip */
+    /* Clean Hero Build Panel */
     .hero-banner {
       background: linear-gradient(135deg, #141923 0%, #1e293b 100%);
       border: 1px solid var(--card-border);
       border-radius: 12px;
       padding: 24px;
-      position: relative;
-      overflow: hidden;
-      margin-bottom: 24px;
     }
 
     .hero-title-area {
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
     .hero-name {
-      font-size: 36px;
+      font-size: 32px;
       font-weight: 800;
       color: var(--text-main);
-      letter-spacing: 0.5px;
     }
 
     .build-label {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
       color: var(--accent-blue);
       text-transform: uppercase;
@@ -80,11 +167,13 @@
       margin-top: 4px;
     }
 
+    /* The Single Horizontal Line of Talents */
     .build-strip {
       display: flex;
       gap: 12px;
       overflow-x: auto;
-      padding-bottom: 4px;
+      padding-bottom: 6px;
+      margin-bottom: 16px;
     }
 
     .build-talent-item {
@@ -95,7 +184,7 @@
       border: 1px solid var(--card-border);
       border-radius: 8px;
       padding: 8px;
-      width: 80px;
+      width: 84px;
       flex-shrink: 0;
       text-align: center;
     }
@@ -111,53 +200,77 @@
     }
 
     .build-talent-level {
-      font-size: 10px;
+      font-size: 9px;
       font-weight: 700;
       color: var(--text-muted);
       text-transform: uppercase;
     }
 
-    /* Notes section */
     .build-notes {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 8px;
-      padding: 16px;
-      font-size: 14px;
+      font-size: 13px;
       color: var(--text-muted);
+      background: rgba(0, 0, 0, 0.2);
+      padding: 12px 16px;
+      border-radius: 6px;
+      border-left: 3px solid var(--accent-blue);
+      line-height: 1.4;
     }
   </style>
 </head>
 <body>
 
   <div class="container">
+    <!-- Header / Logo & Menu Bar -->
     <header>
-      <h1>Heroes Vault</h1>
+      <a href="#" class="logo">⚡ Heroes Vault</a>
+      <nav class="nav-links">
+        <a href="#">Builds</a>
+        <a href="#">Database</a>
+        <a href="#">Tier List</a>
+      </nav>
     </header>
 
-    <div class="controls-bar">
-      <select id="heroSelect"></select>
-      <select id="buildSelect"></select>
-    </div>
+    <!-- App Layout: Sidebar on Left, Content on Right -->
+    <div class="app-layout">
+      
+      <!-- Left Sidebar: Heroes List -->
+      <aside class="sidebar">
+        <h3>Heroes</h3>
+        <div id="heroList" class="hero-list">
+          <!-- Populated dynamically -->
+        </div>
+      </aside>
 
-    <div class="hero-banner">
-      <div class="hero-title-area">
-        <div id="heroNameDisplay" class="hero-name">Hero Name</div>
-        <div id="buildNameDisplay" class="build-label">BUILD: Select a build</div>
-      </div>
-      <div id="buildStrip" class="build-strip">
-        <!-- Rendered dynamically -->
-      </div>
-    </div>
+      <!-- Right Content Area -->
+      <main class="content-area">
+        <div class="controls-bar">
+          <select id="buildSelect"></select>
+        </div>
 
-    <div id="buildNotes" class="build-notes">
-      Select a build to view strategic notes.
+        <!-- Clean Hero Banner & Horizontal Build Strip -->
+        <div class="hero-banner">
+          <div class="hero-title-area">
+            <div id="heroNameDisplay" class="hero-name">Select a Hero</div>
+            <div id="buildNameDisplay" class="build-label">BUILD: -</div>
+          </div>
+          
+          <div id="buildStrip" class="build-strip">
+            <!-- Rendered single-line horizontal talent icons -->
+          </div>
+
+          <div id="buildNotes" class="build-notes">
+            Select a build to view details and strategy notes.
+          </div>
+        </div>
+      </main>
+
     </div>
   </div>
 
   <script>
     let heroesData = [];
     let buildsData = [];
+    let currentHeroId = null;
 
     const CDN_BASE = "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/talents/";
 
@@ -171,23 +284,35 @@
         heroesData = await heroesRes.json();
         buildsData = await buildsRes.json();
 
-        populateHeroDropdown();
+        if (heroesData.length > 0) {
+          currentHeroId = heroesData[0].id;
+        }
+
+        renderSidebar();
         loadSelectedHero();
       } catch (err) {
         console.error("Failed to load JSON data:", err);
       }
     }
 
-    function populateHeroDropdown() {
-      const heroSelect = document.getElementById('heroSelect');
-      heroSelect.innerHTML = heroesData.map(h => `<option value="${h.id}">${h.name}</option>`).join('');
-      heroSelect.addEventListener('change', loadSelectedHero);
+    function renderSidebar() {
+      const listEl = document.getElementById('heroList');
+      listEl.innerHTML = heroesData.map(h => `
+        <button class="hero-item ${h.id === currentHeroId ? 'active' : ''}" onclick="selectHero('${h.id}')">
+          ${h.name}
+        </button>
+      `).join('');
+    }
+
+    function selectHero(heroId) {
+      currentHeroId = heroId;
+      renderSidebar();
+      loadSelectedHero();
     }
 
     function loadSelectedHero() {
-      const selectedId = document.getElementById('heroSelect').value;
-      const hero = heroesData.find(h => h.id === selectedId);
-      const heroBuilds = buildsData.find(b => b.heroId === selectedId);
+      const hero = heroesData.find(h => h.id === currentHeroId);
+      const heroBuilds = buildsData.find(b => b.heroId === currentHeroId);
 
       document.getElementById('heroNameDisplay').textContent = hero ? hero.name : 'Unknown';
 
@@ -202,7 +327,7 @@
         return;
       }
 
-      buildSelect.innerHTML = builds.map(b => `<option value="${b.buildCode}" data-notes="${b.notes || ''}">${b.buildName}</option>`).join('');
+      buildSelect.innerHTML = builds.map(b => `<option value="${b.buildCode}">${b.buildName}</option>`).join('');
       buildSelect.onchange = () => updateActiveBuild(builds, hero);
       
       updateActiveBuild(builds, hero);
@@ -216,7 +341,7 @@
       if (!currentBuild) return;
 
       document.getElementById('buildNameDisplay').textContent = `BUILD: ${currentBuild.buildName}`;
-      document.getElementById('buildNotes').innerHTML = currentBuild.notes || 'No notes provided.';
+      document.getElementById('buildNotes').innerHTML = currentBuild.notes || 'No strategy notes provided.';
 
       renderBuildStrip(currentBuild.buildCode, hero);
     }
