@@ -99,7 +99,7 @@
             <img id="detail-portrait" src="" onerror="this.src='https://via.placeholder.com/80?text=Hero'" alt="Portrait" class="w-20 h-20 rounded-2xl border-2 border-purple-500/80 object-cover bg-slate-950" />
             <div>
               <div class="flex items-center gap-3">
-                <h2 id="detail-name" class="text-2xl font-bold text-white">Hero Name</h2>
+                <h2 id="detail-name" class="text-2xl font-bold text-white">Select a Hero</h2>
                 <span id="detail-role" class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-purple-500/20 text-purple-300 border border-purple-500/30">Role</span>
               </div>
               <p id="detail-title" class="text-xs text-slate-400 mt-0.5">Title</p>
@@ -131,9 +131,9 @@
         <!-- TALENT TREE -->
         <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-4">
           <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-            <h3 class="text-md font-bold text-sky-400 flex items-center gap-2"><i data-lucide="zap" class="w-4 h-4"></i> Talent Viewer</h3>
+            <h3 class="text-md font-bold text-sky-400 flex items-center gap-2"><i data-lucide="zap" class="w-4 h-4"></i> Complete Talent Matrix</h3>
           </div>
-          <div id="talent-viewer-tree" class="space-y-3"></div>
+          <div id="talent-viewer-tree" class="space-y-4"></div>
         </div>
 
         <!-- NOTES -->
@@ -165,30 +165,28 @@
 
   <!-- JAVASCRIPT -->
   <script>
-    let HERO_DATABASE = [];
+    let MASTER_HEROES = [];
+    let PERSONAL_BUILDS = [];
     let currentSelectedHero = null;
     let currentBuildIndex = 0;
 
     document.addEventListener("DOMContentLoaded", async () => {
       try {
-        const response = await fetch('./data/builds.json');
-        if (response.ok) HERO_DATABASE = await response.json();
-        else throw new Error();
+        const [heroesRes, buildsRes] = await Promise.all([
+          fetch('./data/heroes.json'),
+          fetch('./data/builds.json')
+        ]);
+        if (heroesRes.ok) MASTER_HEROES = await heroesRes.json();
+        if (buildsRes.ok) PERSONAL_BUILDS = await buildsRes.json();
       } catch (err) {
-        HERO_DATABASE = [
-          {
-            id: "abathur", name: "Abathur", title: "Evolution Master", role: "Support", tier: "S",
-            portrait: "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroes/portraits/abathur.png",
-            builds: [{ buildName: "Locust Push", buildCode: "[T3211232,Abathur]", notes: "Body soak lanes.", talents: [] }]
-          }
-        ];
+        console.error("Failed loading local JSON files:", err);
       }
-      renderHeroSidebar(HERO_DATABASE);
-      if (HERO_DATABASE.length > 0) selectHero(HERO_DATABASE[0].id);
+
+      renderHeroSidebar(MASTER_HEROES);
+      if (MASTER_HEROES.length > 0) selectHero(MASTER_HEROES[0].id);
       renderTierList();
       if (window.lucide) lucide.createIcons();
 
-      // Close dropdown when clicking outside
       window.onclick = function(event) {
         if (!event.target.closest('.relative')) {
           document.getElementById('maps-dropdown-menu').classList.add('hidden');
@@ -198,8 +196,7 @@
 
     function toggleMapsDropdown(e) {
       e.stopPropagation();
-      const menu = document.getElementById('maps-dropdown-menu');
-      menu.classList.toggle('hidden');
+      document.getElementById('maps-dropdown-menu').classList.toggle('hidden');
     }
 
     function renderHeroSidebar(heroes) {
@@ -214,7 +211,7 @@
           <div class="flex-1 min-w-0">
             <div class="flex items-center justify-between">
               <h4 class="text-xs font-bold text-slate-100 truncate">${hero.name}</h4>
-              <span class="text-[9px] font-mono font-bold text-amber-400 bg-amber-400/10 px-1.5 py-0.5 rounded">${hero.tier}</span>
+              <span class="text-[9px] font-mono font-bold text-amber-400 bg-amber-400/10 px-1.5 py-0.5 rounded">${hero.tier || 'N/A'}</span>
             </div>
             <p class="text-[10px] text-slate-400 truncate">${hero.role}</p>
           </div>
@@ -225,11 +222,11 @@
     }
 
     function selectHero(heroId) {
-      const hero = HERO_DATABASE.find(h => h.id === heroId);
+      const hero = MASTER_HEROES.find(h => h.id === heroId);
       if (!hero) return;
       currentSelectedHero = hero;
       currentBuildIndex = 0;
-      renderHeroSidebar(HERO_DATABASE);
+      renderHeroSidebar(MASTER_HEROES);
 
       document.getElementById("detail-portrait").src = hero.portrait;
       document.getElementById("detail-name").innerText = hero.name;
@@ -240,12 +237,18 @@
 
     function renderActiveBuild() {
       const hero = currentSelectedHero;
+      const heroBuildData = PERSONAL_BUILDS.find(b => b.heroId === hero.id);
       const tabsContainer = document.getElementById("build-tabs");
       tabsContainer.innerHTML = "";
 
-      if (!hero.builds || hero.builds.length === 0) return;
+      if (!heroBuildData || !heroBuildData.builds || heroBuildData.builds.length === 0) {
+        document.getElementById("detail-build-code").innerText = "No build code configured.";
+        document.getElementById("detail-notes").innerHTML = "No notes added for this hero yet.";
+        renderTalentMatrix(hero, null);
+        return;
+      }
 
-      hero.builds.forEach((build, idx) => {
+      heroBuildData.builds.forEach((build, idx) => {
         const btn = document.createElement("button");
         const isActive = idx === currentBuildIndex;
         btn.className = `px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all border ${isActive ? 'bg-amber-500/20 text-amber-300 border-amber-500/50' : 'bg-slate-950 text-slate-400 border-slate-800 hover:text-white'}`;
@@ -254,34 +257,69 @@
         tabsContainer.appendChild(btn);
       });
 
-      const activeBuild = hero.builds[currentBuildIndex];
+      const activeBuild = heroBuildData.builds[currentBuildIndex];
       document.getElementById("detail-build-code").innerText = activeBuild.buildCode || "[T0000000,Hero]";
       document.getElementById("detail-notes").innerHTML = activeBuild.notes || "No notes added yet.";
 
+      renderTalentMatrix(hero, activeBuild.buildCode);
+    }
+
+    function decodeBuildCode(buildCode) {
+      const match = buildCode ? buildCode.match(/\[T(\d{7}),/) : null;
+      if (!match) return [];
+      return match[1].split('').map(Number);
+    }
+
+    function renderTalentMatrix(hero, buildCode) {
       const talentTree = document.getElementById("talent-viewer-tree");
       talentTree.innerHTML = "";
-      if (activeBuild.talents && activeBuild.talents.length > 0) {
-        activeBuild.talents.forEach(t => {
-          const row = document.createElement("div");
-          row.className = "flex items-center gap-4 bg-slate-950/70 p-2.5 rounded-xl border border-slate-800";
-          row.innerHTML = `
-            <div class="w-12 text-center font-bold text-xs text-sky-400 font-mono">LVL ${t.level}</div>
-            <img src="${t.icon || ''}" onerror="this.src='https://via.placeholder.com/40?text=T'" class="w-10 h-10 rounded-lg border border-purple-500/60 object-cover bg-slate-900" />
+
+      if (!hero.talents) {
+        talentTree.innerHTML = `<p class="text-xs text-slate-500 italic p-2">No talent data available for this hero in master heroes.json.</p>`;
+        return;
+      }
+
+      const selectedIndexes = decodeBuildCode(buildCode);
+      const levels = ["1", "4", "7", "10", "13", "16", "20"];
+
+      levels.forEach((lvl, lvlIdx) => {
+        if (!hero.talents[lvl]) return;
+
+        const chosenTalentIndex = selectedIndexes[lvlIdx]; // 1-based index from string
+
+        const levelContainer = document.createElement("div");
+        levelContainer.className = "bg-slate-950/70 p-3 rounded-xl border border-slate-800/80 flex flex-col gap-2";
+
+        const header = document.createElement("div");
+        header.className = "text-xs font-bold font-mono text-sky-400 uppercase tracking-wider";
+        header.innerText = `Level ${lvl}`;
+        levelContainer.appendChild(header);
+
+        const optionsGrid = document.createElement("div");
+        optionsGrid.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2";
+
+        hero.talents[lvl].forEach((t, index) => {
+          const isSelected = chosenTalentIndex === (index + 1);
+          const card = document.createElement("div");
+          card.className = `flex items-start gap-3 p-2.5 rounded-lg border transition-all ${isSelected ? 'bg-sky-500/20 border-sky-400 text-white shadow-md' : 'bg-slate-900/50 border-slate-800/60 opacity-60 hover:opacity-100'}`;
+          card.innerHTML = `
+            <img src="${t.icon || ''}" onerror="this.src='https://via.placeholder.com/40?text=T'" class="w-9 h-9 rounded-md border ${isSelected ? 'border-sky-300' : 'border-slate-700'} object-cover flex-shrink-0 bg-slate-950" />
             <div class="flex-1 min-w-0">
-              <h5 class="text-sm font-semibold text-slate-200">${t.name}</h5>
-              <p class="text-xs text-slate-400 truncate">${t.desc}</p>
+              <h5 class="text-xs font-bold ${isSelected ? 'text-sky-300' : 'text-slate-200'} truncate">${t.name}</h5>
+              <p class="text-[11px] text-slate-400 line-clamp-2 mt-0.5">${t.desc}</p>
             </div>
           `;
-          talentTree.appendChild(row);
+          optionsGrid.appendChild(card);
         });
-      } else {
-        talentTree.innerHTML = `<p class="text-xs text-slate-500 italic p-2">No individual talent nodes specified for this build.</p>`;
-      }
+
+        levelContainer.appendChild(optionsGrid);
+        talentTree.appendChild(levelContainer);
+      });
     }
 
     function filterHeroes() {
       const query = document.getElementById("hero-search").value.toLowerCase();
-      renderHeroSidebar(HERO_DATABASE.filter(h => h.name.toLowerCase().includes(query)));
+      renderHeroSidebar(MASTER_HEROES.filter(h => h.name.toLowerCase().includes(query)));
     }
 
     function switchTab(tab) {
@@ -305,7 +343,7 @@
       const a = document.getElementById("tier-a");
       if (!s || !a) return;
       s.innerHTML = ""; a.innerHTML = "";
-      HERO_DATABASE.forEach(hero => {
+      MASTER_HEROES.forEach(hero => {
         const badge = document.createElement("div");
         badge.className = "flex items-center gap-2 bg-slate-950 px-2.5 py-1.5 rounded-lg border border-slate-800 cursor-pointer hover:border-sky-500";
         badge.onclick = () => { switchTab('heroes'); selectHero(hero.id); };
