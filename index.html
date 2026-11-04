@@ -18,7 +18,7 @@
 
   <!-- TOP HEADER -->
   <header class="bg-slate-900/90 border-b border-slate-800 backdrop-blur-md sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col items-center">
+    <div class="max-w-[1600px] mx-auto px-6 py-3 flex flex-col items-center">
       
       <div class="flex items-center gap-3 mb-3 cursor-pointer" onclick="switchTab('heroes')">
         <div class="relative flex items-center justify-center">
@@ -43,7 +43,7 @@
           <i data-lucide="shield" class="w-4 h-4"></i> Heroes
         </button>
 
-        <!-- Fixed Clickable Maps Dropdown -->
+        <!-- Maps Dropdown -->
         <div class="relative">
           <button onclick="toggleMapsDropdown(event)" 
             class="px-5 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-all flex items-center gap-2">
@@ -70,11 +70,11 @@
     </div>
   </header>
 
-  <!-- MAIN LAYOUT -->
-  <div class="flex-1 max-w-7xl w-full mx-auto p-4 flex gap-6 overflow-hidden" style="max-height: calc(100vh - 120px);">
+  <!-- MAIN LAYOUT (Expanded width container) -->
+  <div class="flex-1 max-w-[1600px] w-full mx-auto p-6 flex gap-6">
 
-    <!-- LEFT SIDEBAR (Hidden when in Tier List view) -->
-    <aside id="sidebar-container" class="w-1/5 flex-shrink-0 bg-slate-900/60 border border-slate-800/80 rounded-2xl flex flex-col overflow-hidden shadow-lg">
+    <!-- LEFT SIDEBAR -->
+    <aside id="sidebar-container" class="w-72 flex-shrink-0 bg-slate-900/60 border border-slate-800/80 rounded-2xl flex flex-col h-[calc(100vh-140px)] sticky top-24 overflow-hidden shadow-lg">
       <div class="p-3 border-b border-slate-800 bg-slate-900/80 flex flex-col gap-2">
         <div class="relative">
           <i data-lucide="search" class="w-4 h-4 absolute left-3 top-2.5 text-slate-400"></i>
@@ -90,7 +90,7 @@
     </aside>
 
     <!-- RIGHT MAIN PANEL -->
-    <main class="flex-1 bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 overflow-y-auto flex flex-col shadow-lg relative">
+    <main class="flex-1 bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 flex flex-col shadow-lg relative">
       
       <!-- HERO VIEW -->
       <div id="view-heroes" class="space-y-6">
@@ -128,13 +128,13 @@
           </div>
         </div>
 
-        <!-- CLEAN HORIZONTAL TALENT STRIP -->
+        <!-- CLEAN HORIZONTAL TALENT STRIP (Expanded layout) -->
         <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-4">
           <div class="flex items-center justify-between border-b border-slate-800 pb-3">
             <h3 class="text-md font-bold text-sky-400 flex items-center gap-2"><i data-lucide="zap" class="w-4 h-4"></i> Selected Build Talents</h3>
           </div>
-          <!-- Horizontal Strip Container -->
-          <div id="build-strip" class="flex gap-3 overflow-x-auto pb-2 pt-1"></div>
+          <!-- Grid layout so cards fill the entire width evenly without overflow -->
+          <div id="build-strip" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 pt-1"></div>
         </div>
 
         <!-- NOTES -->
@@ -298,7 +298,7 @@
       stripContainer.innerHTML = "";
 
       if (!hero.talents) {
-        stripContainer.innerHTML = `<p class="text-xs text-slate-500 italic p-2">No talent data available.</p>`;
+        stripContainer.innerHTML = `<p class="text-xs text-slate-500 italic p-2 col-span-full">No talent data available.</p>`;
         return;
       }
 
@@ -306,12 +306,12 @@
       const levels = ["1", "4", "7", "10", "13", "16", "20"];
 
       levels.forEach((lvl, lvlIdx) => {
-        const chosenTalentIndex = selectedIndexes[lvlIdx] || 1; // 1-based index
+        const chosenTalentIndex = selectedIndexes[lvlIdx] || 1; 
         const tierTalents = hero.talents[lvl] || [];
         const chosenTalent = tierTalents[chosenTalentIndex - 1] || { name: 'Unknown', desc: '', icon: '' };
 
         const item = document.createElement("div");
-        item.className = "flex flex-col items-center bg-slate-950 border border-slate-800/80 rounded-xl p-2.5 w-32 flex-shrink-0 text-center shadow-sm";
+        item.className = "flex flex-col items-center bg-slate-950 border border-slate-800/80 rounded-xl p-3 text-center shadow-sm";
         item.innerHTML = `
           <img src="${getIconUrl(chosenTalent.icon)}" onerror="this.src='https://via.placeholder.com/44?text=?'" class="w-11 h-11 rounded-lg border border-sky-500/40 object-cover bg-slate-900 mb-2 shadow-inner" />
           <span class="text-[10px] font-bold font-mono text-sky-400 uppercase tracking-wider mb-0.5">Level ${lvl}</span>
@@ -330,12 +330,10 @@
     function switchTab(tab) {
       const isHeroes = tab === 'heroes';
       document.getElementById("view-heroes").classList.toggle("hidden", !isHeroes);
-      document.getElementById("view-tierlist", tab).classList.toggle("hidden", isHeroes);
+      document.getElementById("view-tierlist").classList.toggle("hidden", isHeroes);
       
-      // Toggle sidebar visibility depending on active tab
       document.getElementById("sidebar-container").classList.toggle("hidden", !isHeroes);
 
-      // Update navbar button styling highlights
       document.getElementById("nav-heroes").className = isHeroes 
         ? "px-5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 bg-sky-500/20 text-sky-300 border border-sky-500/40 shadow-sm"
         : "px-5 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-all flex items-center gap-2";
