@@ -1,0 +1,92 @@
+[
+  {
+    "id": "abathur",
+    "name": "Abathur",
+    "title": "Evolution Master",
+    "role": "Support",
+    "tier": "S",
+    "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroes/portraits/abathur.png",
+    "builds": [
+      {
+        "buildName": "Locust Swarm & Split Push",
+        "buildCode": "[T3211232,Abathur]",
+        "maps": ["Cursed Hollow", "Infernal Shrines", "Towers of Doom"],
+        "notes": "• <strong>Strategy:</strong> Body-soak aggressive off-lanes during objective spawns.<br/>• <strong>Level 10 Spike:</strong> Use Ultimate Evolution on frontline brawlers during teamfights.",
+        "talents": [
+          { "level": 1, "name": "Survival Instincts", "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/talents/abathur_survivalinstincts.png", "desc": "Increases Locust Health by 50% and duration by 40%." },
+          { "level": 4, "name": "Prolific Dispersal", "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/talents/abathur_prolificdispersal.png", "desc": "Reduces Toxic Nest cooldown by 2s and adds 2 charges." },
+          { "level": 7, "name": "Needlespines", "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/talents/abathur_needlespines.png", "desc": "Increases Symbiote Spike Burst damage and range by 20%." },
+          { "level": 10, "name": "Ultimate Evolution", "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/talents/abathur_ultimateevolution.png", "desc": "Clone target allied Hero for 20 seconds." },
+          { "level": 13, "name": "Spatial Efficiency", "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/talents/abathur_spatialefficiency.png", "desc": "Symbiote Stab gains 1 additional charge." },
+          { "level": 16, "name": "Locust Brood", "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/talents/abathur_locustbrood.png", "desc": "Activate to spawn 3 Locusts at location." },
+          { "level": 20, "name": "Evolution Complete", "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/talents/abathur_evolutioncomplete.png", "desc": "Monstrosity gains Deep Tunnel ability." }
+        ]
+      },
+      {
+        "buildName": "Symbiote / Hypercarry Support",
+        "buildCode": "[T1233211,Abathur]",
+        "maps": ["Dragon Shire", "Tomb of the Spider Queen"],
+        "notes": "• <strong>Strategy:</strong> Pocket high-attack-speed hypercarries like Illidan, Zeratul, or Tracer.<br/>• <strong>Playstyle:</strong> Keep shields and attack speed buffs active continuously on your hat target.",
+        "talents": [
+          { "level": 1, "name": "Pressurized Glands", "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/talents/abathur_pressurizedglands.png", "desc": "Increases Spike Burst radius and decreases cooldown." },
+          { "level": 4, "name": "Adrenal Overload", "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/talents/abathur_adrenaloverload.png", "desc": "Symbiote host gains 25% Attack Speed." },
+          { "level": 7, "name": "Networked Carapace", "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/talents/abathur_networkedcarapace.png", "desc": "Shielding a target also shields nearby minions." },
+          { "level": 10, "name": "Evolve Monstrosity", "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/talents/abathur_evolvemonstrosity.png", "desc": "Turn minion into a stacking Monstrosity push unit." },
+          { "level": 13, "name": "SOMA Transference", "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/talents/abathur_somatransference.png", "desc": "Spike Burst heals host for each hero hit." },
+          { "level": 16, "name": "Adrenaline Boost", "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/talents/abathur_adrenalineboost.png", "desc": "Carapace shield increases host Movement Speed by 40%." },
+          { "level": 20, "name": "Hivemind", "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/talents/abathur_hivemind.png", "desc": "Symbiote creates a secondary hat on an additional nearby ally." }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "arthas",
+    "name": "Arthas",
+    "title": "The Lich King",
+    "role": "Tank",
+    "tier": "A",
+    "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroes/portraits/arthas.png",
+    "builds": [
+      {
+        "buildName": "Anti-Melee Lockdown",
+        "buildCode": "[T2132111,Arthas]",
+        "maps": ["Tomb of the Spider Queen", "Dragon Shire"],
+        "notes": "• <strong>Draft Counter:</strong> Pick against heavy melee auto-attackers (Illidan, Butcher, Tracer).<br/>• <strong>Combo:</strong> E slow setup into Howling Blast root.",
+        "talents": [
+          { "level": 1, "name": "Frost Presence", "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/talents/arthas_frostpresence.png", "desc": "Reduces Howling Blast cooldown." },
+          { "level": 4, "name": "Frozen Wastes", "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/talents/arthas_frozenwastes.png", "desc": "Reduces Frozen Tempest mana cost." },
+          { "level": 7, "name": "Rune Tap", "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/talents/arthas_runetap.png", "desc": "Every 3rd Basic Attack heals Arthas." },
+          { "level": 10, "name": "Army of the Dead", "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/talents/arthas_armyofthedead.png", "desc": "Summon Ghouls that can be consumed for health." },
+          { "level": 13, "name": "Frigid Executioner", "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/talents/arthas_frigidexecutioner.png", "desc": "Empowers basic attacks against rooted enemies." },
+          { "level": 16, "name": "Remorseless Winter", "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/talents/arthas_remorselesswinter.png", "desc": "Frozen Tempest roots enemies standing in it for 3s." },
+          { "level": 20, "name": "Legion of Northrend", "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/talents/arthas_legionofnorthrend.png", "desc": "Creates additional Ghouls with increased heal." }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "muradin",
+    "name": "Muradin",
+    "title": "Mountain King",
+    "role": "Tank",
+    "tier": "S",
+    "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroes/portraits/muradin.png",
+    "builds": [
+      {
+        "buildName": "Heavy Brawler & Stun Train",
+        "buildCode": "[T1122134,Muradin]",
+        "maps": ["Cursed Hollow", "Infernal Shrines"],
+        "notes": "• <strong>Trait Usage:</strong> Step out of combat for 4 seconds to trigger Second Wind baseline heal.<br/>• <strong>Engage:</strong> Dwarf Toss in only when team is ready to follow up on Storm Bolt stun.",
+        "talents": [
+          { "level": 1, "name": "Perfect Storm", "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/talents/muradin_perfectstorm.png", "desc": "Quest: Storm Bolt increases damage permanently." },
+          { "level": 4, "name": "Reverberation", "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/talents/muradin_reverberation.png", "desc": "Thunder Clap reduces enemy Attack Speed." },
+          { "level": 7, "name": "Give 'Em The Axe", "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/talents/muradin_giveemtheaxe.png", "desc": "Basic attacks deal +60% damage to CC'd heroes." },
+          { "level": 10, "name": "Avatar", "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/talents/muradin_avatar.png", "desc": "Gain massive bonus health and stun on basic attacks." },
+          { "level": 13, "name": "Bronzebeard Rage", "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/talents/muradin_bronzebeardrage.png", "desc": "Deal continuous area damage around Muradin." },
+          { "level": 16, "name": "Stoneform", "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/talents/muradin_stoneform.png", "desc": "Activate to heal 30% maximum Health over 4s." },
+          { "level": 20, "name": "Unstoppable Force", "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/talents/muradin_unstoppableforce.png", "desc": "Avatar grants Unstoppable status." }
+        ]
+      }
+    ]
+  }
+]
