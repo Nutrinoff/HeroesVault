@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HeroesVault — HotS Specs & Tier List</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            orbitron: ['Orbitron', 'sans-serif'],
+          },
+          colors: {
+            vault: {
+              950: '#06080e',
+              900: '#0b0f19',
+              800: '#131b2e',
+              700: '#1e2942',
+              600: '#2b395b',
+              accent: '#38bdf8',
+              purple: '#c084fc',
+              gold: '#fbbf24',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0b0f19;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e2942;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #38bdf8;
+    }
+
+    .glass-panel {
+      background: rgba(19, 27, 46, 0.75);
+      backdrop-filter: blur(12px);
+    }
+  </style>
+</head>
+<body class="bg-vault-950 text-slate-100 font-sans min-h-screen flex flex-col selection:bg-sky-500 selection:text-white">
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- HEADER SECTION -->
+  <header class="bg-vault-900 border-b border-vault-700/60 sticky top-0 z-40 shadow-2xl">
+    
+    <!-- Top Middle Brand Logo -->
+    <div class="max-w-7xl mx-auto pt-4 pb-2 flex flex-col items-center justify-center text-center">
+      <div class="flex items-center gap-3">
+        <!-- HotS Nexus Hexagon Logo Emblem -->
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-purple-600 via-sky-400 to-amber-400 p-0.5 flex items-center justify-center shadow-lg shadow-sky-500/20">
+          <div class="w-full h-full bg-vault-950 rounded-[14px] flex items-center justify-center">
+            <i data-lucide="shield-check" class="w-6 h-6 text-sky-400"></i>
+          </div>
+        </div>
+        <h1 class="font-orbitron font-black text-2xl tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-purple-300 to-amber-300">
+          HEROES<span class="text-sky-400">VAULT</span>
+        </h1>
+      </div>
+      <p class="text-[11px] text-slate-400 font-medium tracking-wide uppercase mt-1">Heroes of the Storm Personal Build & Strategy Vault</p>
+    </div>
+
+    <!-- Navigation Bar (Buttons & Dropdowns) -->
+    <div class="border-t border-vault-800/80 bg-vault-950/60">
+      <div class="max-w-7xl mx-auto px-4 flex items-center justify-center gap-3 h-14">
+        
+        <!-- Heroes View Button -->
+        <button id="nav-heroes-btn" onclick="switchMainTab('heroes')" class="px-5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 bg-sky-500/20 text-sky-300 border border-sky-500/40">
+          <i data-lucide="users" class="w-4 h-4"></i>
+          Heroes Roster
+        </button>
+
+        <!-- Maps Dropdown Menu -->
+        <div class="relative group">
+          <button class="px-5 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-slate-100 transition-all flex items-center gap-2 bg-vault-900 border border-vault-700/60 hover:border-vault-600">
+            <i data-lucide="map" class="w-4 h-4 text-amber-400"></i>
+            <span>Battleground Maps</span>
+            <i data-lucide="chevron-down" class="w-3.5 h-3.5 opacity-70"></i>
+          </button>
+
+          <!-- Dropdown items -->
+          <div class="absolute left-0 mt-1 w-56 bg-vault-900 border border-vault-700 rounded-xl shadow-2xl p-1.5 hidden group-hover:block z-50 animate-fadeIn">
+            <div class="text-[10px] font-bold text-slate-500 uppercase px-3 py-1.5 border-b border-vault-800">Filter Heroes by Map</div>
+            <button onclick="filterByMap('All')" class="w-full text-left px-3 py-2 rounded-lg text-xs hover:bg-vault-800 text-slate-300 hover:text-sky-400 transition-colors">All Battlegrounds</button>
+            <button onclick="filterByMap('Cursed Hollow')" class="w-full text-left px-3 py-2 rounded-lg text-xs hover:bg-vault-800 text-slate-300 hover:text-sky-400 transition-colors">Cursed Hollow</button>
+            <button onclick="filterByMap('Dragon Shire')" class="w-full text-left px-3 py-2 rounded-lg text-xs hover:bg-vault-800 text-slate-300 hover:text-sky-400 transition-colors">Dragon Shire</button>
+            <button onclick="filterByMap('Infernal Shrines')" class="w-full text-left px-3 py-2 rounded-lg text-xs hover:bg-vault-800 text-slate-300 hover:text-sky-400 transition-colors">Infernal Shrines</button>
+            <button onclick="filterByMap('Tomb of the Spider Queen')" class="w-full text-left px-3 py-2 rounded-lg text-xs hover:bg-vault-800 text-slate-300 hover:text-sky-400 transition-colors">Tomb of the Spider Queen</button>
+            <button onclick="filterByMap('Towers of Doom')" class="w-full text-left px-3 py-2 rounded-lg text-xs hover:bg-vault-800 text-slate-300 hover:text-sky-400 transition-colors">Towers of Doom</button>
+          </div>
+        </div>
+
+        <!-- Tier List Button -->
+        <button id="nav-tierlist-btn" onclick="switchMainTab('tierlist')" class="px-5 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-slate-100 transition-all flex items-center gap-2 bg-vault-900 border border-vault-700/60 hover:border-vault-600">
+          <i data-lucide="trophy" class="w-4 h-4 text-purple-400"></i>
+          Personal Tier List
+        </button>
+
+        <!-- Data Backup Button -->
+        <button onclick="exportVaultJSON()" class="px-3 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-slate-200 transition-all flex items-center gap-1.5 bg-vault-900/80 border border-vault-800 hover:border-vault-700 ml-auto">
+          <i data-lucide="download" class="w-3.5 h-3.5"></i>
+          Export JSON
+        </button>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN VIEW CONTAINER -->
+  <main class="max-w-[1650px] mx-auto px-4 py-6 flex-1 w-full">
+
+    <!-- ================= VIEW 1: HEROES ROSTER & BUILD VIEWER ================= -->
+    <div id="view-heroes" class="flex flex-col md:flex-row gap-6 items-start">
+      
+      <!-- LEFT SIDEBAR: ALPHABETICAL HERO LIST (Fixed 20% width on desktop) -->
+      <aside class="w-full md:w-1/5 min-w-[260px] bg-vault-900 rounded-2xl border border-vault-700/60 p-4 shadow-xl space-y-4 shrink-0 md:sticky md:top-36">
+        
+        <!-- Search & Filter Header -->
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <h2 class="font-orbitron text-xs font-bold text-sky-400 uppercase tracking-wider flex items-center gap-2">
+              <i data-lucide="list-filter" class="w-4 h-4"></i>
+              Hero Roster (<span id="hero-count-badge">0</span>)
+            </h2>
+            <span id="map-active-badge" class="hidden text-[10px] bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2 py-0.5 rounded-full font-semibold"></span>
+          </div>
+          
+          <div class="relative">
+            <i data-lucide="search" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
+            <input 
+              type="text" 
+              id="hero-search-input" 
+              oninput="renderHeroSidebar()" 
+              placeholder="Search hero..." 
+              class="w-full pl-9 pr-3 py-2 bg-vault-950 border border-vault-700/80 rounded-xl text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-sky-500 transition-colors"
+            />
+          </div>
+        </div>
+
+        <!-- Scrollable Hero Cards List -->
+        <div id="hero-sidebar-list" class="max-h-[calc(100vh-250px)] overflow-y-auto space-y-2 pr-1">
+          <!-- Rendered by JS -->
+        </div>
+
+      </aside>
+
+      <!-- MAIN CONTENT: SELECTED HERO DETAILS & TALENT VIEWER (Fills remaining 80% width) -->
+      <section class="flex-1 w-full space-y-6 min-w-0">
+        
+        <!-- Hero Header & Build Code Card -->
+        <div id="hero-detail-header" class="bg-vault-900 rounded-2xl p-6 border border-vault-700/60 shadow-xl relative overflow-hidden">
+          <!-- Dynamic details injected by JS -->
+        </div>
+
+        <!-- MULTI-BUILD SWITCHER TABS -->
+        <div class="bg-vault-900 rounded-2xl p-4 border border-vault-700/60 shadow-xl space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="font-orbitron font-bold text-xs text-slate-300 uppercase tracking-wider flex items-center gap-2">
+              <i data-lucide="layers" class="w-4 h-4 text-sky-400"></i>
+              Available Hero Specs & Build Paths
+            </h3>
+            <button onclick="openAddBuildModal()" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-sky-500/20 text-sky-300 border border-sky-500/30 hover:bg-sky-500/30 transition-colors flex items-center gap-1.5">
+              <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+              Add New Build
+            </button>
+          </div>
+
+          <!-- Build Selection Tabs Container -->
+          <div id="build-tabs-container" class="flex flex-wrap gap-2 pt-1">
+            <!-- Build tabs injected by JS -->
+          </div>
+        </div>
+
+        <!-- TALENT VIEWER BREAKDOWN -->
+        <div class="bg-vault-900 rounded-2xl p-6 border border-vault-700/60 shadow-xl space-y-4">
+          <div class="flex items-center justify-between border-b border-vault-800 pb-3">
+            <h3 class="font-orbitron font-bold text-sm text-sky-400 flex items-center gap-2">
+              <i data-lucide="sparkles" class="w-4 h-4 text-purple-400"></i>
+              Talent Tree Spec Breakdown (Levels 1–20)
+            </h3>
+            <span id="active-build-name-badge" class="text-xs text-amber-300 font-semibold bg-amber-500/10 border border-amber-500/30 px-3 py-1 rounded-full"></span>
+          </div>
+
+          <div id="talent-viewer-grid" class="space-y-4">
+            <!-- Talent Levels rendered by JS -->
+          </div>
+        </div>
+
+        <!-- STRATEGY & PERSONAL NOTES PANEL -->
+        <div class="bg-vault-900 rounded-2xl p-6 border border-vault-700/60 shadow-xl space-y-3">
+          <h3 class="font-orbitron font-bold text-sm text-amber-400 flex items-center gap-2">
+            <i data-lucide="book-marked" class="w-4 h-4"></i>
+            Strategy, Counters & Execution Notes
+          </h3>
+          <div id="hero-strategy-notes" class="bg-vault-950 p-4 rounded-xl border border-vault-800 text-xs text-slate-300 leading-relaxed space-y-2">
+            <!-- Notes injected by JS -->
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+
+    <!-- ================= VIEW 2: TIER LIST VIEW ================= -->
+    <div id="view-tierlist" class="hidden space-y-6">
+      <div class="bg-vault-900 rounded-2xl p-6 border border-vault-700/60 shadow-xl flex items-center justify-between">
+        <div>
+          <h2 class="font-orbitron font-bold text-xl text-sky-400">Personal Hero Pool Tier List</h2>
+          <p class="text-xs text-slate-400 mt-1">Overview of your main heroes grouped by ranked priority and comfort level.</p>
+        </div>
+      </div>
+
+      <div id="tier-list-container" class="space-y-4">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ADD BUILD MODAL -->
+  <div id="add-build-modal" class="fixed inset-0 bg-vault-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-vault-900 border border-vault-700 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b border-vault-800 pb-3">
+        <h3 class="font-orbitron font-bold text-sm text-sky-400">Add New Build Preset</h3>
+        <button onclick="closeAddBuildModal()" class="text-slate-400 hover:text-slate-200"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+
+      <div class="space-y-3">
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 mb-1">Build Name</label>
+          <input type="text" id="modal-build-name" placeholder="e.g. Split Push & Siege" class="w-full px-3 py-2 bg-vault-950 border border-vault-700 rounded-xl text-xs text-slate-200 focus:outline-none focus:border-sky-500"/>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 mb-1">In-Game Talent String Code</label>
+          <input type="text" id="modal-build-code" placeholder="[T3211232,HeroName]" class="w-full px-3 py-2 bg-vault-950 border border-vault-700 rounded-xl text-xs font-mono text-emerald-400 focus:outline-none focus:border-sky-500"/>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 mb-1">Strategy & Matchup Notes</label>
+          <textarea id="modal-build-notes" rows="4" placeholder="Explain power spikes, talent synergies, or map recommendations..." class="w-full px-3 py-2 bg-vault-950 border border-vault-700 rounded-xl text-xs text-slate-200 focus:outline-none focus:border-sky-500"></textarea>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-2 pt-2 border-t border-vault-800">
+        <button onclick="closeAddBuildModal()" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:bg-vault-800">Cancel</button>
+        <button onclick="saveNewBuildFromModal()" class="px-4 py-2 rounded-xl text-xs font-bold bg-sky-500 text-slate-950 hover:bg-sky-400 transition-colors">Save Build</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT APP CORE ENGINE -->
+  <script>
+    // Master HotS Roster Database with Multi-Build Arrays
+    let vaultData = {
+      selectedHeroId: 'abathur',
+      activeBuildIndex: 0,
+      activeMapFilter: 'All',
+      heroes: [
+        {
+          id: 'abathur',
+          name: 'Abathur',
+          role: 'Support',
+          tier: 'S',
+          maps: ['Cursed Hollow', 'Infernal Shrines', 'Towers of Doom'],
+          portrait: 'https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroes/portraits/abathur.png',
+          builds: [
+            {
+              buildName: 'Build 1: Locust Split Push',
+              buildCode: '[T3211232,Abathur]',
+              notes: 'Focus on locust push on large 3-lane battlegrounds. Drop Survival Instincts at level 1 and Bombard Strain at 13. Mine chokepoints and rotate nests early before objectives start.',
+              talents: [
+                { level: 1, name: 'Survival Instincts', desc: 'Increases Locust Health by 50% and duration by 40%.' },
+                { level: 4, name: 'Prolific Dispersal', desc: 'Reduces Toxic Nest cooldown by 2s and adds 2 charges.' },
+                { level: 7, name: 'Needlespine', desc: 'Increases Symbiote Spike Dart damage and range by 20%.' },
+                { level: 10, name: 'Evolve Monstrous', desc: 'Turn minion into a powerful pushing commander.' },
+                { level: 13, name: 'Bombard Strain', desc: 'Locust attacks become ranged siege attacks.' },
+                { level: 16, name: 'Locust Nest', desc: 'Active to spawn an additional Locust nest.' },
+                { level: 20, name: 'Locust Swarm', desc: 'Active to spawn 3 Locusts at target location.' }
+              ]
+            },
+            {
+              buildName: 'Build 2: Symbiote Hat & Hypercarry',
+              buildCode: '[T1233211,Abathur]',
+              notes: 'Pair with aggressive dive melee hypercarries like Illidan, Zeratul, or Greymane. Take Pressurized Glands at level 1 and Adrenal Overload at 4 to maximize attack speed buffs.',
+              talents: [
+                { level: 1, name: 'Pressurized Glands', desc: 'Increases Symbiote Burst radius by 25% and reduces cooldown by 1s.' },
+                { level: 4, name: 'Adrenal Overload', desc: 'Symbiote host gains 25% increased Attack Speed.' },
+                { level: 7, name: 'Networked Carapace', desc: 'Symbiote Shield applies to all nearby friendly minions and mercenaries.' },
+                { level: 10, name: 'Ultimate Evolution', desc: 'Clone target allied Hero and gain their abilities.' },
+                { level: 13, name: 'Soma Transference', desc: 'Symbiote Spike Burst heals host for each hero hit.' },
+                { level: 16, name: 'Adrenaline Boost', desc: 'Symbiote Shield increases target Movement Speed by 40%.' },
+                { level: 20, name: 'Evolution Master', desc: 'Reduces Ultimate Evolution cooldown significantly.' }
+              ]
+            }
+          ]
+        },
+        {
+          id: 'muradin',
+          name: 'Muradin',
+          role: 'Tank',
+          tier: 'S',
+          maps: ['All'],
+          portrait: 'https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroes/portraits/muradin.png',
+          builds: [
+            {
+              buildName: 'Build 1: Main Tank & Stun Locking',
+              buildCode: '[T1122134,Muradin]',
+              notes: 'Primary anchor tank build. Perfect for single-target locking down of enemy hypercarries. Save Dwarf Toss for disengages or critical kills.',
+              talents: [
+                { level: 1, name: 'Perfect Storm', desc: 'Storm Bolt quests increase damage per hero hit.' },
+                { level: 4, name: 'Reverberation', desc: 'Thunder Clap reduces enemy attack speed.' },
+                { level: 7, name: 'Heavy Impact', desc: 'Dwarf Toss slows hit enemies by 80%.' },
+                { level: 10, name: 'Avatar', desc: 'Gain massive health boost and stuns on basic attacks.' },
+                { level: 13, name: 'Bronzebeard Rage', desc: 'Deal continuous aura area damage around Muradin.' },
+                { level: 16, name: 'Give \'em the Axe', desc: 'Basic attacks deal 60% bonus damage to CC\'d targets.' },
+                { level: 20, name: 'Unstoppable Force', desc: 'Avatar makes Muradin crowd-control immune.' }
+              ]
+            },
+            {
+              buildName: 'Build 2: Haymaker Disruption',
+              buildCode: '[T3211322,Muradin]',
+              notes: 'Aggressive flank build designed to jump behind the enemy backline and punch key healers or mages into your team.',
+              talents: [
+                { level: 1, name: 'Third Wind', desc: 'Massively increases Second Wind passive health regeneration threshold.' },
+                { level: 4, name: 'Thunder Burn', desc: 'Thunder Clap leaves a second delayed explosion.' },
+                { level: 7, name: 'Give \'em the Axe', desc: 'Bonus attack damage vs slowed enemies.' },
+                { level: 10, name: 'Haymaker', desc: 'Knock target enemy hero far away, damaging line of targets.' },
+                { level: 13, name: 'Healing Static', desc: 'Thunder Clap heals Muradin per hero hit.' },
+                { level: 16, name: 'Dwarf Launch', desc: 'Increases Dwarf Toss range and radius.' },
+                { level: 20, name: 'Grand Slam', desc: 'Haymaker gets 2 charges and lower cooldown.' }
+              ]
+            }
+          ]
+        },
+        {
+          id: 'valla',
+          name: 'Valla',
+          role: 'Ranged DPS',
+          tier: 'A',
+          maps: ['All'],
+          portrait: 'https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroes/portraits/valla.png',
+          builds: [
+            {
+              buildName: 'Build 1: Multishot AoE Clear',
+              buildCode: '[T3111324,Valla]',
+              notes: 'Best against double-frontline or heavy minion wave maps (Tomb, Infernal Shrines). Maintain max Hatred stacks before firing W.',
+              talents: [
+                { level: 1, name: 'Puncturing Arrow', desc: 'Hungering Arrow quest increases bounces and damage.' },
+                { level: 4, name: 'Arsenal', desc: 'Multishot fires grenades dealing extra damage.' },
+                { level: 7, name: 'Hot Pursuit', desc: '10 Hatred stacks increase movement speed and mana regen.' },
+                { level: 10, name: 'Strafe', desc: 'Rapidly attack surrounding enemies while moving.' },
+                { level: 13, name: 'Tempered by Discipline', desc: 'Hatred stacks grant self-healing life steal.' },
+                { level: 16, name: 'Frost Shot', desc: 'Multishot slows enemies and increases range.' },
+                { level: 20, name: 'Farflight Quiver', desc: 'Increases basic attack range by 2.2.' }
+              ]
+            }
+          ]
+        }
+      ]
+    };
+
+    // Initialize Application
+    window.onload = function() {
+      // Sort heroes alphabetically
+      vaultData.heroes.sort((a, b) => a.name.localeCompare(b.name));
+      renderHeroSidebar();
+      renderSelectedHero();
+      renderTierList();
+      lucide.createIcons();
+    };
+
+    // Render Alphabetical Sidebar Cards
+    function renderHeroSidebar() {
+      const query = document.getElementById('hero-search-input').value.toLowerCase();
+      const container = document.getElementById('hero-sidebar-list');
+      container.innerHTML = '';
+
+      let filtered = vaultData.heroes.filter(h => h.name.toLowerCase().includes(query));
+      
+      if (vaultData.activeMapFilter !== 'All') {
+        filtered = filtered.filter(h => h.maps.includes('All') || h.maps.includes(vaultData.activeMapFilter));
+      }
+
+      document.getElementById('hero-count-badge').textContent = filtered.length;
+
+      filtered.forEach(hero => {
+        const isSelected = hero.id === vaultData.selectedHeroId;
+        const buildCount = hero.builds ? hero.builds.length : 0;
+        
+        const card = document.createElement('div');
+        card.onclick = () => selectHero(hero.id);
+        card.className = `p-2.5 rounded-xl border transition-all cursor-pointer flex items-center gap-3 ${
+          isSelected 
+            ? 'bg-sky-500/15 border-sky-400/80 shadow-md shadow-sky-500/10' 
+            : 'bg-vault-950/60 border-vault-800 hover:border-vault-700 hover:bg-vault-800/50'
+        }`;
+
+        card.innerHTML = `
+          <img src="${hero.portrait}" alt="${hero.name}" class="w-11 h-11 rounded-lg object-cover border ${isSelected ? 'border-sky-400' : 'border-vault-700'}" onerror="this.src='https://placehold.co/80x80/131b2e/38bdf8?text=${hero.name[0]}'"/>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-xs truncate ${isSelected ? 'text-sky-300' : 'text-slate-200'}">${hero.name}</span>
+              <span class="text-[9px] font-bold px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">${hero.tier}</span>
+            </div>
+            <div class="flex items-center justify-between mt-1">
+              <span class="text-[10px] text-slate-400">${hero.role}</span>
+              <span class="text-[10px] text-amber-400 font-semibold">${buildCount} Spec${buildCount > 1 ? 's' : ''}</span>
+            </div>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+    }
+
+    // Select Hero & Reset to First Build Tab
+    function selectHero(heroId) {
+      vaultData.selectedHeroId = heroId;
+      vaultData.activeBuildIndex = 0;
+      renderHeroSidebar();
+      renderSelectedHero();
+    }
+
+    // Render Main Panel with Active Hero & Active Build
+    function renderSelectedHero() {
+      const hero = vaultData.heroes.find(h => h.id === vaultData.selectedHeroId);
+      if (!hero) return;
+
+      const currentBuild = hero.builds[vaultData.activeBuildIndex] || hero.builds[0];
+
+      // Header Info
+      const headerContainer = document.getElementById('hero-detail-header');
+      headerContainer.innerHTML = `
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div class="flex items-center gap-4">
+            <img src="${hero.portrait}" alt="${hero.name}" class="w-20 h-20 rounded-2xl border-2 border-purple-500 shadow-xl object-cover" onerror="this.src='https://placehold.co/100x100/131b2e/38bdf8?text=${hero.name}'"/>
+            <div>
+              <div class="flex items-center gap-2">
+                <h2 class="font-orbitron font-extrabold text-2xl text-slate-100">${hero.name}</h2>
+                <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-500/30">${hero.role}</span>
+                <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">Tier ${hero.tier}</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-1">Recommended Battlegrounds: <span class="text-amber-300 font-medium">${hero.maps.join(', ')}</span></p>
+            </div>
+          </div>
+
+          <!-- Build Code Snippet -->
+          <div class="bg-vault-950 p-3 rounded-xl border border-vault-800 flex items-center justify-between gap-3 min-w-[280px]">
+            <div>
+              <div class="text-[10px] text-slate-400 font-semibold uppercase">In-Game Build Code</div>
+              <code class="text-xs text-emerald-400 font-mono font-bold">${currentBuild.buildCode}</code>
+            </div>
+            <button onclick="copyToClipboard('${currentBuild.buildCode}')" class="px-3 py-1.5 bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 border border-sky-500/40 rounded-lg text-xs font-bold transition-colors flex items-center gap-1">
+              <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+              Copy
+            </button>
+          </div>
+        </div>
+      `;
+
+      // Build Switcher Tabs
+      const tabsContainer = document.getElementById('build-tabs-container');
+      tabsContainer.innerHTML = '';
+      hero.builds.forEach((build, index) => {
+        const isActive = index === vaultData.activeBuildIndex;
+        const btn = document.createElement('button');
+        btn.onclick = () => {
+          vaultData.activeBuildIndex = index;
+          renderSelectedHero();
+        };
+        btn.className = `px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
+          isActive 
+            ? 'bg-amber-500/20 text-amber-300 border border-amber-500/50 shadow-lg' 
+            : 'bg-vault-950 text-slate-400 border border-vault-800 hover:border-vault-700 hover:text-slate-200'
+        }`;
+        btn.innerHTML = `
+          <i data-lucide="shield" class="w-3.5 h-3.5 ${isActive ? 'text-amber-400' : 'text-slate-500'}"></i>
+          ${build.buildName}
+        `;
+        tabsContainer.appendChild(btn);
+      });
+
+      document.getElementById('active-build-name-badge').textContent = currentBuild.buildName;
+
+      // Talent Tree Viewer
+      const talentContainer = document.getElementById('talent-viewer-grid');
+      talentContainer.innerHTML = '';
+      currentBuild.talents.forEach(t => {
+        const row = document.createElement('div');
+        row.className = 'p-3 bg-vault-950/80 rounded-xl border border-vault-800 flex items-center gap-4 hover:border-vault-700 transition-colors';
+        row.innerHTML = `
+          <div class="w-10 h-10 rounded-lg bg-purple-600/20 border border-purple-500/40 flex items-center justify-center font-orbitron font-bold text-xs text-purple-300 shrink-0">
+            Lvl ${t.level}
+          </div>
+          <div class="flex-1 min-w-0">
+            <h4 class="text-xs font-bold text-sky-300">${t.name}</h4>
+            <p class="text-[11px] text-slate-400 mt-0.5">${t.desc}</p>
+          </div>
+        `;
+        talentContainer.appendChild(row);
+      });
+
+      // Strategy Notes
+      document.getElementById('hero-strategy-notes').innerHTML = `
+        <p class="leading-relaxed text-slate-300">${currentBuild.notes}</p>
+      `;
+
+      lucide.createIcons();
+    }
+
+    // Render Tier List Overview
+    function renderTierList() {
+      const tiers = ['S', 'A', 'B', 'C'];
+      const container = document.getElementById('tier-list-container');
+      container.innerHTML = '';
+
+      tiers.forEach(tier => {
+        const heroesInTier = vaultData.heroes.filter(h => h.tier === tier);
+        const row = document.createElement('div');
+        row.className = 'bg-vault-900 rounded-2xl border border-vault-700/60 p-4 flex flex-col md:flex-row gap-4 items-start md:items-center';
+
+        row.innerHTML = `
+          <div class="w-16 h-16 rounded-xl bg-gradient-to-tr from-purple-600 to-sky-400 p-0.5 flex items-center justify-center shrink-0">
+            <div class="w-full h-full bg-vault-950 rounded-[10px] flex items-center justify-center font-orbitron font-extrabold text-xl text-amber-300">
+              ${tier}
+            </div>
+          </div>
+          <div class="flex-1 flex flex-wrap gap-3">
+            ${heroesInTier.map(h => `
+              <div onclick="selectHero('${h.id}'); switchMainTab('heroes');" class="bg-vault-950 p-2 rounded-xl border border-vault-800 hover:border-sky-500/60 transition-all cursor-pointer flex items-center gap-2">
+                <img src="${h.portrait}" alt="${h.name}" class="w-8 h-8 rounded-lg object-cover" onerror="this.src='https://placehold.co/60x60/131b2e/38bdf8?text=${h.name[0]}'"/>
+                <span class="text-xs font-bold text-slate-200 pr-1">${h.name}</span>
+              </div>
+            `).join('')}
+          </div>
+        `;
+
+        container.appendChild(row);
+      });
+    }
+
+    // Tab Switching Logic
+    function switchMainTab(tab) {
+      document.getElementById('view-heroes').classList.toggle('hidden', tab !== 'heroes');
+      document.getElementById('view-tierlist').classList.toggle('hidden', tab !== 'tierlist');
+
+      document.getElementById('nav-heroes-btn').className = tab === 'heroes' 
+        ? 'px-5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 bg-sky-500/20 text-sky-300 border border-sky-500/40'
+        : 'px-5 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-slate-100 transition-all flex items-center gap-2 bg-vault-900 border border-vault-700/60 hover:border-vault-600';
+
+      document.getElementById('nav-tierlist-btn').className = tab === 'tierlist'
+        ? 'px-5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 bg-sky-500/20 text-sky-300 border border-sky-500/40'
+        : 'px-5 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-slate-100 transition-all flex items-center gap-2 bg-vault-900 border border-vault-700/60 hover:border-vault-600';
+    }
+
+    // Map Filter Handler
+    function filterByMap(mapName) {
+      vaultData.activeMapFilter = mapName;
+      const badge = document.getElementById('map-active-badge');
+      if (mapName === 'All') {
+        badge.classList.add('hidden');
+      } else {
+        badge.textContent = `Map: ${mapName}`;
+        badge.classList.remove('hidden');
+      }
+      renderHeroSidebar();
+    }
+
+    // Modal Operations
+    function openAddBuildModal() {
+      document.getElementById('add-build-modal').classList.remove('hidden');
+    }
+    function closeAddBuildModal() {
+      document.getElementById('add-build-modal').classList.add('hidden');
+    }
+    function saveNewBuildFromModal() {
+      const name = document.getElementById('modal-build-name').value;
+      const code = document.getElementById('modal-build-code').value;
+      const notes = document.getElementById('modal-build-notes').value;
+
+      if (!name || !code) {
+        showToast('Please enter both build name and build code string.');
+        return;
+      }
+
+      const hero = vaultData.heroes.find(h => h.id === vaultData.selectedHeroId);
+      if (hero) {
+        hero.builds.push({
+          buildName: name,
+          buildCode: code,
+          notes: notes || 'No custom notes added.',
+          talents: [
+            { level: 1, name: 'Level 1 Choice', desc: 'Custom spec talent choice.' },
+            { level: 4, name: 'Level 4 Choice', desc: 'Custom spec talent choice.' },
+            { level: 7, name: 'Level 7 Choice', desc: 'Custom spec talent choice.' },
+            { level: 10, name: 'Level 10 Choice', desc: 'Custom spec heroic ability.' },
+            { level: 13, name: 'Level 13 Choice', desc: 'Custom spec talent choice.' },
+            { level: 16, name: 'Level 16 Choice', desc: 'Custom spec talent choice.' },
+            { level: 20, name: 'Level 20 Choice', desc: 'Custom storm talent choice.' }
+          ]
+        });
+
+        vaultData.activeBuildIndex = hero.builds.length - 1;
+        closeAddBuildModal();
+        renderSelectedHero();
+        renderHeroSidebar();
+        showToast('New build added successfully!');
+      }
+    }
+
+    // Copy Build String Helper
+    function copyToClipboard(text) {
+      const el = document.createElement('textarea');
+      el.value = text;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+      showToast('Build string copied to clipboard!');
+    }
+
+    // Toast Notification System
+    function showToast(msg) {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = 'bg-slate-900 border border-sky-500 text-sky-300 text-xs px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-2 pointer-events-auto animate-fadeIn';
+      toast.innerHTML = `<i data-lucide="info" class="w-4 h-4"></i> ${msg}`;
+      container.appendChild(toast);
+      lucide.createIcons();
+      setTimeout(() => toast.remove(), 3000);
+    }
+
+    // JSON Export Data Backup
+    function exportVaultJSON() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(vaultData, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", "heroes_vault_data.json");
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+      showToast('Vault data JSON exported!');
+    }
+  </script>
+</body>
+</html>
