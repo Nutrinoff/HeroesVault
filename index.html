@@ -176,14 +176,28 @@
           fetch('./data/heroes.json'),
           fetch('./data/builds.json')
         ]);
-        if (heroesRes.ok) MASTER_HEROES = await heroesRes.json();
-        if (buildsRes.ok) PERSONAL_BUILDS = await buildsRes.json();
+        
+        if (heroesRes.ok) {
+          MASTER_HEROES = await heroesRes.json();
+        } else {
+          console.error("Could not fetch ./data/heroes.json");
+        }
+
+        if (buildsRes.ok) {
+          PERSONAL_BUILDS = await buildsRes.json();
+        } else {
+          console.warn("Could not fetch ./data/builds.json");
+        }
       } catch (err) {
         console.error("Failed loading local JSON files:", err);
       }
 
       renderHeroSidebar(MASTER_HEROES);
-      if (MASTER_HEROES.length > 0) selectHero(MASTER_HEROES[0].id);
+      if (MASTER_HEROES.length > 0) {
+        selectHero(MASTER_HEROES[0].id);
+      } else {
+        document.getElementById("hero-list").innerHTML = `<p class="text-xs text-red-400 p-3">Failed to load heroes.json. Check file path or JSON syntax.</p>`;
+      }
       renderTierList();
       if (window.lucide) lucide.createIcons();
 
