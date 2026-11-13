@@ -4,130 +4,130 @@
   "title": "Harbinger of the Void",
   "role": "Ranged Assassin",
   "tier": "S",
-  "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/heroportraits/storm_ui_glues_draft_portrait_xalatsath.png",
+  "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/heroportraits/storm_ui_glues_draft_portrait_xalatath.png",
   "talents": {
     "1": [
       {
         "name": "Void Adept",
         "desc": "Quest: Hitting enemy Heroes with Void Volley grants permanent stacks, increasing its damage and performance.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatsath_trait.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatath_trait.png"
       },
       {
         "name": "Anchored Core",
         "desc": "Increases Dark Heart Ritual duration and allows it to effectively deny objective channels.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatsath_darkheart.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatath_darkheart.png"
       },
       {
         "name": "Cloak of Shadows",
         "desc": "Grants utility buffs and defensive scaling when near void zones.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatsath_shadow.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatath_shadow.png"
       }
     ],
     "4": [
       {
         "name": "Cold Feet",
         "desc": "Shadow Mark duration is increased by 1 second, and heroes afflicted have their Movement Speed reduced by 25%.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatsath_shadowmark.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatath_shadowmark.png"
       },
       {
         "name": "Dark Barrier",
         "desc": "Each time the Dark Heart damages an enemy Hero or Minion, Xal'atath gains a Shield stacking up to 10% of maximum Health.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatsath_darkheart.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatath_darkheart.png"
       },
       {
         "name": "Void Acolyte",
         "desc": "Completing Void Step fully charges Void Volley and causes the next use to deal increased damage and cost no Mana.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatsath_voidstep.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatath_voidstep.png"
       }
     ],
     "7": [
       {
         "name": "Toxic Mark",
         "desc": "Shadow Mark applies a toxic effect, causing targets to take additional damage over time and enabling reliable follow-up detonations.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatsath_shadowmark.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatath_shadowmark.png"
       },
       {
         "name": "Void Summoner",
         "desc": "Enhances minion interactions and wave-clear utility through dark magic scaling.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatsath_summoner.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatath_summoner.png"
       },
       {
         "name": "Silence of the Lamb",
         "desc": "Activating Void Step summons a seal of void magic on the ground that Silences enemies inside when completed.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatsath_voidstep.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatath_voidstep.png"
       }
     ],
     "10": [
       {
         "name": "Void Eruption",
         "desc": "Channel a growing Void Orb, launch it to blind enemies, and detonate in a large area. Instantly fully empowered if cast on the Dark Heart.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatsath_eruption.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatath_eruption.png"
       },
       {
         "name": "Void Convergence",
         "desc": "Summon a portal that spawns relentless void minions to pressure nearby lanes and zone out enemy heroes.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatsath_convergence.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatath_convergence.png"
       }
     ],
     "13": [
       {
         "name": "Pull of the Dark Heart",
         "desc": "Dark Heart pulses pull enemies slightly closer and apply a Slow field to control positioning near choke points.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatsath_darkheart.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatath_darkheart.png"
       },
       {
         "name": "Dark Heart's Protection",
         "desc": "Adds defensive spell-shield utility and crowd-control mitigation while near active void structures.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatsath_protection.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatath_protection.png"
       },
       {
         "name": "Crushing Cascade",
         "desc": "Increases ability impact scaling against targets caught in multi-hit ability overlaps.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatsath_cascade.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatath_cascade.png"
       }
     ],
     "16": [
       {
         "name": "Marked Resilience",
         "desc": "Grants physical and spell armor while targets are affected by Shadow Mark.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatsath_shadowmark.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatath_shadowmark.png"
       },
       {
         "name": "Relentless Whispers",
         "desc": "Increases Basic Attack range and damage follow-up parameters following teleports.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatsath_whispers.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatath_whispers.png"
       },
       {
         "name": "Fractured Reality",
         "desc": "Void Volley projectiles leave behind a burning trail of fire that deals ongoing damage over time to enemies standing in it.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatsath_trait.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatath_trait.png"
       }
     ],
     "20": [
       {
         "name": "Harbinger's Consumption",
         "desc": "Passively empowers resource efficiency and heavily scales late-game execution potential.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatsath_trait.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatath_trait.png"
       },
       {
         "name": "Rift Invasion",
         "desc": "Enhances Void Convergence to spawn stronger elite void manifestations and increase portal durability.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatsath_convergence.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatath_convergence.png"
       },
       {
         "name": "Dueling Orbs",
         "desc": "Increases Void Volley target tracking accuracy and projectile velocity against isolated heroes.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatsath_trait.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatath_trait.png"
       },
       {
         "name": "Unstable Core",
         "desc": "When the Dark Heart expires or detonates on a target afflicted by Shadow Mark, it leaves behind a pool of void flames that continuously burns enemies over time.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatsath_darkheart.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatath_darkheart.png"
       },
       {
         "name": "Paradox Loop",
         "desc": "Allows activation to reset basic ability timers and instantly restore core combat capacity.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatsath_loop.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_xalatath_loop.png"
       }
     ]
   }
