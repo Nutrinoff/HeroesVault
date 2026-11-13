@@ -321,12 +321,24 @@
       document.getElementById('maps-dropdown-menu').classList.add('hidden');
       switchTab('map');
 
+      // Find basic info from master list first as an instant fallback
+      const masterMap = MASTER_MAP_LIST.find(m => m.id === mapId) || { name: mapId, theme: "Battleground strategy", portrait: "" };
+      
+      // Set baseline values immediately so the title and portrait show up right away
+      document.getElementById("map-portrait").src = masterMap.portrait;
+      document.getElementById("map-name").innerText = masterMap.name;
+      document.getElementById("map-theme").innerText = masterMap.theme;
+      document.getElementById("map-mechanic").innerHTML = `<strong class="text-white block mb-1">Objective details coming soon</strong> Detailed mechanics for this battleground are being added to the database.`;
+      document.getElementById("map-strategy").innerText = "Strategy guide and team composition notes will be populated here.";
+      document.getElementById("map-camps-table").innerHTML = `<tr><td colspan="3" class="px-4 py-4 text-center text-slate-500 italic">Mercenary camp timings are being compiled.</td></tr>`;
+
       try {
         const res = await fetch(`./data/maps/${mapId}.json`);
-        if (!res.ok) throw new Error(`Could not fetch map data for ${mapId}`);
+        if (!res.ok) return; // If file doesn't exist yet, gracefully keep our master list fallback UI!
         const mapData = await res.json();
 
-        document.getElementById("map-portrait").src = mapData.portrait;
+        // If the individual file exists, override with full detailed data
+        document.getElementById("map-portrait").src = mapData.portrait || masterMap.portrait;
         document.getElementById("map-name").innerText = mapData.name;
         document.getElementById("map-theme").innerText = mapData.theme;
         
@@ -349,9 +361,7 @@
           campTbl.appendChild(row);
         });
       } catch (err) {
-        console.error(err);
-        document.getElementById("map-name").innerText = "Error Loading Map";
-        document.getElementById("map-theme").innerText = `Could not load file at ./data/maps/${mapId}.json`;
+        console.warn(`Individual detail file for ${mapId} not found yet. Using master fallback.`);
       }
     }
 
