@@ -1,0 +1,38 @@
+[
+  {
+    "id": "cursedhollow",
+    "name": "Cursed Hollow",
+    "theme": "Raven Lord's Domain",
+    "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/storm_ui_homescreenbackground_cursedhollow.png"
+  },
+  {
+    "id": "dragonshire",
+    "name": "Dragon Shire",
+    "theme": "Shrine Control & Dragon Knight",
+    "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/storm_ui_homescreenbackground_dragonshire.png"
+  },
+  {
+    "id": "infernalshrines",
+    "name": "Infernal Shrines",
+    "theme": "Diablo Pandemonium",
+    "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/storm_ui_homescreenbackground_infernalshrines.png"
+  },
+  {
+    "id": "tombofspiders",
+    "name": "Tomb of the Spider Queen",
+    "theme": "Spider Queen's Web",
+    "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/storm_ui_homescreenbackground_tombofspiders.png"
+  },
+  {
+    "id": "towerofdoom",
+    "name": "Towers of Doom",
+    "theme": "Grave Keeper's Realm",
+    "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/storm_ui_homescreenbackground_towersofdoom.png"
+  },
+  {
+    "id": "braxisholdout",
+    "name": "Braxis Holdout",
+    "theme": "Zerg Swarm Control",
+    "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/storm_ui_homescreenbackground_braxisholdout.png"
+  }
+]
