@@ -1,10 +1,22 @@
 [
   {
-    "id": "abathur",
-    "name": "Abathur",
-    "title": "Evolution Master",
-    "role": "Support",
-    "tier": "S",
-    "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/heroportraits/storm_ui_glues_draft_portrait_abathur.png"
+    "heroId": "abathur",
+    "builds": [
+      {
+        "buildName": "Locust Push",
+        "buildCode": "[T3211232,Abathur]",
+        "notes": "Body-soak aggressive off-lanes during objective spawns."
+      }
+    ]
+  },
+  {
+    "heroId": "alarak",
+    "builds": [
+      {
+        "buildName": "Discord Burst",
+        "buildCode": "[T1121121,Alarak]",
+        "notes": "Focus on lining up Telekinesis pulls directly into Discord Strike sweet spots for maximum combo execution."
+      }
+    ]
   }
 ]
