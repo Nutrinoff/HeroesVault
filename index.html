@@ -70,7 +70,7 @@
     </div>
   </header>
 
-  <!-- MAIN LAYOUT (Expanded width container) -->
+  <!-- MAIN LAYOUT -->
   <div class="flex-1 max-w-[1600px] w-full mx-auto p-6 flex gap-6">
 
     <!-- LEFT SIDEBAR -->
@@ -128,12 +128,11 @@
           </div>
         </div>
 
-        <!-- CLEAN HORIZONTAL TALENT STRIP (Expanded layout) -->
+        <!-- CLEAN HORIZONTAL TALENT STRIP -->
         <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-4">
           <div class="flex items-center justify-between border-b border-slate-800 pb-3">
             <h3 class="text-md font-bold text-sky-400 flex items-center gap-2"><i data-lucide="zap" class="w-4 h-4"></i> Selected Build Talents</h3>
           </div>
-          <!-- Grid layout so cards fill the entire width evenly without overflow -->
           <div id="build-strip" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 pt-1"></div>
         </div>
 
@@ -166,9 +165,10 @@
 
   <!-- JAVASCRIPT -->
   <script>
-    let MASTER_HEROES = [];
+    let MASTER_HERO_LIST = []; // Stores lightweight sidebar index
     let PERSONAL_BUILDS = [];
-    let currentSelectedHero = null;
+    let currentSelectedHeroId = null;
+    let currentHeroData = null;  // Stores full fetched data for active hero
     let currentBuildIndex = 0;
 
     const CDN_BASE = "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/talents/";
@@ -176,12 +176,12 @@
     document.addEventListener("DOMContentLoaded", async () => {
       try {
         const [heroesRes, buildsRes] = await Promise.all([
-          fetch('./data/heroes.json'),
+          fetch('./data/heroes.json'), // Lightweight list of heroes for sidebar
           fetch('./data/builds.json')
         ]);
         
         if (heroesRes.ok) {
-          MASTER_HEROES = await heroesRes.json();
+          MASTER_HERO_LIST = await heroesRes.json();
         } else {
           console.error("Could not fetch ./data/heroes.json");
         }
@@ -195,11 +195,11 @@
         console.error("Failed loading local JSON files:", err);
       }
 
-      renderHeroSidebar(MASTER_HEROES);
-      if (MASTER_HEROES.length > 0) {
-        selectHero(MASTER_HEROES[0].id);
+      renderHeroSidebar(MASTER_HERO_LIST);
+      if (MASTER_HERO_LIST.length > 0) {
+        selectHero(MASTER_HERO_LIST[0].id);
       } else {
-        document.getElementById("hero-list").innerHTML = `<p class="text-xs text-red-400 p-3">Failed to load heroes.json.</p>`;
+        document.getElementById("hero-list").innerHTML = `<p class="text-xs text-red-400 p-3">Failed to load heroes index.</p>`;
       }
       renderTierList();
       if (window.lucide) lucide.createIcons();
@@ -221,7 +221,7 @@
       listContainer.innerHTML = "";
       heroes.forEach(hero => {
         const heroCard = document.createElement("div");
-        heroCard.className = `flex items-center gap-3 p-2 rounded-xl cursor-pointer border transition-all ${currentSelectedHero && currentSelectedHero.id === hero.id ? 'bg-sky-500/15 border-sky-500/70' : 'border-slate-800/60 bg-slate-900/50 hover:bg-slate-800/80'}`;
+        heroCard.className = `flex items-center gap-3 p-2 rounded-xl cursor-pointer border transition-all ${currentSelectedHeroId === hero.id ? 'bg-sky-500/15 border-sky-500/70' : 'border-slate-800/60 bg-slate-900/50 hover:bg-slate-800/80'}`;
         heroCard.onclick = () => selectHero(hero.id);
         heroCard.innerHTML = `
           <img src="${hero.portrait}" onerror="this.src='https://via.placeholder.com/40?text=H'" alt="${hero.name}" class="w-10 h-10 rounded-lg border border-slate-700 object-cover flex-shrink-0 bg-slate-950" />
@@ -238,22 +238,37 @@
       document.getElementById("hero-count").innerText = `${heroes.length} Heroes`;
     }
 
-    function selectHero(heroId) {
-      const hero = MASTER_HEROES.find(h => h.id === heroId);
-      if (!hero) return;
-      currentSelectedHero = hero;
+    async function selectHero(heroId) {
+      currentSelectedHeroId = heroId;
       currentBuildIndex = 0;
-      renderHeroSidebar(MASTER_HEROES);
+      renderHeroSidebar(MASTER_HERO_LIST);
 
-      document.getElementById("detail-portrait").src = hero.portrait;
-      document.getElementById("detail-name").innerText = hero.name;
-      document.getElementById("detail-role").innerText = hero.role;
-      document.getElementById("detail-title").innerText = hero.title || "Nexus Combatant";
-      renderActiveBuild();
+      try {
+        // Dynamically fetch the individual per-hero JSON file
+        const res = await fetch(`./data/heroes/${heroId}.json`);
+        if (!res.ok) throw new Error(`Could not fetch data for ${heroId}`);
+        
+        currentHeroData = await res.json();
+
+        // Update header banner details
+        document.getElementById("detail-portrait").src = currentHeroData.portrait;
+        document.getElementById("detail-name").innerText = currentHeroData.name;
+        document.getElementById("detail-role").innerText = currentHeroData.role;
+        document.getElementById("detail-title").innerText = currentHeroData.title || "Nexus Combatant";
+        
+        renderActiveBuild();
+      } catch (err) {
+        console.error(err);
+        document.getElementById("detail-name").innerText = "Error Loading Hero";
+        document.getElementById("detail-notes").innerHTML = `<span class="text-red-400">Could not load file at ./data/heroes/${heroId}.json</span>`;
+        document.getElementById("build-strip").innerHTML = "";
+      }
     }
 
     function renderActiveBuild() {
-      const hero = currentSelectedHero;
+      const hero = currentHeroData;
+      if (!hero) return;
+
       const heroBuildData = PERSONAL_BUILDS.find(b => b.heroId === hero.id);
       const tabsContainer = document.getElementById("build-tabs");
       tabsContainer.innerHTML = "";
@@ -298,7 +313,7 @@
       stripContainer.innerHTML = "";
 
       if (!hero.talents) {
-        stripContainer.innerHTML = `<p class="text-xs text-slate-500 italic p-2 col-span-full">No talent data available.</p>`;
+        stripContainer.innerHTML = `<p class="text-xs text-slate-500 italic p-2 col-span-full">No talent data available in this hero file.</p>`;
         return;
       }
 
@@ -324,7 +339,7 @@
 
     function filterHeroes() {
       const query = document.getElementById("hero-search").value.toLowerCase();
-      renderHeroSidebar(MASTER_HEROES.filter(h => h.name.toLowerCase().includes(query)));
+      renderHeroSidebar(MASTER_HERO_LIST.filter(h => h.name.toLowerCase().includes(query)));
     }
 
     function switchTab(tab) {
@@ -359,12 +374,12 @@
       const a = document.getElementById("tier-a");
       if (!s || !a) return;
       s.innerHTML = ""; a.innerHTML = "";
-      MASTER_HEROES.forEach(hero => {
+      MASTER_HERO_LIST.forEach(hero => {
         const badge = document.createElement("div");
         badge.className = "flex items-center gap-2 bg-slate-950 px-2.5 py-1.5 rounded-lg border border-slate-800 cursor-pointer hover:border-sky-500";
         badge.onclick = () => { switchTab('heroes'); selectHero(hero.id); };
         badge.innerHTML = `<img src="${hero.portrait}" onerror="this.src='https://via.placeholder.com/24?text=H'" class="w-6 h-6 rounded-md object-cover"/> <span class="text-xs font-semibold">${hero.name}</span>`;
-        if (hero.tier === "S") s.appendChild(badge);
+        if (hero.tier === "S") s.export?.() || s.appendChild(badge);
         else a.appendChild(badge);
       });
     }
