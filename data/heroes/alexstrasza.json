@@ -1,0 +1,129 @@
+{
+  "id": "alexstrasza",
+  "name": "Alexstrasza",
+  "title": "Life-Binder",
+  "role": "Healer",
+  "tier": "S",
+  "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/heroportraits/storm_ui_glues_draft_portrait_alexstrasza.png",
+  "talents": {
+    "1": [
+      {
+        "name": "Live and Let Live",
+        "desc": "While above 75% Health, Gift of Life's cooldown recharges 125% faster.",
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_alexstrasza_gift_of_life.png"
+      },
+      {
+        "name": "Circle of Life",
+        "desc": "Quest: Collect Regeneration Globes to increase Abundance healing and spawn globes.",
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_alexstrasza_abundance.png"
+      },
+      {
+        "name": "Flames of Fury",
+        "desc": "Quest: Hit Burning enemy Heroes with Flame Buffet to reduce Dragonqueen's cooldown.",
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_alexstrasza_flame_buffet.png"
+      }
+    ],
+    "4": [
+      {
+        "name": "Surge of Vitality",
+        "desc": "Abundance's healing burst grants allied Heroes 30% Movement Speed for 3 seconds.",
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_alexstrasza_abundance.png"
+      },
+      {
+        "name": "Heat Exhaustion",
+        "desc": "Increase Flame Buffet's Slow and cause it to no longer decay.",
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_alexstrasza_flame_buffet.png"
+      },
+      {
+        "name": "Exuberance",
+        "desc": "Increase movement speed while above 75% health.",
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_alexstrasza_trait.png"
+      }
+    ],
+    "7": [
+      {
+        "name": "Lifeblossom",
+        "desc": "While above 75% Health, casting Gift of Life creates a Lifeblossom that makes the next cast cost no health.",
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_alexstrasza_gift_of_life.png"
+      },
+      {
+        "name": "Verdant Flourish",
+        "desc": "Improves regeneration globe and Abundance healing synergies.",
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_alexstrasza_abundance.png"
+      },
+      {
+        "name": "Fire Within",
+        "desc": "Flame Buffet heals Alexstrasza when hitting burning targets.",
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_alexstrasza_flame_buffet.png"
+      }
+    ],
+    "10": [
+      {
+        "name": "Life-Binder",
+        "desc": "Synchronize health percentages of Alexstrasza and an allied hero, setting the lower one to match the higher one after a brief delay.",
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_alexstrasza_lifebinder.png"
+      },
+      {
+        "name": "Cleansing Flame",
+        "desc": "Take to the sky and rain fire down at target locations, healing allies and damaging enemies.",
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_alexstrasza_cleansingflame.png"
+      }
+    ],
+    "13": [
+      {
+        "name": "Dragon Scales",
+        "desc": "Gain physical armor when below health thresholds or CC'd.",
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_alexstrasza_trait.png"
+      },
+      {
+        "name": "Pacify",
+        "desc": "Reduce an enemy hero's damage output significantly for a short duration.",
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_alexstrasza_pacify.png"
+      },
+      {
+        "name": "Life Unbound",
+        "desc": "Adds defensive or tether-based utility mechanics to sustain allies under pressure.",
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_alexstrasza_gift_of_life.png"
+      }
+    ],
+    "16": [
+      {
+        "name": "Tough Love",
+        "desc": "Gift of Life also grants physical armor to targets under 50% health.",
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_alexstrasza_gift_of_life.png"
+      },
+      {
+        "name": "Overprotective",
+        "desc": "Abundance grants shields to allies who stay inside the area.",
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_alexstrasza_abundance.png"
+      },
+      {
+        "name": "Draconic Discipline",
+        "desc": "Increases the duration of Dragonqueen by 7 seconds.",
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_alexstrasza_trait.png"
+      }
+    ],
+    "20": [
+      {
+        "name": "Ritual of Life",
+        "desc": "Enhances Life-Binder functionality and target application scope.",
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_alexstrasza_lifebinder.png"
+      },
+      {
+        "name": "On Ruby Wings",
+        "desc": "Cleansing Flame drops additional fireballs and triggers Dragonqueen upon landing.",
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_alexstrasza_cleansingflame.png"
+      },
+      {
+        "name": "Ancient Flame",
+        "desc": "Dragonqueen Basic Attacks apply Burn and heavily increase attack speed.",
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_alexstrasza_trait.png"
+      },
+      {
+        "name": "Blessing of the Red",
+        "desc": "Active ability to grant an allied hero maximum health increases until they die.",
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_alexstrasza_blessingofthered.png"
+      }
+    ]
+  }
+}
