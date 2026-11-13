@@ -15,13 +15,13 @@
     "id": "infernalshrines",
     "name": "Infernal Shrines",
     "theme": "Diablo Pandemonium",
-    "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/ui_ingame_mapmechanic_loadscreen_infernalshrines.png"
+    "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/ui_ingame_mapmechanic_loadscreen_shrines.png"
   },
   {
     "id": "tombofspiders",
     "name": "Tomb of the Spider Queen",
     "theme": "Spider Queen's Web",
-    "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/ui_ingame_mapmechanic_loadscreen_tombofspiders.png"
+    "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/ui_ingame_mapmechanic_loadscreen_tombofthespiderqueen.png"
   },
   {
     "id": "towerofdoom",
@@ -33,13 +33,13 @@
     "id": "braxisholdout",
     "name": "Braxis Holdout",
     "theme": "Zerg Swarm Control",
-    "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/ui_ingame_mapmechanic_loadscreen_braxisholdout.png"
+    "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/storm_ui_homescreenbackground_braxisholdout.png"
   },
   {
     "id": "alteracpass",
     "name": "Alterac Pass",
     "theme": "World of Warcraft AV Battleground",
-    "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/ui_ingame_mapmechanic_loadscreen_alteracpass.png"
+    "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/storm_ui_homescreenbackground_wcav.png"
   },
   {
     "id": "battlefieldofeternity",
@@ -63,7 +63,7 @@
     "id": "hanamuratemple",
     "name": "Hanamura Temple",
     "theme": "Overwatch Payload Escort",
-    "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/ui_ingame_mapmechanic_loadscreen_hanamura.png"
+    "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/ui_ingame_mapmechanic_loadscreen_hanamura_rework.png"
   },
   {
     "id": "hauntedmines",
@@ -81,12 +81,12 @@
     "id": "volskafoundry",
     "name": "Volskaya Foundry",
     "theme": "Giant Protector Mech Control",
-    "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/ui_ingame_mapmechanic_loadscreen_volskayafoundry.png"
+    "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/storm_ui_homescreenbackground_volskaya.png"
   },
   {
     "id": "warheadjunction",
     "name": "Warhead Junction",
     "theme": "StarCraft Nuke Launchers",
-    "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/ui_ingame_mapmechanic_loadscreen_warheadjunction.png"
+    "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/storm_ui_homescreenbackground_warhead.png"
   }
 ]
