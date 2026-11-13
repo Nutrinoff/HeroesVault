@@ -14,5 +14,13 @@
     "role": "Melee Assassin",
     "tier": "S",
     "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/heroportraits/storm_ui_glues_draft_portrait_alarak.png"
+  },
+  {
+    "id": "alexstrasza",
+    "name": "Alexstrasza",
+    "title": "Life-Binder",
+    "role": "Healer",
+    "tier": "S",
+    "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/heroportraits/storm_ui_glues_draft_portrait_alexstrasza.png"
   }
 ]
