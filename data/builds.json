@@ -13,5 +13,15 @@
         "notes": "• <strong>Strategy:</strong> Pocket carry for Illidan or Valla."
       }
     ]
+  },
+  {
+    "heroId": "alarak",
+    "builds": [
+      {
+        "buildName": "Standard Bruiser",
+        "buildCode": "[T1121111,Alarak]",
+        "notes": "• <strong>Strategy:</strong> Focus on landing Discord Strike combos and maximizing Basic Attack uptime with Overwhelming Power and Hindered Motion."
+      }
+    ]
   }
 ]
