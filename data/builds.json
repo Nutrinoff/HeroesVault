@@ -23,5 +23,15 @@
         "notes": "• <strong>Strategy:</strong> Focus on landing Discord Strike combos and maximizing Basic Attack uptime with Overwhelming Power and Hindered Motion."
       }
     ]
+  },
+  {
+    "heroId": "alexstrasza",
+    "builds": [
+      {
+        "buildName": "Abundance Build",
+        "buildCode": "[T2111221,Alexstrasza]",
+        "notes": "• <strong>Strategy:</strong> Focuses on area-of-effect healing zones and movement speed utility to sustain multi-hero frontline fights."
+      }
+    ]
   }
 ]
