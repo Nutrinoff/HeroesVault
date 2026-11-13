@@ -1,0 +1,16 @@
+{
+  "id": "cursedhollow",
+  "name": "Cursed Hollow",
+  "theme": "Collect Tributes to curse the enemy team's structures and minions.",
+  "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/storm_ui_homescreenbackground_cursedhollow.png",
+  "mechanic": {
+    "title": "The Tribute Curse",
+    "description": "Collect 3 Tributes that spawn randomly across the map. Once channeled, the team is cursed: enemy minions are reduced to 1 HP, and structures become disabled and stop attacking."
+  },
+  "camps": [
+    { "name": "Sapper Camps (Easy)", "timing": "First spawn at 2:00", "notes": "Push heavily down lanes if ignored, great for split pressure." },
+    { "name": "Giant Camps (Bruisers)", "timing": "First spawn at 2:30", "notes": "Provides ranged siege damage that forces defenders to clear them." },
+    { "name": "Boss (Grave Golem / Boss)", "timing": "Available post-10", "notes": "High risk/reward capture. Can easily win the game if secured late-game." }
+  ],
+  "strategy": "Global mobility (like Falstad, Brightwing, or Dehaka) is king on Cursed Hollow due to the massive map size and unpredictable Tribute spawn locations. Focus on soaking lanes aggressively during early game skirmishes."
+}
