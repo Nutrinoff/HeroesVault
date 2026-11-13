@@ -53,11 +53,7 @@
           
           <div id="maps-dropdown-menu" class="absolute left-0 mt-2 w-56 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl py-2 hidden z-50 backdrop-blur-xl">
             <div class="px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-500">Battlegrounds</div>
-            <a href="#" onclick="selectMap('Cursed Hollow')" class="block px-4 py-2 text-sm text-slate-300 hover:bg-sky-500/10 hover:text-sky-300">Cursed Hollow</a>
-            <a href="#" onclick="selectMap('Dragon Shire')" class="block px-4 py-2 text-sm text-slate-300 hover:bg-sky-500/10 hover:text-sky-300">Dragon Shire</a>
-            <a href="#" onclick="selectMap('Infernal Shrines')" class="block px-4 py-2 text-sm text-slate-300 hover:bg-sky-500/10 hover:text-sky-300">Infernal Shrines</a>
-            <a href="#" onclick="selectMap('Tomb of the Spider Queen')" class="block px-4 py-2 text-sm text-slate-300 hover:bg-sky-500/10 hover:text-sky-300">Tomb of Spider Queen</a>
-            <a href="#" onclick="selectMap('Towers of Doom')" class="block px-4 py-2 text-sm text-slate-300 hover:bg-sky-500/10 hover:text-sky-300">Towers of Doom</a>
+            <!-- Populated dynamically via JS from data/maps.json -->
           </div>
         </div>
 
@@ -143,6 +139,58 @@
         </div>
       </div>
 
+      <!-- MAP VIEW -->
+      <div id="view-map" class="space-y-6 hidden">
+        <div class="relative rounded-2xl overflow-hidden border border-slate-800 shadow-md">
+          <img id="map-portrait" src="" onerror="this.src='https://via.placeholder.com/1200x400?text=Map+Loading+Screen'" alt="Map Banner" class="w-full h-48 md:h-64 object-cover filter brightness-75" />
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent flex items-end p-6">
+            <div>
+              <span class="text-xs uppercase tracking-widest text-sky-400 font-bold">Battleground</span>
+              <h2 id="map-name" class="text-3xl font-extrabold text-white">Select a Map</h2>
+              <p id="map-theme" class="text-sm text-slate-300 mt-1">Map Theme description</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- MECHANIC & STRATEGY -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-3">
+            <h3 class="text-md font-bold text-amber-400 flex items-center gap-2 border-b border-slate-800 pb-3">
+              <i data-lucide="target" class="w-4 h-4"></i> Map Objective
+            </h3>
+            <div id="map-mechanic" class="text-sm text-slate-300 leading-relaxed">Loading mechanics...</div>
+          </div>
+
+          <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-3">
+            <h3 class="text-md font-bold text-sky-400 flex items-center gap-2 border-b border-slate-800 pb-3">
+              <i data-lucide="compass" class="w-4 h-4"></i> Strategic Overview
+            </h3>
+            <div id="map-strategy" class="text-sm text-slate-300 leading-relaxed">Loading strategy...</div>
+          </div>
+        </div>
+
+        <!-- MERCENARY CAMPS TABLE -->
+        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-4">
+          <h3 class="text-md font-bold text-emerald-400 flex items-center gap-2 border-b border-slate-800 pb-3">
+            <i data-lucide="shield-alert" class="w-4 h-4"></i> Mercenary Camps & Timers
+          </h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm text-slate-300">
+              <thead class="bg-slate-950 text-xs uppercase text-slate-400 border-b border-slate-800">
+                <tr>
+                  <th class="px-4 py-3">Camp Type</th>
+                  <th class="px-4 py-3">Spawn Timing</th>
+                  <th class="px-4 py-3">Notes & Tips</th>
+                </tr>
+              </thead>
+              <tbody id="map-camps-table" class="divide-y divide-slate-800/60">
+                <!-- Injected dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
       <!-- TIER LIST VIEW -->
       <div id="view-tierlist" class="space-y-4 hidden">
         <div class="flex items-center justify-between border-b border-slate-800 pb-4">
@@ -165,31 +213,28 @@
 
   <!-- JAVASCRIPT -->
   <script>
-    let MASTER_HERO_LIST = []; // Stores lightweight sidebar index
+    let MASTER_HERO_LIST = []; 
+    let MASTER_MAP_LIST = [];
     let PERSONAL_BUILDS = [];
     let currentSelectedHeroId = null;
-    let currentHeroData = null;  // Stores full fetched data for active hero
+    let currentHeroData = null; 
     let currentBuildIndex = 0;
 
     const CDN_BASE = "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/talents/";
 
     document.addEventListener("DOMContentLoaded", async () => {
       try {
-        const [heroesRes, buildsRes] = await Promise.all([
-          fetch('./data/heroes.json'), // Lightweight list of heroes for sidebar
-          fetch('./data/builds.json')
+        const [heroesRes, buildsRes, mapsRes] = await Promise.all([
+          fetch('./data/heroes.json'),
+          fetch('./data/builds.json'),
+          fetch('./data/maps.json')
         ]);
         
-        if (heroesRes.ok) {
-          MASTER_HERO_LIST = await heroesRes.json();
-        } else {
-          console.error("Could not fetch ./data/heroes.json");
-        }
-
-        if (buildsRes.ok) {
-          PERSONAL_BUILDS = await buildsRes.json();
-        } else {
-          console.warn("Could not fetch ./data/builds.json");
+        if (heroesRes.ok) MASTER_HERO_LIST = await heroesRes.json();
+        if (buildsRes.ok) PERSONAL_BUILDS = await buildsRes.json();
+        if (mapsRes.ok) {
+          MASTER_MAP_LIST = await mapsRes.json();
+          populateMapsDropdown();
         }
       } catch (err) {
         console.error("Failed loading local JSON files:", err);
@@ -216,13 +261,22 @@
       document.getElementById('maps-dropdown-menu').classList.toggle('hidden');
     }
 
+    function populateMapsDropdown() {
+      const menu = document.getElementById('maps-dropdown-menu');
+      let html = `<div class="px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-500">Battlegrounds</div>`;
+      MASTER_MAP_LIST.forEach(map => {
+        html += `<a href="#" onclick="selectMap('${map.id}'); return false;" class="block px-4 py-2 text-sm text-slate-300 hover:bg-sky-500/10 hover:text-sky-300">${map.name}</a>`;
+      });
+      menu.innerHTML = html;
+    }
+
     function renderHeroSidebar(heroes) {
       const listContainer = document.getElementById("hero-list");
       listContainer.innerHTML = "";
       heroes.forEach(hero => {
         const heroCard = document.createElement("div");
         heroCard.className = `flex items-center gap-3 p-2 rounded-xl cursor-pointer border transition-all ${currentSelectedHeroId === hero.id ? 'bg-sky-500/15 border-sky-500/70' : 'border-slate-800/60 bg-slate-900/50 hover:bg-slate-800/80'}`;
-        heroCard.onclick = () => selectHero(hero.id);
+        heroCard.onclick = () => { switchTab('heroes'); selectHero(hero.id); };
         heroCard.innerHTML = `
           <img src="${hero.portrait}" onerror="this.src='https://via.placeholder.com/40?text=H'" alt="${hero.name}" class="w-10 h-10 rounded-lg border border-slate-700 object-cover flex-shrink-0 bg-slate-950" />
           <div class="flex-1 min-w-0">
@@ -244,13 +298,11 @@
       renderHeroSidebar(MASTER_HERO_LIST);
 
       try {
-        // Dynamically fetch the individual per-hero JSON file
         const res = await fetch(`./data/heroes/${heroId}.json`);
         if (!res.ok) throw new Error(`Could not fetch data for ${heroId}`);
         
         currentHeroData = await res.json();
 
-        // Update header banner details
         document.getElementById("detail-portrait").src = currentHeroData.portrait;
         document.getElementById("detail-name").innerText = currentHeroData.name;
         document.getElementById("detail-role").innerText = currentHeroData.role;
@@ -262,6 +314,44 @@
         document.getElementById("detail-name").innerText = "Error Loading Hero";
         document.getElementById("detail-notes").innerHTML = `<span class="text-red-400">Could not load file at ./data/heroes/${heroId}.json</span>`;
         document.getElementById("build-strip").innerHTML = "";
+      }
+    }
+
+    async function selectMap(mapId) {
+      document.getElementById('maps-dropdown-menu').classList.add('hidden');
+      switchTab('map');
+
+      try {
+        const res = await fetch(`./data/maps/${mapId}.json`);
+        if (!res.ok) throw new Error(`Could not fetch map data for ${mapId}`);
+        const mapData = await res.json();
+
+        document.getElementById("map-portrait").src = mapData.portrait;
+        document.getElementById("map-name").innerText = mapData.name;
+        document.getElementById("map-theme").innerText = mapData.theme;
+        
+        document.getElementById("map-mechanic").innerHTML = `
+          <strong class="text-white block mb-1">${mapData.mechanic.title}</strong>
+          ${mapData.mechanic.description}
+        `;
+        document.getElementById("map-strategy").innerText = mapData.strategy;
+
+        const campTbl = document.getElementById("map-camps-table");
+        campTbl.innerHTML = "";
+        mapData.camps.forEach(camp => {
+          const row = document.createElement("tr");
+          row.className = "hover:bg-slate-950/40";
+          row.innerHTML = `
+            <td class="px-4 py-3 font-semibold text-white">${camp.name}</td>
+            <td class="px-4 py-3 font-mono text-amber-400">${camp.timing}</td>
+            <td class="px-4 py-3 text-slate-400">${camp.notes}</td>
+          `;
+          campTbl.appendChild(row);
+        });
+      } catch (err) {
+        console.error(err);
+        document.getElementById("map-name").innerText = "Error Loading Map";
+        document.getElementById("map-theme").innerText = `Could not load file at ./data/maps/${mapId}.json`;
       }
     }
 
@@ -344,16 +434,21 @@
 
     function switchTab(tab) {
       const isHeroes = tab === 'heroes';
+      const isMap = tab === 'map';
+      const isTierList = tab === 'tierlist';
+
       document.getElementById("view-heroes").classList.toggle("hidden", !isHeroes);
-      document.getElementById("view-tierlist").classList.toggle("hidden", isHeroes);
+      document.getElementById("view-map").classList.toggle("hidden", !isMap);
+      document.getElementById("view-tierlist").classList.toggle("hidden", !isTierList);
       
+      // Sidebar shows ONLY on heroes view
       document.getElementById("sidebar-container").classList.toggle("hidden", !isHeroes);
 
       document.getElementById("nav-heroes").className = isHeroes 
         ? "px-5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 bg-sky-500/20 text-sky-300 border border-sky-500/40 shadow-sm"
         : "px-5 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-all flex items-center gap-2";
 
-      document.getElementById("nav-tierlist").className = !isHeroes 
+      document.getElementById("nav-tierlist").className = isTierList 
         ? "px-5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 bg-sky-500/20 text-sky-300 border border-sky-500/40 shadow-sm"
         : "px-5 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-all flex items-center gap-2";
     }
@@ -362,11 +457,6 @@
       const code = document.getElementById("detail-build-code").innerText;
       navigator.clipboard.writeText(code);
       alert(`Copied: ${code}`);
-    }
-
-    function selectMap(mapName) {
-      alert(`Filtered for map: ${mapName}`);
-      document.getElementById('maps-dropdown-menu').classList.add('hidden');
     }
 
     function renderTierList() {
@@ -379,7 +469,7 @@
         badge.className = "flex items-center gap-2 bg-slate-950 px-2.5 py-1.5 rounded-lg border border-slate-800 cursor-pointer hover:border-sky-500";
         badge.onclick = () => { switchTab('heroes'); selectHero(hero.id); };
         badge.innerHTML = `<img src="${hero.portrait}" onerror="this.src='https://via.placeholder.com/24?text=H'" class="w-6 h-6 rounded-md object-cover"/> <span class="text-xs font-semibold">${hero.name}</span>`;
-        if (hero.tier === "S") s.export?.() || s.appendChild(badge);
+        if (hero.tier === "S") s.appendChild(badge);
         else a.appendChild(badge);
       });
     }
