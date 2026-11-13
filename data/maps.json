@@ -3,7 +3,7 @@
     "id": "cursedhollow",
     "name": "Cursed Hollow",
     "theme": "Raven Lord's Domain",
-    "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/storm_ui_homescreenbackground_cursedhollow.png"
+    "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/ui_ingame_mapmechanic_loadscreen_cursedhollow.png"
   },
   {
     "id": "dragonshire",
@@ -34,5 +34,59 @@
     "name": "Braxis Holdout",
     "theme": "Zerg Swarm Control",
     "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/storm_ui_homescreenbackground_braxisholdout.png"
+  },
+  {
+    "id": "alteracpass",
+    "name": "Alterac Pass",
+    "theme": "World of Warcraft AV Battleground",
+    "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/storm_ui_homescreenbackground_alteracpass.png"
+  },
+  {
+    "id": "battlefieldofeternity",
+    "name": "Battlefield of Eternity",
+    "theme": "High Heavens vs. Burning Hells",
+    "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/storm_ui_homescreenbackground_battlefieldofeternity.png"
+  },
+  {
+    "id": "blackheartsbay",
+    "name": "Blackheart's Bay",
+    "theme": "Pirate Doubloons & Ship Bombardment",
+    "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/storm_ui_homescreenbackground_blackheartsbay.png"
+  },
+  {
+    "id": "gardenofterror",
+    "name": "Garden of Terror",
+    "theme": "Night Plant Overgrowth",
+    "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/storm_ui_homescreenbackground_gardenofterror.png"
+  },
+  {
+    "id": "hanamuratemple",
+    "name": "Hanamura Temple",
+    "theme": "Overwatch Payload Escort",
+    "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/storm_ui_homescreenbackground_hanamura.png"
+  },
+  {
+    "id": "hauntedmines",
+    "name": "Haunted Mines",
+    "theme": "Undead Undergound Golems",
+    "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/storm_ui_homescreenbackground_hauntedmines.png"
+  },
+  {
+    "id": "skytemple",
+    "name": "Sky Temple",
+    "theme": "Egyptian Shrine Lasers",
+    "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/storm_ui_homescreenbackground_skytemple.png"
+  },
+  {
+    "id": "volskafoundry",
+    "name": "Volskaya Foundry",
+    "theme": "Giant Protector Mech Control",
+    "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/storm_ui_homescreenbackground_volskayafoundry.png"
+  },
+  {
+    "id": "warheadjunction",
+    "name": "Warhead Junction",
+    "theme": "StarCraft Nuke Launchers",
+    "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/storm_ui_homescreenbackground_warheadjunction.png"
   }
 ]
