@@ -2,8 +2,7 @@
   "id": "cursedhollow",
   "name": "Cursed Hollow",
   "theme": "Collect Tributes to curse the enemy team's structures and minions.",
-  "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/storm_ui_homescreenbackground_cursedhollow.png",
-  "mechanic": {
+  "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/ui_ingame_mapmechanic_loadscreen_cursedhollow.png"  "mechanic": {
     "title": "The Tribute Curse",
     "description": "Collect 3 Tributes that spawn randomly across the map. Once channeled, the team is cursed: enemy minions are reduced to 1 HP, and structures become disabled and stop attacking."
   },
