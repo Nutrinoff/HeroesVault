@@ -1,0 +1,23 @@
+{
+  "id": "dragonshire",
+  "name": "Dragon Shire",
+  "theme": "Control both Shrines simultaneously to awaken and pilot the devastating Dragon Knight.",
+  "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/ui_ingame_mapmechanic_loadscreen_dragonshire.png",
+  "mechanic": {
+    "title": "Sun & Moon Shrines / Dragon Knight",
+    "description": "The Sun Shrine (top) and Moon Shrine (bottom) activate at 1:30. Once one team controls both Shrines simultaneously, a hero can channel the Dragon Statue in mid lane for 1.5 seconds to become the Dragon Knight (lasts 50 seconds + scaling with game time). After the Dragon Knight expires or is killed, the Shrines reactivate 2:00 later."
+  },
+  "camps": [
+    {
+      "name": "Siege Giants (3 Camps)",
+      "timing": "Spawns at 1:00 (3:00 respawn)",
+      "notes": "Located top-mid, mid-left, and mid-right. Easy to clear early; time them right before Shrines activate to force enemies into a tough choice between defending lanes or contesting points."
+    },
+    {
+      "name": "Bruisers / Knights (2 Camps)",
+      "timing": "Spawns at 1:00 (4:00 respawn)",
+      "notes": "Located near top-left/top-right and bottom-mid. High health pool with a spell armor aura; pushes heavily in top or bottom lane to pull defenders away from the opposite Shrine."
+    }
+  ],
+  "strategy": "Dragon Shire is a split-map rotation battleground with no Boss camp—macro pressure and 1v1 solo lane dominance (top lane) decide the game. Run a strong solo laner top while a 4-man squad rotates rapidly between mid and bot. Always prioritize clearing waves and taking Siege/Bruiser camps just before Shrine phases so your lanes push automatically while fights break out over the points."
+}
