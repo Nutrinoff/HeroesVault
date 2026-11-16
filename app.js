@@ -206,7 +206,8 @@ function flattenHeroAbilities(h) {
         }
         if (!abilities || typeof abilities !== 'object') return;
         
-        for (const cat of ['Basic', 'Trait', 'Mount', 'Activable']) {
+        // Handle categorized keys or sub-forms (like Deathwing's form variants)
+        for (const cat of ['Basic', 'Trait', 'Mount', 'Activable', 'WorldBreaker', 'Destroyer']) {
             for (const a of (Array.isArray(abilities[cat]) ? abilities[cat] : [])) {
                 const type = String(a.abilityType || '').toUpperCase();
                 if (!['B', 'R', 'HEROIC'].includes(type)) {
@@ -218,7 +219,15 @@ function flattenHeroAbilities(h) {
     
     add(h.abilities);
     
-    // Catch alternate units / forms (like Deathwing's Destroyer/World Breaker or units)
+    // Check sub-properties or form dictionaries if present directly on the hero object
+    if (h.subAbilities) add(h.subAbilities);
+    if (h.forms) {
+        Object.entries(h.forms).forEach(([formName, formObj]) => {
+            if (formObj?.abilities) add(formObj.abilities, formName);
+        });
+    }
+    
+    // Catch alternate units / forms 
     if (h.heroUnits && typeof h.heroUnits === 'object') {
         Object.entries(h.heroUnits).forEach(([id, u]) => {
             if (u?.abilities) {
