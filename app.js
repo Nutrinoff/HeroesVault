@@ -48,15 +48,14 @@ document.addEventListener('DOMContentLoaded', async () => {
             const d = await mr.json();
             HOTS_MASTER_DATA = d.items || d;
             
-            // Derive MASTER_HERO_LIST dynamically from HOTS_MASTER_DATA object/array
             const rawHeroes = Array.isArray(HOTS_MASTER_DATA) 
                 ? HOTS_MASTER_DATA 
                 : Object.values(HOTS_MASTER_DATA);
 
             MASTER_HERO_LIST = rawHeroes.map(h => ({
                 id: h.id || h.hyperlinkId || h.attributeId,
-                name: h.name,
-                title: h.title,
+                name: h.name || 'Unknown Hero',
+                title: h.title || 'Nexus Combatant',
                 role: (h.roles && h.roles[0]) || h.expandedRole || 'Nexus Combatant',
                 portrait: getHeroPortrait(h)
             }));
@@ -262,12 +261,15 @@ function getAssetUrl(path) {
     return REPO_BASE + p;
 }
 
+// Safe portrait resolver with fallback checks
 function getHeroPortrait(hero) {
-    return hero?.portraits?.draftScreen
-        || hero?.portraits?.heroSelect
-        || hero?.portraits?.leaderboard
-        || hero?.portraits?.target
-        || hero?.portrait
+    if (!hero) return '';
+    const p = hero.portraits || {};
+    return p.draftScreen 
+        || p.heroSelect 
+        || p.leaderboard 
+        || p.target 
+        || hero.portrait 
         || '';
 }
 
