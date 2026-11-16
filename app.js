@@ -55,11 +55,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                 portrait: getHeroPortrait(h)
             }));
 
-           // Optimized Background Preloader (Prevents network queue choking)
+// ==========================================
+// BACKGROUND PRELOADER
+// ==========================================
+
 function preloadAllAssets(rawHeroes) {
     if (!Array.isArray(rawHeroes)) return;
     
-    // 1. Instantly preload all hero portraits first (lightweight & high priority for sidebar)
+    // 1. Instantly preload all hero portraits first (lightweight & high priority)
     rawHeroes.forEach(h => {
         const portrait = getHeroPortrait(h);
         if (portrait) {
@@ -67,10 +70,9 @@ function preloadAllAssets(rawHeroes) {
         }
     });
 
-    // 2. Stagger ability icon preloading in the background so it doesn't jam the network
+    // 2. Stagger ability icon preloading in the background
     setTimeout(() => {
         rawHeroes.forEach((h, index) => {
-            // Process in small staggered batches using micro-delays
             setTimeout(() => {
                 const abilities = flattenHeroAbilities(h);
                 abilities.forEach(a => {
@@ -78,9 +80,9 @@ function preloadAllAssets(rawHeroes) {
                         new Image().src = getAssetUrl(a.icon);
                     }
                 });
-            }, index * 30); // 30ms stagger per hero
+            }, index * 30);
         });
-    }, 500); // Wait half a second after page load so initial UI renders instantly first
+    }, 500);
 }
 
 function navigateTo(tab, params = {}, push = true) {
