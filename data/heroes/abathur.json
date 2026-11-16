@@ -85,7 +85,7 @@
       {
         "name": "Slapathur",
         "desc": "Abathur's Basic Attacks deal 350% additional damage and Stun non-Elite enemies and disable Structures for 1.5 seconds.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_slam.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_volatilemutation.png"
       }
     ],
     "7": [
@@ -102,7 +102,7 @@
       {
         "name": "Calldown: MULE",
         "desc": "Activate to call down a Mule that repairs target Structure for 40 seconds, healing for 90 Health per second.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_calldownmule.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_talent_mule.png"
       }
     ],
     "10": [
@@ -160,12 +160,12 @@
       {
         "name": "Evolutionary Link",
         "desc": "While Ultimate Evolution clone is active, the original target gains a Shield equal to 35% of max Health.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_evolutionarylink.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_ultimateevolution.png"
       },
       {
         "name": "Evolution Complete",
         "desc": "Monstrosity gains the ability to Deep Tunnel to any visible location on a 30 second cooldown.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_evolutioncomplete.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_evolvemonstrosity.png"
       },
       {
         "name": "Hivemind",
