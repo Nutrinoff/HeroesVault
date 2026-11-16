@@ -1,0 +1,23 @@
+{
+  "id": "gardenofterror",
+  "name": "Garden of Terror",
+  "theme": "Gather Seeds from awakened Shamblers to summon Garden Terrors down all three lanes.",
+  "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/ui_ingame_mapmechanic_loadscreen_gardenofterror.png",
+  "mechanic": {
+    "title": "Seed Gathering & Triple Garden Terrors",
+    "description": "Overgrown Shambler Seeds activate periodically across the map (first warning at 1:45, spawns at 2:15; 2:00 cooldown after a Terror push ends). Teams channel the Seed for 6 seconds, spawning waves of Shamblers that must be defeated to claim the Seed. Collecting 3 Seeds unleashes a Garden Terror down every lane simultaneously, disabling enemy buildings and casting Polymorph zones."
+  },
+  "camps": [
+    {
+      "name": "Siege Giants (2 Camps)",
+      "timing": "Spawns at 1:00 (3:00 respawn)",
+      "notes": "Located near top-left and bottom-right. Throws rocks from safe range; ideal to capture right before Seed spawns."
+    },
+    {
+      "name": "Bruisers / Knights (2 Camps)",
+      "timing": "Spawns at 1:00 (4:00 respawn)",
+      "notes": "Located in the upper-mid and lower-mid pathways. High durability with a spell armor aura; creates strong mid/side lane pressure."
+    }
+  ],
+  "strategy": "Garden of Terror plays similarly to Cursed Hollow and Tomb of the Spider Queen in macro rhythm—there is no Boss camp, and teams build toward a 3-Seed power spike that pushes all three lanes at once. Prioritize strong waveclear and camp-clearing heroes (like Greymane, Sylvanas, or Jaina) so you can push alongside your strongest Garden Terror lane and dismantle Keeps rapidly while the enemy team struggles to defend all three fronts."
+}
