@@ -385,8 +385,7 @@ function populateMapsDropdown() {
         // Render sorted camp stack
         const campStack = document.getElementById("map-camps-stack");
         campStack.innerHTML = "";
-        const sortedCamps = sortCamps(mapData.camps);
-        sortedCamps.forEach(camp => {
+        (mapData.camps || []).forEach(camp => {
           const campBox = document.createElement("div");
           campBox.className = "bg-slate-950/70 border border-slate-800 rounded-xl p-3.5 space-y-1.5 shadow-sm";
           campBox.innerHTML = `
