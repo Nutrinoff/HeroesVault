@@ -549,64 +549,76 @@
       document.getElementById("hero-count").innerText = `${heroes.length} Heroes`;
     }
 
-    async function selectHero(heroId, updateUrl = true) {
-      currentSelectedHeroId = heroId;
-      currentBuildIndex = 0;
-      renderHeroSidebar(MASTER_HERO_LIST);
-      switchTabUI('heroes');
+// --- FULL HERO LOADER FROM MASTER JSON ---
+async function selectHero(heroId, updateUrl = true) {
+  currentSelectedHeroId = heroId;
+  currentBuildIndex = 0;
+  renderHeroSidebar(MASTER_HERO_LIST);
+  switchTabUI('heroes');
 
-      if (updateUrl) {
-        navigateTo('heroes', { hero: heroId });
-      }
+  if (updateUrl) {
+    navigateTo('heroes', { hero: heroId });
+  }
 
-      try {
-        const heroRaw = HOTS_MASTER_DATA[heroId] || HOTS_MASTER_DATA[Object.keys(HOTS_MASTER_DATA).find(k => k.toLowerCase() === heroId.toLowerCase())];
-        if (!heroRaw) throw new Error(`Could not find data for ${heroId}`);
+  try {
+    const heroRaw = HOTS_MASTER_DATA[heroId];
+    if (!heroRaw) throw new Error(`Could not find data for ${heroId}`);
 
-        // Extract abilities array from master schema categories
-        let flattenedAbilities = [];
-        if (heroRaw.abilities) {
-          ['Basic', 'Heroic', 'Trait', 'Mount', 'Hearth'].forEach(cat => {
-            if (heroRaw.abilities[cat]) {
-              heroRaw.abilities[cat].forEach(ab => {
-                flattenedAbilities.push({
-                  key: ab.abilityType || cat,
-                  name: ab.name,
-                  icon: ab.icon,
-                  desc: ab.fullText || ab.shortText,
-                  cooldown: ab.cooldownText
-                });
-              });
-            }
-          });
-        }
+    // 1. Grab portrait from the hero's nested portraits object
+    const portraitPath = (heroRaw.portraits && (heroRaw.portraits.heroSelect || heroRaw.portraits.leaderboard || heroRaw.portraits.target)) || '';
 
-        const portraitPath = (heroRaw.portraits && (heroRaw.portraits.leaderboard || heroRaw.portraits.heroSelect || heroRaw.portraits.target)) || '';
+    // 2. Map talents directly from heroRaw.talents (which has keys "1", "4", "7", "10", "13", "16", "20")
+    // Your parser keeps talents structured by level strings.
+    
+    currentHeroData = {
+      id: heroId,
+      name: heroRaw.name,
+      title: heroRaw.title,
+      role: (heroRaw.roles && heroRaw.roles[0]) || heroRaw.expandedRole || "Nexus Combatant",
+      portrait: portraitPath,
+      description: heroRaw.description,
+      abilities: heroRaw.abilities, // Full nested ability categories from parser
+      talents: heroRaw.talents     // Full talent trees (Level 1 to 20)
+    };
 
-        currentHeroData = {
-          id: heroId,
-          name: heroRaw.name,
-          title: heroRaw.title,
-          role: (heroRaw.roles && heroRaw.roles[0]) || heroRaw.expandedRole || "Nexus Combatant",
-          portrait: portraitPath,
-          description: heroRaw.description,
-          abilities: flattenedAbilities,
-          talents: heroRaw.talents
-        };
+    // Update Header UI
+    document.getElementById("detail-portrait").src = getAssetUrl(currentHeroData.portrait);
+    document.getElementById("detail-name").innerText = currentHeroData.name;
+    document.getElementById("detail-role").innerText = currentHeroData.role;
+    document.getElementById("detail-title").innerText = currentHeroData.title || "Nexus Combatant";
+    
+    // Render builds and active talent strip
+    renderActiveBuild();
+  } catch (err) {
+    console.error(err);
+    document.getElementById("detail-name").innerText = "Error Loading Hero";
+    document.getElementById("detail-notes").innerHTML = `<span class="text-red-400">Could not parse data for ${heroId}</span>`;
+    document.getElementById("build-strip").innerHTML = "";
+  }
+}
 
-        document.getElementById("detail-portrait").src = getAssetUrl(currentHeroData.portrait);
-        document.getElementById("detail-name").innerText = currentHeroData.name;
-        document.getElementById("detail-role").innerText = currentHeroData.role;
-        document.getElementById("detail-title").innerText = currentHeroData.title || "Nexus Combatant";
-        
-        renderActiveBuild();
-      } catch (err) {
-        console.error(err);
-        document.getElementById("detail-name").innerText = "Error Loading Hero";
-        document.getElementById("detail-notes").innerHTML = `<span class="text-red-400">Could not parse data for ${heroId}</span>`;
-        document.getElementById("build-strip").innerHTML = "";
-      }
+// --- INTELLIGENT ASSET URL RESOLVER ---
+const REPO_BASE = "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/";
+
+function getAssetUrl(assetPath) {
+  if (!assetPath) return '';
+  if (assetPath.startsWith('http')) return assetPath;
+  
+  // Clean up any redundant prefix
+  let clean = assetPath.replace(/^(\/?images\/)?/, '');
+  
+  // If the path from the parser doesn't include a folder structure, 
+  // place it into the correct GitHub repo subfolder based on naming conventions
+  if (!clean.includes('/')) {
+    if (clean.includes('talent') || clean.startsWith('storm_ui_icon')) {
+      clean = `abilitytalents/${clean}`;
+    } else if (clean.includes('hero') || clean.includes('portrait') || clean.startsWith('ui_') || clean.startsWith('storm_ui_ingame')) {
+      clean = `heroportraits/${clean}`;
     }
+  }
+
+  return `${REPO_BASE}${clean}`;
+}
 
     async function selectMap(mapId, updateUrl = true) {
       document.getElementById('maps-dropdown-menu').classList.add('hidden');
