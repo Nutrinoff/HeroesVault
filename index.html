@@ -142,7 +142,6 @@
       <!-- MAP VIEW -->
       <div id="view-map" class="space-y-6 hidden">
         <div class="relative rounded-2xl overflow-hidden border border-slate-800 shadow-md">
-          <!-- Increased height to h-72 md:h-96 and added object-top to anchor to the top edge -->
           <img id="map-portrait" src="" onerror="this.src='https://via.placeholder.com/1200x500?text=Map+Loading+Screen'" alt="Map Banner" class="w-full h-72 md:h-96 object-cover object-top filter brightness-85" />
           <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent flex items-end p-6">
             <div>
@@ -153,43 +152,58 @@
           </div>
         </div>
 
-        <!-- MECHANIC & STRATEGY -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-3">
-            <h3 class="text-md font-bold text-amber-400 flex items-center gap-2 border-b border-slate-800 pb-3">
-              <i data-lucide="target" class="w-4 h-4"></i> Map Objective
-            </h3>
-            <div id="map-mechanic" class="text-sm text-slate-300 leading-relaxed">Loading mechanics...</div>
-          </div>
+        <!-- TWO COLUMN LAYOUT: MAIN CONTENT + SIDEBAR CAMPS -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          
+          <!-- LEFT 2 COLS: OBJECTIVE, STRATEGY, NOTES, GOLDEN HEROES -->
+          <div class="lg:col-span-2 space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-3">
+                <h3 class="text-md font-bold text-amber-400 flex items-center gap-2 border-b border-slate-800 pb-3">
+                  <i data-lucide="target" class="w-4 h-4"></i> Map Objective
+                </h3>
+                <div id="map-mechanic" class="text-sm text-slate-300 leading-relaxed">Loading mechanics...</div>
+              </div>
 
-          <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-3">
-            <h3 class="text-md font-bold text-sky-400 flex items-center gap-2 border-b border-slate-800 pb-3">
-              <i data-lucide="compass" class="w-4 h-4"></i> Strategic Overview
-            </h3>
-            <div id="map-strategy" class="text-sm text-slate-300 leading-relaxed">Loading strategy...</div>
-          </div>
-        </div>
+              <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-3">
+                <h3 class="text-md font-bold text-sky-400 flex items-center gap-2 border-b border-slate-800 pb-3">
+                  <i data-lucide="compass" class="w-4 h-4"></i> Strategic Overview
+                </h3>
+                <div id="map-strategy" class="text-sm text-slate-300 leading-relaxed">Loading strategy...</div>
+              </div>
+            </div>
 
-        <!-- MERCENARY CAMPS TABLE -->
-        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-4">
-          <h3 class="text-md font-bold text-emerald-400 flex items-center gap-2 border-b border-slate-800 pb-3">
-            <i data-lucide="shield-alert" class="w-4 h-4"></i> Mercenary Camps & Timers
-          </h3>
-          <div class="overflow-x-auto">
-            <table class="w-full text-left text-sm text-slate-300">
-              <thead class="bg-slate-950 text-xs uppercase text-slate-400 border-b border-slate-800">
-                <tr>
-                  <th class="px-4 py-3">Camp Type</th>
-                  <th class="px-4 py-3">Spawn Timing</th>
-                  <th class="px-4 py-3">Notes & Tips</th>
-                </tr>
-              </thead>
-              <tbody id="map-camps-table" class="divide-y divide-slate-800/60">
+            <!-- NOTES & TIPS BOX -->
+            <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-3">
+              <h3 class="text-md font-bold text-purple-400 flex items-center gap-2 border-b border-slate-800 pb-3">
+                <i data-lucide="info" class="w-4 h-4"></i> Good to Know & Tips
+              </h3>
+              <div id="map-notes" class="text-sm text-slate-300 leading-relaxed">No special notes recorded for this map.</div>
+            </div>
+
+            <!-- TOP 5 GOLDEN HEROES -->
+            <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-3">
+              <h3 class="text-md font-bold text-emerald-400 flex items-center gap-2 border-b border-slate-800 pb-3">
+                <i data-lucide="star" class="w-4 h-4"></i> Top 5 Golden Heroes
+              </h3>
+              <div id="map-heroes-list" class="grid grid-cols-2 sm:grid-cols-5 gap-3 pt-1">
                 <!-- Injected dynamically -->
-              </tbody>
-            </table>
+              </div>
+            </div>
           </div>
+
+          <!-- RIGHT 1 COL: VERTICALLY STACKED CAMP BOXES -->
+          <div class="space-y-4">
+            <h3 class="text-md font-bold text-emerald-400 flex items-center gap-2 pb-1 border-b border-slate-800">
+              <i data-lucide="shield-alert" class="w-4 h-4"></i> Mercenary Camps
+            </h3>
+            <div id="map-camps-stack" class="space-y-3">
+              <!-- Injected dynamically -->
+            </div>
+          </div>
+
         </div>
+
       </div>
 
       <!-- TIER LIST VIEW -->
@@ -318,27 +332,41 @@
       }
     }
 
+    function sortCamps(camps) {
+      if (!camps) return [];
+      // Order priority: Giant, Merc/Bruiser, Boss, Doubloons / Special variants
+      return [...camps].sort((a, b) => {
+        const getPriority = (name) => {
+          const n = name.toLowerCase();
+          if (n.includes('giant')) return 1;
+          if (n.includes('bruiser') || n.includes('knight') || n.includes('mercenary') || n.includes('firebat') || n.includes('gnoll') || n.includes('turret') || n.includes('sapper') || n.includes('goliath')) return 2;
+          if (n.includes('boss') || n.includes('horseman') || n.includes('golem') || n.includes('samurai')) return 3;
+          return 4; // doubloons, vision, watchtowers, etc.
+        };
+        return getPriority(a.name) - getPriority(b.name);
+      });
+    }
+
     async function selectMap(mapId) {
       document.getElementById('maps-dropdown-menu').classList.add('hidden');
       switchTab('map');
 
-      // Find basic info from master list first as an instant fallback
       const masterMap = MASTER_MAP_LIST.find(m => m.id === mapId) || { name: mapId, theme: "Battleground strategy", portrait: "" };
       
-      // Set baseline values immediately so the title and portrait show up right away
       document.getElementById("map-portrait").src = masterMap.portrait;
       document.getElementById("map-name").innerText = masterMap.name;
       document.getElementById("map-theme").innerText = masterMap.theme;
       document.getElementById("map-mechanic").innerHTML = `<strong class="text-white block mb-1">Objective details coming soon</strong> Detailed mechanics for this battleground are being added to the database.`;
       document.getElementById("map-strategy").innerText = "Strategy guide and team composition notes will be populated here.";
-      document.getElementById("map-camps-table").innerHTML = `<tr><td colspan="3" class="px-4 py-4 text-center text-slate-500 italic">Mercenary camp timings are being compiled.</td></tr>`;
+      document.getElementById("map-notes").innerText = "No special notes recorded for this map.";
+      document.getElementById("map-camps-stack").innerHTML = `<div class="p-3 text-xs text-slate-500 italic bg-slate-950/40 rounded-xl border border-slate-800">Camp timings loading...</div>`;
+      document.getElementById("map-heroes-list").innerHTML = `<div class="col-span-full text-xs text-slate-500 italic">No golden heroes configured.</div>`;
 
       try {
         const res = await fetch(`./data/maps/${mapId}.json`);
-        if (!res.ok) return; // If file doesn't exist yet, gracefully keep our master list fallback UI!
+        if (!res.ok) return; 
         const mapData = await res.json();
 
-        // If the individual file exists, override with full detailed data
         document.getElementById("map-portrait").src = mapData.portrait || masterMap.portrait;
         document.getElementById("map-name").innerText = mapData.name;
         document.getElementById("map-theme").innerText = mapData.theme;
@@ -348,21 +376,48 @@
           ${mapData.mechanic.description}
         `;
         document.getElementById("map-strategy").innerText = mapData.strategy;
+        document.getElementById("map-notes").innerText = mapData.notes || "No special notes recorded for this map.";
 
-        const campTbl = document.getElementById("map-camps-table");
-        campTbl.innerHTML = "";
-        mapData.camps.forEach(camp => {
-          const row = document.createElement("tr");
-          row.className = "hover:bg-slate-950/40";
-          row.innerHTML = `
-            <td class="px-4 py-3 font-semibold text-white">${camp.name}</td>
-            <td class="px-4 py-3 font-mono text-amber-400">${camp.timing}</td>
-            <td class="px-4 py-3 text-slate-400">${camp.notes}</td>
+        // Render sorted camp stack
+        const campStack = document.getElementById("map-camps-stack");
+        campStack.innerHTML = "";
+        const sortedCamps = sortCamps(mapData.camps);
+        sortedCamps.forEach(camp => {
+          const campBox = document.createElement("div");
+          campBox.className = "bg-slate-950/70 border border-slate-800 rounded-xl p-3.5 space-y-1.5 shadow-sm";
+          campBox.innerHTML = `
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-white">${camp.name}</span>
+              <span class="text-[11px] font-mono font-semibold text-amber-400 bg-amber-400/10 px-2 py-0.5 rounded">${camp.timing}</span>
+            </div>
+            <p class="text-[11px] text-slate-400 leading-tight">${camp.notes}</p>
           `;
-          campTbl.appendChild(row);
+          campStack.appendChild(campBox);
         });
+
+        // Render Top 5 Golden Heroes
+        const heroesContainer = document.getElementById("map-heroes-list");
+        heroesContainer.innerHTML = "";
+        const goldenHeroIds = mapData.goldenHeroes || [];
+        
+        if (goldenHeroIds.length === 0) {
+          heroesContainer.innerHTML = `<div class="col-span-full text-xs text-slate-500 italic">No golden heroes configured for this map yet.</div>`;
+        } else {
+          goldenHeroIds.forEach(hId => {
+            const heroObj = MASTER_HERO_LIST.find(h => h.id === hId) || { name: hId, portrait: 'https://via.placeholder.com/50?text=H' };
+            const heroEl = document.createElement("div");
+            heroEl.className = "flex flex-col items-center bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-center cursor-pointer hover:border-sky-500 transition-all";
+            heroEl.onclick = () => { switchTab('heroes'); selectHero(heroObj.id); };
+            heroEl.innerHTML = `
+              <img src="${heroObj.portrait}" onerror="this.src='https://via.placeholder.com/48?text=H'" class="w-12 h-12 rounded-lg border border-slate-700 object-cover bg-slate-900 mb-2 shadow-inner" />
+              <span class="text-[11px] font-bold text-slate-200 truncate w-full" title="${heroObj.name}">${heroObj.name}</span>
+            `;
+            heroesContainer.appendChild(heroEl);
+          });
+        }
+
       } catch (err) {
-        console.warn(`Individual detail file for ${mapId} not found yet. Using master fallback.`);
+        console.warn(`Individual detail file for ${mapId} not found yet.`);
       }
     }
 
@@ -452,7 +507,6 @@
       document.getElementById("view-map").classList.toggle("hidden", !isMap);
       document.getElementById("view-tierlist").classList.toggle("hidden", !isTierList);
       
-      // Sidebar shows ONLY on heroes view
       document.getElementById("sidebar-container").classList.toggle("hidden", !isHeroes);
 
       document.getElementById("nav-heroes").className = isHeroes 
