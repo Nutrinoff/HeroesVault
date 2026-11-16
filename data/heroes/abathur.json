@@ -53,12 +53,12 @@
       {
         "name": "Envenomed Nest",
         "desc": "Toxic Nests deal 75% more damage over 3 seconds and reduce enemy Hero Armor by 15 for 4 seconds.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_envenomednest.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_toxicnest.png"
       },
       {
         "name": "Reinforced Carapace",
         "desc": "Increases the Shield amount of Symbiote's Carapace by 40%.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_reinforcedcarapace.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_carapace.png"
       },
       {
         "name": "Locust Brood",
@@ -70,7 +70,7 @@
       {
         "name": "Adrenal Overload",
         "desc": "Symbiote host gains 25% increased Attack Speed.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_adrenaloverload.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_symbiote.png"
       },
       {
         "name": "Needlespine",
@@ -80,7 +80,7 @@
       {
         "name": "Prolific Dispersal",
         "desc": "Increases Toxic Nest duration by 45 seconds, reduces cooldown by 2 seconds, and adds 2 additional charges.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_prolificdispersal.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_toxicnest.png"
       },
       {
         "name": "Slapathur",
@@ -92,12 +92,12 @@
       {
         "name": "Vile Nest",
         "desc": "Toxic Nests Slow enemy Movement Speed by 40% for 2.5 seconds.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_vilenest.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_toxicnest.png"
       },
       {
         "name": "Networked Carapace",
         "desc": "Using Symbiote's Carapace also applies an untalented Shield to all nearby allied Heroes, Minions, and Mercenaries.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_networkedcarapace.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_carapace.png"
       },
       {
         "name": "Calldown: MULE",
@@ -143,7 +143,7 @@
       {
         "name": "Adrenaline Boost",
         "desc": "Symbiote's Carapace increases the Movement Speed of the target by 40% for 3.5 seconds.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_adrenalineboost.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_carapace.png"
       },
       {
         "name": "Volatile Mutation",
@@ -170,7 +170,7 @@
       {
         "name": "Hivemind",
         "desc": "Symbiote automatically targets a second nearby allied Hero.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_hiveminded.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_symbiote.png"
       },
       {
         "name": "Locust Nest",
