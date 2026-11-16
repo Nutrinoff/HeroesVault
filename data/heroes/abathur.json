@@ -5,6 +5,44 @@
   "role": "Support",
   "tier": "S",
   "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/heroportraits/storm_ui_glues_draft_portrait_abathur.png",
+  "abilities": [
+    {
+      "key": "Q",
+      "name": "Symbiote",
+      "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_symbiote.png",
+      "desc": "Spawn a Symbiote on an allied Minion, Mercenary, or Hero, gaining control of its abilities."
+    },
+    {
+      "key": "W",
+      "name": "Toxic Nest",
+      "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_toxicnest.png",
+      "desc": "Plant a hidden Toxic Nest that arms after a few seconds and deals damage upon detonating."
+    },
+    {
+      "key": "E",
+      "name": "Carapace",
+      "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_carapace.png",
+      "desc": "Shield target allied unit, absorbing damage."
+    },
+    {
+      "key": "D",
+      "name": "Deep Tunnel",
+      "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_deeptunnel.png",
+      "desc": "Burrow to any visible location on the battleground after a 2-second channel."
+    },
+    {
+      "key": "R",
+      "name": "Ultimate Evolution",
+      "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_ultimateevolution.png",
+      "desc": "Clone target allied Hero, granting enhanced stats for 20 seconds."
+    },
+    {
+      "key": "Trait",
+      "name": "Locust Strain",
+      "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_locuststrain.png",
+      "desc": "Periodically spawn a Locust that advances down the nearest lane."
+    }
+  ],
   "talents": {
     "1": [
       {
