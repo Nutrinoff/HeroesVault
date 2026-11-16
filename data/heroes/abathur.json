@@ -84,7 +84,7 @@
       },
       {
         "name": "Slapathur",
-        "desc": "Abathur's Basic Attacks deal 350% additional damage and Stun non-Elite enemies and disable Structures for 1.5 seconds (6s cooldown per target).",
+        "desc": "Abathur's Basic Attacks deal 350% additional damage and Stun non-Elite enemies and disable Structures for 1.5 seconds.",
         "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_slapathur.png"
       }
     ],
