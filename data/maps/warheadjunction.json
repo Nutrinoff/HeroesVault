@@ -1,0 +1,28 @@
+{
+  "id": "warheadjunction",
+  "name": "Warhead Junction",
+  "theme": "StarCraft Nuke Launchers",
+  "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/storm_ui_homescreenbackground_warhead.png",
+  "mechanic": {
+    "title": "Nuclear Warheads",
+    "description": "Nuclear Warheads spawn periodically across the battleground (first warning at 2:30, spawns at 3:00; 2 to 4 Warheads per phase, with a 2:30 cooldown after the last Warhead is collected). Heroes channel a Warhead for 2.5 seconds to pick it up (dropped upon death), granting a special ability to call down a tactical nuke anywhere on the map after a brief delay—dealing massive structure damage with bonus devastation in the direct center."
+  },
+  "camps": [
+    {
+      "name": "Hellbat / Bruiser Camps (2 Camps)",
+      "timing": "Spawns at 1:00 (4:00 respawn)",
+      "notes": "Located in the upper-mid and lower-mid areas. Hellbats breathe cone-shaped fire that shreds minion waves and reduces enemy armor."
+    },
+    {
+      "name": "Goliath / Raven Siege Camps (2 Camps)",
+      "timing": "Spawns at 1:00 (3:00 respawn)",
+      "notes": "Located in the outer top and bottom jungle paths. Features ranged Goliaths paired with a Raven that launches seeker missiles at structures."
+    },
+    {
+      "name": "Swarm Host Bosses (2 Camps)",
+      "timing": "Spawns at 5:00 (5:00 respawn)",
+      "notes": "Located in the top-center and bottom-center pits. Spawns waves of Locusts and drops toxic pods; secures massive late-game lane pressure."
+    }
+  ],
+  "strategy": "Warhead Junction is the largest three-lane map in the game and includes underground sewer portals connecting top and bottom lanes for rapid cross-map flanks. Global heroes (Falstad, Dehaka, Brightwing, Stage Dive E.T.C.) and strong split-pushers or duelist bruisers dominate due to the vast distances between lanes and simultaneous Warhead spawns. Coordinate multiple Warheads on a single Keep or the Core to close out games rapidly, and keep an eye on the sewer tunnels to avoid surprise ambushes while rotating."
+}
