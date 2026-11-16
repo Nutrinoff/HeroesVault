@@ -20,7 +20,7 @@
   <header class="bg-slate-900/90 border-b border-slate-800 backdrop-blur-md sticky top-0 z-50">
     <div class="max-w-[1600px] mx-auto px-6 py-3 flex flex-col items-center">
       
-      <div class="flex items-center gap-3 mb-3 cursor-pointer" onclick="switchTab('heroes')">
+      <div class="flex items-center gap-3 mb-3 cursor-pointer" onclick="navigateTo('heroes')">
         <div class="relative flex items-center justify-center">
           <div class="absolute inset-0 bg-sky-500/20 blur-md rounded-full"></div>
           <svg class="w-9 h-9 text-sky-400 relative z-10 filter drop-shadow-[0_0_8px_rgba(56,189,248,0.8)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -38,14 +38,14 @@
 
       <!-- Navigation Bar -->
       <nav class="flex items-center gap-2 bg-slate-950/80 p-1.5 rounded-xl border border-slate-800/80 shadow-inner relative">
-        <button id="nav-heroes" onclick="switchTab('heroes')" 
-          class="px-5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 bg-sky-500/20 text-sky-300 border border-sky-500/40 shadow-sm">
+        <button id="nav-heroes" onclick="navigateTo('heroes')" 
+          class="px-5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800">
           <i data-lucide="shield" class="w-4 h-4"></i> Heroes
         </button>
 
         <!-- Maps Dropdown -->
         <div class="relative">
-          <button onclick="toggleMapsDropdown(event)" 
+          <button id="nav-map-btn" onclick="toggleMapsDropdown(event)" 
             class="px-5 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-all flex items-center gap-2">
             <i data-lucide="map" class="w-4 h-4"></i> Maps
             <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400"></i>
@@ -53,12 +53,17 @@
           
           <div id="maps-dropdown-menu" class="absolute left-0 mt-2 w-56 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl py-2 hidden z-50 backdrop-blur-xl">
             <div class="px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-500">Battlegrounds</div>
-            <!-- Populated dynamically via JS from data/maps.json -->
+            <!-- Populated dynamically -->
           </div>
         </div>
 
-        <button id="nav-tierlist" onclick="switchTab('tierlist')" 
-          class="px-5 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-all flex items-center gap-2">
+        <button id="nav-builder" onclick="navigateTo('builder')" 
+          class="px-5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800">
+          <i data-lucide="cpu" class="w-4 h-4"></i> Talent Builder
+        </button>
+
+        <button id="nav-tierlist" onclick="navigateTo('tierlist')" 
+          class="px-5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800">
           <i data-lucide="layers" class="w-4 h-4"></i> Tier List
         </button>
       </nav>
@@ -89,7 +94,7 @@
     <main class="flex-1 bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 flex flex-col shadow-lg relative">
       
       <!-- HERO VIEW -->
-      <div id="view-heroes" class="space-y-6">
+      <div id="view-heroes" class="space-y-6 hidden">
         <div class="flex items-center justify-between bg-slate-900/80 border border-slate-800 p-5 rounded-2xl shadow-md">
           <div class="flex items-center gap-4">
             <img id="detail-portrait" src="" onerror="this.src='https://via.placeholder.com/80?text=Hero'" alt="Portrait" class="w-20 h-20 rounded-2xl border-2 border-purple-500/80 object-cover bg-slate-950" />
@@ -101,6 +106,9 @@
               <p id="detail-title" class="text-xs text-slate-400 mt-0.5">Title</p>
             </div>
           </div>
+          <button onclick="openInBuilder()" class="text-xs bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 px-4 py-2 rounded-xl border border-sky-500/40 flex items-center gap-2 font-semibold transition-all">
+            <i data-lucide="edit-3" class="w-4 h-4"></i> Open in Talent Builder
+          </button>
         </div>
 
         <!-- BUILD TABS -->
@@ -211,6 +219,50 @@
 
       </div>
 
+      <!-- TALENT BUILDER VIEW -->
+      <div id="view-builder" class="space-y-6 hidden">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-slate-900/80 border border-slate-800 p-5 rounded-2xl shadow-md">
+          <div class="flex items-center gap-4">
+            <img id="builder-portrait" src="" onerror="this.src='https://via.placeholder.com/64?text=Hero'" alt="Portrait" class="w-16 h-16 rounded-2xl border-2 border-sky-500/80 object-cover bg-slate-950" />
+            <div>
+              <h2 class="text-xl font-bold text-white">Custom Talent Builder</h2>
+              <p class="text-xs text-slate-400 mt-0.5">Select a hero and pick your talents tier-by-tier to generate shareable build strings.</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 w-full sm:w-auto">
+            <select id="builder-hero-select" onchange="onBuilderHeroChange(this.value)" class="bg-slate-950 border border-slate-700 text-slate-200 text-sm rounded-xl px-4 py-2.5 focus:outline-none focus:border-sky-500 w-full sm:w-64">
+              <!-- Populated via JS -->
+            </select>
+          </div>
+        </div>
+
+        <!-- LIVE BUILD STRING BAR -->
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-slate-900/80 border border-slate-800 p-5 rounded-2xl">
+          <div>
+            <span class="text-xs text-slate-400 font-medium block">Shareable Build String & URL Code:</span>
+            <code id="builder-string-code" class="text-sm bg-slate-950 px-3 py-1.5 rounded-lg text-emerald-400 border border-emerald-500/30 font-mono mt-1 inline-block">[T0000000,Hero]</code>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="copyBuilderString()" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 px-4 py-2.5 rounded-xl border border-slate-600 flex items-center gap-1.5 font-semibold transition-all">
+              <i data-lucide="copy" class="w-4 h-4"></i> Copy String
+            </button>
+            <button onclick="copyBuilderShareUrl()" class="text-xs bg-sky-600/20 hover:bg-sky-600/30 text-sky-300 px-4 py-2.5 rounded-xl border border-sky-500/40 flex items-center gap-1.5 font-semibold transition-all">
+              <i data-lucide="share-2" class="w-4 h-4"></i> Copy Shareable URL
+            </button>
+          </div>
+        </div>
+
+        <!-- 7-TIER INTERACTIVE GRID -->
+        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 space-y-6">
+          <h3 class="text-md font-bold text-sky-400 flex items-center gap-2 border-b border-slate-800 pb-3">
+            <i data-lucide="cpu" class="w-4 h-4"></i> Talent Matrix
+          </h3>
+          <div id="builder-matrix" class="space-y-4">
+            <!-- Populated dynamically per level tier -->
+          </div>
+        </div>
+      </div>
+
       <!-- TIER LIST VIEW -->
       <div id="view-tierlist" class="space-y-4 hidden">
         <div class="flex items-center justify-between border-b border-slate-800 pb-4">
@@ -240,6 +292,11 @@
     let currentHeroData = null; 
     let currentBuildIndex = 0;
 
+    // Builder State
+    let builderHeroId = null;
+    let builderHeroData = null;
+    let builderSelectedTalents = [1, 1, 1, 1, 1, 1, 1]; // Level index choices 1-based
+
     const CDN_BASE = "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/talents/";
 
     document.addEventListener("DOMContentLoaded", async () => {
@@ -255,27 +312,122 @@
         if (mapsRes.ok) {
           MASTER_MAP_LIST = await mapsRes.json();
           populateMapsDropdown();
+          populateBuilderHeroSelect();
         }
       } catch (err) {
         console.error("Failed loading local JSON files:", err);
       }
 
       renderHeroSidebar(MASTER_HERO_LIST);
-      if (MASTER_HERO_LIST.length > 0) {
-        selectHero(MASTER_HERO_LIST[0].id);
-      } else {
-        document.getElementById("hero-list").innerHTML = `<p class="text-xs text-red-400 p-3">Failed to load heroes index.</p>`;
-      }
       renderTierList();
       if (window.lucide) lucide.createIcons();
 
+      // Parse URL on load
+      handleRoute();
+
+      window.addEventListener('popstate', () => {
+        handleRoute();
+      });
+
       window.onclick = function(event) {
         if (!event.target.closest('.relative')) {
-          document.getElementById('maps-dropdown-menu').classList.add('hidden');
+          const dropdown = document.getElementById('maps-dropdown-menu');
+          if (dropdown) dropdown.classList.add('hidden');
         }
       }
     });
 
+    // --- URL ROUTING & NAVIGATION ENGINE ---
+    function navigateTo(tab, params = {}, push = true) {
+      let url = `#${tab}`;
+      const searchParams = new URLSearchParams();
+      
+      for (const [key, val] of Object.entries(params)) {
+        if (val) searchParams.set(key, val);
+      }
+      
+      const searchStr = searchParams.toString();
+      if (searchStr) url += `?${searchStr}`;
+
+      if (push) {
+        history.pushState({ tab, params }, '', url);
+      }
+      
+      dispatchRoute(tab, params);
+    }
+
+    function handleRoute() {
+      const hash = window.location.hash.replace('#', '') || 'heroes';
+      const [tabPart, queryPart] = hash.split('?');
+      const params = new URLSearchParams(queryPart || '');
+      
+      const tab = tabPart.split('/')[0] || 'heroes';
+      
+      if (tab === 'heroes') {
+        const heroId = params.get('hero') || (MASTER_HERO_LIST.length > 0 ? MASTER_HERO_LIST[0].id : null);
+        if (heroId) selectHero(heroId, false);
+      } else if (tab === 'map') {
+        const mapId = params.get('id') || (MASTER_MAP_LIST.length > 0 ? MASTER_MAP_LIST[0].id : 'alteracpass');
+        selectMap(mapId, false);
+      } else if (tab === 'builder') {
+        const heroId = params.get('hero') || (MASTER_HERO_LIST.length > 0 ? MASTER_HERO_LIST[0].id : null);
+        const buildStr = params.get('build');
+        let selections = null;
+        if (buildStr && buildStr.match(/^\d{7}$/)) {
+          selections = buildStr.split('').map(Number);
+        }
+        openBuilder(heroId, selections, false);
+      } else if (tab === 'tierlist') {
+        switchTabUI('tierlist', false);
+      } else {
+        navigateTo('heroes', {}, false);
+      }
+    }
+
+    function dispatchRoute(tab, params) {
+      if (tab === 'heroes') {
+        const heroId = params.hero || currentSelectedHeroId || (MASTER_HERO_LIST[0] ? MASTER_HERO_LIST[0].id : null);
+        if (heroId) selectHero(heroId, false);
+      } else if (tab === 'map') {
+        const mapId = params.id || 'alteracpass';
+        selectMap(mapId, false);
+      } else if (tab === 'builder') {
+        openBuilder(params.hero, params.build ? params.build.split('').map(Number) : null, false);
+      } else if (tab === 'tierlist') {
+        switchTabUI('tierlist', false);
+      }
+    }
+
+    function switchTabUI(tab, updateUrl = true) {
+      const isHeroes = tab === 'heroes';
+      const isMap = tab === 'map';
+      const isBuilder = tab === 'builder';
+      const isTierList = tab === 'tierlist';
+
+      document.getElementById("view-heroes").classList.toggle("hidden", !isHeroes);
+      document.getElementById("view-map").classList.toggle("hidden", !isMap);
+      document.getElementById("view-builder").classList.toggle("hidden", !isBuilder);
+      document.getElementById("view-tierlist").classList.toggle("hidden", !isTierList);
+      
+      document.getElementById("sidebar-container").classList.toggle("hidden", !isHeroes);
+
+      // Highlight active nav buttons
+      setActiveNav("nav-heroes", isHeroes);
+      setActiveNav("nav-builder", isBuilder);
+      setActiveNav("nav-tierlist", isTierList);
+    }
+
+    function setActiveNav(id, active) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (active) {
+        el.className = "px-5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 bg-sky-500/20 text-sky-300 border border-sky-500/40 shadow-sm";
+      } else {
+        el.className = "px-5 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-all flex items-center gap-2";
+      }
+    }
+
+    // --- MAPS DROPDOWN ---
     function toggleMapsDropdown(e) {
       e.stopPropagation();
       document.getElementById('maps-dropdown-menu').classList.toggle('hidden');
@@ -284,23 +436,22 @@
     function populateMapsDropdown() {
       const menu = document.getElementById('maps-dropdown-menu');
       let html = `<div class="px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-500">Battlegrounds</div>`;
-      
-      // Sort the maps alphabetically by their display name
       const sortedMaps = [...MASTER_MAP_LIST].sort((a, b) => a.name.localeCompare(b.name));
       
       sortedMaps.forEach(map => {
-        html += `<a href="#" onclick="selectMap('${map.id}'); return false;" class="block px-4 py-2 text-sm text-slate-300 hover:bg-sky-500/10 hover:text-sky-300">${map.name}</a>`;
+        html += `<a href="#" onclick="navigateTo('map', { id: '${map.id}' }); return false;" class="block px-4 py-2 text-sm text-slate-300 hover:bg-sky-500/10 hover:text-sky-300">${map.name}</a>`;
       });
       menu.innerHTML = html;
     }
 
+    // --- HERO SIDEBAR & VIEW ---
     function renderHeroSidebar(heroes) {
       const listContainer = document.getElementById("hero-list");
       listContainer.innerHTML = "";
       heroes.forEach(hero => {
         const heroCard = document.createElement("div");
         heroCard.className = `flex items-center gap-3 p-2 rounded-xl cursor-pointer border transition-all ${currentSelectedHeroId === hero.id ? 'bg-sky-500/15 border-sky-500/70' : 'border-slate-800/60 bg-slate-900/50 hover:bg-slate-800/80'}`;
-        heroCard.onclick = () => { switchTab('heroes'); selectHero(hero.id); };
+        heroCard.onclick = () => { navigateTo('heroes', { hero: hero.id }); };
         heroCard.innerHTML = `
           <img src="${hero.portrait}" onerror="this.src='https://via.placeholder.com/40?text=H'" alt="${hero.name}" class="w-10 h-10 rounded-lg border border-slate-700 object-cover flex-shrink-0 bg-slate-950" />
           <div class="flex-1 min-w-0">
@@ -316,10 +467,15 @@
       document.getElementById("hero-count").innerText = `${heroes.length} Heroes`;
     }
 
-    async function selectHero(heroId) {
+    async function selectHero(heroId, updateUrl = true) {
       currentSelectedHeroId = heroId;
       currentBuildIndex = 0;
       renderHeroSidebar(MASTER_HERO_LIST);
+      switchTabUI('heroes');
+
+      if (updateUrl) {
+        navigateTo('heroes', { hero: heroId });
+      }
 
       try {
         const res = await fetch(`./data/heroes/${heroId}.json`);
@@ -341,9 +497,14 @@
       }
     }
 
-    async function selectMap(mapId) {
+    // --- MAP VIEW ---
+    async function selectMap(mapId, updateUrl = true) {
       document.getElementById('maps-dropdown-menu').classList.add('hidden');
-      switchTab('map');
+      switchTabUI('map');
+
+      if (updateUrl) {
+        navigateTo('map', { id: mapId });
+      }
 
       const masterMap = MASTER_MAP_LIST.find(m => m.id === mapId) || { name: mapId, theme: "Battleground strategy", portrait: "" };
       
@@ -372,7 +533,7 @@
         document.getElementById("map-strategy").innerText = mapData.strategy;
         document.getElementById("map-notes").innerText = mapData.notes || "No special notes recorded for this map.";
 
-        // Render camp stack manually following JSON order
+        // Render camp stack
         const campStack = document.getElementById("map-camps-stack");
         campStack.innerHTML = "";
         const campsList = mapData.camps || [];
@@ -389,7 +550,7 @@
           campStack.appendChild(campBox);
         });
 
-        // Render Top 5 Golden Heroes (Tight & Compact)
+        // Render Top 5 Golden Heroes
         const heroesContainer = document.getElementById("map-heroes-list");
         heroesContainer.innerHTML = "";
         const goldenHeroIds = mapData.goldenHeroes || [];
@@ -401,7 +562,7 @@
             const heroObj = MASTER_HERO_LIST.find(h => h.id === hId) || { name: hId, portrait: 'https://via.placeholder.com/40?text=H' };
             const heroEl = document.createElement("div");
             heroEl.className = "flex flex-col items-center bg-slate-950 border border-slate-800 rounded-xl p-2 text-center cursor-pointer hover:border-sky-500 transition-all";
-            heroEl.onclick = () => { switchTab('heroes'); selectHero(heroObj.id); };
+            heroEl.onclick = () => { navigateTo('heroes', { hero: heroObj.id }); };
             heroEl.innerHTML = `
               <img src="${heroObj.portrait}" onerror="this.src='https://via.placeholder.com/40?text=H'" class="w-10 h-10 rounded-lg border border-slate-700 object-cover bg-slate-900 mb-1 shadow-inner" />
               <span class="text-[10px] font-bold text-slate-200 truncate w-full" title="${heroObj.name}">${heroObj.name}</span>
@@ -415,6 +576,146 @@
       }
     }
 
+    // --- TALENT BUILDER ---
+    function populateBuilderHeroSelect() {
+      const select = document.getElementById("builder-hero-select");
+      select.innerHTML = "";
+      MASTER_HERO_LIST.forEach(hero => {
+        const opt = document.createElement("option");
+        opt.value = hero.id;
+        opt.innerText = hero.name;
+        select.appendChild(opt);
+      });
+    }
+
+    async function openBuilder(heroId = null, initialSelections = null, updateUrl = true) {
+      switchTabUI('builder');
+      
+      if (!heroId && MASTER_HERO_LIST.length > 0) {
+        heroId = MASTER_HERO_LIST[0].id;
+      }
+      
+      builderHeroId = heroId;
+      document.getElementById("builder-hero-select").value = heroId;
+
+      if (initialSelections && initialSelections.length === 7) {
+        builderSelectedTalents = [...initialSelections];
+      } else {
+        builderSelectedTalents = [1, 1, 1, 1, 1, 1, 1];
+      }
+
+      try {
+        const res = await fetch(`./data/heroes/${heroId}.json`);
+        if (!res.ok) throw new Error(`Could not load hero for builder`);
+        builderHeroData = await res.json();
+
+        document.getElementById("builder-portrait").src = builderHeroData.portrait;
+        renderBuilderMatrix();
+        updateBuilderOutput(updateUrl);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    async function onBuilderHeroChange(heroId) {
+      builderHeroId = heroId;
+      builderSelectedTalents = [1, 1, 1, 1, 1, 1, 1];
+      try {
+        const res = await fetch(`./data/heroes/${heroId}.json`);
+        if (!res.ok) return;
+        builderHeroData = await res.json();
+        document.getElementById("builder-portrait").src = builderHeroData.portrait;
+        renderBuilderMatrix();
+        updateBuilderOutput(true);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    function renderBuilderMatrix() {
+      const matrixContainer = document.getElementById("builder-matrix");
+      matrixContainer.innerHTML = "";
+
+      if (!builderHeroData || !builderHeroData.talents) {
+        matrixContainer.innerHTML = `<p class="text-xs text-slate-500 italic">No talent data available.</p>`;
+        return;
+      }
+
+      const levels = ["1", "4", "7", "10", "13", "16", "20"];
+
+      levels.forEach((lvl, lvlIdx) => {
+        const tierTalents = builderHeroData.talents[lvl] || [];
+        const chosenIndex = builderSelectedTalents[lvlIdx] || 1;
+
+        const tierRow = document.createElement("div");
+        tierRow.className = "bg-slate-950 border border-slate-800 rounded-xl p-4 space-y-3";
+        
+        let talentsHtml = `<div class="flex items-center justify-between border-b border-slate-800/80 pb-2 mb-3">
+          <span class="text-xs font-bold font-mono text-sky-400 uppercase tracking-wider">Level ${lvl}</span>
+          <span class="text-[11px] text-slate-400">Select Talent</span>
+        </div><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">`;
+
+        tierTalents.forEach((talent, tIdx) => {
+          const talentNum = tIdx + 1;
+          const isSelected = chosenIndex === talentNum;
+          talentsHtml += `
+            <div onclick="selectBuilderTalent(${lvlIdx}, ${talentNum})" class="flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition-all ${isSelected ? 'bg-sky-500/20 border-sky-500/80 shadow-md ring-1 ring-sky-500/50' : 'bg-slate-900/60 border-slate-800 hover:border-slate-700 hover:bg-slate-900'}">
+              <img src="${getIconUrl(talent.icon)}" onerror="this.src='https://via.placeholder.com/40?text=?'" class="w-10 h-10 rounded-lg border border-slate-700 object-cover bg-slate-950 flex-shrink-0" />
+              <div class="min-w-0 flex-1">
+                <div class="flex items-center justify-between">
+                  <h4 class="text-xs font-bold text-white truncate">${talent.name}</h4>
+                  <span class="text-[10px] font-mono text-slate-500 ml-1">#${talentNum}</span>
+                </div>
+                <p class="text-[10px] text-slate-400 line-clamp-2 mt-0.5 leading-tight">${talent.desc}</p>
+              </div>
+            </div>
+          `;
+        });
+
+        talentsHtml += `</div>`;
+        tierRow.innerHTML = talentsHtml;
+        matrixContainer.appendChild(tierRow);
+      });
+    }
+
+    function selectBuilderTalent(levelIndex, talentNumber) {
+      builderSelectedTalents[levelIndex] = talentNumber;
+      renderBuilderMatrix();
+      updateBuilderOutput(true);
+    }
+
+    function updateBuilderOutput(updateUrl = true) {
+      const codeStr = `[T${builderSelectedTalents.join('')},${builderHeroId}]`;
+      document.getElementById("builder-string-code").innerText = codeStr;
+
+      if (updateUrl) {
+        navigateTo('builder', { hero: builderHeroId, build: builderSelectedTalents.join('') }, true);
+      }
+    }
+
+    function copyBuilderString() {
+      const code = document.getElementById("builder-string-code").innerText;
+      navigator.clipboard.writeText(code);
+      alert(`Copied build string: ${code}`);
+    }
+
+    function copyBuilderShareUrl() {
+      const shareUrl = window.location.href;
+      navigator.clipboard.writeText(shareUrl);
+      alert(`Copied shareable URL:\n${shareUrl}`);
+    }
+
+    function openInBuilder() {
+      if (!currentSelectedHeroId || !currentHeroData) return;
+      const heroBuildData = PERSONAL_BUILDS.find(b => b.heroId === currentSelectedHeroId);
+      let selections = [1, 1, 1, 1, 1, 1, 1];
+      if (heroBuildData && heroBuildData.builds && heroBuildData.builds[currentBuildIndex]) {
+        selections = decodeBuildCode(heroBuildData.builds[currentBuildIndex].buildCode);
+      }
+      navigateTo('builder', { hero: currentSelectedHeroId, build: selections.join('') });
+    }
+
+    // --- HERO SPECS & BUILDS ---
     function renderActiveBuild() {
       const hero = currentHeroData;
       if (!hero) return;
@@ -448,7 +749,7 @@
 
     function decodeBuildCode(buildCode) {
       const match = buildCode ? buildCode.match(/\[T(\d{7}),/) : null;
-      if (!match) return [];
+      if (!match) return [1,1,1,1,1,1,1];
       return match[1].split('').map(Number);
     }
 
@@ -492,26 +793,6 @@
       renderHeroSidebar(MASTER_HERO_LIST.filter(h => h.name.toLowerCase().includes(query)));
     }
 
-    function switchTab(tab) {
-      const isHeroes = tab === 'heroes';
-      const isMap = tab === 'map';
-      const isTierList = tab === 'tierlist';
-
-      document.getElementById("view-heroes").classList.toggle("hidden", !isHeroes);
-      document.getElementById("view-map").classList.toggle("hidden", !isMap);
-      document.getElementById("view-tierlist").classList.toggle("hidden", !isTierList);
-      
-      document.getElementById("sidebar-container").classList.toggle("hidden", !isHeroes);
-
-      document.getElementById("nav-heroes").className = isHeroes 
-        ? "px-5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 bg-sky-500/20 text-sky-300 border border-sky-500/40 shadow-sm"
-        : "px-5 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-all flex items-center gap-2";
-
-      document.getElementById("nav-tierlist").className = isTierList 
-        ? "px-5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 bg-sky-500/20 text-sky-300 border border-sky-500/40 shadow-sm"
-        : "px-5 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-all flex items-center gap-2";
-    }
-
     function copyBuildCode() {
       const code = document.getElementById("detail-build-code").innerText;
       navigator.clipboard.writeText(code);
@@ -526,7 +807,7 @@
       MASTER_HERO_LIST.forEach(hero => {
         const badge = document.createElement("div");
         badge.className = "flex items-center gap-2 bg-slate-950 px-2.5 py-1.5 rounded-lg border border-slate-800 cursor-pointer hover:border-sky-500";
-        badge.onclick = () => { switchTab('heroes'); selectHero(hero.id); };
+        badge.onclick = () => { navigateTo('heroes', { hero: hero.id }); };
         badge.innerHTML = `<img src="${hero.portrait}" onerror="this.src='https://via.placeholder.com/24?text=H'" class="w-6 h-6 rounded-md object-cover"/> <span class="text-xs font-semibold">${hero.name}</span>`;
         if (hero.tier === "S") s.appendChild(badge);
         else a.appendChild(badge);
