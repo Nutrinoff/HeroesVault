@@ -1,3 +1,12 @@
+/**
+ * HEROESVAULT - Main Application Logic
+ * Zero-backend, client-side HotS Specs & Strategy Hub
+ */
+
+// ==========================================
+// 1. GLOBAL STATE & CONFIGURATION
+// ==========================================
+
 let MASTER_HERO_LIST = [];
 let MASTER_MAP_LIST = [];
 let PERSONAL_BUILDS = [];
@@ -20,6 +29,124 @@ const TIER_STYLES = {
     C: { bg: 'bg-emerald-500/20', text: 'text-emerald-400', border: 'border-emerald-500/40' },
     D: { bg: 'bg-cyan-500/20', text: 'text-cyan-400', border: 'border-cyan-500/40' }
 };
+
+
+// ==========================================
+// 2. INITIALIZATION & ROUTING
+// ==========================================
+
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        const [mr, br, mapr, tr] = await Promise.all([
+            fetch('./data/heroes-master.json'),
+            fetch('./data/builds.json'),
+            fetch('./data/maps.json'),
+            fetch('./data/tiers.json')
+        ].map(p => p.catch(() => null)));
+        
+        if (mr?.ok) {
+            const d = await mr.json();
+            HOTS_MASTER_DATA = d.items || d;
+            
+            // Derive MASTER_HERO_LIST dynamically from HOTS_MASTER_DATA object/array
+            const rawHeroes = Array.isArray(HOTS_MASTER_DATA) 
+                ? HOTS_MASTER_DATA 
+                : Object.values(HOTS_MASTER_DATA);
+
+            MASTER_HERO_LIST = rawHeroes.map(h => ({
+                id: h.id || h.hyperlinkId || h.attributeId,
+                name: h.name,
+                title: h.title,
+                role: (h.roles && h.roles[0]) || h.expandedRole || 'Nexus Combatant',
+                portrait: h.portraits?.heroSelect || h.portraits?.leaderboard || h.portraits?.target || ''
+            }));
+        }
+
+        if (br?.ok) PERSONAL_BUILDS = await br.json();
+        if (mapr?.ok) {
+            MASTER_MAP_LIST = await mapr.json();
+            populateMapsDropdown();
+        }
+        if (tr?.ok) MASTER_TIERS = await tr.json();
+        
+        renderHeroSidebar(MASTER_HERO_LIST);
+        renderTierList();
+        handleRoute();
+        
+        if (window.lucide) {
+            lucide.createIcons();
+        }
+        
+        window.addEventListener('popstate', handleRoute);
+        
+        window.onclick = e => {
+            if (!e.target.closest('#maps-dropdown-menu') && !e.target.closest('#maps-dropdown-toggle')) {
+                document.getElementById('maps-dropdown-menu')?.classList.add('hidden');
+            }
+        };
+    } catch (e) {
+        console.error('Failed loading data files:', e);
+    }
+});
+
+function navigateTo(tab, params = {}, push = true) {
+    let url = '#' + tab;
+    const q = new URLSearchParams();
+    
+    Object.entries(params).forEach(([k, v]) => {
+        if (v !== null && v !== undefined && v !== '') {
+            q.set(k, v);
+        }
+    });
+    
+    if (q.toString()) url += '?' + q.toString();
+    
+    if (push) {
+        history.pushState({ tab, params }, '', url);
+    } else {
+        history.replaceState({ tab, params }, '', url);
+    }
+    
+    handleRoute();
+}
+
+function handleRoute() {
+    const [tpart, query = ''] = location.hash.replace(/^#/, '').split('?');
+    const tab = tpart || 'heroes';
+    const q = new URLSearchParams(query);
+    
+    switchTabUI(tab);
+    
+    if (tab === 'heroes') {
+        selectHero(q.get('hero') || MASTER_HERO_LIST[0]?.id, false);
+    } else if (tab === 'map') {
+        selectMap(q.get('id') || 'alteracpass', false);
+    } else if (tab === 'builder') {
+        openBuilder(q.get('hero') || MASTER_HERO_LIST[0]?.id, q.get('build') ? q.get('build').split('').map(Number) : null, false);
+    }
+}
+
+function switchTabUI(t) {
+    const h = t === 'heroes';
+    const m = t === 'map';
+    const b = t === 'builder';
+    const l = t === 'tierlist';
+    
+    [['view-heroes', h], ['view-map', m], ['view-builder', b], ['view-tierlist', l]].forEach(([id, on]) => {
+        document.getElementById(id).classList.toggle('hidden', !on);
+    });
+    
+    document.getElementById('sidebar-container').classList.toggle('hidden', !h && !b);
+    
+    [['nav-heroes', h], ['nav-builder', b], ['nav-tierlist', l]].forEach(([id, on]) => {
+        document.getElementById(id).classList.toggle('nav-active', on);
+    });
+}
+
+
+// ==========================================
+// 3. UTILITIES & DATA NORMALIZATION
+// ==========================================
 
 function normalizeHeroKey(v) {
     return String(v || '').toLowerCase().replace(/['’\.\s\-]/g, '').replace(/[^a-z0-9]/g, '');
@@ -103,8 +230,13 @@ function resolveHeroMasterData(id) {
     if (!id) return null;
     if (HOTS_MASTER_DATA[id]) return HOTS_MASTER_DATA[id];
     
+    // If HOTS_MASTER_DATA is an array instead of an object map
+    if (Array.isArray(HOTS_MASTER_DATA)) {
+        return HOTS_MASTER_DATA.find(h => normalizeHeroKey(h.id || h.hyperlinkId) === normalizeHeroKey(id)) || null;
+    }
+    
     const key = normalizeHeroKey(id);
-    for (const [k, h] of Object.entries(HOTS_MASTER_DATA || {})) {
+    for (const [k, h] of Object.entries(HOTS_MASTER_DATA)) {
         if (h && [k, h.name, h.hyperlinkId, h.unitId, h.attributeId].some(v => normalizeHeroKey(v) === key)) {
             return h;
         }
@@ -199,121 +331,11 @@ function formatGameText(value) {
     return output;
 }
 
-document.addEventListener('DOMContentLoaded', async () => {
-    try {
-        const [hr, mr, br, mapr, tr] = await Promise.all([
-            fetch('./data/heroes.json'),
-            fetch('./data/heroes-master.json'),
-            fetch('./data/builds.json'),
-            fetch('./data/maps.json'),
-            fetch('./data/tiers.json')
-        ].map(p => p.catch(() => null)));
-        
-        if (hr?.ok) MASTER_HERO_LIST = await hr.json();
-        if (mr?.ok) {
-            const d = await mr.json();
-            HOTS_MASTER_DATA = d.items || d;
-        }
-        if (br?.ok) PERSONAL_BUILDS = await br.json();
-        if (mapr?.ok) {
-            MASTER_MAP_LIST = await mapr.json();
-            populateMapsDropdown();
-        }
-        if (tr?.ok) MASTER_TIERS = await tr.json();
-        
-        renderHeroSidebar(MASTER_HERO_LIST);
-        renderTierList();
-        handleRoute();
-        
-        if (window.lucide) {
-            lucide.createIcons();
-        }
-        
-        window.addEventListener('popstate', handleRoute);
-        
-        window.onclick = e => {
-            if (!e.target.closest('#maps-dropdown-menu') && !e.target.closest('#maps-dropdown-toggle')) {
-                document.getElementById('maps-dropdown-menu')?.classList.add('hidden');
-            }
-        };
-    } catch (e) {
-        console.error('Failed loading data files:', e);
-    }
-});
 
-function navigateTo(tab, params = {}, push = true) {
-    let url = '#' + tab;
-    const q = new URLSearchParams();
-    
-    Object.entries(params).forEach(([k, v]) => {
-        if (v !== null && v !== undefined && v !== '') {
-            q.set(k, v);
-        }
-    });
-    
-    if (q.toString()) url += '?' + q.toString();
-    
-    if (push) {
-        history.pushState({ tab, params }, '', url);
-    } else {
-        history.replaceState({ tab, params }, '', url);
-    }
-    
-    handleRoute();
-}
+// ==========================================
+// 4. SIDEBAR & SEARCH
+// ==========================================
 
-function handleRoute() {
-    const [tpart, query = ''] = location.hash.replace(/^#/, '').split('?');
-    const tab = tpart || 'heroes';
-    const q = new URLSearchParams(query);
-    
-    switchTabUI(tab);
-    
-    if (tab === 'heroes') {
-        selectHero(q.get('hero') || MASTER_HERO_LIST[0]?.id, false);
-    } else if (tab === 'map') {
-        selectMap(q.get('id') || 'alteracpass', false);
-    } else if (tab === 'builder') {
-        openBuilder(q.get('hero') || MASTER_HERO_LIST[0]?.id, q.get('build') ? q.get('build').split('').map(Number) : null, false);
-    }
-}
-
-function switchTabUI(t) {
-    const h = t === 'heroes';
-    const m = t === 'map';
-    const b = t === 'builder';
-    const l = t === 'tierlist';
-    
-    [['view-heroes', h], ['view-map', m], ['view-builder', b], ['view-tierlist', l]].forEach(([id, on]) => {
-        document.getElementById(id).classList.toggle('hidden', !on);
-    });
-    
-    document.getElementById('sidebar-container').classList.toggle('hidden', !h && !b);
-    
-    [['nav-heroes', h], ['nav-builder', b], ['nav-tierlist', l]].forEach(([id, on]) => {
-        document.getElementById(id).classList.toggle('nav-active', on);
-    });
-}
-
-function toggleMapsDropdown(e) {
-    e.stopPropagation();
-    document.getElementById('maps-dropdown-menu').classList.toggle('hidden');
-}
-
-function populateMapsDropdown() {
-    const menu = document.getElementById('maps-dropdown-menu');
-    menu.innerHTML = '<div class="px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-500">Battlegrounds</div>' + 
-        MASTER_MAP_LIST.slice().sort((a, b) => a.name.localeCompare(b.name)).map(m => `
-            <a href="#map?id=${encodeURIComponent(m.id)}" onclick="selectMapFromDropdown('${String(m.id).replace(/'/g, "\\'")}');return false" class="block px-4 py-2 text-sm text-slate-300 hover:bg-slate-800">
-                ${m.name}
-            </a>
-        `).join('');
-}
-
-function selectMapFromDropdown(id) {
-    document.getElementById('maps-dropdown-menu')?.classList.add('hidden');
-    navigateTo('map', { id });
-}
 function renderHeroSidebar(heroes) {
     const list = document.getElementById('hero-list');
     if (!list) return;
@@ -355,7 +377,18 @@ function renderHeroSidebar(heroes) {
     });
     
     document.getElementById('hero-count').innerText = `${heroes.length} Heroes`;
-}function filterHeroes(){const q=document.getElementById('hero-search').value.toLowerCase();renderHeroSidebar(MASTER_HERO_LIST.filter(h=>h.name.toLowerCase().includes(q)||h.id.toLowerCase().includes(q)))}
+}
+
+function filterHeroes() {
+    const q = document.getElementById('hero-search').value.toLowerCase();
+    renderHeroSidebar(MASTER_HERO_LIST.filter(h => h.name.toLowerCase().includes(q) || h.id.toLowerCase().includes(q)));
+}
+
+
+// ==========================================
+// 5. HERO DETAILS & BUILDS VIEW
+// ==========================================
+
 async function selectHero(id, update = true) {
     if (!id) return;
     
@@ -387,7 +420,73 @@ async function selectHero(id, update = true) {
     document.getElementById('detail-title').innerText = currentHeroData.title;
     
     renderActiveBuild();
-}async function openBuilder(id = null, selections = null, update = true) {
+}
+
+function renderActiveBuild() {
+    const h = currentHeroData;
+    if (!h) return;
+    
+    const d = PERSONAL_BUILDS.find(x => normalizeHeroKey(x.heroId) === normalizeHeroKey(h.id));
+    const tabs = document.getElementById('build-tabs');
+    const notes = document.getElementById('detail-notes');
+    
+    tabs.innerHTML = '';
+    
+    if (!d?.builds?.length) {
+        notes.innerText = 'No notes added for this hero yet.';
+        renderBuildStrip(h, null);
+        return;
+    }
+    
+    d.builds.forEach((v, i) => {
+        const b = document.createElement('button');
+        b.className = `px-3.5 py-1.5 rounded-lg text-xs font-bold border ${
+            i === currentBuildIndex 
+                ? 'bg-amber-500/20 text-amber-300 border-amber-500/50' 
+                : 'bg-slate-950 text-slate-400 border-slate-800'
+        }`;
+        b.innerText = `Build ${i + 1}: ${v.buildName || 'Unnamed'}`;
+        b.onclick = () => {
+            currentBuildIndex = i;
+            renderActiveBuild();
+        };
+        tabs.appendChild(b);
+    });
+    
+    const v = d.builds[currentBuildIndex] || d.builds[0];
+    notes.innerText = v.notes || 'No notes added yet.';
+    renderBuildStrip(h, v.buildCode);
+}
+
+function renderBuildStrip(h, code) {
+    const box = document.getElementById('build-strip');
+    box.innerHTML = '';
+    
+    const p = decodeBuildCode(code);
+    
+    ['1', '4', '7', '10', '13', '16', '20'].forEach((l, i) => {
+        const t = h.talents[l]?.[p[i] - 1] || h.talents[l]?.[0];
+        const el = document.createElement('div');
+        
+        el.className = 'bg-slate-950/60 border border-slate-800 rounded-xl p-2 flex flex-col items-center gap-2';
+        el.innerHTML = t ? `
+            <img src="${getAssetUrl(t.icon)}" onerror="this.src='https://via.placeholder.com/44?text=?'" class="w-11 h-11 rounded-lg border border-slate-700 object-cover">
+            <span class="text-[10px] text-sky-300">Lv ${l}</span>
+            <span class="text-[10px] text-center text-slate-200">${t.name}</span>
+        ` : `
+            <span class="text-[10px] text-slate-500">Lv ${l} · none</span>
+        `;
+        
+        box.appendChild(el);
+    });
+}
+
+
+// ==========================================
+// 6. TALENT BUILDER VIEW
+// ==========================================
+
+async function openBuilder(id = null, selections = null, update = true) {
     id = id || MASTER_HERO_LIST[0]?.id;
     if (!id) return;
     
@@ -425,6 +524,7 @@ async function selectHero(id, update = true) {
         navigateTo('builder', { hero: id, build: builderSelectedTalents.join('') });
     }
 }
+
 function renderBuilderAbilities() {
     const box = document.getElementById('builder-abilities');
     box.innerHTML = '';
@@ -450,29 +550,6 @@ function renderBuilderAbilities() {
         `;
         box.appendChild(el);
     });
-}
-
-function showAbilityTooltip(e, a) {
-    showTooltip(e, a.name, `Ability [${a.key}]${a.variant ? ' · ' + a.variant : ''}`, a.desc, a.icon);
-}
-
-function showTalentTooltip(e, t, l) {
-    showTooltip(e, t.name, `Level ${l} Talent`, t.fullText || t.shortText || t.description || '', t.icon);
-}
-
-function showTooltip(e, name, level, description, icon) {
-    const tip = document.getElementById('talent-tooltip');
-    document.getElementById('tip-icon').src = getAssetUrl(icon);
-    document.getElementById('tip-name').innerText = name || '';
-    document.getElementById('tip-level').innerText = level;
-    document.getElementById('tip-desc').innerHTML = formatGameText(description) || 'No description available.';
-    tip.style.left = `${e.clientX + 15}px`;
-    tip.style.top = `${e.clientY + 15}px`;
-    tip.classList.remove('hidden');
-}
-
-function hideTooltip() {
-    document.getElementById('talent-tooltip').classList.add('hidden');
 }
 
 function renderBuilderMatrix() {
@@ -553,64 +630,39 @@ function openInBuilder() {
     navigateTo('builder', { hero: currentSelectedHeroId, build: p.join('') });
 }
 
-function renderActiveBuild() {
-    const h = currentHeroData;
-    if (!h) return;
-    
-    const d = PERSONAL_BUILDS.find(x => normalizeHeroKey(x.heroId) === normalizeHeroKey(h.id));
-    const tabs = document.getElementById('build-tabs');
-    const notes = document.getElementById('detail-notes');
-    
-    tabs.innerHTML = '';
-    
-    if (!d?.builds?.length) {
-        notes.innerText = 'No notes added for this hero yet.';
-        renderBuildStrip(h, null);
-        return;
-    }
-    
-    d.builds.forEach((v, i) => {
-        const b = document.createElement('button');
-        b.className = `px-3.5 py-1.5 rounded-lg text-xs font-bold border ${
-            i === currentBuildIndex 
-                ? 'bg-amber-500/20 text-amber-300 border-amber-500/50' 
-                : 'bg-slate-950 text-slate-400 border-slate-800'
-        }`;
-        b.innerText = `Build ${i + 1}: ${v.buildName || 'Unnamed'}`;
-        b.onclick = () => {
-            currentBuildIndex = i;
-            renderActiveBuild();
-        };
-        tabs.appendChild(b);
-    });
-    
-    const v = d.builds[currentBuildIndex] || d.builds[0];
-    notes.innerText = v.notes || 'No notes added yet.';
-    renderBuildStrip(h, v.buildCode);
+
+// ==========================================
+// 7. TOOLTIPS
+// ==========================================
+
+function showAbilityTooltip(e, a) {
+    showTooltip(e, a.name, `Ability [${a.key}]${a.variant ? ' · ' + a.variant : ''}`, a.desc, a.icon);
 }
 
-function renderBuildStrip(h, code) {
-    const box = document.getElementById('build-strip');
-    box.innerHTML = '';
-    
-    const p = decodeBuildCode(code);
-    
-    ['1', '4', '7', '10', '13', '16', '20'].forEach((l, i) => {
-        const t = h.talents[l]?.[p[i] - 1] || h.talents[l]?.[0];
-        const el = document.createElement('div');
-        
-        el.className = 'bg-slate-950/60 border border-slate-800 rounded-xl p-2 flex flex-col items-center gap-2';
-        el.innerHTML = t ? `
-            <img src="${getAssetUrl(t.icon)}" onerror="this.src='https://via.placeholder.com/44?text=?'" class="w-11 h-11 rounded-lg border border-slate-700 object-cover">
-            <span class="text-[10px] text-sky-300">Lv ${l}</span>
-            <span class="text-[10px] text-center text-slate-200">${t.name}</span>
-        ` : `
-            <span class="text-[10px] text-slate-500">Lv ${l} · none</span>
-        `;
-        
-        box.appendChild(el);
-    });
+function showTalentTooltip(e, t, l) {
+    showTooltip(e, t.name, `Level ${l} Talent`, t.fullText || t.shortText || t.description || '', t.icon);
 }
+
+function showTooltip(e, name, level, description, icon) {
+    const tip = document.getElementById('talent-tooltip');
+    document.getElementById('tip-icon').src = getAssetUrl(icon);
+    document.getElementById('tip-name').innerText = name || '';
+    document.getElementById('tip-level').innerText = level;
+    document.getElementById('tip-desc').innerHTML = formatGameText(description) || 'No description available.';
+    tip.style.left = `${e.clientX + 15}px`;
+    tip.style.top = `${e.clientY + 15}px`;
+    tip.classList.remove('hidden');
+}
+
+function hideTooltip() {
+    document.getElementById('talent-tooltip').classList.add('hidden');
+}
+
+
+// ==========================================
+// 8. TIER LIST VIEW
+// ==========================================
+
 function renderTierList() {
     const box = document.getElementById('tierlist-rows-container');
     if (!box) return;
@@ -649,7 +701,34 @@ function renderTierList() {
         
         box.appendChild(r);
     });
-}async function selectMap(id, update = true) {
+}
+
+
+// ==========================================
+// 9. MAPS & BATTLEGROUNDS VIEW
+// ==========================================
+
+function toggleMapsDropdown(e) {
+    e.stopPropagation();
+    document.getElementById('maps-dropdown-menu').classList.toggle('hidden');
+}
+
+function populateMapsDropdown() {
+    const menu = document.getElementById('maps-dropdown-menu');
+    menu.innerHTML = '<div class="px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-500">Battlegrounds</div>' + 
+        MASTER_MAP_LIST.slice().sort((a, b) => a.name.localeCompare(b.name)).map(m => `
+            <a href="#map?id=${encodeURIComponent(m.id)}" onclick="selectMapFromDropdown('${String(m.id).replace(/'/g, "\\'")}');return false" class="block px-4 py-2 text-sm text-slate-300 hover:bg-slate-800">
+                ${m.name}
+            </a>
+        `).join('');
+}
+
+function selectMapFromDropdown(id) {
+    document.getElementById('maps-dropdown-menu')?.classList.add('hidden');
+    navigateTo('map', { id });
+}
+
+async function selectMap(id, update = true) {
     if (update) {
         navigateTo('map', { id });
         return;
