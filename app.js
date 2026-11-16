@@ -632,15 +632,6 @@ function decodeBuildCode(s) {
     return m ? m[1].split('').map(Number) : [1, 1, 1, 1, 1, 1, 1];
 }
 
-function openInBuilder() {
-    if (!currentSelectedHeroId) return;
-    
-    const d = PERSONAL_BUILDS.find(x => normalizeHeroKey(x.heroId) === normalizeHeroKey(currentSelectedHeroId));
-    const p = d?.builds?.[currentBuildIndex] ? decodeBuildCode(d.builds[currentBuildIndex].buildCode) : [1, 1, 1, 1, 1, 1, 1];
-    
-    navigateTo('builder', { hero: currentSelectedHeroId, build: p.join('') });
-}
-
 
 // ==========================================
 // 7. TOOLTIPS
