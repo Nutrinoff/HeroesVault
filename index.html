@@ -36,24 +36,18 @@ function abilityEntry(a,category,variant=''){return{key:a.abilityType||a.buttonI
 function flattenHeroAbilities(h){if(!h)return[];const out=[];const add=(abilities,variant='')=>{if(Array.isArray(abilities)){abilities.forEach(a=>{if(!['B','R','HEROIC'].includes(String(a.abilityType||'').toUpperCase()))out.push(abilityEntry(a,'Basic',variant))});return}if(!abilities||typeof abilities!=='object')return;for(const cat of['Basic','Trait','Mount','Activable'])for(const a of(Array.isArray(abilities[cat])?abilities[cat]:[]))if(!['B','R','HEROIC'].includes(String(a.abilityType||'').toUpperCase()))out.push(abilityEntry(a,cat,variant))};add(h.abilities);Object.entries(h.heroUnits||{}).forEach(([id,u])=>{if(u?.abilities)add(u.abilities,u.name||id)});return out}
 function resolveHeroMasterData(id){if(!id)return null;if(HOTS_MASTER_DATA[id])return HOTS_MASTER_DATA[id];const key=normalizeHeroKey(id);for(const[k,h]of Object.entries(HOTS_MASTER_DATA||{}))if(h&&[k,h.name,h.hyperlinkId,h.unitId,h.attributeId].some(v=>normalizeHeroKey(v)===key))return h;return null}
 function getAssetUrl(path){if(!path)return'';if(/^https?:\/\//i.test(path))return path;let p=String(path).replace(/^\.\//,'').replace(/^\//,'');if(p.includes('/')&&['abilitytalents/','heroportraits/','loadingscreens/'].some(x=>p.startsWith(x)))return REPO_BASE+p;if(p.includes('talent')||p.startsWith('storm_ui_icon')||p.includes('ability'))p='abilitytalents/'+p;else if(p.includes('hero')||p.includes('portrait')||p.startsWith('ui_')||p.startsWith('storm_ui_ingame'))p='heroportraits/'+p;return REPO_BASE+p}
-// Safely translate the HotS tooltip markup. Unknown game tags are removed, text is escaped,
-// and recognized color/detail tags become small HTML spans instead of appearing literally.
 function formatGameText(value){
-  const source=String(value||'');if(!source)return'';
+  // The game embeds decorative WoW quest/reward symbols as <img .../> tags.
+  // They are redundant with the adjacent Quest:/Reward: label, so remove them first.
+  const source=String(value||'').replace(/<img\b[^>]*\/?>/gi,'');if(!source)return'';
   const escapeHtml=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
   const tokenRe=/<\/?(?:c|s)\b[^>]*>|<n\s*\/\s*>|<br\s*\/?>/gi;let output='',cursor=0;const stack=[];let match;
   while((match=tokenRe.exec(source))){let text=escapeHtml(source.slice(cursor,match.index));text=text.replace(/~~([^~]+)~~/g,'<del class="text-slate-500">$1</del>');output+=text;cursor=tokenRe.lastIndex;const token=match[0];
     if(/^<n\s*\/\s*>|<br/i.test(token)){output+='<br>';continue}
     if(/^<\//.test(token)){const kind=token.slice(2,3).toLowerCase();for(let i=stack.length-1;i>=0;i--){const entry=stack.pop();output+='</span>';if(entry===kind)break}continue}
     const kind=token.slice(1,2).toLowerCase();const valMatch=token.match(/\bval\s*=\s*["']([^"']*)["']/i);const val=valMatch?valMatch[1]:'';let cls='';
-    if(kind==='c'){
-      if(val==='#TooltipNumbers')cls='text-amber-300 font-semibold';
-      else if(val==='#ColorGray')cls='text-slate-500';
-      else if(/^#[0-9a-f]{6}$/i.test(val))cls='';
-      else cls='text-sky-200';
-    }else cls=/Header/i.test(val)?'text-white font-semibold':'text-slate-400';
-    if(/^#[0-9a-f]{6}$/i.test(val))output+=`<span style="color:${val}">`;else output+=`<span${cls?` class="${cls}"`:''}>`;
-    stack.push(kind);
+    if(kind==='c'){if(val==='#TooltipNumbers')cls='text-amber-300 font-semibold';else if(val==='#ColorGray')cls='text-slate-500';else if(/^#[0-9a-f]{6}$/i.test(val))cls='';else if(val==='#TooltipQuest')cls='text-amber-300 font-semibold';else cls='text-sky-200'}else cls=/Header/i.test(val)?'text-white font-semibold':'text-slate-400';
+    if(/^#[0-9a-f]{6}$/i.test(val))output+=`<span style="color:${val}">`;else output+=`<span${cls?` class="${cls}"`:''}>`;stack.push(kind);
   }
   let tail=escapeHtml(source.slice(cursor)).replace(/~~([^~]+)~~/g,'<del class="text-slate-500">$1</del>');output+=tail;while(stack.length){stack.pop();output+='</span>'}return output;
 }
