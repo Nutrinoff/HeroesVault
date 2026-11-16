@@ -1,0 +1,33 @@
+{
+  "id": "blackheartsbay",
+  "name": "Blackheart's Bay",
+  "theme": "Collect Doubloons from chests and mercenary camps to pay Captain Blackheart to bombard enemy structures.",
+  "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/ui_ingame_mapmechanic_loadscreen_blackheartsbay.png",
+  "mechanic": {
+    "title": "Doubloon Turn-In & Ghost Ship Bombardment",
+    "description": "Treasure Chests spawn at 1:30 (two chests: mid-top and bot) and drop 5 Doubloons each when broken. Mercenary camps and neutral Doubloon camps also drop 2 Doubloons upon capture. Channel at Captain Blackheart in the center docks for 6 seconds to turn in Doubloons—starting at 10 Doubloons for the first bombardment and increasing by 2 each subsequent turn-in—firing 12 cannonballs at enemy structures."
+  },
+  "camps": [
+    {
+      "name": "Doubloon Camps (4 Camps)",
+      "timing": "Spawns at 1:00 (2:30 respawn)",
+      "notes": "Located in mid-left, mid-right, bot-left, and bot-right. Easy to clear quickly; drops 2 Doubloons directly without pushing a lane."
+    },
+    {
+      "name": "Siege Giants (3 Camps)",
+      "timing": "Spawns at 1:00 (3:00 respawn)",
+      "notes": "Located top-left, mid-right, and bot. Drops 2 Doubloons upon capture and applies long-range lane pressure."
+    },
+    {
+      "name": "Bruisers / Knights (2 Camps)",
+      "timing": "Spawns at 1:00 (4:00 respawn)",
+      "notes": "Located in the top-mid and bot-mid zones. Drops 2 Doubloons and pushes heavily to force defenders away from the turn-in."
+    },
+    {
+      "name": "Boss / Grave Golem (1 Camp)",
+      "timing": "Spawns at 5:00 (5:00 respawn)",
+      "notes": "Located in the top-right alcove. Drops 2 Doubloons and marches down top lane as a major late-game threat."
+    }
+  ],
+  "strategy": "Blackheart's Bay is a macro-heavy PvE economy map where controlling camps and safely banking Doubloons often outweighs forced teamfights. Assign a fast double-soaker (such as Xul, Malthael, or Rehgar) to clear top and mid waves while the rest of the team farms Doubloon and Mercenary camps on cooldown. Avoid carrying large stacks of Doubloons without backup, and use camp pushes in top or bot lane to draw enemies away before channeling at Blackheart."
+}
