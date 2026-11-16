@@ -306,6 +306,7 @@
     let MASTER_HERO_LIST = []; 
     let MASTER_MAP_LIST = [];
     let PERSONAL_BUILDS = [];
+    let MASTER_TIERS = { S: [], A: [] }; // Stores loaded tiers
     let currentSelectedHeroId = null;
     let currentHeroData = null; 
     let currentBuildIndex = 0;
@@ -319,14 +320,16 @@
 
     document.addEventListener("DOMContentLoaded", async () => {
       try {
-        const [heroesRes, buildsRes, mapsRes] = await Promise.all([
+        const [heroesRes, buildsRes, mapsRes, tiersRes] = await Promise.all([
           fetch('./data/heroes.json'),
           fetch('./data/builds.json'),
-          fetch('./data/maps.json')
+          fetch('./data/maps.json'),
+          fetch('./data/tiers.json')
         ]);
         
         if (heroesRes.ok) MASTER_HERO_LIST = await heroesRes.json();
         if (buildsRes.ok) PERSONAL_BUILDS = await buildsRes.json();
+        if (tiersRes.ok) MASTER_TIERS = await tiersRes.json();
         if (mapsRes.ok) {
           MASTER_MAP_LIST = await mapsRes.json();
           populateMapsDropdown();
@@ -474,12 +477,14 @@
           }
         };
 
+        const heroTier = getHeroTier(hero.id);
+
         heroCard.innerHTML = `
           <img src="${hero.portrait}" onerror="this.src='https://via.placeholder.com/40?text=H'" alt="${hero.name}" class="w-10 h-10 rounded-lg border border-slate-700 object-cover flex-shrink-0 bg-slate-950" />
           <div class="flex-1 min-w-0">
             <div class="flex items-center justify-between">
               <h4 class="text-xs font-bold text-slate-100 truncate">${hero.name}</h4>
-              <span class="text-[9px] font-mono font-bold text-amber-400 bg-amber-400/10 px-1.5 py-0.5 rounded">${hero.tier || 'N/A'}</span>
+              <span class="text-[9px] font-mono font-bold text-amber-400 bg-amber-400/10 px-1.5 py-0.5 rounded">${heroTier}</span>
             </div>
             <p class="text-[10px] text-slate-400 truncate">${hero.role}</p>
           </div>
@@ -857,26 +862,22 @@
       s.innerHTML = ""; 
       a.innerHTML = "";
 
-      // Quick lookup map of all hero objects
       const heroMap = {};
       MASTER_HERO_LIST.forEach(h => heroMap[h.id] = h);
 
-      // Define your tiers explicitly here for easy editing
-      const sTierIds = ["abathur", "alarak", "alexstrasza", "anubarak", "auriel", "blaze", "brightwing", "cassia", "chromie", "deckard", "dehaka", "diablo", "etc", "falstad", "garrosh", "genji", "greymane", "guldan", "hanzo", "hogger", "imperius", "jaina", "johanna", "kelthuzad", "kerrigan", "leoric", "liming", "lucio", "maiev", "malganis", "malfurion", "malthael", "medivh", "mei", "mephisto", "muradin", "orphea", "ragnaros", "rehgar", "rexxar", "samuro", "sonya", "stukov", "sylvanas", "tassadar", "thelostvikings", "tracer", "tychus", "tyrael", "tyrande", "uther", "valla", "varian", "whitemane", "xalatath", "yrel", "zeratul", "zuljin"];
-      
-      const aTierIds = ["ana", "anduin", "artanis", "arthas", "azmodan", "chen", "cho", "dva", "deathwing", "fenix", "gall", "gazlowe", "illidan", "junkrat", "kaelthas", "kharazim", "lili", "ltmorales", "lunara", "murky", "nazeebo", "nova", "probius", "qhira", "raynor", "sgthammer", "stitches", "thebutcher", "thrall", "valeera", "xul", "zagara", "zarya"];
+      if (MASTER_TIERS.S) {
+        MASTER_TIERS.S.forEach(id => {
+          const hero = heroMap[id];
+          if (hero) s.appendChild(createTierBadge(hero));
+        });
+      }
 
-      sTierIds.forEach(id => {
-        const hero = heroMap[id];
-        if (!hero) return;
-        s.appendChild(createTierBadge(hero));
-      });
-
-      aTierIds.forEach(id => {
-        const hero = heroMap[id];
-        if (!hero) return;
-        a.appendChild(createTierBadge(hero));
-      });
+      if (MASTER_TIERS.A) {
+        MASTER_TIERS.A.forEach(id => {
+          const hero = heroMap[id];
+          if (hero) a.appendChild(createTierBadge(hero));
+        });
+      }
     }
 
     function createTierBadge(hero) {
@@ -888,6 +889,12 @@
         <span class="text-xs font-semibold text-slate-200">${hero.name}</span>
       `;
       return badge;
+    }
+
+    function getHeroTier(heroId) {
+      if (MASTER_TIERS.S && MASTER_TIERS.S.includes(heroId)) return "S";
+      if (MASTER_TIERS.A && MASTER_TIERS.A.includes(heroId)) return "A";
+      return "A"; // default fallback
     }
   </script>
 </body>
