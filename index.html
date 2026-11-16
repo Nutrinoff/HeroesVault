@@ -300,17 +300,15 @@
     let MASTER_MAP_LIST = [];
     let PERSONAL_BUILDS = [];
     let MASTER_TIERS = { S: [], A: [], B: [], C: [], D: [] };
-    let HOTS_MASTER_DATA = {}; // Holds the full master JSON data
+    let HOTS_MASTER_DATA = {};
     let currentSelectedHeroId = null;
     let currentHeroData = null; 
     let currentBuildIndex = 0;
 
-    // Builder State
     let builderHeroId = null;
     let builderHeroData = null;
-    let builderSelectedTalents = [1, 1, 1, 1, 1, 1, 1]; // 1-based choices per tier
+    let builderSelectedTalents = [1, 1, 1, 1, 1, 1, 1]; 
 
-    // Public GitHub Repository Base for Images
     const REPO_BASE = "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/";
 
     document.addEventListener("DOMContentLoaded", async () => {
@@ -326,10 +324,8 @@
           const masterJson = await masterRes.json();
           HOTS_MASTER_DATA = masterJson.items || {};
 
-          // Dynamically populate MASTER_HERO_LIST from the master JSON keys
           MASTER_HERO_LIST = Object.keys(HOTS_MASTER_DATA).map(heroKey => {
             const h = HOTS_MASTER_DATA[heroKey];
-            // Grab portrait filename or path from the portraits object
             const portraitPath = (h.portraits && (h.portraits.leaderboard || h.portraits.heroSelect || h.portraits.target)) || '';
             
             return {
@@ -370,7 +366,6 @@
       }
     });
 
-    // --- URL ROUTING & NAVIGATION ---
     function navigateTo(tab, params = {}, push = true) {
       let url = `#${tab}`;
       const searchParams = new URLSearchParams();
@@ -493,12 +488,10 @@
       return "A"; 
     }
 
-    // --- DYNAMIC REPO ASSET URL RESOLVER ---
     function getAssetUrl(assetPath) {
       if (!assetPath) return '';
       if (assetPath.startsWith('http')) return assetPath;
       
-      // Clean up any leading slashes or redundant 'images/' prefixes to match github layout
       const cleanPath = assetPath.replace(/^(\/?images\/)?/, '');
       return `${REPO_BASE}${cleanPath}`;
     }
@@ -549,7 +542,6 @@
       document.getElementById("hero-count").innerText = `${heroes.length} Heroes`;
     }
 
-// --- FULL HERO LOADER FROM MASTER JSON ---
 async function selectHero(heroId, updateUrl = true) {
   currentSelectedHeroId = heroId;
   currentBuildIndex = 0;
@@ -564,12 +556,31 @@ async function selectHero(heroId, updateUrl = true) {
     const heroRaw = HOTS_MASTER_DATA[heroId];
     if (!heroRaw) throw new Error(`Could not find data for ${heroId}`);
 
-    // 1. Grab portrait from the hero's nested portraits object
+    // Grab portrait safely
     const portraitPath = (heroRaw.portraits && (heroRaw.portraits.heroSelect || heroRaw.portraits.leaderboard || heroRaw.portraits.target)) || '';
 
-    // 2. Map talents directly from heroRaw.talents (which has keys "1", "4", "7", "10", "13", "16", "20")
-    // Your parser keeps talents structured by level strings.
-    
+    // Flatten abilities safely whether they are categorized or already an array
+    let flattenedAbilities = [];
+    if (heroRaw.abilities) {
+      if (Array.isArray(heroRaw.abilities)) {
+        flattenedAbilities = heroRaw.abilities;
+      } else {
+        ['Basic', 'Heroic', 'Trait', 'Mount', 'Hearth', 'Abilities'].forEach(cat => {
+          if (heroRaw.abilities[cat] && Array.isArray(heroRaw.abilities[cat])) {
+            heroRaw.abilities[cat].forEach(ab => {
+              flattenedAbilities.push({
+                key: ab.abilityType || cat,
+                name: ab.name,
+                icon: ab.icon,
+                desc: ab.fullText || ab.shortText || ab.description,
+                cooldown: ab.cooldownText
+              });
+            });
+          }
+        });
+      }
+    }
+
     currentHeroData = {
       id: heroId,
       name: heroRaw.name,
@@ -577,17 +588,16 @@ async function selectHero(heroId, updateUrl = true) {
       role: (heroRaw.roles && heroRaw.roles[0]) || heroRaw.expandedRole || "Nexus Combatant",
       portrait: portraitPath,
       description: heroRaw.description,
-      abilities: heroRaw.abilities, // Full nested ability categories from parser
-      talents: heroRaw.talents     // Full talent trees (Level 1 to 20)
+      abilities: flattenedAbilities,
+      // Fallback check: look for talents in heroRaw.talents, heroRaw.talentTree, or heroRaw.heroTalents
+      talents: heroRaw.talents || heroRaw.talentTree || heroRaw.heroTalents || {}
     };
 
-    // Update Header UI
     document.getElementById("detail-portrait").src = getAssetUrl(currentHeroData.portrait);
     document.getElementById("detail-name").innerText = currentHeroData.name;
     document.getElementById("detail-role").innerText = currentHeroData.role;
     document.getElementById("detail-title").innerText = currentHeroData.title || "Nexus Combatant";
     
-    // Render builds and active talent strip
     renderActiveBuild();
   } catch (err) {
     console.error(err);
@@ -597,18 +607,14 @@ async function selectHero(heroId, updateUrl = true) {
   }
 }
 
-// --- INTELLIGENT ASSET URL RESOLVER ---
 const REPO_BASE = "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/";
 
 function getAssetUrl(assetPath) {
   if (!assetPath) return '';
   if (assetPath.startsWith('http')) return assetPath;
   
-  // Clean up any redundant prefix
   let clean = assetPath.replace(/^(\/?images\/)?/, '');
   
-  // If the path from the parser doesn't include a folder structure, 
-  // place it into the correct GitHub repo subfolder based on naming conventions
   if (!clean.includes('/')) {
     if (clean.includes('talent') || clean.startsWith('storm_ui_icon')) {
       clean = `abilitytalents/${clean}`;
@@ -693,7 +699,6 @@ function getAssetUrl(assetPath) {
       }
     }
 
-    // --- TALENT BUILDER ---
     async function openBuilder(heroId = null, initialSelections = null, updateUrl = true) {
       switchTabUI('builder');
       
