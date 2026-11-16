@@ -276,10 +276,14 @@
       document.getElementById('maps-dropdown-menu').classList.toggle('hidden');
     }
 
-    function populateMapsDropdown() {
+function populateMapsDropdown() {
       const menu = document.getElementById('maps-dropdown-menu');
       let html = `<div class="px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-500">Battlegrounds</div>`;
-      MASTER_MAP_LIST.forEach(map => {
+      
+      // Sort the maps alphabetically by their display name
+      const sortedMaps = [...MASTER_MAP_LIST].sort((a, b) => a.name.localeCompare(b.name));
+      
+      sortedMaps.forEach(map => {
         html += `<a href="#" onclick="selectMap('${map.id}'); return false;" class="block px-4 py-2 text-sm text-slate-300 hover:bg-sky-500/10 hover:text-sky-300">${map.name}</a>`;
       });
       menu.innerHTML = html;
