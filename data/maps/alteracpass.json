@@ -1,0 +1,28 @@
+{
+  "id": "alteracpass",
+  "name": "Alterac Pass",
+  "theme": "Free your faction's prisoner and hold the Prison Camp to summon a Cavalry charge down all three lanes.",
+  "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/storm_ui_homescreenbackground_wcav.png",
+  "mechanic": {
+    "title": "Prison Camps & Cavalry Charge",
+    "description": "Two Prison Camps activate simultaneously (first warning at 2:30, spawns at 3:00; 3:30 cooldown after a Cavalry charge ends). Teams must channel to free their captive faction leader (6-second channel, reduced to 1.5 seconds on subsequent captures) and defend the capture zone for 30 seconds (the timer pauses if an enemy steps onto the point and decays slowly if recaptured). Completing the capture spawns Cavalry down all three lanes that boost nearby allied heroes' movement speed and damage."
+  },
+  "camps": [
+    {
+      "name": "Siege Giants / Ice Giants (2 Camps)",
+      "timing": "Spawns at 1:00 (3:00 respawn)",
+      "notes": "Located near top-mid and bot-mid. Throw boulders from range; easy to clear early and great for creating lane pressure before Prison Camps activate."
+    },
+    {
+      "name": "Gnoll Bruisers (2 Camps)",
+      "timing": "Spawns at 1:00 (4:00 respawn)",
+      "notes": "Located in the top and bottom outer corners. Apply an armor-shredding debuff to targets they hit, making them dangerous if left unattended."
+    },
+    {
+      "name": "Faction Bosses / Mountain Giants (2 Camps)",
+      "timing": "Spawns at 5:00 (5:00 respawn)",
+      "notes": "Located in the upper-left and lower-right. Features heavy AoE slam and boulder mechanics; securing a Boss alongside a Cavalry wave is a premier win condition."
+    }
+  ],
+  "strategy": "Alterac Pass features unique Core Generals (Vanndar Stormpike and Drek'Thar) instead of standard Cores—they regenerate health rapidly out of combat, use Whirlwind and Charge abilities, and gain +20 Armor for every Keep still standing. Because both Prison Camps spawn at the exact same time, split-map awareness and poke/zone control (such as Chromie, Junkrat, or Hanzo) are vital to interrupt enemy channels and hold your capture point for the full 30 seconds."
+}
