@@ -295,6 +295,7 @@
   </div>
   
  <!-- JAVASCRIPT -->
+  <!-- JAVASCRIPT -->
   <script>
     let MASTER_HERO_LIST = []; 
     let MASTER_MAP_LIST = [];
@@ -313,30 +314,38 @@
 
     document.addEventListener("DOMContentLoaded", async () => {
       try {
-        const [masterRes, buildsRes, mapsRes, tiersRes] = await Promise.all([
+        const [heroesListRes, masterRes, buildsRes, mapsRes, tiersRes] = await Promise.all([
+          fetch('./data/heroes.json').catch(() => null),
           fetch('./data/heroes-master.json').catch(() => null),
           fetch('./data/builds.json').catch(() => null),
           fetch('./data/maps.json').catch(() => null),
           fetch('./data/tiers.json').catch(() => null)
         ]);
         
+        // 1. Load lightweight hero list for sidebar/mapping
+        if (heroesListRes && heroesListRes.ok) {
+          MASTER_HERO_LIST = await heroesListRes.json();
+        }
+
+        // 2. Load the humongous full master json for abilities and talents
         if (masterRes && masterRes.ok) {
           const masterJson = await masterRes.json();
-          // Handles both formats: direct object mapping or wrapped in an .items property
           HOTS_MASTER_DATA = masterJson.items || masterJson;
-
-          MASTER_HERO_LIST = Object.keys(HOTS_MASTER_DATA).map(heroKey => {
-            const h = HOTS_MASTER_DATA[heroKey];
-            const portraitPath = (h.portraits && (h.portraits.heroSelect || h.portraits.leaderboard || h.portraits.target)) || '';
-            
-            return {
-              id: heroKey,
-              name: h.name || heroKey,
-              role: (h.roles && h.roles[0]) || h.expandedRole || "Nexus Combatant",
-              title: h.title || "",
-              portrait: portraitPath
-            };
-          }).sort((a, b) => a.name.localeCompare(b.name));
+          
+          // Fallback if heroes.json wasn't used
+          if (MASTER_HERO_LIST.length === 0 && HOTS_MASTER_DATA) {
+            MASTER_HERO_LIST = Object.keys(HOTS_MASTER_DATA).map(heroKey => {
+              const h = HOTS_MASTER_DATA[heroKey];
+              const portraitPath = (h.portraits && (h.portraits.heroSelect || h.portraits.leaderboard || h.portraits.target)) || '';
+              return {
+                id: heroKey,
+                name: h.name || heroKey,
+                role: (h.roles && h.roles[0]) || h.expandedRole || "Nexus Combatant",
+                title: h.title || "",
+                portrait: portraitPath
+              };
+            }).sort((a, b) => a.name.localeCompare(b.name));
+          }
         }
 
         if (buildsRes && buildsRes.ok) PERSONAL_BUILDS = await buildsRes.json();
@@ -346,7 +355,7 @@
           populateMapsDropdown();
         }
       } catch (err) {
-        console.error("Failed loading master JSON files:", err);
+        console.error("Failed loading data files:", err);
       }
 
       renderHeroSidebar(MASTER_HERO_LIST);
@@ -369,22 +378,18 @@
       }
     });
 
-    // --- URL ROUTING & NAVIGATION ---
     function navigateTo(tab, params = {}, push = true) {
       let url = `#${tab}`;
       const searchParams = new URLSearchParams();
-      
       for (const [key, val] of Object.entries(params)) {
         if (val) searchParams.set(key, val);
       }
-      
       const searchStr = searchParams.toString();
       if (searchStr) url += `?${searchStr}`;
 
       if (push) {
         history.pushState({ tab, params }, '', url);
       }
-      
       dispatchRoute(tab, params);
     }
 
@@ -499,6 +504,7 @@
       return "A"; 
     }
 
+    // Smart asset route builder matching HeroesToolChest structure
     function getAssetUrl(assetPath) {
       if (!assetPath) return '';
       if (assetPath.startsWith('http')) return assetPath;
@@ -575,11 +581,11 @@
 
       try {
         const heroRaw = HOTS_MASTER_DATA[heroId];
-        if (!heroRaw) throw new Error(`Could not find data for ${heroId}`);
+        if (!heroRaw) throw new Error(`Could not find master data for ${heroId}`);
 
         const portraitPath = (heroRaw.portraits && (heroRaw.portraits.heroSelect || heroRaw.portraits.leaderboard || heroRaw.portraits.target)) || '';
 
-        // Flatten abilities safely whether they are structured as categories or a flat array
+        // Flatten abilities from category groupings
         let flattenedAbilities = [];
         if (heroRaw.abilities) {
           if (Array.isArray(heroRaw.abilities)) {
@@ -672,8 +678,8 @@
       if (mapHeroesList) mapHeroesList.innerHTML = `<div class="col-span-full text-xs text-slate-500 italic">No golden heroes configured.</div>`;
 
       try {
-        const res = await fetch(`./data/maps/${mapId}.json`);
-        if (!res.ok) return; 
+        const res = await fetch(`./data/maps/${mapId}.json`).catch(() => null);
+        if (!res || !res.ok) return; 
         const mapData = await res.json();
 
         if (mapPortrait) mapPortrait.src = getAssetUrl(mapData.portrait || masterMap.portrait);
@@ -726,11 +732,10 @@
           }
         }
       } catch (err) {
-        console.warn(`Individual detail file for ${mapId} not found yet.`);
+        console.warn(`Individual detail file for ${mapId} not found.`);
       }
     }
 
-    // --- TALENT BUILDER ---
     async function openBuilder(heroId = null, initialSelections = null, updateUrl = true) {
       switchTabUI('builder');
       
@@ -807,7 +812,7 @@
       const container = document.getElementById("builder-abilities");
       if (!container) return;
       container.innerHTML = "";
-      const abilities = (builderHeroData.abilities || []).filter(ab => ab.key.toUpperCase() !== 'R');
+      const abilities = (builderHeroData.abilities || []).filter(ab => ab.key && ab.key.toUpperCase() !== 'R');
 
       if (abilities.length === 0) {
         container.innerHTML = `<span class="text-xs text-slate-500 italic p-1">No abilities configured</span>`;
@@ -823,8 +828,8 @@
         const iconUrl = getAssetUrl(ab.icon);
         abDiv.innerHTML = `
           <div class="w-10 h-10 rounded-lg border border-slate-700 bg-slate-900 overflow-hidden flex items-center justify-center shadow-inner relative">
-            <img src="${iconUrl}" onerror="this.src='https://via.placeholder.com/40?text=${ab.key}'" class="w-full h-full object-cover" />
-            <span class="absolute bottom-0 right-0 bg-slate-950/80 text-[8px] font-mono font-bold text-sky-400 px-1 rounded-tl">${ab.key}</span>
+            <img src="${iconUrl}" onerror="this.src='https://via.placeholder.com/40?text=${ab.key || '?'}'" class="w-full h-full object-cover" />
+            <span class="absolute bottom-0 right-0 bg-slate-950/80 text-[8px] font-mono font-bold text-sky-400 px-1 rounded-tl">${ab.key || ''}</span>
           </div>
         `;
         container.appendChild(abDiv);
@@ -1000,7 +1005,7 @@
       stripContainer.innerHTML = "";
 
       if (!hero.talents) {
-        stripContainer.innerHTML = `<p class="text-xs text-slate-500 italic p-2 col-span-full">No talent data available in this hero file.</p>`;
+        stripContainer.innerHTML = `<p class="text-xs text-slate-500 italic p-2 col-span-full">No talent data available.</p>`;
         return;
       }
 
@@ -1031,7 +1036,6 @@
       renderHeroSidebar(MASTER_HERO_LIST.filter(h => h.name.toLowerCase().includes(query)));
     }
 
-    // --- DYNAMIC MULTI-TIER LIST BUILDER (S, A, B, C, D) ---
     function renderTierList() {
       const container = document.getElementById("view-tierlist");
       if (!container) return;
