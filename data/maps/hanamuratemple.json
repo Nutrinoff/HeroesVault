@@ -1,0 +1,28 @@
+{
+  "id": "hanamuratemple",
+  "name": "Hanamura Temple",
+  "theme": "Overwatch Payload Escort",
+  "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/ui_ingame_mapmechanic_loadscreen_hanamura_rework.png",
+  "mechanic": {
+    "title": "Payload Escort",
+    "description": "A single neutral Payload spawns in the center of the map (first warning at 2:00, spawns at 2:30; 2:00 cooldown after delivery). Both teams contest control of the Payload to escort it along their respective winding track toward the enemy base—moving faster with up to 3 allied heroes nearby. Reaching the destination fires a barrage of high-damage shots at the enemy's outermost structures."
+  },
+  "camps": [
+    {
+      "name": "Recon Camps / Vision Watchtowers (2 Camps)",
+      "timing": "Spawns at 1:00 (1:30 respawn)",
+      "notes": "Located in the top and bottom alcoves. Capturing grants wide vision over the surrounding jungle and yields substantial bonus XP rather than spawning lane mercenaries."
+    },
+    {
+      "name": "Turret Camps (2 Camps)",
+      "timing": "Spawns at 1:00 (2:30 respawn)",
+      "notes": "Located near top-mid and bot-mid. Drops a deployable Turret item that any allied hero can place on the ground or directly onto the Payload to provide sustained automated fire."
+    },
+    {
+      "name": "Sentinel / Samurai Camps (2 Camps)",
+      "timing": "Spawns at 1:00 (4:00 respawn)",
+      "notes": "Located in the far top-left and bottom-right corners. Spawns a deadly sword-wielding Samurai mercenary that cleaves minion waves and shreds structures rapidly if left unchecked."
+    }
+  ],
+  "strategy": "Hanamura Temple is a two-lane map with no Boss camp where the Samurai and Recon camps provide massive XP and map pressure—often outweighing early Payload skirmishes. Prioritize heroes with strong camp clear and macro mobility (such as Greymane, Rehgar, Sonya, or Falstad). Always contest the Samurai camps on cooldown, grab Recon camps for XP leads and vision control around the center track, and deploy captured Turrets onto the Payload during contested teamfights."
+}
