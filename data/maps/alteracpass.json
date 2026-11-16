@@ -9,11 +9,6 @@
   },
   "camps": [
     {
-      "name": "Siege Giants / Ice Giants (2 Camps)",
-      "timing": "Spawns at 1:00 (3:00 respawn)",
-      "notes": "Located near top-mid and bot-mid. Throw boulders from range; easy to clear early and great for creating lane pressure before Prison Camps activate."
-    },
-    {
       "name": "Gnoll Bruisers (2 Camps)",
       "timing": "Spawns at 1:00 (4:00 respawn)",
       "notes": "Located in the top and bottom outer corners. Apply an armor-shredding debuff to targets they hit, making them dangerous if left unattended."
@@ -22,7 +17,20 @@
       "name": "Faction Bosses / Mountain Giants (2 Camps)",
       "timing": "Spawns at 5:00 (5:00 respawn)",
       "notes": "Located in the upper-left and lower-right. Features heavy AoE slam and boulder mechanics; securing a Boss alongside a Cavalry wave is a premier win condition."
+    },
+    {
+      "name": "Siege Giants / Ice Giants (2 Camps)",
+      "timing": "Spawns at 1:00 (3:00 respawn)",
+      "notes": "Located near top-mid and bot-mid. Throw boulders from range; easy to clear early and great for creating lane pressure before Prison Camps activate."
     }
   ],
-  "strategy": "Alterac Pass features unique Core Generals (Vanndar Stormpike and Drek'Thar) instead of standard Cores—they regenerate health rapidly out of combat, use Whirlwind and Charge abilities, and gain +20 Armor for every Keep still standing. Because both Prison Camps spawn at the exact same time, split-map awareness and poke/zone control (such as Chromie, Junkrat, or Hanzo) are vital to interrupt enemy channels and hold your capture point for the full 30 seconds."
+  "strategy": "Because both Prison Camps spawn at the exact same time, split-map awareness and poke/zone control are vital to interrupt enemy channels and hold your capture point for the full 30 seconds. Push aggressively with your Cavalry aura to maximize structure damage.",
+  "notes": "Core Generals (Vanndar Stormpike and Drek'Thar) replace standard Cores—they regenerate health rapidly out of combat, use Whirlwind and Charge abilities, and gain +20 Armor for every Keep still standing. Never try to rush the General while all 3 Keeps are up.",
+  "goldenHeroes": [
+    "chromie",
+    "junkrat",
+    "hanzo",
+    "blaze",
+    "johanna"
+  ]
 }
