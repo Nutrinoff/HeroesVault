@@ -1,0 +1,23 @@
+{
+  "id": "hauntedmines",
+  "name": "Haunted Mines",
+  "theme": "Undead Underground Golems",
+  "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/ui_ingame_mapmechanic_loadscreen_hauntedmines.png",
+  "mechanic": {
+    "title": "Underground Skulls & Grave Golems",
+    "description": "Four Mine entrances open periodically (first warning at 2:30, opens at 3:00; 2:00 cooldown after both Golems are defeated), allowing heroes to descend into the underground caverns. Teams slay undead packs and the central Mine Boss to collect 100 total Skulls. Once all 100 Skulls are gathered, each team summons a Grave Golem in their designated lane scaled in power by the number of Skulls collected."
+  },
+  "camps": [
+    {
+      "name": "Sapper Camps (2 Camps)",
+      "timing": "Spawns at 1:00 (2:30 respawn)",
+      "notes": "Located in the top and bottom outer lanes. Pumpkin-throwing mercenaries that detonate for heavy structure damage if allowed to reach towers or forts."
+    },
+    {
+      "name": "Bruisers / Knights (1 Central Camp)",
+      "timing": "Spawns at 1:00 (4:00 respawn)",
+      "notes": "Located in the dead center of the upper map between both lanes. Contested by both teams; provides strong pushing power and spell armor aura."
+    }
+  ],
+  "strategy": "Haunted Mines is a compact two-lane battleground where aboveground Sapper pressure can often generate more structural value than racing for every Skull underground. Heroes with strong PvE clear, sustain, and global mobility (like Sylvanas, Greymane, Dehaka, or Tassadar) thrive here. Clear the small undead packs in the mines quickly, avoid getting trapped in the central Mine Boss pit without an advantage, and time Sapper camps aboveground whenever the enemy team commits deep into the mines."
+}
