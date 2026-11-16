@@ -203,14 +203,13 @@ function flattenHeroAbilities(h) {
             const nameLower = String(a.name || '').toLowerCase();
             const catLower = String(a.category || '').toLowerCase();
             
-            // Skip talents, heroics (R, B), hearth, or cancel buttons / passive UI clutter
-            if (['B', 'R', 'HEROIC'].includes(keyUpper) || catLower === 'hearth' || nameLower === 'hearth' || nameLower === 'cancel') {
+            // Skip talents, heroics (R, B), hearth, cancel buttons, or passive UI clutter
+            if (['B', 'R', 'HEROIC'].includes(keyUpper) || catLower === 'hearth' || nameLower === 'hearth' || nameLower === 'cancel' || nameLower.includes('cancel')) {
                 return;
             }
             
-            // Check if it's a valid usable ability or custom Z mount
             const isStandardAbility = ['Q', 'W', 'E', 'TRAIT', 'D', 'Z', 'ACTIVE', 'ACTIVABLE'].includes(keyUpper) || 
-                                      ['basic', 'trait', 'mount', 'activable', 'worldbreaker', 'destroyer'].includes(catLower);
+                                      ['basic', 'trait', 'mount', 'activable', 'worldbreaker', 'destroyer', 'dragonqueen'].includes(catLower);
             
             if (isStandardAbility || a.icon) {
                 out.push({
@@ -225,7 +224,7 @@ function flattenHeroAbilities(h) {
         });
     };
 
-    // 1. Parse base abilities object
+    // 1. Always parse standard base abilities
     if (h.abilities) {
         if (Array.isArray(h.abilities)) {
             addList(h.abilities);
@@ -238,51 +237,58 @@ function flattenHeroAbilities(h) {
         }
     }
 
-    // 2. Parse subAbilities dictionary (captures nested structures like Deathwing's channel/alternate actions)
-    if (h.subAbilities && typeof h.subAbilities === 'object') {
-        Object.values(h.subAbilities).forEach(subObj => {
-            if (subObj && typeof subObj === 'object') {
-                Object.entries(subObj).forEach(([catName, subList]) => {
-                    if (Array.isArray(subList)) {
-                        addList(subList, catName);
+    // 2. Determine if this hero is explicitly a multi-state / form switcher 
+    const heroIdLower = normalizeHeroKey(h.id || h.name || '');
+    const multiStateHeroes = ['deathwing', 'alexstrasza', 'abathur', 'greymane', 'lostvikings', 'samuro'];
+    const hasFormsOrUnits = (h.forms && Object.keys(h.forms).length > 0) || 
+                            (h.heroUnits && Object.keys(h.heroUnits).length > 0) || 
+                            multiStateHeroes.includes(heroIdLower);
+
+    // 3. Only parse subAbilities / alternate forms for multi-state form heroes
+    if (hasFormsOrUnits) {
+        if (h.subAbilities && typeof h.subAbilities === 'object') {
+            Object.values(h.subAbilities).forEach(subObj => {
+                if (subObj && typeof subObj === 'object') {
+                    Object.entries(subObj).forEach(([catName, subList]) => {
+                        if (Array.isArray(subList)) {
+                            addList(subList, catName);
+                        }
+                    });
+                }
+            });
+        }
+
+        if (h.forms && typeof h.forms === 'object') {
+            Object.entries(h.forms).forEach(([formName, formObj]) => {
+                if (formObj?.abilities) {
+                    if (Array.isArray(formObj.abilities)) {
+                        addList(formObj.abilities, formName);
+                    } else if (typeof formObj.abilities === 'object') {
+                        Object.values(formObj.abilities).forEach(subList => {
+                            if (Array.isArray(subList)) addList(subList, formName);
+                        });
                     }
-                });
-            }
-        });
-    }
-
-    // 3. Parse alternate forms (Deathwing forms, etc.)
-    if (h.forms && typeof h.forms === 'object') {
-        Object.entries(h.forms).forEach(([formName, formObj]) => {
-            if (formObj?.abilities) {
-                if (Array.isArray(formObj.abilities)) {
-                    addList(formObj.abilities, formName);
-                } else if (typeof formObj.abilities === 'object') {
-                    Object.values(formObj.abilities).forEach(subList => {
-                        if (Array.isArray(subList)) addList(subList, formName);
-                    });
                 }
-            }
-        });
-    }
+            });
+        }
 
-    // 4. Parse alternate hero units (Abathur clones, etc.)
-    if (h.heroUnits && typeof h.heroUnits === 'object') {
-        Object.entries(h.heroUnits).forEach(([id, u]) => {
-            if (u?.abilities) {
-                const unitName = u.name || id;
-                if (Array.isArray(u.abilities)) {
-                    addList(u.abilities, unitName);
-                } else if (u.abilities && typeof u.abilities === 'object') {
-                    Object.values(u.abilities).forEach(subList => {
-                        if (Array.isArray(subList)) addList(subList, unitName);
-                    });
+        if (h.heroUnits && typeof h.heroUnits === 'object') {
+            Object.entries(h.heroUnits).forEach(([id, u]) => {
+                if (u?.abilities) {
+                    const unitName = u.name || id;
+                    if (Array.isArray(u.abilities)) {
+                        addList(u.abilities, unitName);
+                    } else if (u.abilities && typeof u.abilities === 'object') {
+                        Object.values(u.abilities).forEach(subList => {
+                            if (Array.isArray(subList)) addList(subList, unitName);
+                        });
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
-    // Deduplicate strictly by icon + name + variant to keep the strip clean
+    // Deduplicate strictly by icon + name + variant
     const seen = new Set();
     return out.filter(a => {
         const sig = `${a.name}|${a.icon}|${a.variant}`;
