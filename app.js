@@ -208,6 +208,7 @@ function flattenHeroAbilities(h) {
                 return;
             }
             
+            // Strictly enforce standard combat keys (Q, W, E, Trait/D, Z, or explicit form categories)
             const isStandardAbility = ['Q', 'W', 'E', 'TRAIT', 'D', 'Z', 'ACTIVE', 'ACTIVABLE'].includes(keyUpper) || 
                                       ['basic', 'trait', 'mount', 'activable', 'worldbreaker', 'destroyer', 'dragonqueen'].includes(catLower);
             
@@ -237,18 +238,25 @@ function flattenHeroAbilities(h) {
         }
     }
 
-    // 2. Determine if this hero is explicitly a multi-state / form switcher 
+    // 2. Multi-state check
     const heroIdLower = normalizeHeroKey(h.id || h.name || '');
     const multiStateHeroes = ['deathwing', 'alexstrasza', 'abathur', 'greymane', 'lostvikings', 'samuro'];
     const hasFormsOrUnits = (h.forms && Object.keys(h.forms).length > 0) || 
                             (h.heroUnits && Object.keys(h.heroUnits).length > 0) || 
                             multiStateHeroes.includes(heroIdLower);
 
-    // 3. Only parse subAbilities / alternate forms for multi-state form heroes
+    // 3. For multi-state heroes, selectively grab form/unit abilities and skip talent sub-abilities
     if (hasFormsOrUnits) {
+        // Only pull subAbilities if they match explicit form namespaces (like WorldBreaker / Destroyer)
         if (h.subAbilities && typeof h.subAbilities === 'object') {
-            Object.values(h.subAbilities).forEach(subObj => {
-                if (subObj && typeof subObj === 'object') {
+            Object.entries(h.subAbilities).forEach(([subKey, subObj]) => {
+                const subKeyLower = subKey.toLowerCase();
+                const isFormSubAbility = subKeyLower.includes('worldbreaker') || 
+                                         subKeyLower.includes('destroyer') || 
+                                         subKeyLower.includes('dragon') || 
+                                         subKeyLower.includes('moltenflame');
+                
+                if (isFormSubAbility && subObj && typeof subObj === 'object') {
                     Object.entries(subObj).forEach(([catName, subList]) => {
                         if (Array.isArray(subList)) {
                             addList(subList, catName);
