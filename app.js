@@ -1,8 +1,3 @@
-/**
- * HEROESVAULT - Main Application Logic
- * Zero-backend, client-side HotS Specs & Strategy Hub
- */
-
 // ==========================================
 // 1. GLOBAL STATE & CONFIGURATIONS
 // ==========================================
@@ -59,6 +54,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 role: (h.roles && h.roles[0]) || h.expandedRole || 'Nexus Combatant',
                 portrait: getHeroPortrait(h)
             }));
+
+            // Preload assets in the background right after data is mapped
+            preloadAllAssets(rawHeroes);
         }
 
         if (br?.ok) PERSONAL_BUILDS = await br.json();
@@ -382,6 +380,25 @@ function getHeroPortrait(hero) {
         || p.target 
         || hero.portrait 
         || '';
+}
+
+// Background Preloader to eliminate the first-click asset lag pop-in
+function preloadAllAssets(rawHeroes) {
+    if (!Array.isArray(rawHeroes)) return;
+    
+    rawHeroes.forEach(h => {
+        const portrait = getHeroPortrait(h);
+        if (portrait) {
+            new Image().src = getAssetUrl(portrait);
+        }
+        
+        const abilities = flattenHeroAbilities(h);
+        abilities.forEach(a => {
+            if (a.icon) {
+                new Image().src = getAssetUrl(a.icon);
+            }
+        });
+    });
 }
 
 function formatGameText(value) {
@@ -848,7 +865,7 @@ function renderTierList() {
                         <img src="${getAssetUrl(h.portrait)}" class="w-7 h-7 rounded object-cover">
                         <span>${h.name}</span>
                     </button>
-                `).join('') || '<span class="text-xs text-slate-500 italic">No heroes in this tier.</span>'}
+                `}).join('') || '<span class="text-xs text-slate-500 italic">No heroes in this tier.</span>'}
             </div>
         `;
         
@@ -908,7 +925,9 @@ async function selectMap(id, update = true) {
 
     document.getElementById('map-name').innerText = m.name || summary.name || id;
     document.getElementById('map-theme').innerText = m.theme || summary.theme || '';
-    document.getElementById('map-portrait').src = m.portrait || summary.portrait || '';
+    
+    // Wrapped with getAssetUrl for proper repo path resolution
+    document.getElementById('map-portrait').src = getAssetUrl(m.portrait || summary.portrait || '');
 
     const mech = document.getElementById('map-mechanic');
     if (m.mechanic && typeof m.mechanic === 'object') {
