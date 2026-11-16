@@ -261,11 +261,117 @@ function switchTabUI(t){const h=t==='heroes',m=t==='map',b=t==='builder',l=t==='
 function toggleMapsDropdown(e){e.stopPropagation();document.getElementById('maps-dropdown-menu').classList.toggle('hidden')}
 function populateMapsDropdown(){const menu=document.getElementById('maps-dropdown-menu');menu.innerHTML='<div class="px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-500">Battlegrounds</div>'+MASTER_MAP_LIST.slice().sort((a,b)=>a.name.localeCompare(b.name)).map(m=>`<a href="#map?id=${encodeURIComponent(m.id)}" onclick="selectMapFromDropdown('${String(m.id).replace(/'/g,"\\'")}');return false" class="block px-4 py-2 text-sm text-slate-300 hover:bg-slate-800">${m.name}</a>`).join('')}
 function selectMapFromDropdown(id){document.getElementById('maps-dropdown-menu')?.classList.add('hidden');navigateTo('map',{id})}
-function renderHeroSidebar(heroes){const list=document.getElementById('hero-list');if(!list)return;list.innerHTML='';const isB=!document.getElementById('view-builder').classList.contains('hidden'),active=isB?builderHeroId:currentSelectedHeroId;heroes.forEach(h=>{const tier=getHeroTier(h.id),s=TIER_STYLES[tier]||TIER_STYLES.D,b=document.createElement('button');b.className=`w-full text-left p-2.5 rounded-xl border transition-all ${active===h.id?'bg-sky-500/15 border-sky-500/70':'border-slate-800 bg-slate-950/40 hover:bg-slate-800/80'}`;b.onclick=()=>isB?openBuilder(h.id,null,true):navigateTo('heroes',{hero:h.id});b.innerHTML=`<div class="flex items-center gap-3 min-w-0"><img src="${getAssetUrl(h.portrait)}" onerror="this.src='https://via.placeholder.com/40?text=H'" class="w-11 h-11 rounded-lg border border-slate-700 object-cover"><div class="min-w-0 flex-1"><h4 class="text-sm font-bold truncate">${h.name}</h4><p class="text-xs text-slate-400 truncate">${h.role||'Nexus Combatant'}</p></div><span class="text-[10px] font-mono font-bold px-2 py-1 rounded-md border ${s.bg} ${s.text} ${s.border}">${tier} Tier</span></div>`;list.appendChild(b)});document.getElementById('hero-count').innerText=`${heroes.length} Heroes`}
-function filterHeroes(){const q=document.getElementById('hero-search').value.toLowerCase();renderHeroSidebar(MASTER_HERO_LIST.filter(h=>h.name.toLowerCase().includes(q)||h.id.toLowerCase().includes(q)))}
-async function selectHero(id,update=true){if(!id)return;currentSelectedHeroId=id;currentBuildIndex=0;switchTabUI('heroes');if(update)navigateTo('heroes',{hero:id});renderHeroSidebar(MASTER_HERO_LIST);const h=resolveHeroMasterData(id);if(!h)return console.error('Missing hero master entry',id);currentHeroData={id,name:h.name||id,title:h.title||'Nexus Combatant',role:(h.roles&&h.roles[0])||h.expandedRole||'Nexus Combatant',portrait:h.portraits?.heroSelect||h.portraits?.leaderboard||h.portraits?.target||'',talents:normalizeTalentTree(h.talents||h.talentTree||{})};document.getElementById('detail-portrait').src=getAssetUrl(currentHeroData.portrait);document.getElementById('detail-name').innerText=currentHeroData.name;document.getElementById('detail-role').innerText=currentHeroData.role;document.getElementById('detail-title').innerText=currentHeroData.title;renderActiveBuild()}
-async function openBuilder(id=null,selections=null,update=true){id=id||MASTER_HERO_LIST[0]?.id;if(!id)return;builderHeroId=id;switchTabUI('builder');renderHeroSidebar(MASTER_HERO_LIST);builderSelectedTalents=selections?.length===7?selections.map(x=>Number(x)||1):[1,1,1,1,1,1,1];const h=resolveHeroMasterData(id);if(!h)return console.error('Missing hero master entry',id);builderHeroData={id,name:h.name||id,title:h.title||'Nexus Combatant',portrait:h.portraits?.leaderboard||h.portraits?.heroSelect||h.portraits?.target||'',abilities:flattenHeroAbilities(h),talents:normalizeTalentTree(h.talents||h.talentTree||{})};const p=getAssetUrl(builderHeroData.portrait);document.getElementById('builder-portrait').src=p;document.getElementById('builder-name').innerText=builderHeroData.name;document.getElementById('builder-title').innerText=builderHeroData.title;document.getElementById('builder-model-bg').src=p;renderBuilderAbilities();renderBuilderMatrix();updateBuilderOutput(false);if(update)navigateTo('builder',{hero:id,build:builderSelectedTalents.join('')})}
-function renderBuilderAbilities(){const box=document.getElementById('builder-abilities');box.innerHTML='';const list=(builderHeroData?.abilities||[]).filter(a=>!['HEROIC','R','B'].includes(String(a.key).toUpperCase())&&a.category!=='Hearth');if(!list.length){box.innerHTML='<span class="text-xs text-slate-500">No abilities configured</span>';return}list.forEach(a=>{const el=document.createElement('div');el.className='flex flex-col items-center gap-1 bg-slate-950/60 border border-slate-800 rounded-xl p-1.5 min-w-12';el.onmouseenter=e=>showAbilityTooltip(e,a);el.onmouseleave=hideTooltip;el.innerHTML=`<img src="${getAssetUrl(a.icon)}" onerror="this.src='https://via.placeholder.com/32?text=?'" class="w-8 h-8 rounded-lg border border-slate-700 object-cover"><span class="text-[10px] font-mono font-bold text-sky-300">${a.key}</span>${a.variant?`<span class="text-[8px] text-slate-400 max-w-16 truncate" title="${a.variant}">${a.variant}</span>`:''}`;box.appendChild(el)})}
+function renderHeroSidebar(heroes) {
+    const list = document.getElementById('hero-list');
+    if (!list) return;
+    
+    list.innerHTML = '';
+    
+    const isB = !document.getElementById('view-builder').classList.contains('hidden');
+    const active = isB ? builderHeroId : currentSelectedHeroId;
+    
+    heroes.forEach(h => {
+        const tier = getHeroTier(h.id);
+        const s = TIER_STYLES[tier] || TIER_STYLES.D;
+        const b = document.createElement('button');
+        
+        b.className = `w-full text-left p-2.5 rounded-xl border transition-all ${
+            active === h.id 
+                ? 'bg-sky-500/15 border-sky-500/70' 
+                : 'border-slate-800 bg-slate-950/40 hover:bg-slate-800/80'
+        }`;
+        
+        b.onclick = () => isB 
+            ? openBuilder(h.id, null, true) 
+            : navigateTo('heroes', { hero: h.id });
+            
+        b.innerHTML = `
+            <div class="flex items-center gap-3 min-w-0">
+                <img src="${getAssetUrl(h.portrait)}" onerror="this.src='https://via.placeholder.com/40?text=H'" class="w-11 h-11 rounded-lg border border-slate-700 object-cover">
+                <div class="min-w-0 flex-1">
+                    <h4 class="text-sm font-bold truncate">${h.name}</h4>
+                    <p class="text-xs text-slate-400 truncate">${h.role || 'Nexus Combatant'}</p>
+                </div>
+                <span class="text-[10px] font-mono font-bold px-2 py-1 rounded-md border ${s.bg} ${s.text} ${s.border}">
+                    ${tier} Tier
+                </span>
+            </div>
+        `;
+        
+        list.appendChild(b);
+    });
+    
+    document.getElementById('hero-count').innerText = `${heroes.length} Heroes`;
+}function filterHeroes(){const q=document.getElementById('hero-search').value.toLowerCase();renderHeroSidebar(MASTER_HERO_LIST.filter(h=>h.name.toLowerCase().includes(q)||h.id.toLowerCase().includes(q)))}
+async function selectHero(id, update = true) {
+    if (!id) return;
+    
+    currentSelectedHeroId = id;
+    currentBuildIndex = 0;
+    switchTabUI('heroes');
+    
+    if (update) {
+        navigateTo('heroes', { hero: id });
+    }
+    
+    renderHeroSidebar(MASTER_HERO_LIST);
+    
+    const h = resolveHeroMasterData(id);
+    if (!h) return console.error('Missing hero master entry', id);
+    
+    currentHeroData = {
+        id,
+        name: h.name || id,
+        title: h.title || 'Nexus Combatant',
+        role: (h.roles && h.roles[0]) || h.expandedRole || 'Nexus Combatant',
+        portrait: h.portraits?.heroSelect || h.portraits?.leaderboard || h.portraits?.target || '',
+        talents: normalizeTalentTree(h.talents || h.talentTree || {})
+    };
+    
+    document.getElementById('detail-portrait').src = getAssetUrl(currentHeroData.portrait);
+    document.getElementById('detail-name').innerText = currentHeroData.name;
+    document.getElementById('detail-role').innerText = currentHeroData.role;
+    document.getElementById('detail-title').innerText = currentHeroData.title;
+    
+    renderActiveBuild();
+}async function openBuilder(id = null, selections = null, update = true) {
+    id = id || MASTER_HERO_LIST[0]?.id;
+    if (!id) return;
+    
+    builderHeroId = id;
+    switchTabUI('builder');
+    renderHeroSidebar(MASTER_HERO_LIST);
+    
+    builderSelectedTalents = selections?.length === 7 
+        ? selections.map(x => Number(x) || 1) 
+        : [1, 1, 1, 1, 1, 1, 1];
+        
+    const h = resolveHeroMasterData(id);
+    if (!h) return console.error('Missing hero master entry', id);
+    
+    builderHeroData = {
+        id,
+        name: h.name || id,
+        title: h.title || 'Nexus Combatant',
+        portrait: h.portraits?.leaderboard || h.portraits?.heroSelect || h.portraits?.target || '',
+        abilities: flattenHeroAbilities(h),
+        talents: normalizeTalentTree(h.talents || h.talentTree || {})
+    };
+    
+    const p = getAssetUrl(builderHeroData.portrait);
+    document.getElementById('builder-portrait').src = p;
+    document.getElementById('builder-name').innerText = builderHeroData.name;
+    document.getElementById('builder-title').innerText = builderHeroData.title;
+    document.getElementById('builder-model-bg').src = p;
+    
+    renderBuilderAbilities();
+    renderBuilderMatrix();
+    updateBuilderOutput(false);
+    
+    if (update) {
+        navigateTo('builder', { hero: id, build: builderSelectedTalents.join('') });
+    }
+}function renderBuilderAbilities(){const box=document.getElementById('builder-abilities');box.innerHTML='';const list=(builderHeroData?.abilities||[]).filter(a=>!['HEROIC','R','B'].includes(String(a.key).toUpperCase())&&a.category!=='Hearth');if(!list.length){box.innerHTML='<span class="text-xs text-slate-500">No abilities configured</span>';return}list.forEach(a=>{const el=document.createElement('div');el.className='flex flex-col items-center gap-1 bg-slate-950/60 border border-slate-800 rounded-xl p-1.5 min-w-12';el.onmouseenter=e=>showAbilityTooltip(e,a);el.onmouseleave=hideTooltip;el.innerHTML=`<img src="${getAssetUrl(a.icon)}" onerror="this.src='https://via.placeholder.com/32?text=?'" class="w-8 h-8 rounded-lg border border-slate-700 object-cover"><span class="text-[10px] font-mono font-bold text-sky-300">${a.key}</span>${a.variant?`<span class="text-[8px] text-slate-400 max-w-16 truncate" title="${a.variant}">${a.variant}</span>`:''}`;box.appendChild(el)})}
 function showAbilityTooltip(e,a){showTooltip(e,a.name,`Ability [${a.key}]${a.variant?' · '+a.variant:''}`,a.desc,a.icon)}function showTalentTooltip(e,t,l){showTooltip(e,t.name,`Level ${l} Talent`,t.fullText||t.shortText||t.description||'',t.icon)}
 function showTooltip(e,name,level,description,icon){const tip=document.getElementById('talent-tooltip');document.getElementById('tip-icon').src=getAssetUrl(icon);document.getElementById('tip-name').innerText=name||'';document.getElementById('tip-level').innerText=level;document.getElementById('tip-desc').innerHTML=formatGameText(description)||'No description available.';tip.style.left=`${e.clientX+15}px`;tip.style.top=`${e.clientY+15}px`;tip.classList.remove('hidden')}
 function hideTooltip(){document.getElementById('talent-tooltip').classList.add('hidden')}
