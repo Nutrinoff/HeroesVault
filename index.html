@@ -200,23 +200,26 @@
           <div id="builder-abilities" class="flex items-center justify-center gap-2 flex-wrap overflow-hidden py-2"></div>
         </div>
 
-        <!-- TALENT MATRIX CONTAINER (Compact build string & copy button in the bottom right) -->
-        <section class="relative bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-lg overflow-hidden space-y-6">
+        <!-- TALENT MATRIX CONTAINER (Build string & copy button moved up to align with level 20 talents) -->
+        <section class="relative bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-lg overflow-hidden">
           <img id="builder-model-bg" src="" onerror="this.style.display='none'" class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none"/>
-          <div class="relative z-10">
-            <div class="flex items-center justify-between mb-4">
+          <div class="relative z-10 space-y-4">
+            <div class="flex items-center justify-between">
               <h3 class="text-lg font-bold text-sky-400">Talent Matrix</h3>
               <button onclick="resetBuilder()" class="bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 px-3 py-1.5 rounded-lg border border-amber-500/40 text-xs font-bold">Reset</button>
             </div>
-            <div id="builder-matrix" class="space-y-3"></div>
-          </div>
+            
+            <div class="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-6">
+              <div id="builder-matrix" class="space-y-3 flex-1"></div>
 
-          <!-- Bottom Right Toolbar for Build String & Copy Link -->
-          <div class="relative z-10 pt-4 border-t border-slate-800/80 flex items-center justify-end gap-3">
-            <code id="builder-string-code" class="bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-emerald-300 font-mono">[T0000000,Hero]</code>
-            <button onclick="copyBuilderString()" class="bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 px-4 py-2.5 rounded-xl border border-sky-500/40 text-xs font-bold flex items-center gap-2 transition flex-shrink-0">
-              <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Link
-            </button>
+              <!-- Compact Build String & Copy Link aligned with Level 20 row -->
+              <div class="flex items-center gap-3 self-end lg:self-auto lg:mb-2 flex-shrink-0">
+                <code id="builder-string-code" class="bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-emerald-300 font-mono">[T0000000,Hero]</code>
+                <button onclick="copyBuilderString()" class="bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 px-4 py-2.5 rounded-xl border border-sky-500/40 text-xs font-bold flex items-center gap-2 transition flex-shrink-0">
+                  <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Link
+                </button>
+              </div>
+            </div>
           </div>
         </section>
       </div>
