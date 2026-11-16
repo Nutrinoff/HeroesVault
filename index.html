@@ -854,15 +854,40 @@
       const s = document.getElementById("tier-s");
       const a = document.getElementById("tier-a");
       if (!s || !a) return;
-      s.innerHTML = ""; a.innerHTML = "";
-      MASTER_HERO_LIST.forEach(hero => {
-        const badge = document.createElement("div");
-        badge.className = "flex items-center gap-2 bg-slate-950 px-2.5 py-1.5 rounded-lg border border-slate-800 cursor-pointer hover:border-sky-500";
-        badge.onclick = () => { navigateTo('heroes', { hero: hero.id }); };
-        badge.innerHTML = `<img src="${hero.portrait}" onerror="this.src='https://via.placeholder.com/24?text=H'" class="w-6 h-6 rounded-md object-cover"/> <span class="text-xs font-semibold">${hero.name}</span>`;
-        if (hero.tier === "S") s.appendChild(badge);
-        else a.appendChild(badge);
+      s.innerHTML = ""; 
+      a.innerHTML = "";
+
+      // Quick lookup map of all hero objects
+      const heroMap = {};
+      MASTER_HERO_LIST.forEach(h => heroMap[h.id] = h);
+
+      // Define your tiers explicitly here for easy editing
+      const sTierIds = ["abathur", "alarak", "alexstrasza", "anubarak", "auriel", "blaze", "brightwing", "cassia", "chromie", "deckard", "dehaka", "diablo", "etc", "falstad", "garrosh", "genji", "greymane", "guldan", "hanzo", "hogger", "imperius", "jaina", "johanna", "kelthuzad", "kerrigan", "leoric", "liming", "lucio", "maiev", "malganis", "malfurion", "malthael", "medivh", "mei", "mephisto", "muradin", "orphea", "ragnaros", "rehgar", "rexxar", "samuro", "sonya", "stukov", "sylvanas", "tassadar", "thelostvikings", "tracer", "tychus", "tyrael", "tyrande", "uther", "valla", "varian", "whitemane", "xalatath", "yrel", "zeratul", "zuljin"];
+      
+      const aTierIds = ["ana", "anduin", "artanis", "arthas", "azmodan", "chen", "cho", "dva", "deathwing", "fenix", "gall", "gazlowe", "illidan", "junkrat", "kaelthas", "kharazim", "lili", "ltmorales", "lunara", "murky", "nazeebo", "nova", "probius", "qhira", "raynor", "sgthammer", "stitches", "thebutcher", "thrall", "valeera", "xul", "zagara", "zarya"];
+
+      sTierIds.forEach(id => {
+        const hero = heroMap[id];
+        if (!hero) return;
+        s.appendChild(createTierBadge(hero));
       });
+
+      aTierIds.forEach(id => {
+        const hero = heroMap[id];
+        if (!hero) return;
+        a.appendChild(createTierBadge(hero));
+      });
+    }
+
+    function createTierBadge(hero) {
+      const badge = document.createElement("div");
+      badge.className = "flex items-center gap-2 bg-slate-950 px-2.5 py-1.5 rounded-lg border border-slate-800 cursor-pointer hover:border-sky-500 transition-all";
+      badge.onclick = () => { navigateTo('heroes', { hero: hero.id }); };
+      badge.innerHTML = `
+        <img src="${hero.portrait}" onerror="this.src='https://via.placeholder.com/24?text=H'" class="w-6 h-6 rounded-md object-cover bg-slate-900"/> 
+        <span class="text-xs font-semibold text-slate-200">${hero.name}</span>
+      `;
+      return badge;
     }
   </script>
 </body>
