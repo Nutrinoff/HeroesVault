@@ -85,7 +85,7 @@
       {
         "name": "Slapathur",
         "desc": "Abathur's Basic Attacks deal 350% additional damage and Stun non-Elite enemies and disable Structures for 1.5 seconds.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_slapathur.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_slam.png"
       }
     ],
     "7": [
@@ -170,7 +170,7 @@
       {
         "name": "Hivemind",
         "desc": "Symbiote automatically targets a second nearby allied Hero.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_hivemind.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_hiveminded.png"
       },
       {
         "name": "Locust Nest",
