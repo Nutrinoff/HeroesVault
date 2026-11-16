@@ -197,7 +197,8 @@ function flattenHeroAbilities(h) {
     const add = (abilities, variant = '') => {
         if (Array.isArray(abilities)) {
             abilities.forEach(a => {
-                if (!['B', 'R', 'HEROIC'].includes(String(a.abilityType || '').toUpperCase())) {
+                const type = String(a.abilityType || '').toUpperCase();
+                if (!['B', 'R', 'HEROIC'].includes(type)) {
                     out.push(abilityEntry(a, 'Basic', variant));
                 }
             });
@@ -207,7 +208,8 @@ function flattenHeroAbilities(h) {
         
         for (const cat of ['Basic', 'Trait', 'Mount', 'Activable']) {
             for (const a of (Array.isArray(abilities[cat]) ? abilities[cat] : [])) {
-                if (!['B', 'R', 'HEROIC'].includes(String(a.abilityType || '').toUpperCase())) {
+                const type = String(a.abilityType || '').toUpperCase();
+                if (!['B', 'R', 'HEROIC'].includes(type)) {
                     out.push(abilityEntry(a, cat, variant));
                 }
             }
@@ -216,11 +218,14 @@ function flattenHeroAbilities(h) {
     
     add(h.abilities);
     
-    Object.entries(h.heroUnits || {}).forEach(([id, u]) => {
-        if (u?.abilities) {
-            add(u.abilities, u.name || id);
-        }
-    });
+    // Catch alternate units / forms (like Deathwing's Destroyer/World Breaker or units)
+    if (h.heroUnits && typeof h.heroUnits === 'object') {
+        Object.entries(h.heroUnits).forEach(([id, u]) => {
+            if (u?.abilities) {
+                add(u.abilities, u.name || id);
+            }
+        });
+    }
     
     return out;
 }
@@ -401,32 +406,35 @@ function renderHeroHeader(heroData) {
     
     const portraitUrl = getAssetUrl(heroData.portrait);
     
-    // Update portrait elements safely across both views
+    // Universal selectors for both Heroes and Builder views
     ['hero-portrait', 'builder-portrait'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.src = portraitUrl;
     });
     
-    const nameEl = document.getElementById('hero-name') || document.getElementById('builder-name');
-    if (nameEl) nameEl.innerText = heroData.name;
+    ['hero-name', 'builder-name'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerText = heroData.name;
+    });
     
     const roleEl = document.getElementById('hero-role');
     if (roleEl) roleEl.innerText = heroData.role;
     
-    const titleEl = document.getElementById('hero-title') || document.getElementById('builder-title');
-    if (titleEl) titleEl.innerText = heroData.title;
+    ['hero-title', 'builder-title'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerText = heroData.title;
+    });
     
     const bgModel = document.getElementById('builder-model-bg');
     if (bgModel) {
         bgModel.src = portraitUrl;
     }
     
+    // Render abilities into the shared abilities container
     const box = document.getElementById('hero-abilities');
     if (!box) return;
     box.innerHTML = '';
     
-    // Filter abilities: Exclude Heroic/R, Hearth (B), and generic standard mounts
-    // Explicitly allow custom Z abilities (Deep Tunnel, Flight, Z-variants)
     const list = (heroData.abilities || []).filter(a => {
         const keyUpper = String(a.key || '').toUpperCase();
         const nameLower = String(a.name || '').toLowerCase();
@@ -436,9 +444,10 @@ function renderHeroHeader(heroData) {
             return false;
         }
         
-        // Hide standard generic mounts, but keep custom hero Z utilities (Abathur Deep Tunnel, Falstad Flight, etc.)
+        // Filter standard generic mounts, but allow custom Z abilities (Burrow, Deep Tunnel, Flight, etc.)
         if (keyUpper === 'Z' || catLower === 'mount' || nameLower.includes('mount')) {
-            if (nameLower.includes('summon mount') || nameLower === 'mount' || (catLower === 'mount' && !nameLower.includes('tunnel') && !nameLower.includes('flight'))) {
+            const isCustomZ = nameLower.includes('tunnel') || nameLower.includes('flight') || nameLower.includes('burrow');
+            if (!isCustomZ && (nameLower.includes('summon mount') || nameLower === 'mount' || catLower === 'mount')) {
                 return false;
             }
         }
