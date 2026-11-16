@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 name: h.name,
                 title: h.title,
                 role: (h.roles && h.roles[0]) || h.expandedRole || 'Nexus Combatant',
-                portrait: h.portraits?.heroSelect || h.portraits?.leaderboard || h.portraits?.target || ''
+                portrait: getHeroPortrait(h)
             }));
         }
 
@@ -132,13 +132,13 @@ function switchTabUI(t) {
     const b = t === 'builder';
     const l = t === 'tierlist';
     
-    [['view-heroes', h], ['view-map', m], ['view-builder', b], ['view-tierlist', l]].forEach(([id, on]) => {
+    [['view-heroes', h], ['view-map', m], ['view-builder', b], ['view-tierlist', l']].forEach(([id, on]) => {
         document.getElementById(id).classList.toggle('hidden', !on);
     });
     
     document.getElementById('sidebar-container').classList.toggle('hidden', !h && !b);
     
-    [['nav-heroes', h], ['nav-builder', b], ['nav-tierlist', l]].forEach(([id, on]) => {
+    [['nav-heroes', h], ['nav-builder', b], ['nav-tierlist', l']].forEach(([id, on]) => {
         document.getElementById(id).classList.toggle('nav-active', on);
     });
 }
@@ -262,6 +262,15 @@ function getAssetUrl(path) {
     return REPO_BASE + p;
 }
 
+function getHeroPortrait(hero) {
+    return hero?.portraits?.draftScreen
+        || hero?.portraits?.heroSelect
+        || hero?.portraits?.leaderboard
+        || hero?.portraits?.target
+        || hero?.portrait
+        || '';
+}
+
 function formatGameText(value) {
     // The game embeds decorative WoW quest/reward symbols as <img .../> tags.
     // They are redundant with the adjacent Quest:/Reward: label, so remove them first.
@@ -362,7 +371,7 @@ function renderHeroSidebar(heroes) {
             
         b.innerHTML = `
             <div class="flex items-center gap-3 min-w-0">
-                <img src="${getAssetUrl(h.portrait)}" onerror="this.src='https://via.placeholder.com/40?text=H'" class="w-11 h-11 rounded-lg border border-slate-700 object-cover">
+                <img src="${getAssetUrl(h.portrait)}" onerror="this.src='https://via.placeholder.com/48?text=H'" class="w-12 h-12 object-contain border border-slate-700/50">
                 <div class="min-w-0 flex-1">
                     <h4 class="text-sm font-bold truncate">${h.name}</h4>
                     <p class="text-xs text-slate-400 truncate">${h.role || 'Nexus Combatant'}</p>
@@ -410,7 +419,7 @@ async function selectHero(id, update = true) {
         name: h.name || id,
         title: h.title || 'Nexus Combatant',
         role: (h.roles && h.roles[0]) || h.expandedRole || 'Nexus Combatant',
-        portrait: h.portraits?.heroSelect || h.portraits?.leaderboard || h.portraits?.target || '',
+        portrait: getHeroPortrait(h),
         talents: normalizeTalentTree(h.talents || h.talentTree || {})
     };
     
@@ -505,7 +514,7 @@ async function openBuilder(id = null, selections = null, update = true) {
         id,
         name: h.name || id,
         title: h.title || 'Nexus Combatant',
-        portrait: h.portraits?.leaderboard || h.portraits?.heroSelect || h.portraits?.target || '',
+        portrait: getHeroPortrait(h),
         abilities: flattenHeroAbilities(h),
         talents: normalizeTalentTree(h.talents || h.talentTree || {})
     };
