@@ -200,7 +200,8 @@
           <div id="builder-abilities" class="flex items-center justify-center gap-2 flex-wrap overflow-hidden py-2"></div>
         </div>
 
-        <section class="relative bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-lg overflow-hidden">
+        <!-- TALENT MATRIX CONTAINER (Now includes build string & copy button in the bottom right) -->
+        <section class="relative bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-lg overflow-hidden space-y-6">
           <img id="builder-model-bg" src="" onerror="this.style.display='none'" class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none"/>
           <div class="relative z-10">
             <div class="flex items-center justify-between mb-4">
@@ -209,13 +210,14 @@
             </div>
             <div id="builder-matrix" class="space-y-3"></div>
           </div>
-        </section>
-        <section class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 space-y-4 shadow-lg">
-          <div class="flex items-center justify-between gap-3 flex-wrap">
-            <span class="text-sm font-bold text-sky-200">Build String</span>
-            <button onclick="copyBuilderString()" class="bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 px-3 py-1.5 rounded-lg border border-sky-500/40 text-xs font-bold">Copy Link</button>
+
+          <!-- Integrated Build String / Copy Link Toolbar in bottom right -->
+          <div class="relative z-10 pt-4 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <code id="builder-string-code" class="w-full sm:w-auto flex-1 bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-emerald-300 font-mono break-all">[T0000000,Hero]</code>
+            <button onclick="copyBuilderString()" class="w-full sm:w-auto flex-shrink-0 bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 px-4 py-2.5 rounded-xl border border-sky-500/40 text-xs font-bold flex items-center justify-center gap-2 transition">
+              <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Link
+            </button>
           </div>
-          <code id="builder-string-code" class="block bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-emerald-300 font-mono break-all">[T0000000,Hero]</code>
         </section>
       </div>
 
