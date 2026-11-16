@@ -229,7 +229,6 @@ function resolveHeroMasterData(id) {
     if (!id) return null;
     if (HOTS_MASTER_DATA[id]) return HOTS_MASTER_DATA[id];
     
-    // If HOTS_MASTER_DATA is an array instead of an object map
     if (Array.isArray(HOTS_MASTER_DATA)) {
         return HOTS_MASTER_DATA.find(h => normalizeHeroKey(h.id || h.hyperlinkId) === normalizeHeroKey(id)) || null;
     }
@@ -261,7 +260,6 @@ function getAssetUrl(path) {
     return REPO_BASE + p;
 }
 
-// Safe portrait resolver with fallback checks
 function getHeroPortrait(hero) {
     if (!hero) return '';
     const p = hero.portraits || {};
@@ -274,8 +272,6 @@ function getHeroPortrait(hero) {
 }
 
 function formatGameText(value) {
-    // The game embeds decorative WoW quest/reward symbols as <img .../> tags.
-    // They are redundant with the adjacent Quest:/Reward: label, so remove them first.
     const source = String(value || '').replace(/<img\b[^>]*\/?>/gi, '');
     if (!source) return '';
     
@@ -397,7 +393,54 @@ function filterHeroes() {
 
 
 // ==========================================
-// 5. HERO DETAILS & BUILDS VIEW
+// 5. UNIFIED HEADER RENDERER
+// ==========================================
+
+function renderHeroHeader(heroData) {
+    if (!heroData) return;
+    
+    const portraitUrl = getAssetUrl(heroData.portrait);
+    
+    document.getElementById('hero-portrait').src = portraitUrl;
+    document.getElementById('hero-name').innerText = heroData.name;
+    document.getElementById('hero-role').innerText = heroData.role;
+    document.getElementById('hero-title').innerText = heroData.title;
+    
+    const bgModel = document.getElementById('builder-model-bg');
+    if (bgModel) {
+        bgModel.src = portraitUrl;
+    }
+    
+    const box = document.getElementById('hero-abilities');
+    if (!box) return;
+    box.innerHTML = '';
+    
+    const list = (heroData.abilities || []).filter(a => 
+        !['HEROIC', 'R', 'B'].includes(String(a.key).toUpperCase()) && a.category !== 'Hearth'
+    );
+    
+    if (!list.length) {
+        box.innerHTML = '<span class="text-xs text-slate-500">No abilities configured</span>';
+        return;
+    }
+    
+    list.forEach(a => {
+        const el = document.createElement('div');
+        el.className = 'flex flex-col items-center gap-1 bg-slate-950/60 border border-slate-800 rounded-xl p-1.5 min-w-12';
+        el.onmouseenter = e => showAbilityTooltip(e, a);
+        el.onmouseleave = hideTooltip;
+        el.innerHTML = `
+            <img src="${getAssetUrl(a.icon)}" onerror="this.src='https://via.placeholder.com/32?text=?'" class="w-8 h-8 rounded-lg border border-slate-700 object-cover">
+            <span class="text-[10px] font-mono font-bold text-sky-300">${a.key}</span>
+            ${a.variant ? `<span class="text-[8px] text-slate-400 max-w-16 truncate" title="${a.variant}">${a.variant}</span>` : ''}
+        `;
+        box.appendChild(el);
+    });
+}
+
+
+// ==========================================
+// 6. HERO DETAILS & BUILDS VIEW
 // ==========================================
 
 async function selectHero(id, update = true) {
@@ -422,14 +465,11 @@ async function selectHero(id, update = true) {
         title: h.title || 'Nexus Combatant',
         role: (h.roles && h.roles[0]) || h.expandedRole || 'Nexus Combatant',
         portrait: getHeroPortrait(h),
+        abilities: flattenHeroAbilities(h),
         talents: normalizeTalentTree(h.talents || h.talentTree || {})
     };
     
-    document.getElementById('detail-portrait').src = getAssetUrl(currentHeroData.portrait);
-    document.getElementById('detail-name').innerText = currentHeroData.name;
-    document.getElementById('detail-role').innerText = currentHeroData.role;
-    document.getElementById('detail-title').innerText = currentHeroData.title;
-    
+    renderHeroHeader(currentHeroData);
     renderActiveBuild();
 }
 
@@ -494,7 +534,7 @@ function renderBuildStrip(h, code) {
 
 
 // ==========================================
-// 6. TALENT BUILDER VIEW
+// 7. TALENT BUILDER VIEW
 // ==========================================
 
 async function openBuilder(id = null, selections = null, update = true) {
@@ -516,51 +556,19 @@ async function openBuilder(id = null, selections = null, update = true) {
         id,
         name: h.name || id,
         title: h.title || 'Nexus Combatant',
+        role: (h.roles && h.roles[0]) || h.expandedRole || 'Nexus Combatant',
         portrait: getHeroPortrait(h),
         abilities: flattenHeroAbilities(h),
         talents: normalizeTalentTree(h.talents || h.talentTree || {})
     };
     
-    const p = getAssetUrl(builderHeroData.portrait);
-    document.getElementById('builder-portrait').src = p;
-    document.getElementById('builder-name').innerText = builderHeroData.name;
-    document.getElementById('builder-title').innerText = builderHeroData.title;
-    document.getElementById('builder-model-bg').src = p;
-    
-    renderBuilderAbilities();
+    renderHeroHeader(builderHeroData);
     renderBuilderMatrix();
     updateBuilderOutput(false);
     
     if (update) {
         navigateTo('builder', { hero: id, build: builderSelectedTalents.join('') });
     }
-}
-
-function renderBuilderAbilities() {
-    const box = document.getElementById('builder-abilities');
-    box.innerHTML = '';
-    
-    const list = (builderHeroData?.abilities || []).filter(a => 
-        !['HEROIC', 'R', 'B'].includes(String(a.key).toUpperCase()) && a.category !== 'Hearth'
-    );
-    
-    if (!list.length) {
-        box.innerHTML = '<span class="text-xs text-slate-500">No abilities configured</span>';
-        return;
-    }
-    
-    list.forEach(a => {
-        const el = document.createElement('div');
-        el.className = 'flex flex-col items-center gap-1 bg-slate-950/60 border border-slate-800 rounded-xl p-1.5 min-w-12';
-        el.onmouseenter = e => showAbilityTooltip(e, a);
-        el.onmouseleave = hideTooltip;
-        el.innerHTML = `
-            <img src="${getAssetUrl(a.icon)}" onerror="this.src='https://via.placeholder.com/32?text=?'" class="w-8 h-8 rounded-lg border border-slate-700 object-cover">
-            <span class="text-[10px] font-mono font-bold text-sky-300">${a.key}</span>
-            ${a.variant ? `<span class="text-[8px] text-slate-400 max-w-16 truncate" title="${a.variant}">${a.variant}</span>` : ''}
-        `;
-        box.appendChild(el);
-    });
 }
 
 function renderBuilderMatrix() {
@@ -634,7 +642,7 @@ function decodeBuildCode(s) {
 
 
 // ==========================================
-// 7. TOOLTIPS
+// 8. TOOLTIPS
 // ==========================================
 
 function showAbilityTooltip(e, a) {
@@ -662,7 +670,7 @@ function hideTooltip() {
 
 
 // ==========================================
-// 8. TIER LIST VIEW
+// 9. TIER LIST VIEW
 // ==========================================
 
 function renderTierList() {
@@ -707,7 +715,7 @@ function renderTierList() {
 
 
 // ==========================================
-// 9. MAPS & BATTLEGROUNDS VIEW
+// 10. MAPS & BATTLEGROUNDS VIEW
 // ==========================================
 
 function toggleMapsDropdown(e) {
