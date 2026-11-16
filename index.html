@@ -453,9 +453,20 @@
     }
 
     function getHeroTier(heroId) {
-      for (const [tierLetter, ids] of Object.entries(MASTER_TIERS)) {
-        if (Array.isArray(ids) && ids.map(i => i.toLowerCase()).includes(heroId.toLowerCase())) {
-          return tierLetter.toUpperCase();
+      const possibleKeys = [
+        { letter: "S", keys: ["s", "stier", "s_tier"] },
+        { letter: "A", keys: ["a", "atier", "a_tier"] },
+        { letter: "B", keys: ["b", "btier", "b_tier"] },
+        { letter: "C", keys: ["c", "ctier", "c_tier"] },
+        { letter: "D", keys: ["d", "dtier", "d_tier"] }
+      ];
+
+      for (const tierObj of possibleKeys) {
+        const foundKey = Object.keys(MASTER_TIERS).find(k => tierObj.keys.includes(k.toLowerCase()));
+        if (foundKey && Array.isArray(MASTER_TIERS[foundKey])) {
+          if (MASTER_TIERS[foundKey].map(i => i.toLowerCase()).includes(heroId.toLowerCase())) {
+            return tierObj.letter;
+          }
         }
       }
       return "A"; // Default fallback
@@ -845,7 +856,7 @@
     }
 
     // --- DYNAMIC MULTI-TIER LIST BUILDER (S, A, B, C, D) ---
-    function renderTierList() {
+  function renderTierList() {
       const container = document.getElementById("view-tierlist");
       if (!container) return;
 
@@ -865,12 +876,23 @@
         "D": { bg: "bg-cyan-500/20", text: "text-cyan-400", border: "border-cyan-500/40" }
       };
 
-      const tierKeys = ["S", "A", "B", "C", "D"];
+      // Map potential json keys to their target display letter
+      const possibleKeys = [
+        { letter: "S", keys: ["s", "stier", "s_tier"] },
+        { letter: "A", keys: ["a", "atier", "a_tier"] },
+        { letter: "B", keys: ["b", "btier", "b_tier"] },
+        { letter: "C", keys: ["c", "ctier", "c_tier"] },
+        { letter: "D", keys: ["d", "dtier", "d_tier"] }
+      ];
 
-      tierKeys.forEach(tierKey => {
-        const heroIds = MASTER_TIERS[tierKey];
-        if (!heroIds || heroIds.length === 0) return; 
+      possibleKeys.forEach(tierObj => {
+        // Find which key actually exists in MASTER_TIERS (case-insensitive check)
+        let foundKey = Object.keys(MASTER_TIERS).find(k => tierObj.keys.includes(k.toLowerCase()));
+        const heroIds = foundKey ? MASTER_TIERS[foundKey] : [];
 
+        if (!heroIds || heroIds.length === 0) return;
+
+        const tierKey = tierObj.letter;
         const style = tierStyles[tierKey] || { bg: "bg-slate-800/30", text: "text-slate-400", border: "border-slate-700/30" };
 
         const rowDiv = document.createElement("div");
