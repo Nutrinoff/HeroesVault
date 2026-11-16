@@ -9,14 +9,14 @@
   },
   "camps": [
     {
-      "name": "Gnoll Siege Camps (4 Camps)",
+      "name": "Gnoll Siege Camps (2 Camps)",
       "timing": "Spawns at 0:30 (1:30 respawn)",
-      "notes": "Features 3 Gnolls per camp (top-outer, top-mid, bot-mid, bot-outer). High health pool and reduces the Armor of enemy Heroes and Structures—ideal to push alongside."
+      "notes": "Features 3 Gnolls per camp (Near Keep Gate mid lane for both sides). High health pool and reduces the Armor of enemy Heroes and Structures—ideal to push alongside."
     },
     {
       "name": "Boss / Ice Giants (2 Camps)",
       "timing": "Spawns at 5:00 (5:00 respawn)",
-      "notes": "Located in the upper-left and lower-right. Uses Mega Smash (10s AoE stun) and Ice Shard (15s 50% slow). Immune to Bribe; pairing a Boss with Cavalry is a major win condition."
+      "notes": "Centered horizontally, sitting above top lane and below bottom lane. Uses Mega Smash (10s AoE stun) and Ice Shard (15s 50% slow). Immune to Bribe; pairing a Boss with Cavalry is a major win condition."
     }
   ],
   "strategy": "Because both Prison Camps spawn at the exact same time, split-map awareness and poke/zone control are vital to interrupt enemy channels and hold your capture point for the full 30 seconds. Push aggressively with your Cavalry aura to maximize structure damage.",
