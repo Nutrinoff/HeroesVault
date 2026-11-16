@@ -55,36 +55,33 @@ document.addEventListener('DOMContentLoaded', async () => {
                 portrait: getHeroPortrait(h)
             }));
 
-            // Preload assets in the background right after data is mapped
-            preloadAllAssets(rawHeroes);
+           // Optimized Background Preloader (Prevents network queue choking)
+function preloadAllAssets(rawHeroes) {
+    if (!Array.isArray(rawHeroes)) return;
+    
+    // 1. Instantly preload all hero portraits first (lightweight & high priority for sidebar)
+    rawHeroes.forEach(h => {
+        const portrait = getHeroPortrait(h);
+        if (portrait) {
+            new Image().src = getAssetUrl(portrait);
         }
+    });
 
-        if (br?.ok) PERSONAL_BUILDS = await br.json();
-        if (mapr?.ok) {
-            MASTER_MAP_LIST = await mapr.json();
-            populateMapsDropdown();
-        }
-        if (tr?.ok) MASTER_TIERS = await tr.json();
-        
-        renderHeroSidebar(MASTER_HERO_LIST);
-        renderTierList();
-        handleRoute();
-        
-        if (window.lucide) {
-            lucide.createIcons();
-        }
-        
-        window.addEventListener('popstate', handleRoute);
-        
-        window.onclick = e => {
-            if (!e.target.closest('#maps-dropdown-menu') && !e.target.closest('#maps-dropdown-toggle')) {
-                document.getElementById('maps-dropdown-menu')?.classList.add('hidden');
-            }
-        };
-    } catch (e) {
-        console.error('Failed loading data files:', e);
-    }
-});
+    // 2. Stagger ability icon preloading in the background so it doesn't jam the network
+    setTimeout(() => {
+        rawHeroes.forEach((h, index) => {
+            // Process in small staggered batches using micro-delays
+            setTimeout(() => {
+                const abilities = flattenHeroAbilities(h);
+                abilities.forEach(a => {
+                    if (a.icon) {
+                        new Image().src = getAssetUrl(a.icon);
+                    }
+                });
+            }, index * 30); // 30ms stagger per hero
+        });
+    }, 500); // Wait half a second after page load so initial UI renders instantly first
+}
 
 function navigateTo(tab, params = {}, push = true) {
     let url = '#' + tab;
