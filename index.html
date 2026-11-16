@@ -294,7 +294,6 @@
     <p id="tip-desc" class="text-[11px] text-slate-300 leading-relaxed mt-1">Talent description goes here...</p>
   </div>
   
- <!-- JAVASCRIPT -->
   <!-- JAVASCRIPT -->
   <script>
     let MASTER_HERO_LIST = []; 
@@ -569,146 +568,144 @@
       if (countEl) countEl.innerText = `${heroes.length} Heroes`;
     }
 
-    async function selectHero(heroId, updateUrl = true) {
-      currentSelectedHeroId = heroId;
-      currentBuildIndex = 0;
-      renderHeroSidebar(MASTER_HERO_LIST);
-      switchTabUI('heroes');
+   async function selectHero(heroId, updateUrl = true) {
+  currentSelectedHeroId = heroId;
+  currentBuildIndex = 0;
+  renderHeroSidebar(MASTER_HERO_LIST);
+  switchTabUI('heroes');
 
-      if (updateUrl) {
-        navigateTo('heroes', { hero: heroId });
-      }
+  if (updateUrl) {
+    navigateTo('heroes', { hero: heroId });
+  }
 
-      try {
-        const heroRaw = getMasterHero(heroId);
-        if (!heroRaw) throw new Error(`Could not find master data for ${heroId}`);
+  try {
+    const heroRaw = HOTS_MASTER_DATA[heroId];
+    if (!heroRaw) throw new Error(`Could not find master data for ${heroId}`);
 
-        const portraitPath = (heroRaw.portraits && (heroRaw.portraits.heroSelect || heroRaw.portraits.leaderboard || heroRaw.portraits.target)) || '';
+    const portraitPath = (heroRaw.portraits && (heroRaw.portraits.heroSelect || heroRaw.portraits.leaderboard || heroRaw.portraits.target)) || '';
 
-        // Flatten abilities from your parser's categorized layout
-        let flattenedAbilities = [];
-        if (heroRaw.abilities) {
-          if (Array.isArray(heroRaw.abilities)) {
-            flattenedAbilities = heroRaw.abilities;
-          } else {
-            Object.keys(heroRaw.abilities).forEach(cat => {
-              const catAbilities = heroRaw.abilities[cat];
-              if (Array.isArray(catAbilities)) {
-                catAbilities.forEach(ab => {
-                  flattenedAbilities.push({
-                    key: ab.abilityType || ab.buttonId || cat,
-                    name: ab.name,
-                    icon: ab.icon,
-                    desc: ab.fullText || ab.shortText || ab.description || "",
-                    cooldown: ab.cooldownText
-                  });
-                });
-              }
-            });
-          }
-        }
-
-        currentHeroData = {
-          id: heroId,
-          name: heroRaw.name,
-          title: heroRaw.title,
-          role: (heroRaw.roles && heroRaw.roles[0]) || heroRaw.expandedRole || "Nexus Combatant",
-          portrait: portraitPath,
-          description: heroRaw.description,
-          abilities: flattenedAbilities,
-          talents: heroRaw.talents || {}
-        };
-
-        const portraitImg = document.getElementById("detail-portrait");
-        if (portraitImg) portraitImg.src = getAssetUrl(currentHeroData.portrait);
-        
-        const nameEl = document.getElementById("detail-name");
-        if (nameEl) nameEl.innerText = currentHeroData.name;
-        
-        const roleEl = document.getElementById("detail-role");
-        if (roleEl) roleEl.innerText = currentHeroData.role;
-        
-        const titleEl = document.getElementById("detail-title");
-        if (titleEl) titleEl.innerText = currentHeroData.title || "Nexus Combatant";
-        
-        renderActiveBuild();
-      } catch (err) {
-        console.error("Error parsing hero details:", err);
-      }
-    }
-
-    async function openBuilder(heroId = null, initialSelections = null, updateUrl = true) {
-      switchTabUI('builder');
-      
-      if (!heroId && MASTER_HERO_LIST.length > 0) {
-        heroId = MASTER_HERO_LIST[0].id;
-      }
-      
-      builderHeroId = heroId;
-      renderHeroSidebar(MASTER_HERO_LIST);
-
-      if (initialSelections && initialSelections.length === 7) {
-        builderSelectedTalents = [...initialSelections];
+    // Flatten abilities from your parser's categorized layout
+    let flattenedAbilities = [];
+    if (heroRaw.abilities) {
+      if (Array.isArray(heroRaw.abilities)) {
+        flattenedAbilities = heroRaw.abilities;
       } else {
-        builderSelectedTalents = [1, 1, 1, 1, 1, 1, 1];
-      }
-
-      try {
-        const heroRaw = getMasterHero(heroId);
-        if (!heroRaw) throw new Error(`Could not load hero for builder`);
-
-        let flattenedAbilities = [];
-        if (heroRaw.abilities) {
-          if (Array.isArray(heroRaw.abilities)) {
-            flattenedAbilities = heroRaw.abilities;
-          } else {
-            Object.keys(heroRaw.abilities).forEach(cat => {
-              const catAbilities = heroRaw.abilities[cat];
-              if (Array.isArray(catAbilities)) {
-                catAbilities.forEach(ab => {
-                  flattenedAbilities.push({
-                    key: ab.abilityType || ab.buttonId || cat,
-                    name: ab.name,
-                    icon: ab.icon,
-                    desc: ab.fullText || ab.shortText || ab.description || ""
-                  });
-                });
-              }
+        ['Basic', 'Heroic', 'Trait'].forEach(cat => {
+          if (heroRaw.abilities[cat] && Array.isArray(heroRaw.abilities[cat])) {
+            heroRaw.abilities[cat].forEach(ab => {
+              flattenedAbilities.push({
+                key: ab.abilityType || ab.buttonId || cat,
+                name: ab.name,
+                icon: ab.icon,
+                desc: ab.fullText || ab.shortText || ab.description || "",
+                cooldown: ab.cooldownText
+              });
             });
           }
-        }
-
-        const portraitPath = (heroRaw.portraits && (heroRaw.portraits.heroSelect || heroRaw.portraits.leaderboard || heroRaw.portraits.target)) || '';
-
-        builderHeroData = {
-          id: heroId,
-          name: heroRaw.name,
-          title: heroRaw.title,
-          portrait: portraitPath,
-          abilities: flattenedAbilities,
-          talents: heroRaw.talents || {}
-        };
-
-        const portraitUrl = getAssetUrl(builderHeroData.portrait);
-        const bPortrait = document.getElementById("builder-portrait");
-        if (bPortrait) bPortrait.src = portraitUrl;
-        
-        const bName = document.getElementById("builder-name");
-        if (bName) bName.innerText = builderHeroData.name;
-        
-        const bTitle = document.getElementById("builder-title");
-        if (bTitle) bTitle.innerText = builderHeroData.title || "Nexus Combatant";
-        
-        const bgImg = document.getElementById("builder-model-bg");
-        if (bgImg) bgImg.src = portraitUrl;
-
-        renderBuilderAbilities();
-        renderBuilderMatrix();
-        updateBuilderOutput(updateUrl);
-      } catch (err) {
-        console.error("Error loading builder:", err);
+        });
       }
     }
+
+    currentHeroData = {
+      id: heroId,
+      name: heroRaw.name,
+      title: heroRaw.title,
+      role: (heroRaw.roles && heroRaw.roles[0]) || heroRaw.expandedRole || "Nexus Combatant",
+      portrait: portraitPath,
+      description: heroRaw.description,
+      abilities: flattenedAbilities,
+      talents: heroRaw.talents || heroRaw.talentTree || {}
+    };
+
+    const portraitImg = document.getElementById("detail-portrait");
+    if (portraitImg) portraitImg.src = getAssetUrl(currentHeroData.portrait);
+    
+    const nameEl = document.getElementById("detail-name");
+    if (nameEl) nameEl.innerText = currentHeroData.name;
+    
+    const roleEl = document.getElementById("detail-role");
+    if (roleEl) roleEl.innerText = currentHeroData.role;
+    
+    const titleEl = document.getElementById("detail-title");
+    if (titleEl) titleEl.innerText = currentHeroData.title || "Nexus Combatant";
+    
+    renderActiveBuild();
+  } catch (err) {
+    console.error("Error parsing hero details:", err);
+  }
+}
+
+  async function openBuilder(heroId = null, initialSelections = null, updateUrl = true) {
+  switchTabUI('builder');
+  
+  if (!heroId && MASTER_HERO_LIST.length > 0) {
+    heroId = MASTER_HERO_LIST[0].id;
+  }
+  
+  builderHeroId = heroId;
+  renderHeroSidebar(MASTER_HERO_LIST);
+
+  if (initialSelections && initialSelections.length === 7) {
+    builderSelectedTalents = [...initialSelections];
+  } else {
+    builderSelectedTalents = [1, 1, 1, 1, 1, 1, 1];
+  }
+
+  try {
+    const heroRaw = HOTS_MASTER_DATA[heroId];
+    if (!heroRaw) throw new Error(`Could not load hero for builder`);
+
+    let flattenedAbilities = [];
+    if (heroRaw.abilities) {
+      if (Array.isArray(heroRaw.abilities)) {
+        flattenedAbilities = heroRaw.abilities;
+      } else {
+        ['Basic', 'Heroic', 'Trait'].forEach(cat => {
+          if (heroRaw.abilities[cat] && Array.isArray(heroRaw.abilities[cat])) {
+            heroRaw.abilities[cat].forEach(ab => {
+              flattenedAbilities.push({
+                key: ab.abilityType || ab.buttonId || cat,
+                name: ab.name,
+                icon: ab.icon,
+                desc: ab.fullText || ab.shortText || ab.description || ""
+              });
+            });
+          }
+        });
+      }
+    }
+
+    const portraitPath = (heroRaw.portraits && (heroRaw.portraits.leaderboard || heroRaw.portraits.heroSelect || heroRaw.portraits.target)) || '';
+
+    builderHeroData = {
+      id: heroId,
+      name: heroRaw.name,
+      title: heroRaw.title,
+      portrait: portraitPath,
+      abilities: flattenedAbilities,
+      talents: heroRaw.talents || heroRaw.talentTree || {}
+    };
+
+    const portraitUrl = getAssetUrl(builderHeroData.portrait);
+    const bPortrait = document.getElementById("builder-portrait");
+    if (bPortrait) bPortrait.src = portraitUrl;
+    
+    const bName = document.getElementById("builder-name");
+    if (bName) bName.innerText = builderHeroData.name;
+    
+    const bTitle = document.getElementById("builder-title");
+    if (bTitle) bTitle.innerText = builderHeroData.title || "Nexus Combatant";
+    
+    const bgImg = document.getElementById("builder-model-bg");
+    if (bgImg) bgImg.src = portraitUrl;
+
+    renderBuilderAbilities();
+    renderBuilderMatrix();
+    updateBuilderOutput(updateUrl);
+  } catch (err) {
+    console.error("Error loading builder:", err);
+  }
+}
 
     async function selectMap(mapId, updateUrl = true) {
       const dropdownMenu = document.getElementById('maps-dropdown-menu');
