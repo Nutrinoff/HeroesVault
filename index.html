@@ -306,7 +306,7 @@
     let MASTER_HERO_LIST = []; 
     let MASTER_MAP_LIST = [];
     let PERSONAL_BUILDS = [];
-    let MASTER_TIERS = { S: [], A: [] }; // Stores loaded tiers
+    let MASTER_TIERS = { S: [], A: [], B: [], C: [], D: [] }; // Pre-configured for S, A, B, C, D
     let currentSelectedHeroId = null;
     let currentHeroData = null; 
     let currentBuildIndex = 0;
@@ -338,6 +338,7 @@
         console.error("Failed loading local JSON files:", err);
       }
 
+      // Render UI ONLY after all data (including tiers) is loaded
       renderHeroSidebar(MASTER_HERO_LIST);
       renderTierList();
       if (window.lucide) lucide.createIcons();
@@ -427,7 +428,6 @@
       document.getElementById("view-builder").classList.toggle("hidden", !isBuilder);
       document.getElementById("view-tierlist").classList.toggle("hidden", !isTierList);
       
-      // Sidebar is visible on BOTH heroes and builder views
       document.getElementById("sidebar-container").classList.toggle("hidden", !isHeroes && !isBuilder);
 
       setActiveNav("nav-heroes", isHeroes);
@@ -637,7 +637,6 @@
       const container = document.getElementById("builder-abilities");
       container.innerHTML = "";
       
-      // Filter out Heroics (R) as requested
       const abilities = (builderHeroData.abilities || []).filter(ab => ab.key.toUpperCase() !== 'R');
 
       if (abilities.length === 0) {
@@ -692,13 +691,11 @@
         const rowDiv = document.createElement("div");
         rowDiv.className = "flex items-center gap-3";
 
-        // Hexagon / Level Badge on Left
         const hexDiv = document.createElement("div");
         hexDiv.className = "w-12 h-12 flex-shrink-0 flex items-center justify-center rounded-2xl bg-gradient-to-b from-purple-600 to-indigo-900 border-2 border-purple-400/80 shadow-lg text-white font-black text-sm tracking-wider";
         hexDiv.innerText = lvl;
         rowDiv.appendChild(hexDiv);
 
-        // Talents container for this tier
         const talentsContainer = document.createElement("div");
         talentsContainer.className = "flex flex-wrap gap-2.5 items-center";
 
@@ -855,29 +852,58 @@
       renderHeroSidebar(MASTER_HERO_LIST.filter(h => h.name.toLowerCase().includes(query)));
     }
 
+    // --- DYNAMIC MULTI-TIER LIST BUILDER (S, A, B, C, D) ---
     function renderTierList() {
-      const s = document.getElementById("tier-s");
-      const a = document.getElementById("tier-a");
-      if (!s || !a) return;
-      s.innerHTML = ""; 
-      a.innerHTML = "";
+      const container = document.getElementById("view-tierlist");
+      if (!container) return;
+
+      // Target the container inner body where the tier rows live
+      const tierRowsContainer = container.querySelector(".space-y-3");
+      if (!tierRowsContainer) return;
+      tierRowsContainer.innerHTML = "";
 
       const heroMap = {};
       MASTER_HERO_LIST.forEach(h => heroMap[h.id] = h);
 
-      if (MASTER_TIERS.S) {
-        MASTER_TIERS.S.forEach(id => {
-          const hero = heroMap[id];
-          if (hero) s.appendChild(createTierBadge(hero));
-        });
-      }
+      // Define color schemes for S through D tiers
+      const tierStyles = {
+        "S": { bg: "bg-red-600/30", text: "text-red-400", border: "border-red-500/30" },
+        "A": { bg: "bg-orange-600/30", text: "text-orange-400", border: "border-orange-500/30" },
+        "B": { bg: "bg-amber-600/30", text: "text-amber-400", border: "border-amber-500/30" },
+        "C": { bg: "bg-emerald-600/30", text: "text-emerald-400", border: "border-emerald-500/30" },
+        "D": { bg: "bg-blue-600/30", text: "text-blue-400", border: "border-blue-500/30" }
+      };
 
-      if (MASTER_TIERS.A) {
-        MASTER_TIERS.A.forEach(id => {
+      // Loop through whatever tiers are present in MASTER_TIERS (S, A, B, C, D)
+      const tierKeys = ["S", "A", "B", "C", "D"];
+
+      tierKeys.forEach(tierKey => {
+        const heroIds = MASTER_TIERS[tierKey];
+        if (!heroIds || heroIds.length === 0) return; // Skip empty tiers if desired
+
+        const style = tierStyles[tierKey] || { bg: "bg-slate-800/30", text: "text-slate-400", border: "border-slate-700/30" };
+
+        const rowDiv = document.createElement("div");
+        rowDiv.className = "flex rounded-xl overflow-hidden border border-slate-800 bg-slate-900/60";
+
+        const labelDiv = document.createElement("div");
+        labelDiv.className = `w-28 ${style.bg} ${style.text} border-r ${style.border} flex items-center justify-center font-extrabold text-lg`;
+        labelDiv.innerText = `${tierKey} TIER`;
+        rowDiv.appendChild(labelDiv);
+
+        const heroesFlexDiv = document.createElement("div");
+        heroesFlexDiv.className = "p-3 flex flex-wrap gap-2 flex-1";
+
+        heroIds.forEach(id => {
           const hero = heroMap[id];
-          if (hero) a.appendChild(createTierBadge(hero));
+          if (hero) {
+            heroesFlexDiv.appendChild(createTierBadge(hero));
+          }
         });
-      }
+
+        rowDiv.appendChild(heroesFlexDiv);
+        tierRowsContainer.appendChild(rowDiv);
+      });
     }
 
     function createTierBadge(hero) {
@@ -892,9 +918,12 @@
     }
 
     function getHeroTier(heroId) {
-      if (MASTER_TIERS.S && MASTER_TIERS.S.includes(heroId)) return "S";
-      if (MASTER_TIERS.A && MASTER_TIERS.A.includes(heroId)) return "A";
-      return "A"; // default fallback
+      for (const [tierLetter, ids] of Object.entries(MASTER_TIERS)) {
+        if (Array.isArray(ids) && ids.includes(heroId)) {
+          return tierLetter;
+        }
+      }
+      return "A"; // Default fallback if not found in tiers.json
     }
   </script>
 </body>
