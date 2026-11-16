@@ -194,47 +194,85 @@ function flattenHeroAbilities(h) {
     if (!h) return [];
     const out = [];
     
-    // Deep recursive walker to extract abilities from complex nested trees, forms, and units
-    const walk = (node, variant = '') => {
-        if (!node) return;
-        if (Array.isArray(node)) {
-            node.forEach(item => {
-                if (item && typeof item === 'object') {
-                    if (item.name || item.buttonId || item.abilityType || item.icon) {
-                        const type = String(item.abilityType || '').toUpperCase();
-                        if (!['B', 'R', 'HEROIC'].includes(type)) {
-                            out.push(abilityEntry(item, item.category || 'Basic', variant));
-                        }
-                    } else {
-                        walk(item, variant);
-                    }
-                }
-            });
-            return;
-        }
-        if (typeof node === 'object') {
-            if (node.name && (node.icon || node.description || node.fullText || node.abilityType)) {
-                const type = String(node.abilityType || '').toUpperCase();
-                if (!['B', 'R', 'HEROIC'].includes(type)) {
-                    out.push(abilityEntry(node, node.category || 'Basic', variant));
-                }
+    const addList = (list, variant = '') => {
+        if (!Array.isArray(list)) return;
+        list.forEach(a => {
+            if (!a || typeof a !== 'object') return;
+            
+            const keyUpper = String(a.abilityType || a.buttonId || '').toUpperCase();
+            const nameLower = String(a.name || '').toLowerCase();
+            const catLower = String(a.category || '').toLowerCase();
+            
+            // Skip talents, heroics (R, B), hearth, or passive UI clutter
+            if (['B', 'R', 'HEROIC'].includes(keyUpper) || catLower === 'hearth' || nameLower === 'hearth') {
+                return;
             }
-            for (const [k, val] of Object.entries(node)) {
-                const nextVariant = ['forms', 'heroUnits', 'subAbilities', 'WorldBreaker', 'Destroyer'].includes(k) ? k : variant;
-                walk(val, nextVariant);
+            
+            // Check if it's a valid usable ability or custom Z mount
+            const isStandardAbility = ['Q', 'W', 'E', 'TRAIT', 'D', 'Z', 'ACTIVE', 'ACTIVABLE'].includes(keyUpper) || 
+                                      ['basic', 'trait', 'mount', 'activable', 'worldbreaker', 'destroyer'].includes(catLower);
+            
+            if (isStandardAbility || a.icon) {
+                out.push({
+                    key: a.abilityType || a.buttonId || a.category || 'Q',
+                    name: a.name || 'Ability',
+                    icon: a.icon || '',
+                    desc: a.fullText || a.shortText || a.description || '',
+                    category: a.category || 'Basic',
+                    variant
+                });
             }
-        }
+        });
     };
 
-    walk(h.abilities);
-    walk(h.subAbilities);
-    walk(h.forms);
-    walk(h.heroUnits);
-    
-    // Deduplicate abilities based on key + name + icon + variant
+    // 1. Parse base abilities object (which may contain categorized arrays like Basic, Trait, etc.)
+    if (h.abilities) {
+        if (Array.isArray(h.abilities)) {
+            addList(h.abilities);
+        } else if (typeof h.abilities === 'object') {
+            ['Basic', 'Trait', 'Mount', 'Activable', 'WorldBreaker', 'Destroyer'].forEach(cat => {
+                if (Array.isArray(h.abilities[cat])) {
+                    addList(h.abilities[cat], cat);
+                }
+            });
+        }
+    }
+
+    // 2. Parse alternate forms (Deathwing forms, etc.)
+    if (h.forms && typeof h.forms === 'object') {
+        Object.entries(h.forms).forEach(([formName, formObj]) => {
+            if (formObj?.abilities) {
+                if (Array.isArray(formObj.abilities)) {
+                    addList(formObj.abilities, formName);
+                } else if (typeof formObj.abilities === 'object') {
+                    Object.values(formObj.abilities).forEach(subList => {
+                        if (Array.isArray(subList)) addList(subList, formName);
+                    });
+                }
+            }
+        });
+    }
+
+    // 3. Parse alternate hero units (Abathur clones, etc.)
+    if (h.heroUnits && typeof h.heroUnits === 'object') {
+        Object.entries(h.heroUnits).forEach(([id, u]) => {
+            if (u?.abilities) {
+                const unitName = u.name || id;
+                if (Array.isArray(u.abilities)) {
+                    addList(u.abilities, unitName);
+                } else if (typeof u.abilities === 'object') {
+                    Object.values(u.abilities).forEach(subList => {
+                        if (Array.isArray(subList)) addList(subList, unitName);
+                    });
+                }
+            }
+        });
+    }
+
+    // Deduplicate strictly by icon + name + variant to keep the strip clean
     const seen = new Set();
     return out.filter(a => {
-        const sig = `${a.key}|${a.name}|${a.icon}|${a.variant}`;
+        const sig = `${a.name}|${a.icon}|${a.variant}`;
         if (seen.has(sig)) return false;
         seen.add(sig);
         return true;
