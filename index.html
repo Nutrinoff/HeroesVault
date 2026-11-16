@@ -311,60 +311,70 @@
 
     const REPO_BASE = "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/";
 
-    document.addEventListener("DOMContentLoaded", async () => {
-      try {
-        const [masterRes, buildsRes, mapsRes, tiersRes] = await Promise.all([
-          fetch('./data/heroes-master.json'),
-          fetch('./data/builds.json'),
-          fetch('./data/maps.json'),
-          fetch('./data/tiers.json')
-        ]);
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    console.log("Initializing HeroesVault from Master JSON...");
+    
+    // Fetch files concurrently with individual error handling so one failure doesn't break everything
+    const [masterRes, buildsRes, mapsRes, tiersRes] = await Promise.all([
+      fetch('./data/heroes-master.json').catch(e => { console.warn("master.json failed", e); return null; }),
+      fetch('./data/builds.json').catch(e => { console.warn("builds.json failed", e); return null; }),
+      fetch('./data/maps.json').catch(e => { console.warn("maps.json failed", e); return null; }),
+      fetch('./data/tiers.json').catch(e => { console.warn("tiers.json failed", e); return null; })
+    ]);
+    
+    if (masterRes && masterRes.ok) {
+      const masterJson = await masterRes.json();
+      HOTS_MASTER_DATA = masterJson.items || masterJson; // Handles both {items: {...}} or direct root objects
+
+      MASTER_HERO_LIST = Object.keys(HOTS_MASTER_DATA).map(heroKey => {
+        const h = HOTS_MASTER_DATA[heroKey];
+        const portraitPath = (h.portraits && (h.portraits.heroSelect || h.portraits.leaderboard || h.portraits.target)) || '';
         
-        if (masterRes.ok) {
-          const masterJson = await masterRes.json();
-          HOTS_MASTER_DATA = masterJson.items || {};
+        return {
+          id: heroKey,
+          name: h.name || heroKey,
+          role: (h.roles && h.roles[0]) || h.expandedRole || "Nexus Combatant",
+          title: h.title || "",
+          portrait: portraitPath
+        };
+      }).sort((a, b) => a.name.localeCompare(b.name));
+      console.log(`Successfully loaded ${MASTER_HERO_LIST.length} heroes into memory.`);
+    } else {
+      console.error("CRITICAL: heroes-master.json could not be loaded. Check file path './data/heroes-master.json'.");
+    }
 
-          MASTER_HERO_LIST = Object.keys(HOTS_MASTER_DATA).map(heroKey => {
-            const h = HOTS_MASTER_DATA[heroKey];
-            const portraitPath = (h.portraits && (h.portraits.leaderboard || h.portraits.heroSelect || h.portraits.target)) || '';
-            
-            return {
-              id: heroKey,
-              name: h.name,
-              role: (h.roles && h.roles[0]) || h.expandedRole || "Nexus Combatant",
-              title: h.title,
-              portrait: portraitPath
-            };
-          }).sort((a, b) => a.name.localeCompare(b.name));
-        }
+    if (buildsRes && buildsRes.ok) PERSONAL_BUILDS = await buildsRes.json();
+    if (tiersRes && tiersRes.ok) MASTER_TIERS = await tiersRes.json();
+    if (mapsRes && mapsRes.ok) {
+      MASTER_MAP_LIST = await mapsRes.json();
+      populateMapsDropdown();
+    }
+  } catch (err) {
+    console.error("Critical error during app initialization:", err);
+  }
 
-        if (buildsRes.ok) PERSONAL_BUILDS = await buildsRes.json();
-        if (tiersRes.ok) MASTER_TIERS = await tiersRes.json();
-        if (mapsRes.ok) {
-          MASTER_MAP_LIST = await mapsRes.json();
-          populateMapsDropdown();
-        }
-      } catch (err) {
-        console.error("Failed loading master JSON files:", err);
-      }
+  // Safe renders even if some data files were empty
+  renderHeroSidebar(MASTER_HERO_LIST);
+  renderTierList();
+  
+  if (window.lucide) {
+    try { lucide.createIcons(); } catch(e) {}
+  }
 
-      renderHeroSidebar(MASTER_HERO_LIST);
-      renderTierList();
-      if (window.lucide) lucide.createIcons();
+  handleRoute();
 
-      handleRoute();
+  window.addEventListener('popstate', () => {
+    handleRoute();
+  });
 
-      window.addEventListener('popstate', () => {
-        handleRoute();
-      });
-
-      window.onclick = function(event) {
-        if (!event.target.closest('.relative')) {
-          const dropdown = document.getElementById('maps-dropdown-menu');
-          if (dropdown) dropdown.classList.add('hidden');
-        }
-      }
-    });
+  window.onclick = function(event) {
+    if (!event.target.closest('.relative')) {
+      const dropdown = document.getElementById('maps-dropdown-menu');
+      if (dropdown) dropdown.classList.add('hidden');
+    }
+  }
+});
 
     function navigateTo(tab, params = {}, push = true) {
       let url = `#${tab}`;
