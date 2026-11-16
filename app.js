@@ -203,14 +203,21 @@ function flattenHeroAbilities(h) {
             const nameLower = String(a.name || '').toLowerCase();
             const catLower = String(a.category || '').toLowerCase();
             
-            // Skip talents, heroics (R, B), hearth, cancel buttons, or passive UI clutter
-            if (['B', 'R', 'HEROIC'].includes(keyUpper) || catLower === 'hearth' || nameLower === 'hearth' || nameLower === 'cancel' || nameLower.includes('cancel')) {
+            // Skip talents, heroics (R, B), hearth, cancel buttons, passive/activable traits, or quest rewards
+            if (['B', 'R', 'HEROIC'].includes(keyUpper) || 
+                catLower === 'hearth' || 
+                nameLower === 'hearth' || 
+                nameLower === 'cancel' || 
+                nameLower.includes('cancel') ||
+                nameLower === 'dragon scales' ||
+                catLower === 'activable' ||
+                catLower === 'passive') {
                 return;
             }
             
-            // Strictly enforce standard combat keys (Q, W, E, Trait/D, Z, or explicit form categories)
-            const isStandardAbility = ['Q', 'W', 'E', 'TRAIT', 'D', 'Z', 'ACTIVE', 'ACTIVABLE'].includes(keyUpper) || 
-                                      ['basic', 'trait', 'mount', 'activable', 'worldbreaker', 'destroyer', 'dragonqueen'].includes(catLower);
+            // Strictly enforce combat abilities (Q, W, E, Trait/D, Z)
+            const isStandardAbility = ['Q', 'W', 'E', 'TRAIT', 'D', 'Z', 'ACTIVE'].includes(keyUpper) || 
+                                      ['basic', 'trait', 'mount', 'worldbreaker', 'destroyer', 'dragonqueen', 'worgen'].includes(catLower);
             
             if (isStandardAbility || a.icon) {
                 out.push({
@@ -225,7 +232,7 @@ function flattenHeroAbilities(h) {
         });
     };
 
-    // 1. Always parse standard base abilities
+    // 1. Always parse standard base abilities first
     if (h.abilities) {
         if (Array.isArray(h.abilities)) {
             addList(h.abilities);
@@ -238,16 +245,16 @@ function flattenHeroAbilities(h) {
         }
     }
 
-    // 2. Multi-state check
+    // 2. Multi-state check (Deathwing, Alexstrasza, Abathur, Greymane, etc.)
     const heroIdLower = normalizeHeroKey(h.id || h.name || '');
     const multiStateHeroes = ['deathwing', 'alexstrasza', 'abathur', 'greymane', 'lostvikings', 'samuro'];
     const hasFormsOrUnits = (h.forms && Object.keys(h.forms).length > 0) || 
                             (h.heroUnits && Object.keys(h.heroUnits).length > 0) || 
                             multiStateHeroes.includes(heroIdLower);
 
-    // 3. For multi-state heroes, selectively grab form/unit abilities and skip talent sub-abilities
+    // 3. Extract alternate form/unit abilities cleanly
     if (hasFormsOrUnits) {
-        // Only pull subAbilities if they match explicit form namespaces (like WorldBreaker / Destroyer)
+        // Parse subAbilities strictly for recognized state forms (Deathwing, etc.)
         if (h.subAbilities && typeof h.subAbilities === 'object') {
             Object.entries(h.subAbilities).forEach(([subKey, subObj]) => {
                 const subKeyLower = subKey.toLowerCase();
@@ -266,6 +273,7 @@ function flattenHeroAbilities(h) {
             });
         }
 
+        // Parse forms (Greymane Worgen form, Alexstrasza Dragonqueen, etc.)
         if (h.forms && typeof h.forms === 'object') {
             Object.entries(h.forms).forEach(([formName, formObj]) => {
                 if (formObj?.abilities) {
@@ -280,6 +288,7 @@ function flattenHeroAbilities(h) {
             });
         }
 
+        // Parse hero units (Abathur clones, etc.)
         if (h.heroUnits && typeof h.heroUnits === 'object') {
             Object.entries(h.heroUnits).forEach(([id, u]) => {
                 if (u?.abilities) {
@@ -296,14 +305,35 @@ function flattenHeroAbilities(h) {
         }
     }
 
-    // Deduplicate strictly by icon + name + variant
+    // 4. Deduplicate
     const seen = new Set();
-    return out.filter(a => {
+    const uniqueList = out.filter(a => {
         const sig = `${a.name}|${a.icon}|${a.variant}`;
         if (seen.has(sig)) return false;
         seen.add(sig);
         return true;
     });
+
+    // 5. Sort logically: Base Q, W, E, Trait, Z first — then alternate forms grouped neatly
+    const orderWeight = (key, variant) => {
+        const k = String(key || '').toUpperCase();
+        const v = String(variant || '').toLowerCase();
+        
+        let baseScore = 10;
+        if (k === 'Q') baseScore = 1;
+        else if (k === 'W') baseScore = 2;
+        else if (k === 'E') baseScore = 3;
+        else if (['TRAIT', 'D'].includes(k)) baseScore = 4;
+        else if (k === 'Z') baseScore = 5;
+        
+        // Give base kit priority over variant forms
+        if (v && v !== 'basic' && v !== 'trait') {
+            baseScore += 20;
+        }
+        return baseScore;
+    };
+
+    return uniqueList.sort((a, b) => orderWeight(a.key, a.variant) - orderWeight(b.key, b.variant));
 }
 
 function resolveHeroMasterData(id) {
