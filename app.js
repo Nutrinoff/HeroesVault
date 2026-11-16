@@ -254,14 +254,17 @@ function flattenHeroAbilities(h) {
 
     // 3. Extract alternate form/unit abilities cleanly
     if (hasFormsOrUnits) {
-        // Parse subAbilities strictly for recognized state forms (Deathwing, etc.)
+        // Parse subAbilities strictly for recognized state forms (Deathwing, Greymane Darkflight/Worgen, etc.)
         if (h.subAbilities && typeof h.subAbilities === 'object') {
             Object.entries(h.subAbilities).forEach(([subKey, subObj]) => {
                 const subKeyLower = subKey.toLowerCase();
                 const isFormSubAbility = subKeyLower.includes('worldbreaker') || 
                                          subKeyLower.includes('destroyer') || 
                                          subKeyLower.includes('dragon') || 
-                                         subKeyLower.includes('moltenflame');
+                                         subKeyLower.includes('moltenflame') ||
+                                         subKeyLower.includes('darkflight') ||
+                                         subKeyLower.includes('razorswipe') ||
+                                         subKeyLower.includes('worgen');
                 
                 if (isFormSubAbility && subObj && typeof subObj === 'object') {
                     Object.entries(subObj).forEach(([catName, subList]) => {
@@ -326,7 +329,6 @@ function flattenHeroAbilities(h) {
         else if (['TRAIT', 'D'].includes(k)) baseScore = 4;
         else if (k === 'Z') baseScore = 5;
         
-        // Give base kit priority over variant forms
         if (v && v !== 'basic' && v !== 'trait') {
             baseScore += 20;
         }
