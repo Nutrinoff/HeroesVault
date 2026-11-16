@@ -131,7 +131,7 @@ function switchTabUI(t) {
     const b = t === 'builder';
     const l = t === 'tierlist';
     
-    [['view-heroes', h], ['view-map', m], ['view-builder', b], ['view-tierlist', l']].forEach(([id, on]) => {
+    [['view-heroes', h], ['view-map', m], ['view-builder', b], ['view-tierlist', l]].forEach(([id, on]) => {
         document.getElementById(id).classList.toggle('hidden', !on);
     });
     
