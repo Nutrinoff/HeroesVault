@@ -833,6 +833,10 @@ function hideTooltip() {
 // 9. TIER LIST VIEW
 // ==========================================
 
+// ==========================================
+// 9. TIER LIST VIEW
+// ==========================================
+
 function renderTierList() {
     const box = document.getElementById('tierlist-rows-container');
     if (!box) return;
@@ -855,17 +859,23 @@ function renderTierList() {
         const r = document.createElement('section');
         
         r.className = 'flex items-stretch overflow-hidden rounded-xl border border-slate-800 bg-slate-900/70';
+        
+        // Isolate the map iteration to prevent template literal syntax collisions
+        const heroesHtml = heroes.length > 0 
+            ? heroes.map(h => `
+                <button onclick="navigateTo('heroes', {hero: '${h.id}'})" class="flex items-center gap-2 rounded-lg border border-slate-700 bg-slate-950/70 px-2 py-1.5 text-xs text-slate-200 hover:border-sky-400">
+                    <img src="${getAssetUrl(h.portrait)}" class="w-7 h-7 rounded object-cover">
+                    <span>${h.name}</span>
+                </button>
+            `).join('') 
+            : '<span class="text-xs text-slate-500 italic">No heroes in this tier.</span>';
+
         r.innerHTML = `
             <div class="w-24 shrink-0 flex items-center justify-center border-r ${s.border} ${s.bg} ${s.text} text-2xl font-black">
                 ${t}
             </div>
             <div class="p-3 flex flex-wrap items-center gap-2 min-h-20">
-                ${heroes.map(h => `
-                    <button onclick="navigateTo('heroes',{hero:'${h.id}'})" class="flex items-center gap-2 rounded-lg border border-slate-700 bg-slate-950/70 px-2 py-1.5 text-xs text-slate-200 hover:border-sky-400">
-                        <img src="${getAssetUrl(h.portrait)}" class="w-7 h-7 rounded object-cover">
-                        <span>${h.name}</span>
-                    </button>
-                `}).join('') || '<span class="text-xs text-slate-500 italic">No heroes in this tier.</span>'}
+                ${heroesHtml}
             </div>
         `;
         
