@@ -415,7 +415,7 @@ function renderHeroHeader(heroData) {
     if (!box) return;
     box.innerHTML = '';
     
-    // Filter out standard mounts (Z = Mount / Summon Mount), keep unique Z abilities (like Abathur/Dehaka/Falstad)
+    // Only filter out standard generic mounts (Summon Mount), keeping hero-specific Z abilities
     const list = (heroData.abilities || []).filter(a => {
         const keyUpper = String(a.key).toUpperCase();
         if (['HEROIC', 'R', 'B'].includes(keyUpper) || a.category === 'Hearth') return false;
@@ -423,9 +423,9 @@ function renderHeroHeader(heroData) {
         if (keyUpper === 'Z') {
             const nameLower = String(a.name).toLowerCase();
             const catLower = String(a.category).toLowerCase();
-            const descLower = String(a.desc).toLowerCase();
-            if (nameLower.includes('mount') || catLower.includes('mount') || descLower.includes('movement speed')) {
-                return false; // Hide standard generic mount
+            // If it's a standard mount ability, hide it
+            if (nameLower.includes('summon mount') || nameLower === 'mount' || catLower === 'mount') {
+                return false;
             }
         }
         return true;
