@@ -4,7 +4,7 @@
  */
 
 // ==========================================
-// 1. GLOBAL STATE & CONFIGURATION
+// 1. GLOBAL STATE & CONFIGURATIONS
 // ==========================================
 
 let MASTER_HERO_LIST = [];
