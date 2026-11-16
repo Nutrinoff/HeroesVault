@@ -152,10 +152,10 @@
           </div>
         </div>
 
-        <!-- TWO COLUMN LAYOUT: MAIN CONTENT + SIDEBAR CAMPS -->
+        <!-- TWO COLUMN LAYOUT: MAIN CONTENT + SIDEBAR (GOLDEN HEROES & CAMPS) -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
           
-          <!-- LEFT 2 COLS: OBJECTIVE, STRATEGY, NOTES, GOLDEN HEROES -->
+          <!-- LEFT 2 COLS: OBJECTIVE, STRATEGY, NOTES -->
           <div class="lg:col-span-2 space-y-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-3">
@@ -180,26 +180,31 @@
               </h3>
               <div id="map-notes" class="text-sm text-slate-300 leading-relaxed">No special notes recorded for this map.</div>
             </div>
+          </div>
 
-            <!-- TOP 5 GOLDEN HEROES -->
+          <!-- RIGHT 1 COL: TOP 5 GOLDEN HEROES + MERCENARY CAMPS STACK -->
+          <div class="space-y-6">
+            
+            <!-- TOP 5 GOLDEN HEROES BOX -->
             <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-3">
               <h3 class="text-md font-bold text-emerald-400 flex items-center gap-2 border-b border-slate-800 pb-3">
                 <i data-lucide="star" class="w-4 h-4"></i> Top 5 Golden Heroes
               </h3>
-              <div id="map-heroes-list" class="grid grid-cols-2 sm:grid-cols-5 gap-3 pt-1">
+              <div id="map-heroes-list" class="grid grid-cols-5 gap-2 pt-1">
                 <!-- Injected dynamically -->
               </div>
             </div>
-          </div>
 
-          <!-- RIGHT 1 COL: VERTICALLY STACKED CAMP BOXES -->
-          <div class="space-y-4">
-            <h3 class="text-md font-bold text-emerald-400 flex items-center gap-2 pb-1 border-b border-slate-800">
-              <i data-lucide="shield-alert" class="w-4 h-4"></i> Mercenary Camps
-            </h3>
-            <div id="map-camps-stack" class="space-y-3">
-              <!-- Injected dynamically -->
+            <!-- MERCENARY CAMPS STACK -->
+            <div class="space-y-4">
+              <h3 class="text-md font-bold text-emerald-400 flex items-center gap-2 pb-1 border-b border-slate-800">
+                <i data-lucide="shield-alert" class="w-4 h-4"></i> Mercenary Camps
+              </h3>
+              <div id="map-camps-stack" class="space-y-3">
+                <!-- Injected dynamically -->
+              </div>
             </div>
+
           </div>
 
         </div>
@@ -276,7 +281,7 @@
       document.getElementById('maps-dropdown-menu').classList.toggle('hidden');
     }
 
-function populateMapsDropdown() {
+    function populateMapsDropdown() {
       const menu = document.getElementById('maps-dropdown-menu');
       let html = `<div class="px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-500">Battlegrounds</div>`;
       
@@ -336,21 +341,6 @@ function populateMapsDropdown() {
       }
     }
 
-    function sortCamps(camps) {
-      if (!camps) return [];
-      // Order priority: Giant, Merc/Bruiser, Boss, Doubloons / Special variants
-      return [...camps].sort((a, b) => {
-        const getPriority = (name) => {
-          const n = name.toLowerCase();
-          if (n.includes('giant')) return 1;
-          if (n.includes('bruiser') || n.includes('knight') || n.includes('mercenary') || n.includes('firebat') || n.includes('gnoll') || n.includes('turret') || n.includes('sapper') || n.includes('goliath')) return 2;
-          if (n.includes('boss') || n.includes('horseman') || n.includes('golem') || n.includes('samurai')) return 3;
-          return 4; // doubloons, vision, watchtowers, etc.
-        };
-        return getPriority(a.name) - getPriority(b.name);
-      });
-    }
-
     async function selectMap(mapId) {
       document.getElementById('maps-dropdown-menu').classList.add('hidden');
       switchTab('map');
@@ -382,7 +372,7 @@ function populateMapsDropdown() {
         document.getElementById("map-strategy").innerText = mapData.strategy;
         document.getElementById("map-notes").innerText = mapData.notes || "No special notes recorded for this map.";
 
-        // Render sorted camp stack
+        // Render camp stack manually following JSON order
         const campStack = document.getElementById("map-camps-stack");
         campStack.innerHTML = "";
         const campsList = mapData.camps || [];
@@ -399,7 +389,7 @@ function populateMapsDropdown() {
           campStack.appendChild(campBox);
         });
 
-        // Render Top 5 Golden Heroes
+        // Render Top 5 Golden Heroes (Tight & Compact)
         const heroesContainer = document.getElementById("map-heroes-list");
         heroesContainer.innerHTML = "";
         const goldenHeroIds = mapData.goldenHeroes || [];
@@ -408,13 +398,13 @@ function populateMapsDropdown() {
           heroesContainer.innerHTML = `<div class="col-span-full text-xs text-slate-500 italic">No golden heroes configured for this map yet.</div>`;
         } else {
           goldenHeroIds.forEach(hId => {
-            const heroObj = MASTER_HERO_LIST.find(h => h.id === hId) || { name: hId, portrait: 'https://via.placeholder.com/50?text=H' };
+            const heroObj = MASTER_HERO_LIST.find(h => h.id === hId) || { name: hId, portrait: 'https://via.placeholder.com/40?text=H' };
             const heroEl = document.createElement("div");
-            heroEl.className = "flex flex-col items-center bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-center cursor-pointer hover:border-sky-500 transition-all";
+            heroEl.className = "flex flex-col items-center bg-slate-950 border border-slate-800 rounded-xl p-2 text-center cursor-pointer hover:border-sky-500 transition-all";
             heroEl.onclick = () => { switchTab('heroes'); selectHero(heroObj.id); };
             heroEl.innerHTML = `
-              <img src="${heroObj.portrait}" onerror="this.src='https://via.placeholder.com/48?text=H'" class="w-12 h-12 rounded-lg border border-slate-700 object-cover bg-slate-900 mb-2 shadow-inner" />
-              <span class="text-[11px] font-bold text-slate-200 truncate w-full" title="${heroObj.name}">${heroObj.name}</span>
+              <img src="${heroObj.portrait}" onerror="this.src='https://via.placeholder.com/40?text=H'" class="w-10 h-10 rounded-lg border border-slate-700 object-cover bg-slate-900 mb-1 shadow-inner" />
+              <span class="text-[10px] font-bold text-slate-200 truncate w-full" title="${heroObj.name}">${heroObj.name}</span>
             `;
             heroesContainer.appendChild(heroEl);
           });
