@@ -39,7 +39,7 @@
     {
       "key": "Trait",
       "name": "Locust Strain",
-      "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_locuststrain.png",
+      "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_spawnlocust.png",
       "desc": "Periodically spawn a Locust that advances down the nearest lane."
     }
   ],
@@ -48,7 +48,7 @@
       {
         "name": "Pressurized Glands",
         "desc": "Increases the range of Symbiote's Spike Burst by 25% and decreases its cooldown by 1 second.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_pressurizedglands.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_spikeburst.png"
       },
       {
         "name": "Envenomed Nest",
@@ -63,7 +63,7 @@
       {
         "name": "Locust Brood",
         "desc": "Activate to spawn 3 Locusts at target location.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_locustbrood.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_spawnlocust.png"
       }
     ],
     "4": [
@@ -75,7 +75,7 @@
       {
         "name": "Needlespine",
         "desc": "Increases the damage and range of Symbiote's Stab by 20%.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_needlespine.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_stab.png"
       },
       {
         "name": "Prolific Dispersal",
@@ -121,24 +121,24 @@
       {
         "name": "Spatial Efficiency",
         "desc": "Symbiote's Stab gains 1 additional charge and its cooldown is reduced by 0.5 seconds.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_spatialefficiency.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_stab.png"
       },
       {
         "name": "Soma Transference",
         "desc": "Symbiote's Spike Burst heals the host per enemy Hero hit.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_somatransference.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_spikeburst.png"
       },
       {
         "name": "Bombard Strain",
         "desc": "Locust Basic Attacks become long-range siege attacks that deal bonus damage to Structures.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_bombardstrain.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_spawnlocust.png"
       }
     ],
     "16": [
       {
         "name": "Envenomed Spikes",
         "desc": "Symbiote's Spike Burst Slows enemy Movement Speed by 40% for 2 seconds.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_envenomedspikes.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_spikeburst.png"
       },
       {
         "name": "Adrenaline Boost",
@@ -153,7 +153,7 @@
       {
         "name": "Survival Instincts",
         "desc": "Increases Locust Health by 50% and duration by 50%.",
-        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_survivalinstincts.png"
+        "icon": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/abilitytalents/storm_ui_icon_abathur_spawnlocust.png"
       }
     ],
     "20": [
