@@ -632,20 +632,45 @@
       const container = document.getElementById("builder-abilities");
       container.innerHTML = "";
       
-      const keys = ['Q', 'W', 'E', 'D', 'R', 'Trait'];
-      keys.forEach((key) => {
+      const abilities = builderHeroData.abilities || [
+        { key: 'Q', name: 'Ability Q', icon: '', desc: 'No description' },
+        { key: 'W', name: 'Ability W', icon: '', desc: 'No description' },
+        { key: 'E', name: 'Ability E', icon: '', desc: 'No description' },
+        { key: 'D', name: 'Trait D', icon: '', desc: 'No description' },
+        { key: 'R', name: 'Heroic R', icon: '', desc: 'No description' },
+        { key: 'Trait', name: 'Trait', icon: '', desc: 'No description' }
+      ];
+
+      abilities.forEach((ab) => {
         const abDiv = document.createElement("div");
-        abDiv.className = "flex flex-col items-center";
+        abDiv.className = "flex flex-col items-center cursor-pointer relative group";
+        
+        // Tooltip hover support for abilities too!
+        abDiv.onmouseenter = (e) => showAbilityTooltip(e, ab);
+        abDiv.onmouseleave = () => hideTalentTooltip();
+
         abDiv.innerHTML = `
-          <div class="w-10 h-10 rounded-lg border border-slate-700 bg-slate-900 flex items-center justify-center text-xs font-bold text-sky-400 shadow-inner">
-            ${key}
+          <div class="w-10 h-10 rounded-lg border border-slate-700 bg-slate-900 overflow-hidden flex items-center justify-center shadow-inner relative">
+            <img src="${ab.icon}" onerror="this.src='https://via.placeholder.com/40?text=${ab.key}'" class="w-full h-full object-cover" />
+            <span class="absolute bottom-0 right-0 bg-slate-950/80 text-[8px] font-mono font-bold text-sky-400 px-1 rounded-tl">${ab.key}</span>
           </div>
-          <span class="text-[9px] uppercase tracking-wider text-slate-500 mt-1">${key}</span>
         `;
         container.appendChild(abDiv);
       });
     }
 
+    function showAbilityTooltip(e, ab) {
+      const tip = document.getElementById("talent-tooltip");
+      document.getElementById("tip-icon").src = ab.icon;
+      document.getElementById("tip-name").innerText = ab.name;
+      document.getElementById("tip-level").innerText = `Ability [${ab.key}]`;
+      document.getElementById("tip-desc").innerText = ab.desc || "No description available.";
+      
+      tip.style.left = `${e.clientX + 15}px`;
+      tip.style.top = `${e.clientY + 15}px`;
+      tip.classList.remove("hidden");
+    }
+    
     function renderBuilderMatrix() {
       const matrixContainer = document.getElementById("builder-matrix");
       matrixContainer.innerHTML = "";
