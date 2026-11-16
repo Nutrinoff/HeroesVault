@@ -232,8 +232,8 @@
             </div>
           </div>
 
-          <!-- TOP RIGHT ABILITY ICONS -->
-          <div id="builder-abilities" class="flex items-center gap-2 bg-slate-950/80 p-2 rounded-xl border border-slate-800">
+          <!-- TOP RIGHT ABILITY ICONS (DYNAMIC FLEXIBLE RENDERER) -->
+          <div id="builder-abilities" class="flex items-center gap-2 bg-slate-950/80 p-2 rounded-xl border border-slate-800 overflow-x-auto">
             <!-- Injected dynamically -->
           </div>
         </div>
@@ -632,20 +632,18 @@
       const container = document.getElementById("builder-abilities");
       container.innerHTML = "";
       
-      const abilities = builderHeroData.abilities || [
-        { key: 'Q', name: 'Ability Q', icon: '', desc: 'No description' },
-        { key: 'W', name: 'Ability W', icon: '', desc: 'No description' },
-        { key: 'E', name: 'Ability E', icon: '', desc: 'No description' },
-        { key: 'D', name: 'Trait D', icon: '', desc: 'No description' },
-        { key: 'R', name: 'Heroic R', icon: '', desc: 'No description' },
-        { key: 'Trait', name: 'Trait', icon: '', desc: 'No description' }
-      ];
+      // Filter out Heroics (R) as requested
+      const abilities = (builderHeroData.abilities || []).filter(ab => ab.key.toUpperCase() !== 'R');
+
+      if (abilities.length === 0) {
+        container.innerHTML = `<span class="text-xs text-slate-500 italic p-1">No abilities configured</span>`;
+        return;
+      }
 
       abilities.forEach((ab) => {
         const abDiv = document.createElement("div");
-        abDiv.className = "flex flex-col items-center cursor-pointer relative group";
+        abDiv.className = "flex flex-col items-center cursor-pointer relative group flex-shrink-0";
         
-        // Tooltip hover support for abilities too!
         abDiv.onmouseenter = (e) => showAbilityTooltip(e, ab);
         abDiv.onmouseleave = () => hideTalentTooltip();
 
@@ -670,7 +668,7 @@
       tip.style.top = `${e.clientY + 15}px`;
       tip.classList.remove("hidden");
     }
-    
+
     function renderBuilderMatrix() {
       const matrixContainer = document.getElementById("builder-matrix");
       matrixContainer.innerHTML = "";
