@@ -194,49 +194,51 @@ function flattenHeroAbilities(h) {
     if (!h) return [];
     const out = [];
     
-    const add = (abilities, variant = '') => {
-        if (Array.isArray(abilities)) {
-            abilities.forEach(a => {
-                const type = String(a.abilityType || '').toUpperCase();
-                if (!['B', 'R', 'HEROIC'].includes(type)) {
-                    out.push(abilityEntry(a, 'Basic', variant));
+    // Deep recursive walker to extract abilities from complex nested trees, forms, and units
+    const walk = (node, variant = '') => {
+        if (!node) return;
+        if (Array.isArray(node)) {
+            node.forEach(item => {
+                if (item && typeof item === 'object') {
+                    if (item.name || item.buttonId || item.abilityType || item.icon) {
+                        const type = String(item.abilityType || '').toUpperCase();
+                        if (!['B', 'R', 'HEROIC'].includes(type)) {
+                            out.push(abilityEntry(item, item.category || 'Basic', variant));
+                        }
+                    } else {
+                        walk(item, variant);
+                    }
                 }
             });
             return;
         }
-        if (!abilities || typeof abilities !== 'object') return;
-        
-        // Handle categorized keys or sub-forms (like Deathwing's form variants)
-        for (const cat of ['Basic', 'Trait', 'Mount', 'Activable', 'WorldBreaker', 'Destroyer']) {
-            for (const a of (Array.isArray(abilities[cat]) ? abilities[cat] : [])) {
-                const type = String(a.abilityType || '').toUpperCase();
+        if (typeof node === 'object') {
+            if (node.name && (node.icon || node.description || node.fullText || node.abilityType)) {
+                const type = String(node.abilityType || '').toUpperCase();
                 if (!['B', 'R', 'HEROIC'].includes(type)) {
-                    out.push(abilityEntry(a, cat, variant));
+                    out.push(abilityEntry(node, node.category || 'Basic', variant));
                 }
+            }
+            for (const [k, val] of Object.entries(node)) {
+                const nextVariant = ['forms', 'heroUnits', 'subAbilities', 'WorldBreaker', 'Destroyer'].includes(k) ? k : variant;
+                walk(val, nextVariant);
             }
         }
     };
+
+    walk(h.abilities);
+    walk(h.subAbilities);
+    walk(h.forms);
+    walk(h.heroUnits);
     
-    add(h.abilities);
-    
-    // Check sub-properties or form dictionaries if present directly on the hero object
-    if (h.subAbilities) add(h.subAbilities);
-    if (h.forms) {
-        Object.entries(h.forms).forEach(([formName, formObj]) => {
-            if (formObj?.abilities) add(formObj.abilities, formName);
-        });
-    }
-    
-    // Catch alternate units / forms 
-    if (h.heroUnits && typeof h.heroUnits === 'object') {
-        Object.entries(h.heroUnits).forEach(([id, u]) => {
-            if (u?.abilities) {
-                add(u.abilities, u.name || id);
-            }
-        });
-    }
-    
-    return out;
+    // Deduplicate abilities based on key + name + icon + variant
+    const seen = new Set();
+    return out.filter(a => {
+        const sig = `${a.key}|${a.name}|${a.icon}|${a.variant}`;
+        if (seen.has(sig)) return false;
+        seen.add(sig);
+        return true;
+    });
 }
 
 function resolveHeroMasterData(id) {
@@ -407,44 +409,15 @@ function filterHeroes() {
 
 
 // ==========================================
-// 5. UNIFIED HEADER RENDERER
+// 5. UNIFIED HEADER RENDERERS
 // ==========================================
 
-function renderHeroHeader(heroData) {
-    if (!heroData) return;
-    
-    const portraitUrl = getAssetUrl(heroData.portrait);
-    
-    // Universal selectors for both Heroes and Builder views
-    ['hero-portrait', 'builder-portrait'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.src = portraitUrl;
-    });
-    
-    ['hero-name', 'builder-name'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.innerText = heroData.name;
-    });
-    
-    const roleEl = document.getElementById('hero-role');
-    if (roleEl) roleEl.innerText = heroData.role;
-    
-    ['hero-title', 'builder-title'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.innerText = heroData.title;
-    });
-    
-    const bgModel = document.getElementById('builder-model-bg');
-    if (bgModel) {
-        bgModel.src = portraitUrl;
-    }
-    
-    // Render abilities into the shared abilities container
-    const box = document.getElementById('hero-abilities');
+function renderAbilityStrip(abilitiesList, containerId) {
+    const box = document.getElementById(containerId);
     if (!box) return;
     box.innerHTML = '';
     
-    const list = (heroData.abilities || []).filter(a => {
+    const list = (abilitiesList || []).filter(a => {
         const keyUpper = String(a.key || '').toUpperCase();
         const nameLower = String(a.name || '').toLowerCase();
         const catLower = String(a.category || '').toLowerCase();
@@ -453,7 +426,6 @@ function renderHeroHeader(heroData) {
             return false;
         }
         
-        // Filter standard generic mounts, but allow custom Z abilities (Burrow, Deep Tunnel, Flight, etc.)
         if (keyUpper === 'Z' || catLower === 'mount' || nameLower.includes('mount')) {
             const isCustomZ = nameLower.includes('tunnel') || nameLower.includes('flight') || nameLower.includes('burrow');
             if (!isCustomZ && (nameLower.includes('summon mount') || nameLower === 'mount' || catLower === 'mount')) {
@@ -481,6 +453,35 @@ function renderHeroHeader(heroData) {
         `;
         box.appendChild(el);
     });
+}
+
+function renderHeroHeader(heroData) {
+    if (!heroData) return;
+    const portraitUrl = getAssetUrl(heroData.portrait);
+    
+    document.getElementById('hero-portrait').src = portraitUrl;
+    document.getElementById('hero-name').innerText = heroData.name;
+    document.getElementById('hero-role').innerText = heroData.role;
+    document.getElementById('hero-title').innerText = heroData.title;
+    
+    renderAbilityStrip(heroData.abilities, 'hero-abilities');
+}
+
+function renderBuilderHeader(heroData) {
+    if (!heroData) return;
+    const portraitUrl = getAssetUrl(heroData.portrait);
+    
+    document.getElementById('builder-portrait').src = portraitUrl;
+    document.getElementById('builder-name').innerText = heroData.name;
+    document.getElementById('builder-role').innerText = heroData.role;
+    document.getElementById('builder-title').innerText = heroData.title;
+    
+    const bgModel = document.getElementById('builder-model-bg');
+    if (bgModel) {
+        bgModel.src = portraitUrl;
+    }
+    
+    renderAbilityStrip(heroData.abilities, 'builder-abilities');
 }
 
 
@@ -607,7 +608,7 @@ async function openBuilder(id = null, selections = null, update = true) {
         talents: normalizeTalentTree(h.talents || h.talentTree || {})
     };
     
-    renderHeroHeader(builderHeroData);
+    renderBuilderHeader(builderHeroData);
     renderBuilderMatrix();
     updateBuilderOutput(false);
     
