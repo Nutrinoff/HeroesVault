@@ -294,7 +294,7 @@
     <p id="tip-desc" class="text-[11px] text-slate-300 leading-relaxed mt-1">Talent description goes here...</p>
   </div>
 
-  <!-- JAVASCRIPT -->
+ <!-- JAVASCRIPT -->
   <script>
     let MASTER_HERO_LIST = []; 
     let MASTER_MAP_LIST = [];
@@ -469,7 +469,7 @@
           }
         }
       }
-      return "A"; // Default fallback
+      return "A"; 
     }
 
     function renderHeroSidebar(heroes) {
@@ -478,7 +478,7 @@
       heroes.forEach(hero => {
         const heroCard = document.createElement("div");
         const activeId = document.getElementById("view-builder").classList.contains("hidden") ? currentSelectedHeroId : builderHeroId;
-        heroCard.className = `flex items-center gap-3 p-2 rounded-xl cursor-pointer border transition-all ${activeId === hero.id ? 'bg-sky-500/15 border-sky-500/70' : 'border-slate-800/60 bg-slate-900/50 hover:bg-slate-800/80'}`;
+        heroCard.className = `flex items-center gap-3 p-2.5 rounded-xl cursor-pointer border transition-all ${activeId === hero.id ? 'bg-sky-500/15 border-sky-500/70' : 'border-slate-800/60 bg-slate-900/50 hover:bg-slate-800/80'}`;
         
         heroCard.onclick = () => {
           const isBuilderActive = !document.getElementById("view-builder").classList.contains("hidden");
@@ -491,14 +491,15 @@
 
         const heroTier = getHeroTier(hero.id);
 
+        // Slightly bigger text sizes (text-sm for name, text-xs for role/tier badge)
         heroCard.innerHTML = `
-          <img src="${hero.portrait}" onerror="this.src='https://via.placeholder.com/40?text=H'" alt="${hero.name}" class="w-10 h-10 rounded-lg border border-slate-700 object-cover flex-shrink-0 bg-slate-950" />
+          <img src="${hero.portrait}" onerror="this.src='https://via.placeholder.com/40?text=H'" alt="${hero.name}" class="w-11 h-11 rounded-lg border border-slate-700 object-cover flex-shrink-0 bg-slate-950" />
           <div class="flex-1 min-w-0">
             <div class="flex items-center justify-between">
-              <h4 class="text-xs font-bold text-slate-100 truncate">${hero.name}</h4>
-              <span class="text-[10px] font-mono font-bold text-amber-400 bg-amber-400/10 px-2 py-0.5 rounded flex items-center justify-center">${heroTier} Tier</span>
+              <h4 class="text-sm font-bold text-slate-100 truncate">${hero.name}</h4>
+              <span class="text-xs font-mono font-bold text-amber-400 bg-amber-400/10 px-2 py-0.5 rounded flex items-center justify-center">${heroTier} Tier</span>
             </div>
-            <p class="text-[10px] text-slate-400 truncate">${hero.role}</p>
+            <p class="text-xs text-slate-400 truncate">${hero.role}</p>
           </div>
         `;
         listContainer.appendChild(heroCard);
@@ -856,7 +857,7 @@
     }
 
     // --- DYNAMIC MULTI-TIER LIST BUILDER (S, A, B, C, D) ---
-  function renderTierList() {
+    function renderTierList() {
       const container = document.getElementById("view-tierlist");
       if (!container) return;
 
@@ -876,7 +877,6 @@
         "D": { bg: "bg-cyan-500/20", text: "text-cyan-400", border: "border-cyan-500/40" }
       };
 
-      // Map potential json keys to their target display letter
       const possibleKeys = [
         { letter: "S", keys: ["s", "stier", "s_tier"] },
         { letter: "A", keys: ["a", "atier", "a_tier"] },
@@ -886,7 +886,6 @@
       ];
 
       possibleKeys.forEach(tierObj => {
-        // Find which key actually exists in MASTER_TIERS (case-insensitive check)
         let foundKey = Object.keys(MASTER_TIERS).find(k => tierObj.keys.includes(k.toLowerCase()));
         const heroIds = foundKey ? MASTER_TIERS[foundKey] : [];
 
@@ -896,15 +895,17 @@
         const style = tierStyles[tierKey] || { bg: "bg-slate-800/30", text: "text-slate-400", border: "border-slate-700/30" };
 
         const rowDiv = document.createElement("div");
-        rowDiv.className = "flex rounded-xl overflow-hidden border border-slate-800 bg-slate-900/60";
+        // Added flex items-stretch to make row columns match height and vertically center content
+        rowDiv.className = "flex items-stretch rounded-xl overflow-hidden border border-slate-800 bg-slate-900/60";
 
         const labelDiv = document.createElement("div");
-        labelDiv.className = `w-28 ${style.bg} ${style.text} border-r ${style.border} flex items-center justify-center font-extrabold text-lg`;
+        // Added flex items-center justify-center to vertically and horizontally center the tier label
+        labelDiv.className = `w-28 ${style.bg} ${style.text} border-r ${style.border} flex items-center justify-center font-extrabold text-base tracking-wide`;
         labelDiv.innerText = `${tierKey} TIER`;
         rowDiv.appendChild(labelDiv);
 
         const heroesFlexDiv = document.createElement("div");
-        heroesFlexDiv.className = "p-3 flex flex-wrap gap-2 flex-1";
+        heroesFlexDiv.className = "p-3 flex flex-wrap items-center gap-2 flex-1";
 
         heroIds.forEach(id => {
           const hero = heroMap[id];
@@ -920,10 +921,11 @@
 
     function createTierBadge(hero) {
       const badge = document.createElement("div");
-      badge.className = "flex items-center gap-2 bg-slate-950 px-2.5 py-1.5 rounded-lg border border-slate-800 cursor-pointer hover:border-sky-500 transition-all";
+      // Bumped text up slightly for better readability
+      badge.className = "flex items-center gap-2 bg-slate-950 px-3 py-2 rounded-lg border border-slate-800 cursor-pointer hover:border-sky-500 transition-all";
       badge.onclick = () => { navigateTo('heroes', { hero: hero.id }); };
       badge.innerHTML = `
-        <img src="${hero.portrait}" onerror="this.src='https://via.placeholder.com/24?text=H'" class="w-6 h-6 rounded-md object-cover bg-slate-900"/> 
+        <img src="${hero.portrait}" onerror="this.src='https://via.placeholder.com/28?text=H'" class="w-7 h-7 rounded-md object-cover bg-slate-900"/> 
         <span class="text-xs font-semibold text-slate-200">${hero.name}</span>
       `;
       return badge;
