@@ -293,8 +293,8 @@
     </div>
     <p id="tip-desc" class="text-[11px] text-slate-300 leading-relaxed mt-1">Talent description goes here...</p>
   </div>
-
-<!-- JAVASCRIPT -->
+  
+ <!-- JAVASCRIPT -->
   <script>
     let MASTER_HERO_LIST = []; 
     let MASTER_MAP_LIST = [];
@@ -311,71 +311,65 @@
 
     const REPO_BASE = "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/";
 
-document.addEventListener("DOMContentLoaded", async () => {
-  try {
-    console.log("Initializing HeroesVault from Master JSON...");
-    
-    // Fetch files concurrently with individual error handling so one failure doesn't break everything
-    const [masterRes, buildsRes, mapsRes, tiersRes] = await Promise.all([
-      fetch('./data/heroes-master.json').catch(e => { console.warn("master.json failed", e); return null; }),
-      fetch('./data/builds.json').catch(e => { console.warn("builds.json failed", e); return null; }),
-      fetch('./data/maps.json').catch(e => { console.warn("maps.json failed", e); return null; }),
-      fetch('./data/tiers.json').catch(e => { console.warn("tiers.json failed", e); return null; })
-    ]);
-    
-    if (masterRes && masterRes.ok) {
-      const masterJson = await masterRes.json();
-      HOTS_MASTER_DATA = masterJson.items || masterJson; // Handles both {items: {...}} or direct root objects
-
-      MASTER_HERO_LIST = Object.keys(HOTS_MASTER_DATA).map(heroKey => {
-        const h = HOTS_MASTER_DATA[heroKey];
-        const portraitPath = (h.portraits && (h.portraits.heroSelect || h.portraits.leaderboard || h.portraits.target)) || '';
+    document.addEventListener("DOMContentLoaded", async () => {
+      try {
+        const [masterRes, buildsRes, mapsRes, tiersRes] = await Promise.all([
+          fetch('./data/heroes-master.json').catch(() => null),
+          fetch('./data/builds.json').catch(() => null),
+          fetch('./data/maps.json').catch(() => null),
+          fetch('./data/tiers.json').catch(() => null)
+        ]);
         
-        return {
-          id: heroKey,
-          name: h.name || heroKey,
-          role: (h.roles && h.roles[0]) || h.expandedRole || "Nexus Combatant",
-          title: h.title || "",
-          portrait: portraitPath
-        };
-      }).sort((a, b) => a.name.localeCompare(b.name));
-      console.log(`Successfully loaded ${MASTER_HERO_LIST.length} heroes into memory.`);
-    } else {
-      console.error("CRITICAL: heroes-master.json could not be loaded. Check file path './data/heroes-master.json'.");
-    }
+        if (masterRes && masterRes.ok) {
+          const masterJson = await masterRes.json();
+          // Handles both formats: direct object mapping or wrapped in an .items property
+          HOTS_MASTER_DATA = masterJson.items || masterJson;
 
-    if (buildsRes && buildsRes.ok) PERSONAL_BUILDS = await buildsRes.json();
-    if (tiersRes && tiersRes.ok) MASTER_TIERS = await tiersRes.json();
-    if (mapsRes && mapsRes.ok) {
-      MASTER_MAP_LIST = await mapsRes.json();
-      populateMapsDropdown();
-    }
-  } catch (err) {
-    console.error("Critical error during app initialization:", err);
-  }
+          MASTER_HERO_LIST = Object.keys(HOTS_MASTER_DATA).map(heroKey => {
+            const h = HOTS_MASTER_DATA[heroKey];
+            const portraitPath = (h.portraits && (h.portraits.heroSelect || h.portraits.leaderboard || h.portraits.target)) || '';
+            
+            return {
+              id: heroKey,
+              name: h.name || heroKey,
+              role: (h.roles && h.roles[0]) || h.expandedRole || "Nexus Combatant",
+              title: h.title || "",
+              portrait: portraitPath
+            };
+          }).sort((a, b) => a.name.localeCompare(b.name));
+        }
 
-  // Safe renders even if some data files were empty
-  renderHeroSidebar(MASTER_HERO_LIST);
-  renderTierList();
-  
-  if (window.lucide) {
-    try { lucide.createIcons(); } catch(e) {}
-  }
+        if (buildsRes && buildsRes.ok) PERSONAL_BUILDS = await buildsRes.json();
+        if (tiersRes && tiersRes.ok) MASTER_TIERS = await tiersRes.json();
+        if (mapsRes && mapsRes.ok) {
+          MASTER_MAP_LIST = await mapsRes.json();
+          populateMapsDropdown();
+        }
+      } catch (err) {
+        console.error("Failed loading master JSON files:", err);
+      }
 
-  handleRoute();
+      renderHeroSidebar(MASTER_HERO_LIST);
+      renderTierList();
+      if (window.lucide) {
+        try { lucide.createIcons(); } catch(e) {}
+      }
 
-  window.addEventListener('popstate', () => {
-    handleRoute();
-  });
+      handleRoute();
 
-  window.onclick = function(event) {
-    if (!event.target.closest('.relative')) {
-      const dropdown = document.getElementById('maps-dropdown-menu');
-      if (dropdown) dropdown.classList.add('hidden');
-    }
-  }
-});
+      window.addEventListener('popstate', () => {
+        handleRoute();
+      });
 
+      window.onclick = function(event) {
+        if (!event.target.closest('.relative')) {
+          const dropdown = document.getElementById('maps-dropdown-menu');
+          if (dropdown) dropdown.classList.add('hidden');
+        }
+      }
+    });
+
+    // --- URL ROUTING & NAVIGATION ---
     function navigateTo(tab, params = {}, push = true) {
       let url = `#${tab}`;
       const searchParams = new URLSearchParams();
@@ -441,12 +435,17 @@ document.addEventListener("DOMContentLoaded", async () => {
       const isBuilder = tab === 'builder';
       const isTierList = tab === 'tierlist';
 
-      document.getElementById("view-heroes").classList.toggle("hidden", !isHeroes);
-      document.getElementById("view-map").classList.toggle("hidden", !isMap);
-      document.getElementById("view-builder").classList.toggle("hidden", !isBuilder);
-      document.getElementById("view-tierlist").classList.toggle("hidden", !isTierList);
-      
-      document.getElementById("sidebar-container").classList.toggle("hidden", !isHeroes && !isBuilder);
+      const vHeroes = document.getElementById("view-heroes");
+      const vMap = document.getElementById("view-map");
+      const vBuilder = document.getElementById("view-builder");
+      const vTierList = document.getElementById("view-tierlist");
+      const sidebarContainer = document.getElementById("sidebar-container");
+
+      if (vHeroes) vHeroes.classList.toggle("hidden", !isHeroes);
+      if (vMap) vMap.classList.toggle("hidden", !isMap);
+      if (vBuilder) vBuilder.classList.toggle("hidden", !isBuilder);
+      if (vTierList) vTierList.classList.toggle("hidden", !isTierList);
+      if (sidebarContainer) sidebarContainer.classList.toggle("hidden", !isHeroes && !isBuilder);
 
       setActiveNav("nav-heroes", isHeroes);
       setActiveNav("nav-builder", isBuilder);
@@ -465,11 +464,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     function toggleMapsDropdown(e) {
       e.stopPropagation();
-      document.getElementById('maps-dropdown-menu').classList.toggle('hidden');
+      const menu = document.getElementById('maps-dropdown-menu');
+      if (menu) menu.classList.toggle('hidden');
     }
 
     function populateMapsDropdown() {
       const menu = document.getElementById('maps-dropdown-menu');
+      if (!menu) return;
       let html = `<div class="px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-500">Battlegrounds</div>`;
       const sortedMaps = [...MASTER_MAP_LIST].sort((a, b) => a.name.localeCompare(b.name));
       sortedMaps.forEach(map => {
@@ -502,12 +503,20 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (!assetPath) return '';
       if (assetPath.startsWith('http')) return assetPath;
       
-      const cleanPath = assetPath.replace(/^(\/?images\/)?/, '');
-      return `${REPO_BASE}${cleanPath}`;
+      let clean = assetPath.replace(/^(\/?images\/)?/, '');
+      if (!clean.includes('/')) {
+        if (clean.includes('talent') || clean.startsWith('storm_ui_icon')) {
+          clean = `abilitytalents/${clean}`;
+        } else if (clean.includes('hero') || clean.includes('portrait') || clean.startsWith('ui_') || clean.startsWith('storm_ui_ingame')) {
+          clean = `heroportraits/${clean}`;
+        }
+      }
+      return `${REPO_BASE}${clean}`;
     }
 
     function renderHeroSidebar(heroes) {
       const listContainer = document.getElementById("hero-list");
+      if (!listContainer) return;
       listContainer.innerHTML = "";
       
       const tierBadgeStyles = {
@@ -520,12 +529,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       heroes.forEach(hero => {
         const heroCard = document.createElement("div");
-        const activeId = document.getElementById("view-builder").classList.contains("hidden") ? currentSelectedHeroId : builderHeroId;
+        const builderEl = document.getElementById("view-builder");
+        const activeId = (builderEl && !builderEl.classList.contains("hidden")) ? builderHeroId : currentSelectedHeroId;
         
         heroCard.className = `flex items-center justify-between gap-3 p-2.5 rounded-xl cursor-pointer border transition-all ${activeId === hero.id ? 'bg-sky-500/15 border-sky-500/70' : 'border-slate-800/60 bg-slate-900/50 hover:bg-slate-800/80'}`;
         
         heroCard.onclick = () => {
-          const isBuilderActive = !document.getElementById("view-builder").classList.contains("hidden");
+          const isBuilderActive = builderEl && !builderEl.classList.contains("hidden");
           if (isBuilderActive) {
             openBuilder(hero.id, null, true);
           } else {
@@ -549,95 +559,86 @@ document.addEventListener("DOMContentLoaded", async () => {
         `;
         listContainer.appendChild(heroCard);
       });
-      document.getElementById("hero-count").innerText = `${heroes.length} Heroes`;
+      const countEl = document.getElementById("hero-count");
+      if (countEl) countEl.innerText = `${heroes.length} Heroes`;
     }
 
-async function selectHero(heroId, updateUrl = true) {
-  currentSelectedHeroId = heroId;
-  currentBuildIndex = 0;
-  renderHeroSidebar(MASTER_HERO_LIST);
-  switchTabUI('heroes');
+    async function selectHero(heroId, updateUrl = true) {
+      currentSelectedHeroId = heroId;
+      currentBuildIndex = 0;
+      renderHeroSidebar(MASTER_HERO_LIST);
+      switchTabUI('heroes');
 
-  if (updateUrl) {
-    navigateTo('heroes', { hero: heroId });
-  }
+      if (updateUrl) {
+        navigateTo('heroes', { hero: heroId });
+      }
 
-  try {
-    const heroRaw = HOTS_MASTER_DATA[heroId];
-    if (!heroRaw) throw new Error(`Could not find data for ${heroId}`);
+      try {
+        const heroRaw = HOTS_MASTER_DATA[heroId];
+        if (!heroRaw) throw new Error(`Could not find data for ${heroId}`);
 
-    // Grab portrait safely
-    const portraitPath = (heroRaw.portraits && (heroRaw.portraits.heroSelect || heroRaw.portraits.leaderboard || heroRaw.portraits.target)) || '';
+        const portraitPath = (heroRaw.portraits && (heroRaw.portraits.heroSelect || heroRaw.portraits.leaderboard || heroRaw.portraits.target)) || '';
 
-    // Flatten abilities safely whether they are categorized or already an array
-    let flattenedAbilities = [];
-    if (heroRaw.abilities) {
-      if (Array.isArray(heroRaw.abilities)) {
-        flattenedAbilities = heroRaw.abilities;
-      } else {
-        ['Basic', 'Heroic', 'Trait', 'Mount', 'Hearth', 'Abilities'].forEach(cat => {
-          if (heroRaw.abilities[cat] && Array.isArray(heroRaw.abilities[cat])) {
-            heroRaw.abilities[cat].forEach(ab => {
-              flattenedAbilities.push({
-                key: ab.abilityType || cat,
-                name: ab.name,
-                icon: ab.icon,
-                desc: ab.fullText || ab.shortText || ab.description,
-                cooldown: ab.cooldownText
-              });
+        // Flatten abilities safely whether they are structured as categories or a flat array
+        let flattenedAbilities = [];
+        if (heroRaw.abilities) {
+          if (Array.isArray(heroRaw.abilities)) {
+            flattenedAbilities = heroRaw.abilities;
+          } else {
+            ['Basic', 'Heroic', 'Trait', 'Mount', 'Hearth', 'Abilities'].forEach(cat => {
+              if (heroRaw.abilities[cat] && Array.isArray(heroRaw.abilities[cat])) {
+                heroRaw.abilities[cat].forEach(ab => {
+                  flattenedAbilities.push({
+                    key: ab.abilityType || cat,
+                    name: ab.name,
+                    icon: ab.icon,
+                    desc: ab.fullText || ab.shortText || ab.description,
+                    cooldown: ab.cooldownText
+                  });
+                });
+              }
             });
           }
-        });
+        }
+
+        currentHeroData = {
+          id: heroId,
+          name: heroRaw.name,
+          title: heroRaw.title,
+          role: (heroRaw.roles && heroRaw.roles[0]) || heroRaw.expandedRole || "Nexus Combatant",
+          portrait: portraitPath,
+          description: heroRaw.description,
+          abilities: flattenedAbilities,
+          talents: heroRaw.talents || heroRaw.talentTree || {}
+        };
+
+        const portraitImg = document.getElementById("detail-portrait");
+        if (portraitImg) portraitImg.src = getAssetUrl(currentHeroData.portrait);
+        
+        const nameEl = document.getElementById("detail-name");
+        if (nameEl) nameEl.innerText = currentHeroData.name;
+        
+        const roleEl = document.getElementById("detail-role");
+        if (roleEl) roleEl.innerText = currentHeroData.role;
+        
+        const titleEl = document.getElementById("detail-title");
+        if (titleEl) titleEl.innerText = currentHeroData.title || "Nexus Combatant";
+        
+        renderActiveBuild();
+      } catch (err) {
+        console.error(err);
+        const nameEl = document.getElementById("detail-name");
+        if (nameEl) nameEl.innerText = "Error Loading Hero";
+        const notesEl = document.getElementById("detail-notes");
+        if (notesEl) notesEl.innerHTML = `<span class="text-red-400">Could not parse data for ${heroId}</span>`;
+        const stripEl = document.getElementById("build-strip");
+        if (stripEl) stripEl.innerHTML = "";
       }
     }
 
-    currentHeroData = {
-      id: heroId,
-      name: heroRaw.name,
-      title: heroRaw.title,
-      role: (heroRaw.roles && heroRaw.roles[0]) || heroRaw.expandedRole || "Nexus Combatant",
-      portrait: portraitPath,
-      description: heroRaw.description,
-      abilities: flattenedAbilities,
-      // Fallback check: look for talents in heroRaw.talents, heroRaw.talentTree, or heroRaw.heroTalents
-      talents: heroRaw.talents || heroRaw.talentTree || heroRaw.heroTalents || {}
-    };
-
-    document.getElementById("detail-portrait").src = getAssetUrl(currentHeroData.portrait);
-    document.getElementById("detail-name").innerText = currentHeroData.name;
-    document.getElementById("detail-role").innerText = currentHeroData.role;
-    document.getElementById("detail-title").innerText = currentHeroData.title || "Nexus Combatant";
-    
-    renderActiveBuild();
-  } catch (err) {
-    console.error(err);
-    document.getElementById("detail-name").innerText = "Error Loading Hero";
-    document.getElementById("detail-notes").innerHTML = `<span class="text-red-400">Could not parse data for ${heroId}</span>`;
-    document.getElementById("build-strip").innerHTML = "";
-  }
-}
-
-const REPO_BASE = "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/";
-
-function getAssetUrl(assetPath) {
-  if (!assetPath) return '';
-  if (assetPath.startsWith('http')) return assetPath;
-  
-  let clean = assetPath.replace(/^(\/?images\/)?/, '');
-  
-  if (!clean.includes('/')) {
-    if (clean.includes('talent') || clean.startsWith('storm_ui_icon')) {
-      clean = `abilitytalents/${clean}`;
-    } else if (clean.includes('hero') || clean.includes('portrait') || clean.startsWith('ui_') || clean.startsWith('storm_ui_ingame')) {
-      clean = `heroportraits/${clean}`;
-    }
-  }
-
-  return `${REPO_BASE}${clean}`;
-}
-
     async function selectMap(mapId, updateUrl = true) {
-      document.getElementById('maps-dropdown-menu').classList.add('hidden');
+      const dropdownMenu = document.getElementById('maps-dropdown-menu');
+      if (dropdownMenu) dropdownMenu.classList.add('hidden');
       switchTabUI('map');
 
       if (updateUrl) {
@@ -645,70 +646,91 @@ function getAssetUrl(assetPath) {
       }
 
       const masterMap = MASTER_MAP_LIST.find(m => m.id === mapId) || { name: mapId, theme: "Battleground strategy", portrait: "" };
-      document.getElementById("map-portrait").src = getAssetUrl(masterMap.portrait);
-      document.getElementById("map-name").innerText = masterMap.name;
-      document.getElementById("map-theme").innerText = masterMap.theme;
-      document.getElementById("map-mechanic").innerHTML = `<strong class="text-white block mb-1">Objective details coming soon</strong> Detailed mechanics for this battleground are being added to the database.`;
-      document.getElementById("map-strategy").innerText = "Strategy guide and team composition notes will be populated here.";
-      document.getElementById("map-notes").innerText = "No special notes recorded for this map.";
-      document.getElementById("map-camps-stack").innerHTML = `<div class="p-3 text-xs text-slate-500 italic bg-slate-950/40 rounded-xl border border-slate-800">Camp timings loading...</div>`;
-      document.getElementById("map-heroes-list").innerHTML = `<div class="col-span-full text-xs text-slate-500 italic">No golden heroes configured.</div>`;
+      
+      const mapPortrait = document.getElementById("map-portrait");
+      if (mapPortrait) mapPortrait.src = getAssetUrl(masterMap.portrait);
+      
+      const mapName = document.getElementById("map-name");
+      if (mapName) mapName.innerText = masterMap.name;
+      
+      const mapTheme = document.getElementById("map-theme");
+      if (mapTheme) mapTheme.innerText = masterMap.theme;
+      
+      const mapMech = document.getElementById("map-mechanic");
+      if (mapMech) mapMech.innerHTML = `<strong class="text-white block mb-1">Objective details coming soon</strong> Detailed mechanics for this battleground are being added.`;
+      
+      const mapStrat = document.getElementById("map-strategy");
+      if (mapStrat) mapStrat.innerText = "Strategy guide and team composition notes will be populated here.";
+      
+      const mapNotes = document.getElementById("map-notes");
+      if (mapNotes) mapNotes.innerText = "No special notes recorded for this map.";
+      
+      const campsStack = document.getElementById("map-camps-stack");
+      if (campsStack) campsStack.innerHTML = `<div class="p-3 text-xs text-slate-500 italic bg-slate-950/40 rounded-xl border border-slate-800">Camp timings loading...</div>`;
+      
+      const mapHeroesList = document.getElementById("map-heroes-list");
+      if (mapHeroesList) mapHeroesList.innerHTML = `<div class="col-span-full text-xs text-slate-500 italic">No golden heroes configured.</div>`;
 
       try {
         const res = await fetch(`./data/maps/${mapId}.json`);
         if (!res.ok) return; 
         const mapData = await res.json();
 
-        document.getElementById("map-portrait").src = getAssetUrl(mapData.portrait || masterMap.portrait);
-        document.getElementById("map-name").innerText = mapData.name;
-        document.getElementById("map-theme").innerText = mapData.theme;
+        if (mapPortrait) mapPortrait.src = getAssetUrl(mapData.portrait || masterMap.portrait);
+        if (mapName) mapName.innerText = mapData.name;
+        if (mapTheme) mapTheme.innerText = mapData.theme;
         
-        document.getElementById("map-mechanic").innerHTML = `
-          <strong class="text-white block mb-1">${mapData.mechanic.title}</strong>
-          ${mapData.mechanic.description}
-        `;
-        document.getElementById("map-strategy").innerText = mapData.strategy;
-        document.getElementById("map-notes").innerText = mapData.notes || "No special notes recorded for this map.";
-
-        const campStack = document.getElementById("map-camps-stack");
-        campStack.innerHTML = "";
-        (mapData.camps || []).forEach(camp => {
-          const campBox = document.createElement("div");
-          campBox.className = "bg-slate-950/70 border border-slate-800 rounded-xl p-4 space-y-2 shadow-sm";
-          campBox.innerHTML = `
-            <div class="font-bold text-sm text-white">${camp.name}</div>
-            <div>
-              <span class="text-xs font-mono font-semibold text-amber-400 bg-amber-400/10 px-2.5 py-1 rounded-md inline-block">${camp.timing}</span>
-            </div>
-            <p class="text-xs text-slate-400 leading-relaxed pt-0.5">${camp.notes}</p>
+        if (mapMech && mapData.mechanic) {
+          mapMech.innerHTML = `
+            <strong class="text-white block mb-1">${mapData.mechanic.title}</strong>
+            ${mapData.mechanic.description}
           `;
-          campStack.appendChild(campBox);
-        });
+        }
+        if (mapStrat) mapStrat.innerText = mapData.strategy || "";
+        if (mapNotes) mapNotes.innerText = mapData.notes || "No special notes recorded for this map.";
 
-        const heroesContainer = document.getElementById("map-heroes-list");
-        heroesContainer.innerHTML = "";
-        const goldenHeroIds = mapData.goldenHeroes || [];
-        
-        if (goldenHeroIds.length === 0) {
-          heroesContainer.innerHTML = `<div class="col-span-full text-xs text-slate-500 italic">No golden heroes configured for this map yet.</div>`;
-        } else {
-          goldenHeroIds.forEach(hId => {
-            const heroObj = MASTER_HERO_LIST.find(h => h.id === hId) || { name: hId, portrait: '' };
-            const heroEl = document.createElement("div");
-            heroEl.className = "flex flex-col items-center bg-slate-950 border border-slate-800 rounded-xl p-2 text-center cursor-pointer hover:border-sky-500 transition-all";
-            heroEl.onclick = () => { navigateTo('heroes', { hero: heroObj.id }); };
-            heroEl.innerHTML = `
-              <img src="${getAssetUrl(heroObj.portrait)}" onerror="this.src='https://via.placeholder.com/40?text=H'" class="w-10 h-10 rounded-lg border border-slate-700 object-cover bg-slate-900 mb-1 shadow-inner" />
-              <span class="text-[10px] font-bold text-slate-200 truncate w-full" title="${heroObj.name}">${heroObj.name}</span>
+        if (campsStack) {
+          campsStack.innerHTML = "";
+          (mapData.camps || []).forEach(camp => {
+            const campBox = document.createElement("div");
+            campBox.className = "bg-slate-950/70 border border-slate-800 rounded-xl p-4 space-y-2 shadow-sm";
+            campBox.innerHTML = `
+              <div class="font-bold text-sm text-white">${camp.name}</div>
+              <div>
+                <span class="text-xs font-mono font-semibold text-amber-400 bg-amber-400/10 px-2.5 py-1 rounded-md inline-block">${camp.timing}</span>
+              </div>
+              <p class="text-xs text-slate-400 leading-relaxed pt-0.5">${camp.notes}</p>
             `;
-            heroesContainer.appendChild(heroEl);
+            campsStack.appendChild(campBox);
           });
+        }
+
+        if (mapHeroesList) {
+          mapHeroesList.innerHTML = "";
+          const goldenHeroIds = mapData.goldenHeroes || [];
+          
+          if (goldenHeroIds.length === 0) {
+            mapHeroesList.innerHTML = `<div class="col-span-full text-xs text-slate-500 italic">No golden heroes configured for this map yet.</div>`;
+          } else {
+            goldenHeroIds.forEach(hId => {
+              const heroObj = MASTER_HERO_LIST.find(h => h.id === hId) || { name: hId, portrait: '' };
+              const heroEl = document.createElement("div");
+              heroEl.className = "flex flex-col items-center bg-slate-950 border border-slate-800 rounded-xl p-2 text-center cursor-pointer hover:border-sky-500 transition-all";
+              heroEl.onclick = () => { navigateTo('heroes', { hero: heroObj.id }); };
+              heroEl.innerHTML = `
+                <img src="${getAssetUrl(heroObj.portrait)}" onerror="this.src='https://via.placeholder.com/40?text=H'" class="w-10 h-10 rounded-lg border border-slate-700 object-cover bg-slate-900 mb-1 shadow-inner" />
+                <span class="text-[10px] font-bold text-slate-200 truncate w-full" title="${heroObj.name}">${heroObj.name}</span>
+              `;
+              mapHeroesList.appendChild(heroEl);
+            });
+          }
         }
       } catch (err) {
         console.warn(`Individual detail file for ${mapId} not found yet.`);
       }
     }
 
+    // --- TALENT BUILDER ---
     async function openBuilder(heroId = null, initialSelections = null, updateUrl = true) {
       switchTabUI('builder');
       
@@ -731,18 +753,22 @@ function getAssetUrl(assetPath) {
 
         let flattenedAbilities = [];
         if (heroRaw.abilities) {
-          ['Basic', 'Heroic', 'Trait'].forEach(cat => {
-            if (heroRaw.abilities[cat]) {
-              heroRaw.abilities[cat].forEach(ab => {
-                flattenedAbilities.push({
-                  key: ab.abilityType || cat,
-                  name: ab.name,
-                  icon: ab.icon,
-                  desc: ab.fullText || ab.shortText
+          if (Array.isArray(heroRaw.abilities)) {
+            flattenedAbilities = heroRaw.abilities;
+          } else {
+            ['Basic', 'Heroic', 'Trait'].forEach(cat => {
+              if (heroRaw.abilities[cat] && Array.isArray(heroRaw.abilities[cat])) {
+                heroRaw.abilities[cat].forEach(ab => {
+                  flattenedAbilities.push({
+                    key: ab.abilityType || cat,
+                    name: ab.name,
+                    icon: ab.icon,
+                    desc: ab.fullText || ab.shortText || ab.description
+                  });
                 });
-              });
-            }
-          });
+              }
+            });
+          }
         }
 
         const portraitPath = (heroRaw.portraits && (heroRaw.portraits.leaderboard || heroRaw.portraits.heroSelect || heroRaw.portraits.target)) || '';
@@ -753,16 +779,21 @@ function getAssetUrl(assetPath) {
           title: heroRaw.title,
           portrait: portraitPath,
           abilities: flattenedAbilities,
-          talents: heroRaw.talents
+          talents: heroRaw.talents || heroRaw.talentTree || {}
         };
 
         const portraitUrl = getAssetUrl(builderHeroData.portrait);
-        document.getElementById("builder-portrait").src = portraitUrl;
-        document.getElementById("builder-name").innerText = builderHeroData.name;
-        document.getElementById("builder-title").innerText = builderHeroData.title || "Nexus Combatant";
+        const bPortrait = document.getElementById("builder-portrait");
+        if (bPortrait) bPortrait.src = portraitUrl;
+        
+        const bName = document.getElementById("builder-name");
+        if (bName) bName.innerText = builderHeroData.name;
+        
+        const bTitle = document.getElementById("builder-title");
+        if (bTitle) bTitle.innerText = builderHeroData.title || "Nexus Combatant";
         
         const bgImg = document.getElementById("builder-model-bg");
-        bgImg.src = portraitUrl;
+        if (bgImg) bgImg.src = portraitUrl;
 
         renderBuilderAbilities();
         renderBuilderMatrix();
@@ -774,6 +805,7 @@ function getAssetUrl(assetPath) {
 
     function renderBuilderAbilities() {
       const container = document.getElementById("builder-abilities");
+      if (!container) return;
       container.innerHTML = "";
       const abilities = (builderHeroData.abilities || []).filter(ab => ab.key.toUpperCase() !== 'R');
 
@@ -801,10 +833,16 @@ function getAssetUrl(assetPath) {
 
     function showAbilityTooltip(e, ab) {
       const tip = document.getElementById("talent-tooltip");
-      document.getElementById("tip-icon").src = getAssetUrl(ab.icon);
-      document.getElementById("tip-name").innerText = ab.name;
-      document.getElementById("tip-level").innerText = `Ability [${ab.key}]`;
-      document.getElementById("tip-desc").innerText = ab.desc || "No description available.";
+      if (!tip) return;
+      const tIcon = document.getElementById("tip-icon");
+      if (tIcon) tIcon.src = getAssetUrl(ab.icon);
+      const tName = document.getElementById("tip-name");
+      if (tName) tName.innerText = ab.name;
+      const tLevel = document.getElementById("tip-level");
+      if (tLevel) tLevel.innerText = `Ability [${ab.key}]`;
+      const tDesc = document.getElementById("tip-desc");
+      if (tDesc) tDesc.innerText = ab.desc || "No description available.";
+      
       tip.style.left = `${e.clientX + 15}px`;
       tip.style.top = `${e.clientY + 15}px`;
       tip.classList.remove("hidden");
@@ -812,6 +850,7 @@ function getAssetUrl(assetPath) {
 
     function renderBuilderMatrix() {
       const matrixContainer = document.getElementById("builder-matrix");
+      if (!matrixContainer) return;
       matrixContainer.innerHTML = "";
 
       if (!builderHeroData || !builderHeroData.talents) {
@@ -864,17 +903,24 @@ function getAssetUrl(assetPath) {
 
     function showTalentTooltip(e, talent, level) {
       const tip = document.getElementById("talent-tooltip");
-      document.getElementById("tip-icon").src = getAssetUrl(talent.icon);
-      document.getElementById("tip-name").innerText = talent.name;
-      document.getElementById("tip-level").innerText = `Level ${level} Talent`;
-      document.getElementById("tip-desc").innerText = talent.desc || "No description available.";
+      if (!tip) return;
+      const tIcon = document.getElementById("tip-icon");
+      if (tIcon) tIcon.src = getAssetUrl(talent.icon);
+      const tName = document.getElementById("tip-name");
+      if (tName) tName.innerText = talent.name;
+      const tLevel = document.getElementById("tip-level");
+      if (tLevel) tLevel.innerText = `Level ${level} Talent`;
+      const tDesc = document.getElementById("tip-desc");
+      if (tDesc) tDesc.innerText = talent.desc || "No description available.";
+      
       tip.style.left = `${e.clientX + 15}px`;
       tip.style.top = `${e.clientY + 15}px`;
       tip.classList.remove("hidden");
     }
 
     function hideTalentTooltip() {
-      document.getElementById("talent-tooltip").classList.add("hidden");
+      const tip = document.getElementById("talent-tooltip");
+      if (tip) tip.classList.add("hidden");
     }
 
     function resetBuilder() {
@@ -885,7 +931,8 @@ function getAssetUrl(assetPath) {
 
     function updateBuilderOutput(updateUrl = true) {
       const codeStr = `[T${builderSelectedTalents.join('')},${builderHeroId}]`;
-      document.getElementById("builder-string-code").innerText = codeStr;
+      const codeEl = document.getElementById("builder-string-code");
+      if (codeEl) codeEl.innerText = codeStr;
       if (updateUrl) {
         navigateTo('builder', { hero: builderHeroId, build: builderSelectedTalents.join('') }, true);
       }
@@ -913,11 +960,14 @@ function getAssetUrl(assetPath) {
 
       const heroBuildData = PERSONAL_BUILDS.find(b => b.heroId === hero.id);
       const tabsContainer = document.getElementById("build-tabs");
-      tabsContainer.innerHTML = "";
+      if (tabsContainer) tabsContainer.innerHTML = "";
+
+      const detailCode = document.getElementById("detail-build-code");
+      const detailNotes = document.getElementById("detail-notes");
 
       if (!heroBuildData || !heroBuildData.builds || heroBuildData.builds.length === 0) {
-        document.getElementById("detail-build-code").innerText = "No build code configured.";
-        document.getElementById("detail-notes").innerHTML = "No notes added for this hero yet.";
+        if (detailCode) detailCode.innerText = "No build code configured.";
+        if (detailNotes) detailNotes.innerHTML = "No notes added for this hero yet.";
         renderBuildStrip(hero, null);
         return;
       }
@@ -928,12 +978,12 @@ function getAssetUrl(assetPath) {
         btn.className = `px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all border ${isActive ? 'bg-amber-500/20 text-amber-300 border-amber-500/50' : 'bg-slate-950 text-slate-400 border-slate-800 hover:text-white'}`;
         btn.innerText = `Build ${idx + 1}: ${build.buildName}`;
         btn.onclick = () => { currentBuildIndex = idx; renderActiveBuild(); };
-        tabsContainer.appendChild(btn);
+        if (tabsContainer) tabsContainer.appendChild(btn);
       });
 
       const activeBuild = heroBuildData.builds[currentBuildIndex];
-      document.getElementById("detail-build-code").innerText = activeBuild.buildCode || "[T0000000,Hero]";
-      document.getElementById("detail-notes").innerHTML = activeBuild.notes || "No notes added yet.";
+      if (detailCode) detailCode.innerText = activeBuild.buildCode || "[T0000000,Hero]";
+      if (detailNotes) detailNotes.innerHTML = activeBuild.notes || "No notes added yet.";
 
       renderBuildStrip(hero, activeBuild.buildCode);
     }
@@ -946,6 +996,7 @@ function getAssetUrl(assetPath) {
 
     function renderBuildStrip(hero, buildCode) {
       const stripContainer = document.getElementById("build-strip");
+      if (!stripContainer) return;
       stripContainer.innerHTML = "";
 
       if (!hero.talents) {
@@ -975,7 +1026,8 @@ function getAssetUrl(assetPath) {
     }
 
     function filterHeroes() {
-      const query = document.getElementById("hero-search").value.toLowerCase();
+      const searchEl = document.getElementById("hero-search");
+      const query = searchEl ? searchEl.value.toLowerCase() : "";
       renderHeroSidebar(MASTER_HERO_LIST.filter(h => h.name.toLowerCase().includes(query)));
     }
 
