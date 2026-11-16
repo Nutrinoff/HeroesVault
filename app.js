@@ -137,7 +137,7 @@ function switchTabUI(t) {
     
     document.getElementById('sidebar-container').classList.toggle('hidden', !h && !b);
     
-    [['nav-heroes', h], ['nav-builder', b], ['nav-tierlist', l']].forEach(([id, on]) => {
+    [['nav-heroes', h], ['nav-builder', b], ['nav-tierlist', l]].forEach(([id, on]) => {
         document.getElementById(id).classList.toggle('nav-active', on);
     });
 }
