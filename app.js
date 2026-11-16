@@ -401,10 +401,20 @@ function renderHeroHeader(heroData) {
     
     const portraitUrl = getAssetUrl(heroData.portrait);
     
-    document.getElementById('hero-portrait').src = portraitUrl;
-    document.getElementById('hero-name').innerText = heroData.name;
-    document.getElementById('hero-role').innerText = heroData.role;
-    document.getElementById('hero-title').innerText = heroData.title;
+    // Update portrait elements safely across both views
+    ['hero-portrait', 'builder-portrait'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.src = portraitUrl;
+    });
+    
+    const nameEl = document.getElementById('hero-name') || document.getElementById('builder-name');
+    if (nameEl) nameEl.innerText = heroData.name;
+    
+    const roleEl = document.getElementById('hero-role');
+    if (roleEl) roleEl.innerText = heroData.role;
+    
+    const titleEl = document.getElementById('hero-title') || document.getElementById('builder-title');
+    if (titleEl) titleEl.innerText = heroData.title;
     
     const bgModel = document.getElementById('builder-model-bg');
     if (bgModel) {
@@ -415,19 +425,24 @@ function renderHeroHeader(heroData) {
     if (!box) return;
     box.innerHTML = '';
     
-    // Only filter out standard generic mounts (Summon Mount), keeping hero-specific Z abilities
+    // Filter abilities: Exclude Heroic/R, Hearth (B), and generic standard mounts
+    // Explicitly allow custom Z abilities (Deep Tunnel, Flight, Z-variants)
     const list = (heroData.abilities || []).filter(a => {
-        const keyUpper = String(a.key).toUpperCase();
-        if (['HEROIC', 'R', 'B'].includes(keyUpper) || a.category === 'Hearth') return false;
+        const keyUpper = String(a.key || '').toUpperCase();
+        const nameLower = String(a.name || '').toLowerCase();
+        const catLower = String(a.category || '').toLowerCase();
         
-        if (keyUpper === 'Z') {
-            const nameLower = String(a.name).toLowerCase();
-            const catLower = String(a.category).toLowerCase();
-            // If it's a standard mount ability, hide it
-            if (nameLower.includes('summon mount') || nameLower === 'mount' || catLower === 'mount') {
+        if (['HEROIC', 'R', 'B'].includes(keyUpper) || catLower === 'hearth' || nameLower === 'hearth') {
+            return false;
+        }
+        
+        // Hide standard generic mounts, but keep custom hero Z utilities (Abathur Deep Tunnel, Falstad Flight, etc.)
+        if (keyUpper === 'Z' || catLower === 'mount' || nameLower.includes('mount')) {
+            if (nameLower.includes('summon mount') || nameLower === 'mount' || (catLower === 'mount' && !nameLower.includes('tunnel') && !nameLower.includes('flight'))) {
                 return false;
             }
         }
+        
         return true;
     });
     
@@ -443,7 +458,7 @@ function renderHeroHeader(heroData) {
         el.onmouseleave = hideTooltip;
         el.innerHTML = `
             <img src="${getAssetUrl(a.icon)}" onerror="this.src='https://via.placeholder.com/32?text=?'" class="w-8 h-8 rounded-lg border border-slate-700 object-cover">
-            <span class="text-[10px] font-mono font-bold text-sky-300">${a.key}</span>
+            <span class="text-[10px] font-mono font-bold text-sky-300">${a.key || 'Z'}</span>
             ${a.variant ? `<span class="text-[8px] text-slate-400 max-w-16 truncate" title="${a.variant}">${a.variant}</span>` : ''}
         `;
         box.appendChild(el);
