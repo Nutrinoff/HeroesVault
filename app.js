@@ -373,7 +373,7 @@ function renderHeroSidebar(heroes) {
             
         b.innerHTML = `
             <div class="flex items-center gap-3 min-w-0">
-                <img src="${getAssetUrl(h.portrait)}" onerror="this.src='https://via.placeholder.com/48?text=H'" class="w-12 h-12 object-contain border border-slate-700/50">
+                <img src="${getAssetUrl(h.portrait)}" onerror="this.src='https://via.placeholder.com/56?text=H'" class="w-14 h-14 object-contain">
                 <div class="min-w-0 flex-1">
                     <h4 class="text-sm font-bold truncate">${h.name}</h4>
                     <p class="text-xs text-slate-400 truncate">${h.role || 'Nexus Combatant'}</p>
