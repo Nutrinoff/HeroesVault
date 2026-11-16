@@ -1,0 +1,28 @@
+{
+  "id": "towerofdoom",
+  "name": "Towers of Doom",
+  "theme": "Capture altars to bombard the enemy Core with shots, as direct hero attacks cannot damage it.",
+  "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/ui_ingame_mapmechanic_loadscreen_towersofdoom.png",
+  "mechanic": {
+    "title": "Bell Towers & Altar Bombardment",
+    "description": "Teams cannot attack the enemy Core directly. Instead, capturing Altars (which spawn periodically across the map) fires shots at the enemy Core. Controlling your team's Bell Towers around the forts also adds a permanent shot to your salvo when an Altar event finishes. If all 6 towers are controlled, your Core passively fires extra shots."
+  },
+  "camps": [
+    {
+      "name": "Sapper Camps (2 Camps)",
+      "timing": "Spawns at 2:00 (2:30 respawn)",
+      "notes": "Walk down lanes and deal direct damage to the enemy Bell Towers if left unchecked."
+    },
+    {
+      "name": "Gunner / Centurion Camp (2 Camps)",
+      "timing": "Spawns at 2:00 (4:00 respawn)",
+      "notes": "Ranged mercenaries that attack Bell Towers from a distance."
+    },
+    {
+      "name": "Headless Horseman Boss (Middle)",
+      "timing": "Spawns at 10:00 (5:00 respawn)",
+      "notes": "Capturing the Boss fires 4 shots directly into the enemy Core and pushes a powerful lane mercenary."
+    }
+  ],
+  "strategy": "Towers of Doom is completely unique because map control and objective timing override standard structure pushing. Map-wide vision and global mobility are crucial for contesting split altar spawns. Securing and defending your team's Bell Towers ensures that every altar capture deals maximum damage to the enemy Core, while safely timing sapper camps right before altar fights creates immense pressure on enemy defenses."
+}
