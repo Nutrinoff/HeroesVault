@@ -309,7 +309,9 @@
     let builderHeroData = null;
     let builderSelectedTalents = [1, 1, 1, 1, 1, 1, 1]; // 1-based choices per tier
 
-    const CDN_BASE = "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/talents/";
+    // Local asset paths based on your parser folder structure
+    const LOCAL_PORTRAIT_BASE = "./images/heroportraits/";
+    const LOCAL_TALENT_BASE = "./images/abilitytalents/";
 
     document.addEventListener("DOMContentLoaded", async () => {
       try {
@@ -472,11 +474,25 @@
       return "A"; 
     }
 
-function renderHeroSidebar(heroes) {
+    function getLocalPortraitUrl(portraitPath) {
+      if (!portraitPath) return '';
+      if (portraitPath.startsWith('http') || portraitPath.startsWith('./') || portraitPath.startsWith('/')) return portraitPath;
+      // Extract just the filename if a relative path or full string is provided
+      const filename = portraitPath.split('/').pop();
+      return `${LOCAL_PORTRAIT_BASE}${filename}`;
+    }
+
+    function getLocalIconUrl(iconPath) {
+      if (!iconPath) return '';
+      if (iconPath.startsWith('http') || iconPath.startsWith('./') || iconPath.startsWith('/')) return iconPath;
+      const filename = iconPath.split('/').pop();
+      return `${LOCAL_TALENT_BASE}${filename}`;
+    }
+
+    function renderHeroSidebar(heroes) {
       const listContainer = document.getElementById("hero-list");
       listContainer.innerHTML = "";
       
-      // Match the exact color theme used on the Tier List view
       const tierBadgeStyles = {
         "S": { bg: "bg-red-500/20", text: "text-red-400", border: "border-red-500/40" },
         "A": { bg: "bg-orange-500/20", text: "text-orange-400", border: "border-orange-500/40" },
@@ -489,7 +505,6 @@ function renderHeroSidebar(heroes) {
         const heroCard = document.createElement("div");
         const activeId = document.getElementById("view-builder").classList.contains("hidden") ? currentSelectedHeroId : builderHeroId;
         
-        // Changed to `items-center` so everything aligns vertically in the middle of the card box
         heroCard.className = `flex items-center justify-between gap-3 p-2.5 rounded-xl cursor-pointer border transition-all ${activeId === hero.id ? 'bg-sky-500/15 border-sky-500/70' : 'border-slate-800/60 bg-slate-900/50 hover:bg-slate-800/80'}`;
         
         heroCard.onclick = () => {
@@ -503,10 +518,11 @@ function renderHeroSidebar(heroes) {
 
         const heroTier = getHeroTier(hero.id);
         const tStyle = tierBadgeStyles[heroTier] || { bg: "bg-slate-800/30", text: "text-slate-400", border: "border-slate-700/30" };
+        const portraitUrl = getLocalPortraitUrl(hero.portrait);
 
         heroCard.innerHTML = `
           <div class="flex items-center gap-3 min-w-0">
-            <img src="${hero.portrait}" onerror="this.src='https://via.placeholder.com/40?text=H'" alt="${hero.name}" class="w-11 h-11 rounded-lg border border-slate-700 object-cover flex-shrink-0 bg-slate-950" />
+            <img src="${portraitUrl}" onerror="this.src='https://via.placeholder.com/40?text=H'" alt="${hero.name}" class="w-11 h-11 rounded-lg border border-slate-700 object-cover flex-shrink-0 bg-slate-950" />
             <div class="min-w-0">
               <h4 class="text-sm font-bold text-slate-100 truncate">${hero.name}</h4>
               <p class="text-xs text-slate-400 truncate">${hero.role}</p>
@@ -534,7 +550,7 @@ function renderHeroSidebar(heroes) {
         if (!res.ok) throw new Error(`Could not fetch data for ${heroId}`);
         currentHeroData = await res.json();
 
-        document.getElementById("detail-portrait").src = currentHeroData.portrait;
+        document.getElementById("detail-portrait").src = getLocalPortraitUrl(currentHeroData.portrait);
         document.getElementById("detail-name").innerText = currentHeroData.name;
         document.getElementById("detail-role").innerText = currentHeroData.role;
         document.getElementById("detail-title").innerText = currentHeroData.title || "Nexus Combatant";
@@ -557,7 +573,7 @@ function renderHeroSidebar(heroes) {
       }
 
       const masterMap = MASTER_MAP_LIST.find(m => m.id === mapId) || { name: mapId, theme: "Battleground strategy", portrait: "" };
-      document.getElementById("map-portrait").src = masterMap.portrait;
+      document.getElementById("map-portrait").src = getLocalPortraitUrl(masterMap.portrait);
       document.getElementById("map-name").innerText = masterMap.name;
       document.getElementById("map-theme").innerText = masterMap.theme;
       document.getElementById("map-mechanic").innerHTML = `<strong class="text-white block mb-1">Objective details coming soon</strong> Detailed mechanics for this battleground are being added to the database.`;
@@ -571,7 +587,7 @@ function renderHeroSidebar(heroes) {
         if (!res.ok) return; 
         const mapData = await res.json();
 
-        document.getElementById("map-portrait").src = mapData.portrait || masterMap.portrait;
+        document.getElementById("map-portrait").src = getLocalPortraitUrl(mapData.portrait || masterMap.portrait);
         document.getElementById("map-name").innerText = mapData.name;
         document.getElementById("map-theme").innerText = mapData.theme;
         
@@ -605,12 +621,12 @@ function renderHeroSidebar(heroes) {
           heroesContainer.innerHTML = `<div class="col-span-full text-xs text-slate-500 italic">No golden heroes configured for this map yet.</div>`;
         } else {
           goldenHeroIds.forEach(hId => {
-            const heroObj = MASTER_HERO_LIST.find(h => h.id === hId) || { name: hId, portrait: 'https://via.placeholder.com/40?text=H' };
+            const heroObj = MASTER_HERO_LIST.find(h => h.id === hId) || { name: hId, portrait: '' };
             const heroEl = document.createElement("div");
             heroEl.className = "flex flex-col items-center bg-slate-950 border border-slate-800 rounded-xl p-2 text-center cursor-pointer hover:border-sky-500 transition-all";
             heroEl.onclick = () => { navigateTo('heroes', { hero: heroObj.id }); };
             heroEl.innerHTML = `
-              <img src="${heroObj.portrait}" onerror="this.src='https://via.placeholder.com/40?text=H'" class="w-10 h-10 rounded-lg border border-slate-700 object-cover bg-slate-900 mb-1 shadow-inner" />
+              <img src="${getLocalPortraitUrl(heroObj.portrait)}" onerror="this.src='https://via.placeholder.com/40?text=H'" class="w-10 h-10 rounded-lg border border-slate-700 object-cover bg-slate-900 mb-1 shadow-inner" />
               <span class="text-[10px] font-bold text-slate-200 truncate w-full" title="${heroObj.name}">${heroObj.name}</span>
             `;
             heroesContainer.appendChild(heroEl);
@@ -643,12 +659,13 @@ function renderHeroSidebar(heroes) {
         if (!res.ok) throw new Error(`Could not load hero for builder`);
         builderHeroData = await res.json();
 
-        document.getElementById("builder-portrait").src = builderHeroData.portrait;
+        const portraitUrl = getLocalPortraitUrl(builderHeroData.portrait);
+        document.getElementById("builder-portrait").src = portraitUrl;
         document.getElementById("builder-name").innerText = builderHeroData.name;
         document.getElementById("builder-title").innerText = builderHeroData.title || "Nexus Combatant";
         
         const bgImg = document.getElementById("builder-model-bg");
-        bgImg.src = builderHeroData.portrait;
+        bgImg.src = portraitUrl;
 
         renderBuilderAbilities();
         renderBuilderMatrix();
@@ -674,9 +691,10 @@ function renderHeroSidebar(heroes) {
         abDiv.onmouseenter = (e) => showAbilityTooltip(e, ab);
         abDiv.onmouseleave = () => hideTalentTooltip();
 
+        const iconUrl = getLocalIconUrl(ab.icon);
         abDiv.innerHTML = `
           <div class="w-10 h-10 rounded-lg border border-slate-700 bg-slate-900 overflow-hidden flex items-center justify-center shadow-inner relative">
-            <img src="${ab.icon}" onerror="this.src='https://via.placeholder.com/40?text=${ab.key}'" class="w-full h-full object-cover" />
+            <img src="${iconUrl}" onerror="this.src='https://via.placeholder.com/40?text=${ab.key}'" class="w-full h-full object-cover" />
             <span class="absolute bottom-0 right-0 bg-slate-950/80 text-[8px] font-mono font-bold text-sky-400 px-1 rounded-tl">${ab.key}</span>
           </div>
         `;
@@ -686,7 +704,7 @@ function renderHeroSidebar(heroes) {
 
     function showAbilityTooltip(e, ab) {
       const tip = document.getElementById("talent-tooltip");
-      document.getElementById("tip-icon").src = ab.icon;
+      document.getElementById("tip-icon").src = getLocalIconUrl(ab.icon);
       document.getElementById("tip-name").innerText = ab.name;
       document.getElementById("tip-level").innerText = `Ability [${ab.key}]`;
       document.getElementById("tip-desc").innerText = ab.desc || "No description available.";
@@ -737,7 +755,8 @@ function renderHeroSidebar(heroes) {
           iconBtn.onmouseenter = (e) => showTalentTooltip(e, talent, lvl);
           iconBtn.onmouseleave = () => hideTalentTooltip();
 
-          iconBtn.innerHTML = `<img src="${getIconUrl(talent.icon)}" onerror="this.src='https://via.placeholder.com/48?text=?'" class="w-full h-full object-cover" />`;
+          const iconUrl = getLocalIconUrl(talent.icon);
+          iconBtn.innerHTML = `<img src="${iconUrl}" onerror="this.src='https://via.placeholder.com/48?text=?'" class="w-full h-full object-cover" />`;
           talentsContainer.appendChild(iconBtn);
         });
 
@@ -748,7 +767,7 @@ function renderHeroSidebar(heroes) {
 
     function showTalentTooltip(e, talent, level) {
       const tip = document.getElementById("talent-tooltip");
-      document.getElementById("tip-icon").src = getIconUrl(talent.icon);
+      document.getElementById("tip-icon").src = getLocalIconUrl(talent.icon);
       document.getElementById("tip-name").innerText = talent.name;
       document.getElementById("tip-level").innerText = `Level ${level} Talent`;
       document.getElementById("tip-desc").innerText = talent.desc || "No description available.";
@@ -828,12 +847,6 @@ function renderHeroSidebar(heroes) {
       return match[1].split('').map(Number);
     }
 
-    function getIconUrl(iconPath) {
-      if (!iconPath) return '';
-      if (iconPath.startsWith('http')) return iconPath;
-      return `${CDN_BASE}${iconPath.replace(/^\//, '')}`;
-    }
-
     function renderBuildStrip(hero, buildCode) {
       const stripContainer = document.getElementById("build-strip");
       stripContainer.innerHTML = "";
@@ -850,11 +863,12 @@ function renderHeroSidebar(heroes) {
         const chosenTalentIndex = selectedIndexes[lvlIdx] || 1; 
         const tierTalents = hero.talents[lvl] || [];
         const chosenTalent = tierTalents[chosenTalentIndex - 1] || { name: 'Unknown', desc: '', icon: '' };
+        const iconUrl = getLocalIconUrl(chosenTalent.icon);
 
         const item = document.createElement("div");
         item.className = "flex flex-col items-center bg-slate-950 border border-slate-800/80 rounded-xl p-3 text-center shadow-sm";
         item.innerHTML = `
-          <img src="${getIconUrl(chosenTalent.icon)}" onerror="this.src='https://via.placeholder.com/44?text=?'" class="w-11 h-11 rounded-lg border border-sky-500/40 object-cover bg-slate-900 mb-2 shadow-inner" />
+          <img src="${iconUrl}" onerror="this.src='https://via.placeholder.com/44?text=?'" class="w-11 h-11 rounded-lg border border-sky-500/40 object-cover bg-slate-900 mb-2 shadow-inner" />
           <span class="text-[10px] font-bold font-mono text-sky-400 uppercase tracking-wider mb-0.5">Level ${lvl}</span>
           <span class="text-xs font-bold text-slate-200 truncate w-full" title="${chosenTalent.name}">${chosenTalent.name}</span>
           <span class="text-[10px] text-slate-400 line-clamp-2 mt-1 leading-tight" title="${chosenTalent.desc}">${chosenTalent.desc}</span>
@@ -880,7 +894,6 @@ function renderHeroSidebar(heroes) {
       const heroMap = {};
       MASTER_HERO_LIST.forEach(h => heroMap[h.id] = h);
 
-      // Classic tier colors matched to dark theme
       const tierStyles = {
         "S": { bg: "bg-red-500/20", text: "text-red-400", border: "border-red-500/40" },
         "A": { bg: "bg-orange-500/20", text: "text-orange-400", border: "border-orange-500/40" },
@@ -907,11 +920,9 @@ function renderHeroSidebar(heroes) {
         const style = tierStyles[tierKey] || { bg: "bg-slate-800/30", text: "text-slate-400", border: "border-slate-700/30" };
 
         const rowDiv = document.createElement("div");
-        // Added flex items-stretch to make row columns match height and vertically center content
         rowDiv.className = "flex items-stretch rounded-xl overflow-hidden border border-slate-800 bg-slate-900/60";
 
         const labelDiv = document.createElement("div");
-        // Added flex items-center justify-center to vertically and horizontally center the tier label
         labelDiv.className = `w-28 ${style.bg} ${style.text} border-r ${style.border} flex items-center justify-center font-extrabold text-base tracking-wide`;
         labelDiv.innerText = `${tierKey} TIER`;
         rowDiv.appendChild(labelDiv);
@@ -933,11 +944,11 @@ function renderHeroSidebar(heroes) {
 
     function createTierBadge(hero) {
       const badge = document.createElement("div");
-      // Bumped text up slightly for better readability
       badge.className = "flex items-center gap-2 bg-slate-950 px-3 py-2 rounded-lg border border-slate-800 cursor-pointer hover:border-sky-500 transition-all";
       badge.onclick = () => { navigateTo('heroes', { hero: hero.id }); };
+      const portraitUrl = getLocalPortraitUrl(hero.portrait);
       badge.innerHTML = `
-        <img src="${hero.portrait}" onerror="this.src='https://via.placeholder.com/28?text=H'" class="w-7 h-7 rounded-md object-cover bg-slate-900"/> 
+        <img src="${portraitUrl}" onerror="this.src='https://via.placeholder.com/28?text=H'" class="w-7 h-7 rounded-md object-cover bg-slate-900"/> 
         <span class="text-xs font-semibold text-slate-200">${hero.name}</span>
       `;
       return badge;
