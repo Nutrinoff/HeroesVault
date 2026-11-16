@@ -269,20 +269,13 @@
         </div>
       </div>
 
-      <!-- TIER LIST VIEW -->
+<!-- TIER LIST VIEW -->
       <div id="view-tierlist" class="space-y-4 hidden">
         <div class="flex items-center justify-between border-b border-slate-800 pb-4">
           <div><h2 class="text-xl font-bold text-white">Personal Ranked Tier List</h2></div>
         </div>
         <div class="space-y-3">
-          <div class="flex rounded-xl overflow-hidden border border-slate-800 bg-slate-900/60">
-            <div class="w-28 bg-red-600/30 text-red-400 border-r border-red-500/30 flex items-center justify-center font-extrabold text-lg">S TIER</div>
-            <div id="tier-s" class="p-3 flex flex-wrap gap-2 flex-1"></div>
-          </div>
-          <div class="flex rounded-xl overflow-hidden border border-slate-800 bg-slate-900/60">
-            <div class="w-28 bg-orange-600/30 text-orange-400 border-r border-orange-500/30 flex items-center justify-center font-extrabold text-lg">A TIER</div>
-            <div id="tier-a" class="p-3 flex flex-wrap gap-2 flex-1"></div>
-          </div>
+          <!-- Dynamically generated rows for S, A, B, C, D will be injected here -->
         </div>
       </div>
 
@@ -460,7 +453,7 @@
       menu.innerHTML = html;
     }
 
-    function renderHeroSidebar(heroes) {
+function renderHeroSidebar(heroes) {
       const listContainer = document.getElementById("hero-list");
       listContainer.innerHTML = "";
       heroes.forEach(hero => {
@@ -484,7 +477,7 @@
           <div class="flex-1 min-w-0">
             <div class="flex items-center justify-between">
               <h4 class="text-xs font-bold text-slate-100 truncate">${hero.name}</h4>
-              <span class="text-[9px] font-mono font-bold text-amber-400 bg-amber-400/10 px-1.5 py-0.5 rounded">${heroTier}</span>
+              <span class="text-[10px] font-mono font-bold text-amber-400 bg-amber-400/10 px-2 py-0.5 rounded flex items-center justify-center">${heroTier} Tier</span>
             </div>
             <p class="text-[10px] text-slate-400 truncate">${hero.role}</p>
           </div>
@@ -852,12 +845,11 @@
       renderHeroSidebar(MASTER_HERO_LIST.filter(h => h.name.toLowerCase().includes(query)));
     }
 
-    // --- DYNAMIC MULTI-TIER LIST BUILDER (S, A, B, C, D) ---
+   // --- DYNAMIC MULTI-TIER LIST BUILDER (S, A, B, C, D) ---
     function renderTierList() {
       const container = document.getElementById("view-tierlist");
       if (!container) return;
 
-      // Target the container inner body where the tier rows live
       const tierRowsContainer = container.querySelector(".space-y-3");
       if (!tierRowsContainer) return;
       tierRowsContainer.innerHTML = "";
@@ -865,21 +857,20 @@
       const heroMap = {};
       MASTER_HERO_LIST.forEach(h => heroMap[h.id] = h);
 
-      // Define color schemes for S through D tiers
+      // Classic tier colors adapted to fit the dark theme's glow/transparency style
       const tierStyles = {
-        "S": { bg: "bg-red-600/30", text: "text-red-400", border: "border-red-500/30" },
-        "A": { bg: "bg-orange-600/30", text: "text-orange-400", border: "border-orange-500/30" },
-        "B": { bg: "bg-amber-600/30", text: "text-amber-400", border: "border-amber-500/30" },
-        "C": { bg: "bg-emerald-600/30", text: "text-emerald-400", border: "border-emerald-500/30" },
-        "D": { bg: "bg-blue-600/30", text: "text-blue-400", border: "border-blue-500/30" }
+        "S": { bg: "bg-red-500/20", text: "text-red-400", border: "border-red-500/40" },
+        "A": { bg: "bg-orange-500/20", text: "text-orange-400", border: "border-orange-500/40" },
+        "B": { bg: "bg-yellow-500/20", text: "text-yellow-400", border: "border-yellow-500/40" },
+        "C": { bg: "bg-emerald-500/20", text: "text-emerald-400", border: "border-emerald-500/40" },
+        "D": { bg: "bg-cyan-500/20", text: "text-cyan-400", border: "border-cyan-500/40" }
       };
 
-      // Loop through whatever tiers are present in MASTER_TIERS (S, A, B, C, D)
       const tierKeys = ["S", "A", "B", "C", "D"];
 
       tierKeys.forEach(tierKey => {
         const heroIds = MASTER_TIERS[tierKey];
-        if (!heroIds || heroIds.length === 0) return; // Skip empty tiers if desired
+        if (!heroIds || heroIds.length === 0) return; 
 
         const style = tierStyles[tierKey] || { bg: "bg-slate-800/30", text: "text-slate-400", border: "border-slate-700/30" };
 
