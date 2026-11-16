@@ -292,60 +292,6 @@ function flattenHeroAbilities(h) {
     });
 }
 
-    // 1. Parse base abilities object (which may contain categorized arrays like Basic, Trait, etc.)
-    if (h.abilities) {
-        if (Array.isArray(h.abilities)) {
-            addList(h.abilities);
-        } else if (typeof h.abilities === 'object') {
-            ['Basic', 'Trait', 'Mount', 'Activable', 'WorldBreaker', 'Destroyer'].forEach(cat => {
-                if (Array.isArray(h.abilities[cat])) {
-                    addList(h.abilities[cat], cat);
-                }
-            });
-        }
-    }
-
-    // 2. Parse alternate forms (Deathwing forms, etc.)
-    if (h.forms && typeof h.forms === 'object') {
-        Object.entries(h.forms).forEach(([formName, formObj]) => {
-            if (formObj?.abilities) {
-                if (Array.isArray(formObj.abilities)) {
-                    addList(formObj.abilities, formName);
-                } else if (typeof formObj.abilities === 'object') {
-                    Object.values(formObj.abilities).forEach(subList => {
-                        if (Array.isArray(subList)) addList(subList, formName);
-                    });
-                }
-            }
-        });
-    }
-
-    // 3. Parse alternate hero units (Abathur clones, etc.)
-    if (h.heroUnits && typeof h.heroUnits === 'object') {
-        Object.entries(h.heroUnits).forEach(([id, u]) => {
-            if (u?.abilities) {
-                const unitName = u.name || id;
-                if (Array.isArray(u.abilities)) {
-                    addList(u.abilities, unitName);
-                } else if (typeof u.abilities === 'object') {
-                    Object.values(u.abilities).forEach(subList => {
-                        if (Array.isArray(subList)) addList(subList, unitName);
-                    });
-                }
-            }
-        });
-    }
-
-    // Deduplicate strictly by icon + name + variant to keep the strip clean
-    const seen = new Set();
-    return out.filter(a => {
-        const sig = `${a.name}|${a.icon}|${a.variant}`;
-        if (seen.has(sig)) return false;
-        seen.add(sig);
-        return true;
-    });
-}
-
 function resolveHeroMasterData(id) {
     if (!id) return null;
     if (HOTS_MASTER_DATA[id]) return HOTS_MASTER_DATA[id];
