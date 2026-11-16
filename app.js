@@ -131,13 +131,13 @@ function switchTabUI(t) {
     const b = t === 'builder';
     const l = t === 'tierlist';
     
-    [['view-heroes', h], ['view-map', m], ['view-builder', b], ['view-tierlist', l]].forEach(([id, on]) => {
+    [['view-heroes', h], ['view-map', m], ['view-builder', b], ['view-tierlist', l']].forEach(([id, on]) => {
         document.getElementById(id).classList.toggle('hidden', !on);
     });
     
     document.getElementById('sidebar-container').classList.toggle('hidden', !h && !b);
     
-    [['nav-heroes', h], ['nav-builder', b], ['nav-tierlist', l]].forEach(([id, on]) => {
+    [['nav-heroes', h], ['nav-builder', b], ['nav-tierlist', l']].forEach(([id, on]) => {
         document.getElementById(id).classList.toggle('nav-active', on);
     });
 }
@@ -415,9 +415,21 @@ function renderHeroHeader(heroData) {
     if (!box) return;
     box.innerHTML = '';
     
-    const list = (heroData.abilities || []).filter(a => 
-        !['HEROIC', 'R', 'B'].includes(String(a.key).toUpperCase()) && a.category !== 'Hearth'
-    );
+    // Filter out standard mounts (Z = Mount / Summon Mount), keep unique Z abilities (like Abathur/Dehaka/Falstad)
+    const list = (heroData.abilities || []).filter(a => {
+        const keyUpper = String(a.key).toUpperCase();
+        if (['HEROIC', 'R', 'B'].includes(keyUpper) || a.category === 'Hearth') return false;
+        
+        if (keyUpper === 'Z') {
+            const nameLower = String(a.name).toLowerCase();
+            const catLower = String(a.category).toLowerCase();
+            const descLower = String(a.desc).toLowerCase();
+            if (nameLower.includes('mount') || catLower.includes('mount') || descLower.includes('movement speed')) {
+                return false; // Hide standard generic mount
+            }
+        }
+        return true;
+    });
     
     if (!list.length) {
         box.innerHTML = '<span class="text-xs text-slate-500">No abilities configured</span>';
