@@ -465,7 +465,7 @@ function renderActiveBuild() {
     });
     
     const v = d.builds[currentBuildIndex] || d.builds[0];
-    notes.innerText = v.notes || 'No notes added yet.';
+    notes.innerHTML = v.notes || 'No notes added yet.';
     renderBuildStrip(h, v.buildCode);
 }
 
