@@ -55,35 +55,36 @@ document.addEventListener('DOMContentLoaded', async () => {
                 portrait: getHeroPortrait(h)
             }));
 
-// ==========================================
-// BACKGROUND PRELOADER
-// ==========================================
-
-function preloadAllAssets(rawHeroes) {
-    if (!Array.isArray(rawHeroes)) return;
-    
-    // 1. Instantly preload all hero portraits first (lightweight & high priority)
-    rawHeroes.forEach(h => {
-        const portrait = getHeroPortrait(h);
-        if (portrait) {
-            new Image().src = getAssetUrl(portrait);
+            // Preload assets in the background right after data is mapped
+            preloadAllAssets(rawHeroes);
         }
-    });
 
-    // 2. Stagger ability icon preloading in the background
-    setTimeout(() => {
-        rawHeroes.forEach((h, index) => {
-            setTimeout(() => {
-                const abilities = flattenHeroAbilities(h);
-                abilities.forEach(a => {
-                    if (a.icon) {
-                        new Image().src = getAssetUrl(a.icon);
-                    }
-                });
-            }, index * 30);
-        });
-    }, 500);
-}
+        if (br?.ok) PERSONAL_BUILDS = await br.json();
+        if (mapr?.ok) {
+            MASTER_MAP_LIST = await mapr.json();
+            populateMapsDropdown();
+        }
+        if (tr?.ok) MASTER_TIERS = await tr.json();
+        
+        renderHeroSidebar(MASTER_HERO_LIST);
+        renderTierList();
+        handleRoute();
+        
+        if (window.lucide) {
+            lucide.createIcons();
+        }
+        
+        window.addEventListener('popstate', handleRoute);
+        
+        window.onclick = e => {
+            if (!e.target.closest('#maps-dropdown-menu') && !e.target.closest('#maps-dropdown-toggle')) {
+                document.getElementById('maps-dropdown-menu')?.classList.add('hidden');
+            }
+        };
+    } catch (e) {
+        console.error('Failed loading data files:', e);
+    }
+});
 
 function navigateTo(tab, params = {}, push = true) {
     let url = '#' + tab;
@@ -381,23 +382,34 @@ function getHeroPortrait(hero) {
         || '';
 }
 
-// Background Preloader to eliminate the first-click asset lag pop-in
+// ==========================================
+// BACKGROUND PRELOADER
+// ==========================================
+
 function preloadAllAssets(rawHeroes) {
     if (!Array.isArray(rawHeroes)) return;
     
+    // 1. Instantly preload all hero portraits first (lightweight & high priority)
     rawHeroes.forEach(h => {
         const portrait = getHeroPortrait(h);
         if (portrait) {
             new Image().src = getAssetUrl(portrait);
         }
-        
-        const abilities = flattenHeroAbilities(h);
-        abilities.forEach(a => {
-            if (a.icon) {
-                new Image().src = getAssetUrl(a.icon);
-            }
-        });
     });
+
+    // 2. Stagger ability icon preloading in the background
+    setTimeout(() => {
+        rawHeroes.forEach((h, index) => {
+            setTimeout(() => {
+                const abilities = flattenHeroAbilities(h);
+                abilities.forEach(a => {
+                    if (a.icon) {
+                        new Image().src = getAssetUrl(a.icon);
+                    }
+                });
+            }, index * 30);
+        });
+    }, 500);
 }
 
 function formatGameText(value) {
@@ -827,10 +839,6 @@ function hideTooltip() {
     document.getElementById('talent-tooltip').classList.add('hidden');
 }
 
-
-// ==========================================
-// 9. TIER LIST VIEW
-// ==========================================
 
 // ==========================================
 // 9. TIER LIST VIEW
