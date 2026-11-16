@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>HeroesVault - HotS Specs & Strategy Hub</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons -->
@@ -17,70 +17,56 @@
 <body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col selection:bg-sky-500 selection:text-white">
 
   <!-- TOP HEADER -->
-  <header class="bg-slate-900/90 border-b border-slate-800 backdrop-blur-md sticky top-0 z-50">
-    <div class="max-w-[1600px] mx-auto px-6 py-3 flex flex-col items-center">
-      
-      <div class="flex items-center gap-3 mb-3 cursor-pointer" onclick="navigateTo('heroes')">
+  <header class="bg-slate-900/90 border-b border-slate-800 sticky top-0 z-50">
+    <div class="max-w-[1600px] mx-auto px-6 py-3 flex flex-col items-center justify-between gap-3 md:flex-row">
+      <div class="flex items-center gap-3 cursor-pointer" onclick="navigateTo('heroes')">
         <div class="relative flex items-center justify-center">
-          <div class="absolute inset-0 bg-sky-500/20 blur-md rounded-full"></div>
+          <div class="absolute inset-0 bg-sky-500/20 blur-xl rounded-full"></div>
           <svg class="w-9 h-9 text-sky-400 relative z-10 filter drop-shadow-[0_0_8px_rgba(56,189,248,0.8)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polygon points="12 2 22 7 22 17 12 22 2 17 2 7 12 2" />
             <circle cx="12" cy="12" r="3" fill="currentColor" />
           </svg>
         </div>
-        <div class="text-center">
-          <h1 class="text-2xl font-extrabold tracking-wider bg-gradient-to-r from-sky-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent">
-            HEROES<span class="text-amber-400">VAULT</span>
-          </h1>
-          <p class="text-[10px] uppercase tracking-widest text-slate-400 font-semibold -mt-1">Nexus Strategy & Spec Database</p>
+        <div class="text-center md:text-left">
+          <h1 class="text-2xl font-extrabold tracking-wider bg-gradient-to-r from-sky-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent">HEROES<span class="text-amber-400">VAULT</span></h1>
+          <p class="text-[10px] uppercase tracking-[0.3em] text-slate-400 font-semibold">Nexus Strategy & Spec Database</p>
         </div>
       </div>
 
-      <!-- Navigation Bar -->
-      <nav class="flex items-center gap-2 bg-slate-950/80 p-1.5 rounded-xl border border-slate-800/80 shadow-inner relative">
-        <button id="nav-heroes" onclick="navigateTo('heroes')" 
-          class="px-5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800">
+      <nav class="flex items-center gap-2 bg-slate-950/80 border border-slate-800/80 rounded-xl shadow-inner relative">
+        <button id="nav-heroes" onclick="navigateTo('heroes')" class="px-5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800">
           <i data-lucide="shield" class="w-4 h-4"></i> Heroes
         </button>
 
-        <!-- Maps Dropdown -->
         <div class="relative">
-          <button id="nav-map-btn" onclick="toggleMapsDropdown(event)" 
-            class="px-5 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-all flex items-center gap-2">
+          <button id="nav-map-btn" onclick="toggleMapsDropdown(event)" class="px-5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800">
             <i data-lucide="map" class="w-4 h-4"></i> Maps
             <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400"></i>
           </button>
-          
           <div id="maps-dropdown-menu" class="absolute left-0 mt-2 w-56 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl py-2 hidden z-50 backdrop-blur-xl">
             <div class="px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-500">Battlegrounds</div>
-            <!-- Populated dynamically -->
           </div>
         </div>
 
-        <button id="nav-builder" onclick="navigateTo('builder')" 
-          class="px-5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800">
+        <button id="nav-builder" onclick="navigateTo('builder')" class="px-5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800">
           <i data-lucide="cpu" class="w-4 h-4"></i> Talent Builder
         </button>
 
-        <button id="nav-tierlist" onclick="navigateTo('tierlist')" 
-          class="px-5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800">
+        <button id="nav-tierlist" onclick="navigateTo('tierlist')" class="px-5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800">
           <i data-lucide="layers" class="w-4 h-4"></i> Tier List
         </button>
       </nav>
-
     </div>
   </header>
 
-  <!-- MAIN LAYOUT -->
-  <div class="flex-1 max-w-[1600px] w-full mx-auto p-6 flex gap-6">
+  <div class="flex-1 max-w-[1600px] w-full mx-auto px-6 py-6 flex gap-6">
 
     <!-- LEFT SIDEBAR -->
     <aside id="sidebar-container" class="w-72 flex-shrink-0 bg-slate-900/60 border border-slate-800/80 rounded-2xl flex flex-col h-[calc(100vh-140px)] sticky top-24 overflow-hidden shadow-lg">
       <div class="p-3 border-b border-slate-800 bg-slate-900/80 flex flex-col gap-2">
         <div class="relative">
           <i data-lucide="search" class="w-4 h-4 absolute left-3 top-2.5 text-slate-400"></i>
-          <input type="text" id="hero-search" onkeyup="filterHeroes()" placeholder="Search heroes..." 
-            class="w-full pl-9 pr-3 py-1.5 bg-slate-950 border border-slate-700/80 rounded-lg text-sm text-slate-200 focus:outline-none focus:border-sky-500" />
+          <input type="text" id="hero-search" onkeyup="filterHeroes()" placeholder="Search heroes..." class="w-full pl-9 pr-3 py-1.5 bg-slate-950 border border-slate-700/80 rounded-lg text-sm text-slate-200 focus:outline-none focus:border-sky-500" />
         </div>
         <div class="flex items-center justify-between px-1 text-xs text-slate-400">
           <span>Roster</span>
@@ -90,12 +76,12 @@
       <div id="hero-list" class="flex-1 overflow-y-auto p-2 space-y-1.5"></div>
     </aside>
 
-    <!-- RIGHT MAIN PANEL -->
-    <main class="flex-1 bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 flex flex-col shadow-lg relative">
-      
-      <!-- HERO VIEW -->
+    <!-- MAIN PANEL -->
+    <main class="flex-1 bg-slate-900/40 border border-slate-800 rounded-2xl p-6 flex flex-col shadow-lg relative">
+
+      <!-- HEROES VIEW -->
       <div id="view-heroes" class="space-y-6 hidden">
-        <div class="flex items-center justify-between bg-slate-900/80 border border-slate-800 p-5 rounded-2xl shadow-md">
+        <div class="flex items-center justify-between bg-slate-900/80 border border-slate-800 rounded-2xl p-5 shadow-md">
           <div class="flex items-center gap-4">
             <img id="detail-portrait" src="" onerror="this.src='https://via.placeholder.com/80?text=Hero'" alt="Portrait" class="w-20 h-20 rounded-2xl border-2 border-purple-500/80 object-cover bg-slate-950" />
             <div>
@@ -113,29 +99,17 @@
 
         <!-- BUILD TABS -->
         <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-4">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
-            <div>
-              <h3 class="text-md font-bold text-sky-400 flex items-center gap-2"><i data-lucide="git-branch" class="w-4 h-4"></i> Spec Loadouts</h3>
-              <p class="text-xs text-slate-400">Select build variations configured for this hero</p>
-            </div>
-            <div id="build-tabs" class="flex flex-wrap gap-2"></div>
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <h3 class="text-md font-bold text-sky-400 flex items-center gap-2"><i data-lucide="git-branch" class="w-4 h-4"></i> Spec Loadouts</h3>
+            <p class="text-xs text-slate-400">Select build variations configured for this hero</p>
           </div>
-
-          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-slate-950 p-4 rounded-xl border border-slate-800">
-            <div>
-              <span class="text-xs text-slate-400 font-medium block">In-Game Build String Code:</span>
-              <code id="detail-build-code" class="text-sm bg-slate-900 px-3 py-1 rounded-md text-emerald-400 border border-emerald-500/30 font-mono mt-1 inline-block">[T0000000,Hero]</code>
-            </div>
-            <button onclick="copyBuildCode()" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-lg border border-slate-600 flex items-center gap-1.5">
-              <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Build String
-            </button>
-          </div>
+          <div id="build-tabs" class="flex flex-wrap gap-2"></div>
         </div>
 
-        <!-- CLEAN HORIZONTAL TALENT STRIP -->
-        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-4">
+        <!-- SELECTED BUILD TALENTS -->
+        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-3">
           <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-            <h3 class="text-md font-bold text-sky-400 flex items-center gap-2"><i data-lucide="zap" class="w-4 h-4"></i> Selected Build Talents</h3>
+            <h3 class="text-md font-bold text-amber-400 flex items-center gap-2"><i data-lucide="zap" class="w-4 h-4"></i> Selected Build Talents</h3>
           </div>
           <div id="build-strip" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 pt-1"></div>
         </div>
@@ -149,81 +123,52 @@
 
       <!-- MAP VIEW -->
       <div id="view-map" class="space-y-6 hidden">
-        <div class="relative rounded-2xl overflow-hidden border border-slate-800 shadow-md">
-          <img id="map-portrait" src="" onerror="this.src='https://via.placeholder.com/1200x500?text=Map+Loading+Screen'" alt="Map Banner" class="w-full h-72 md:h-96 object-cover object-top filter brightness-85" />
-          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent flex items-end p-6">
+        <div class="relative rounded-2xl overflow-hidden border border-slate-800 shadow-lg">
+          <img id="map-portrait" src="" onerror="this.src='https://via.placeholder.com/1200x500?text=Map+Loading+Screen'" alt="Map Banner" class="w-full h-72 md:h-96 object-cover filter brightness-85" />
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent flex items-end p-6">
             <div>
-              <span class="text-xs uppercase tracking-widest text-sky-400 font-bold">Battleground</span>
-              <h2 id="map-name" class="text-3xl font-extrabold text-white">Select a Map</h2>
+              <span class="text-xs uppercase tracking-[0.25em] text-sky-300 font-bold">Battleground</span>
+              <h2 id="map-name" class="text-3xl font-extrabold text-white mt-1">Select a Map</h2>
               <p id="map-theme" class="text-sm text-slate-300 mt-1">Map Theme description</p>
             </div>
           </div>
         </div>
 
-        <!-- TWO COLUMN LAYOUT: MAIN CONTENT + SIDEBAR (GOLDEN HEROES & CAMPS) -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          
-          <!-- LEFT 2 COLS: OBJECTIVE, STRATEGY, NOTES -->
           <div class="lg:col-span-2 space-y-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-3">
-                <h3 class="text-md font-bold text-amber-400 flex items-center gap-2 border-b border-slate-800 pb-3">
-                  <i data-lucide="target" class="w-4 h-4"></i> Map Objective
-                </h3>
-                <div id="map-mechanic" class="text-sm text-slate-300 leading-relaxed">Loading mechanics...</div>
-              </div>
-
-              <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-3">
-                <h3 class="text-md font-bold text-sky-400 flex items-center gap-2 border-b border-slate-800 pb-3">
-                  <i data-lucide="compass" class="w-4 h-4"></i> Strategic Overview
-                </h3>
-                <div id="map-strategy" class="text-sm text-slate-300 leading-relaxed">Loading strategy...</div>
-              </div>
+            <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-3">
+              <h3 class="text-md font-bold text-sky-400 flex items-center gap-2 border-b border-slate-800 pb-3"><i data-lucide="target" class="w-4 h-4"></i> Map Objective</h3>
+              <div id="map-mechanic" class="text-sm text-slate-300 leading-relaxed">Loading mechanics...</div>
             </div>
 
-            <!-- NOTES & TIPS BOX -->
             <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-3">
-              <h3 class="text-md font-bold text-purple-400 flex items-center gap-2 border-b border-slate-800 pb-3">
-                <i data-lucide="info" class="w-4 h-4"></i> Good to Know & Tips
-              </h3>
+              <h3 class="text-md font-bold text-purple-400 flex items-center gap-2 border-b border-slate-800 pb-3"><i data-lucide="compass" class="w-4 h-4"></i> Strategic Overview</h3>
+              <div id="map-strategy" class="text-sm text-slate-300 leading-relaxed">Loading strategy...</div>
+            </div>
+
+            <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-3">
+              <h3 class="text-md font-bold text-amber-400 flex items-center gap-2 border-b border-slate-800 pb-3"><i data-lucide="info" class="w-4 h-4"></i> Good to Know & Tips</h3>
               <div id="map-notes" class="text-sm text-slate-300 leading-relaxed">No special notes recorded for this map.</div>
             </div>
           </div>
 
-          <!-- RIGHT 1 COL: TOP 5 GOLDEN HEROES + MERCENARY CAMPS STACK -->
           <div class="space-y-6">
-            
-            <!-- TOP 5 GOLDEN HEROES BOX -->
             <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-3">
-              <h3 class="text-md font-bold text-emerald-400 flex items-center gap-2 border-b border-slate-800 pb-3">
-                <i data-lucide="star" class="w-4 h-4"></i> Top 5 Golden Heroes
-              </h3>
-              <div id="map-heroes-list" class="grid grid-cols-5 gap-2 pt-1">
-                <!-- Injected dynamically -->
-              </div>
+              <h3 class="text-md font-bold text-emerald-400 flex items-center gap-2"><i data-lucide="star" class="w-4 h-4"></i> Top 5 Golden Heroes</h3>
+              <div id="map-heroes-list" class="grid grid-cols-1 gap-2 pt-1"></div>
             </div>
 
-            <!-- MERCENARY CAMPS STACK -->
-            <div class="space-y-4">
-              <h3 class="text-md font-bold text-emerald-400 flex items-center gap-2 pb-1 border-b border-slate-800">
-                <i data-lucide="shield-alert" class="w-4 h-4"></i> Mercenary Camps
-              </h3>
-              <div id="map-camps-stack" class="space-y-3">
-                <!-- Injected dynamically -->
-              </div>
+            <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-3">
+              <h3 class="text-md font-bold text-red-400 flex items-center gap-2"><i data-lucide="shield-alert" class="w-4 h-4"></i> Mercenary Camps Stack</h3>
+              <div id="map-camps-stack" class="space-y-3"></div>
             </div>
-
           </div>
-
         </div>
-
       </div>
 
-      <!-- TALENT BUILDER VIEW (HOTSTORM / IN-GAME HUD STYLE) -->
+      <!-- BUILDER VIEW -->
       <div id="view-builder" class="space-y-6 hidden">
-        
-        <!-- HEADER BOX WITH HERO INFO + TOP RIGHT ABILITIES -->
-        <div class="bg-slate-900/90 border border-slate-800 p-5 rounded-2xl shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div class="bg-slate-900/90 border border-slate-800 p-5 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-xl">
           <div class="flex items-center gap-4">
             <img id="builder-portrait" src="" onerror="this.src='https://via.placeholder.com/64?text=Hero'" alt="Portrait" class="w-16 h-16 rounded-2xl border-2 border-purple-500/80 object-cover bg-slate-950 shadow-inner" />
             <div>
@@ -232,59 +177,48 @@
             </div>
           </div>
 
-          <!-- TOP RIGHT ABILITY ICONS (DYNAMIC FLEXIBLE RENDERER) -->
-          <div id="builder-abilities" class="flex items-center gap-2 bg-slate-950/80 p-2 rounded-xl border border-slate-800 overflow-x-auto">
-            <!-- Injected dynamically -->
+          <div id="builder-abilities" class="flex items-center justify-center gap-2 flex-wrap"></div>
+        </div>
+
+        <div class="relative bg-slate-900/80 border border-slate-800 rounded-2xl p-6 shadow-lg overflow-hidden">
+          <img id="builder-model-bg" src="" onerror="this.src='https://via.placeholder.com/1200x300?text=Hero'" class="absolute inset-0 w-full h-full object-cover opacity-20" />
+          <div class="relative z-10">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-lg font-bold text-sky-400">Talent Matrix</h3>
+              <button onclick="resetBuilder()" class="bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 px-3 py-1.5 rounded-lg border border-amber-500/40 text-xs font-bold transition-all uppercase tracking-wider">Reset</button>
+            </div>
+            <div id="builder-matrix" class="space-y-3"></div>
           </div>
         </div>
 
-        <!-- MAIN CALCULATOR CONTAINER (GRID + MODEL PREVIEW) -->
-        <div class="relative bg-slate-900/60 border border-slate-800 rounded-2xl p-6 shadow-2xl overflow-hidden min-h-[580px] flex flex-col justify-between">
-          
-          <!-- BACKGROUND HERO WATERMARK / SILHOUETTE GLOW -->
-          <div class="absolute right-0 bottom-0 top-0 w-1/2 pointer-events-none opacity-25 overflow-hidden flex items-end justify-end">
-            <img id="builder-model-bg" src="" onerror="this.style.display='none'" class="h-full object-cover object-right filter brightness-90 mask-image-[linear-gradient(to_left,black_40%,transparent_100%)]" />
-          </div>
-
-          <!-- LEFT SIDE GRID (LEVEL HEXAGONS & TALENT ROWS) -->
-          <div class="relative z-10 space-y-3 max-w-2xl" id="builder-matrix">
-            <!-- Injected dynamically -->
-          </div>
-
-          <!-- BOTTOM ACTION FOOTER -->
-          <div class="relative z-10 pt-6 mt-6 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-4">
-            <div class="flex items-center gap-3">
-              <button onclick="resetBuilder()" class="bg-amber-600/90 hover:bg-amber-500 text-white text-xs font-bold px-5 py-2.5 rounded-xl shadow-md transition-all uppercase tracking-wider">
-                Reset
-              </button>
-              <button onclick="copyBuilderString()" class="bg-indigo-600/90 hover:bg-indigo-500 text-white text-xs font-bold px-5 py-2.5 rounded-xl shadow-md transition-all uppercase tracking-wider flex items-center gap-2">
-                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Link
-              </button>
+        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-4 shadow-lg">
+          <div class="flex items-center justify-between gap-3 flex-wrap">
+            <div class="flex items-center gap-2">
+              <i data-lucide="copy" class="w-4 h-4 text-sky-400"></i>
+              <span class="text-sm font-bold text-sky-200">Build String</span>
             </div>
-            <div class="text-xs text-slate-400 font-mono bg-slate-950 px-4 py-2 rounded-xl border border-slate-800">
-              Build Code: <span id="builder-string-code" class="text-emerald-400 font-bold">[T0000000,Hero]</span>
+            <div class="flex items-center gap-2">
+              <button onclick="copyBuilderString()" class="bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 px-3 py-1.5 rounded-lg border border-sky-500/40 text-xs font-bold transition-all">Copy Link</button>
             </div>
           </div>
-
+          <code id="builder-string-code" class="block bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-emerald-300 font-mono break-all">[T0000000,Hero]</code>
         </div>
       </div>
 
-<!-- TIER LIST VIEW -->
+      <!-- TIER LIST VIEW -->
       <div id="view-tierlist" class="space-y-4 hidden">
-        <div class="flex items-center justify-between border-b border-slate-800 pb-4">
-          <div><h2 class="text-xl font-bold text-white">Personal Ranked Tier List</h2></div>
+        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 flex items-center justify-between border-b border-slate-800 pb-4">
+          <h2 class="text-xl font-bold text-white flex items-center gap-2"><i data-lucide="layers" class="w-5 h-5 text-sky-400"></i> Personal Ranked Tier List</h2>
         </div>
         <div class="space-y-3">
-          <!-- Dynamically generated rows for S, A, B, C, D will be injected here -->
+          <div id="tierlist-rows-container"></div>
         </div>
       </div>
-
     </main>
   </div>
 
-  <!-- FLOATING HOVER TOOLTIP -->
-  <div id="talent-tooltip" class="fixed z-50 pointer-events-none hidden bg-slate-900/95 border border-sky-500/50 rounded-xl p-3 shadow-2xl max-w-xs backdrop-blur-md">
-    <div class="flex items-center gap-2 mb-1">
+  <div id="talent-tooltip" class="fixed z-50 hidden bg-slate-900/95 border border-sky-500/50 rounded-xl p-3 shadow-2xl max-w-xs backdrop-blur-md">
+    <div class="flex items-center gap-3">
       <img id="tip-icon" src="" class="w-8 h-8 rounded-lg border border-slate-700 object-cover bg-slate-950" />
       <div>
         <h4 id="tip-name" class="text-xs font-bold text-white">Talent Name</h4>
@@ -293,8 +227,7 @@
     </div>
     <p id="tip-desc" class="text-[11px] text-slate-300 leading-relaxed mt-1">Talent description goes here...</p>
   </div>
-  
-  <!-- JAVASCRIPT -->
+
   <script>
     let MASTER_HERO_LIST = []; 
     let MASTER_MAP_LIST = [];
@@ -304,12 +237,93 @@
     let currentSelectedHeroId = null;
     let currentHeroData = null; 
     let currentBuildIndex = 0;
-
     let builderHeroId = null;
     let builderHeroData = null;
     let builderSelectedTalents = [1, 1, 1, 1, 1, 1, 1]; 
 
     const REPO_BASE = "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/";
+
+    function normalizeHeroKey(value) {
+      return String(value || "")
+        .toLowerCase()
+        .replace(/['’\.\s\-]/g, "")
+        .replace(/[^a-z0-9]/g, "");
+    }
+
+    function normalizeTalentTree(tree) {
+      const normalized = {};
+      if (!tree || typeof tree !== 'object') return normalized;
+
+      Object.entries(tree).forEach(([key, value]) => {
+        const levelKey = String(key).replace(/^Level/i, "").replace(/^\D+/, "");
+        normalized[levelKey] = Array.isArray(value) ? value : [];
+      });
+
+      return normalized;
+    }
+
+    function flattenHeroAbilities(heroRaw) {
+      if (!heroRaw) return [];
+
+      const categories = ["Basic", "Heroic", "Trait", "Mount", "Hearth", "Activable"];
+      const list = [];
+
+      if (Array.isArray(heroRaw.abilities)) {
+        heroRaw.abilities.forEach(ab => {
+          list.push({
+            key: ab.abilityType || ab.buttonId || ab.name || "Ability",
+            name: ab.name || ab.buttonId || "Unknown",
+            icon: ab.icon || "",
+            desc: ab.fullText || ab.shortText || ab.description || ""
+          });
+        });
+        return list;
+      }
+
+      categories.forEach(cat => {
+        const arr = heroRaw.abilities && heroRaw.abilities[cat];
+        if (!Array.isArray(arr)) return;
+        arr.forEach(ab => {
+          list.push({
+            key: ab.abilityType || ab.buttonId || ab.name || cat,
+            name: ab.name || ab.buttonId || cat,
+            icon: ab.icon || "",
+            desc: ab.fullText || ab.shortText || ab.description || ""
+          });
+        });
+      });
+
+      return list;
+    }
+
+    function resolveHeroMasterData(heroId) {
+      if (!heroId) return null;
+
+      const direct = HOTS_MASTER_DATA[heroId];
+      if (direct) return direct;
+
+      const heroIdKey = normalizeHeroKey(heroId);
+      const entries = Object.entries(HOTS_MASTER_DATA || {});
+
+      for (const [masterKey, hero] of entries) {
+        if (!hero) continue;
+
+        const candidates = [
+          masterKey,
+          hero.name,
+          hero.hyperlinkId,
+          hero.unitId,
+          hero.attributeId,
+          hero.title
+        ];
+
+        if (candidates.some(value => normalizeHeroKey(value) === heroIdKey)) {
+          return hero;
+        }
+      }
+
+      return null;
+    }
 
     document.addEventListener("DOMContentLoaded", async () => {
       try {
@@ -320,115 +334,84 @@
           fetch('./data/maps.json').catch(() => null),
           fetch('./data/tiers.json').catch(() => null)
         ]);
-        
-        // 1. Load lightweight hero list for sidebar/mapping
+
         if (heroesListRes && heroesListRes.ok) {
           MASTER_HERO_LIST = await heroesListRes.json();
         }
 
-        // 2. Load the humongous full master json for abilities and talents
         if (masterRes && masterRes.ok) {
           const masterJson = await masterRes.json();
           HOTS_MASTER_DATA = masterJson.items || masterJson;
-          
-          // Fallback if heroes.json wasn't used
-          if (MASTER_HERO_LIST.length === 0 && HOTS_MASTER_DATA) {
-            MASTER_HERO_LIST = Object.keys(HOTS_MASTER_DATA).map(heroKey => {
-              const h = HOTS_MASTER_DATA[heroKey];
-              const portraitPath = (h.portraits && (h.portraits.heroSelect || h.portraits.leaderboard || h.portraits.target)) || '';
-              return {
-                id: heroKey,
-                name: h.name || heroKey,
-                role: (h.roles && h.roles[0]) || h.expandedRole || "Nexus Combatant",
-                title: h.title || "",
-                portrait: portraitPath
-              };
-            }).sort((a, b) => a.name.localeCompare(b.name));
-          }
         }
 
-        if (buildsRes && buildsRes.ok) PERSONAL_BUILDS = await buildsRes.json();
-        if (tiersRes && tiersRes.ok) MASTER_TIERS = await tiersRes.json();
+        if (buildsRes && buildsRes.ok) {
+          PERSONAL_BUILDS = await buildsRes.json();
+        }
+
         if (mapsRes && mapsRes.ok) {
           MASTER_MAP_LIST = await mapsRes.json();
           populateMapsDropdown();
         }
-      } catch (err) {
-        console.error("Failed loading data files:", err);
-      }
 
-      renderHeroSidebar(MASTER_HERO_LIST);
-      renderTierList();
-      if (window.lucide) {
-        try { lucide.createIcons(); } catch(e) {}
-      }
-
-      handleRoute();
-
-      window.addEventListener('popstate', () => {
-        handleRoute();
-      });
-
-      window.onclick = function(event) {
-        if (!event.target.closest('.relative')) {
-          const dropdown = document.getElementById('maps-dropdown-menu');
-          if (dropdown) dropdown.classList.add('hidden');
+        if (tiersRes && tiersRes.ok) {
+          MASTER_TIERS = await tiersRes.json();
+          renderTierList();
         }
+
+        renderHeroSidebar(MASTER_HERO_LIST);
+        handleRoute();
+
+        if (window.lucide) {
+          try { lucide.createIcons(); } catch (e) {}
+        }
+
+        window.addEventListener('popstate', () => {
+          handleRoute();
+        });
+
+        window.onclick = function(event) {
+          if (!event.target.closest('.relative')) {
+            const dropdown = document.getElementById('maps-dropdown-menu');
+            if (dropdown) dropdown.classList.add('hidden');
+          }
+        };
+      } catch (err) {
+        console.error('Failed loading data files:', err);
       }
     });
 
     function navigateTo(tab, params = {}, push = true) {
       let url = `#${tab}`;
       const searchParams = new URLSearchParams();
-      for (const [key, val] of Object.entries(params)) {
-        if (val) searchParams.set(key, val);
+      for (const [key, value] of Object.entries(params)) {
+        if (value) searchParams.set(key, value);
       }
       const searchStr = searchParams.toString();
       if (searchStr) url += `?${searchStr}`;
-
-      if (push) {
-        history.pushState({ tab, params }, '', url);
-      }
-      dispatchRoute(tab, params);
+      if (push) history.pushState({ tab, params }, '', url);
+      else history.replaceState({ tab, params }, '', url);
+      handleRoute();
     }
 
     function handleRoute() {
-      const hash = window.location.hash.replace('#', '') || 'heroes';
-      const [tabPart, queryPart] = hash.split('?');
-      const params = new URLSearchParams(queryPart || '');
-      const tab = tabPart.split('/')[0] || 'heroes';
-      
-      if (tab === 'heroes') {
-        const heroId = params.get('hero') || (MASTER_HERO_LIST.length > 0 ? MASTER_HERO_LIST[0].id : null);
-        if (heroId) selectHero(heroId, false);
-      } else if (tab === 'map') {
-        const mapId = params.get('id') || 'alteracpass';
-        selectMap(mapId, false);
-      } else if (tab === 'builder') {
-        const heroId = params.get('hero') || (MASTER_HERO_LIST.length > 0 ? MASTER_HERO_LIST[0].id : null);
-        const buildStr = params.get('build');
-        let selections = null;
-        if (buildStr && buildStr.match(/^\d{7}$/)) {
-          selections = buildStr.split('').map(Number);
-        }
-        openBuilder(heroId, selections, false);
-      } else if (tab === 'tierlist') {
-        switchTabUI('tierlist');
-      } else {
-        navigateTo('heroes', {}, false);
-      }
-    }
+      const hash = window.location.hash.replace('#', '').split('?')[0] || 'heroes';
+      const query = new URLSearchParams(window.location.hash.split('?')[1] || '');
 
-    function dispatchRoute(tab, params) {
-      if (tab === 'heroes') {
-        const heroId = params.hero || currentSelectedHeroId || (MASTER_HERO_LIST[0] ? MASTER_HERO_LIST[0].id : null);
+      const activeTab = hash || 'heroes';
+      switchTabUI(activeTab);
+
+      if (activeTab === 'heroes') {
+        const heroId = query.get('hero') || (MASTER_HERO_LIST.length > 0 ? MASTER_HERO_LIST[0].id : null);
         if (heroId) selectHero(heroId, false);
-      } else if (tab === 'map') {
-        const mapId = params.id || 'alteracpass';
+      } else if (activeTab === 'map') {
+        const mapId = query.get('id') || 'alteracpass';
         selectMap(mapId, false);
-      } else if (tab === 'builder') {
-        openBuilder(params.hero, params.build ? params.build.split('').map(Number) : null, false);
-      } else if (tab === 'tierlist') {
+      } else if (activeTab === 'builder') {
+        const heroId = query.get('hero') || (MASTER_HERO_LIST.length > 0 ? MASTER_HERO_LIST[0].id : null);
+        const build = query.get('build') || null;
+        const selections = build ? build.split('').map(Number) : null;
+        openBuilder(heroId, selections, false);
+      } else if (activeTab === 'tierlist') {
         switchTabUI('tierlist');
       }
     }
@@ -439,31 +422,24 @@
       const isBuilder = tab === 'builder';
       const isTierList = tab === 'tierlist';
 
-      const vHeroes = document.getElementById("view-heroes");
-      const vMap = document.getElementById("view-map");
-      const vBuilder = document.getElementById("view-builder");
-      const vTierList = document.getElementById("view-tierlist");
-      const sidebarContainer = document.getElementById("sidebar-container");
+      const heroesView = document.getElementById('view-heroes');
+      const mapView = document.getElementById('view-map');
+      const builderView = document.getElementById('view-builder');
+      const tierListView = document.getElementById('view-tierlist');
+      const sidebar = document.getElementById('sidebar-container');
 
-      if (vHeroes) vHeroes.classList.toggle("hidden", !isHeroes);
-      if (vMap) vMap.classList.toggle("hidden", !isMap);
-      if (vBuilder) vBuilder.classList.toggle("hidden", !isBuilder);
-      if (vTierList) vTierList.classList.toggle("hidden", !isTierList);
-      if (sidebarContainer) sidebarContainer.classList.toggle("hidden", !isHeroes && !isBuilder);
+      if (heroesView) heroesView.classList.toggle('hidden', !isHeroes);
+      if (mapView) mapView.classList.toggle('hidden', !isMap);
+      if (builderView) builderView.classList.toggle('hidden', !isBuilder);
+      if (tierListView) tierListView.classList.toggle('hidden', !isTierList);
+      if (sidebar) sidebar.classList.toggle('hidden', !isHeroes);
 
-      setActiveNav("nav-heroes", isHeroes);
-      setActiveNav("nav-builder", isBuilder);
-      setActiveNav("nav-tierlist", isTierList);
-    }
-
-    function setActiveNav(id, active) {
-      const el = document.getElementById(id);
-      if (!el) return;
-      if (active) {
-        el.className = "px-5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 bg-sky-500/20 text-sky-300 border border-sky-500/40 shadow-sm";
-      } else {
-        el.className = "px-5 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-all flex items-center gap-2";
-      }
+      const heroBtn = document.getElementById('nav-heroes');
+      const builderBtn = document.getElementById('nav-builder');
+      const tierBtn = document.getElementById('nav-tierlist');
+      if (heroBtn) heroBtn.classList.toggle('bg-sky-500/20', isHeroes);
+      if (builderBtn) builderBtn.classList.toggle('bg-sky-500/20', isBuilder);
+      if (tierBtn) tierBtn.classList.toggle('bg-sky-500/20', isTierList);
     }
 
     function toggleMapsDropdown(e) {
@@ -475,339 +451,135 @@
     function populateMapsDropdown() {
       const menu = document.getElementById('maps-dropdown-menu');
       if (!menu) return;
-      let html = `<div class="px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-500">Battlegrounds</div>`;
-      const sortedMaps = [...MASTER_MAP_LIST].sort((a, b) => a.name.localeCompare(b.name));
-      sortedMaps.forEach(map => {
-        html += `<a href="#" onclick="navigateTo('map', { id: '${map.id}' }); return false;" class="block px-4 py-2 text-sm text-slate-300 hover:bg-sky-500/10 hover:text-sky-300">${map.name}</a>`;
+      let html = '<div class="px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-500">Battlegrounds</div>';
+      MASTER_MAP_LIST.slice().sort((a, b) => a.name.localeCompare(b.name)).forEach(map => {
+        html += `<a href="#map?id=${map.id}" onclick="navigateTo('map', { id: '${map.id}' }); return false;" class="block px-4 py-2 text-sm text-slate-300 hover:bg-slate-800 hover:text-white">${map.name}</a>`;
       });
       menu.innerHTML = html;
     }
 
-    function getHeroTier(heroId) {
-      const possibleKeys = [
-        { letter: "S", keys: ["s", "stier", "s_tier"] },
-        { letter: "A", keys: ["a", "atier", "a_tier"] },
-        { letter: "B", keys: ["b", "btier", "b_tier"] },
-        { letter: "C", keys: ["c", "ctier", "c_tier"] },
-        { letter: "D", keys: ["d", "dtier", "d_tier"] }
-      ];
-
-      for (const tierObj of possibleKeys) {
-        const foundKey = Object.keys(MASTER_TIERS).find(k => tierObj.keys.includes(k.toLowerCase()));
-        if (foundKey && Array.isArray(MASTER_TIERS[foundKey])) {
-          if (MASTER_TIERS[foundKey].map(i => i.toLowerCase()).includes(heroId.toLowerCase())) {
-            return tierObj.letter;
-          }
-        }
-      }
-      return "A"; 
-    }
-
-    // Smart asset route builder matching HeroesToolChest structure
     function getAssetUrl(assetPath) {
       if (!assetPath) return '';
       if (assetPath.startsWith('http')) return assetPath;
-      
-      let clean = assetPath.replace(/^(\/?images\/)?/, '');
-      if (!clean.includes('/')) {
-        if (clean.includes('talent') || clean.startsWith('storm_ui_icon')) {
-          clean = `abilitytalents/${clean}`;
-        } else if (clean.includes('hero') || clean.includes('portrait') || clean.startsWith('ui_') || clean.startsWith('storm_ui_ingame')) {
-          clean = `heroportraits/${clean}`;
-        }
+
+      let clean = assetPath.trim();
+      if (clean.startsWith('./')) clean = clean.replace(/^\.\//, '');
+      if (clean.startsWith('/')) clean = clean.replace(/^\//, '');
+
+      if (clean.includes('talent') || clean.startsWith('storm_ui_icon') || clean.includes('ability')) {
+        clean = `abilitytalents/${clean}`;
+      } else if (clean.includes('hero') || clean.includes('portrait') || clean.startsWith('ui_') || clean.startsWith('storm_ui_ingame')) {
+        clean = `heroportraits/${clean}`;
       }
+
       return `${REPO_BASE}${clean}`;
     }
 
     function renderHeroSidebar(heroes) {
-      const listContainer = document.getElementById("hero-list");
+      const listContainer = document.getElementById('hero-list');
       if (!listContainer) return;
-      listContainer.innerHTML = "";
-      
+      listContainer.innerHTML = '';
+
       const tierBadgeStyles = {
-        "S": { bg: "bg-red-500/20", text: "text-red-400", border: "border-red-500/40" },
-        "A": { bg: "bg-orange-500/20", text: "text-orange-400", border: "border-orange-500/40" },
-        "B": { bg: "bg-yellow-500/20", text: "text-yellow-400", border: "border-yellow-500/40" },
-        "C": { bg: "bg-emerald-500/20", text: "text-emerald-400", border: "border-emerald-500/40" },
-        "D": { bg: "bg-cyan-500/20", text: "text-cyan-400", border: "border-cyan-500/40" }
+        S: { bg: 'bg-red-500/20', text: 'text-red-400', border: 'border-red-500/40' },
+        A: { bg: 'bg-orange-500/20', text: 'text-orange-400', border: 'border-orange-500/40' },
+        B: { bg: 'bg-yellow-500/20', text: 'text-yellow-400', border: 'border-yellow-500/40' },
+        C: { bg: 'bg-emerald-500/20', text: 'text-emerald-400', border: 'border-emerald-500/40' },
+        D: { bg: 'bg-cyan-500/20', text: 'text-cyan-400', border: 'border-cyan-500/40' }
       };
 
       heroes.forEach(hero => {
-        const heroCard = document.createElement("div");
-        const builderEl = document.getElementById("view-builder");
-        const activeId = (builderEl && !builderEl.classList.contains("hidden")) ? builderHeroId : currentSelectedHeroId;
-        
-        heroCard.className = `flex items-center justify-between gap-3 p-2.5 rounded-xl cursor-pointer border transition-all ${activeId === hero.id ? 'bg-sky-500/15 border-sky-500/70' : 'border-slate-800/60 bg-slate-900/50 hover:bg-slate-800/80'}`;
-        
+        const heroCard = document.createElement('button');
+        heroCard.className = 'w-full text-left p-2.5 rounded-xl border border-slate-800 bg-slate-950/40 hover:bg-slate-800/80 transition-all cursor-pointer';
         heroCard.onclick = () => {
-          const isBuilderActive = builderEl && !builderEl.classList.contains("hidden");
-          if (isBuilderActive) {
-            openBuilder(hero.id, null, true);
-          } else {
+          if (hero.id) {
             navigateTo('heroes', { hero: hero.id });
+            selectHero(hero.id, true);
           }
         };
 
         const heroTier = getHeroTier(hero.id);
-        const tStyle = tierBadgeStyles[heroTier] || { bg: "bg-slate-800/30", text: "text-slate-400", border: "border-slate-700/30" };
+        const tStyle = tierBadgeStyles[heroTier] || { bg: 'bg-slate-800/30', text: 'text-slate-400', border: 'border-slate-700/30' };
         const portraitUrl = getAssetUrl(hero.portrait);
 
         heroCard.innerHTML = `
           <div class="flex items-center gap-3 min-w-0">
             <img src="${portraitUrl}" onerror="this.src='https://via.placeholder.com/40?text=H'" alt="${hero.name}" class="w-11 h-11 rounded-lg border border-slate-700 object-cover flex-shrink-0 bg-slate-950" />
-            <div class="min-w-0">
+            <div class="min-w-0 flex-1">
               <h4 class="text-sm font-bold text-slate-100 truncate">${hero.name}</h4>
-              <p class="text-xs text-slate-400 truncate">${hero.role}</p>
+              <p class="text-xs text-slate-400 truncate">${hero.role || 'Nexus Combatant'}</p>
             </div>
+            <span class="text-[10px] font-mono font-bold px-2 py-1 rounded-md border ${tStyle.bg} ${tStyle.text} ${tStyle.border} flex-shrink-0">${heroTier}</span>
           </div>
-          <span class="text-xs font-mono font-bold px-2 py-1 rounded-md border ${tStyle.bg} ${tStyle.text} ${tStyle.border} flex-shrink-0">${heroTier} Tier</span>
         `;
         listContainer.appendChild(heroCard);
       });
-      const countEl = document.getElementById("hero-count");
+
+      const countEl = document.getElementById('hero-count');
       if (countEl) countEl.innerText = `${heroes.length} Heroes`;
     }
 
-   async function selectHero(heroId, updateUrl = true) {
-  currentSelectedHeroId = heroId;
-  currentBuildIndex = 0;
-  renderHeroSidebar(MASTER_HERO_LIST);
-  switchTabUI('heroes');
-
-  if (updateUrl) {
-    navigateTo('heroes', { hero: heroId });
-  }
-
-  try {
-    const heroRaw = HOTS_MASTER_DATA[heroId];
-    if (!heroRaw) throw new Error(`Could not find master data for ${heroId}`);
-
-    const portraitPath = (heroRaw.portraits && (heroRaw.portraits.heroSelect || heroRaw.portraits.leaderboard || heroRaw.portraits.target)) || '';
-
-    // Flatten abilities from your parser's categorized layout
-    let flattenedAbilities = [];
-    if (heroRaw.abilities) {
-      if (Array.isArray(heroRaw.abilities)) {
-        flattenedAbilities = heroRaw.abilities;
-      } else {
-        ['Basic', 'Heroic', 'Trait'].forEach(cat => {
-          if (heroRaw.abilities[cat] && Array.isArray(heroRaw.abilities[cat])) {
-            heroRaw.abilities[cat].forEach(ab => {
-              flattenedAbilities.push({
-                key: ab.abilityType || ab.buttonId || cat,
-                name: ab.name,
-                icon: ab.icon,
-                desc: ab.fullText || ab.shortText || ab.description || "",
-                cooldown: ab.cooldownText
-              });
-            });
-          }
-        });
+    function getHeroTier(heroId) {
+      if (!heroId) return 'S';
+      const heroKey = normalizeHeroKey(heroId);
+      for (const [tier, ids] of Object.entries(MASTER_TIERS)) {
+        if (Array.isArray(ids) && ids.some(id => normalizeHeroKey(id) === heroKey)) return tier;
       }
+      return 'S';
     }
 
-    currentHeroData = {
-      id: heroId,
-      name: heroRaw.name,
-      title: heroRaw.title,
-      role: (heroRaw.roles && heroRaw.roles[0]) || heroRaw.expandedRole || "Nexus Combatant",
-      portrait: portraitPath,
-      description: heroRaw.description,
-      abilities: flattenedAbilities,
-      talents: heroRaw.talents || heroRaw.talentTree || {}
-    };
-
-    const portraitImg = document.getElementById("detail-portrait");
-    if (portraitImg) portraitImg.src = getAssetUrl(currentHeroData.portrait);
-    
-    const nameEl = document.getElementById("detail-name");
-    if (nameEl) nameEl.innerText = currentHeroData.name;
-    
-    const roleEl = document.getElementById("detail-role");
-    if (roleEl) roleEl.innerText = currentHeroData.role;
-    
-    const titleEl = document.getElementById("detail-title");
-    if (titleEl) titleEl.innerText = currentHeroData.title || "Nexus Combatant";
-    
-    renderActiveBuild();
-  } catch (err) {
-    console.error("Error parsing hero details:", err);
-  }
-}
-
-  async function openBuilder(heroId = null, initialSelections = null, updateUrl = true) {
-  switchTabUI('builder');
-  
-  if (!heroId && MASTER_HERO_LIST.length > 0) {
-    heroId = MASTER_HERO_LIST[0].id;
-  }
-  
-  builderHeroId = heroId;
-  renderHeroSidebar(MASTER_HERO_LIST);
-
-  if (initialSelections && initialSelections.length === 7) {
-    builderSelectedTalents = [...initialSelections];
-  } else {
-    builderSelectedTalents = [1, 1, 1, 1, 1, 1, 1];
-  }
-
-  try {
-    const heroRaw = HOTS_MASTER_DATA[heroId];
-    if (!heroRaw) throw new Error(`Could not load hero for builder`);
-
-    let flattenedAbilities = [];
-    if (heroRaw.abilities) {
-      if (Array.isArray(heroRaw.abilities)) {
-        flattenedAbilities = heroRaw.abilities;
-      } else {
-        ['Basic', 'Heroic', 'Trait'].forEach(cat => {
-          if (heroRaw.abilities[cat] && Array.isArray(heroRaw.abilities[cat])) {
-            heroRaw.abilities[cat].forEach(ab => {
-              flattenedAbilities.push({
-                key: ab.abilityType || ab.buttonId || cat,
-                name: ab.name,
-                icon: ab.icon,
-                desc: ab.fullText || ab.shortText || ab.description || ""
-              });
-            });
-          }
-        });
-      }
-    }
-
-    const portraitPath = (heroRaw.portraits && (heroRaw.portraits.leaderboard || heroRaw.portraits.heroSelect || heroRaw.portraits.target)) || '';
-
-    builderHeroData = {
-      id: heroId,
-      name: heroRaw.name,
-      title: heroRaw.title,
-      portrait: portraitPath,
-      abilities: flattenedAbilities,
-      talents: heroRaw.talents || heroRaw.talentTree || {}
-    };
-
-    const portraitUrl = getAssetUrl(builderHeroData.portrait);
-    const bPortrait = document.getElementById("builder-portrait");
-    if (bPortrait) bPortrait.src = portraitUrl;
-    
-    const bName = document.getElementById("builder-name");
-    if (bName) bName.innerText = builderHeroData.name;
-    
-    const bTitle = document.getElementById("builder-title");
-    if (bTitle) bTitle.innerText = builderHeroData.title || "Nexus Combatant";
-    
-    const bgImg = document.getElementById("builder-model-bg");
-    if (bgImg) bgImg.src = portraitUrl;
-
-    renderBuilderAbilities();
-    renderBuilderMatrix();
-    updateBuilderOutput(updateUrl);
-  } catch (err) {
-    console.error("Error loading builder:", err);
-  }
-}
-
-    async function selectMap(mapId, updateUrl = true) {
-      const dropdownMenu = document.getElementById('maps-dropdown-menu');
-      if (dropdownMenu) dropdownMenu.classList.add('hidden');
-      switchTabUI('map');
+    async function selectHero(heroId, updateUrl = true) {
+      currentSelectedHeroId = heroId;
+      currentBuildIndex = 0;
+      renderHeroSidebar(MASTER_HERO_LIST);
+      switchTabUI('heroes');
 
       if (updateUrl) {
-        navigateTo('map', { id: mapId });
+        navigateTo('heroes', { hero: heroId });
       }
 
-      const masterMap = MASTER_MAP_LIST.find(m => m.id === mapId) || { name: mapId, theme: "Battleground strategy", portrait: "" };
-      
-      const mapPortrait = document.getElementById("map-portrait");
-      if (mapPortrait) mapPortrait.src = getAssetUrl(masterMap.portrait);
-      
-      const mapName = document.getElementById("map-name");
-      if (mapName) mapName.innerText = masterMap.name;
-      
-      const mapTheme = document.getElementById("map-theme");
-      if (mapTheme) mapTheme.innerText = masterMap.theme;
-      
-      const mapMech = document.getElementById("map-mechanic");
-      if (mapMech) mapMech.innerHTML = `<strong class="text-white block mb-1">Objective details coming soon</strong> Detailed mechanics for this battleground are being added.`;
-      
-      const mapStrat = document.getElementById("map-strategy");
-      if (mapStrat) mapStrat.innerText = "Strategy guide and team composition notes will be populated here.";
-      
-      const mapNotes = document.getElementById("map-notes");
-      if (mapNotes) mapNotes.innerText = "No special notes recorded for this map.";
-      
-      const campsStack = document.getElementById("map-camps-stack");
-      if (campsStack) campsStack.innerHTML = `<div class="p-3 text-xs text-slate-500 italic bg-slate-950/40 rounded-xl border border-slate-800">Camp timings loading...</div>`;
-      
-      const mapHeroesList = document.getElementById("map-heroes-list");
-      if (mapHeroesList) mapHeroesList.innerHTML = `<div class="col-span-full text-xs text-slate-500 italic">No golden heroes configured.</div>`;
-
       try {
-        const res = await fetch(`./data/maps/${mapId}.json`).catch(() => null);
-        if (!res || !res.ok) return; 
-        const mapData = await res.json();
+        const heroRaw = resolveHeroMasterData(heroId);
+        if (!heroRaw) throw new Error(`Could not find master data for ${heroId}`);
 
-        if (mapPortrait) mapPortrait.src = getAssetUrl(mapData.portrait || masterMap.portrait);
-        if (mapName) mapName.innerText = mapData.name;
-        if (mapTheme) mapTheme.innerText = mapData.theme;
-        
-        if (mapMech && mapData.mechanic) {
-          mapMech.innerHTML = `
-            <strong class="text-white block mb-1">${mapData.mechanic.title}</strong>
-            ${mapData.mechanic.description}
-          `;
-        }
-        if (mapStrat) mapStrat.innerText = mapData.strategy || "";
-        if (mapNotes) mapNotes.innerText = mapData.notes || "No special notes recorded for this map.";
+        const portraitPath = (heroRaw.portraits && (heroRaw.portraits.heroSelect || heroRaw.portraits.leaderboard || heroRaw.portraits.target)) || '';
+        const role = (heroRaw.roles && heroRaw.roles[0]) || heroRaw.expandedRole || 'Nexus Combatant';
 
-        if (campsStack) {
-          campsStack.innerHTML = "";
-          (mapData.camps || []).forEach(camp => {
-            const campBox = document.createElement("div");
-            campBox.className = "bg-slate-950/70 border border-slate-800 rounded-xl p-4 space-y-2 shadow-sm";
-            campBox.innerHTML = `
-              <div class="font-bold text-sm text-white">${camp.name}</div>
-              <div>
-                <span class="text-xs font-mono font-semibold text-amber-400 bg-amber-400/10 px-2.5 py-1 rounded-md inline-block">${camp.timing}</span>
-              </div>
-              <p class="text-xs text-slate-400 leading-relaxed pt-0.5">${camp.notes}</p>
-            `;
-            campsStack.appendChild(campBox);
-          });
-        }
+        currentHeroData = {
+          id: heroId,
+          name: heroRaw.name || heroId,
+          title: heroRaw.title || 'Nexus Combatant',
+          role,
+          portrait: portraitPath,
+          abilities: flattenHeroAbilities(heroRaw),
+          talents: normalizeTalentTree(heroRaw.talents || heroRaw.talentTree || {})
+        };
 
-        if (mapHeroesList) {
-          mapHeroesList.innerHTML = "";
-          const goldenHeroIds = mapData.goldenHeroes || [];
-          
-          if (goldenHeroIds.length === 0) {
-            mapHeroesList.innerHTML = `<div class="col-span-full text-xs text-slate-500 italic">No golden heroes configured for this map yet.</div>`;
-          } else {
-            goldenHeroIds.forEach(hId => {
-              const heroObj = MASTER_HERO_LIST.find(h => h.id === hId) || { name: hId, portrait: '' };
-              const heroEl = document.createElement("div");
-              heroEl.className = "flex flex-col items-center bg-slate-950 border border-slate-800 rounded-xl p-2 text-center cursor-pointer hover:border-sky-500 transition-all";
-              heroEl.onclick = () => { navigateTo('heroes', { hero: heroObj.id }); };
-              heroEl.innerHTML = `
-                <img src="${getAssetUrl(heroObj.portrait)}" onerror="this.src='https://via.placeholder.com/40?text=H'" class="w-10 h-10 rounded-lg border border-slate-700 object-cover bg-slate-900 mb-1 shadow-inner" />
-                <span class="text-[10px] font-bold text-slate-200 truncate w-full" title="${heroObj.name}">${heroObj.name}</span>
-              `;
-              mapHeroesList.appendChild(heroEl);
-            });
-          }
-        }
+        const portraitImg = document.getElementById('detail-portrait');
+        if (portraitImg) portraitImg.src = getAssetUrl(currentHeroData.portrait);
+
+        const nameEl = document.getElementById('detail-name');
+        if (nameEl) nameEl.innerText = currentHeroData.name;
+
+        const roleEl = document.getElementById('detail-role');
+        if (roleEl) roleEl.innerText = currentHeroData.role;
+
+        const titleEl = document.getElementById('detail-title');
+        if (titleEl) titleEl.innerText = currentHeroData.title || 'Nexus Combatant';
+
+        renderActiveBuild();
       } catch (err) {
-        console.warn(`Individual detail file for ${mapId} not found.`);
+        console.error(err);
       }
     }
 
     async function openBuilder(heroId = null, initialSelections = null, updateUrl = true) {
       switchTabUI('builder');
-      
+
       if (!heroId && MASTER_HERO_LIST.length > 0) {
         heroId = MASTER_HERO_LIST[0].id;
       }
-      
+
       builderHeroId = heroId;
       renderHeroSidebar(MASTER_HERO_LIST);
 
@@ -818,28 +590,8 @@
       }
 
       try {
-        const heroRaw = HOTS_MASTER_DATA[heroId];
+        const heroRaw = resolveHeroMasterData(heroId);
         if (!heroRaw) throw new Error(`Could not load hero for builder`);
-
-        let flattenedAbilities = [];
-        if (heroRaw.abilities) {
-          if (Array.isArray(heroRaw.abilities)) {
-            flattenedAbilities = heroRaw.abilities;
-          } else {
-            ['Basic', 'Heroic', 'Trait'].forEach(cat => {
-              if (heroRaw.abilities[cat] && Array.isArray(heroRaw.abilities[cat])) {
-                heroRaw.abilities[cat].forEach(ab => {
-                  flattenedAbilities.push({
-                    key: ab.abilityType || cat,
-                    name: ab.name,
-                    icon: ab.icon,
-                    desc: ab.fullText || ab.shortText || ab.description
-                  });
-                });
-              }
-            });
-          }
-        }
 
         const portraitPath = (heroRaw.portraits && (heroRaw.portraits.leaderboard || heroRaw.portraits.heroSelect || heroRaw.portraits.target)) || '';
 
@@ -848,21 +600,21 @@
           name: heroRaw.name,
           title: heroRaw.title,
           portrait: portraitPath,
-          abilities: flattenedAbilities,
-          talents: heroRaw.talents || heroRaw.talentTree || {}
+          abilities: flattenHeroAbilities(heroRaw),
+          talents: normalizeTalentTree(heroRaw.talents || heroRaw.talentTree || {})
         };
 
         const portraitUrl = getAssetUrl(builderHeroData.portrait);
-        const bPortrait = document.getElementById("builder-portrait");
+        const bPortrait = document.getElementById('builder-portrait');
         if (bPortrait) bPortrait.src = portraitUrl;
-        
-        const bName = document.getElementById("builder-name");
+
+        const bName = document.getElementById('builder-name');
         if (bName) bName.innerText = builderHeroData.name;
-        
-        const bTitle = document.getElementById("builder-title");
-        if (bTitle) bTitle.innerText = builderHeroData.title || "Nexus Combatant";
-        
-        const bgImg = document.getElementById("builder-model-bg");
+
+        const bTitle = document.getElementById('builder-title');
+        if (bTitle) bTitle.innerText = builderHeroData.title || 'Nexus Combatant';
+
+        const bgImg = document.getElementById('builder-model-bg');
         if (bgImg) bgImg.src = portraitUrl;
 
         renderBuilderAbilities();
@@ -874,84 +626,86 @@
     }
 
     function renderBuilderAbilities() {
-      const container = document.getElementById("builder-abilities");
+      const container = document.getElementById('builder-abilities');
       if (!container) return;
-      container.innerHTML = "";
+      container.innerHTML = '';
       const abilities = (builderHeroData.abilities || []).filter(ab => ab.key && ab.key.toUpperCase() !== 'R');
 
       if (abilities.length === 0) {
-        container.innerHTML = `<span class="text-xs text-slate-500 italic p-1">No abilities configured</span>`;
+        container.innerHTML = '<span class="text-xs text-slate-500 italic p-1">No abilities configured</span>';
         return;
       }
 
       abilities.forEach((ab) => {
-        const abDiv = document.createElement("div");
-        abDiv.className = "flex flex-col items-center cursor-pointer relative group flex-shrink-0";
+        const abDiv = document.createElement('div');
+        abDiv.className = 'flex items-center gap-2 bg-slate-950/60 border border-slate-800 rounded-xl px-2 py-1.5';
         abDiv.onmouseenter = (e) => showAbilityTooltip(e, ab);
-        abDiv.onmouseleave = () => hideTalentTooltip();
+        abDiv.onmouseleave = () => hideAbilityTooltip();
 
         const iconUrl = getAssetUrl(ab.icon);
         abDiv.innerHTML = `
-          <div class="w-10 h-10 rounded-lg border border-slate-700 bg-slate-900 overflow-hidden flex items-center justify-center shadow-inner relative">
-            <img src="${iconUrl}" onerror="this.src='https://via.placeholder.com/40?text=${ab.key || '?'}'" class="w-full h-full object-cover" />
-            <span class="absolute bottom-0 right-0 bg-slate-950/80 text-[8px] font-mono font-bold text-sky-400 px-1 rounded-tl">${ab.key || ''}</span>
-          </div>
+          <img src="${iconUrl}" onerror="this.src='https://via.placeholder.com/32?text=?'" class="w-8 h-8 rounded-lg border border-slate-700 object-cover bg-slate-950" />
+          <span class="text-[10px] font-mono font-bold text-sky-300 uppercase tracking-wider">${ab.key}</span>
         `;
         container.appendChild(abDiv);
       });
     }
 
     function showAbilityTooltip(e, ab) {
-      const tip = document.getElementById("talent-tooltip");
+      const tip = document.getElementById('talent-tooltip');
       if (!tip) return;
-      const tIcon = document.getElementById("tip-icon");
+      const tIcon = document.getElementById('tip-icon');
       if (tIcon) tIcon.src = getAssetUrl(ab.icon);
-      const tName = document.getElementById("tip-name");
+      const tName = document.getElementById('tip-name');
       if (tName) tName.innerText = ab.name;
-      const tLevel = document.getElementById("tip-level");
+      const tLevel = document.getElementById('tip-level');
       if (tLevel) tLevel.innerText = `Ability [${ab.key}]`;
-      const tDesc = document.getElementById("tip-desc");
-      if (tDesc) tDesc.innerText = ab.desc || "No description available.";
-      
+      const tDesc = document.getElementById('tip-desc');
+      if (tDesc) tDesc.innerText = ab.desc || 'No description available.';
+
       tip.style.left = `${e.clientX + 15}px`;
       tip.style.top = `${e.clientY + 15}px`;
-      tip.classList.remove("hidden");
+      tip.classList.remove('hidden');
+    }
+
+    function hideAbilityTooltip() {
+      const tip = document.getElementById('talent-tooltip');
+      if (tip) tip.classList.add('hidden');
     }
 
     function renderBuilderMatrix() {
-      const matrixContainer = document.getElementById("builder-matrix");
+      const matrixContainer = document.getElementById('builder-matrix');
       if (!matrixContainer) return;
-      matrixContainer.innerHTML = "";
+      matrixContainer.innerHTML = '';
 
       if (!builderHeroData || !builderHeroData.talents) {
-        matrixContainer.innerHTML = `<p class="text-xs text-slate-500 italic">No talent data available.</p>`;
+        matrixContainer.innerHTML = '<p class="text-xs text-slate-500 italic">No talent data available.</p>';
         return;
       }
 
-      const levels = ["1", "4", "7", "10", "13", "16", "20"];
-
+      const levels = ['1', '4', '7', '10', '13', '16', '20'];
       levels.forEach((lvl, lvlIdx) => {
         const tierTalents = builderHeroData.talents[lvl] || [];
         const chosenIndex = builderSelectedTalents[lvlIdx] || 1;
 
-        const rowDiv = document.createElement("div");
-        rowDiv.className = "flex items-center gap-3";
+        const rowDiv = document.createElement('div');
+        rowDiv.className = 'flex items-center gap-3';
 
-        const hexDiv = document.createElement("div");
-        hexDiv.className = "w-12 h-12 flex-shrink-0 flex items-center justify-center rounded-2xl bg-gradient-to-b from-purple-600 to-indigo-900 border-2 border-purple-400/80 shadow-lg text-white font-black text-sm tracking-wider";
+        const hexDiv = document.createElement('div');
+        hexDiv.className = 'w-12 h-12 flex-shrink-0 flex items-center justify-center rounded-2xl bg-gradient-to-b from-purple-600 to-indigo-900 border-2 border-purple-400/80 shadow-lg text-white font-black text-sm tracking-wider';
         hexDiv.innerText = lvl;
         rowDiv.appendChild(hexDiv);
 
-        const talentsContainer = document.createElement("div");
-        talentsContainer.className = "flex flex-wrap gap-2.5 items-center";
+        const talentsContainer = document.createElement('div');
+        talentsContainer.className = 'flex flex-wrap gap-2.5 items-center';
 
         tierTalents.forEach((talent, tIdx) => {
           const talentNum = tIdx + 1;
           const isSelected = chosenIndex === talentNum;
-          
-          const iconBtn = document.createElement("div");
+
+          const iconBtn = document.createElement('div');
           iconBtn.className = `w-12 h-12 rounded-xl border-2 cursor-pointer transition-all overflow-hidden bg-slate-950 relative flex items-center justify-center ${isSelected ? 'border-amber-400 shadow-[0_0_12px_rgba(251,191,36,0.5)] scale-105' : 'border-slate-700 hover:border-slate-500 opacity-70 hover:opacity-100'}`;
-          
+
           iconBtn.onclick = () => {
             builderSelectedTalents[lvlIdx] = talentNum;
             renderBuilderMatrix();
@@ -971,26 +725,26 @@
       });
     }
 
-    function showTalentTooltip(e, talent, level) {
-      const tip = document.getElementById("talent-tooltip");
+    function showTalentTooltip(e, talent, lvl) {
+      const tip = document.getElementById('talent-tooltip');
       if (!tip) return;
-      const tIcon = document.getElementById("tip-icon");
+      const tIcon = document.getElementById('tip-icon');
       if (tIcon) tIcon.src = getAssetUrl(talent.icon);
-      const tName = document.getElementById("tip-name");
+      const tName = document.getElementById('tip-name');
       if (tName) tName.innerText = talent.name;
-      const tLevel = document.getElementById("tip-level");
-      if (tLevel) tLevel.innerText = `Level ${level} Talent`;
-      const tDesc = document.getElementById("tip-desc");
-      if (tDesc) tDesc.innerText = talent.desc || "No description available.";
-      
+      const tLevel = document.getElementById('tip-level');
+      if (tLevel) tLevel.innerText = `Level ${lvl} Talent`;
+      const tDesc = document.getElementById('tip-desc');
+      if (tDesc) tDesc.innerText = talent.fullText || talent.shortText || talent.description || 'No description available.';
+
       tip.style.left = `${e.clientX + 15}px`;
       tip.style.top = `${e.clientY + 15}px`;
-      tip.classList.remove("hidden");
+      tip.classList.remove('hidden');
     }
 
     function hideTalentTooltip() {
-      const tip = document.getElementById("talent-tooltip");
-      if (tip) tip.classList.add("hidden");
+      const tip = document.getElementById('talent-tooltip');
+      if (tip) tip.classList.add('hidden');
     }
 
     function resetBuilder() {
@@ -1001,7 +755,7 @@
 
     function updateBuilderOutput(updateUrl = true) {
       const codeStr = `[T${builderSelectedTalents.join('')},${builderHeroId}]`;
-      const codeEl = document.getElementById("builder-string-code");
+      const codeEl = document.getElementById('builder-string-code');
       if (codeEl) codeEl.innerText = codeStr;
       if (updateUrl) {
         navigateTo('builder', { hero: builderHeroId, build: builderSelectedTalents.join('') }, true);
@@ -1029,21 +783,21 @@
       if (!hero) return;
 
       const heroBuildData = PERSONAL_BUILDS.find(b => b.heroId === hero.id);
-      const tabsContainer = document.getElementById("build-tabs");
-      if (tabsContainer) tabsContainer.innerHTML = "";
+      const tabsContainer = document.getElementById('build-tabs');
+      if (tabsContainer) tabsContainer.innerHTML = '';
 
-      const detailCode = document.getElementById("detail-build-code");
-      const detailNotes = document.getElementById("detail-notes");
+      const detailCode = document.getElementById('detail-build-code');
+      const detailNotes = document.getElementById('detail-notes');
 
       if (!heroBuildData || !heroBuildData.builds || heroBuildData.builds.length === 0) {
-        if (detailCode) detailCode.innerText = "No build code configured.";
-        if (detailNotes) detailNotes.innerHTML = "No notes added for this hero yet.";
+        if (detailCode) detailCode.innerText = 'No build code configured.';
+        if (detailNotes) detailNotes.innerHTML = 'No notes added for this hero yet.';
         renderBuildStrip(hero, null);
         return;
       }
 
       heroBuildData.builds.forEach((build, idx) => {
-        const btn = document.createElement("button");
+        const btn = document.createElement('button');
         const isActive = idx === currentBuildIndex;
         btn.className = `px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all border ${isActive ? 'bg-amber-500/20 text-amber-300 border-amber-500/50' : 'bg-slate-950 text-slate-400 border-slate-800 hover:text-white'}`;
         btn.innerText = `Build ${idx + 1}: ${build.buildName}`;
@@ -1052,124 +806,137 @@
       });
 
       const activeBuild = heroBuildData.builds[currentBuildIndex];
-      if (detailCode) detailCode.innerText = activeBuild.buildCode || "[T0000000,Hero]";
-      if (detailNotes) detailNotes.innerHTML = activeBuild.notes || "No notes added yet.";
+      if (detailCode) detailCode.innerText = activeBuild.buildCode || '[T0000000,Hero]';
+      if (detailNotes) detailNotes.innerHTML = activeBuild.notes || 'No notes added yet.';
 
       renderBuildStrip(hero, activeBuild.buildCode);
     }
 
     function decodeBuildCode(buildCode) {
       const match = buildCode ? buildCode.match(/\[T(\d{7}),/) : null;
-      if (!match) return [1,1,1,1,1,1,1];
+      if (!match) return [1, 1, 1, 1, 1, 1, 1];
       return match[1].split('').map(Number);
     }
 
     function renderBuildStrip(hero, buildCode) {
-      const stripContainer = document.getElementById("build-strip");
+      const stripContainer = document.getElementById('build-strip');
       if (!stripContainer) return;
-      stripContainer.innerHTML = "";
+      stripContainer.innerHTML = '';
 
       if (!hero.talents) {
-        stripContainer.innerHTML = `<p class="text-xs text-slate-500 italic p-2 col-span-full">No talent data available.</p>`;
+        stripContainer.innerHTML = '<p class="text-xs text-slate-500 italic p-2 col-span-full">No talent data available.</p>';
         return;
       }
 
       const selectedIndexes = decodeBuildCode(buildCode);
-      const levels = ["1", "4", "7", "10", "13", "16", "20"];
+      const levels = ['1', '4', '7', '10', '13', '16', '20'];
 
       levels.forEach((lvl, lvlIdx) => {
-        const chosenTalentIndex = selectedIndexes[lvlIdx] || 1; 
         const tierTalents = hero.talents[lvl] || [];
-        const chosenTalent = tierTalents[chosenTalentIndex - 1] || { name: 'Unknown', desc: '', icon: '' };
-        const iconUrl = getAssetUrl(chosenTalent.icon);
+        const chosenIndex = selectedIndexes[lvlIdx] || 1;
+        const selectedTalent = tierTalents[chosenIndex - 1] || tierTalents[0];
 
-        const item = document.createElement("div");
-        item.className = "flex flex-col items-center bg-slate-950 border border-slate-800/80 rounded-xl p-3 text-center shadow-sm";
+        const item = document.createElement('div');
+        item.className = 'bg-slate-950/60 border border-slate-800 rounded-xl p-2 flex flex-col items-center gap-2';
+
+        if (!selectedTalent) {
+          item.innerHTML = `<span class="text-[10px] font-mono text-slate-500">Lv ${lvl}</span><span class="text-[10px] italic text-slate-500">Missing</span>`;
+          stripContainer.appendChild(item);
+          return;
+        }
+
+        const iconUrl = getAssetUrl(selectedTalent.icon);
         item.innerHTML = `
-          <img src="${iconUrl}" onerror="this.src='https://via.placeholder.com/44?text=?'" class="w-11 h-11 rounded-lg border border-sky-500/40 object-cover bg-slate-900 mb-2 shadow-inner" />
-          <span class="text-[10px] font-bold font-mono text-sky-400 uppercase tracking-wider mb-0.5">Level ${lvl}</span>
-          <span class="text-xs font-bold text-slate-200 truncate w-full" title="${chosenTalent.name}">${chosenTalent.name}</span>
-          <span class="text-[10px] text-slate-400 line-clamp-2 mt-1 leading-tight" title="${chosenTalent.desc}">${chosenTalent.desc}</span>
+          <div class="w-11 h-11 rounded-lg border border-slate-700 bg-slate-900 overflow-hidden"><img src="${iconUrl}" onerror="this.src='https://via.placeholder.com/44?text=?'" class="w-full h-full object-cover" /></div>
+          <span class="text-[10px] font-mono text-sky-300">Lv ${lvl}</span>
+          <span class="text-[10px] text-center text-slate-200 line-clamp-2">${selectedTalent.name}</span>
         `;
         stripContainer.appendChild(item);
       });
     }
 
     function filterHeroes() {
-      const searchEl = document.getElementById("hero-search");
-      const query = searchEl ? searchEl.value.toLowerCase() : "";
-      renderHeroSidebar(MASTER_HERO_LIST.filter(h => h.name.toLowerCase().includes(query)));
+      const searchEl = document.getElementById('hero-search');
+      const query = searchEl ? searchEl.value.toLowerCase() : '';
+      const filtered = MASTER_HERO_LIST.filter(hero => hero.name.toLowerCase().includes(query));
+      renderHeroSidebar(filtered);
     }
 
     function renderTierList() {
-      const container = document.getElementById("view-tierlist");
+      const container = document.getElementById('tierlist-rows-container');
       if (!container) return;
-
-      const tierRowsContainer = container.querySelector(".space-y-3");
-      if (!tierRowsContainer) return;
-      tierRowsContainer.innerHTML = "";
-
-      const heroMap = {};
-      MASTER_HERO_LIST.forEach(h => heroMap[h.id] = h);
+      container.innerHTML = '';
 
       const tierStyles = {
-        "S": { bg: "bg-red-500/20", text: "text-red-400", border: "border-red-500/40" },
-        "A": { bg: "bg-orange-500/20", text: "text-orange-400", border: "border-orange-500/40" },
-        "B": { bg: "bg-yellow-500/20", text: "text-yellow-400", border: "border-yellow-500/40" },
-        "C": { bg: "bg-emerald-500/20", text: "text-emerald-400", border: "border-emerald-500/40" },
-        "D": { bg: "bg-cyan-500/20", text: "text-cyan-400", border: "border-cyan-500/40" }
+        S: { bg: 'bg-red-500/20', text: 'text-red-400', border: 'border-red-500/40' },
+        A: { bg: 'bg-orange-500/20', text: 'text-orange-400', border: 'border-orange-500/40' },
+        B: { bg: 'bg-yellow-500/20', text: 'text-yellow-400', border: 'border-yellow-500/40' },
+        C: { bg: 'bg-emerald-500/20', text: 'text-emerald-400', border: 'border-emerald-500/40' },
+        D: { bg: 'bg-cyan-500/20', text: 'text-cyan-400', border: 'border-cyan-500/40' }
       };
 
-      const possibleKeys = [
-        { letter: "S", keys: ["s", "stier", "s_tier"] },
-        { letter: "A", keys: ["a", "atier", "a_tier"] },
-        { letter: "B", keys: ["b", "btier", "b_tier"] },
-        { letter: "C", keys: ["c", "ctier", "c_tier"] },
-        { letter: "D", keys: ["d", "dtier", "d_tier"] }
-      ];
+      Object.entries(MASTER_TIERS).forEach(([tier, heroes]) => {
+        const row = document.createElement('div');
+        row.className = 'bg-slate-900/80 border border-slate-800 rounded-2xl p-4';
 
-      possibleKeys.forEach(tierObj => {
-        let foundKey = Object.keys(MASTER_TIERS).find(k => tierObj.keys.includes(k.toLowerCase()));
-        const heroIds = foundKey ? MASTER_TIERS[foundKey] : [];
-
-        if (!heroIds || heroIds.length === 0) return;
-
-        const tierKey = tierObj.letter;
-        const style = tierStyles[tierKey] || { bg: "bg-slate-800/30", text: "text-slate-400", border: "border-slate-700/30" };
-
-        const rowDiv = document.createElement("div");
-        rowDiv.className = "flex items-stretch rounded-xl overflow-hidden border border-slate-800 bg-slate-900/60";
-
-        const labelDiv = document.createElement("div");
-        labelDiv.className = `w-28 ${style.bg} ${style.text} border-r ${style.border} flex items-center justify-center font-extrabold text-base tracking-wide`;
-        labelDiv.innerText = `${tierKey} TIER`;
-        rowDiv.appendChild(labelDiv);
-
-        const heroesFlexDiv = document.createElement("div");
-        heroesFlexDiv.className = "p-3 flex flex-wrap items-center gap-2 flex-1";
-
-        heroIds.forEach(id => {
-          const hero = heroMap[id];
-          if (hero) {
-            heroesFlexDiv.appendChild(createTierBadge(hero));
-          }
-        });
-
-        rowDiv.appendChild(heroesFlexDiv);
-        tierRowsContainer.appendChild(rowDiv);
+        const style = tierStyles[tier] || tierStyles.D;
+        row.innerHTML = `
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-xs font-bold px-2 py-1 rounded-md border ${style.bg} ${style.text} ${style.border}">${tier} Tier</span>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            ${(heroes || []).map(hero => `<button class="bg-slate-950/70 border border-slate-700 rounded-lg px-2 py-1 text-xs text-slate-200 hover:border-sky-500" onclick="selectHero('${hero.id}', true)">${hero.name}</button>`).join('') || '<span class="text-xs text-slate-500 italic">No heroes in this tier.</span>'}
+          </div>
+        `;
+        container.appendChild(row);
       });
     }
 
-    function createTierBadge(hero) {
-      const badge = document.createElement("div");
-      badge.className = "flex items-center gap-2 bg-slate-950 px-3 py-2 rounded-lg border border-slate-800 cursor-pointer hover:border-sky-500 transition-all";
-      badge.onclick = () => { navigateTo('heroes', { hero: hero.id }); };
-      const portraitUrl = getAssetUrl(hero.portrait);
-      badge.innerHTML = `
-        <img src="${portraitUrl}" onerror="this.src='https://via.placeholder.com/28?text=H'" class="w-7 h-7 rounded-md object-cover bg-slate-900"/> 
-        <span class="text-xs font-semibold text-slate-200">${hero.name}</span>
-      `;
-      return badge;
+    async function selectMap(mapId, updateUrl = true) {
+      switchTabUI('map');
+      if (updateUrl) navigateTo('map', { id: mapId }, true);
+
+      const mapData = MASTER_MAP_LIST.find(map => map.id === mapId) || { name: mapId, theme: 'Battlefield strategy' };
+      const mapPortrait = document.getElementById('map-portrait');
+      if (mapPortrait) mapPortrait.src = getAssetUrl(mapData.portrait || '');
+
+      const mapName = document.getElementById('map-name');
+      if (mapName) mapName.innerText = mapData.name || 'Map';
+
+      const mapTheme = document.getElementById('map-theme');
+      if (mapTheme) mapTheme.innerText = mapData.theme || 'Map Theme description';
+
+      const mapMechanic = document.getElementById('map-mechanic');
+      if (mapMechanic) mapMechanic.innerHTML = mapData.mechanic || 'Loading mechanics...';
+
+      const mapStrategy = document.getElementById('map-strategy');
+      if (mapStrategy) mapStrategy.innerHTML = mapData.strategy || 'Loading strategy...';
+
+      const mapNotes = document.getElementById('map-notes');
+      if (mapNotes) mapNotes.innerHTML = mapData.notes || 'No special notes recorded for this map.';
+
+      const mapCampsStack = document.getElementById('map-camps-stack');
+      if (mapCampsStack) {
+        mapCampsStack.innerHTML = (mapData.camps || []).map(camp => `
+          <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-3">
+            <div class="text-xs font-bold text-amber-300 uppercase tracking-wider">${camp.name}</div>
+            <div class="text-xs text-slate-300 mt-1">${camp.tip || 'No detail available.'}</div>
+          </div>
+        `).join('') || '<div class="text-xs text-slate-500">No map camp data available.</div>';
+      }
+
+      const mapHeroesList = document.getElementById('map-heroes-list');
+      if (mapHeroesList) {
+        mapHeroesList.innerHTML = (mapData.goldenHeroes || []).map(heroId => {
+          const hero = MASTER_HERO_LIST.find(h => h.id === heroId) || { name: heroId, portrait: '' };
+          return `
+            <button class="flex items-center gap-2 text-left bg-slate-950/60 border border-slate-800 rounded-xl p-2 hover:border-sky-500" onclick="selectHero('${hero.id || heroId}', true)">
+              <img src="${getAssetUrl(hero.portrait || '')}" onerror="this.src='https://via.placeholder.com/40?text=H'" class="w-10 h-10 rounded-lg object-cover border border-slate-700" />
+              <span class="text-sm text-slate-200">${hero.name}</span>
+            </button>
+          `;
+        }).join('') || '<span class="text-xs text-slate-500">No golden heroes configured.</span>';
+      }
     }
   </script>
 </body>
