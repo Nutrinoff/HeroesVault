@@ -117,6 +117,10 @@ function handleRoute() {
         openBuilder(q.get('hero') || MASTER_HERO_LIST[0]?.id, q.get('build') ? q.get('build').split('').map(Number) : null, false);
     } else if (tab === 'academy') {
         // Nexus Academy view controller logic if needed
+    } else if (tab === 'patchnotes') {
+        if (typeof loadLivePatchNotes === 'function') {
+            loadLivePatchNotes();
+        }
     }
 }
 
@@ -128,15 +132,16 @@ function switchTabUI(t) {
     const m = activeTab === 'map';
     const b = activeTab === 'builder';
     const a = activeTab === 'academy';
+    const pn = activeTab === 'patchnotes';
     const l = activeTab === 'tierlist';
     
-    [['view-home', hm], ['view-builds', h], ['view-map', m], ['view-builder', b], ['view-academy', a], ['view-tierlist', l]].forEach(([id, on]) => {
+    [['view-home', hm], ['view-builds', h], ['view-map', m], ['view-builder', b], ['view-academy', a], ['view-patchnotes', pn], ['view-tierlist', l]].forEach(([id, on]) => {
         document.getElementById(id)?.classList.toggle('hidden', !on);
     });
     
     document.getElementById('sidebar-container').classList.toggle('hidden', !h && !b);
     
-    [['nav-home', hm], ['nav-builds', h], ['nav-builder', b], ['nav-academy', a], ['nav-tierlist', l]].forEach(([id, on]) => {
+    [['nav-home', hm], ['nav-builds', h], ['nav-builder', b], ['nav-academy', a], ['nav-patchnotes', pn], ['nav-tierlist', l]].forEach(([id, on]) => {
         document.getElementById(id)?.classList.toggle('nav-active', on);
     });
 }
