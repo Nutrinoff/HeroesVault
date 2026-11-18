@@ -62,7 +62,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (br?.ok) PERSONAL_BUILDS = await br.json();
         if (mapr?.ok) {
             MASTER_MAP_LIST = await mapr.json();
-            populateMapsDropdown();
+            if (typeof populateMapsDropdown === 'function') {
+                populateMapsDropdown();
+            }
         }
         if (tr?.ok) MASTER_TIERS = await tr.json();
         
@@ -117,7 +119,9 @@ function handleRoute() {
     if (tab === 'heroes') {
         selectHero(q.get('hero') || MASTER_HERO_LIST[0]?.id, false);
     } else if (tab === 'map') {
-        selectMap(q.get('id') || 'alteracpass', false);
+        if (typeof selectMap === 'function') {
+            selectMap(q.get('id') || 'alteracpass', false);
+        }
     } else if (tab === 'builder') {
         openBuilder(q.get('hero') || MASTER_HERO_LIST[0]?.id, q.get('build') ? q.get('build').split('').map(Number) : null, false);
     }
@@ -201,7 +205,6 @@ function flattenHeroAbilities(h) {
             const nameLower = String(a.name || '').toLowerCase();
             const catLower = String(a.category || '').toLowerCase();
             
-            // Skip talents, heroics (R, B), hearth, cancel buttons, passive/activable traits, or quest rewards
             if (['B', 'R', 'HEROIC'].includes(keyUpper) || 
                 catLower === 'hearth' || 
                 nameLower === 'hearth' || 
@@ -213,7 +216,6 @@ function flattenHeroAbilities(h) {
                 return;
             }
             
-            // Strictly enforce combat abilities (Q, W, E, Trait/D, Z)
             const isStandardAbility = ['Q', 'W', 'E', 'TRAIT', 'D', 'Z', 'ACTIVE'].includes(keyUpper) || 
                                       ['basic', 'trait', 'mount', 'worldbreaker', 'destroyer', 'dragonqueen', 'worgen'].includes(catLower);
             
@@ -230,7 +232,6 @@ function flattenHeroAbilities(h) {
         });
     };
 
-    // 1. Always parse standard base abilities first
     if (h.abilities) {
         if (Array.isArray(h.abilities)) {
             addList(h.abilities);
@@ -243,16 +244,13 @@ function flattenHeroAbilities(h) {
         }
     }
 
-    // 2. Multi-state check (Deathwing, Alexstrasza, Abathur, Greymane, etc.)
     const heroIdLower = normalizeHeroKey(h.id || h.name || '');
     const multiStateHeroes = ['deathwing', 'alexstrasza', 'abathur', 'greymane', 'lostvikings', 'samuro'];
     const hasFormsOrUnits = (h.forms && Object.keys(h.forms).length > 0) || 
                             (h.heroUnits && Object.keys(h.heroUnits).length > 0) || 
                             multiStateHeroes.includes(heroIdLower);
 
-    // 3. Extract alternate form/unit abilities cleanly
     if (hasFormsOrUnits) {
-        // Parse subAbilities strictly for recognized state forms (Deathwing, Greymane Darkflight/Worgen, etc.)
         if (h.subAbilities && typeof h.subAbilities === 'object') {
             Object.entries(h.subAbilities).forEach(([subKey, subObj]) => {
                 const subKeyLower = subKey.toLowerCase();
@@ -274,7 +272,6 @@ function flattenHeroAbilities(h) {
             });
         }
 
-        // Parse forms (Greymane Worgen form, Alexstrasza Dragonqueen, etc.)
         if (h.forms && typeof h.forms === 'object') {
             Object.entries(h.forms).forEach(([formName, formObj]) => {
                 if (formObj?.abilities) {
@@ -289,7 +286,6 @@ function flattenHeroAbilities(h) {
             });
         }
 
-        // Parse hero units (Abathur clones, etc.)
         if (h.heroUnits && typeof h.heroUnits === 'object') {
             Object.entries(h.heroUnits).forEach(([id, u]) => {
                 if (u?.abilities) {
@@ -306,7 +302,6 @@ function flattenHeroAbilities(h) {
         }
     }
 
-    // 4. Deduplicate
     const seen = new Set();
     const uniqueList = out.filter(a => {
         const sig = `${a.name}|${a.icon}|${a.variant}`;
@@ -315,7 +310,6 @@ function flattenHeroAbilities(h) {
         return true;
     });
 
-    // 5. Sort logically: Base Q, W, E, Trait, Z first — then alternate forms grouped neatly
     const orderWeight = (key, variant) => {
         const k = String(key || '').toUpperCase();
         const v = String(variant || '').toLowerCase();
@@ -777,87 +771,4 @@ function renderTierList() {
         
         box.appendChild(r);
     });
-}
-
-
-// ==========================================
-// 10. MAPS & BATTLEGROUNDS VIEW
-// ==========================================
-
-function toggleMapsDropdown(e) {
-    e.stopPropagation();
-    document.getElementById('maps-dropdown-menu').classList.toggle('hidden');
-}
-
-function populateMapsDropdown() {
-    const menu = document.getElementById('maps-dropdown-menu');
-    menu.innerHTML = '<div class="px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-500">Battlegrounds</div>' + 
-        MASTER_MAP_LIST.slice().sort((a, b) => a.name.localeCompare(b.name)).map(m => `
-            <a href="#map?id=${encodeURIComponent(m.id)}" onclick="selectMapFromDropdown('${String(m.id).replace(/'/g, "\\'")}');return false" class="block px-4 py-2 text-sm text-slate-300 hover:bg-slate-800">
-                ${m.name}
-            </a>
-        `).join('');
-}
-
-function selectMapFromDropdown(id) {
-    document.getElementById('maps-dropdown-menu')?.classList.add('hidden');
-    navigateTo('map', { id });
-}
-
-async function selectMap(id, update = true) {
-    if (update) {
-        navigateTo('map', { id });
-        return;
-    }
-
-    document.getElementById('maps-dropdown-menu')?.classList.add('hidden');
-    switchTabUI('map');
-
-    const summary = MASTER_MAP_LIST.find(m => m.id === id) || { id, name: id };
-    let details = {};
-
-    try {
-        const r = await fetch(`./data/maps/${encodeURIComponent(id)}.json`);
-        if (r.ok) {
-            details = await r.json();
-        } else {
-            console.warn(`No map details for ${id}: HTTP ${r.status}`);
-        }
-    } catch (e) {
-        console.warn(`Failed to load map details for ${id}`, e);
-    }
-
-    const m = { ...summary, ...details };
-
-    document.getElementById('map-name').innerText = m.name || summary.name || id;
-    document.getElementById('map-theme').innerText = m.theme || summary.theme || '';
-    document.getElementById('map-portrait').src = getAssetUrl(m.portrait || summary.portrait || '');
-
-    const mech = document.getElementById('map-mechanic');
-    if (m.mechanic && typeof m.mechanic === 'object') {
-        mech.innerHTML = `<strong class="text-white block mb-1">${m.mechanic.title || 'Objective'}</strong>${m.mechanic.description || ''}`;
-    } else {
-        mech.innerText = m.mechanic || 'Objective details coming soon.';
-    }
-
-    document.getElementById('map-strategy').innerText = m.strategy || 'Strategy guide coming soon.';
-    document.getElementById('map-notes').innerText = m.notes || 'No special notes recorded for this map.';
-
-    document.getElementById('map-camps-stack').innerHTML = (m.camps || []).map(c => `
-        <div class="p-3 bg-slate-950/60 border border-slate-800 rounded-xl">
-            <b class="text-sm">${c.name || 'Camp'}</b>
-            <p class="text-xs text-amber-300 mt-1">${c.timing || ''}</p>
-            <p class="text-xs text-slate-400 mt-1">${c.notes || c.tip || ''}</p>
-        </div>
-    `).join('') || '<p class="text-xs text-slate-500">No camp data configured.</p>';
-
-    document.getElementById('map-heroes-list').innerHTML = (m.goldenHeroes || []).map(heroId => {
-        const h = MASTER_HERO_LIST.find(x => normalizeHeroKey(x.id) === normalizeHeroKey(heroId));
-        return h ? `
-            <button onclick="navigateTo('heroes',{hero:'${h.id}'})" class="flex items-center gap-2 bg-slate-950/60 border border-slate-800 rounded-lg p-2 text-left hover:border-sky-500">
-                <img src="${getAssetUrl(h.portrait)}" onerror="this.src='https://via.placeholder.com/40?text=H'" class="w-9 h-9 rounded object-cover">
-                <span class="text-xs">${h.name}</span>
-            </button>
-        ` : '';
-    }).join('') || '<span class="text-xs text-slate-500">No golden heroes configured.</span>';
 }
