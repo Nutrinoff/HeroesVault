@@ -56,7 +56,7 @@
   <!-- HEADER -->
   <header class="bg-slate-900/90 border-b border-slate-800 sticky top-0 z-50">
     <div class="max-w-[1600px] mx-auto px-6 py-3 flex flex-col items-center justify-between gap-3 md:flex-row">
-      <div class="flex items-center gap-3 cursor-pointer" onclick="navigateTo('heroes')">
+      <div class="flex items-center gap-3 cursor-pointer" onclick="navigateTo('home')">
         <svg class="w-9 h-9 text-sky-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <polygon points="12 2 22 7 22 17 12 22 2 17 2 7 12 2"/>
           <circle cx="12" cy="12" r="3" fill="currentColor"/>
@@ -68,9 +68,12 @@
           <p class="text-[10px] uppercase tracking-[0.3em] text-slate-400 font-semibold">Nexus Strategy & Spec Database</p>
         </div>
       </div>
-      <nav class="flex items-center gap-2 bg-slate-950/80 border border-slate-800/80 rounded-xl shadow-inner relative">
-        <button id="nav-heroes" onclick="navigateTo('heroes')" class="nav-button">
-          <i data-lucide="shield" class="w-4 h-4"></i> Heroes
+      <nav class="flex items-center gap-2 bg-slate-950/80 border border-slate-800/80 rounded-xl shadow-inner relative flex-wrap justify-center">
+        <button id="nav-home" onclick="navigateTo('home')" class="nav-button">
+          <i data-lucide="home" class="w-4 h-4"></i> Home
+        </button>
+        <button id="nav-builds" onclick="navigateTo('builds')" class="nav-button">
+          <i data-lucide="shield" class="w-4 h-4"></i> Builds
         </button>
         <div class="relative">
           <button id="maps-dropdown-toggle" onclick="toggleMapsDropdown(event)" class="nav-button">
@@ -80,6 +83,9 @@
         </div>
         <button id="nav-builder" onclick="navigateTo('builder')" class="nav-button">
           <i data-lucide="cpu" class="w-4 h-4"></i> Talent Builder
+        </button>
+        <button id="nav-academy" onclick="navigateTo('academy')" class="nav-button">
+          <i data-lucide="graduation-cap" class="w-4 h-4"></i> Nexus Academy
         </button>
         <button id="nav-tierlist" onclick="navigateTo('tierlist')" class="nav-button">
           <i data-lucide="layers" class="w-4 h-4"></i> Tier List
@@ -91,7 +97,7 @@
   <!-- CONTENT CONTAINER -->
   <div class="flex-1 max-w-[1600px] w-full mx-auto px-6 py-6 flex gap-6">
     
-    <!-- SIDEBAR -->
+    <!-- SIDEBAR (Shown on Builds & Talent Builder views) -->
     <aside id="sidebar-container" class="w-72 flex-shrink-0 bg-slate-900/70 border border-slate-800 rounded-2xl flex flex-col h-[calc(100vh-140px)] sticky top-24 overflow-hidden shadow-lg">
       <div class="p-3 border-b border-slate-800 bg-slate-900/90 flex flex-col gap-2">
         <div class="relative">
@@ -109,8 +115,47 @@
     <!-- MAIN VIEW AREA -->
     <main class="flex-1 min-w-0 bg-slate-900/70 border border-slate-800 rounded-2xl p-6 flex flex-col shadow-lg relative">
       
-      <!-- VIEW: HEROES -->
-      <div id="view-heroes" class="space-y-6 hidden">
+      <!-- VIEW: HOME -->
+      <div id="view-home" class="space-y-6">
+        <div class="bg-gradient-to-r from-sky-900/40 via-slate-9olt to-purple-900/40 border border-slate-800 p-8 rounded-2xl shadow-xl flex flex-col items-center text-center space-y-4">
+          <div class="p-3 bg-sky-500/20 border border-sky-500/40 rounded-2xl text-sky-400">
+            <i data-lucide="compass" class="w-10 h-10"></i>
+          </div>
+          <h2 class="text-3xl font-extrabold text-white">Welcome to HeroesVault</h2>
+          <p class="text-sm text-slate-300 max-w-2xl leading-relaxed">
+            Your definitive toolkit for Heroes of the Storm spec tracking, custom talent sandbox simulation, battleground strategies, and meta tier standings.
+          </p>
+          <div class="flex flex-wrap gap-3 pt-2">
+            <button onclick="navigateTo('builds')" class="bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold px-5 py-2.5 rounded-xl text-sm transition flex items-center gap-2">
+              <i data-lucide="shield" class="w-4 h-4"></i> Browse Builds
+            </button>
+            <button onclick="navigateTo('builder')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-5 py-2.5 rounded-xl text-sm border border-slate-700 transition flex items-center gap-2">
+              <i data-lucide="cpu" class="w-4 h-4"></i> Open Talent Builder
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div onclick="navigateTo('builds')" class="bg-slate-900/90 border border-slate-800 hover:border-sky-500/50 p-5 rounded-2xl cursor-pointer transition space-y-2">
+            <div class="text-sky-400"><i data-lucide="shield" class="w-6 h-6"></i></div>
+            <h3 class="text-base font-bold text-white">Hero Builds</h3>
+            <p class="text-xs text-slate-400">Explore optimized spec loadouts, match notes, and detailed ability tooltips for every hero in the roster.</p>
+          </div>
+          <div onclick="navigateTo('builder')" class="bg-slate-900/90 border border-slate-800 hover:border-sky-500/50 p-5 rounded-2xl cursor-pointer transition space-y-2">
+            <div class="text-amber-400"><i data-lucide="cpu" class="w-6 h-6"></i></div>
+            <h3 class="text-base font-bold text-white">Talent Builder</h3>
+            <p class="text-xs text-slate-400">Experiment with custom talent trees, preview path synergies, and generate shareable build link strings instantly.</p>
+          </div>
+          <div onclick="navigateTo('academy')" class="bg-slate-900/90 border border-slate-800 hover:border-sky-500/50 p-5 rounded-2xl cursor-pointer transition space-y-2">
+            <div class="text-purple-400"><i data-lucide="graduation-cap" class="w-6 h-6"></i></div>
+            <h3 class="text-base font-bold text-white">Nexus Academy</h3>
+            <p class="text-xs text-slate-400">Study advanced game mechanics, drafting guidelines, positioning concepts, and high-level strategy notes.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW: BUILDS -->
+      <div id="view-builds" class="space-y-6 hidden">
         <!-- HEROES HEADER -->
         <div class="bg-slate-900/90 border border-slate-800 p-5 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-xl">
           <div class="flex items-center gap-4">
@@ -185,7 +230,7 @@
 
       <!-- VIEW: BUILDER -->
       <div id="view-builder" class="space-y-6 hidden">
-        <!-- BUILDER HEADER (Isolated unique IDs to prevent DOM collision) -->
+        <!-- BUILDER HEADER -->
         <div class="bg-slate-900/90 border border-slate-800 p-5 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-xl">
           <div class="flex items-center gap-4">
             <img id="builder-portrait" src="" onerror="this.src='https://via.placeholder.com/104?text=Hero'" alt="Portrait" class="w-[104px] h-[104px] object-contain"/>
@@ -200,7 +245,7 @@
           <div id="builder-abilities" class="flex items-center justify-center gap-2 flex-wrap overflow-hidden py-2"></div>
         </div>
 
-        <!-- TALENT MATRIX CONTAINER (Build string & copy button moved up to align with level 20 talents) -->
+        <!-- TALENT MATRIX CONTAINER -->
         <section class="relative bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-lg overflow-hidden">
           <img id="builder-model-bg" src="" onerror="this.style.display='none'" class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none"/>
           <div class="relative z-10 space-y-4">
@@ -212,7 +257,6 @@
             <div class="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-6">
               <div id="builder-matrix" class="space-y-3 flex-1"></div>
 
-              <!-- Compact Build String & Copy Link aligned with Level 20 row -->
               <div class="flex items-center gap-3 self-end lg:self-auto lg:mb-2 flex-shrink-0">
                 <code id="builder-string-code" class="bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-emerald-300 font-mono">[T0000000,Hero]</code>
                 <button onclick="copyBuilderString()" class="bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 px-4 py-2.5 rounded-xl border border-sky-500/40 text-xs font-bold flex items-center gap-2 transition flex-shrink-0">
@@ -222,6 +266,59 @@
             </div>
           </div>
         </section>
+      </div>
+
+      <!-- VIEW: NEXUS ACADEMY -->
+      <div id="view-academy" class="space-y-6 hidden">
+        <section class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-3">
+          <div class="flex items-center gap-3">
+            <div class="p-2.5 bg-purple-500/20 border border-purple-500/40 rounded-xl text-purple-400">
+              <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <h2 class="text-xl font-bold text-white">Nexus Academy</h2>
+              <p class="text-xs text-slate-400">Core concepts, strategy guides, and advanced gameplay guides</p>
+            </div>
+          </div>
+        </section>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <section class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 space-y-3">
+            <h3 class="font-bold text-sky-400 flex items-center gap-2 border-b border-slate-800 pb-2">
+              <i data-lucide="book-open" class="w-4 h-4"></i> Experience & Soaking
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Minion death XP is the lifeblood of HotS. Ensure every minion wave in all lanes is soaked during the early game. Missing a wave early can easily give the opposing team a pivotal level advantage for objective fights.
+            </p>
+          </section>
+
+          <section class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 space-y-3">
+            <h3 class="font-bold text-amber-400 flex items-center gap-2 border-b border-slate-800 pb-2">
+              <i data-lucide="zap" class="w-4 h-4"></i> Talent Tier Advantages
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Never engage 4v5 or when down a major talent tier (especially levels 10 and 20). Level advantages grant immense stat buffs and game-changing heroic abilities that heavily swing team fights.
+            </p>
+          </section>
+
+          <section class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 space-y-3">
+            <h3 class="font-bold text-emerald-400 flex items-center gap-2 border-b border-slate-800 pb-2">
+              <i data-lucide="shield-alert" class="w-4 h-4"></i> Mercenary Timing
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Capture siege and bruiser camps right <em>before</em> objectives spawn. This forces the enemy team to split attention between defending structures and contesting the map objective.
+            </p>
+          </section>
+
+          <section class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 space-y-3">
+            <h3 class="font-bold text-purple-400 flex items-center gap-2 border-b border-slate-800 pb-2">
+              <i data-lucide="users" class="w-4 h-4"></i> Team Composition Balance
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              A balanced composition typically relies on a reliable Tank, a Healer, a Bruiser or Offlaner, a Ranged Assassin, and a flexible slot for waveclear or multi-class utility.
+            </p>
+          </section>
+        </div>
       </div>
 
       <!-- VIEW: TIER LIST -->
