@@ -731,7 +731,7 @@ function hideTooltip() {
 
 
 // ==========================================
---// 9. TIER LIST VIEW
+// 9. TIER LIST VIEW
 // ==========================================
 
 function renderTierList() {
