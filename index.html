@@ -87,6 +87,9 @@
         <button id="nav-academy" onclick="navigateTo('academy')" class="nav-button">
           <i data-lucide="graduation-cap" class="w-4 h-4"></i> Nexus Academy
         </button>
+        <button id="nav-patchnotes" onclick="navigateTo('patchnotes')" class="nav-button">
+          <i data-lucide="file-text" class="w-4 h-4"></i> Patch Notes
+        </button>
         <button id="nav-tierlist" onclick="navigateTo('tierlist')" class="nav-button">
           <i data-lucide="layers" class="w-4 h-4"></i> Tier List
         </button>
@@ -321,6 +324,23 @@
         </div>
       </div>
 
+      <!-- VIEW: PATCH NOTES -->
+      <div id="view-patchnotes" class="space-y-6 hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Left Column: Dynamic Patch List -->
+          <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 space-y-2 h-[calc(100vh-200px)] overflow-y-auto" id="patch-sidebar-list">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 px-2 pb-2">Blizzard Feed</h3>
+            <div class="text-xs text-slate-500 p-2">Loading live feed...</div>
+          </div>
+          
+          <!-- Right Column: Full Patch Notes Main Window -->
+          <div class="lg:col-span-2 bg-slate-900/90 border border-slate-800 rounded-2xl p-6 h-[calc(100vh-200px)] overflow-y-auto space-y-4" id="patch-main-content">
+            <h2 class="text-2xl font-bold text-white">Select a patch update</h2>
+            <p class="text-xs text-slate-400">Choose an update from the left list to review details.</p>
+          </div>
+        </div>
+      </div>
+
       <!-- VIEW: TIER LIST -->
       <div id="view-tierlist" class="space-y-4 hidden">
         <section class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5">
@@ -350,6 +370,7 @@
         <button onclick="navigateTo('builds'); window.scrollTo({top: 0, behavior: 'smooth'});" class="hover:text-sky-400 transition">Builds</button>
         <button onclick="navigateTo('builder'); window.scrollTo({top: 0, behavior: 'smooth'});" class="hover:text-sky-400 transition">Talent Builder</button>
         <button onclick="navigateTo('academy'); window.scrollTo({top: 0, behavior: 'smooth'});" class="hover:text-sky-400 transition">Nexus Academy</button>
+        <button onclick="navigateTo('patchnotes'); window.scrollTo({top: 0, behavior: 'smooth'});" class="hover:text-sky-400 transition">Patch Notes</button>
         <button onclick="navigateTo('tierlist'); window.scrollTo({top: 0, behavior: 'smooth'});" class="hover:text-sky-400 transition">Tier List</button>
       </div>
     </div>
@@ -378,6 +399,7 @@
   <script src="./js/talentcalculator.js"></script>
   <script src="./js/maps.js"></script>
   <script src="./js/tierlist.js"></script>
+  <script src="./js/patchnotes.js"></script>
   <script src="./app.js"></script>
 
 </body>
