@@ -389,7 +389,6 @@ function getHeroPortrait(hero) {
 function preloadAllAssets(rawHeroes) {
     if (!Array.isArray(rawHeroes)) return;
     
-    // 1. Instantly preload all hero portraits first (lightweight & high priority)
     rawHeroes.forEach(h => {
         const portrait = getHeroPortrait(h);
         if (portrait) {
@@ -397,7 +396,6 @@ function preloadAllAssets(rawHeroes) {
         }
     });
 
-    // 2. Stagger ability icon preloading in the background
     setTimeout(() => {
         rawHeroes.forEach((h, index) => {
             setTimeout(() => {
@@ -705,114 +703,6 @@ function renderBuildStrip(h, code) {
 
 
 // ==========================================
-// 7. TALENT BUILDER VIEW
-// ==========================================
-
-async function openBuilder(id = null, selections = null, update = true) {
-    id = id || MASTER_HERO_LIST[0]?.id;
-    if (!id) return;
-    
-    builderHeroId = id;
-    switchTabUI('builder');
-    renderHeroSidebar(MASTER_HERO_LIST);
-    
-    builderSelectedTalents = selections?.length === 7 
-        ? selections.map(x => Number(x) || 1) 
-        : [1, 1, 1, 1, 1, 1, 1];
-        
-    const h = resolveHeroMasterData(id);
-    if (!h) return console.error('Missing hero master entry', id);
-    
-    builderHeroData = {
-        id,
-        name: h.name || id,
-        title: h.title || 'Nexus Combatant',
-        role: (h.roles && h.roles[0]) || h.expandedRole || 'Nexus Combatant',
-        portrait: getHeroPortrait(h),
-        abilities: flattenHeroAbilities(h),
-        talents: normalizeTalentTree(h.talents || h.talentTree || {})
-    };
-    
-    renderBuilderHeader(builderHeroData);
-    renderBuilderMatrix();
-    updateBuilderOutput(false);
-    
-    if (update) {
-        navigateTo('builder', { hero: id, build: builderSelectedTalents.join('') });
-    }
-}
-
-function renderBuilderMatrix() {
-    const box = document.getElementById('builder-matrix');
-    box.innerHTML = '';
-    
-    if (!builderHeroData) return;
-    
-    ['1', '4', '7', '10', '13', '16', '20'].forEach((l, idx) => {
-        const row = document.createElement('div');
-        row.className = 'flex items-center gap-3';
-        row.innerHTML = `<div class="w-12 h-12 shrink-0 flex items-center justify-center rounded-2xl bg-gradient-to-b from-purple-600 to-indigo-900 border-2 border-purple-400/80 font-black">${l}</div>`;
-        
-        const choices = document.createElement('div');
-        choices.className = 'flex flex-wrap gap-2.5 items-center';
-        
-        (builderHeroData.talents[l] || []).forEach((t, i) => {
-            const n = i + 1;
-            const b = document.createElement('button');
-            
-            b.className = `w-12 h-12 rounded-xl border-2 overflow-hidden bg-slate-950 ${
-                builderSelectedTalents[idx] === n 
-                    ? 'border-amber-400 shadow-lg scale-105' 
-                    : 'border-slate-700 hover:border-slate-400 opacity-75 hover:opacity-100'
-            }`;
-            
-            b.onclick = () => {
-                builderSelectedTalents[idx] = n;
-                renderBuilderMatrix();
-                updateBuilderOutput(true);
-            };
-            
-            b.onmouseenter = e => showTalentTooltip(e, t, l);
-            b.onmouseleave = hideTooltip;
-            b.innerHTML = `<img src="${getAssetUrl(t.icon)}" onerror="this.src='https://via.placeholder.com/48?text=?'" class="w-full h-full object-cover">`;
-            
-            choices.appendChild(b);
-        });
-        
-        row.appendChild(choices);
-        box.appendChild(row);
-    });
-}
-
-function resetBuilder() {
-    builderSelectedTalents = [1, 1, 1, 1, 1, 1, 1];
-    renderBuilderMatrix();
-    updateBuilderOutput(true);
-}
-
-function updateBuilderOutput(update = true) {
-    document.getElementById('builder-string-code').innerText = `[T${builderSelectedTalents.join('')},${builderHeroId}]`;
-    if (update) {
-        navigateTo('builder', { hero: builderHeroId, build: builderSelectedTalents.join('') });
-    }
-}
-
-function copyBuilderString() {
-    const u = location.href;
-    if (navigator.clipboard) {
-        navigator.clipboard.writeText(u).then(() => alert(`Copied build link:\n${u}`));
-    } else {
-        prompt('Copy build link:', u);
-    }
-}
-
-function decodeBuildCode(s) {
-    const m = s && s.match(/\[T(\d{7}),/);
-    return m ? m[1].split('').map(Number) : [1, 1, 1, 1, 1, 1, 1];
-}
-
-
-// ==========================================
 // 8. TOOLTIPS
 // ==========================================
 
@@ -841,7 +731,7 @@ function hideTooltip() {
 
 
 // ==========================================
-// 9. TIER LIST VIEW
+--// 9. TIER LIST VIEW
 // ==========================================
 
 function renderTierList() {
@@ -867,7 +757,6 @@ function renderTierList() {
         
         r.className = 'flex items-stretch overflow-hidden rounded-xl border border-slate-800 bg-slate-900/70';
         
-        // Isolate the map iteration to prevent template literal syntax collisions
         const heroesHtml = heroes.length > 0 
             ? heroes.map(h => `
                 <button onclick="navigateTo('heroes', {hero: '${h.id}'})" class="flex items-center gap-2 rounded-lg border border-slate-700 bg-slate-950/70 px-2 py-1.5 text-xs text-slate-200 hover:border-sky-400">
@@ -942,8 +831,6 @@ async function selectMap(id, update = true) {
 
     document.getElementById('map-name').innerText = m.name || summary.name || id;
     document.getElementById('map-theme').innerText = m.theme || summary.theme || '';
-    
-    // Wrapped with getAssetUrl for proper repo path resolution
     document.getElementById('map-portrait').src = getAssetUrl(m.portrait || summary.portrait || '');
 
     const mech = document.getElementById('map-mechanic');
