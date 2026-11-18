@@ -1,11 +1,12 @@
 // ==========================================
-// PATCH NOTES LIVE FEED MODULE
+// PATCH NOTES LIVE RSS MODULE
 // ==========================================
 
 let LIVE_PATCH_ITEMS = [];
 
 async function loadLivePatchNotes() {
     const listContainer = document.getElementById('patch-sidebar-list');
+    const mainContent = document.getElementById('patch-main-content');
     if (!listContainer) return;
 
     if (LIVE_PATCH_ITEMS.length > 0) {
@@ -13,45 +14,61 @@ async function loadLivePatchNotes() {
         return;
     }
 
+    listContainer.innerHTML = '<h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 px-2 pb-2">Blizzard Feed</h3><div class="text-xs text-sky-400 p-3 animate-pulse">Fetching live RSS feed...</div>';
+
     try {
-        // Using AllOrigins CORS proxy to safely fetch Blizzard's community news feed or equivalent JSON mirror
-        // Alternatively, we can parse Blizzard's official XML feed endpoint converted via an XML-to-JSON parser.
-        const rssUrl = encodeURIComponent('https://news.blizzard.com/en-us/feed/heroes-of-the-storm');
-        const proxyUrl = `https://api.allorigins.win/get?url=${rssUrl}`;
+        const feedUrl = 'https://news.blizzard.com/en-us/feed/heroes-of-the-storm';
+        // Using allorigins proxy to securely fetch the raw RSS XML data around browser CORS constraints
+        const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(feedUrl)}`;
         
-        const res = await fetch(proxyUrl);
-        if (!res.ok) throw new Error('Network response failed');
+        const response = await fetch(proxyUrl);
+        if (!response.ok) throw new Error('Failed to reach RSS feed endpoint');
         
-        const data = await res.json();
+        const xmlText = await response.text();
         const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(data.contents, 'text/xml');
+        const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
         
-        const items = xmlDoc.querySelectorAll('item');
-        LIVE_PATCH_ITEMS = Array.from(items).map((item, index) => ({
-            id: `patch-${index}`,
-            title: item.querySelector('title')?.textContent || 'Untitled Update',
-            date: new Date(item.querySelector('pubDate')?.textContent || Date.now()).toLocaleDateString(),
-            link: item.querySelector('link')?.textContent || '#',
-            description: item.querySelector('description')?.textContent || 'No description provided.'
+        const nodes = xmlDoc.querySelectorAll('item');
+        LIVE_PATCH_ITEMS = Array.from(nodes).map((node, index) => ({
+            id: `rss-item-${index}`,
+            title: node.querySelector('title')?.textContent || 'Untitled Update',
+            date: new Date(node.querySelector('pubDate')?.textContent || Date.now()).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            }),
+            link: node.querySelector('link')?.textContent || feedUrl,
+            description: node.querySelector('description')?.textContent || 'No description provided in this feed entry.'
         }));
 
         if (LIVE_PATCH_ITEMS.length === 0) {
-            throw new Error('No items found in feed');
+            throw new Error('No items found in XML document');
         }
 
         renderPatchSidebar(LIVE_PATCH_ITEMS);
-        // Automatically select the first item
         selectPatchItem(LIVE_PATCH_ITEMS[0].id);
 
-    } catch (e) {
-        console.error('Failed fetching live patch notes:', e);
+    } catch (err) {
+        console.error('RSS Feed fetch error:', err);
         listContainer.innerHTML = `
             <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 px-2 pb-2">Blizzard Feed</h3>
             <div class="p-3 bg-red-500/10 border border-red-500/30 rounded-xl text-xs text-red-300 space-y-2">
-                <p>Could not fetch live RSS feed due to browser restrictions.</p>
-                <a href="https://news.blizzard.com/en-us/heroes-of-the-storm" target="_blank" class="text-sky-400 underline block font-semibold">Visit Official Blizzard News →</a>
+                <p>Live feed blocked or unreachable due to strict browser CORS boundaries.</p>
+                <a href="https://news.blizzard.com/en-us/feed/heroes-of-the-storm" target="_blank" class="text-sky-400 underline block font-semibold">Open RSS Source Directly →</a>
             </div>
         `;
+        if (mainContent) {
+            mainContent.innerHTML = `
+                <div class="space-y-4">
+                    <h2 class="text-2xl font-bold text-white">Feed Connection Notice</h2>
+                    <p class="text-xs text-slate-300">The browser prevented direct script execution of the live RSS stream. You can view the live feed XML or Blizzard News portal directly using the link below.</p>
+                    <a href="https://news.blizzard.com/en-us/heroes-of-the-storm" target="_blank" class="inline-flex items-center gap-2 bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 px-4 py-2.5 rounded-xl border border-sky-500/40 text-xs font-bold transition">
+                        Visit Blizzard News <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                    </a>
+                </div>
+            `;
+            if (window.lucide) lucide.createIcons();
+        }
     }
 }
 
@@ -79,13 +96,11 @@ function selectPatchItem(id) {
     const item = LIVE_PATCH_ITEMS.find(x => x.id === id);
     if (!item) return;
 
-    // Highlight active state in sidebar
     document.querySelectorAll('#patch-sidebar-list button').forEach(b => {
         b.classList.remove('bg-sky-500/15', 'border-sky-500/70');
     });
     document.getElementById(`btn-${id}`)?.classList.add('bg-sky-500/15', 'border-sky-500/70');
 
-    // Render full details in the main window
     const mainContent = document.getElementById('patch-main-content');
     if (!mainContent) return;
 
