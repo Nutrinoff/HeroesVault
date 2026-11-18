@@ -344,14 +344,22 @@ function renderBuildStrip(h, code) {
         const t = h.talents[l]?.[p[i] - 1] || h.talents[l]?.[0];
         const el = document.createElement('div');
         
-        el.className = 'bg-slate-950/60 border border-slate-800 rounded-xl p-2 flex flex-col items-center gap-2';
-        el.innerHTML = t ? `
-            <img src="${getAssetUrl(t.icon)}" onerror="this.src='https://via.placeholder.com/44?text=?'" class="w-11 h-11 rounded-lg border border-slate-700 object-cover">
-            <span class="text-[10px] text-sky-300">Lv ${l}</span>
-            <span class="text-[10px] text-center text-slate-200">${t.name}</span>
-        ` : `
-            <span class="text-[10px] text-slate-500">Lv ${l} · none</span>
-        `;
+        el.className = 'bg-slate-950/60 border border-slate-800 rounded-xl p-2 flex flex-col items-center gap-2 transition-all hover:border-sky-500/60';
+        
+        if (t) {
+            el.onmouseenter = e => showTalentTooltip(e, t, l);
+            el.onmouseleave = hideTooltip;
+            
+            el.innerHTML = `
+                <img src="${getAssetUrl(t.icon)}" onerror="this.src='https://via.placeholder.com/44?text=?'" class="w-11 h-11 rounded-lg border border-slate-700 object-cover">
+                <span class="text-[10px] text-sky-300">Lv ${l}</span>
+                <span class="text-[10px] text-center text-slate-200 truncate max-w-20" title="${t.name}">${t.name}</span>
+            `;
+        } else {
+            el.innerHTML = `
+                <span class="text-[10px] text-slate-500">Lv ${l} · none</span>
+            `;
+        }
         
         box.appendChild(el);
     });
