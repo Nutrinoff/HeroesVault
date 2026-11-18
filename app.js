@@ -100,12 +100,14 @@ function navigateTo(tab, params = {}, push = true) {
 
 function handleRoute() {
     const [tpart, query = ''] = location.hash.replace(/^#/, '').split('?');
-    const tab = tpart || 'heroes';
+    const tab = tpart || 'home';
     const q = new URLSearchParams(query);
     
     switchTabUI(tab);
     
-    if (tab === 'heroes') {
+    if (tab === 'home') {
+        // Home view controller logic if needed
+    } else if (tab === 'builds' || tab === 'heroes') {
         selectHero(q.get('hero') || MASTER_HERO_LIST[0]?.id, false);
     } else if (tab === 'map') {
         if (typeof selectMap === 'function') {
@@ -113,23 +115,29 @@ function handleRoute() {
         }
     } else if (tab === 'builder') {
         openBuilder(q.get('hero') || MASTER_HERO_LIST[0]?.id, q.get('build') ? q.get('build').split('').map(Number) : null, false);
+    } else if (tab === 'academy') {
+        // Nexus Academy view controller logic if needed
     }
 }
 
 function switchTabUI(t) {
-    const h = t === 'heroes';
-    const m = t === 'map';
-    const b = t === 'builder';
-    const l = t === 'tierlist';
+    const activeTab = t === 'heroes' ? 'builds' : t;
     
-    [['view-heroes', h], ['view-map', m], ['view-builder', b], ['view-tierlist', l]].forEach(([id, on]) => {
-        document.getElementById(id).classList.toggle('hidden', !on);
+    const hm = activeTab === 'home';
+    const h = activeTab === 'builds';
+    const m = activeTab === 'map';
+    const b = activeTab === 'builder';
+    const a = activeTab === 'academy';
+    const l = activeTab === 'tierlist';
+    
+    [['view-home', hm], ['view-builds', h], ['view-map', m], ['view-builder', b], ['view-academy', a], ['view-tierlist', l]].forEach(([id, on]) => {
+        document.getElementById(id)?.classList.toggle('hidden', !on);
     });
     
     document.getElementById('sidebar-container').classList.toggle('hidden', !h && !b);
     
-    [['nav-heroes', h], ['nav-builder', b], ['nav-tierlist', l]].forEach(([id, on]) => {
-        document.getElementById(id).classList.toggle('nav-active', on);
+    [['nav-home', hm], ['nav-builds', h], ['nav-builder', b], ['nav-academy', a], ['nav-tierlist', l]].forEach(([id, on]) => {
+        document.getElementById(id)?.classList.toggle('nav-active', on);
     });
 }
 
@@ -150,19 +158,19 @@ function renderHeroSidebar(heroes) {
     heroes.forEach(h => {
         const tier = getHeroTier(h.id);
         const s = TIER_STYLES[tier] || TIER_STYLES.D;
-        const b = document.createElement('button');
+        const btn = document.createElement('button');
         
-        b.className = `w-full text-left p-2.5 rounded-xl border transition-all ${
+        btn.className = `w-full text-left p-2.5 rounded-xl border transition-all ${
             active === h.id 
                 ? 'bg-sky-500/15 border-sky-500/70' 
                 : 'border-slate-800 bg-slate-950/40 hover:bg-slate-800/80'
         }`;
         
-        b.onclick = () => isB 
+        btn.onclick = () => isB 
             ? openBuilder(h.id, null, true) 
-            : navigateTo('heroes', { hero: h.id });
+            : navigateTo('builds', { hero: h.id });
             
-        b.innerHTML = `
+        btn.innerHTML = `
             <div class="flex items-center gap-3 min-w-0">
                 <img src="${getAssetUrl(h.portrait)}" onerror="this.src='https://via.placeholder.com/56?text=H'" class="w-14 h-14 object-contain">
                 <div class="min-w-0 flex-1">
@@ -175,7 +183,7 @@ function renderHeroSidebar(heroes) {
             </div>
         `;
         
-        list.appendChild(b);
+        list.appendChild(btn);
     });
     
     document.getElementById('hero-count').innerText = `${heroes.length} Heroes`;
@@ -273,10 +281,10 @@ async function selectHero(id, update = true) {
     
     currentSelectedHeroId = id;
     currentBuildIndex = 0;
-    switchTabUI('heroes');
+    switchTabUI('builds');
     
     if (update) {
-        navigateTo('heroes', { hero: id });
+        navigateTo('builds', { hero: id });
     }
     
     renderHeroSidebar(MASTER_HERO_LIST);
