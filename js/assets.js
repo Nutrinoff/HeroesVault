@@ -34,25 +34,42 @@ function getHeroPortrait(hero) {
 }
 
 function preloadAllAssets(rawHeroes) {
-    if (!Array.isArray(rawHeroes)) return;
-    
-    // 1. Instantly preload all hero portraits first (lightweight & high priority)
+    if (!Array.isArray(rawHeroes) || rawHeroes.length === 0) return;
+
+    // 1. Instantly preload hero portraits first (lightweight & high priority)
     rawHeroes.forEach(h => {
         const portrait = getHeroPortrait(h);
         if (portrait) {
-            new Image().src = getAssetUrl(portrait);
+            const img = new Image();
+            img.src = getAssetUrl(portrait);
         }
     });
 
-    // 2. Stagger ability icon preloading in the background
+    // 2. Stagger ability & talent icon preloading in the background
     setTimeout(() => {
         rawHeroes.forEach((h, index) => {
             setTimeout(() => {
-                const abilities = flattenHeroAbilities(h);
-                abilities.forEach(a => {
-                    if (a.icon) {
-                        new Image().src = getAssetUrl(a.icon);
-                    }
+                const iconPaths = new Set();
+
+                if (typeof flattenHeroAbilities === 'function') {
+                    flattenHeroAbilities(h).forEach(a => {
+                        if (a?.icon) iconPaths.add(a.icon);
+                    });
+                }
+
+                if (typeof normalizeTalentTree === 'function') {
+                    const tree = normalizeTalentTree(h.talents || h.talentTree || {});
+                    Object.values(tree).forEach(tierList => {
+                        if (!Array.isArray(tierList)) return;
+                        tierList.forEach(t => {
+                            if (t?.icon) iconPaths.add(t.icon);
+                        });
+                    });
+                }
+
+                iconPaths.forEach(icon => {
+                    const img = new Image();
+                    img.src = getAssetUrl(icon);
                 });
             }, index * 30);
         });
