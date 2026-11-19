@@ -748,6 +748,7 @@ async function selectPatchItem(id) {
 
     schedulePatchSidebarSync();
 }
+
 // ==========================================
 // PATCH SIDEBAR BURGER-SQUISH CONTROLLER
 // ==========================================
@@ -788,28 +789,37 @@ function syncPatchSidebarBurger() {
 
     const header = document.querySelector('header');
     const footer = document.querySelector('footer');
-    const headerGap = 16;
-    const footerGap = 20;
 
-    const headerBottom = header ? header.getBoundingClientRect().bottom + headerGap : 80;
-    const footerTop = footer ? footer.getBoundingClientRect().top : window.innerHeight;
-    const viewportBottom = Math.min(window.innerHeight, footerTop) - footerGap;
+    // Symmetrical gap above and below the sidebar box
+    const GAP = 16;
 
+    const headerBottom = header ? Math.round(header.getBoundingClientRect().bottom) + GAP : 76 + GAP;
+    const footerTop = footer ? Math.round(footer.getBoundingClientRect().top) : window.innerHeight;
+
+    // Only clamp to footerTop when the footer actually enters the viewport
+    const effectiveBottom = footerTop < window.innerHeight
+        ? footerTop - GAP
+        : window.innerHeight - GAP;
+
+    // Read true grid-column anchor geometry without mutating layout mid-read
     const colRect = col.getBoundingClientRect();
-    const naturalTop = colRect.top;
-    const lockedTop = Math.max(naturalTop, headerBottom);
-    const clampedHeight = Math.max(160, viewportBottom - lockedTop);
+    const naturalTop = Math.round(colRect.top);
+    const naturalLeft = Math.round(colRect.left);
+    const naturalWidth = Math.round(colRect.width);
 
-    // Keep parent column tall enough to hold the visual box without collapsing the grid row
+    // Stay at naturalTop until the page scrolls past headerBottom; never jump ahead of it
+    const lockedTop = naturalTop <= headerBottom ? headerBottom : naturalTop;
+    const clampedHeight = Math.max(160, effectiveBottom - lockedTop);
+
     const prevMinH = parseFloat(col.style.minHeight) || 0;
     col.style.minHeight = `${Math.round(Math.max(prevMinH, clampedHeight))}px`;
 
     box.style.position = 'fixed';
-    box.style.top = `${Math.round(lockedTop)}px`;
-    box.style.left = `${Math.round(colRect.left)}px`;
-    box.style.width = `${Math.round(colRect.width)}px`;
-    box.style.height = `${Math.round(clampedHeight)}px`;
-    box.style.maxHeight = `${Math.round(clampedHeight)}px`;
+    box.style.top = `${lockedTop}px`;
+    box.style.left = `${naturalLeft}px`;
+    box.style.width = `${naturalWidth}px`;
+    box.style.height = `${clampedHeight}px`;
+    box.style.maxHeight = `${clampedHeight}px`;
 }
 
 function schedulePatchSidebarSync() {
