@@ -3,14 +3,50 @@ const path = require('path');
 
 const API_URL = 'https://blizztrack.com/api/forums/heroes';
 
-function extractEntries(payload) {
-    if (Array.isArray(payload)) return payload;
-    if (!payload || typeof payload !== 'object') return [];
+function decodeEntities(str) {
+    return str
+        .replace(/&amp;/g, '&')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&quot;/g, '"')
+        .replace(/&#39;/g, "'")
+        .replace(/&#x27;/g, "'");
+}
 
-    for (const key of ['posts', 'threads', 'topics', 'items', 'articles', 'data', 'results']) {
-        if (Array.isArray(payload[key])) return payload[key];
+function stripTags(html) {
+    return decodeEntities(String(html || '').replace(/<[^>]*>/g, ' '))
+        .replace(/\s+/g, ' ')
+        .trim();
+}
+
+function extractTitle(post) {
+    const direct = String(post.title || '').trim();
+    if (direct) return direct;
+
+    const plain = stripTags(post.excerpt || '');
+    const bracketMatch = plain.match(/\[([^\]]+)\]/);
+    if (bracketMatch && bracketMatch[1].trim()) {
+        return bracketMatch[1].trim();
     }
-    return [];
+
+    return plain.slice(0, 140).trim();
+}
+
+function extractLink(post) {
+    const direct = post.url || post.link;
+    if (direct) {
+        return String(direct).startsWith('http')
+            ? String(direct)
+            : `https://blizztrack.com${String(direct).startsWith('/') ? '' : '/'}${direct}`;
+    }
+
+    const excerpt = String(post.excerpt || '');
+    const hrefMatch = excerpt.match(/href=["'](https?:\/\/[^"']+)["']/i);
+    if (hrefMatch) {
+        return decodeEntities(hrefMatch[1]);
+    }
+
+    return 'https://blizztrack.com/forums?game=heroes';
 }
 
 function parseDate(raw) {
@@ -29,56 +65,26 @@ function formatDisplayDate(dateObj) {
     });
 }
 
-function normalizeEntry(item, index) {
-    const title = String(
-        item.title || item.subject || item.topicTitle || item.name || ''
-    ).trim();
-
+function normalizePost(post, index) {
+    const title = extractTitle(post);
     if (!title) return null;
 
-    const rawDate =
-        item.createdAt ||
-        item.publishedAt ||
-        item.postedAt ||
-        item.date ||
-        item.timestamp ||
-        item.created_at ||
-        null;
-
-    const dateObj = parseDate(rawDate);
+    const dateObj = parseDate(post.posted_on || post.created_at || post.date);
     const lowerTitle = title.toLowerCase();
     const feedType = lowerTitle.includes('ptr') ? 'ptr' : 'live';
+    const link = extractLink(post);
 
-    const rawLink =
-        item.url ||
-        item.link ||
-        item.threadUrl ||
-        item.postUrl ||
-        'https://blizztrack.com/forums?game=heroes';
-
-    const link = String(rawLink).startsWith('http')
-        ? String(rawLink)
-        : `https://blizztrack.com${String(rawLink).startsWith('/') ? '' : '/'}${rawLink}`;
-
-    const rawSummary =
-        item.excerpt ||
-        item.summary ||
-        item.body ||
-        item.content ||
-        item.description ||
-        '';
-
-    const cleanSummary = String(rawSummary).trim() ||
-        'View the full update details via the source link.';
+    const plainExcerpt = stripTags(post.excerpt || '');
+    const summary = plainExcerpt || 'View the full update details on Blizzard News.';
 
     return {
-        id: item.id ? String(item.id) : `${feedType}-${index}-${dateObj ? dateObj.getTime() : index}`,
+        id: post.id ? String(post.id) : `${feedType}-${index}-${dateObj ? dateObj.getTime() : index}`,
         title,
         date: formatDisplayDate(dateObj),
         isoDate: dateObj ? dateObj.toISOString() : null,
         feedType,
         link,
-        description: `<p class="text-slate-300">${cleanSummary}</p>`
+        description: `<p class="text-slate-300">${summary}</p>`
     };
 }
 
@@ -103,21 +109,13 @@ async function updatePatchFiles() {
     }
 
     const rawText = await response.text();
-    let json;
-    try {
-        json = JSON.parse(rawText);
-    } catch {
-        throw new Error(`Expected JSON from BlizzTrack API, got: ${rawText.slice(0, 400)}`);
-    }
+    const json = JSON.parse(rawText);
+    const rawPosts = Array.isArray(json?.result?.posts) ? json.result.posts : [];
 
-    const rawEntries = extractEntries(json);
-    console.log(`Raw entries count: ${rawEntries.length}`);
-    if (rawEntries.length > 0) {
-        console.log('Sample entry keys:', Object.keys(rawEntries[0]));
-    }
+    console.log(`Raw posts count: ${rawPosts.length}`);
 
-    const normalized = rawEntries
-        .map((item, idx) => normalizeEntry(item, idx))
+    const normalized = rawPosts
+        .map((post, idx) => normalizePost(post, idx))
         .filter(Boolean)
         .filter((entry) => {
             const t = entry.title.toLowerCase();
@@ -134,8 +132,8 @@ async function updatePatchFiles() {
 
     if (livePatches.length === 0 && ptrPatches.length === 0) {
         throw new Error(
-            `Parsed ${normalized.length} matching patch entries out of ${rawEntries.length} raw entries. ` +
-            `Payload preview: ${rawText.slice(0, 400)}`
+            `Found ${rawPosts.length} posts, 0 matched patch filter. Sample titles: ` +
+            rawPosts.slice(0, 5).map(extractTitle).join(' | ')
         );
     }
 
