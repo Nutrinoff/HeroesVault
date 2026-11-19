@@ -332,15 +332,15 @@
           <!-- Spacer keeps grid column width intact when sidebar switches to fixed -->
           <div id="patch-sidebar-spacer" class="hidden lg:block lg:col-span-4" aria-hidden="true"></div>
 
-          <!-- Left Column: Solid Backdrop + Top Locked Below Header + Bottom Squishes Above Footer -->
-          <div id="patch-sidebar-column" class="w-full lg:col-span-4 flex flex-col gap-3 z-20 bg-slate-950/95 rounded-2xl">
-            <div id="patch-filter-controls" class="flex items-center gap-2 px-2 pt-2 shrink-0" role="group" aria-label="Patch feed filters">
-              <button type="button" data-patch-filter="all" class="patch-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition border">All</button>
-              <button type="button" data-patch-filter="live" class="patch-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition border">Live</button>
-              <button type="button" data-patch-filter="ptr" class="patch-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition border">PTR</button>
+          <!-- Left Column: Solid Surface + Top Locked Below Header + Bottom Squishes Above Footer -->
+          <div id="patch-sidebar-column" class="w-full lg:col-span-4 flex flex-col gap-3 z-20 bg-slate-900 border border-slate-800 rounded-2xl p-3">
+            <div id="patch-filter-controls" class="flex items-center gap-2 px-1 shrink-0" role="group" aria-label="Patch feed filters">
+              <button type="button" data-patch-filter="all" class="patch-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition border bg-sky-500 text-slate-950 border-sky-400">All</button>
+              <button type="button" data-patch-filter="live" class="patch-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition border bg-slate-950 text-slate-300 border-slate-700/80 hover:bg-slate-800 hover:text-white">Live</button>
+              <button type="button" data-patch-filter="ptr" class="patch-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition border bg-slate-950 text-slate-300 border-slate-700/80 hover:bg-slate-800 hover:text-white">PTR</button>
             </div>
 
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-3 space-y-2 flex-1 min-h-0 overflow-y-auto" id="patch-sidebar-list">
+            <div class="bg-slate-950 border border-slate-800/90 rounded-xl p-2.5 space-y-2 flex-1 min-h-0 overflow-y-auto" id="patch-sidebar-list">
               <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 px-2 pb-2">Blizzard Feed</h3>
               <div class="text-xs text-slate-500 p-2">Loading live feed...</div>
             </div>
