@@ -1,8 +1,8 @@
 // ==========================================
-// PATCH NOTES MODULE (4 MASTER LISTS + PER-PATCH FILES)
+// PATCH NOTES MODULE (BLIZZLIKE VIEW & 4-MASTER SYSTEM)
 // ==========================================
 
-let CURRENT_FILTER = 'all'; // 'all', 'live', or 'ptr' (plus era metadata on items)
+let CURRENT_FILTER = 'all'; // 'all', 'live', or 'ptr'
 let ACTIVE_PATCH_ITEMS = [];
 let CACHED_MASTER_PATCHES = null;
 const PATCH_DETAIL_CACHE = new Map();
@@ -10,11 +10,16 @@ const PATCH_DETAIL_CACHE = new Map();
 const PATCH_DATA_DIR = './data/patchnotes';
 const DEFAULT_HOTS_URL = 'https://news.blizzard.com/en-us/heroes-of-the-storm';
 
+// Technical Alpha ended March 24, 2015; Closed Beta ran March 25 – June 1, 2015
+const ALPHA_CUTOFF_TS = Date.parse('2015-03-25T00:00:00Z');
+const BETA_CUTOFF_TS = Date.parse('2015-06-02T00:00:00Z');
+const ARCHIVE_CUTOFF_TS = Date.parse('2022-01-01T00:00:00Z');
+
 const MASTER_SOURCES = [
-    { file: 'alpha-master.json', defaultFeed: 'live', defaultEra: 'alpha' },
-    { file: 'beta-master.json',  defaultFeed: 'live', defaultEra: 'beta' },
-    { file: 'live-master.json',  defaultFeed: 'live', defaultEra: 'live' },
-    { file: 'ptr-master.json',   defaultFeed: 'ptr',  defaultEra: 'ptr' }
+    { file: 'alpha-master.json', defaultFeed: 'live', sourceEra: 'alpha' },
+    { file: 'beta-master.json',  defaultFeed: 'live', sourceEra: 'beta' },
+    { file: 'live-master.json',  defaultFeed: 'live', sourceEra: 'live' },
+    { file: 'ptr-master.json',   defaultFeed: 'ptr',  sourceEra: 'ptr' }
 ];
 
 function escapeHtml(str) {
@@ -66,7 +71,7 @@ function formatPatchDisplayDate(rawDate, fallback = 'Unknown Date') {
     });
 }
 
-function formatSidebarShortDate(rawDate, fallback = 'Unknown') {
+function formatSidebarDate(rawDate, fallback = 'Unknown') {
     if (!rawDate) return fallback;
     const ts = Date.parse(rawDate);
     if (Number.isNaN(ts)) return String(rawDate);
@@ -76,6 +81,33 @@ function formatSidebarShortDate(rawDate, fallback = 'Unknown') {
         day: 'numeric',
         timeZone: 'UTC'
     });
+}
+
+function inferTrueEra(validIso, sourceEra, title, id) {
+    const combined = `${title} ${id}`.toLowerCase();
+    const ts = validIso ? Date.parse(validIso) : NaN;
+
+    if (!Number.isNaN(ts)) {
+        if (ts < ALPHA_CUTOFF_TS) return 'alpha';
+        if (ts < BETA_CUTOFF_TS) return 'beta';
+        // Post-2015 items are never Technical Alpha/Beta even if a JSON has a bad "alpha" tag
+        if (sourceEra === 'ptr' || combined.includes('ptr')) return 'ptr';
+        return 'live';
+    }
+
+    if (sourceEra === 'ptr' || combined.includes('ptr')) return 'ptr';
+    if (sourceEra === 'alpha' && combined.includes('alpha')) return 'alpha';
+    if (sourceEra === 'beta' && combined.includes('beta')) return 'beta';
+    return 'live';
+}
+
+function inferFeedType(item, sourceMeta, title) {
+    const rawFeed = String(item.FeedType ?? item.feedType ?? '').trim().toLowerCase();
+    const combined = `${item.patchType || ''} ${title}`.toLowerCase();
+
+    if (rawFeed === 'ptr' || combined.includes('ptr')) return 'ptr';
+    if (rawFeed === 'live') return 'live';
+    return sourceMeta.defaultFeed || 'live';
 }
 
 function resolveDetailPaths(item, era, id) {
@@ -93,7 +125,7 @@ function resolveDetailPaths(item, era, id) {
         '';
 
     const cleanExplicit = String(explicit || '').trim().replace(/^\/+/, '');
-    const safeEra = ['alpha', 'beta', 'live', 'ptr'].includes(era) ? era : 'live';
+    const safeFolder = ['alpha', 'beta', 'live', 'ptr'].includes(era) ? era : 'live';
     const safeId = encodeURIComponent(String(id || '').trim());
 
     const candidates = [];
@@ -106,127 +138,125 @@ function resolveDetailPaths(item, era, id) {
         } else if (cleanExplicit.includes('/')) {
             candidates.push(`${PATCH_DATA_DIR}/${cleanExplicit}`);
         } else {
-            candidates.push(`${PATCH_DATA_DIR}/${safeEra}/${cleanExplicit}`);
+            candidates.push(`${PATCH_DATA_DIR}/${safeFolder}/${cleanExplicit}`);
         }
     }
 
     if (safeId) {
-        candidates.push(`${PATCH_DATA_DIR}/${safeEra}/${safeId}.json`);
-        candidates.push(`${PATCH_DATA_DIR}/${safeEra}/${safeId}.txt`);
+        candidates.push(`${PATCH_DATA_DIR}/${safeFolder}/${safeId}.json`);
+        candidates.push(`${PATCH_DATA_DIR}/${safeFolder}/${safeId}.txt`);
     }
 
     return [...new Set(candidates)];
 }
 
-function extractInlineNotes(payload) {
+function extractPatchNotesText(payload) {
     if (!payload) return '';
-    if (typeof payload === 'string') return payload.trim();
+    if (typeof payload === 'string') {
+        const trimmed = payload.trim();
+        // Avoid dumping raw JSON objects as plain text
+        if (trimmed.startsWith('{') || trimmed.startsWith('[')) {
+            try {
+                return extractPatchNotesText(JSON.parse(trimmed));
+            } catch {
+                return '';
+            }
+        }
+        return trimmed;
+    }
+
     if (typeof payload !== 'object') return '';
 
-    const candidates = [
-        payload.patchNotes,
-        payload.PatchNotes,
-        payload.cleanedPatchNotes,
-        payload.CleanedPatchNotes,
-        payload.notes,
-        payload.Notes,
-        payload.body,
-        payload.Body,
-        payload.content,
-        payload.Content,
-        payload.description,
-        payload.Description
+    const keys = [
+        'patchNotes',
+        'PatchNotes',
+        'cleanedPatchNotes',
+        'CleanedPatchNotes',
+        'rawPatchNotes',
+        'RawPatchNotes',
+        'notes',
+        'Notes',
+        'body',
+        'Body',
+        'content',
+        'Content'
     ];
 
-    for (const val of candidates) {
+    for (const key of keys) {
+        const val = payload[key];
         if (typeof val === 'string' && val.trim()) {
             return val.trim();
         }
+        if (Array.isArray(val) && val.length) {
+            return val.map(v => (typeof v === 'string' ? v : JSON.stringify(v))).join('\n');
+        }
     }
+
     return '';
 }
 
-function formatPatchNotesHtml(rawText) {
+/**
+ * Formats patch notes in a clean Blizzard-like hierarchy:
+ * - Major headings (e.g. "=== Heroes ===" or "=== Heroes: Chromie ===")
+ * - Subheadings (e.g. "[Updates]", "[Bug Fixes]", "Talents", "Base", "Level 1")
+ * - Clean bulleted & sub-bulleted lists with bold lead-ins
+ */
+function formatBlizzlikePatchNotesHtml(rawText) {
     if (!rawText) {
-        return `<p class="text-slate-400 italic">No detailed patch note text recorded for this build.</p>`;
-    }
-
-    if (/<(p|ul|ol|div|section|article|table|h[1-6])\b/i.test(rawText) && !rawText.includes('===')) {
-        return rawText;
+        return `<p class="text-slate-400">No patch notes recorded for this build.</p>`;
     }
 
     const normalized = rawText.replace(/\r\n/g, '\n').trim();
     const lines = normalized.split('\n');
 
-    const blocks = [];
-    let currentSection = null;
-    let listStack = [];
+    const htmlParts = [];
+    let listStack = []; // { indent: number, items: [{ text, children: [] }] }
+
+    const listStyleByDepth = [
+        'list-disc pl-5 space-y-1.5 text-[14px] text-slate-200',
+        'list-[circle] pl-5 mt-1.5 space-y-1 text-[13.5px] text-slate-300',
+        'list-[square] pl-5 mt-1 space-y-1 text-[13px] text-slate-300'
+    ];
+
+    function renderNode(node, depth = 0) {
+        const ulClass = listStyleByDepth[Math.min(depth, listStyleByDepth.length - 1)];
+        const itemsHtml = node.items.map(item => {
+            const nestedHtml = item.children.length
+                ? renderNode({ indent: item.indent + 1, items: item.children }, depth + 1)
+                : '';
+            return `<li class="leading-relaxed">${formatBlizzLine(item.text)}${nestedHtml}</li>`;
+        }).join('');
+        return `<ul class="${ulClass}">${itemsHtml}</ul>`;
+    }
 
     function flushList() {
         if (!listStack.length) return;
-        blocks.push(renderListNode(listStack[0]));
+        htmlParts.push(renderNode(listStack[0], 0));
         listStack = [];
-    }
-
-    function renderListNode(node) {
-        const lis = node.items.map(entry => {
-            const childrenHtml = entry.children.length
-                ? `<ul class="list-disc pl-5 mt-1.5 space-y-1 text-slate-300">${entry.children.map(renderListItem).join('')}</ul>`
-                : '';
-            return `<li class="leading-relaxed">${formatInlineHighlight(entry.text)}${childrenHtml}</li>`;
-        }).join('');
-        return `<ul class="list-disc pl-5 space-y-1.5 text-slate-200">${lis}</ul>`;
-    }
-
-    function renderListItem(entry) {
-        const childrenHtml = entry.children.length
-            ? `<ul class="list-disc pl-5 mt-1 space-y-1 text-slate-300">${entry.children.map(renderListItem).join('')}</ul>`
-            : '';
-        return `<li class="leading-relaxed">${formatInlineHighlight(entry.text)}${childrenHtml}</li>`;
     }
 
     function addBullet(text, indentLevel) {
         if (!listStack.length) {
-            listStack.push({ indent: indentLevel, items: [{ text, children: [] }] });
+            listStack.push({ indent: indentLevel, items: [{ indent: indentLevel, text, children: [] }] });
             return;
         }
 
         const top = listStack[listStack.length - 1];
         if (indentLevel > top.indent) {
-            const parentItems = listStack[listStack.length - 1].items;
+            const parentItems = top.items;
             const lastParent = parentItems[parentItems.length - 1];
+            const childItem = { indent: indentLevel, text, children: [] };
             if (lastParent) {
-                lastParent.children.push({ text, children: [] });
+                lastParent.children.push(childItem);
+                listStack.push({ indent: indentLevel, items: lastParent.children });
             } else {
-                parentItems.push({ text, children: [] });
+                parentItems.push(childItem);
             }
-            listStack.push({ indent: indentLevel, items: lastParent ? lastParent.children : parentItems });
         } else {
             while (listStack.length > 1 && indentLevel < listStack[listStack.length - 1].indent) {
                 listStack.pop();
             }
-            listStack[listStack.length - 1].items.push({ text, children: [] });
-        }
-    }
-
-    function openSection(title) {
-        flushList();
-        currentSection = title;
-        blocks.push(`
-            <div class="pt-4 first:pt-0 mt-5 first:mt-0 border-t first:border-t-0 border-slate-800/90">
-                <h3 class="text-base font-bold tracking-tight text-sky-300 flex items-center gap-2 mb-2.5">
-                    <span class="w-1.5 h-4 rounded-full bg-sky-400 inline-block"></span>
-                    ${escapeHtml(title)}
-                </h3>
-                <div class="space-y-2.5">
-        `);
-    }
-
-    function closeSectionIfOpen() {
-        flushList();
-        if (currentSection !== null) {
-            blocks.push(`</div></div>`);
-            currentSection = null;
+            listStack[listStack.length - 1].items.push({ indent: indentLevel, text, children: [] });
         }
     }
 
@@ -239,56 +269,73 @@ function formatPatchNotesHtml(rawText) {
             continue;
         }
 
-        const sectionMatch = trimmed.match(/^={2,}\s*(.+?)\s*={2,}$/);
-        if (sectionMatch) {
-            closeSectionIfOpen();
-            openSection(sectionMatch[1]);
-            continue;
-        }
-
-        const subGroupMatch = trimmed.match(/^\[(Updates|Bug Fixes|Fixes|Changes|Releases)\]\s*$/i);
-        if (subGroupMatch) {
+        // Major section header: === General === or === Heroes: Chromie ===
+        const majorMatch = trimmed.match(/^={2,}\s*(.+?)\s*={2,}$/);
+        if (majorMatch) {
             flushList();
-            const label = subGroupMatch[1];
-            const isFix = /bug fix|fix/i.test(label);
-            const badgeStyle = isFix
-                ? 'text-emerald-300 bg-emerald-500/10 border-emerald-500/30'
-                : 'text-sky-300 bg-sky-500/10 border-sky-500/30';
-            blocks.push(`
-                <div class="mt-2 mb-1">
-                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-[11px] font-bold uppercase tracking-wider border ${badgeStyle}">
-                        ${escapeHtml(label)}
-                    </span>
-                </div>
-            `);
+            const headingText = majorMatch[1].trim();
+            const heroSplit = headingText.match(/^Heroes:\s*(.+)$/i);
+            if (heroSplit) {
+                htmlParts.push(
+                    `<h3 class="text-xl font-bold text-white pt-6 pb-1 mt-4 border-t border-slate-800/80 tracking-tight">${escapeHtml(heroSplit[1].trim())}</h3>`
+                );
+            } else {
+                htmlParts.push(
+                    `<h2 class="text-2xl font-bold text-white pt-7 pb-1.5 mt-5 border-t border-slate-800 tracking-tight first:pt-1 first:mt-0 first:border-t-0">${escapeHtml(headingText)}</h2>`
+                );
+            }
             continue;
         }
 
+        // Bracketed subgroup: [Updates], [Bug Fixes], [Releases]
+        const bracketMatch = trimmed.match(/^\[([^\]]+)\]\s*$/);
+        if (bracketMatch) {
+            flushList();
+            htmlParts.push(
+                `<h4 class="text-base font-bold text-slate-100 pt-3 pb-0.5">${escapeHtml(bracketMatch[1].trim())}</h4>`
+            );
+            continue;
+        }
+
+        // Bullet line: "• ...", "- ...", "* ..."
         const bulletMatch = line.match(/^(\s*)(?:•|[-*])\s+(.*)$/);
         if (bulletMatch) {
-            const leadingSpaces = bulletMatch[1].replace(/\t/g, '    ').length;
-            const indentLevel = Math.floor(leadingSpaces / 2);
+            const spaces = bulletMatch[1].replace(/\t/g, '    ').length;
+            const indentLevel = Math.floor(spaces / 2);
             addBullet(bulletMatch[2].trim(), indentLevel);
             continue;
         }
 
+        // Standalone short subsection line (e.g. "Talents", "Base", "Level 1", "Deth Lazor [W]")
+        const isStandaloneSubheading =
+            trimmed.length <= 48 &&
+            !/[.!?]$/.test(trimmed) &&
+            !/\b(increased|reduced|decreased|added|removed|fixed|updated)\b/i.test(trimmed);
+
+        if (isStandaloneSubheading) {
+            flushList();
+            htmlParts.push(
+                `<h4 class="text-[15px] font-bold text-slate-100 pt-3 pb-0.5">${escapeHtml(trimmed)}</h4>`
+            );
+            continue;
+        }
+
         flushList();
-        blocks.push(`<p class="text-sm text-slate-300 leading-relaxed">${formatInlineHighlight(trimmed)}</p>`);
+        htmlParts.push(
+            `<p class="text-[14px] text-slate-300 leading-relaxed">${formatBlizzLine(trimmed)}</p>`
+        );
     }
 
-    closeSectionIfOpen();
-    return blocks.join('\n');
+    flushList();
+    return htmlParts.join('\n');
 }
 
-function formatInlineHighlight(text) {
+function formatBlizzLine(text) {
     let safe = escapeHtml(text);
+    // Bold lead-in before a colon (e.g., "Cooldown:", "New Hero Released —")
     safe = safe.replace(
-        /^([A-Za-z0-9'’().\- /+]+?):(\s|$)/,
+        /^([A-Za-z0-9'’().\- /+\[\]]{2,50}):(\s|$)/,
         '<strong class="font-semibold text-white">$1:</strong>$2'
-    );
-    safe = safe.replace(
-        /\b(from)\s+([^,\s.;]+(?:\s+[^,\s.;]+){0,2}?)\s+(to)\s+([^,.;)]+)/gi,
-        '$1 <span class="font-mono text-rose-300/90">$2</span> $3 <span class="font-mono text-emerald-300">$4</span>'
     );
     return safe;
 }
@@ -300,28 +347,11 @@ function normalizeMasterEntry(item, sourceMeta, index) {
     const ts = rawDate ? Date.parse(rawDate) : NaN;
     const validIso = !Number.isNaN(ts) ? new Date(ts).toISOString() : null;
 
-    const rawFeed = String(item.FeedType ?? item.feedType ?? '').toLowerCase();
-    const feedType = rawFeed === 'ptr' || rawFeed === 'live'
-        ? rawFeed
-        : sourceMeta.defaultFeed;
-
-    const era = String(item.Era ?? item.era ?? sourceMeta.defaultEra).toLowerCase();
-    const isLegacy = Boolean(
-        item.isLegacy ||
-        item.IsLegacy ||
-        era === 'alpha' ||
-        era === 'beta' ||
-        (validIso && new Date(validIso).getUTCFullYear() <= 2021)
-    );
-
-    const rawLink = item.Link ?? item.link ?? item.officialLink ?? item.alternateLink ?? '';
-    const link = isSafeUrl(rawLink) ? String(rawLink).trim() : DEFAULT_HOTS_URL;
-
     const id = String(
         item.Id ??
         item.id ??
         item.internalId ??
-        `${era}-${index + 1}`
+        `${sourceMeta.sourceEra}-${index + 1}`
     ).trim();
 
     const title = String(
@@ -331,24 +361,30 @@ function normalizeMasterEntry(item, sourceMeta, index) {
         id
     ).trim();
 
+    const feedType = inferFeedType(item, sourceMeta, title);
+    const era = inferTrueEra(validIso, sourceMeta.sourceEra, title, id);
+    const isArchive = !Number.isNaN(ts) && ts < ARCHIVE_CUTOFF_TS;
+
+    const rawLink = item.Link ?? item.link ?? item.officialLink ?? item.alternateLink ?? '';
+    const link = isSafeUrl(rawLink) ? String(rawLink).trim() : DEFAULT_HOTS_URL;
+
     const patchVersion = String(item.PatchVersion ?? item.patchVersion ?? item.gameVersion ?? '').trim() || null;
     const fullVersion = String(item.FullVersion ?? item.fullVersion ?? '').trim() || null;
     const build = String(item.Build ?? item.build ?? item.liveBuild ?? '').trim() || null;
-    const inlineNotes = extractInlineNotes(item);
+    const inlineNotes = extractPatchNotesText(item);
 
     return {
         id,
         title,
-        subtitle: String(item.Subtitle ?? item.subtitle ?? '').trim() || null,
         date: item.Date || item.date || (validIso ? formatPatchDisplayDate(validIso) : 'Unknown Date'),
-        shortDate: validIso ? formatSidebarShortDate(validIso) : formatSidebarShortDate(rawDate),
+        listDate: validIso ? formatSidebarDate(validIso) : formatSidebarDate(rawDate),
         isoDate: validIso,
         feedType,
         era,
+        isArchive,
         patchVersion,
         fullVersion,
         build,
-        isLegacy,
         link,
         inlineNotes,
         detailPaths: resolveDetailPaths(item, era, id)
@@ -384,7 +420,7 @@ async function fetchAllMasterPatches() {
         )
     );
 
-    const allNormalized = [];
+    const normalized = [];
 
     for (let i = 0; i < MASTER_SOURCES.length; i++) {
         const res = responses[i];
@@ -397,12 +433,12 @@ async function fetchAllMasterPatches() {
             : (Array.isArray(data?.patches) ? data.patches : (Array.isArray(data?.items) ? data.items : []));
 
         rows.forEach((row, idx) => {
-            const normalized = normalizeMasterEntry(row, meta, idx);
-            if (normalized) allNormalized.push(normalized);
+            const entry = normalizeMasterEntry(row, meta, idx);
+            if (entry) normalized.push(entry);
         });
     }
 
-    CACHED_MASTER_PATCHES = deduplicateAndSortPatches(allNormalized);
+    CACHED_MASTER_PATCHES = deduplicateAndSortPatches(normalized);
     return CACHED_MASTER_PATCHES;
 }
 
@@ -412,7 +448,7 @@ async function fetchPatchDetailHtml(item) {
     }
 
     if (item.inlineNotes) {
-        const html = formatPatchNotesHtml(item.inlineNotes);
+        const html = formatBlizzlikePatchNotesHtml(item.inlineNotes);
         PATCH_DETAIL_CACHE.set(item.id, html);
         return html;
     }
@@ -425,21 +461,25 @@ async function fetchPatchDetailHtml(item) {
             const rawBody = await res.text();
             if (!rawBody.trim()) continue;
 
-            let extracted = rawBody.trim();
+            let notesText = '';
             if (candidateUrl.endsWith('.json')) {
                 const parsed = JSON.parse(rawBody);
-                extracted = extractInlineNotes(parsed) || rawBody.trim();
+                notesText = extractPatchNotesText(parsed);
+            } else {
+                notesText = extractPatchNotesText(rawBody);
             }
 
-            const html = formatPatchNotesHtml(extracted);
-            PATCH_DETAIL_CACHE.set(item.id, html);
-            return html;
+            if (notesText) {
+                const html = formatBlizzlikePatchNotesHtml(notesText);
+                PATCH_DETAIL_CACHE.set(item.id, html);
+                return html;
+            }
         } catch {
             // Try next candidate path
         }
     }
 
-    const fallbackHtml = `<p class="text-slate-400 italic">Patch detail file not found yet for <span class="font-mono text-slate-300">${escapeHtml(item.id)}</span>.</p>`;
+    const fallbackHtml = `<p class="text-slate-400">No patch note details available yet for <span class="font-mono text-slate-300">${escapeHtml(item.id)}</span>.</p>`;
     PATCH_DETAIL_CACHE.set(item.id, fallbackHtml);
     return fallbackHtml;
 }
@@ -451,10 +491,10 @@ async function loadLivePatchNotes() {
     renderPatchHeaderControls();
 
     listContainer.innerHTML = `
-        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 px-2 pb-2">
-            ${escapeHtml(CURRENT_FILTER.toUpperCase())} Updates
-        </h3>
-        <div class="text-xs text-sky-400 p-3 animate-pulse">Loading master lists...</div>
+        <div class="flex items-center justify-between px-2 pb-2">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">${escapeHtml(CURRENT_FILTER)} Feed</h3>
+        </div>
+        <div class="text-xs text-slate-400 p-3">Loading patch notes...</div>
     `;
 
     try {
@@ -470,12 +510,15 @@ async function loadLivePatchNotes() {
 
         if (ACTIVE_PATCH_ITEMS.length === 0) {
             listContainer.innerHTML = `
-                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 px-2 pb-2">Updates</h3>
-                <div class="text-xs text-slate-400 p-3 italic">No updates found in this category.</div>
+                <div class="flex items-center justify-between px-2 pb-2">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">${escapeHtml(CURRENT_FILTER)} Feed</h3>
+                    <span class="text-[10px] font-mono text-slate-500">0</span>
+                </div>
+                <div class="text-xs text-slate-400 p-3">No patches found in this feed.</div>
             `;
             const mainContent = document.getElementById('patch-main-content');
             if (mainContent) {
-                mainContent.innerHTML = `<div class="p-6 text-slate-400 text-sm">No patch notes available right now.</div>`;
+                mainContent.innerHTML = `<div class="p-6 text-slate-400 text-sm">No patch notes available.</div>`;
             }
             return;
         }
@@ -484,22 +527,20 @@ async function loadLivePatchNotes() {
         await selectPatchItem(ACTIVE_PATCH_ITEMS[0].id);
 
     } catch (err) {
-        console.warn('Failed to load master patch lists:', err);
-
+        console.warn('Failed to load patch notes:', err);
         ACTIVE_PATCH_ITEMS = [
             {
-                id: 'fallback-item',
-                title: 'Heroes of the Storm Update Feed',
+                id: 'fallback-feed',
+                title: 'Heroes of the Storm Patch Notes',
                 date: 'Recent',
-                shortDate: 'Recent',
+                listDate: 'Recent',
                 feedType: 'live',
                 era: 'live',
-                isLegacy: false,
+                isArchive: false,
                 link: DEFAULT_HOTS_URL,
-                inlineNotes: 'Master patch lists are syncing or not yet available.'
+                inlineNotes: 'Patch feeds are syncing. Please check back shortly.'
             }
         ];
-
         renderPatchSidebar(ACTIVE_PATCH_ITEMS);
         await selectPatchItem(ACTIVE_PATCH_ITEMS[0].id);
     }
@@ -543,10 +584,14 @@ function renderPatchSidebar(items) {
     const listContainer = document.getElementById('patch-sidebar-list');
     if (!listContainer) return;
 
+    const headerTitle = CURRENT_FILTER === 'all'
+        ? 'ALL FEED'
+        : `${CURRENT_FILTER.toUpperCase()} FEED`;
+
     listContainer.innerHTML = `
         <div class="flex items-center justify-between px-2 pb-2">
-            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">${escapeHtml(CURRENT_FILTER.toUpperCase())} Feed</h3>
-            <span class="text-[10px] font-mono text-slate-500">${items.length}</span>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">${escapeHtml(headerTitle)}</h3>
+            <span class="text-[11px] font-mono text-slate-500">${items.length}</span>
         </div>
     `;
 
@@ -554,26 +599,31 @@ function renderPatchSidebar(items) {
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.id = `btn-${CSS.escape(item.id)}`;
-        btn.className = 'w-full text-left p-3 rounded-xl border border-slate-800/90 bg-slate-950/50 hover:bg-slate-800/80 hover:border-slate-700 transition space-y-1.5 group';
+        btn.className = 'w-full text-left p-3.5 rounded-xl border border-slate-800/90 bg-slate-950/50 hover:bg-slate-800/70 hover:border-slate-700 transition space-y-2 group';
         btn.onclick = () => selectPatchItem(item.id);
 
-        const badgeColor = item.feedType === 'ptr'
-            ? 'text-amber-300 bg-amber-500/10 border-amber-500/30'
-            : 'text-sky-300 bg-sky-500/10 border-sky-500/30';
-        const badgeText = item.feedType ? item.feedType.toUpperCase() : 'NOTE';
-        const eraBadge = ['alpha', 'beta'].includes(item.era) ? item.era.toUpperCase() : '';
-        const versionTag = item.patchVersion || item.build || '';
+        const feedBadge = item.feedType === 'ptr'
+            ? `<span class="text-[10px] px-1.5 py-0.5 rounded font-mono font-semibold text-amber-300 bg-amber-500/15 border border-amber-500/30">PTR</span>`
+            : `<span class="text-[10px] px-1.5 py-0.5 rounded font-mono font-semibold text-sky-300 bg-sky-500/15 border border-sky-500/30">LIVE</span>`;
+
+        const eraPill = (item.era === 'alpha' || item.era === 'beta')
+            ? `<span class="text-[10px] px-1.5 py-0.5 rounded font-mono font-semibold text-purple-300 bg-purple-500/15 border border-purple-500/30 uppercase">${escapeHtml(item.era)}</span>`
+            : '';
+
+        const versionPill = item.patchVersion
+            ? `<span class="text-[10px] px-1.5 py-0.5 rounded font-mono text-slate-300 bg-slate-900 border border-slate-700/80">${escapeHtml(item.patchVersion)}</span>`
+            : '';
 
         btn.innerHTML = `
             <div class="flex items-center justify-between gap-2">
-                <span class="text-[11px] font-mono text-slate-400">${escapeHtml(item.shortDate || item.date)}</span>
+                <span class="text-xs text-slate-400">${escapeHtml(item.listDate || item.date)}</span>
                 <div class="flex items-center gap-1 shrink-0">
-                    ${eraBadge ? `<span class="text-[9px] px-1.5 py-0.5 rounded border font-mono text-purple-300 bg-purple-500/10 border-purple-500/30">${escapeHtml(eraBadge)}</span>` : ''}
-                    ${versionTag ? `<span class="text-[9px] px-1.5 py-0.5 rounded border font-mono text-slate-300 bg-slate-900 border-slate-700/80">${escapeHtml(versionTag)}</span>` : ''}
-                    ${CURRENT_FILTER === 'all' ? `<span class="text-[9px] px-1.5 py-0.5 rounded border font-mono ${badgeColor}">${escapeHtml(badgeText)}</span>` : ''}
+                    ${eraPill}
+                    ${versionPill}
+                    ${feedBadge}
                 </div>
             </div>
-            <h4 class="text-xs font-bold text-slate-200 group-hover:text-white line-clamp-2 leading-snug">${escapeHtml(item.title)}</h4>
+            <h4 class="text-sm font-bold text-slate-100 group-hover:text-white leading-snug">${escapeHtml(item.title)}</h4>
         `;
         listContainer.appendChild(btn);
     });
@@ -599,27 +649,27 @@ async function selectPatchItem(id) {
         ? 'View Source Thread on Reddit'
         : 'View Full Article on Blizzard';
 
-    const buildMeta = [
+    const metaParts = [
         item.era ? `Era <span class="text-slate-200 font-semibold uppercase">${escapeHtml(item.era)}</span>` : null,
         item.patchVersion ? `Patch <span class="text-slate-200 font-semibold">${escapeHtml(item.patchVersion)}</span>` : null,
-        item.fullVersion && item.fullVersion !== item.patchVersion ? `Version <span class="text-slate-200 font-semibold">${escapeHtml(item.fullVersion)}</span>` : null,
+        item.fullVersion ? `Version <span class="text-slate-200 font-semibold">${escapeHtml(item.fullVersion)}</span>` : null,
         item.build ? `Build <span class="text-slate-200 font-semibold">${escapeHtml(item.build)}</span>` : null
     ].filter(Boolean);
 
     mainContent.innerHTML = `
-        <article class="space-y-5">
+        <article class="space-y-6">
             <header class="border-b border-slate-800 pb-4 space-y-2">
                 <div class="flex flex-wrap items-center gap-2">
                     <span class="text-xs font-mono text-sky-400">${escapeHtml(item.date)}</span>
-                    ${item.feedType ? `<span class="text-[10px] px-2 py-0.5 rounded border font-mono uppercase ${item.feedType === 'ptr' ? 'text-amber-300 bg-amber-500/10 border-amber-500/30' : 'text-sky-300 bg-sky-500/10 border-sky-500/30'}">${escapeHtml(item.feedType)}</span>` : ''}
-                    ${item.isLegacy ? `<span class="text-[10px] px-2 py-0.5 rounded border font-mono uppercase text-slate-300 bg-slate-800/90 border-slate-700">Archive</span>` : ''}
+                    <span class="text-[10px] px-2 py-0.5 rounded font-mono uppercase ${item.feedType === 'ptr' ? 'text-amber-300 bg-amber-500/15 border border-amber-500/30' : 'text-sky-300 bg-sky-500/15 border border-sky-500/30'}">${escapeHtml(item.feedType)}</span>
+                    ${item.isArchive ? `<span class="text-[10px] px-2 py-0.5 rounded font-mono uppercase text-slate-300 bg-slate-800 border border-slate-700">Archive</span>` : ''}
                 </div>
-                <h2 class="text-2xl font-bold text-white tracking-tight">${escapeHtml(item.title)}</h2>
-                ${buildMeta.length ? `<div class="text-xs font-mono text-slate-400 flex flex-wrap gap-x-4 gap-y-1">${buildMeta.join('<span>·</span>')}</div>` : ''}
+                <h2 class="text-3xl font-bold text-white tracking-tight">${escapeHtml(item.title)}</h2>
+                ${metaParts.length ? `<div class="text-xs font-mono text-slate-400 flex flex-wrap gap-x-4 gap-y-1">${metaParts.join('<span>·</span>')}</div>` : ''}
             </header>
 
-            <div id="patch-notes-body" class="text-sm text-slate-300 leading-relaxed space-y-3">
-                <div class="text-xs text-sky-400 py-2 animate-pulse">Loading patch notes from ${escapeHtml(item.era)}...</div>
+            <div id="patch-notes-body" class="space-y-2">
+                <div class="text-xs text-slate-400 py-2">Loading patch notes...</div>
             </div>
 
             <footer class="pt-4 border-t border-slate-800 flex justify-end">
