@@ -15,6 +15,14 @@ let builderHeroId = null;
 let builderHeroData = null;
 let builderSelectedTalents = [1, 1, 1, 1, 1, 1, 1];
 
+const HERO_DATA_CACHE = new Map();
+const PRELOADED_HERO_KEYS = new Set();
+let heroSearchPreloadTimer = null;
+
+const TALENT_TIERS = ['1', '4', '7', '10', '13', '16', '20'];
+const TOOLTIP_CURSOR_GAP = 16;
+const TOOLTIP_VIEWPORT_MARGIN = 8;
+
 
 // ==========================================
 // 2. INITIALIZATION & ROUTING
@@ -37,13 +45,17 @@ document.addEventListener('DOMContentLoaded', async () => {
                 ? HOTS_MASTER_DATA
                 : Object.values(HOTS_MASTER_DATA);
 
-            MASTER_HERO_LIST = rawHeroes.map(h => ({
-                id: h.id || h.hyperlinkId || h.attributeId,
-                name: h.name || 'Unknown Hero',
-                title: h.title || 'Nexus Combatant',
-                role: (h.roles && h.roles[0]) || h.expandedRole || 'Nexus Combatant',
-                portrait: getHeroPortrait(h)
-            }));
+            MASTER_HERO_LIST = rawHeroes.map(h => {
+                const id = h.id || h.hyperlinkId || h.attributeId;
+                return {
+                    id,
+                    name: h.name || 'Unknown Hero',
+                    title: h.title || 'Nexus Combatant',
+                    role: (h.roles && h.roles[0]) || h.expandedRole || 'Nexus Combatant',
+                    portrait: getHeroPortrait(h),
+                    searchText: `${h.name || ''} ${id || ''}`.toLowerCase()
+                };
+            });
 
             preloadAllAssets(rawHeroes);
         }
@@ -92,7 +104,8 @@ function navigateTo(tab, params = {}, push = true) {
         }
     });
 
-    if (q.toString()) url += '?' + q.toString();
+    const queryString = q.toString();
+    if (queryString) url += '?' + queryString;
 
     if (push) {
         history.pushState({ tab, params }, '', url);
@@ -138,7 +151,7 @@ function handleRoute() {
 function switchTabUI(t) {
     const activeTab = t === 'heroes' ? 'builds' : t;
 
-    const states = {
+    const viewStates = {
         'view-home': activeTab === 'home',
         'view-builds': activeTab === 'builds',
         'view-map': activeTab === 'map',
@@ -148,14 +161,14 @@ function switchTabUI(t) {
         'view-tierlist': activeTab === 'tierlist'
     };
 
-    Object.entries(states).forEach(([id, on]) => {
+    Object.entries(viewStates).forEach(([id, on]) => {
         document.getElementById(id)?.classList.toggle('hidden', !on);
     });
 
-    const sidebar = document.getElementById('sidebar-container');
-    if (sidebar) {
-        sidebar.classList.toggle('hidden', activeTab !== 'builds' && activeTab !== 'builder');
-    }
+    document.getElementById('sidebar-container')?.classList.toggle(
+        'hidden',
+        activeTab !== 'builds' && activeTab !== 'builder'
+    );
 
     const navStates = {
         'nav-home': activeTab === 'home',
@@ -177,17 +190,50 @@ function switchTabUI(t) {
 
 
 // ==========================================
-// 3. SIDEBAR & SEARCH
+// 3. SIDEBAR, SEARCH & PREDICTIVE PRELOAD
 // ==========================================
+
+function getRawHeroEntry(heroId) {
+    if (!heroId) return null;
+    if (typeof resolveHeroMasterData === 'function') {
+        return resolveHeroMasterData(heroId);
+    }
+    if (Array.isArray(HOTS_MASTER_DATA)) {
+        return HOTS_MASTER_DATA.find(h => (h?.id || h?.hyperlinkId || h?.attributeId) === heroId) || null;
+    }
+    return HOTS_MASTER_DATA?.[heroId] || null;
+}
+
+function warmHeroAssets(matches) {
+    if (!Array.isArray(matches) || matches.length === 0) return;
+
+    const rawEntries = [];
+    for (const m of matches.slice(0, 3)) {
+        const key = String(m.id || '').toLowerCase();
+        if (!key || PRELOADED_HERO_KEYS.has(key)) continue;
+
+        const raw = getRawHeroEntry(m.id);
+        if (!raw) continue;
+
+        PRELOADED_HERO_KEYS.add(key);
+        rawEntries.push(raw);
+
+        // Pre-normalize hero structure in memory so clicking is instantaneous
+        getNormalizedHeroData(m.id);
+    }
+
+    if (rawEntries.length > 0 && typeof preloadAllAssets === 'function') {
+        preloadAllAssets(rawEntries);
+    }
+}
 
 function renderHeroSidebar(heroes) {
     const list = document.getElementById('hero-list');
     if (!list) return;
 
-    list.innerHTML = '';
-
     const isBuilder = !document.getElementById('view-builder')?.classList.contains('hidden');
     const activeId = isBuilder ? builderHeroId : currentSelectedHeroId;
+    const frag = document.createDocumentFragment();
 
     heroes.forEach(h => {
         const tier = getHeroTier(h.id);
@@ -211,7 +257,7 @@ function renderHeroSidebar(heroes) {
 
         btn.innerHTML = `
             <div class="flex items-center gap-3 min-w-0">
-                <img src="${getAssetUrl(h.portrait)}" onerror="this.src='https://via.placeholder.com/56?text=H'" class="w-14 h-14 object-contain">
+                <img src="${getAssetUrl(h.portrait)}" onerror="this.src='https://via.placeholder.com/56?text=H'" class="w-14 h-14 object-contain" loading="lazy">
                 <div class="min-w-0 flex-1">
                     <h4 class="text-sm font-bold truncate">${h.name}</h4>
                     <p class="text-xs text-slate-400 truncate">${h.role || 'Nexus Combatant'}</p>
@@ -222,8 +268,10 @@ function renderHeroSidebar(heroes) {
             </div>
         `;
 
-        list.appendChild(btn);
+        frag.appendChild(btn);
     });
+
+    list.replaceChildren(frag);
 
     const countEl = document.getElementById('hero-count');
     if (countEl) {
@@ -232,23 +280,48 @@ function renderHeroSidebar(heroes) {
 }
 
 function filterHeroes() {
-    const q = (document.getElementById('hero-search')?.value || '').toLowerCase();
-    renderHeroSidebar(
-        MASTER_HERO_LIST.filter(h =>
-            h.name.toLowerCase().includes(q) || h.id.toLowerCase().includes(q)
-        )
-    );
+    const q = (document.getElementById('hero-search')?.value || '').trim().toLowerCase();
+    const matches = q
+        ? MASTER_HERO_LIST.filter(h => h.searchText.includes(q))
+        : MASTER_HERO_LIST;
+
+    renderHeroSidebar(matches);
+
+    clearTimeout(heroSearchPreloadTimer);
+    if (q) {
+        heroSearchPreloadTimer = setTimeout(() => warmHeroAssets(matches), 75);
+    }
 }
 
 
 // ==========================================
-// 4. UNIFIED HEADER RENDERERS
+// 4. UNIFIED HERO DATA & HEADER RENDERERS
 // ==========================================
+
+function getNormalizedHeroData(id) {
+    if (!id) return null;
+    if (HERO_DATA_CACHE.has(id)) return HERO_DATA_CACHE.get(id);
+
+    const h = resolveHeroMasterData(id);
+    if (!h) return null;
+
+    const normalized = {
+        id,
+        name: h.name || id,
+        title: h.title || 'Nexus Combatant',
+        role: (h.roles && h.roles[0]) || h.expandedRole || 'Nexus Combatant',
+        portrait: getHeroPortrait(h),
+        abilities: flattenHeroAbilities(h),
+        talents: normalizeTalentTree(h.talents || h.talentTree || {})
+    };
+
+    HERO_DATA_CACHE.set(id, normalized);
+    return normalized;
+}
 
 function renderAbilityStrip(abilitiesList, containerId) {
     const box = document.getElementById(containerId);
     if (!box) return;
-    box.innerHTML = '';
 
     const list = (abilitiesList || []).filter(a => {
         const keyUpper = String(a.key || '').toUpperCase();
@@ -274,6 +347,7 @@ function renderAbilityStrip(abilitiesList, containerId) {
         return;
     }
 
+    const frag = document.createDocumentFragment();
     list.forEach(a => {
         const el = document.createElement('div');
         el.className = 'flex flex-col items-center gap-1 bg-slate-950/60 border border-slate-800 rounded-xl p-1.5 min-w-12';
@@ -284,8 +358,10 @@ function renderAbilityStrip(abilitiesList, containerId) {
             <span class="text-[10px] font-mono font-bold text-sky-300">${a.key || 'Z'}</span>
             ${a.variant ? `<span class="text-[8px] text-slate-400 max-w-16 truncate" title="${a.variant}">${a.variant}</span>` : ''}
         `;
-        box.appendChild(el);
+        frag.appendChild(el);
     });
+
+    box.replaceChildren(frag);
 }
 
 function renderHeroHeader(heroData) {
@@ -340,24 +416,15 @@ async function selectHero(id, update = true) {
         navigateTo('builds', { hero: id });
     }
 
-    renderHeroSidebar(MASTER_HERO_LIST);
+    filterHeroes();
 
-    const h = resolveHeroMasterData(id);
-    if (!h) {
+    const heroData = getNormalizedHeroData(id);
+    if (!heroData) {
         console.error('Missing hero master entry', id);
         return;
     }
 
-    currentHeroData = {
-        id,
-        name: h.name || id,
-        title: h.title || 'Nexus Combatant',
-        role: (h.roles && h.roles[0]) || h.expandedRole || 'Nexus Combatant',
-        portrait: getHeroPortrait(h),
-        abilities: flattenHeroAbilities(h),
-        talents: normalizeTalentTree(h.talents || h.talentTree || {})
-    };
-
+    currentHeroData = heroData;
     renderHeroHeader(currentHeroData);
     renderActiveBuild();
 }
@@ -369,16 +436,16 @@ function renderActiveBuild() {
     const d = PERSONAL_BUILDS.find(x => normalizeHeroKey(x.heroId) === normalizeHeroKey(h.id));
     const tabs = document.getElementById('build-tabs');
     const notes = document.getElementById('detail-notes');
-
     if (!tabs || !notes) return;
-    tabs.innerHTML = '';
 
     if (!d?.builds?.length) {
+        tabs.innerHTML = '';
         notes.innerText = 'No notes added for this hero yet.';
         renderBuildStrip(h, null);
         return;
     }
 
+    const frag = document.createDocumentFragment();
     d.builds.forEach((v, i) => {
         const b = document.createElement('button');
         b.type = 'button';
@@ -392,8 +459,10 @@ function renderActiveBuild() {
             currentBuildIndex = i;
             renderActiveBuild();
         });
-        tabs.appendChild(b);
+        frag.appendChild(b);
     });
+
+    tabs.replaceChildren(frag);
 
     const v = d.builds[currentBuildIndex] || d.builds[0];
     notes.innerHTML = v.notes || 'No notes added yet.';
@@ -403,11 +472,11 @@ function renderActiveBuild() {
 function renderBuildStrip(h, code) {
     const box = document.getElementById('build-strip');
     if (!box) return;
-    box.innerHTML = '';
 
     const p = decodeBuildCode(code);
+    const frag = document.createDocumentFragment();
 
-    ['1', '4', '7', '10', '13', '16', '20'].forEach((l, i) => {
+    TALENT_TIERS.forEach((l, i) => {
         const t = h.talents[l]?.[p[i] - 1] || h.talents[l]?.[0];
         const el = document.createElement('div');
 
@@ -423,22 +492,19 @@ function renderBuildStrip(h, code) {
                 <span class="text-[10px] text-center text-slate-200 truncate max-w-20" title="${t.name}">${t.name}</span>
             `;
         } else {
-            el.innerHTML = `
-                <span class="text-[10px] text-slate-500">Lv ${l} · none</span>
-            `;
+            el.innerHTML = `<span class="text-[10px] text-slate-500">Lv ${l} · none</span>`;
         }
 
-        box.appendChild(el);
+        frag.appendChild(el);
     });
+
+    box.replaceChildren(frag);
 }
 
 
 // ==========================================
 // 6. TOOLTIPS
 // ==========================================
-
-const TOOLTIP_CURSOR_GAP = 16;
-const TOOLTIP_VIEWPORT_MARGIN = 8;
 
 function positionTooltip(clientX, clientY) {
     const tip = document.getElementById('talent-tooltip');
@@ -448,7 +514,6 @@ function positionTooltip(clientX, clientY) {
     const viewportWidth = document.documentElement.clientWidth;
     const viewportHeight = document.documentElement.clientHeight;
 
-    // Keep the tooltip beside the pointer, flipping sides when it would leave the viewport.
     let left = clientX + TOOLTIP_CURSOR_GAP;
     if (left + width > viewportWidth - TOOLTIP_VIEWPORT_MARGIN) {
         left = clientX - width - TOOLTIP_CURSOR_GAP;
@@ -465,11 +530,7 @@ function positionTooltip(clientX, clientY) {
     tip.style.top = `${top}px`;
 }
 
-function followTooltipPointer(e) {
-    positionTooltip(e.clientX, e.clientY);
-}
-
-document.addEventListener('pointermove', followTooltipPointer, { passive: true });
+document.addEventListener('pointermove', e => positionTooltip(e.clientX, e.clientY), { passive: true });
 
 function showAbilityTooltip(e, a) {
     showTooltip(e, a.name, `Ability [${a.key}]${a.variant ? ' · ' + a.variant : ''}`, a.desc, a.icon);
