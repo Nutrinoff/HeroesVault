@@ -1,0 +1,30 @@
+{
+  "Id": "hotfix-patch-notes-august-12-2014",
+  "Title": "Rehgar Hotfix Patch #2",
+  "Subtitle": "Technical Alpha hotfix patch 0.5.0.31726 (August 12, 2014), second Rehgar hotfix entry (no official patch notes verified here).",
+  "Date": "Aug 12, 2014",
+  "IsoDate": "2014-08-12",
+  "FeedType": "alpha",
+  "Era": "alpha",
+  "PatchVersion": "5.0",
+  "FullVersion": "5.0.31726",
+  "Build": "31726",
+  "Link": "http://us.battle.net/heroes/en/forum/topic/13778708143",
+  "Links": [
+    "http://us.battle.net/heroes/en/forum/topic/13778708143"
+  ],
+  "Affected": [],
+  "Highlights": "Technical Alpha hotfix patch 0.5.0.31726 (August 12, 2014), second Rehgar hotfix entry (no official patch notes verified here).",
+  "CleanedNotes": "=== General ===\r\n  \u2022 - Verified: no official patch notes available for this hotfix build.",
+  "Sections": {
+    "General": [
+      "  \u2022 - Verified: no official patch notes available for this hotfix build."
+    ]
+  },
+  "PatchFile": "alpha/2014-08-12-v5-0-31726-rehgar-hotfix-patch-2-alpha.json",
+  "Sources": [
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "manual-edit"
+  ]
+}

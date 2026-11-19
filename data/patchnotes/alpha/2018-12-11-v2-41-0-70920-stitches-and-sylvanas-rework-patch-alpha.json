@@ -1,0 +1,399 @@
+{
+  "Id": "patch-notes-december-11-2018",
+  "Title": "Stitches and Sylvanas Rework Patch",
+  "Subtitle": "2019 Gameplay Update XP changes (Structures, Mercenaries, Trickle XP) Armor stacking removed Catapult changes Hero hitbox reductions Ranked Season 1 (2019)",
+  "Date": "Dec 11, 2018",
+  "IsoDate": "2018-12-11",
+  "FeedType": "alpha",
+  "Era": "alpha",
+  "PatchVersion": "2.41.0",
+  "FullVersion": "2.41.0.70920",
+  "Build": "70920",
+  "Link": "https://heroesofthestorm.com/en-us/blog/22821338",
+  "Links": [
+    "https://heroesofthestorm.com/en-us/blog/22821338",
+    "https://news.blizzard.com/heroes-of-the-storm/22821338",
+    "https://heroesofthestorm.fandom.com/wiki/Anub%27arak",
+    "https://heroesofthestorm.fandom.com/wiki/Butcher",
+    "https://heroesofthestorm.fandom.com/wiki/Chen",
+    "https://heroesofthestorm.fandom.com/wiki/Diablo",
+    "https://heroesofthestorm.fandom.com/wiki/E.T.C.",
+    "https://heroesofthestorm.fandom.com/wiki/Fenix",
+    "https://heroesofthestorm.fandom.com/wiki/Gazlowe",
+    "https://heroesofthestorm.fandom.com/wiki/Lt._Morales",
+    "https://heroesofthestorm.fandom.com/wiki/Nova",
+    "https://heroesofthestorm.fandom.com/wiki/Raynor",
+    "https://heroesofthestorm.fandom.com/wiki/Rexxar",
+    "https://heroesofthestorm.fandom.com/wiki/Stitches",
+    "https://heroesofthestorm.fandom.com/wiki/Sylvanas",
+    "https://heroesofthestorm.fandom.com/wiki/Tassadar",
+    "https://heroesofthestorm.fandom.com/wiki/Tyrael",
+    "https://heroesofthestorm.fandom.com/wiki/Uther",
+    "https://heroesofthestorm.fandom.com/wiki/Valeera",
+    "https://heroesofthestorm.fandom.com/wiki/Zul%27jin",
+    "https://heroesofthestorm.fandom.com/wiki/Volskaya_Foundry",
+    "https://heroesofthestorm.fandom.com/wiki/Toys",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/22821338"
+  ],
+  "Affected": [
+    "Heroes (excluding hitbox changes): Anub\u0027arak",
+    "Butcher",
+    "Chen",
+    "Diablo",
+    "E.T.C.",
+    "Fenix",
+    "Gazlowe",
+    "Lt. Morales",
+    "Nova",
+    "Raynor",
+    "Rexxar",
+    "Stitches (Reworked)",
+    "Sylvanas (Reworked)",
+    "Tassadar",
+    "Tyrael",
+    "Uther",
+    "Valeera",
+    "Zul\u0027jin Battleground updates: Volskaya Foundry Event: Toys",
+    "Alterac Pass",
+    "Battlefield of Eternity",
+    "Blackheart\u0027s Bay",
+    "Braxis Holdout",
+    "Cursed Hollow",
+    "Dragon Shire",
+    "Garden of Terror",
+    "Hanamura Temple",
+    "Haunted Mines",
+    "Infernal Shrines",
+    "Sky Temple",
+    "Tomb of the Spider Queen",
+    "Towers of Doom",
+    "Volskaya Foundry",
+    "Warhead Junction",
+    "Anub\u0027arak",
+    "Brightwing",
+    "Cho",
+    "Chromie",
+    "Deckard",
+    "ETC",
+    "Kel\u0027Thuzad",
+    "Leoric",
+    "Lunara",
+    "Stitches",
+    "Stukov",
+    "Sylvanas",
+    "The Butcher",
+    "Zul\u0027jin"
+  ],
+  "Highlights": "2019 Gameplay Update XP changes (Structures, Mercenaries, Trickle XP) Armor stacking removed Catapult changes Hero hitbox reductions Ranked Season 1 (2019)",
+  "CleanedNotes": "=== Battlegrounds: Alterac Pass ===\r\n[Updates]\r\n  Mercenaries:\r\n  \u2022 Siege Camp\r\n    \u2022 Experience increased by 100%.\r\n  \u2022 Boss Camp\r\n    \u2022 Experience increased by 100%.\r\n    \u2022 Now flagged as Elite, making it Unstoppable and Unbribable.\r\n\r\n=== Battlegrounds: Battlefield of Eternity ===\r\n[Updates]\r\n  Mercenaries:\r\n  \u2022 Siege Camp\r\n    \u2022 Experience increased by 100%.\r\n  \u2022 Bruiser Camp\r\n    \u2022 Experience increased by 100%.\r\n\r\n=== Battlegrounds: Blackheart\u0027s Bay ===\r\n[Updates]\r\n  Mercenaries:\r\n  \u2022 Siege Camp\r\n    \u2022 Experience increased by 100%.\r\n  \u2022 Bruiser Camp\r\n    \u2022 Experience increased by 100%.\r\n  \u2022 Boss Camp\r\n    \u2022 Experience increased by 100%.\r\n    \u2022 Now flagged as Elite, making it Unstoppable and Unbribable.\r\n\r\n=== Battlegrounds: Braxis Holdout ===\r\n[Updates]\r\n  Mercenaries:\r\n  \u2022 Siege Camp\r\n    \u2022 Experience increased by 100%.\r\n  \u2022 Bruiser Camp\r\n    \u2022 Experience increased by 100%.\r\n  \u2022 Boss Camp\r\n    \u2022 Experience increased by 100%.\r\n    \u2022 Now flagged as Elite, making it Unstoppable and Unbribable.\r\n\r\n=== Battlegrounds: Cursed Hollow ===\r\n[Updates]\r\n  Mercenaries:\r\n  \u2022 Siege Camp\r\n    \u2022 Experience increased by 100%.\r\n  \u2022 Bruiser Camp\r\n    \u2022 Experience increased by 100%.\r\n  \u2022 Boss Camp\r\n    \u2022 Experience increased by 100%.\r\n    \u2022 Now flagged as Elite, making it Unstoppable and Unbribable.\r\n\r\n=== Battlegrounds: Dragon Shire ===\r\n[Updates]\r\n  Mercenaries:\r\n  \u2022 Siege Camp\r\n    \u2022 Experience increased by 100%.\r\n  \u2022 Bruiser Camp\r\n    \u2022 Experience increased by 100%.\r\n\r\n=== Battlegrounds: Garden of Terror ===\r\n[Updates]\r\n  Mercenaries:\r\n  \u2022 Siege Camp\r\n    \u2022 Experience increased by 100%.\r\n  \u2022 Bruiser Camp\r\n    \u2022 Experience increased by 100%.\r\n\r\n=== Battlegrounds: Hanamura Temple ===\r\n[Updates]\r\n  Mercenaries:\r\n  \u2022 Recon Camp\r\n    \u2022 Experience increased by 100%.\r\n  \u2022 Sentinel Camp\r\n    \u2022 Experience increased by 100%.\r\n    \u2022 Now flagged as Elite, making it Unstoppable and Unbribable.\r\n\r\n=== Battlegrounds: Haunted Mines ===\r\n[Updates]\r\n  Mercenaries:\r\n  \u2022 Siege Camp\r\n    \u2022 Experience increased by 100%.\r\n  \u2022 Sapper Camp\r\n    \u2022 Experience increased by 100%.\r\n\r\n=== Battlegrounds: Infernal Shrines ===\r\n[Updates]\r\n  Mercenaries:\r\n  \u2022 Siege Camp\r\n    \u2022 Experience increased by 100%.\r\n  \u2022 Bruiser Camp\r\n    \u2022 Experience increased by 100%.\r\n\r\n=== Battlegrounds: Sky Temple ===\r\n[Updates]\r\n  Mercenaries:\r\n  \u2022 Siege Camp\r\n    \u2022 Experience increased by 100%.\r\n  \u2022 Bruiser Camp\r\n    \u2022 Experience increased by 100%.\r\n  \u2022 Boss Camp\r\n    \u2022 Experience increased by 100%.\r\n    \u2022 Now flagged as Elite, making it Unstoppable and Unbribable.\r\n\r\n=== Battlegrounds: Tomb of the Spider Queen ===\r\n[Updates]\r\n  Mercenaries:\r\n  \u2022 Siege Camp\r\n    \u2022 Experience increased by 100%.\r\n  \u2022 Bruiser Camp\r\n    \u2022 Experience increased by 100%.\r\n  \u2022 Boss Camp\r\n    \u2022 Experience increased by 100%.\r\n    \u2022 Now flagged as Elite, making it Unstoppable and Unbribable.\r\n\r\n=== Battlegrounds: Towers of Doom ===\r\n[Updates]\r\n  Mercenaries:\r\n  \u2022 Sapper Camp\r\n    \u2022 Experience increased by 100%.\r\n  \u2022 Boss Camp\r\n    \u2022 Experience increased by 100%.\r\n    \u2022 Now flagged as Elite, making it Unstoppable and Unbribable.\r\n\r\n=== Battlegrounds: Volskaya Foundry ===\r\n[Updates]\r\n  Mercenaries:\r\n  \u2022 Siege Camp\r\n    \u2022 Experience increased by 100%.\r\n  \u2022 Support Camp\r\n    \u2022 Now flagged as Elite, making it Unstoppable and Unbribable.\r\n\r\n=== Battlegrounds: Warhead Junction ===\r\n[Updates]\r\n  Mercenaries:\r\n  \u2022 Siege Camp\r\n    \u2022 Experience increased by 100%.\r\n  \u2022 Bruiser Camp\r\n    \u2022 Experience increased by 100%.\r\n  \u2022 Boss Camp\r\n    \u2022 Experience increased by 100%.\r\n    \u2022 Now flagged as Elite, making it Unstoppable and Unbribable.\r\n\r\n=== Heroes: Anub\u0027arak ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Nerubian Armor (W)\r\n      \u2022 New functionality: Increase the Spell Armor granted from Harden Carapace by 20\r\n\r\n=== Heroes: Brightwing ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue preventing Brightwing from applying the Sticky Flare talent effect if it hit more than one target.\r\n  \u2022 Fixed an issue preventing Brightwing from applying the Hush! talent effect if it hit more than one target.\r\n\r\n=== Heroes: Chen ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 7\r\n    \u2022 Purifying Brew (Trait)\r\n      \u2022 Spell Armor increased from 30 to 40\r\n  \u2022 Level 20\r\n    \u2022 Untapped Potential (R)\r\n      \u2022 Armor increased from 50 to 60\r\n\r\n=== Heroes: Cho ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 16\r\n    \u2022 Twilight Veil (Active)\r\n      \u2022 [Undocumented] Armor bonus reduced from 200% to 100%.\r\n\r\n=== Heroes: Chromie ===\r\n[Bug Fixes]\r\n  \u2022 Dragon\u0027s Breath\u0027s warning splat will now display after the ability has been cast.\r\n\r\n=== Heroes: Deckard ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue causing Deckard\u0027s portal to be visible in Fog of War when using Hearthstone.\r\n\r\n=== Heroes: Diablo ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 4\r\n    \u2022 Sacrificial Soul (Q)\r\n      \u2022 Armor increased from 20 to 25\r\n      \u2022 Armor at max Souls increased from 40 to 50\r\n\r\n=== Heroes: ETC ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Rockstar (Trait)\r\n    \u2022 Armor increased from 20 to 25\r\n  Talents:\r\n  \u2022 Level 16\r\n    \u2022 Show Stopper (Q)\r\n      \u2022 Armor increased from 15 to 35\r\n\r\n=== Heroes: Fenix ===\r\n[Updates]\r\n\r\n=== Heroes: Gazlowe ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Robo-Goblin (R)\r\n    \u2022 Armor increased from 30 to 40\r\n\r\n=== Heroes: Kel\u0027Thuzad ===\r\n[Bug Fixes]\r\n  \u2022 Added a quick-cast option for Glacial Spike.\r\n\r\n=== Heroes: Leoric ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that allowed Drain Hope\u0027s damage and healing to persist through time stop effects.\r\n\r\n=== Heroes: Lt. Morales ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Safeguard (W)\r\n    \u2022 Armor increased from 25 to 30\r\n  Talents:\r\n  \u2022 Level 4\r\n    \u2022 Trauma Trigger (Passive)\r\n      \u2022 Armor increased from 30 to 40\r\n\r\n=== Heroes: Lunara ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue preventing Lunara from playing a voice line when she died.\r\n\r\n=== Heroes: Nova ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 7\r\n    \u2022 Anti-Armor Shells (Passive)\r\n      \u2022 Physical Armor shred increased from 10 to 15\r\n\r\n=== Heroes: Raynor ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 16\r\n    \u2022 Bounty Hunter (Trait)\r\n      \u2022 Armor increased from 5 to 10\r\n\r\n=== Heroes: Rexxar ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 4\r\n    \u2022 Hunter-Gatherer (Passive)\r\n      \u2022 Armor increased from 10 to 15\r\n\r\n=== Heroes: Stitches ===\r\n[Updates]\r\n[Bug Fixes]\r\n  \u2022 Serrated Edge no longer deals bonus damage to friendly targets when using Helping Hand.\r\n\r\n=== Heroes: Stukov ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue causing Massive Shove to remove Weighted Pustule from its target.\r\n\r\n=== Heroes: Sylvanas ===\r\n[Updates]\r\n\r\n=== Heroes: Tassadar ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 4\r\n    \u2022 Khala\u0027s Light (Q)\r\n      \u2022 Armor increased from 15 to 20\r\n\r\n=== Heroes: The Butcher ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 16\r\n    \u2022 Enraged (Passive)\r\n      \u2022 Armor increased from 15 to 25\r\n\r\n=== Heroes: Tyrael ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 20\r\n    \u2022 Defense of the Angels (Active)\r\n      \u2022 Armor increased from 40 to 50\r\n\r\n=== Heroes: Uther ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Devotion (Trait)\r\n    \u2022 Armor increased from 15 to 25\r\n\r\n=== Heroes: Valeera ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Smoke Bomb (R)\r\n    \u2022 Armor increased from 25 to 30\r\n\r\n=== Heroes: Zul\u0027jin ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 4\r\n    \u2022 Amani Hide (Active)\r\n      \u2022 Armor increased from 10 to 15\r\n[Bug Fixes]\r\n  \u2022 Added a quick-cast option for Amani Rage.",
+  "Sections": {
+    "Battlegrounds: Alterac Pass": [
+      "[Updates]",
+      "  Mercenaries:",
+      "  \u2022 Siege Camp",
+      "    \u2022 Experience increased by 100%.",
+      "  \u2022 Boss Camp",
+      "    \u2022 Experience increased by 100%.",
+      "    \u2022 Now flagged as Elite, making it Unstoppable and Unbribable."
+    ],
+    "Battlegrounds: Battlefield of Eternity": [
+      "[Updates]",
+      "  Mercenaries:",
+      "  \u2022 Siege Camp",
+      "    \u2022 Experience increased by 100%.",
+      "  \u2022 Bruiser Camp",
+      "    \u2022 Experience increased by 100%."
+    ],
+    "Battlegrounds: Blackheart\u0027s Bay": [
+      "[Updates]",
+      "  Mercenaries:",
+      "  \u2022 Siege Camp",
+      "    \u2022 Experience increased by 100%.",
+      "  \u2022 Bruiser Camp",
+      "    \u2022 Experience increased by 100%.",
+      "  \u2022 Boss Camp",
+      "    \u2022 Experience increased by 100%.",
+      "    \u2022 Now flagged as Elite, making it Unstoppable and Unbribable."
+    ],
+    "Battlegrounds: Braxis Holdout": [
+      "[Updates]",
+      "  Mercenaries:",
+      "  \u2022 Siege Camp",
+      "    \u2022 Experience increased by 100%.",
+      "  \u2022 Bruiser Camp",
+      "    \u2022 Experience increased by 100%.",
+      "  \u2022 Boss Camp",
+      "    \u2022 Experience increased by 100%.",
+      "    \u2022 Now flagged as Elite, making it Unstoppable and Unbribable."
+    ],
+    "Battlegrounds: Cursed Hollow": [
+      "[Updates]",
+      "  Mercenaries:",
+      "  \u2022 Siege Camp",
+      "    \u2022 Experience increased by 100%.",
+      "  \u2022 Bruiser Camp",
+      "    \u2022 Experience increased by 100%.",
+      "  \u2022 Boss Camp",
+      "    \u2022 Experience increased by 100%.",
+      "    \u2022 Now flagged as Elite, making it Unstoppable and Unbribable."
+    ],
+    "Battlegrounds: Dragon Shire": [
+      "[Updates]",
+      "  Mercenaries:",
+      "  \u2022 Siege Camp",
+      "    \u2022 Experience increased by 100%.",
+      "  \u2022 Bruiser Camp",
+      "    \u2022 Experience increased by 100%."
+    ],
+    "Battlegrounds: Garden of Terror": [
+      "[Updates]",
+      "  Mercenaries:",
+      "  \u2022 Siege Camp",
+      "    \u2022 Experience increased by 100%.",
+      "  \u2022 Bruiser Camp",
+      "    \u2022 Experience increased by 100%."
+    ],
+    "Battlegrounds: Hanamura Temple": [
+      "[Updates]",
+      "  Mercenaries:",
+      "  \u2022 Recon Camp",
+      "    \u2022 Experience increased by 100%.",
+      "  \u2022 Sentinel Camp",
+      "    \u2022 Experience increased by 100%.",
+      "    \u2022 Now flagged as Elite, making it Unstoppable and Unbribable."
+    ],
+    "Battlegrounds: Haunted Mines": [
+      "[Updates]",
+      "  Mercenaries:",
+      "  \u2022 Siege Camp",
+      "    \u2022 Experience increased by 100%.",
+      "  \u2022 Sapper Camp",
+      "    \u2022 Experience increased by 100%."
+    ],
+    "Battlegrounds: Infernal Shrines": [
+      "[Updates]",
+      "  Mercenaries:",
+      "  \u2022 Siege Camp",
+      "    \u2022 Experience increased by 100%.",
+      "  \u2022 Bruiser Camp",
+      "    \u2022 Experience increased by 100%."
+    ],
+    "Battlegrounds: Sky Temple": [
+      "[Updates]",
+      "  Mercenaries:",
+      "  \u2022 Siege Camp",
+      "    \u2022 Experience increased by 100%.",
+      "  \u2022 Bruiser Camp",
+      "    \u2022 Experience increased by 100%.",
+      "  \u2022 Boss Camp",
+      "    \u2022 Experience increased by 100%.",
+      "    \u2022 Now flagged as Elite, making it Unstoppable and Unbribable."
+    ],
+    "Battlegrounds: Tomb of the Spider Queen": [
+      "[Updates]",
+      "  Mercenaries:",
+      "  \u2022 Siege Camp",
+      "    \u2022 Experience increased by 100%.",
+      "  \u2022 Bruiser Camp",
+      "    \u2022 Experience increased by 100%.",
+      "  \u2022 Boss Camp",
+      "    \u2022 Experience increased by 100%.",
+      "    \u2022 Now flagged as Elite, making it Unstoppable and Unbribable."
+    ],
+    "Battlegrounds: Towers of Doom": [
+      "[Updates]",
+      "  Mercenaries:",
+      "  \u2022 Sapper Camp",
+      "    \u2022 Experience increased by 100%.",
+      "  \u2022 Boss Camp",
+      "    \u2022 Experience increased by 100%.",
+      "    \u2022 Now flagged as Elite, making it Unstoppable and Unbribable."
+    ],
+    "Battlegrounds: Volskaya Foundry": [
+      "[Updates]",
+      "  Mercenaries:",
+      "  \u2022 Siege Camp",
+      "    \u2022 Experience increased by 100%.",
+      "  \u2022 Support Camp",
+      "    \u2022 Now flagged as Elite, making it Unstoppable and Unbribable."
+    ],
+    "Battlegrounds: Warhead Junction": [
+      "[Updates]",
+      "  Mercenaries:",
+      "  \u2022 Siege Camp",
+      "    \u2022 Experience increased by 100%.",
+      "  \u2022 Bruiser Camp",
+      "    \u2022 Experience increased by 100%.",
+      "  \u2022 Boss Camp",
+      "    \u2022 Experience increased by 100%.",
+      "    \u2022 Now flagged as Elite, making it Unstoppable and Unbribable."
+    ],
+    "Heroes: Anub\u0027arak": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Nerubian Armor (W)",
+      "      \u2022 New functionality: Increase the Spell Armor granted from Harden Carapace by 20"
+    ],
+    "Heroes: Brightwing": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue preventing Brightwing from applying the Sticky Flare talent effect if it hit more than one target.",
+      "  \u2022 Fixed an issue preventing Brightwing from applying the Hush! talent effect if it hit more than one target."
+    ],
+    "Heroes: Chen": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 7",
+      "    \u2022 Purifying Brew (Trait)",
+      "      \u2022 Spell Armor increased from 30 to 40",
+      "  \u2022 Level 20",
+      "    \u2022 Untapped Potential (R)",
+      "      \u2022 Armor increased from 50 to 60"
+    ],
+    "Heroes: Cho": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 16",
+      "    \u2022 Twilight Veil (Active)",
+      "      \u2022 [Undocumented] Armor bonus reduced from 200% to 100%."
+    ],
+    "Heroes: Chromie": [
+      "[Bug Fixes]",
+      "  \u2022 Dragon\u0027s Breath\u0027s warning splat will now display after the ability has been cast."
+    ],
+    "Heroes: Deckard": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue causing Deckard\u0027s portal to be visible in Fog of War when using Hearthstone."
+    ],
+    "Heroes: Diablo": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 4",
+      "    \u2022 Sacrificial Soul (Q)",
+      "      \u2022 Armor increased from 20 to 25",
+      "      \u2022 Armor at max Souls increased from 40 to 50"
+    ],
+    "Heroes: ETC": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Rockstar (Trait)",
+      "    \u2022 Armor increased from 20 to 25",
+      "  Talents:",
+      "  \u2022 Level 16",
+      "    \u2022 Show Stopper (Q)",
+      "      \u2022 Armor increased from 15 to 35"
+    ],
+    "Heroes: Fenix": [
+      "[Updates]"
+    ],
+    "Heroes: Gazlowe": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Robo-Goblin (R)",
+      "    \u2022 Armor increased from 30 to 40"
+    ],
+    "Heroes: Kel\u0027Thuzad": [
+      "[Bug Fixes]",
+      "  \u2022 Added a quick-cast option for Glacial Spike."
+    ],
+    "Heroes: Leoric": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that allowed Drain Hope\u0027s damage and healing to persist through time stop effects."
+    ],
+    "Heroes: Lt. Morales": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Safeguard (W)",
+      "    \u2022 Armor increased from 25 to 30",
+      "  Talents:",
+      "  \u2022 Level 4",
+      "    \u2022 Trauma Trigger (Passive)",
+      "      \u2022 Armor increased from 30 to 40"
+    ],
+    "Heroes: Lunara": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue preventing Lunara from playing a voice line when she died."
+    ],
+    "Heroes: Nova": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 7",
+      "    \u2022 Anti-Armor Shells (Passive)",
+      "      \u2022 Physical Armor shred increased from 10 to 15"
+    ],
+    "Heroes: Raynor": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 16",
+      "    \u2022 Bounty Hunter (Trait)",
+      "      \u2022 Armor increased from 5 to 10"
+    ],
+    "Heroes: Rexxar": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 4",
+      "    \u2022 Hunter-Gatherer (Passive)",
+      "      \u2022 Armor increased from 10 to 15"
+    ],
+    "Heroes: Stitches": [
+      "[Updates]",
+      "[Bug Fixes]",
+      "  \u2022 Serrated Edge no longer deals bonus damage to friendly targets when using Helping Hand."
+    ],
+    "Heroes: Stukov": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue causing Massive Shove to remove Weighted Pustule from its target."
+    ],
+    "Heroes: Sylvanas": [
+      "[Updates]"
+    ],
+    "Heroes: Tassadar": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 4",
+      "    \u2022 Khala\u0027s Light (Q)",
+      "      \u2022 Armor increased from 15 to 20"
+    ],
+    "Heroes: The Butcher": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 16",
+      "    \u2022 Enraged (Passive)",
+      "      \u2022 Armor increased from 15 to 25"
+    ],
+    "Heroes: Tyrael": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 20",
+      "    \u2022 Defense of the Angels (Active)",
+      "      \u2022 Armor increased from 40 to 50"
+    ],
+    "Heroes: Uther": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Devotion (Trait)",
+      "    \u2022 Armor increased from 15 to 25"
+    ],
+    "Heroes: Valeera": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Smoke Bomb (R)",
+      "    \u2022 Armor increased from 25 to 30"
+    ],
+    "Heroes: Zul\u0027jin": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 4",
+      "    \u2022 Amani Hide (Active)",
+      "      \u2022 Armor increased from 10 to 15",
+      "[Bug Fixes]",
+      "  \u2022 Added a quick-cast option for Amani Rage."
+    ]
+  },
+  "PatchFile": "alpha/2018-12-11-v2-41-0-70920-stitches-and-sylvanas-rework-patch-alpha.json",
+  "Sources": [
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2018-12-11-live.html"
+  ]
+}

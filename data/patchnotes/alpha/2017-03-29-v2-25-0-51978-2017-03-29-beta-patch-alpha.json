@@ -1,0 +1,79 @@
+{
+  "Id": "npn-2017-03-29-2.25.0",
+  "Title": "2017-03-29 Beta Patch",
+  "Subtitle": "=== Heroes: Cassia ===",
+  "Date": "Mar 29, 2017",
+  "IsoDate": "2017-03-29",
+  "FeedType": "alpha",
+  "Era": "alpha",
+  "PatchVersion": "2.25.0",
+  "FullVersion": "2.25.0.51978",
+  "Build": "51978",
+  "Link": "https://news.blizzard.com/en-us/heroes-of-the-storm/20638783",
+  "Links": [
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/20638783"
+  ],
+  "Affected": [
+    "Cassia",
+    "ETC",
+    "The Butcher"
+  ],
+  "Highlights": "=== Heroes: Cassia ===",
+  "CleanedNotes": "=== Heroes: Cassia ===\r\n[Releases]\r\n  Cassia, Amazon Warmatron, has been added to the Nexus and is now available for play! Read on for a brief overview of her Abilities.:\r\n  Trait:\r\n  \u2022 Avoidance\r\n    \u2022 When moving unmounted, Cassia gains 65 Physical Armor against Heroic Basic Attacks, reducing the damage taken by 65%.\r\n  Basic Abilities:\r\n  \u2022 Lightning Fury (Q)\r\n    \u2022 Hurl a javelin that damages the first enemy hit, and splits into two lightning bolts that deal damage to enemies in their paths.\r\n  \u2022 Blinding Light (W)\r\n    \u2022 After 0.5 seconds, Blind enemies in the target area for 2 seconds.\r\n    \u2022 Passive: Cassia deals 15% increased damage to Blinded targets.\r\n  \u2022 Fend (E)\r\n    \u2022 Charge at an enemy and on arrival channel for 1.5 seconds, damaging enemies in front of Cassia every 0.25 seconds.\r\n    \u2022 Deals 50% reduced damage to non-Heroes.\r\n  Heroic Abilities:\r\n  \u2022 Ball Lightning (R)\r\n    \u2022 Throw a ball of lightning at an enemy Hero that bounces up to 6 times between nearby enemy Heroes and Cassia, damaging enemies hit.\r\n  \u2022 Valkyrie (R)\r\n    \u2022 Summon a Valkyrie that rushes to Cassia after 0.75 seconds, pulling and damaging the first enemy Hero hit and stunning them for 0.5 seconds at the end of her rush.\r\n    \u2022 The Valkyrie knocks back all other enemy Heroes in her way.\r\n\r\n=== Heroes: ETC ===\r\n[Updates]\r\n  Stats:\r\n  \u2022 Health reduced from 2428 to 2100\r\n  \u2022 Health Regeneration reduced from 5.06 to 4.37\r\n  Abilities:\r\n  \u2022 Rockstar (Trait)\r\n    \u2022 Redesigned:\r\n      \u2022 Instead of increasing nearby allies\u0027 Basic Attack speeds, Rockstar now grants E.T.C. 20 Armor for 2 seconds when he uses a Basic or Heroic Ability. This effect does not stack with itself.\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Guitar Hero (E)\r\n      \u2022 Healing gained from Basic Attacks increased from 35% to 40%.\r\n      \u2022 No longer increases Attack Speed.\r\n  \u2022 Level 7\r\n    \u2022 Echo Pedal (Passive)\r\n      \u2022 Damage reduced from 29 to 15.\r\n      \u2022 Damage bonus against Minions and Mercenaries increased from 75% to 250%.\r\n  \u2022 Level 16\r\n    \u2022 Show Stopper (Q)\r\n      \u2022 Armor reduced from 25 to 15.\r\n\r\n=== Heroes: The Butcher ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Fresh Meat (Trait)\r\n    \u2022 Hold ALT and click the Fresh Meat Ability icon to notify allies of The Butcher\u0027s current number of Meat stacks.",
+  "Sections": {
+    "Heroes: Cassia": [
+      "[Releases]",
+      "  Cassia, Amazon Warmatron, has been added to the Nexus and is now available for play! Read on for a brief overview of her Abilities.:",
+      "  Trait:",
+      "  \u2022 Avoidance",
+      "    \u2022 When moving unmounted, Cassia gains 65 Physical Armor against Heroic Basic Attacks, reducing the damage taken by 65%.",
+      "  Basic Abilities:",
+      "  \u2022 Lightning Fury (Q)",
+      "    \u2022 Hurl a javelin that damages the first enemy hit, and splits into two lightning bolts that deal damage to enemies in their paths.",
+      "  \u2022 Blinding Light (W)",
+      "    \u2022 After 0.5 seconds, Blind enemies in the target area for 2 seconds.",
+      "    \u2022 Passive: Cassia deals 15% increased damage to Blinded targets.",
+      "  \u2022 Fend (E)",
+      "    \u2022 Charge at an enemy and on arrival channel for 1.5 seconds, damaging enemies in front of Cassia every 0.25 seconds.",
+      "    \u2022 Deals 50% reduced damage to non-Heroes.",
+      "  Heroic Abilities:",
+      "  \u2022 Ball Lightning (R)",
+      "    \u2022 Throw a ball of lightning at an enemy Hero that bounces up to 6 times between nearby enemy Heroes and Cassia, damaging enemies hit.",
+      "  \u2022 Valkyrie (R)",
+      "    \u2022 Summon a Valkyrie that rushes to Cassia after 0.75 seconds, pulling and damaging the first enemy Hero hit and stunning them for 0.5 seconds at the end of her rush.",
+      "    \u2022 The Valkyrie knocks back all other enemy Heroes in her way."
+    ],
+    "Heroes: ETC": [
+      "[Updates]",
+      "  Stats:",
+      "  \u2022 Health reduced from 2428 to 2100",
+      "  \u2022 Health Regeneration reduced from 5.06 to 4.37",
+      "  Abilities:",
+      "  \u2022 Rockstar (Trait)",
+      "    \u2022 Redesigned:",
+      "      \u2022 Instead of increasing nearby allies\u0027 Basic Attack speeds, Rockstar now grants E.T.C. 20 Armor for 2 seconds when he uses a Basic or Heroic Ability. This effect does not stack with itself.",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Guitar Hero (E)",
+      "      \u2022 Healing gained from Basic Attacks increased from 35% to 40%.",
+      "      \u2022 No longer increases Attack Speed.",
+      "  \u2022 Level 7",
+      "    \u2022 Echo Pedal (Passive)",
+      "      \u2022 Damage reduced from 29 to 15.",
+      "      \u2022 Damage bonus against Minions and Mercenaries increased from 75% to 250%.",
+      "  \u2022 Level 16",
+      "    \u2022 Show Stopper (Q)",
+      "      \u2022 Armor reduced from 25 to 15."
+    ],
+    "Heroes: The Butcher": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Fresh Meat (Trait)",
+      "    \u2022 Hold ALT and click the Fresh Meat Ability icon to notify allies of The Butcher\u0027s current number of Meat stacks."
+    ]
+  },
+  "PatchFile": "alpha/2017-03-29-v2-25-0-51978-2017-03-29-beta-patch-alpha.json",
+  "Sources": [
+    "2017-03-29-beta.html"
+  ]
+}

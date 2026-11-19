@@ -1,0 +1,148 @@
+{
+  "Id": "patch-notes-june-12-2018",
+  "Title": "Yrel Patch",
+  "Subtitle": "Event: Echoes of Alterac New Hero: Yrel New Battleground: Alterac Pass (Available since June 19)",
+  "Date": "Jun 12, 2018",
+  "IsoDate": "2018-06-12",
+  "FeedType": "alpha",
+  "Era": "alpha",
+  "PatchVersion": "2.34.0",
+  "FullVersion": "2.34.0.65751",
+  "Build": "65751",
+  "Link": "https://heroesofthestorm.com/en-us/blog/21849060",
+  "Links": [
+    "https://heroesofthestorm.com/en-us/blog/21849060",
+    "https://news.blizzard.com/heroes-of-the-storm/21849060",
+    "https://heroesofthestorm.fandom.com/wiki/Echoes_of_Alterac",
+    "https://heroesofthestorm.fandom.com/wiki/Yrel",
+    "https://heroesofthestorm.fandom.com/wiki/Alterac_Pass",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/21849060"
+  ],
+  "Affected": [
+    "Alterac Pass",
+    "Abathur",
+    "Artanis",
+    "Chromie",
+    "Deckard",
+    "Fenix",
+    "Gall",
+    "Genji",
+    "Greymane",
+    "Leoric",
+    "Li-Ming",
+    "Medivh",
+    "Ragnaros",
+    "Stukov",
+    "Tassadar",
+    "Tychus",
+    "Yrel"
+  ],
+  "Highlights": "Event: Echoes of Alterac New Hero: Yrel New Battleground: Alterac Pass (Available since June 19)",
+  "CleanedNotes": "=== Battlegrounds: Alterac Pass ===\r\n[Updates]\r\n  \u2022 Alterac Pass has been added to the Nexus and is now available for play!\r\n\r\n=== Heroes: Abathur ===\r\n[Bug Fixes]\r\n  \u2022 Removed an excess visual effect that could appear after casting Symbiote on a Monstrosity while using the Xenotech Abathur skin.\r\n  \u2022 Ultimate Evolution clones of Lil\u0027 Ragnaros will now use the correct death model when the Ability expires or the clone is destroyed.\r\n  \u2022 Increased the volume of Xenotech Abathur\u0027s voiceover lines during Symbiote.\r\n  \u2022 Symbiote now correctly creates a crown icon above an allied target\u0027s minimap portrait.\r\n\r\n=== Heroes: Artanis ===\r\n[Bug Fixes]\r\n  \u2022 Purifier Beam is now correctly interrupted if its target is a Hero with a post death effect, like Leoric or Uther, who is killed while the Ability is being cast.\r\n  \u2022 Damage dealt by the Plasma Burn Talent now displays correctly in Death Recaps.\r\n\r\n=== Heroes: Chromie ===\r\n[Bug Fixes]\r\n  \u2022 A.I. Chromie will no longer cast Temporal Loop on Vehicles, like the Dragon Knight or Garden Terror.\r\n\r\n=== Heroes: Deckard ===\r\n[Bug Fixes]\r\n  \u2022 Casting Horadric Cube while on a conveyor belt no longer causes the Ability\u0027s area of effect to disjoint from its visual effects.\r\n  \u2022 Casting Scroll of Sealing while on a conveyor belt no longer causes the Ability\u0027s area of effect to disjoint from its visual effects.\r\n  \u2022 Fixed an issue that could prevent a Healing Potion from being picked up if it was placed between an injured ally and Deckard when Deckard is at full Health.\r\n\r\n=== Heroes: Fenix ===\r\n[Bug Fixes]\r\n  \u2022 Offensive Cadence will no longer stop functioning if Fenix is killed when his next Basic Attack would have triggered the Talent\u0027s bonus damage.\r\n\r\n=== Heroes: Gall ===\r\n[Bug Fixes]\r\n  \u2022 The Double Back Talent now displays the base Dread Orb icon art the Talent selection pane.\r\n\r\n=== Heroes: Genji ===\r\n[Bug Fixes]\r\n  \u2022 Genji no longer occasionally uses a default pose after being affected by a Time Stop effect during Dragonblade.\r\n\r\n=== Heroes: Greymane ===\r\n[Bug Fixes]\r\n  \u2022 Hunter Greymane no longer hides his face behind his shoulder pad on the post-match summary screen.\r\n\r\n=== Heroes: Leoric ===\r\n[Bug Fixes]\r\n  \u2022 The Consume Vitality Talent now displays the base Skeletal Swing icon art in the Talent selection pane.\r\n  \u2022 Reduced the volume of Leoric\u0027s Basic Attack sound effects.\r\n\r\n=== Heroes: Li-Ming ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue causing Disintegrate to deal one less damage tick than intended.\r\n\r\n=== Heroes: Medivh ===\r\n[Bug Fixes]\r\n  \u2022 The Mystic Assault Talent and Arcane Rift\u0027s quest icon now display the base Arcane Rift icon art.\r\n\r\n=== Heroes: Ragnaros ===\r\n[Bug Fixes]\r\n  \u2022 When cast on Ragnaros in his normal form, Alarak\u0027s Rite of Rak\u0027shir and Alexstrasza\u0027s Blessing of the Red will not persist after casting Molten Core. However, Ragnaros will regain those marks once Molten Core expires.\r\n\r\n=== Heroes: Stukov ===\r\n[Bug Fixes]\r\n  \u2022 Healing done by the Superstrain Talent no longer displays as \u201CUnknown\u201D in Death Recaps.\r\n\r\n=== Heroes: Tassadar ===\r\n[Bug Fixes]\r\n  \u2022 The Psi-Infusion Talent now displays the base Psionic Storm icon art in the Talent selection pane.\r\n\r\n=== Heroes: Tychus ===\r\n[Bug Fixes]\r\n  \u2022 Enemy A.I. Tychus was a little too chatty on the battlefield. He\u0027s been ordered to do less talkin\u0027 and more fightin\u0027.\r\n  \u2022 The Event Log now correctly displays the yellow Run and Gun icon upon completing the Dash Talent\u0027s quest.\r\n\r\n=== Heroes: Yrel ===\r\n[Releases]\r\n  Yrel, Light of Hope, has been added to the Nexus and is now available for play! Read on for a brief overview of her Abilities.:\r\n  \u2022 Divine Purpose (D)\r\n    \u2022 Activate to instantly charge Yrel\u0027s next Basic Ability at no mana cost.\r\n    \u2022 Passive: Yrel\u0027s Basic Abilities charge up over 1.5 seconds, increasing in effectiveness, but reducing Yrel\u0027s Movement Speed by 25%.\r\n  \u2022 Vindication (Q)\r\n    \u2022 Unleash holy energy around Yrel, dealing 38 damage to nearby enemies and healing her for 96.\r\n    \u2022 Charging up this Ability increases its damage up to ~~125~~ 140 , and Healing up to 320.\r\n  \u2022 Righteous Hammer (W)\r\n    \u2022 Swing Yrel\u0027s hammer, dealing 38 damage to enemies in front of her and knocking them away.\r\n    \u2022 Charging up this Ability increases its knockback distance, and damage up to 125. Enemies hit at maximum charge are Stunned for 0.75 seconds.\r\n  \u2022 Avenging Wrath (E)\r\n    \u2022 Leap to a location, dealing 150 damage to enemies in an area and Slowing them by 50% for 1 second.\r\n    \u2022 Charging up this Ability increases its range.\r\n  \u2022 Ardent Defender (R)\r\n    \u2022 Surround Yrel in a barrier for 3 seconds, absorbing all damage taken and Healing her for 50% of the damage received.\r\n  \u2022 Sacred Ground (R)\r\n    \u2022 Yrel sanctifies the ground around her, gaining 40 Armor until she leaves the area.\r\n[Updates]\r\n  Stats:\r\n  \u2022 Basic Attack damage increased from 140 to 155.\r\n  Abilities:\r\n  \u2022 Vindication (Q)\r\n    \u2022 Charged up damage increased from 125 to 140.",
+  "Sections": {
+    "Battlegrounds: Alterac Pass": [
+      "[Updates]",
+      "  \u2022 Alterac Pass has been added to the Nexus and is now available for play!"
+    ],
+    "Heroes: Abathur": [
+      "[Bug Fixes]",
+      "  \u2022 Removed an excess visual effect that could appear after casting Symbiote on a Monstrosity while using the Xenotech Abathur skin.",
+      "  \u2022 Ultimate Evolution clones of Lil\u0027 Ragnaros will now use the correct death model when the Ability expires or the clone is destroyed.",
+      "  \u2022 Increased the volume of Xenotech Abathur\u0027s voiceover lines during Symbiote.",
+      "  \u2022 Symbiote now correctly creates a crown icon above an allied target\u0027s minimap portrait."
+    ],
+    "Heroes: Artanis": [
+      "[Bug Fixes]",
+      "  \u2022 Purifier Beam is now correctly interrupted if its target is a Hero with a post death effect, like Leoric or Uther, who is killed while the Ability is being cast.",
+      "  \u2022 Damage dealt by the Plasma Burn Talent now displays correctly in Death Recaps."
+    ],
+    "Heroes: Chromie": [
+      "[Bug Fixes]",
+      "  \u2022 A.I. Chromie will no longer cast Temporal Loop on Vehicles, like the Dragon Knight or Garden Terror."
+    ],
+    "Heroes: Deckard": [
+      "[Bug Fixes]",
+      "  \u2022 Casting Horadric Cube while on a conveyor belt no longer causes the Ability\u0027s area of effect to disjoint from its visual effects.",
+      "  \u2022 Casting Scroll of Sealing while on a conveyor belt no longer causes the Ability\u0027s area of effect to disjoint from its visual effects.",
+      "  \u2022 Fixed an issue that could prevent a Healing Potion from being picked up if it was placed between an injured ally and Deckard when Deckard is at full Health."
+    ],
+    "Heroes: Fenix": [
+      "[Bug Fixes]",
+      "  \u2022 Offensive Cadence will no longer stop functioning if Fenix is killed when his next Basic Attack would have triggered the Talent\u0027s bonus damage."
+    ],
+    "Heroes: Gall": [
+      "[Bug Fixes]",
+      "  \u2022 The Double Back Talent now displays the base Dread Orb icon art the Talent selection pane."
+    ],
+    "Heroes: Genji": [
+      "[Bug Fixes]",
+      "  \u2022 Genji no longer occasionally uses a default pose after being affected by a Time Stop effect during Dragonblade."
+    ],
+    "Heroes: Greymane": [
+      "[Bug Fixes]",
+      "  \u2022 Hunter Greymane no longer hides his face behind his shoulder pad on the post-match summary screen."
+    ],
+    "Heroes: Leoric": [
+      "[Bug Fixes]",
+      "  \u2022 The Consume Vitality Talent now displays the base Skeletal Swing icon art in the Talent selection pane.",
+      "  \u2022 Reduced the volume of Leoric\u0027s Basic Attack sound effects."
+    ],
+    "Heroes: Li-Ming": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue causing Disintegrate to deal one less damage tick than intended."
+    ],
+    "Heroes: Medivh": [
+      "[Bug Fixes]",
+      "  \u2022 The Mystic Assault Talent and Arcane Rift\u0027s quest icon now display the base Arcane Rift icon art."
+    ],
+    "Heroes: Ragnaros": [
+      "[Bug Fixes]",
+      "  \u2022 When cast on Ragnaros in his normal form, Alarak\u0027s Rite of Rak\u0027shir and Alexstrasza\u0027s Blessing of the Red will not persist after casting Molten Core. However, Ragnaros will regain those marks once Molten Core expires."
+    ],
+    "Heroes: Stukov": [
+      "[Bug Fixes]",
+      "  \u2022 Healing done by the Superstrain Talent no longer displays as \u201CUnknown\u201D in Death Recaps."
+    ],
+    "Heroes: Tassadar": [
+      "[Bug Fixes]",
+      "  \u2022 The Psi-Infusion Talent now displays the base Psionic Storm icon art in the Talent selection pane."
+    ],
+    "Heroes: Tychus": [
+      "[Bug Fixes]",
+      "  \u2022 Enemy A.I. Tychus was a little too chatty on the battlefield. He\u0027s been ordered to do less talkin\u0027 and more fightin\u0027.",
+      "  \u2022 The Event Log now correctly displays the yellow Run and Gun icon upon completing the Dash Talent\u0027s quest."
+    ],
+    "Heroes: Yrel": [
+      "[Releases]",
+      "  Yrel, Light of Hope, has been added to the Nexus and is now available for play! Read on for a brief overview of her Abilities.:",
+      "  \u2022 Divine Purpose (D)",
+      "    \u2022 Activate to instantly charge Yrel\u0027s next Basic Ability at no mana cost.",
+      "    \u2022 Passive: Yrel\u0027s Basic Abilities charge up over 1.5 seconds, increasing in effectiveness, but reducing Yrel\u0027s Movement Speed by 25%.",
+      "  \u2022 Vindication (Q)",
+      "    \u2022 Unleash holy energy around Yrel, dealing 38 damage to nearby enemies and healing her for 96.",
+      "    \u2022 Charging up this Ability increases its damage up to ~~125~~ 140 , and Healing up to 320.",
+      "  \u2022 Righteous Hammer (W)",
+      "    \u2022 Swing Yrel\u0027s hammer, dealing 38 damage to enemies in front of her and knocking them away.",
+      "    \u2022 Charging up this Ability increases its knockback distance, and damage up to 125. Enemies hit at maximum charge are Stunned for 0.75 seconds.",
+      "  \u2022 Avenging Wrath (E)",
+      "    \u2022 Leap to a location, dealing 150 damage to enemies in an area and Slowing them by 50% for 1 second.",
+      "    \u2022 Charging up this Ability increases its range.",
+      "  \u2022 Ardent Defender (R)",
+      "    \u2022 Surround Yrel in a barrier for 3 seconds, absorbing all damage taken and Healing her for 50% of the damage received.",
+      "  \u2022 Sacred Ground (R)",
+      "    \u2022 Yrel sanctifies the ground around her, gaining 40 Armor until she leaves the area.",
+      "[Updates]",
+      "  Stats:",
+      "  \u2022 Basic Attack damage increased from 140 to 155.",
+      "  Abilities:",
+      "  \u2022 Vindication (Q)",
+      "    \u2022 Charged up damage increased from 125 to 140."
+    ]
+  },
+  "PatchFile": "alpha/2018-06-12-v2-34-0-65751-yrel-patch-alpha.json",
+  "Sources": [
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2018-06-12-live.html"
+  ]
+}

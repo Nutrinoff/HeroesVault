@@ -1,0 +1,339 @@
+{
+  "Id": "2.0-launch-notes-april-25-2017",
+  "Title": "Genji Patch, 2.0 Launch",
+  "Subtitle": "Heroes 2.0 Launch New Hero: Genji New Battleground: Hanamura",
+  "Date": "Apr 25, 2017",
+  "IsoDate": "2017-04-25",
+  "FeedType": "alpha",
+  "Era": "alpha",
+  "PatchVersion": "2.25.0",
+  "FullVersion": "2.25.0.52860",
+  "Build": "52860",
+  "Link": "http://us.battle.net/heroes/en/blog/20721900",
+  "Links": [
+    "http://us.battle.net/heroes/en/blog/20721900",
+    "https://news.blizzard.com/heroes-of-the-storm/20721900",
+    "https://heroesofthestorm.fandom.com/wiki/Heroes_2.0",
+    "https://heroesofthestorm.fandom.com/wiki/Genji",
+    "https://heroesofthestorm.fandom.com/wiki/Hanamura",
+    "https://heroesofthestorm.fandom.com/wiki/Anub%27arak",
+    "https://heroesofthestorm.fandom.com/wiki/Auriel",
+    "https://heroesofthestorm.fandom.com/wiki/Brightwing",
+    "https://heroesofthestorm.fandom.com/wiki/Probius",
+    "https://heroesofthestorm.fandom.com/wiki/Uther",
+    "https://heroesofthestorm.fandom.com/wiki/Valeera",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/20721900"
+  ],
+  "Affected": [
+    "Heroes: Anub\u0027arak",
+    "Auriel",
+    "Brightwing",
+    "Probius",
+    "Uther (Reworked)",
+    "Valeera",
+    "Abathur",
+    "Anub\u0027arak",
+    "Chen",
+    "Cho",
+    "Diablo",
+    "ETC",
+    "Gall",
+    "Gazlowe",
+    "Genji",
+    "Greymane",
+    "Illidan",
+    "Murky",
+    "Nazeebo",
+    "Rexxar",
+    "Samuro",
+    "Tassadar",
+    "The Butcher",
+    "The Lost Vikings",
+    "Tracer",
+    "Tyrael",
+    "Uther",
+    "Valla",
+    "Varian",
+    "Xul",
+    "Zagara",
+    "Zeratul",
+    "Zul\u0027jin"
+  ],
+  "Highlights": "Heroes 2.0 Launch New Hero: Genji New Battleground: Hanamura",
+  "CleanedNotes": "=== Heroes: Abathur ===\r\n[Bug Fixes]\r\n  \u2022 Heroes can no longer push a player-controlled Monstrosity by walking into it.\r\n\r\n=== Heroes: Anub\u0027arak ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Burrow Charge (E)\r\n    \u2022 Hovering over this ability will now show the range indicator for distance traveled, as well as the area affected when he emerges from burrow\r\n  \u2022 Locust Swarm (R)\r\n    \u2022 A range indicator will now appear to Anub\u0027arak while Locust Swarm is active\r\n  Talents:\r\n  \u2022 Level 13\r\n    \u2022 Urticating Spines (W)\r\n      \u2022 Hovering over the ability button after selecting this talent will now show a range indicator\r\n\r\n=== Heroes: Auriel ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Resurrect (R)\r\n    \u2022 New Functionality\r\n      \u2022 Increased cooldown from 70 to 120 seconds\r\n      \u2022 Reduced channel time from 3 to 0.5 seconds\r\n      \u2022 Added a 5 second delay between finishing the cast and the Hero coming back to life\r\n  Talents:\r\n  \u2022 Level 20\r\n    \u2022 Light Speed (R)\r\n      \u2022 New Functionality\r\n        \u2022 Removed the increased Health upon reviving\r\n        \u2022 Now causes the cooldown of Resurrect to recharge 100% faster while previous target is alive\r\n[Bug Fixes]\r\n  \u2022 Detainment Strike will now correctly stun enemies who collide with corners of terrain.\r\n  \u2022 Fixed an issue that could cause Resurrect\u0027s revive message to appear on the MVP screen.\r\n\r\n=== Heroes: Brightwing ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Soothing Mist (Trait)\r\n    \u2022 Now displays a range ring around Brightwing that conveys the radius of her heal. This is only visible to Brightwing.\r\n\r\n=== Heroes: Chen ===\r\n[Bug Fixes]\r\n  \u2022 Freshest Ingredients will no longer grant 3 Health Regeneration stacks for Regeneration Globes collected during Storm, Earth Fire.\r\n\r\n=== Heroes: Cho ===\r\n[Bug Fixes]\r\n  \u2022 Twilight Hammer will now deal damage to Murky\u0027s Pufferfish.\r\n\r\n=== Heroes: Diablo ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue preventing Diablo from using Basic Attacks against his Overpower target if Overpower was interrupted by Zeratul\u0027s Void Prison.\r\n\r\n=== Heroes: ETC ===\r\n[Bug Fixes]\r\n  \u2022 Enemies affected by a Mosh Pit that was cast from inside of a bush or vent will now correctly hear the Ability\u0027s sound effects.\r\n\r\n=== Heroes: Gall ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that could cause Gall to use his base skin on the MVP screen despite using an alternate skin during the match.\r\n\r\n=== Heroes: Gazlowe ===\r\n[Bug Fixes]\r\n  \u2022 Restored missing visual effects during Gazlowe\u0027s transformation into Robo-Goblin form.\r\n  \u2022 Can now correctly issue commands to active Rock-It! Turrets while dead.\r\n\r\n=== Heroes: Genji ===\r\n[Releases]\r\n  Genji, Cybernetic Ninja, has been added to the Nexus and is now available for play! Read on for a brief overview of his Abilities.:\r\n  Trait:\r\n  \u2022 Cyber Agility (D)\r\n    \u2022 Activate to jump to the target area.\r\n  Basic Abilities:\r\n  \u2022 Shuriken (Q)\r\n    \u2022 Throw 3 Shuriken in a spread pattern, each damaging the first enemy it hits.\r\n    \u2022 Stores up to 3 charges. Shuriken\u0027s cooldown replenishes all charges at the same time.\r\n  \u2022 Deflect (W)\r\n    \u2022 Become Protected for 1.25 seconds. Any damage blocked during this period causes Genji to throw a Kunai toward the nearest enemy, prioritizing Heroes and dealing damage.\r\n  \u2022 Swift Strike (E)\r\n    \u2022 Dash forward, dealing damage to all enemies in a line. Enemy Heroes who die within 2 seconds after being hit by Swift Strike cause the cooldown and Mana cost to be refunded.\r\n  Heroic Abilities:\r\n  \u2022 Dragonblade (R)\r\n    \u2022 Unleash the Dragonblade for 8 seconds. While active, Dragonblade can be reactivated to lunge forward and slash in a huge arc. If any enemy Heroes are killed within 2 seconds after being hit by Dragonblade, Swift Strike\u0027s cooldown is reset.\r\n  \u2022 X-Strike (R)\r\n    \u2022 Perform 2 perpendicular slashes that deal damage and ignite after 1.25 seconds, dealing additional damage to enemies in their area of effect.\r\n\r\n=== Heroes: Greymane ===\r\n[Bug Fixes]\r\n  \u2022 Restored missing visual effects during Go for the Throat.\r\n\r\n=== Heroes: Illidan ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that could cause Illidan to respawn at his death location if he cast Sweeping Strikes in the same moment that he was killed.\r\n\r\n=== Heroes: Murky ===\r\n[Bug Fixes]\r\n  \u2022 Can no longer call down a Nuke during Safety Bubble on Warhead Junction.\r\n\r\n=== Heroes: Nazeebo ===\r\n[Bug Fixes]\r\n  \u2022 Corpse Spiders will no longer prioritize Kharazim\u0027s Air Ally or L\u00FAcio\u0027s Boombox over enemy Heroes.\r\n\r\n=== Heroes: Probius ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Photon Cannon (E)\r\n    \u2022 Can now be self-cast\r\n[Bug Fixes]\r\n  \u2022 Pylons and Photon Cannons will no longer be affected by Power Overflowing when Probius is not inside a Pylon\u0027s Power Field.\r\n\r\n=== Heroes: Rexxar ===\r\n[Bug Fixes]\r\n  \u2022 Misha, Focus! now uses the same Ability icon in-game as it does on Rexxar\u0027s detail page in the Collection.\r\n\r\n=== Heroes: Samuro ===\r\n[Bug Fixes]\r\n  \u2022 Way of Illusion will no longer continue to generate quest progress icons after its quest is complete.\r\n\r\n=== Heroes: Tassadar ===\r\n[Bug Fixes]\r\n  \u2022 Prismatic Link will no longer cause Basic Attacks to continue to hit the tertiary target if the primary and secondary targets move out of range of one another.\r\n\r\n=== Heroes: The Butcher ===\r\n[Bug Fixes]\r\n  \u2022 Victuals will no longer stop functioning after completing Fresh Meat\u0027s quest.\r\n  \u2022 Butcher\u0027s Brand visual effects will no longer persist on a Punisher until it is killed.\r\n  \u2022 Will now properly receive Healing for Basic Attack damage dealt to a Punisher affected by Butcher\u0027s Brand.\r\n\r\n=== Heroes: The Lost Vikings ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue causing Olaf to begin attacking the nearest enemy after using Charge, rather than the intended target.\r\n\r\n=== Heroes: Tracer ===\r\n[Bug Fixes]\r\n  \u2022 After using Blink, Tracer will now correctly continue to walk in the direction she was originally moving prior to the cast.\r\n\r\n=== Heroes: Tyrael ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that could cause Archangel\u0027s Wrath to immediately explode on death, and prevent Tyrael from respawning.\r\n\r\n=== Heroes: Uther ===\r\n[Updates]\r\n  Stats:\r\n  \u2022 Removed passive Armor\r\n  \u2022 Base maximum Health increased from 2054 to 2156\r\n  \u2022 Health Regeneration increased from 4.28 to 4.49\r\n  Abilities:\r\n  \u2022 Holy Light (Q)\r\n    \u2022 Healing amount reduced from 427 to 380\r\n    \u2022 Now also heals Uther for 190 if cast on an ally\r\n  \u2022 Holy Radiance (W)\r\n    \u2022 Healing amount reduced from 219 to 160 (now matches damage)\r\n    \u2022 Mana cost reduced from 65 to 60\r\n  \u2022 Eternal Devotion (Trait)\r\n    \u2022 Added Functionality:\r\n      \u2022 When Uther heals anyone with a Basic Ability, they gain 25 Armor for 2 seconds. This effect does not stack with itself.\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Conjurer\u0027s Pursuit (Passive)\r\n      \u2022 Removed\r\n    \u2022 Wave of Light (W)\r\n      \u2022 No longer has a cap on the Mana return and cooldown reduction amounts\r\n      \u2022 Now grants the benefits when enemy Heroes are damaged\r\n      \u2022 Increased the amount of Mana returned from 8 to 10\r\n      \u2022 Added a quest component:\r\n        \u2022 !Quest: Heal or damage 60 Heroes with Holy Radiance\r\n        \u2022 !Reward: Increase the duration of Eternal Devotion\u0027s Armor effect to 3 seconds\r\n    \u2022 Hammer of the Lightbringer (E)\r\n      \u2022 New functionality:\r\n        \u2022 Uther\u0027s Basic Attacks restore 1.5% of his maximum Mana\r\n        \u2022 !Quest: Hit 75 enemy Heroes with Basic Attacks\r\n        \u2022 !Reward: Basic Attacks also reduce the cooldown of Hammer of Justice by 1 second\r\n    \u2022 Fist of Justice (E)\r\n      \u2022 Removed\r\n    \u2022 (New) Silver Touch (Q)\r\n      \u2022 !Quest: Reduce damage taken from Heroes using Eternal Devotion\u0027s Armor effect\r\n      \u2022 !Reward: After reducing 40 sources of Hero damage, reduce the Mana cost of Holy Light by 20\r\n      \u2022 !Reward: After reducing 80 sources of Hero damage, reduce the Mana cost of Holy Light by an additional 20 and increase the cast range by 50%\r\n  \u2022 Level 4\r\n    \u2022 Beacon of Light (Q)\r\n      \u2022 Moved to level 16\r\n      \u2022 New functionality:\r\n        \u2022 While below 50% Health, Uther receives 200% more self-healing when healing others with Holy Light\r\n    \u2022 Boundless Conviction (W)\r\n      \u2022 Removed\r\n    \u2022 Protective Shield (Active)\r\n      \u2022 Removed\r\n    \u2022 (New) Pursuit of Justice (E)\r\n      \u2022 Casting Hammer of Justice increases Uther\u0027s Movement Speed by 20% for 3 seconds\r\n  \u2022 Level 7\r\n    \u2022 Burden of Guilt (E)\r\n      \u2022 Removed\r\n    \u2022 Holy Fire (Passive)\r\n      \u2022 Moved to level 4\r\n      \u2022 Damage reduced from 18 to 16 per second\r\n    \u2022 Cleanse (Active)\r\n      \u2022 Removed\r\n    \u2022 (New) Armor of Faith (Trait)\r\n      \u2022 Holy Light recharges 100% faster for 6 seconds when Uther is Stunned, Rooted, or Silenced\r\n    \u2022 (New) Guardian of Ancient Kings (Trait)\r\n      \u2022 Healing a Stunned, Rooted, or Silenced Hero with a Basic Ability increases the Armor bonus of Eternal Devotion from 25 to 75\r\n    \u2022 (New) Hand of Protection (Active)\r\n      \u2022 Activate to make target ally Unstoppable for 1 second. Cannot be cast on yourself. 90 second cooldown. Basic Attack reduce this cooldown by 5 seconds.\r\n  \u2022 Level 13\r\n    \u2022 Blessed Champion (Q)\r\n      \u2022 Healing from Basic Attacks reduced from 20% to 15% of Holy Light, but is calculated from the combined total of Holy Light\u0027s Ally and self heal\r\n    \u2022 Holy Shock (Q)\r\n      \u2022 Moved to level 4\r\n      \u2022 No longer increases the value of Uther\u0027s next Holy Light, but instead refunds 45 Mana when cast on an enemy\r\n        \u2022 Holy Shock still heals Uther for 200 if cast on an enemy\r\n    \u2022 Shrink Ray (Active)\r\n      \u2022 Removed\r\n    \u2022 (New) Well Met (E)\r\n      \u2022 Hammer of Justice also reduces enemy Hero Movement Speed by 25% and damage by 25% for 3 seconds\r\n  \u2022 Level 16\r\n    \u2022 Hardened Focus (Passive)\r\n      \u2022 Removed\r\n    \u2022 Righteous Defense (Q)\r\n      \u2022 Removed\r\n    \u2022 Gathering Radiance (W)\r\n      \u2022 Removed\r\n    \u2022 (New) Tyr\u0027s Deliverance (W)\r\n      \u2022 Hitting an allied Hero with Holy Radiance increases their healing received by 40% for 6 seconds\r\n  \u2022 Level 20\r\n    \u2022 (New) Divine Protection (Trait)\r\n      \u2022 Eternal Devotion\u0027s Armor can now stack twice. Each new application will refresh the duration of both armor effects\r\n  \u2022 (!) indicates a Questing Talent.\r\n  \u2022 Italic text indicates a NEW Talent.\r\n  \u2022 Bold text indicates a MOVED Talent.\r\n\r\n=== Heroes: Valeera ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Eviscerate (E)\r\n    \u2022 Damage reduced from 100 to 85 per combo point\r\n  Talents:\r\n  \u2022 Level 13\r\n    \u2022 Death from Above (Q)\r\n      \u2022 Teleport range reduced from 7 to 6\r\n  \u2022 Level 20\r\n    \u2022 Coldblood (E)\r\n      \u2022 Removed\r\n\r\n=== Heroes: Valla ===\r\n[Bug Fixes]\r\n  \u2022 Strafe visual effects will no longer continue to play after the Ability expires.\r\n\r\n=== Heroes: Varian ===\r\n[Bug Fixes]\r\n  \u2022 Will no longer appear scaled-down on the Ranked Play screen.\r\n  \u2022 After learning Second Wind, Varian will now correctly earn bonus Healing for bonus damage dealt by Shattering Throw against a Shielded target.\r\n\r\n=== Heroes: Xul ===\r\n[Bug Fixes]\r\n  \u2022 Will no longer appear offset on the Ranked Play screen.\r\n\r\n=== Heroes: Zagara ===\r\n[Bug Fixes]\r\n  \u2022 Damage dealt by Hunter Killer and Roach summons will no longer be reduced by Armor.\r\n\r\n=== Heroes: Zeratul ===\r\n[Bug Fixes]\r\n  \u2022 A revealed icon will no longer appear above enemies hit by Rending Cleave.\r\n\r\n=== Heroes: Zul\u0027jin ===\r\n[Bug Fixes]\r\n  \u2022 Taz\u0027dingo! Will now correctly prevent Zul\u0027jin from dying when cast at the same moment that he would have taken fatal damage.",
+  "Sections": {
+    "Heroes: Abathur": [
+      "[Bug Fixes]",
+      "  \u2022 Heroes can no longer push a player-controlled Monstrosity by walking into it."
+    ],
+    "Heroes: Anub\u0027arak": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Burrow Charge (E)",
+      "    \u2022 Hovering over this ability will now show the range indicator for distance traveled, as well as the area affected when he emerges from burrow",
+      "  \u2022 Locust Swarm (R)",
+      "    \u2022 A range indicator will now appear to Anub\u0027arak while Locust Swarm is active",
+      "  Talents:",
+      "  \u2022 Level 13",
+      "    \u2022 Urticating Spines (W)",
+      "      \u2022 Hovering over the ability button after selecting this talent will now show a range indicator"
+    ],
+    "Heroes: Auriel": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Resurrect (R)",
+      "    \u2022 New Functionality",
+      "      \u2022 Increased cooldown from 70 to 120 seconds",
+      "      \u2022 Reduced channel time from 3 to 0.5 seconds",
+      "      \u2022 Added a 5 second delay between finishing the cast and the Hero coming back to life",
+      "  Talents:",
+      "  \u2022 Level 20",
+      "    \u2022 Light Speed (R)",
+      "      \u2022 New Functionality",
+      "        \u2022 Removed the increased Health upon reviving",
+      "        \u2022 Now causes the cooldown of Resurrect to recharge 100% faster while previous target is alive",
+      "[Bug Fixes]",
+      "  \u2022 Detainment Strike will now correctly stun enemies who collide with corners of terrain.",
+      "  \u2022 Fixed an issue that could cause Resurrect\u0027s revive message to appear on the MVP screen."
+    ],
+    "Heroes: Brightwing": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Soothing Mist (Trait)",
+      "    \u2022 Now displays a range ring around Brightwing that conveys the radius of her heal. This is only visible to Brightwing."
+    ],
+    "Heroes: Chen": [
+      "[Bug Fixes]",
+      "  \u2022 Freshest Ingredients will no longer grant 3 Health Regeneration stacks for Regeneration Globes collected during Storm, Earth Fire."
+    ],
+    "Heroes: Cho": [
+      "[Bug Fixes]",
+      "  \u2022 Twilight Hammer will now deal damage to Murky\u0027s Pufferfish."
+    ],
+    "Heroes: Diablo": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue preventing Diablo from using Basic Attacks against his Overpower target if Overpower was interrupted by Zeratul\u0027s Void Prison."
+    ],
+    "Heroes: ETC": [
+      "[Bug Fixes]",
+      "  \u2022 Enemies affected by a Mosh Pit that was cast from inside of a bush or vent will now correctly hear the Ability\u0027s sound effects."
+    ],
+    "Heroes: Gall": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that could cause Gall to use his base skin on the MVP screen despite using an alternate skin during the match."
+    ],
+    "Heroes: Gazlowe": [
+      "[Bug Fixes]",
+      "  \u2022 Restored missing visual effects during Gazlowe\u0027s transformation into Robo-Goblin form.",
+      "  \u2022 Can now correctly issue commands to active Rock-It! Turrets while dead."
+    ],
+    "Heroes: Genji": [
+      "[Releases]",
+      "  Genji, Cybernetic Ninja, has been added to the Nexus and is now available for play! Read on for a brief overview of his Abilities.:",
+      "  Trait:",
+      "  \u2022 Cyber Agility (D)",
+      "    \u2022 Activate to jump to the target area.",
+      "  Basic Abilities:",
+      "  \u2022 Shuriken (Q)",
+      "    \u2022 Throw 3 Shuriken in a spread pattern, each damaging the first enemy it hits.",
+      "    \u2022 Stores up to 3 charges. Shuriken\u0027s cooldown replenishes all charges at the same time.",
+      "  \u2022 Deflect (W)",
+      "    \u2022 Become Protected for 1.25 seconds. Any damage blocked during this period causes Genji to throw a Kunai toward the nearest enemy, prioritizing Heroes and dealing damage.",
+      "  \u2022 Swift Strike (E)",
+      "    \u2022 Dash forward, dealing damage to all enemies in a line. Enemy Heroes who die within 2 seconds after being hit by Swift Strike cause the cooldown and Mana cost to be refunded.",
+      "  Heroic Abilities:",
+      "  \u2022 Dragonblade (R)",
+      "    \u2022 Unleash the Dragonblade for 8 seconds. While active, Dragonblade can be reactivated to lunge forward and slash in a huge arc. If any enemy Heroes are killed within 2 seconds after being hit by Dragonblade, Swift Strike\u0027s cooldown is reset.",
+      "  \u2022 X-Strike (R)",
+      "    \u2022 Perform 2 perpendicular slashes that deal damage and ignite after 1.25 seconds, dealing additional damage to enemies in their area of effect."
+    ],
+    "Heroes: Greymane": [
+      "[Bug Fixes]",
+      "  \u2022 Restored missing visual effects during Go for the Throat."
+    ],
+    "Heroes: Illidan": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that could cause Illidan to respawn at his death location if he cast Sweeping Strikes in the same moment that he was killed."
+    ],
+    "Heroes: Murky": [
+      "[Bug Fixes]",
+      "  \u2022 Can no longer call down a Nuke during Safety Bubble on Warhead Junction."
+    ],
+    "Heroes: Nazeebo": [
+      "[Bug Fixes]",
+      "  \u2022 Corpse Spiders will no longer prioritize Kharazim\u0027s Air Ally or L\u00FAcio\u0027s Boombox over enemy Heroes."
+    ],
+    "Heroes: Probius": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Photon Cannon (E)",
+      "    \u2022 Can now be self-cast",
+      "[Bug Fixes]",
+      "  \u2022 Pylons and Photon Cannons will no longer be affected by Power Overflowing when Probius is not inside a Pylon\u0027s Power Field."
+    ],
+    "Heroes: Rexxar": [
+      "[Bug Fixes]",
+      "  \u2022 Misha, Focus! now uses the same Ability icon in-game as it does on Rexxar\u0027s detail page in the Collection."
+    ],
+    "Heroes: Samuro": [
+      "[Bug Fixes]",
+      "  \u2022 Way of Illusion will no longer continue to generate quest progress icons after its quest is complete."
+    ],
+    "Heroes: Tassadar": [
+      "[Bug Fixes]",
+      "  \u2022 Prismatic Link will no longer cause Basic Attacks to continue to hit the tertiary target if the primary and secondary targets move out of range of one another."
+    ],
+    "Heroes: The Butcher": [
+      "[Bug Fixes]",
+      "  \u2022 Victuals will no longer stop functioning after completing Fresh Meat\u0027s quest.",
+      "  \u2022 Butcher\u0027s Brand visual effects will no longer persist on a Punisher until it is killed.",
+      "  \u2022 Will now properly receive Healing for Basic Attack damage dealt to a Punisher affected by Butcher\u0027s Brand."
+    ],
+    "Heroes: The Lost Vikings": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue causing Olaf to begin attacking the nearest enemy after using Charge, rather than the intended target."
+    ],
+    "Heroes: Tracer": [
+      "[Bug Fixes]",
+      "  \u2022 After using Blink, Tracer will now correctly continue to walk in the direction she was originally moving prior to the cast."
+    ],
+    "Heroes: Tyrael": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that could cause Archangel\u0027s Wrath to immediately explode on death, and prevent Tyrael from respawning."
+    ],
+    "Heroes: Uther": [
+      "[Updates]",
+      "  Stats:",
+      "  \u2022 Removed passive Armor",
+      "  \u2022 Base maximum Health increased from 2054 to 2156",
+      "  \u2022 Health Regeneration increased from 4.28 to 4.49",
+      "  Abilities:",
+      "  \u2022 Holy Light (Q)",
+      "    \u2022 Healing amount reduced from 427 to 380",
+      "    \u2022 Now also heals Uther for 190 if cast on an ally",
+      "  \u2022 Holy Radiance (W)",
+      "    \u2022 Healing amount reduced from 219 to 160 (now matches damage)",
+      "    \u2022 Mana cost reduced from 65 to 60",
+      "  \u2022 Eternal Devotion (Trait)",
+      "    \u2022 Added Functionality:",
+      "      \u2022 When Uther heals anyone with a Basic Ability, they gain 25 Armor for 2 seconds. This effect does not stack with itself.",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Conjurer\u0027s Pursuit (Passive)",
+      "      \u2022 Removed",
+      "    \u2022 Wave of Light (W)",
+      "      \u2022 No longer has a cap on the Mana return and cooldown reduction amounts",
+      "      \u2022 Now grants the benefits when enemy Heroes are damaged",
+      "      \u2022 Increased the amount of Mana returned from 8 to 10",
+      "      \u2022 Added a quest component:",
+      "        \u2022 !Quest: Heal or damage 60 Heroes with Holy Radiance",
+      "        \u2022 !Reward: Increase the duration of Eternal Devotion\u0027s Armor effect to 3 seconds",
+      "    \u2022 Hammer of the Lightbringer (E)",
+      "      \u2022 New functionality:",
+      "        \u2022 Uther\u0027s Basic Attacks restore 1.5% of his maximum Mana",
+      "        \u2022 !Quest: Hit 75 enemy Heroes with Basic Attacks",
+      "        \u2022 !Reward: Basic Attacks also reduce the cooldown of Hammer of Justice by 1 second",
+      "    \u2022 Fist of Justice (E)",
+      "      \u2022 Removed",
+      "    \u2022 (New) Silver Touch (Q)",
+      "      \u2022 !Quest: Reduce damage taken from Heroes using Eternal Devotion\u0027s Armor effect",
+      "      \u2022 !Reward: After reducing 40 sources of Hero damage, reduce the Mana cost of Holy Light by 20",
+      "      \u2022 !Reward: After reducing 80 sources of Hero damage, reduce the Mana cost of Holy Light by an additional 20 and increase the cast range by 50%",
+      "  \u2022 Level 4",
+      "    \u2022 Beacon of Light (Q)",
+      "      \u2022 Moved to level 16",
+      "      \u2022 New functionality:",
+      "        \u2022 While below 50% Health, Uther receives 200% more self-healing when healing others with Holy Light",
+      "    \u2022 Boundless Conviction (W)",
+      "      \u2022 Removed",
+      "    \u2022 Protective Shield (Active)",
+      "      \u2022 Removed",
+      "    \u2022 (New) Pursuit of Justice (E)",
+      "      \u2022 Casting Hammer of Justice increases Uther\u0027s Movement Speed by 20% for 3 seconds",
+      "  \u2022 Level 7",
+      "    \u2022 Burden of Guilt (E)",
+      "      \u2022 Removed",
+      "    \u2022 Holy Fire (Passive)",
+      "      \u2022 Moved to level 4",
+      "      \u2022 Damage reduced from 18 to 16 per second",
+      "    \u2022 Cleanse (Active)",
+      "      \u2022 Removed",
+      "    \u2022 (New) Armor of Faith (Trait)",
+      "      \u2022 Holy Light recharges 100% faster for 6 seconds when Uther is Stunned, Rooted, or Silenced",
+      "    \u2022 (New) Guardian of Ancient Kings (Trait)",
+      "      \u2022 Healing a Stunned, Rooted, or Silenced Hero with a Basic Ability increases the Armor bonus of Eternal Devotion from 25 to 75",
+      "    \u2022 (New) Hand of Protection (Active)",
+      "      \u2022 Activate to make target ally Unstoppable for 1 second. Cannot be cast on yourself. 90 second cooldown. Basic Attack reduce this cooldown by 5 seconds.",
+      "  \u2022 Level 13",
+      "    \u2022 Blessed Champion (Q)",
+      "      \u2022 Healing from Basic Attacks reduced from 20% to 15% of Holy Light, but is calculated from the combined total of Holy Light\u0027s Ally and self heal",
+      "    \u2022 Holy Shock (Q)",
+      "      \u2022 Moved to level 4",
+      "      \u2022 No longer increases the value of Uther\u0027s next Holy Light, but instead refunds 45 Mana when cast on an enemy",
+      "        \u2022 Holy Shock still heals Uther for 200 if cast on an enemy",
+      "    \u2022 Shrink Ray (Active)",
+      "      \u2022 Removed",
+      "    \u2022 (New) Well Met (E)",
+      "      \u2022 Hammer of Justice also reduces enemy Hero Movement Speed by 25% and damage by 25% for 3 seconds",
+      "  \u2022 Level 16",
+      "    \u2022 Hardened Focus (Passive)",
+      "      \u2022 Removed",
+      "    \u2022 Righteous Defense (Q)",
+      "      \u2022 Removed",
+      "    \u2022 Gathering Radiance (W)",
+      "      \u2022 Removed",
+      "    \u2022 (New) Tyr\u0027s Deliverance (W)",
+      "      \u2022 Hitting an allied Hero with Holy Radiance increases their healing received by 40% for 6 seconds",
+      "  \u2022 Level 20",
+      "    \u2022 (New) Divine Protection (Trait)",
+      "      \u2022 Eternal Devotion\u0027s Armor can now stack twice. Each new application will refresh the duration of both armor effects",
+      "  \u2022 (!) indicates a Questing Talent.",
+      "  \u2022 Italic text indicates a NEW Talent.",
+      "  \u2022 Bold text indicates a MOVED Talent."
+    ],
+    "Heroes: Valeera": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Eviscerate (E)",
+      "    \u2022 Damage reduced from 100 to 85 per combo point",
+      "  Talents:",
+      "  \u2022 Level 13",
+      "    \u2022 Death from Above (Q)",
+      "      \u2022 Teleport range reduced from 7 to 6",
+      "  \u2022 Level 20",
+      "    \u2022 Coldblood (E)",
+      "      \u2022 Removed"
+    ],
+    "Heroes: Valla": [
+      "[Bug Fixes]",
+      "  \u2022 Strafe visual effects will no longer continue to play after the Ability expires."
+    ],
+    "Heroes: Varian": [
+      "[Bug Fixes]",
+      "  \u2022 Will no longer appear scaled-down on the Ranked Play screen.",
+      "  \u2022 After learning Second Wind, Varian will now correctly earn bonus Healing for bonus damage dealt by Shattering Throw against a Shielded target."
+    ],
+    "Heroes: Xul": [
+      "[Bug Fixes]",
+      "  \u2022 Will no longer appear offset on the Ranked Play screen."
+    ],
+    "Heroes: Zagara": [
+      "[Bug Fixes]",
+      "  \u2022 Damage dealt by Hunter Killer and Roach summons will no longer be reduced by Armor."
+    ],
+    "Heroes: Zeratul": [
+      "[Bug Fixes]",
+      "  \u2022 A revealed icon will no longer appear above enemies hit by Rending Cleave."
+    ],
+    "Heroes: Zul\u0027jin": [
+      "[Bug Fixes]",
+      "  \u2022 Taz\u0027dingo! Will now correctly prevent Zul\u0027jin from dying when cast at the same moment that he would have taken fatal damage."
+    ]
+  },
+  "PatchFile": "alpha/2017-04-25-v2-25-0-52860-genji-patch-2-0-launch-alpha.json",
+  "Sources": [
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2017-04-25-live.html"
+  ]
+}

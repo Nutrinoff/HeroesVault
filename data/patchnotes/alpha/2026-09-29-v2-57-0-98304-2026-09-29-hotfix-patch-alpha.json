@@ -1,0 +1,51 @@
+{
+  "Id": "npn-2026-09-29-2.57.0",
+  "Title": "2026-09-29 Hotfix Patch",
+  "Subtitle": "=== General ===",
+  "Date": "Sep 29, 2026",
+  "IsoDate": "2026-09-29",
+  "FeedType": "alpha",
+  "Era": "alpha",
+  "PatchVersion": "2.57.0",
+  "FullVersion": "2.57.0.98304",
+  "Build": "98304",
+  "Link": "https://www.reddit.com/r/heroesofthestorm/s/J7oCaYh1QO",
+  "Links": [
+    "https://www.reddit.com/r/heroesofthestorm/s/J7oCaYh1QO"
+  ],
+  "Affected": [
+    "Auriel",
+    "Xal\u0027atath"
+  ],
+  "Highlights": "=== General ===",
+  "CleanedNotes": "=== General ===\r\n[Updates]\r\n  \u2022 Fixed an issue where some players who bought the pre-purchase bundle didn\u0027t receive Xal\u0027atath.\r\n\r\n=== Heroes: Auriel ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue that caused Wrath of Heaven\u0027s full Spell Power bonus to not apply to healing.\r\n\r\n=== Heroes: Xal\u0027atath ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 10\r\n    \u2022 Void Eruption\r\n      \u2022 [Undocumented] Void Eruption will now go on a full cooldown if interrupted by any source (including friendly).\r\n[Bug Fixes]\r\n  \u2022 Fixed an exploit with Void Eruption.\r\n  \u2022 Fixed an issue causing the Void Portal from Rift Invasion to lose Health.\r\n  \u2022 [Undocumented] Fixed an issue causing the damage from Harbinger\u0027s Consumption to not scale with levels.\r\n  \u2022 [Undocumented] Fixed an issue causing Void Summoner to spawn the Void Minion away from Xal\u0027atath\u0027s position.\r\n  \u2022 [Undocumented] Fixed an issue causing the inner radius of Shadow Mark to be 55% bigger than intended.\r\n  \u2022 [Undocumented] Fixed an issue causing various voice lines to not play.\r\n  \u2022 Adjusted colors on Dark Heart to make visibility clearer for enemies.",
+  "Sections": {
+    "General": [
+      "[Updates]",
+      "  \u2022 Fixed an issue where some players who bought the pre-purchase bundle didn\u0027t receive Xal\u0027atath."
+    ],
+    "Heroes: Auriel": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue that caused Wrath of Heaven\u0027s full Spell Power bonus to not apply to healing."
+    ],
+    "Heroes: Xal\u0027atath": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 10",
+      "    \u2022 Void Eruption",
+      "      \u2022 [Undocumented] Void Eruption will now go on a full cooldown if interrupted by any source (including friendly).",
+      "[Bug Fixes]",
+      "  \u2022 Fixed an exploit with Void Eruption.",
+      "  \u2022 Fixed an issue causing the Void Portal from Rift Invasion to lose Health.",
+      "  \u2022 [Undocumented] Fixed an issue causing the damage from Harbinger\u0027s Consumption to not scale with levels.",
+      "  \u2022 [Undocumented] Fixed an issue causing Void Summoner to spawn the Void Minion away from Xal\u0027atath\u0027s position.",
+      "  \u2022 [Undocumented] Fixed an issue causing the inner radius of Shadow Mark to be 55% bigger than intended.",
+      "  \u2022 [Undocumented] Fixed an issue causing various voice lines to not play.",
+      "  \u2022 Adjusted colors on Dark Heart to make visibility clearer for enemies."
+    ]
+  },
+  "PatchFile": "alpha/2026-09-29-v2-57-0-98304-2026-09-29-hotfix-patch-alpha.json",
+  "Sources": [
+    "2026-09-29-hotfix.html"
+  ]
+}

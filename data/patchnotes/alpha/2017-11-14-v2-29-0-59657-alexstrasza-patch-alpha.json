@@ -1,0 +1,276 @@
+{
+  "Id": "patch-notes-november-14-2017",
+  "Title": "Alexstrasza Patch",
+  "Subtitle": "Event: Dragons of the Nexus New Hero: Alexstrasza Li-Ming\u0027s prices have been reduced to 625 / 7,000.",
+  "Date": "Nov 14, 2017",
+  "IsoDate": "2017-11-14",
+  "FeedType": "alpha",
+  "Era": "alpha",
+  "PatchVersion": "2.29.0",
+  "FullVersion": "2.29.0.59657",
+  "Build": "59657",
+  "Link": "http://us.battle.net/heroes/en/blog/21182210",
+  "Links": [
+    "http://us.battle.net/heroes/en/blog/21182210",
+    "https://news.blizzard.com/heroes-of-the-storm/21182210",
+    "https://heroesofthestorm.fandom.com/wiki/Dragons_of_the_Nexus",
+    "https://heroesofthestorm.fandom.com/wiki/Alexstrasza",
+    "https://heroesofthestorm.fandom.com/wiki/Li-Ming",
+    "https://heroesofthestorm.fandom.com/wiki/Gem",
+    "https://heroesofthestorm.fandom.com/wiki/Gold",
+    "https://heroesofthestorm.fandom.com/wiki/Li_Li",
+    "https://heroesofthestorm.fandom.com/wiki/Battlefield_of_Eternity",
+    "https://heroesofthestorm.fandom.com/wiki/Infernal_Shrines",
+    "https://heroesofthestorm.fandom.com/wiki/Haunted_Mines",
+    "https://heroesofthestorm.fandom.com/wiki/Garden_of_Terror",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/21182210"
+  ],
+  "Affected": [
+    "Heroes: Li Li (Reworked) Ranked Battleground rotations: \u002B Battlefield of Eternity \u002B Infernal Shrines - Haunted Mines - Garden of Terror",
+    "Abathur",
+    "Alarak",
+    "Alexstrasza",
+    "Ana",
+    "Azmodan",
+    "Brightwing",
+    "Chromie",
+    "Garrosh",
+    "Gazlowe",
+    "Johanna",
+    "Junkrat",
+    "Kel\u0027Thuzad",
+    "Li Li",
+    "Lt. Morales",
+    "L\u00FAcio",
+    "Malthael",
+    "Stukov",
+    "Tassadar",
+    "Uther",
+    "Valla",
+    "Varian",
+    "Zagara"
+  ],
+  "Highlights": "Event: Dragons of the Nexus New Hero: Alexstrasza Li-Ming\u0027s prices have been reduced to 625 / 7,000.",
+  "CleanedNotes": "=== Heroes: Abathur ===\r\n[Bug Fixes]\r\n  \u2022 Casting Ultimate Evolution on Jaina will no longer cause Abathur\u0027s Calldown: MULE Talent icon to permanently switch to the icon for Improved Ice Block.\r\n  \u2022 Attempting to cast Toxic Nest in an area that is already densely populated by existing Nests will no longer consume a charge without placing a new Toxic Nest.\r\n\r\n=== Heroes: Alarak ===\r\n[Bug Fixes]\r\n  \u2022 Learning Counter-Strike or Deadly Charge at level 20 will now correctly append that Ability\u0027s description to the Sadism Trait tooltip.\r\n\r\n=== Heroes: Alexstrasza ===\r\n[Releases]\r\n  Alexstrasza, The Life-Binder, has been added to the Nexus and is now available for play! Read on for a brief overview of her Abilities.:\r\n  Trait:\r\n  \u2022 Dragonqueen\r\n    \u2022 After 1.25 seconds, transform into a dragon and gain 500 Health. While Dragonqueen is active, Alexstrasza\u0027s Basic Abilities are empowered, her Basic Attacks deal 143 damage and heal allied Heroes for 43 in an arc in front of her, and the duration of incoming Slows, Roots, Blinds, and Stuns is reduced by 50%. Lasts 15 seconds.\r\n  Basic Abilities:\r\n  \u2022 Gift of Life (Q)\r\n    \u2022 Sacrifice 15% of Alexstrasza\u0027s current Health, healing an ally for 150% of that amount.\r\n    \u2022 Dragonqueen: Breath of Life cooldown greatly reduced and does not cost Health.\r\n  \u2022 Abundance (W)\r\n    \u2022 Plant a seed of healing that blooms after 3 seconds, healing nearby allied Heroes for 20% of their maximum Health.\r\n    \u2022 Dragonqueen: Preservation heal area and amount greatly increased.\r\n  \u2022 Flame Buffet (E)\r\n    \u2022 Launch a fireball, Burning enemies hit for 75 damage over 5.5 seconds.Hitting enemies that are already Burning deals 125 bonus damage upon impact, Slows them by 40% decaying over 2 seconds, and refunds the Mana cost.\r\n    \u2022 Dragonqueen: Wing Buffet damage and Knockback enemies in an arc.\r\n  Heroic Abilities:\r\n  \u2022 Life-Binder (R)\r\n    \u2022 Bind Alexstrasa\u0027s life force with an allied Hero. After 2 seconds, the Hero with a lower percentage of Health is set to the same Health percentage as the other Hero.\r\n    \u2022 Dragonqueen: Cast range increased by 50%.\r\n  \u2022 Cleansing Flame (R)\r\n    \u2022 After 1.25 seconds, take to the sky and drop fireballs at the position of your mouse cursor every 1.2 seconds for 6 seconds. Each fireball restores 300 Health to nearby allied Heroes, and deals 150 damage to nearby enemies.2 seconds after dropping all fireballs, Alexstrasza lands at the position of your mouse cursor.\r\n    \u2022 Dragonqueen: Instant cast.\r\n\r\n=== Heroes: Ana ===\r\n[Bug Fixes]\r\n  \u2022 AI Ana will no longer attempt to Heal allied Garden Terrors, Dragon Knights, or Triglav Protectors.\r\n  \u2022 A targeting indicator will now correctly appear when using Healing Dart charges granted by Active Reload.\r\n\r\n=== Heroes: Azmodan ===\r\n[Bug Fixes]\r\n  \u2022 All Shall Burn\u0027s tooltip has been updated to clarify that its bonus Structure damage is a flat amount, rather than percentage-based.\r\n\r\n=== Heroes: Brightwing ===\r\n[Bug Fixes]\r\n  \u2022 Arcane Flare\u0027s targeting indicator will no longer visually persist on the terrain if cast outside the Gate during the pre-game countdown.\r\n\r\n=== Heroes: Chromie ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue in which certain Abilities, like Artanis\u0027s Blade Dash, could prevent Temporal Loop from returning the target to its original location.\r\n\r\n=== Heroes: Garrosh ===\r\n[Bug Fixes]\r\n  \u2022 Stukov\u0027s Weighted Pustule will no longer be removed from targets hit by Wrecking Ball or Into the Fray.\r\n\r\n=== Heroes: Gazlowe ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue preventing Deth Lazor from being cast with less than 60 Mana after learning Hyperfocus Coils\r\n\r\n=== Heroes: Johanna ===\r\n[Bug Fixes]\r\n  \u2022 Blessed Hammer can no longer be activated during Falling Sword.\r\n\r\n=== Heroes: Junkrat ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue in which certain Abilities, like Genji\u0027s Dragonblade and Stitches\u0027s Hook, could hit Junkrat during Rocket Ride just before he makes impact.\r\n\r\n=== Heroes: Kel\u0027Thuzad ===\r\n[Bug Fixes]\r\n  \u2022 Glacial Spike will now correctly deal bonus damage granted by Ability Power gains.\r\n  \u2022 The Hungering Cold Talent will now correctly deal its bonus damage to non-Heroic enemies rooted by Frost Nova.\r\n\r\n=== Heroes: Li Li ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Fast Feet (Trait)\r\n    \u2022 Added Functionality:\r\n      \u2022 Basic Ability Cooldowns recharge 50% faster while Fast Feet is active.\r\n  \u2022 Healing Brew (Q)\r\n    \u2022 Cooldown increased from 3 to 4 seconds\r\n    \u2022 Range reduced from 7 to 6\r\n    \u2022 Mana Cost reduced from 30 to 25\r\n  \u2022 Cloud Serpent (W)\r\n    \u2022 Mana Cost increased from 30 to 40\r\n    \u2022 Cooldown increased from 10 to 12 seconds.\r\n    \u2022 Attack Speed increased from .75 to 1 attacks per second\r\n    \u2022 Damage increased from 25 to 27\r\n    \u2022 Added Functionality:\r\n      \u2022 Each time a Cloud Serpent attacks, the hero it is attached to is healed for a small amount.\r\n  \u2022 Blinding Wind (E)\r\n    \u2022 Cooldown increased from 9 to 12 seconds\r\n    \u2022 Duration reduced from 2 to 1.5 seconds\r\n    \u2022 Mana Cost decreased from 35 to 30\r\n  \u2022 Jug of 1,000 Cups (R)\r\n    \u2022 Cooldown reduced from 70 seconds to 20 seconds\r\n    \u2022 Jug of 1,000 Cups can now be cancelled early\r\n    \u2022 Added Functionality:\r\n      \u2022 Each time an ally is healed by Jug of 1,000 Cups, its cooldown is increased by 2 seconds, to a maximum of 50 additional seconds.\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Conjurer\u0027s Pursuit (Passive)\r\n      \u2022 Removed\r\n    \u2022 Pro Toss (Q)\r\n      \u2022 Removed\r\n    \u2022 Timeless Creature (W)\r\n      \u2022 Removed\r\n    \u2022 Gale Force (E)\r\n      \u2022 Moved to Level 13\r\n      \u2022 New Functionality\r\n        \u2022 Increases the duration of Blinding Wind from 2 to 3 seconds. Lili\u0027s Basic Attacks against Blinded Heroes deal 50% more damage.\r\n    \u2022 (New Talent) Free Drinks (Q)\r\n      \u2022 If Healing Brew heals a target under 50% health, its Cooldown is reduced by 1 second and its mana cost is refunded.\r\n    \u2022 (New Talent) Wind Serpent (W)\r\n      \u2022 Cloud Serpent\u0027s Cooldown is reduced by 3 seconds each time you hit a Hero with Blinding Wind.\r\n    \u2022 (New Talent) Eager Adventurer (Trait)\r\n      \u2022 Increases the duration of Fast Feet by 50% and Mana Regeneration is increased by 150% while Fast Feet is active.\r\n  \u2022 Level 4\r\n    \u2022 Healing Ward (Active)\r\n      \u2022 Removed\r\n    \u2022 Mending Serpent (W)\r\n      \u2022 Removed\r\n    \u2022 Mass Vortex (E)\r\n      \u2022 Moved to Level 13\r\n      \u2022 New functionality:\r\n        \u2022 Blinding Wind hits an additional target. If all targets hit are Heroes, they take 75% increased damage from Blinding Wind.\r\n    \u2022 Lingering Blind (E)\r\n      \u2022 Removed\r\n  \u2022 Level 7\r\n    \u2022 Pitch Perfect (Q)\r\n      \u2022 Removed\r\n    \u2022 The Good Stuff (Q)\r\n      \u2022 New functionality:\r\n        \u2022 Healing Brew heals for an additional amount over 3 seconds. While Fast Feet is active, this amount is increased by 100%.\r\n    \u2022 Lightning Serpent (W)\r\n      \u2022 New functionality:\r\n        \u2022 Cloud Serpent attacks bounce to 2 nearby Heroes for 50% damage.\r\n    \u2022 Cleanse (Active)\r\n      \u2022 Removed\r\n    \u2022 (New Talent) Let\u0027s Go!\r\n      \u2022 Activate to heal allied Hero for a small amount and make them unstoppable for 1 second. 40 second cooldown. The cooldown of this ability is affected by Fast Feet.\r\n  \u2022 Level 13\r\n    \u2022 Elusive Feet (Trait)\r\n      \u2022 Removed\r\n    \u2022 Hindering Winds (E)\r\n      \u2022 Moved to Level 4\r\n      \u2022 Slow amount increased to 30%.\r\n    \u2022 Surging Winds (E)\r\n      \u2022 New functionality:\r\n        \u2022 If at least two targets of Blinding Wind are Heroes, gain 10 Spellpower for 10 seconds and reduce the cooldown of Blinding Wind by 3 seconds.\r\n    \u2022 Shrink Ray (Active)\r\n      \u2022 Removed\r\n  \u2022 Level 16\r\n    \u2022 Shake It Off (Trait)\r\n      \u2022 Moved to Level 20\r\n      \u2022 New functionality:\r\n        \u2022 While Fast Feet is active, gain 8 Armor per second, to a maximum of 30 armor.\r\n    \u2022 Safety Sprint (Active)\r\n      \u2022 Moved to Level 4\r\n      \u2022 New functionality:\r\n        \u2022 Activate to gain Fast Feet and increase its movement speed bonus to 30% for 2 seconds. 30 second cooldown.\r\n    \u2022 Serpent Sidekick (W)\r\n      \u2022 Moved to Level 4\r\n      \u2022 New functionality:\r\n        \u2022 Each time a Cloud Serpent attacks a Hero, its duration is increased by .5 seconds.\r\n    \u2022 (New Talent) Pick Me Up (Q)\r\n      \u2022 Healing Brew heals for 33% more if the target is under 50% life.\r\n    \u2022 (New Talent) Blessings of Yu\u0027lon (W)\r\n      \u2022 Cloud Serpent attacks heal its bearer for an additional 1.5% of their maximum life.\r\n  \u2022 Level 20\r\n    \u2022 Kung Fu Hustle (Trait)\r\n      \u2022 Removed\r\n    \u2022 Storm Shield (Active)\r\n      \u2022 Removed\r\n    \u2022 (New Talent) Mistweaver (Active)\r\n      \u2022 Activate to heal all nearby Allies. 30 second cooldown. The cooldown of this ability is reduced by 1 second each time you or your cloud serpent attacks.\r\n\r\n=== Heroes: Lt. Morales ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue in which Lt. Morales could become immune to certain Stasis effects like Void Prison and Devouring Maw until death.\r\n\r\n=== Heroes: L\u00FAcio ===\r\n[Bug Fixes]\r\n  \u2022 Learning Can\u0027t Stop, Won\u0027t Stop and then walking over Junkrat\u0027s Steel Trap will no longer cause that trap to visually persist on L\u00FAcio\u0027s model.\r\n\r\n=== Heroes: Malthael ===\r\n[Bug Fixes]\r\n  \u2022 Movement Speed bonus visual effects will now correctly appear if Malthael learns On a Pale Horse while mounted.\r\n\r\n=== Heroes: Stukov ===\r\n[Bug Fixes]\r\n  \u2022 Nazeebo will now correctly be pushed if he is hit by Massive Shove while channeling Ravenous Spirit.\r\n\r\n=== Heroes: Tassadar ===\r\n[Bug Fixes]\r\n  \u2022 The Prismatic Link Talent will no longer cause Tassadar\u0027s Basic Attack to chain to Kharazim during Seven-Sided Strike.\r\n  \u2022 The Templar\u0027s Will Talent\u0027s second reward will no longer increase Basic Attack range in Archon form.\r\n\r\n=== Heroes: Uther ===\r\n[Bug Fixes]\r\n  \u2022 After learning Divine Protection, Devotion Armor will now stack correctly when Healing an allied Hero using Flash of Light during Eternal Vanguard.\r\n  \u2022 Will no longer be teleported back to the allied Hall of Storms if Redemption\u0027s cooldown completes while in Eternal Vanguard form.\r\n\r\n=== Heroes: Valla ===\r\n[Bug Fixes]\r\n  \u2022 Manticore will no longer deal its bonus damage to Valla\u0027s Basic Attack target while Valla is Blind or the target is Evading.\r\n\r\n=== Heroes: Varian ===\r\n[Bug Fixes]\r\n  \u2022 Will once again leap toward his Colossus Smash target.\r\n\r\n=== Heroes: Zagara ===\r\n[Bug Fixes]\r\n  \u2022 Nydus Network can no longer prevent Heroes from walking out of their Hall of Storms.",
+  "Sections": {
+    "Heroes: Abathur": [
+      "[Bug Fixes]",
+      "  \u2022 Casting Ultimate Evolution on Jaina will no longer cause Abathur\u0027s Calldown: MULE Talent icon to permanently switch to the icon for Improved Ice Block.",
+      "  \u2022 Attempting to cast Toxic Nest in an area that is already densely populated by existing Nests will no longer consume a charge without placing a new Toxic Nest."
+    ],
+    "Heroes: Alarak": [
+      "[Bug Fixes]",
+      "  \u2022 Learning Counter-Strike or Deadly Charge at level 20 will now correctly append that Ability\u0027s description to the Sadism Trait tooltip."
+    ],
+    "Heroes: Alexstrasza": [
+      "[Releases]",
+      "  Alexstrasza, The Life-Binder, has been added to the Nexus and is now available for play! Read on for a brief overview of her Abilities.:",
+      "  Trait:",
+      "  \u2022 Dragonqueen",
+      "    \u2022 After 1.25 seconds, transform into a dragon and gain 500 Health. While Dragonqueen is active, Alexstrasza\u0027s Basic Abilities are empowered, her Basic Attacks deal 143 damage and heal allied Heroes for 43 in an arc in front of her, and the duration of incoming Slows, Roots, Blinds, and Stuns is reduced by 50%. Lasts 15 seconds.",
+      "  Basic Abilities:",
+      "  \u2022 Gift of Life (Q)",
+      "    \u2022 Sacrifice 15% of Alexstrasza\u0027s current Health, healing an ally for 150% of that amount.",
+      "    \u2022 Dragonqueen: Breath of Life cooldown greatly reduced and does not cost Health.",
+      "  \u2022 Abundance (W)",
+      "    \u2022 Plant a seed of healing that blooms after 3 seconds, healing nearby allied Heroes for 20% of their maximum Health.",
+      "    \u2022 Dragonqueen: Preservation heal area and amount greatly increased.",
+      "  \u2022 Flame Buffet (E)",
+      "    \u2022 Launch a fireball, Burning enemies hit for 75 damage over 5.5 seconds.Hitting enemies that are already Burning deals 125 bonus damage upon impact, Slows them by 40% decaying over 2 seconds, and refunds the Mana cost.",
+      "    \u2022 Dragonqueen: Wing Buffet damage and Knockback enemies in an arc.",
+      "  Heroic Abilities:",
+      "  \u2022 Life-Binder (R)",
+      "    \u2022 Bind Alexstrasa\u0027s life force with an allied Hero. After 2 seconds, the Hero with a lower percentage of Health is set to the same Health percentage as the other Hero.",
+      "    \u2022 Dragonqueen: Cast range increased by 50%.",
+      "  \u2022 Cleansing Flame (R)",
+      "    \u2022 After 1.25 seconds, take to the sky and drop fireballs at the position of your mouse cursor every 1.2 seconds for 6 seconds. Each fireball restores 300 Health to nearby allied Heroes, and deals 150 damage to nearby enemies.2 seconds after dropping all fireballs, Alexstrasza lands at the position of your mouse cursor.",
+      "    \u2022 Dragonqueen: Instant cast."
+    ],
+    "Heroes: Ana": [
+      "[Bug Fixes]",
+      "  \u2022 AI Ana will no longer attempt to Heal allied Garden Terrors, Dragon Knights, or Triglav Protectors.",
+      "  \u2022 A targeting indicator will now correctly appear when using Healing Dart charges granted by Active Reload."
+    ],
+    "Heroes: Azmodan": [
+      "[Bug Fixes]",
+      "  \u2022 All Shall Burn\u0027s tooltip has been updated to clarify that its bonus Structure damage is a flat amount, rather than percentage-based."
+    ],
+    "Heroes: Brightwing": [
+      "[Bug Fixes]",
+      "  \u2022 Arcane Flare\u0027s targeting indicator will no longer visually persist on the terrain if cast outside the Gate during the pre-game countdown."
+    ],
+    "Heroes: Chromie": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue in which certain Abilities, like Artanis\u0027s Blade Dash, could prevent Temporal Loop from returning the target to its original location."
+    ],
+    "Heroes: Garrosh": [
+      "[Bug Fixes]",
+      "  \u2022 Stukov\u0027s Weighted Pustule will no longer be removed from targets hit by Wrecking Ball or Into the Fray."
+    ],
+    "Heroes: Gazlowe": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue preventing Deth Lazor from being cast with less than 60 Mana after learning Hyperfocus Coils"
+    ],
+    "Heroes: Johanna": [
+      "[Bug Fixes]",
+      "  \u2022 Blessed Hammer can no longer be activated during Falling Sword."
+    ],
+    "Heroes: Junkrat": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue in which certain Abilities, like Genji\u0027s Dragonblade and Stitches\u0027s Hook, could hit Junkrat during Rocket Ride just before he makes impact."
+    ],
+    "Heroes: Kel\u0027Thuzad": [
+      "[Bug Fixes]",
+      "  \u2022 Glacial Spike will now correctly deal bonus damage granted by Ability Power gains.",
+      "  \u2022 The Hungering Cold Talent will now correctly deal its bonus damage to non-Heroic enemies rooted by Frost Nova."
+    ],
+    "Heroes: Li Li": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Fast Feet (Trait)",
+      "    \u2022 Added Functionality:",
+      "      \u2022 Basic Ability Cooldowns recharge 50% faster while Fast Feet is active.",
+      "  \u2022 Healing Brew (Q)",
+      "    \u2022 Cooldown increased from 3 to 4 seconds",
+      "    \u2022 Range reduced from 7 to 6",
+      "    \u2022 Mana Cost reduced from 30 to 25",
+      "  \u2022 Cloud Serpent (W)",
+      "    \u2022 Mana Cost increased from 30 to 40",
+      "    \u2022 Cooldown increased from 10 to 12 seconds.",
+      "    \u2022 Attack Speed increased from .75 to 1 attacks per second",
+      "    \u2022 Damage increased from 25 to 27",
+      "    \u2022 Added Functionality:",
+      "      \u2022 Each time a Cloud Serpent attacks, the hero it is attached to is healed for a small amount.",
+      "  \u2022 Blinding Wind (E)",
+      "    \u2022 Cooldown increased from 9 to 12 seconds",
+      "    \u2022 Duration reduced from 2 to 1.5 seconds",
+      "    \u2022 Mana Cost decreased from 35 to 30",
+      "  \u2022 Jug of 1,000 Cups (R)",
+      "    \u2022 Cooldown reduced from 70 seconds to 20 seconds",
+      "    \u2022 Jug of 1,000 Cups can now be cancelled early",
+      "    \u2022 Added Functionality:",
+      "      \u2022 Each time an ally is healed by Jug of 1,000 Cups, its cooldown is increased by 2 seconds, to a maximum of 50 additional seconds.",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Conjurer\u0027s Pursuit (Passive)",
+      "      \u2022 Removed",
+      "    \u2022 Pro Toss (Q)",
+      "      \u2022 Removed",
+      "    \u2022 Timeless Creature (W)",
+      "      \u2022 Removed",
+      "    \u2022 Gale Force (E)",
+      "      \u2022 Moved to Level 13",
+      "      \u2022 New Functionality",
+      "        \u2022 Increases the duration of Blinding Wind from 2 to 3 seconds. Lili\u0027s Basic Attacks against Blinded Heroes deal 50% more damage.",
+      "    \u2022 (New Talent) Free Drinks (Q)",
+      "      \u2022 If Healing Brew heals a target under 50% health, its Cooldown is reduced by 1 second and its mana cost is refunded.",
+      "    \u2022 (New Talent) Wind Serpent (W)",
+      "      \u2022 Cloud Serpent\u0027s Cooldown is reduced by 3 seconds each time you hit a Hero with Blinding Wind.",
+      "    \u2022 (New Talent) Eager Adventurer (Trait)",
+      "      \u2022 Increases the duration of Fast Feet by 50% and Mana Regeneration is increased by 150% while Fast Feet is active.",
+      "  \u2022 Level 4",
+      "    \u2022 Healing Ward (Active)",
+      "      \u2022 Removed",
+      "    \u2022 Mending Serpent (W)",
+      "      \u2022 Removed",
+      "    \u2022 Mass Vortex (E)",
+      "      \u2022 Moved to Level 13",
+      "      \u2022 New functionality:",
+      "        \u2022 Blinding Wind hits an additional target. If all targets hit are Heroes, they take 75% increased damage from Blinding Wind.",
+      "    \u2022 Lingering Blind (E)",
+      "      \u2022 Removed",
+      "  \u2022 Level 7",
+      "    \u2022 Pitch Perfect (Q)",
+      "      \u2022 Removed",
+      "    \u2022 The Good Stuff (Q)",
+      "      \u2022 New functionality:",
+      "        \u2022 Healing Brew heals for an additional amount over 3 seconds. While Fast Feet is active, this amount is increased by 100%.",
+      "    \u2022 Lightning Serpent (W)",
+      "      \u2022 New functionality:",
+      "        \u2022 Cloud Serpent attacks bounce to 2 nearby Heroes for 50% damage.",
+      "    \u2022 Cleanse (Active)",
+      "      \u2022 Removed",
+      "    \u2022 (New Talent) Let\u0027s Go!",
+      "      \u2022 Activate to heal allied Hero for a small amount and make them unstoppable for 1 second. 40 second cooldown. The cooldown of this ability is affected by Fast Feet.",
+      "  \u2022 Level 13",
+      "    \u2022 Elusive Feet (Trait)",
+      "      \u2022 Removed",
+      "    \u2022 Hindering Winds (E)",
+      "      \u2022 Moved to Level 4",
+      "      \u2022 Slow amount increased to 30%.",
+      "    \u2022 Surging Winds (E)",
+      "      \u2022 New functionality:",
+      "        \u2022 If at least two targets of Blinding Wind are Heroes, gain 10 Spellpower for 10 seconds and reduce the cooldown of Blinding Wind by 3 seconds.",
+      "    \u2022 Shrink Ray (Active)",
+      "      \u2022 Removed",
+      "  \u2022 Level 16",
+      "    \u2022 Shake It Off (Trait)",
+      "      \u2022 Moved to Level 20",
+      "      \u2022 New functionality:",
+      "        \u2022 While Fast Feet is active, gain 8 Armor per second, to a maximum of 30 armor.",
+      "    \u2022 Safety Sprint (Active)",
+      "      \u2022 Moved to Level 4",
+      "      \u2022 New functionality:",
+      "        \u2022 Activate to gain Fast Feet and increase its movement speed bonus to 30% for 2 seconds. 30 second cooldown.",
+      "    \u2022 Serpent Sidekick (W)",
+      "      \u2022 Moved to Level 4",
+      "      \u2022 New functionality:",
+      "        \u2022 Each time a Cloud Serpent attacks a Hero, its duration is increased by .5 seconds.",
+      "    \u2022 (New Talent) Pick Me Up (Q)",
+      "      \u2022 Healing Brew heals for 33% more if the target is under 50% life.",
+      "    \u2022 (New Talent) Blessings of Yu\u0027lon (W)",
+      "      \u2022 Cloud Serpent attacks heal its bearer for an additional 1.5% of their maximum life.",
+      "  \u2022 Level 20",
+      "    \u2022 Kung Fu Hustle (Trait)",
+      "      \u2022 Removed",
+      "    \u2022 Storm Shield (Active)",
+      "      \u2022 Removed",
+      "    \u2022 (New Talent) Mistweaver (Active)",
+      "      \u2022 Activate to heal all nearby Allies. 30 second cooldown. The cooldown of this ability is reduced by 1 second each time you or your cloud serpent attacks."
+    ],
+    "Heroes: Lt. Morales": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue in which Lt. Morales could become immune to certain Stasis effects like Void Prison and Devouring Maw until death."
+    ],
+    "Heroes: L\u00FAcio": [
+      "[Bug Fixes]",
+      "  \u2022 Learning Can\u0027t Stop, Won\u0027t Stop and then walking over Junkrat\u0027s Steel Trap will no longer cause that trap to visually persist on L\u00FAcio\u0027s model."
+    ],
+    "Heroes: Malthael": [
+      "[Bug Fixes]",
+      "  \u2022 Movement Speed bonus visual effects will now correctly appear if Malthael learns On a Pale Horse while mounted."
+    ],
+    "Heroes: Stukov": [
+      "[Bug Fixes]",
+      "  \u2022 Nazeebo will now correctly be pushed if he is hit by Massive Shove while channeling Ravenous Spirit."
+    ],
+    "Heroes: Tassadar": [
+      "[Bug Fixes]",
+      "  \u2022 The Prismatic Link Talent will no longer cause Tassadar\u0027s Basic Attack to chain to Kharazim during Seven-Sided Strike.",
+      "  \u2022 The Templar\u0027s Will Talent\u0027s second reward will no longer increase Basic Attack range in Archon form."
+    ],
+    "Heroes: Uther": [
+      "[Bug Fixes]",
+      "  \u2022 After learning Divine Protection, Devotion Armor will now stack correctly when Healing an allied Hero using Flash of Light during Eternal Vanguard.",
+      "  \u2022 Will no longer be teleported back to the allied Hall of Storms if Redemption\u0027s cooldown completes while in Eternal Vanguard form."
+    ],
+    "Heroes: Valla": [
+      "[Bug Fixes]",
+      "  \u2022 Manticore will no longer deal its bonus damage to Valla\u0027s Basic Attack target while Valla is Blind or the target is Evading."
+    ],
+    "Heroes: Varian": [
+      "[Bug Fixes]",
+      "  \u2022 Will once again leap toward his Colossus Smash target."
+    ],
+    "Heroes: Zagara": [
+      "[Bug Fixes]",
+      "  \u2022 Nydus Network can no longer prevent Heroes from walking out of their Hall of Storms."
+    ]
+  },
+  "PatchFile": "alpha/2017-11-14-v2-29-0-59657-alexstrasza-patch-alpha.json",
+  "Sources": [
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2017-11-14-live.html"
+  ]
+}

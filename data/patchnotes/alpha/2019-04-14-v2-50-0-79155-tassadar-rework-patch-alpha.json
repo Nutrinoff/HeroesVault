@@ -1,0 +1,24 @@
+{
+  "Id": "patch-notes-april-14-2020",
+  "Title": "Tassadar Rework Patch",
+  "Subtitle": "",
+  "Date": "Apr 14, 2019",
+  "IsoDate": "2019-04-14",
+  "FeedType": "alpha",
+  "Era": "alpha",
+  "PatchVersion": "2.50.0",
+  "FullVersion": "2.50.0.79155",
+  "Build": "79155",
+  "Link": "https://news.blizzard.com/en-us/heroes-of-the-storm/23389388",
+  "Links": [
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/23389388"
+  ],
+  "Affected": [],
+  "Highlights": "",
+  "CleanedNotes": "",
+  "Sections": {},
+  "PatchFile": "alpha/2019-04-14-v2-50-0-79155-tassadar-rework-patch-alpha.json",
+  "Sources": [
+    "legacy-patches2014-2021.json"
+  ]
+}

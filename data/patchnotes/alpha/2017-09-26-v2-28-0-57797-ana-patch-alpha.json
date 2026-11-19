@@ -1,0 +1,343 @@
+{
+  "Id": "patch-notes-september-26-2017",
+  "Title": "Ana Patch",
+  "Subtitle": "New Hero: Ana New Battleground: Volskaya Foundry",
+  "Date": "Sep 26, 2017",
+  "IsoDate": "2017-09-26",
+  "FeedType": "alpha",
+  "Era": "alpha",
+  "PatchVersion": "2.28.0",
+  "FullVersion": "2.28.0.57797",
+  "Build": "57797",
+  "Link": "http://us.battle.net/heroes/en/blog/21072294",
+  "Links": [
+    "http://us.battle.net/heroes/en/blog/21072294",
+    "https://news.blizzard.com/heroes-of-the-storm/21072294",
+    "https://heroesofthestorm.fandom.com/wiki/Ana",
+    "https://heroesofthestorm.fandom.com/wiki/Volskaya_Foundry",
+    "https://heroesofthestorm.fandom.com/wiki/Abathur",
+    "https://heroesofthestorm.fandom.com/wiki/Brightwing",
+    "https://heroesofthestorm.fandom.com/wiki/Chromie",
+    "https://heroesofthestorm.fandom.com/wiki/Dehaka",
+    "https://heroesofthestorm.fandom.com/wiki/Falstad",
+    "https://heroesofthestorm.fandom.com/wiki/Johanna",
+    "https://heroesofthestorm.fandom.com/wiki/Kharazim",
+    "https://heroesofthestorm.fandom.com/wiki/Nova",
+    "https://heroesofthestorm.fandom.com/wiki/Rehgar",
+    "https://heroesofthestorm.fandom.com/wiki/Battlefield_of_Eternity",
+    "https://heroesofthestorm.fandom.com/wiki/Hanamura",
+    "https://heroesofthestorm.fandom.com/wiki/Infernal_Shrines",
+    "https://heroesofthestorm.fandom.com/wiki/Haunted_Mines",
+    "https://heroesofthestorm.fandom.com/wiki/Towers_of_Doom",
+    "https://heroesofthestorm.fandom.com/wiki/Warhead_Junction",
+    "https://heroesofthestorm.fandom.com/wiki/Blackheart%27s_Bay",
+    "https://heroesofthestorm.fandom.com/wiki/Braxis_Holdout",
+    "https://heroesofthestorm.fandom.com/wiki/Sky_Temple",
+    "https://heroesofthestorm.fandom.com/wiki/Vehicle",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/21072294"
+  ],
+  "Affected": [
+    "Heroes: Abathur",
+    "Brightwing",
+    "Chromie",
+    "Dehaka",
+    "Falstad",
+    "Johanna (Reworked)",
+    "Kharazim",
+    "Nova",
+    "Rehgar Battlegrounds: Battlefield of Eternity",
+    "Hanamura",
+    "Infernal Shrines",
+    "Volskaya Foundry Ranked Battleground rotations: \u002B Volskaya Foundry \u002B Haunted Mines \u002B Towers of Doom \u002B Warhead Junction - Blackheart\u0027s Bay - Braxis Holdout - Sky Temple Other: Vehicles",
+    "Abathur",
+    "Alarak",
+    "Ana",
+    "Auriel",
+    "D.Va",
+    "Diablo",
+    "Garrosh",
+    "Genji",
+    "Illidan",
+    "Jaina",
+    "Johanna",
+    "Leoric",
+    "Li-Ming",
+    "Probius",
+    "Rehgar",
+    "Stukov",
+    "Sylvanas",
+    "The Lost Vikings",
+    "Tychus",
+    "Tyrande",
+    "Valeera",
+    "Valla",
+    "Zagara",
+    "Zeratul"
+  ],
+  "Highlights": "New Hero: Ana New Battleground: Volskaya Foundry",
+  "CleanedNotes": "=== Heroes: Abathur ===\r\n[Updates]\r\n  Miscellaneous:\r\n  \u2022 Deep Tunnel (Z) will now go on a 10 second cooldown when interrupted by enemy or allied abilities, including self-cancelling.\r\n  \u2022 Deep Tunnel (Z) now has an allied chat announcement upon activation.\r\n\r\n=== Heroes: Alarak ===\r\n[Bug Fixes]\r\n  \u2022 Rite of Rak\u0027shir will no longer be placed on a dead target if it was cast just as that target took fatal damage.\r\n\r\n=== Heroes: Ana ===\r\n[Releases]\r\n  Ana, Veteran Sniper, has been added to the Nexus and is now available for play! Read on for a brief overview of her Abilities.:\r\n  Trait:\r\n  \u2022 Shrike\r\n    \u2022 Basic Attacks apply a Dose to non-Structure enemies, dealing an additional 44 damage over 5 seconds, stacking up to 5 times.\r\n  Basic Abilities:\r\n  \u2022 Healing Dart (Q)\r\n    \u2022 Fire a dart which heals the first allied Hero hit for 250 Health.\r\n  \u2022 Biotic Grenade (W)\r\n    \u2022 Toss a Grenade at the target area. Allied Heroes hit are healed for 175 Health and receive 25% increased healing for 3 seconds. Enemies hit take 60 damage and receive 100% less healing for 2 seconds.\r\n  \u2022 Sleep Dart (E)\r\n    \u2022 Fire a dart that Sleeps the first enemy Hero hit, rendering them unable to act for 3 seconds. Sleep\u0027s effects end instantly if the target takes damage after the first 0.5 seconds.\r\n    \u2022 Cannot be used on Vehicles.\r\n  Heroic Abilities:\r\n  \u2022 Nano Boost (R)\r\n    \u2022 Instantly boost an allied Hero, restoring 200 Mana. For the next 8 seconds, they gain 30% Spell Power and their Basic Ability cooldowns recharge 150% faster.\r\n    \u2022 Cannot be used on Ana.\r\n  \u2022 Eye of Horus (R)\r\n    \u2022 Assume a sniping position, gaining the ability to fire up to 8 specialized rounds with unlimited range. Rounds hit the first allied or enemy Hero or enemy Structure in their path. Allies are healed for 300 and enemies are damaged for 175. Deals 50% damage to Structures.\r\n    \u2022 Ana is unable to move while Eye of Horus is active.\r\n\r\n=== Heroes: Auriel ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue causing the Energized Cord talent to grant slightly too much Hope with Auriel\u0027s Basic Attacks.\r\n\r\n=== Heroes: Brightwing ===\r\n[Updates]\r\n  Miscellaneous:\r\n  \u2022 Phase Shift (Z) will now go on a 10 second cooldown when interrupted by enemy or allied abilities.\r\n  \u2022 Phase Shift (Z) now has an allied chat announcement upon activation.\r\n\r\n=== Heroes: Chromie ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Time Trap (E)\r\n    \u2022 Now has a unique minimap icon.\r\n\r\n=== Heroes: D.Va ===\r\n[Bug Fixes]\r\n  \u2022 Using Boosters to smash destructible barrels on Blackheart\u0027s Bay will no longer place the Ability on full cooldown.\r\n  \u2022 Dying while casting Call Mech will no longer create an untargetable Mech that persists until D.Va respawns.\r\n  \u2022 Mech deaths that occur while no enemy Heroes are nearby will now correctly grant XP and update D.Va\u0027s death count on the in-game score screen.\r\n  \u2022 A Nuke\u0027s area of effect indicator will no longer disappear if D.Va finishes channeling Nuke in the same moment that her Mech is destroyed.\r\n\r\n=== Heroes: Dehaka ===\r\n[Updates]\r\n  Miscellaneous:\r\n  \u2022 Brushstalker (Z) will now go on a 10 second cooldown when interrupted by enemy or allied abilities.\r\n\r\n=== Heroes: Diablo ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that could prevent Diablo from traveling with his Shadow Charge target if another Hero stood between Diablo and his target.\r\n\r\n=== Heroes: Falstad ===\r\n[Updates]\r\n  Miscellaneous:\r\n  \u2022 Flight (Z) will now go on a 10 second cooldown when interrupted by enemy or allied abilities, including self-cancelling.\r\n  \u2022 Flight (Z) now has an allied chat announcement upon activation.\r\n\r\n=== Heroes: Garrosh ===\r\n[Bug Fixes]\r\n  \u2022 Wrecking Ball will no longer end Rehgar\u0027s Ghost Wolf.\r\n  \u2022 Using Body Check with the Brute Force Talent on a Boss no longer causes the Healing debuff icon to appear next its Health bar.\r\n  \u2022 Bloodthirst will no longer cause Garrosh to automatically retarget his Basic Attacks to the closest enemy.\r\n  \u2022 Into the Fray will no longer place targeting indicators on attacking Hydralisks on Braxis Holdout.\r\n\r\n=== Heroes: Genji ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that could prevent Fort attacks from Slowing Genji if he has Dodge charges remaining, and there is another Genji on the opposing team.\r\n  \u2022 Fixed an issue that could cause Dodge to behave inconsistently against Sylvanas\u0027s and Lunara\u0027s Basic Attacks.\r\n\r\n=== Heroes: Illidan ===\r\n[Bug Fixes]\r\n  \u2022 Abilities that can interrupt Dive, like Li-Ming\u0027s Wave of Force, will no longer cause Illidan to become briefly unresponsive.\r\n\r\n=== Heroes: Jaina ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that prevented Jaina from casting Water Elemental if unpathable terrain existed between Jaina and the desired casting location.\r\n  \u2022 Fixed a typo in the Icy Veins tooltip which incorrectly stated that the Talent provided a 300% cooldown recharge rate , rather than 200%. This only affected the tooltip, and the Talent\u0027s functionality has not changed.\r\n\r\n=== Heroes: Johanna ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Falling Sword (R)\r\n    \u2022 Mana cost reduced from 100 to 90\r\n    \u2022 Damage reduced from 365 to 183\r\n    \u2022 Added functionality:\r\n      \u2022 Now applies a 50% slow for 2.5 seconds after enemies are knocked into the air.\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Laws of Hope (Active)\r\n      \u2022 Moved from Level 4\r\n        \u2022 Health Regeneration reduced from 10 \u003E 1.5\r\n        \u2022 Heal increased from 20% \u003E 30% Maximum Health\r\n        \u2022 Cooldown reduced from 60 \u003E 40 seconds\r\n    \u2022 Regeneration Master (Passive)\r\n      \u2022 Removed\r\n    \u2022 Righteous Smash (Q)\r\n      \u2022 Removed\r\n    \u2022 Hold Your Ground (D)\r\n      \u2022 Moved from Level 13\r\n      \u2022 No longer requires Iron Skin\u0027s shield to be broken for the 4-second cooldown reduction\r\n  \u2022 Level 4\r\n    \u2022 Conviction (W)\r\n      \u2022 Moved from Level 7\r\n    \u2022 Sins Exposed (E)\r\n      \u2022 Moved from Level 7\r\n      \u2022 Damage increased from 68 \u003E 90\r\n    \u2022 Eternal Retaliation (W)\r\n      \u2022 Cooldown reduction decreased from .75 seconds to .5 seconds\r\n  \u2022 Level 7\r\n    \u2022 The Crusade Marches On (D)\r\n      \u2022 Removed\r\n    \u2022 (New Talent) Zealous Glare (E)\r\n      \u2022 Increases the Blind duration of Shield Glare by .5 seconds. Your auto-attacks against Blinded heroes increases their Blind duration by 1 second, up to a maximum of 3 seconds\r\n    \u2022 Subdue (Q)\r\n      \u2022 Moved from Level 13\r\n        \u2022 New functionality:\r\n          \u2022 Hitting 2 enemy Heroes with Punish causes the slow to be increased to 80% and no longer decay.\r\n          \u2022 !Quest: Hit 4 enemy Heroes with a single cast of Punish. !Reward: Punish now always slows enemies by 80% and no longer decays.\r\n  \u2022 Level 13\r\n    \u2022 Roar (Q)\r\n      \u2022 Moved from Level 4\r\n      \u2022 Damage bonus reduced from 50% \u003E 25%\r\n      \u2022 Additional Functionality:\r\n        \u2022 Punish deals 125% increased damage if it hits 2 or more enemy Heroes\r\n    \u2022 Burning Rage (Passive)\r\n      \u2022 Removed\r\n    \u2022 Blessed Hammer (Active)\r\n      \u2022 Moved from Level 16\r\n        \u2022 New Functionality: Activate to create 2 hammers that spiral around Johanna. Hitting enemy Heroes with Shield Glare reduces the cooldown of this ability by 8 seconds. 30-second cooldown\r\n        \u2022 Damage increased from 41 to 80\r\n    \u2022 (New Talent) Holy Fury (W)\r\n      \u2022 Deal damage to enemies around you. Each enemy Hero hit by Condemn increases the damage by 40% for 5 seconds\r\n  \u2022 Level 16\r\n    \u2022 Fanaticism (D)\r\n      \u2022 Additional Functionality: Now also increases the duration of Iron Skin by 2 seconds\r\n  \u2022 Level 20\r\n    \u2022 Heaven\u0027s Fury (R)\r\n      \u2022 Cooldown reduction increased from 2 to 3 seconds\r\n    \u2022 Indestructible (Passive)\r\n      \u2022 Duration reduced from 5 to 4 seconds\r\n    \u2022 Storm Shield (Active)\r\n      \u2022 Removed\r\n    \u2022 (New Talent) Blinded by the Light (Active)\r\n      \u2022 Activate to grant nearby allies a shield equal to 25% of their maximum Health for 3 seconds. Hitting enemy Heroes with Shield Glare reduces this cooldown by 8 seconds. 60-second cooldown\r\n[Bug Fixes]\r\n  \u2022 Abilities that block pathing, such as Sonya\u0027s Arreat Crater and Tassadar\u0027s Force Wall, will no longer block Johanna\u0027s movement during Falling Sword.\r\n\r\n=== Heroes: Kharazim ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Breath of Heaven (W)\r\n    \u2022 Cooldown increased from 8 to 10 seconds\r\n    \u2022 Mana cost increased from 60 to 65\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Transcendence (Passive)\r\n      \u2022 Healing increased from 73 to 96 per 3 Basic Attacks\r\n    \u2022 Insight (Passive)\r\n      \u2022 Cooldown reduction increased from 1 to 1.5 seconds per 3 Basic Attacks\r\n  \u2022 Level 16\r\n    \u2022 Dash of Light (Q \u002B W)\r\n      \u2022 Increased bonus healing from 50% to 75% for dashing to an ally\r\n\r\n=== Heroes: Leoric ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that could prevent the Mithril Mace Talent from granting bonus Attack Speed for Minion and Hero kills.\r\n  \u2022 Percentage damage dealt by the Spectral Leech Talent will now properly count as Ability damage rather than Basic Attack damage.\r\n\r\n=== Heroes: Li-Ming ===\r\n[Bug Fixes]\r\n  \u2022 Templar Li-Ming will now correctly play death sounds when killed.\r\n\r\n=== Heroes: Nova ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Holo Decoy (E)\r\n    \u2022 Sight range increased from 6 to 12 (now matches Heroes)\r\n  Talents:\r\n  \u2022 Level 4\r\n    \u2022 Remote Delivery (E)\r\n      \u2022 Removed\r\n    \u2022 Holo Stability (E)\r\n      \u2022 New functionality:\r\n        \u2022 Increases the cast range and duration of Holo Decoy by 100%\r\n  \u2022 Level 7\r\n    \u2022 Anti-Armor Shells (Passive)\r\n      \u2022 Added functionality:\r\n        \u2022 Basic Attacks also decrease the physical Armor of your target by 10 for 3 seconds\r\n  \u2022 Level 13\r\n    \u2022 Psionic Efficiency (Q)\r\n      \u2022 Range increase from 10 to 15%\r\n\r\n=== Heroes: Probius ===\r\n[Bug Fixes]\r\n  \u2022 Floating Combat Text will now indicate the amount of Shields granted to Probius by a Pylon after learning Shield Battery, rather than displaying zero for each tick.\r\n\r\n=== Heroes: Rehgar ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Chain Heal (Q)\r\n    \u2022 Cast range reduced from 8 to 6\r\n    \u2022 Bounce range reduced from 8 to 7\r\n    \u2022 Primary target healing reduced from 334 to 250\r\n    \u2022 Secondary bounce healing increased from 167 to 250\r\n\r\n=== Heroes: Stukov ===\r\n[Bug Fixes]\r\n  \u2022 Abilities that move Heroes, like Alarak\u0027s Telekinesis and Stiches\u0027 Hook, no longer remove Weighted Pustule from the affected Hero.\r\n\r\n=== Heroes: Sylvanas ===\r\n[Bug Fixes]\r\n  \u2022 Withering Fire can no longer target destructible barrels on Blackheart\u0027s Bay.\r\n\r\n=== Heroes: The Lost Vikings ===\r\n[Bug Fixes]\r\n  \u2022 Can no longer clip into Gates on Braxis Holdout during the pre-game countdown.\r\n  \u2022 Casting Longboat Raid immediately after one of the Vikings is killed will no longer prevent the player from using Mortar during the Heroic Ability\u0027s duration.\r\n\r\n=== Heroes: Tychus ===\r\n[Bug Fixes]\r\n  \u2022 The That\u0027s the Stuff! Talent\u0027s Heal indicator will no longer disappear if Tychus stops attacking before Minigun expires.\r\n\r\n=== Heroes: Tyrande ===\r\n[Bug Fixes]\r\n  \u2022 Sentinel can no longer leave the starting zone during the pre-game countdown.\r\n\r\n=== Heroes: Valeera ===\r\n[Bug Fixes]\r\n  \u2022 Enemy Heroes will no longer hear when Valeera primes her activated Talents, like Crippling Poison, when she is Stealthed.\r\n\r\n=== Heroes: Valla ===\r\n[Bug Fixes]\r\n  \u2022 Enemy Heroes who were broken out of Stealth by Hungering Arrow can now correctly be hit by subsequent Hungering Arrow strikes.\r\n  \u2022 Caltrops dropped by the Vault Talent will no longer display Health bars, and are no longer selectable.\r\n\r\n=== Heroes: Zagara ===\r\n[Bug Fixes]\r\n  \u2022 Creep Tumors no longer exhibit a short delay before granting vision of the area affected by Creep.\r\n\r\n=== Heroes: Zeratul ===\r\n[Bug Fixes]\r\n  \u2022 Zeratul\u0027s mask will no longer stretch and bend oddly during Hero Select or in the Collection on low graphic settings.",
+  "Sections": {
+    "Heroes: Abathur": [
+      "[Updates]",
+      "  Miscellaneous:",
+      "  \u2022 Deep Tunnel (Z) will now go on a 10 second cooldown when interrupted by enemy or allied abilities, including self-cancelling.",
+      "  \u2022 Deep Tunnel (Z) now has an allied chat announcement upon activation."
+    ],
+    "Heroes: Alarak": [
+      "[Bug Fixes]",
+      "  \u2022 Rite of Rak\u0027shir will no longer be placed on a dead target if it was cast just as that target took fatal damage."
+    ],
+    "Heroes: Ana": [
+      "[Releases]",
+      "  Ana, Veteran Sniper, has been added to the Nexus and is now available for play! Read on for a brief overview of her Abilities.:",
+      "  Trait:",
+      "  \u2022 Shrike",
+      "    \u2022 Basic Attacks apply a Dose to non-Structure enemies, dealing an additional 44 damage over 5 seconds, stacking up to 5 times.",
+      "  Basic Abilities:",
+      "  \u2022 Healing Dart (Q)",
+      "    \u2022 Fire a dart which heals the first allied Hero hit for 250 Health.",
+      "  \u2022 Biotic Grenade (W)",
+      "    \u2022 Toss a Grenade at the target area. Allied Heroes hit are healed for 175 Health and receive 25% increased healing for 3 seconds. Enemies hit take 60 damage and receive 100% less healing for 2 seconds.",
+      "  \u2022 Sleep Dart (E)",
+      "    \u2022 Fire a dart that Sleeps the first enemy Hero hit, rendering them unable to act for 3 seconds. Sleep\u0027s effects end instantly if the target takes damage after the first 0.5 seconds.",
+      "    \u2022 Cannot be used on Vehicles.",
+      "  Heroic Abilities:",
+      "  \u2022 Nano Boost (R)",
+      "    \u2022 Instantly boost an allied Hero, restoring 200 Mana. For the next 8 seconds, they gain 30% Spell Power and their Basic Ability cooldowns recharge 150% faster.",
+      "    \u2022 Cannot be used on Ana.",
+      "  \u2022 Eye of Horus (R)",
+      "    \u2022 Assume a sniping position, gaining the ability to fire up to 8 specialized rounds with unlimited range. Rounds hit the first allied or enemy Hero or enemy Structure in their path. Allies are healed for 300 and enemies are damaged for 175. Deals 50% damage to Structures.",
+      "    \u2022 Ana is unable to move while Eye of Horus is active."
+    ],
+    "Heroes: Auriel": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue causing the Energized Cord talent to grant slightly too much Hope with Auriel\u0027s Basic Attacks."
+    ],
+    "Heroes: Brightwing": [
+      "[Updates]",
+      "  Miscellaneous:",
+      "  \u2022 Phase Shift (Z) will now go on a 10 second cooldown when interrupted by enemy or allied abilities.",
+      "  \u2022 Phase Shift (Z) now has an allied chat announcement upon activation."
+    ],
+    "Heroes: Chromie": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Time Trap (E)",
+      "    \u2022 Now has a unique minimap icon."
+    ],
+    "Heroes: D.Va": [
+      "[Bug Fixes]",
+      "  \u2022 Using Boosters to smash destructible barrels on Blackheart\u0027s Bay will no longer place the Ability on full cooldown.",
+      "  \u2022 Dying while casting Call Mech will no longer create an untargetable Mech that persists until D.Va respawns.",
+      "  \u2022 Mech deaths that occur while no enemy Heroes are nearby will now correctly grant XP and update D.Va\u0027s death count on the in-game score screen.",
+      "  \u2022 A Nuke\u0027s area of effect indicator will no longer disappear if D.Va finishes channeling Nuke in the same moment that her Mech is destroyed."
+    ],
+    "Heroes: Dehaka": [
+      "[Updates]",
+      "  Miscellaneous:",
+      "  \u2022 Brushstalker (Z) will now go on a 10 second cooldown when interrupted by enemy or allied abilities."
+    ],
+    "Heroes: Diablo": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that could prevent Diablo from traveling with his Shadow Charge target if another Hero stood between Diablo and his target."
+    ],
+    "Heroes: Falstad": [
+      "[Updates]",
+      "  Miscellaneous:",
+      "  \u2022 Flight (Z) will now go on a 10 second cooldown when interrupted by enemy or allied abilities, including self-cancelling.",
+      "  \u2022 Flight (Z) now has an allied chat announcement upon activation."
+    ],
+    "Heroes: Garrosh": [
+      "[Bug Fixes]",
+      "  \u2022 Wrecking Ball will no longer end Rehgar\u0027s Ghost Wolf.",
+      "  \u2022 Using Body Check with the Brute Force Talent on a Boss no longer causes the Healing debuff icon to appear next its Health bar.",
+      "  \u2022 Bloodthirst will no longer cause Garrosh to automatically retarget his Basic Attacks to the closest enemy.",
+      "  \u2022 Into the Fray will no longer place targeting indicators on attacking Hydralisks on Braxis Holdout."
+    ],
+    "Heroes: Genji": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that could prevent Fort attacks from Slowing Genji if he has Dodge charges remaining, and there is another Genji on the opposing team.",
+      "  \u2022 Fixed an issue that could cause Dodge to behave inconsistently against Sylvanas\u0027s and Lunara\u0027s Basic Attacks."
+    ],
+    "Heroes: Illidan": [
+      "[Bug Fixes]",
+      "  \u2022 Abilities that can interrupt Dive, like Li-Ming\u0027s Wave of Force, will no longer cause Illidan to become briefly unresponsive."
+    ],
+    "Heroes: Jaina": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that prevented Jaina from casting Water Elemental if unpathable terrain existed between Jaina and the desired casting location.",
+      "  \u2022 Fixed a typo in the Icy Veins tooltip which incorrectly stated that the Talent provided a 300% cooldown recharge rate , rather than 200%. This only affected the tooltip, and the Talent\u0027s functionality has not changed."
+    ],
+    "Heroes: Johanna": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Falling Sword (R)",
+      "    \u2022 Mana cost reduced from 100 to 90",
+      "    \u2022 Damage reduced from 365 to 183",
+      "    \u2022 Added functionality:",
+      "      \u2022 Now applies a 50% slow for 2.5 seconds after enemies are knocked into the air.",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Laws of Hope (Active)",
+      "      \u2022 Moved from Level 4",
+      "        \u2022 Health Regeneration reduced from 10 \u003E 1.5",
+      "        \u2022 Heal increased from 20% \u003E 30% Maximum Health",
+      "        \u2022 Cooldown reduced from 60 \u003E 40 seconds",
+      "    \u2022 Regeneration Master (Passive)",
+      "      \u2022 Removed",
+      "    \u2022 Righteous Smash (Q)",
+      "      \u2022 Removed",
+      "    \u2022 Hold Your Ground (D)",
+      "      \u2022 Moved from Level 13",
+      "      \u2022 No longer requires Iron Skin\u0027s shield to be broken for the 4-second cooldown reduction",
+      "  \u2022 Level 4",
+      "    \u2022 Conviction (W)",
+      "      \u2022 Moved from Level 7",
+      "    \u2022 Sins Exposed (E)",
+      "      \u2022 Moved from Level 7",
+      "      \u2022 Damage increased from 68 \u003E 90",
+      "    \u2022 Eternal Retaliation (W)",
+      "      \u2022 Cooldown reduction decreased from .75 seconds to .5 seconds",
+      "  \u2022 Level 7",
+      "    \u2022 The Crusade Marches On (D)",
+      "      \u2022 Removed",
+      "    \u2022 (New Talent) Zealous Glare (E)",
+      "      \u2022 Increases the Blind duration of Shield Glare by .5 seconds. Your auto-attacks against Blinded heroes increases their Blind duration by 1 second, up to a maximum of 3 seconds",
+      "    \u2022 Subdue (Q)",
+      "      \u2022 Moved from Level 13",
+      "        \u2022 New functionality:",
+      "          \u2022 Hitting 2 enemy Heroes with Punish causes the slow to be increased to 80% and no longer decay.",
+      "          \u2022 !Quest: Hit 4 enemy Heroes with a single cast of Punish. !Reward: Punish now always slows enemies by 80% and no longer decays.",
+      "  \u2022 Level 13",
+      "    \u2022 Roar (Q)",
+      "      \u2022 Moved from Level 4",
+      "      \u2022 Damage bonus reduced from 50% \u003E 25%",
+      "      \u2022 Additional Functionality:",
+      "        \u2022 Punish deals 125% increased damage if it hits 2 or more enemy Heroes",
+      "    \u2022 Burning Rage (Passive)",
+      "      \u2022 Removed",
+      "    \u2022 Blessed Hammer (Active)",
+      "      \u2022 Moved from Level 16",
+      "        \u2022 New Functionality: Activate to create 2 hammers that spiral around Johanna. Hitting enemy Heroes with Shield Glare reduces the cooldown of this ability by 8 seconds. 30-second cooldown",
+      "        \u2022 Damage increased from 41 to 80",
+      "    \u2022 (New Talent) Holy Fury (W)",
+      "      \u2022 Deal damage to enemies around you. Each enemy Hero hit by Condemn increases the damage by 40% for 5 seconds",
+      "  \u2022 Level 16",
+      "    \u2022 Fanaticism (D)",
+      "      \u2022 Additional Functionality: Now also increases the duration of Iron Skin by 2 seconds",
+      "  \u2022 Level 20",
+      "    \u2022 Heaven\u0027s Fury (R)",
+      "      \u2022 Cooldown reduction increased from 2 to 3 seconds",
+      "    \u2022 Indestructible (Passive)",
+      "      \u2022 Duration reduced from 5 to 4 seconds",
+      "    \u2022 Storm Shield (Active)",
+      "      \u2022 Removed",
+      "    \u2022 (New Talent) Blinded by the Light (Active)",
+      "      \u2022 Activate to grant nearby allies a shield equal to 25% of their maximum Health for 3 seconds. Hitting enemy Heroes with Shield Glare reduces this cooldown by 8 seconds. 60-second cooldown",
+      "[Bug Fixes]",
+      "  \u2022 Abilities that block pathing, such as Sonya\u0027s Arreat Crater and Tassadar\u0027s Force Wall, will no longer block Johanna\u0027s movement during Falling Sword."
+    ],
+    "Heroes: Kharazim": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Breath of Heaven (W)",
+      "    \u2022 Cooldown increased from 8 to 10 seconds",
+      "    \u2022 Mana cost increased from 60 to 65",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Transcendence (Passive)",
+      "      \u2022 Healing increased from 73 to 96 per 3 Basic Attacks",
+      "    \u2022 Insight (Passive)",
+      "      \u2022 Cooldown reduction increased from 1 to 1.5 seconds per 3 Basic Attacks",
+      "  \u2022 Level 16",
+      "    \u2022 Dash of Light (Q \u002B W)",
+      "      \u2022 Increased bonus healing from 50% to 75% for dashing to an ally"
+    ],
+    "Heroes: Leoric": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that could prevent the Mithril Mace Talent from granting bonus Attack Speed for Minion and Hero kills.",
+      "  \u2022 Percentage damage dealt by the Spectral Leech Talent will now properly count as Ability damage rather than Basic Attack damage."
+    ],
+    "Heroes: Li-Ming": [
+      "[Bug Fixes]",
+      "  \u2022 Templar Li-Ming will now correctly play death sounds when killed."
+    ],
+    "Heroes: Nova": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Holo Decoy (E)",
+      "    \u2022 Sight range increased from 6 to 12 (now matches Heroes)",
+      "  Talents:",
+      "  \u2022 Level 4",
+      "    \u2022 Remote Delivery (E)",
+      "      \u2022 Removed",
+      "    \u2022 Holo Stability (E)",
+      "      \u2022 New functionality:",
+      "        \u2022 Increases the cast range and duration of Holo Decoy by 100%",
+      "  \u2022 Level 7",
+      "    \u2022 Anti-Armor Shells (Passive)",
+      "      \u2022 Added functionality:",
+      "        \u2022 Basic Attacks also decrease the physical Armor of your target by 10 for 3 seconds",
+      "  \u2022 Level 13",
+      "    \u2022 Psionic Efficiency (Q)",
+      "      \u2022 Range increase from 10 to 15%"
+    ],
+    "Heroes: Probius": [
+      "[Bug Fixes]",
+      "  \u2022 Floating Combat Text will now indicate the amount of Shields granted to Probius by a Pylon after learning Shield Battery, rather than displaying zero for each tick."
+    ],
+    "Heroes: Rehgar": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Chain Heal (Q)",
+      "    \u2022 Cast range reduced from 8 to 6",
+      "    \u2022 Bounce range reduced from 8 to 7",
+      "    \u2022 Primary target healing reduced from 334 to 250",
+      "    \u2022 Secondary bounce healing increased from 167 to 250"
+    ],
+    "Heroes: Stukov": [
+      "[Bug Fixes]",
+      "  \u2022 Abilities that move Heroes, like Alarak\u0027s Telekinesis and Stiches\u0027 Hook, no longer remove Weighted Pustule from the affected Hero."
+    ],
+    "Heroes: Sylvanas": [
+      "[Bug Fixes]",
+      "  \u2022 Withering Fire can no longer target destructible barrels on Blackheart\u0027s Bay."
+    ],
+    "Heroes: The Lost Vikings": [
+      "[Bug Fixes]",
+      "  \u2022 Can no longer clip into Gates on Braxis Holdout during the pre-game countdown.",
+      "  \u2022 Casting Longboat Raid immediately after one of the Vikings is killed will no longer prevent the player from using Mortar during the Heroic Ability\u0027s duration."
+    ],
+    "Heroes: Tychus": [
+      "[Bug Fixes]",
+      "  \u2022 The That\u0027s the Stuff! Talent\u0027s Heal indicator will no longer disappear if Tychus stops attacking before Minigun expires."
+    ],
+    "Heroes: Tyrande": [
+      "[Bug Fixes]",
+      "  \u2022 Sentinel can no longer leave the starting zone during the pre-game countdown."
+    ],
+    "Heroes: Valeera": [
+      "[Bug Fixes]",
+      "  \u2022 Enemy Heroes will no longer hear when Valeera primes her activated Talents, like Crippling Poison, when she is Stealthed."
+    ],
+    "Heroes: Valla": [
+      "[Bug Fixes]",
+      "  \u2022 Enemy Heroes who were broken out of Stealth by Hungering Arrow can now correctly be hit by subsequent Hungering Arrow strikes.",
+      "  \u2022 Caltrops dropped by the Vault Talent will no longer display Health bars, and are no longer selectable."
+    ],
+    "Heroes: Zagara": [
+      "[Bug Fixes]",
+      "  \u2022 Creep Tumors no longer exhibit a short delay before granting vision of the area affected by Creep."
+    ],
+    "Heroes: Zeratul": [
+      "[Bug Fixes]",
+      "  \u2022 Zeratul\u0027s mask will no longer stretch and bend oddly during Hero Select or in the Collection on low graphic settings."
+    ]
+  },
+  "PatchFile": "alpha/2017-09-26-v2-28-0-57797-ana-patch-alpha.json",
+  "Sources": [
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2017-09-26-live.html"
+  ]
+}

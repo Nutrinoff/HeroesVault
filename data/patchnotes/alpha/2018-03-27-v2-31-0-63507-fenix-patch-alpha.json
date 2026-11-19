@@ -1,0 +1,360 @@
+{
+  "Id": "patch-notes-march-27-2018",
+  "Title": "Fenix Patch",
+  "Subtitle": "Event: StarCraft 20th Anniversary New Hero: Fenix",
+  "Date": "Mar 27, 2018",
+  "IsoDate": "2018-03-27",
+  "FeedType": "alpha",
+  "Era": "alpha",
+  "PatchVersion": "2.31.0",
+  "FullVersion": "2.31.0.63507",
+  "Build": "63507",
+  "Link": "https://us.battle.net/heroes/en/blog/21646098",
+  "Links": [
+    "https://us.battle.net/heroes/en/blog/21646098",
+    "https://news.blizzard.com/heroes-of-the-storm/21646098",
+    "https://heroesofthestorm.fandom.com/wiki/StarCraft_20th_Anniversary",
+    "https://heroesofthestorm.fandom.com/wiki/Fenix",
+    "https://heroesofthestorm.fandom.com/wiki/Li_Li",
+    "https://heroesofthestorm.fandom.com/wiki/Tracer",
+    "https://heroesofthestorm.fandom.com/wiki/Varian",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/21646098"
+  ],
+  "Affected": [
+    "Heroes: Fenix",
+    "Li Li",
+    "Tracer",
+    "Varian (Reworked)",
+    "Battlefield of Eternity",
+    "Braxis Holdout",
+    "Haunted Mines",
+    "Volskaya Foundry",
+    "Warhead Junction",
+    "Abathur",
+    "Alarak",
+    "Anub\u0027arak",
+    "Auriel",
+    "Blaze",
+    "Chromie",
+    "D.Va",
+    "Dehaka",
+    "Fenix",
+    "Gall",
+    "Gazlowe",
+    "Genji",
+    "Greymane",
+    "Hanzo",
+    "Illidan",
+    "Kel\u0027Thuzad",
+    "Kharazim",
+    "Leoric",
+    "Lunara",
+    "Malfurion",
+    "Malthael",
+    "Medivh",
+    "Murky",
+    "Nazeebo",
+    "Ragnaros",
+    "Rexxar",
+    "Samuro",
+    "Stitches",
+    "Stukov",
+    "The Lost Vikings",
+    "Tyrande",
+    "Uther",
+    "Valeera",
+    "Valla",
+    "Varian"
+  ],
+  "Highlights": "Event: StarCraft 20th Anniversary New Hero: Fenix",
+  "CleanedNotes": "=== Battlegrounds: Battlefield of Eternity ===\r\n[Bug Fixes]\r\n  \u2022 Destroying the middle Healing Fountain on Battlefield of Eternity will no longer cause Minimap icons for other Healing Fountains to disappear.\r\n\r\n=== Battlegrounds: Braxis Holdout ===\r\n[Bug Fixes]\r\n  \u2022 Destroying the middle Healing Fountain on Braxis Holdout will no longer cause Minimap icons for other Healing Fountains to disappear.\r\n\r\n=== Battlegrounds: Haunted Mines ===\r\n[Bug Fixes]\r\n  \u2022 Queueing movement commands while channeling Hearthstone while in the Mines will no longer cancel the channel.\r\n\r\n=== Battlegrounds: Volskaya Foundry ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that could cause Heroes who were piloting a Triglav Protector to become unresponsive after the Protector is destroyed by a damage over time effect.\r\n\r\n=== Battlegrounds: Warhead Junction ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that could cause Heroes to teleport back to the Hall of Storms after moving to a specific area of terrain on Warhead Junction before the game begins.\r\n\r\n=== Heroes: Abathur ===\r\n[Bug Fixes]\r\n  \u2022 Monstrosities will no longer deal area of effect damage on death if Abathur hasn\u0027t learned the Volatile Mutation Talent.\r\n\r\n=== Heroes: Alarak ===\r\n[Bug Fixes]\r\n  \u2022 Rite of Rak\u0027shir can no longer be removed when Samuro casts Mirror Image or Chen casts Storm, Earth, Fire.\r\n\r\n=== Heroes: Anub\u0027arak ===\r\n[Bug Fixes]\r\n  \u2022 Cocoon will no longer trap Pilot-form D.Va if she has already successfully cast Call Mech.\r\n\r\n=== Heroes: Auriel ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Sacred Sweep (Q)\r\n    \u2022 [Undocumented] Center damage to non-Heroes reduced from 180 to 171.\r\n\r\n=== Heroes: Blaze ===\r\n[Bug Fixes]\r\n  \u2022 After learning Oil Dispersal, Oil Spill\u0027s targeting indicator now correctly increases in size to reflect the Ability\u0027s new area of effect.\r\n  \u2022 Casting Flame Stream on a target who is standing in an unignited Oil Spill will now correctly register as two Flame Stream hits, rather than one.\r\n  \u2022 Unignited Oil Spills will no longer reduce enemy Structures\u0027 Attack Speeds after learning the Nanomachine Coating Talent.\r\n  \u2022 Flame Stream is no longer visible through the Fog of War when cast near the edge of the enemy team\u0027s vision.\r\n\r\n=== Heroes: Chromie ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue preventing A.I. Chromie from casting Sand Blast.\r\n\r\n=== Heroes: D.Va ===\r\n[Bug Fixes]\r\n  \u2022 Self-Destruct\u0027s charge percentage will now correctly reset to 0% between rounds during Heroes Brawls.\r\n\r\n=== Heroes: Dehaka ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that could cause Drag visual effects to persist indefinitely if the Ability connected across unpathable terrain.\r\n\r\n=== Heroes: Fenix ===\r\n[Releases]\r\n  Fenix, Steward of the Templar, has been added to the Nexus and is now available for play! Read on for a brief overview of his Abilities.:\r\n  Trait:\r\n  \u2022 Shield Capacitor\r\n    \u2022 Fenix has a permanent 800 Shield, which regenerates at 80 per second after not taking damage for 5 seconds.\r\n  Basic Abilities:\r\n  \u2022 Plasma Cutter (Q)\r\n    \u2022 Create a laser beam at the target point that circles around Fenix twice, dealing 150 damage to enemies hit and Slowing them by 25% for 4 seconds.\r\n  \u2022 Switch Weapon Mode (W)\r\n    \u2022 Activate to switch between Weapon Mode: Repeater Cannon and Weapon Mode: Phase Bomb.\r\n    \u2022 Weapon Mode: Phase Bomb\r\n      \u2022 Basic Attacks have 1.5 increased range, deal 25% more damage, and splash to nearby enemies.\r\n    \u2022 Weapon Mode: Repeater Cannon\r\n      \u2022 Basic Attack speed increased by 150%.\r\n  \u2022 Warp (E)\r\n    \u2022 Warp to targeted location, phasing out after 0.5 seconds, and arriving 0.75 seconds later.\r\n  Heroic Abilities:\r\n  \u2022 Purification Salvo (R)\r\n    \u2022 Channel for 1.5 seconds, sweeping a laser in front of Fenix that locks onto enemy Heroes. Once Channeling finishes, fire 5 missiles at each locked Hero, dealing 86 damage each. Deals 50% increased damage to Slowed targets.\r\n  \u2022 Planet Cracker (R)\r\n    \u2022 After 0.5 seconds, Channel a powerful beam that spans across the battleground for 4 seconds, dealing 105 damage every 0.25 seconds to non-Structure enemies hit.\r\n\r\n=== Heroes: Gall ===\r\n[Bug Fixes]\r\n  \u2022 Shove can no longer be cast while Cho is being pulled by Stitches\u0027s Hook.\r\n\r\n=== Heroes: Gazlowe ===\r\n[Bug Fixes]\r\n  \u2022 A.I. Gazlowe will no longer interrupt its own Doubloon turn-ins on Blackhearts Bay in order to place Rock-It! Turrets.\r\n  \u2022 Dying and respawning after learning Robo-Goblin will no longer remove the player\u0027s selected skin from the Robo-Goblin model.\r\n\r\n=== Heroes: Genji ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that could cause enemy targeted Abilities to hit Genji rather than the intended target during Dragonblade.\r\n\r\n=== Heroes: Greymane ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that could cause Razor Swipe\u0027s area of effect and damage to become disjointed from Greymane\u0027s location.\r\n\r\n=== Heroes: Hanzo ===\r\n[Bug Fixes]\r\n  \u2022 Reactivating Dragon\u0027s Arrow via the Play of the Game Talent after the Arrow has traveled beyond Warhead Junction\u0027s playable area will no longer teleport Hanzo to an unreachable location.\r\n  \u2022 Will no longer play an incorrect voiceover line to allies upon casting Hearthstone.\r\n\r\n=== Heroes: Illidan ===\r\n[Bug Fixes]\r\n  \u2022 Hitting two Heroes with Sweeping Strike at maximum range will now correctly apply the bonus damage granted by the Battered Assault Talent.\r\n  \u2022 The volume for Illidan\u0027s voiceover during The Hunt has been reduced to better match other game sounds.\r\n\r\n=== Heroes: Kel\u0027Thuzad ===\r\n[Bug Fixes]\r\n  \u2022 Chilling Touch can now correctly deal damage to Gall\u0027s Eye of Kilrogg.\r\n\r\n=== Heroes: Kharazim ===\r\n[Bug Fixes]\r\n  \u2022 Seven-Sided Strike will now correctly target Stealth enemy Heroes who have been revealed.\r\n\r\n=== Heroes: Leoric ===\r\n[Bug Fixes]\r\n  \u2022 A.I. Leoric will no longer remain stationary after activating Wraith Walk.\r\n  \u2022 Will no longer become permanently Unstoppable if he is affected by Stasis during Wraith Walk.\r\n\r\n=== Heroes: Li Li ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Wind Serpent (W)\r\n      \u2022 New functionality:\r\n        \u2022 Reduces Cloud Serpent\u0027s cooldown by 2 seconds.\r\n        \u2022 Casting Cloud Serpent also launches Blinding Wind at an enemy near the target.\r\n  \u2022 Level 4\r\n    \u2022 Hindering Winds (W)\r\n      \u2022 Slow amount reduced from 30% to 25%.\r\n[Bug Fixes]\r\n  \u2022 Casting Cloud Serpent on Pilot-form D.Va just before she casts Call Mech will no longer prevent the Serpent from following Mech-form D.Va.\r\n\r\n=== Heroes: Lunara ===\r\n[Bug Fixes]\r\n  \u2022 Queued Leaping Strikes will no longer continue to target an enemy Hero who enters Stealth before the Heroic Ability actually fires.\r\n\r\n=== Heroes: Malfurion ===\r\n[Bug Fixes]\r\n  \u2022 A.I. Malfurion will no longer attempt to cast Entangling Roots on non-Heroic enemies.\r\n  \u2022 Entangling Roots will no longer affect non-Heroic targets.\r\n  \u2022 Regrowth can no longer be cast on non-Heroic targets.\r\n\r\n=== Heroes: Malthael ===\r\n[Bug Fixes]\r\n  \u2022 Reaper\u0027s Mark visual effects will no longer persist if the target is killed just before Reaper\u0027s Mark is applied.\r\n\r\n=== Heroes: Medivh ===\r\n[Bug Fixes]\r\n  \u2022 A.I. Medivh wil no longer become stuck after attempting to use a Mine Entrance on Haunted Mines while in Raven Form.\r\n\r\n=== Heroes: Murky ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that could cause A.I. Murky to repeatedly place Egg in the same location, even if its existing Egg was undamaged.\r\n\r\n=== Heroes: Nazeebo ===\r\n[Bug Fixes]\r\n  \u2022 Choosing the Superstition Talent while Nazeebo is dead will no longer cause Spell Shield visual effects to persist on the terrain after subsequent deaths.\r\n\r\n=== Heroes: Ragnaros ===\r\n[Bug Fixes]\r\n  \u2022 Blind and Evasion effects will no longer cause Empower Sulfuras\u0027s Ability Damage to miss.\r\n\r\n=== Heroes: Rexxar ===\r\n[Bug Fixes]\r\n  \u2022 Completing the Hunter-Gatherer Talent\u0027s quest now correctly grants bonus Armor to Misha.\r\n  \u2022 Misha, Focus! will now correctly grant Misha its passive 15% Movement Speed bonus.\r\n\r\n=== Heroes: Samuro ===\r\n[Bug Fixes]\r\n  \u2022 Casting Mirror Image now correctly clears any Move commands that had been queued for the real Samuro.\r\n\r\n=== Heroes: Stitches ===\r\n[Bug Fixes]\r\n  \u2022 Hook visual effects will no longer persist indefinitely if the target is thrown by Garrosh\u0027s Wrecking Ball while being pulled toward Stitches.\r\n\r\n=== Heroes: Stukov ===\r\n[Bug Fixes]\r\n  \u2022 Will no longer become unresponsive after attempting to cast Lurking Arm behind the allied Hall of Storms.\r\n\r\n=== Heroes: The Lost Vikings ===\r\n[Bug Fixes]\r\n  \u2022 Spin to Win! visual effects are no longer visible through the Fog of War near the edge of the enemy team\u0027s vision.\r\n\r\n=== Heroes: Tracer ===\r\n[Updates]\r\n  Stats:\r\n  \u2022 Health increased from 1206 to 1350.\r\n  \u2022 Health Regeneration increased from 5.0234 to 5.6250.\r\n  \u2022 Basic Attack damage increased from 27 to 29.\r\n  Abilities:\r\n  \u2022 Blink (Q)\r\n    \u2022 Charge cooldown increased from 6 to 8 seconds.\r\n  \u2022 Melee (W)\r\n    \u2022 Damage reduced from 254 to 220.\r\n  \u2022 Recall (E)\r\n    \u2022 Cooldown increased from 26 to 30 seconds.\r\n  \u2022 Pulse Bomb (R)\r\n    \u2022 Damage reduced from 420 to 360.\r\n    \u2022 Secondary damage reduced from 210 to 180.\r\n    \u2022 Scaling damage increased from 5.5% to 6%.\r\n  Talents:\r\n  \u2022 Level 7\r\n    \u2022 Bullet Time (Q)\r\n      \u2022 Cooldown reduction increased from 0.1 to 0.15 seconds.\r\n    \u2022 Jumper (Q)\r\n      \u2022 Additional functionality:\r\n        \u2022 Now also increases the Blink\u0027s cooldown by 2 seconds.\r\n  \u2022 Level 10\r\n    \u2022 Quantum Spike (R)\r\n      \u2022 Bonus damage reduced from 10% to 8% maximum Health.\r\n[Bug Fixes]\r\n  \u2022 Can no longer cast Pulse Bomb while Channeling to launch a Nuke on Warhead Junction.\r\n\r\n=== Heroes: Tyrande ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that could cause Sentinel\u0027s visual effects to become slightly disjointed from the Ability\u0027s path of travel.\r\n\r\n=== Heroes: Uther ===\r\n[Bug Fixes]\r\n  \u2022 Devotion\u0027s tooltip now more clearly communicates that allied Heroes affected by Uther\u0027s Basic Abilities will gain Armor, rather than Heroes Healed by Uther\u0027s Basic Abilities. This is a tooltip correction only; the Trait\u0027s functionality has not been changed.\r\n\r\n=== Heroes: Valeera ===\r\n[Bug Fixes]\r\n  \u2022 Activating Crippling Poison, Wound Poison, or Thistle Tea will no longer clear queued orders or Abilities.\r\n\r\n=== Heroes: Valla ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that could prevent Hungering Arrow from seeking, or dealing damage to, targets after the first when cast at maximum range.\r\n\r\n=== Heroes: Varian ===\r\n[Updates]\r\n  Stats:\r\n  \u2022 Health reduced from 2322 to 1850.\r\n  \u2022 Health Regeneration reduced from 4.8375 to 3.8542.\r\n  \u2022 Health scaling increased from 3% to 4% per level.\r\n  \u2022 Basic Attack damage reduced from 91 to 74.\r\n  \u2022 Basic Attack damage scaling increased from 3.5% to 4%.\r\n  Abilities:\r\n  \u2022 Heroic Strike (Trait)\r\n    \u2022 Damage reduced from 140 to 125.\r\n    \u2022 Damage scaling increased from 3.5% to 4% per level.\r\n  \u2022 Lion\u0027s Fang (Q)\r\n    \u2022 Added functionality:\r\n      \u2022 Hitting an enemy heals Varian for 35 (\u002B4% per level), increased to 140 against Heroes.\r\n  \u2022 Parry (W)\r\n    \u2022 Cooldown increased 8 to 10 seconds.\r\n    \u2022 Mana cost increased from 15 to 20.\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Overpower (W)\r\n      \u2022 Damage bonus increased from 20% to 30%.\r\n  \u2022 Level 4\r\n    \u2022 Taunt (R)\r\n      \u2022 Moved from level 10.\r\n    \u2022 Colossus Smash (R)\r\n      \u2022 Moved from level 10.\r\n      \u2022 Armor reduction decreased from 25 to 20.\r\n    \u2022 Twin Blades of Fury (R)\r\n      \u2022 Moved from level 10.\r\n  \u2022 Level 7\r\n    \u2022 Lionheart (Q)\r\n      \u2022 Increases Lion\u0027s Fang healing for damage dealt to Heroes by 50%.\r\n    \u2022 Victory Rush (Passive)\r\n      \u2022 Healing reduced from 400 to 350.\r\n      \u2022 Cooldown reduced from 60 to 30 seconds.\r\n      \u2022 Cooldown reduction reduced from 15 to 10 seconds.\r\n    \u2022 Live by the Sword (W)\r\n      \u2022 Removed.\r\n  \u2022 Level 10\r\n    \u2022 Shield Wall (W)\r\n      \u2022 Moved from level 4.\r\n      \u2022 Now also reduces Parry\u0027s cooldown 5 seconds, but removes 1 charge.\r\n    \u2022 Warbringer (E)\r\n      \u2022 Moved from level 4\r\n      \u2022 Now also allows Varian to charge to allied Heroes.\r\n  \u2022 Level 20\r\n    \u2022 Demoralizing Shout (Active)\r\n      \u2022 Damage reduction increased from 25% to 40%.",
+  "Sections": {
+    "Battlegrounds: Battlefield of Eternity": [
+      "[Bug Fixes]",
+      "  \u2022 Destroying the middle Healing Fountain on Battlefield of Eternity will no longer cause Minimap icons for other Healing Fountains to disappear."
+    ],
+    "Battlegrounds: Braxis Holdout": [
+      "[Bug Fixes]",
+      "  \u2022 Destroying the middle Healing Fountain on Braxis Holdout will no longer cause Minimap icons for other Healing Fountains to disappear."
+    ],
+    "Battlegrounds: Haunted Mines": [
+      "[Bug Fixes]",
+      "  \u2022 Queueing movement commands while channeling Hearthstone while in the Mines will no longer cancel the channel."
+    ],
+    "Battlegrounds: Volskaya Foundry": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that could cause Heroes who were piloting a Triglav Protector to become unresponsive after the Protector is destroyed by a damage over time effect."
+    ],
+    "Battlegrounds: Warhead Junction": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that could cause Heroes to teleport back to the Hall of Storms after moving to a specific area of terrain on Warhead Junction before the game begins."
+    ],
+    "Heroes: Abathur": [
+      "[Bug Fixes]",
+      "  \u2022 Monstrosities will no longer deal area of effect damage on death if Abathur hasn\u0027t learned the Volatile Mutation Talent."
+    ],
+    "Heroes: Alarak": [
+      "[Bug Fixes]",
+      "  \u2022 Rite of Rak\u0027shir can no longer be removed when Samuro casts Mirror Image or Chen casts Storm, Earth, Fire."
+    ],
+    "Heroes: Anub\u0027arak": [
+      "[Bug Fixes]",
+      "  \u2022 Cocoon will no longer trap Pilot-form D.Va if she has already successfully cast Call Mech."
+    ],
+    "Heroes: Auriel": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Sacred Sweep (Q)",
+      "    \u2022 [Undocumented] Center damage to non-Heroes reduced from 180 to 171."
+    ],
+    "Heroes: Blaze": [
+      "[Bug Fixes]",
+      "  \u2022 After learning Oil Dispersal, Oil Spill\u0027s targeting indicator now correctly increases in size to reflect the Ability\u0027s new area of effect.",
+      "  \u2022 Casting Flame Stream on a target who is standing in an unignited Oil Spill will now correctly register as two Flame Stream hits, rather than one.",
+      "  \u2022 Unignited Oil Spills will no longer reduce enemy Structures\u0027 Attack Speeds after learning the Nanomachine Coating Talent.",
+      "  \u2022 Flame Stream is no longer visible through the Fog of War when cast near the edge of the enemy team\u0027s vision."
+    ],
+    "Heroes: Chromie": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue preventing A.I. Chromie from casting Sand Blast."
+    ],
+    "Heroes: D.Va": [
+      "[Bug Fixes]",
+      "  \u2022 Self-Destruct\u0027s charge percentage will now correctly reset to 0% between rounds during Heroes Brawls."
+    ],
+    "Heroes: Dehaka": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that could cause Drag visual effects to persist indefinitely if the Ability connected across unpathable terrain."
+    ],
+    "Heroes: Fenix": [
+      "[Releases]",
+      "  Fenix, Steward of the Templar, has been added to the Nexus and is now available for play! Read on for a brief overview of his Abilities.:",
+      "  Trait:",
+      "  \u2022 Shield Capacitor",
+      "    \u2022 Fenix has a permanent 800 Shield, which regenerates at 80 per second after not taking damage for 5 seconds.",
+      "  Basic Abilities:",
+      "  \u2022 Plasma Cutter (Q)",
+      "    \u2022 Create a laser beam at the target point that circles around Fenix twice, dealing 150 damage to enemies hit and Slowing them by 25% for 4 seconds.",
+      "  \u2022 Switch Weapon Mode (W)",
+      "    \u2022 Activate to switch between Weapon Mode: Repeater Cannon and Weapon Mode: Phase Bomb.",
+      "    \u2022 Weapon Mode: Phase Bomb",
+      "      \u2022 Basic Attacks have 1.5 increased range, deal 25% more damage, and splash to nearby enemies.",
+      "    \u2022 Weapon Mode: Repeater Cannon",
+      "      \u2022 Basic Attack speed increased by 150%.",
+      "  \u2022 Warp (E)",
+      "    \u2022 Warp to targeted location, phasing out after 0.5 seconds, and arriving 0.75 seconds later.",
+      "  Heroic Abilities:",
+      "  \u2022 Purification Salvo (R)",
+      "    \u2022 Channel for 1.5 seconds, sweeping a laser in front of Fenix that locks onto enemy Heroes. Once Channeling finishes, fire 5 missiles at each locked Hero, dealing 86 damage each. Deals 50% increased damage to Slowed targets.",
+      "  \u2022 Planet Cracker (R)",
+      "    \u2022 After 0.5 seconds, Channel a powerful beam that spans across the battleground for 4 seconds, dealing 105 damage every 0.25 seconds to non-Structure enemies hit."
+    ],
+    "Heroes: Gall": [
+      "[Bug Fixes]",
+      "  \u2022 Shove can no longer be cast while Cho is being pulled by Stitches\u0027s Hook."
+    ],
+    "Heroes: Gazlowe": [
+      "[Bug Fixes]",
+      "  \u2022 A.I. Gazlowe will no longer interrupt its own Doubloon turn-ins on Blackhearts Bay in order to place Rock-It! Turrets.",
+      "  \u2022 Dying and respawning after learning Robo-Goblin will no longer remove the player\u0027s selected skin from the Robo-Goblin model."
+    ],
+    "Heroes: Genji": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that could cause enemy targeted Abilities to hit Genji rather than the intended target during Dragonblade."
+    ],
+    "Heroes: Greymane": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that could cause Razor Swipe\u0027s area of effect and damage to become disjointed from Greymane\u0027s location."
+    ],
+    "Heroes: Hanzo": [
+      "[Bug Fixes]",
+      "  \u2022 Reactivating Dragon\u0027s Arrow via the Play of the Game Talent after the Arrow has traveled beyond Warhead Junction\u0027s playable area will no longer teleport Hanzo to an unreachable location.",
+      "  \u2022 Will no longer play an incorrect voiceover line to allies upon casting Hearthstone."
+    ],
+    "Heroes: Illidan": [
+      "[Bug Fixes]",
+      "  \u2022 Hitting two Heroes with Sweeping Strike at maximum range will now correctly apply the bonus damage granted by the Battered Assault Talent.",
+      "  \u2022 The volume for Illidan\u0027s voiceover during The Hunt has been reduced to better match other game sounds."
+    ],
+    "Heroes: Kel\u0027Thuzad": [
+      "[Bug Fixes]",
+      "  \u2022 Chilling Touch can now correctly deal damage to Gall\u0027s Eye of Kilrogg."
+    ],
+    "Heroes: Kharazim": [
+      "[Bug Fixes]",
+      "  \u2022 Seven-Sided Strike will now correctly target Stealth enemy Heroes who have been revealed."
+    ],
+    "Heroes: Leoric": [
+      "[Bug Fixes]",
+      "  \u2022 A.I. Leoric will no longer remain stationary after activating Wraith Walk.",
+      "  \u2022 Will no longer become permanently Unstoppable if he is affected by Stasis during Wraith Walk."
+    ],
+    "Heroes: Li Li": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Wind Serpent (W)",
+      "      \u2022 New functionality:",
+      "        \u2022 Reduces Cloud Serpent\u0027s cooldown by 2 seconds.",
+      "        \u2022 Casting Cloud Serpent also launches Blinding Wind at an enemy near the target.",
+      "  \u2022 Level 4",
+      "    \u2022 Hindering Winds (W)",
+      "      \u2022 Slow amount reduced from 30% to 25%.",
+      "[Bug Fixes]",
+      "  \u2022 Casting Cloud Serpent on Pilot-form D.Va just before she casts Call Mech will no longer prevent the Serpent from following Mech-form D.Va."
+    ],
+    "Heroes: Lunara": [
+      "[Bug Fixes]",
+      "  \u2022 Queued Leaping Strikes will no longer continue to target an enemy Hero who enters Stealth before the Heroic Ability actually fires."
+    ],
+    "Heroes: Malfurion": [
+      "[Bug Fixes]",
+      "  \u2022 A.I. Malfurion will no longer attempt to cast Entangling Roots on non-Heroic enemies.",
+      "  \u2022 Entangling Roots will no longer affect non-Heroic targets.",
+      "  \u2022 Regrowth can no longer be cast on non-Heroic targets."
+    ],
+    "Heroes: Malthael": [
+      "[Bug Fixes]",
+      "  \u2022 Reaper\u0027s Mark visual effects will no longer persist if the target is killed just before Reaper\u0027s Mark is applied."
+    ],
+    "Heroes: Medivh": [
+      "[Bug Fixes]",
+      "  \u2022 A.I. Medivh wil no longer become stuck after attempting to use a Mine Entrance on Haunted Mines while in Raven Form."
+    ],
+    "Heroes: Murky": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that could cause A.I. Murky to repeatedly place Egg in the same location, even if its existing Egg was undamaged."
+    ],
+    "Heroes: Nazeebo": [
+      "[Bug Fixes]",
+      "  \u2022 Choosing the Superstition Talent while Nazeebo is dead will no longer cause Spell Shield visual effects to persist on the terrain after subsequent deaths."
+    ],
+    "Heroes: Ragnaros": [
+      "[Bug Fixes]",
+      "  \u2022 Blind and Evasion effects will no longer cause Empower Sulfuras\u0027s Ability Damage to miss."
+    ],
+    "Heroes: Rexxar": [
+      "[Bug Fixes]",
+      "  \u2022 Completing the Hunter-Gatherer Talent\u0027s quest now correctly grants bonus Armor to Misha.",
+      "  \u2022 Misha, Focus! will now correctly grant Misha its passive 15% Movement Speed bonus."
+    ],
+    "Heroes: Samuro": [
+      "[Bug Fixes]",
+      "  \u2022 Casting Mirror Image now correctly clears any Move commands that had been queued for the real Samuro."
+    ],
+    "Heroes: Stitches": [
+      "[Bug Fixes]",
+      "  \u2022 Hook visual effects will no longer persist indefinitely if the target is thrown by Garrosh\u0027s Wrecking Ball while being pulled toward Stitches."
+    ],
+    "Heroes: Stukov": [
+      "[Bug Fixes]",
+      "  \u2022 Will no longer become unresponsive after attempting to cast Lurking Arm behind the allied Hall of Storms."
+    ],
+    "Heroes: The Lost Vikings": [
+      "[Bug Fixes]",
+      "  \u2022 Spin to Win! visual effects are no longer visible through the Fog of War near the edge of the enemy team\u0027s vision."
+    ],
+    "Heroes: Tracer": [
+      "[Updates]",
+      "  Stats:",
+      "  \u2022 Health increased from 1206 to 1350.",
+      "  \u2022 Health Regeneration increased from 5.0234 to 5.6250.",
+      "  \u2022 Basic Attack damage increased from 27 to 29.",
+      "  Abilities:",
+      "  \u2022 Blink (Q)",
+      "    \u2022 Charge cooldown increased from 6 to 8 seconds.",
+      "  \u2022 Melee (W)",
+      "    \u2022 Damage reduced from 254 to 220.",
+      "  \u2022 Recall (E)",
+      "    \u2022 Cooldown increased from 26 to 30 seconds.",
+      "  \u2022 Pulse Bomb (R)",
+      "    \u2022 Damage reduced from 420 to 360.",
+      "    \u2022 Secondary damage reduced from 210 to 180.",
+      "    \u2022 Scaling damage increased from 5.5% to 6%.",
+      "  Talents:",
+      "  \u2022 Level 7",
+      "    \u2022 Bullet Time (Q)",
+      "      \u2022 Cooldown reduction increased from 0.1 to 0.15 seconds.",
+      "    \u2022 Jumper (Q)",
+      "      \u2022 Additional functionality:",
+      "        \u2022 Now also increases the Blink\u0027s cooldown by 2 seconds.",
+      "  \u2022 Level 10",
+      "    \u2022 Quantum Spike (R)",
+      "      \u2022 Bonus damage reduced from 10% to 8% maximum Health.",
+      "[Bug Fixes]",
+      "  \u2022 Can no longer cast Pulse Bomb while Channeling to launch a Nuke on Warhead Junction."
+    ],
+    "Heroes: Tyrande": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that could cause Sentinel\u0027s visual effects to become slightly disjointed from the Ability\u0027s path of travel."
+    ],
+    "Heroes: Uther": [
+      "[Bug Fixes]",
+      "  \u2022 Devotion\u0027s tooltip now more clearly communicates that allied Heroes affected by Uther\u0027s Basic Abilities will gain Armor, rather than Heroes Healed by Uther\u0027s Basic Abilities. This is a tooltip correction only; the Trait\u0027s functionality has not been changed."
+    ],
+    "Heroes: Valeera": [
+      "[Bug Fixes]",
+      "  \u2022 Activating Crippling Poison, Wound Poison, or Thistle Tea will no longer clear queued orders or Abilities."
+    ],
+    "Heroes: Valla": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that could prevent Hungering Arrow from seeking, or dealing damage to, targets after the first when cast at maximum range."
+    ],
+    "Heroes: Varian": [
+      "[Updates]",
+      "  Stats:",
+      "  \u2022 Health reduced from 2322 to 1850.",
+      "  \u2022 Health Regeneration reduced from 4.8375 to 3.8542.",
+      "  \u2022 Health scaling increased from 3% to 4% per level.",
+      "  \u2022 Basic Attack damage reduced from 91 to 74.",
+      "  \u2022 Basic Attack damage scaling increased from 3.5% to 4%.",
+      "  Abilities:",
+      "  \u2022 Heroic Strike (Trait)",
+      "    \u2022 Damage reduced from 140 to 125.",
+      "    \u2022 Damage scaling increased from 3.5% to 4% per level.",
+      "  \u2022 Lion\u0027s Fang (Q)",
+      "    \u2022 Added functionality:",
+      "      \u2022 Hitting an enemy heals Varian for 35 (\u002B4% per level), increased to 140 against Heroes.",
+      "  \u2022 Parry (W)",
+      "    \u2022 Cooldown increased 8 to 10 seconds.",
+      "    \u2022 Mana cost increased from 15 to 20.",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Overpower (W)",
+      "      \u2022 Damage bonus increased from 20% to 30%.",
+      "  \u2022 Level 4",
+      "    \u2022 Taunt (R)",
+      "      \u2022 Moved from level 10.",
+      "    \u2022 Colossus Smash (R)",
+      "      \u2022 Moved from level 10.",
+      "      \u2022 Armor reduction decreased from 25 to 20.",
+      "    \u2022 Twin Blades of Fury (R)",
+      "      \u2022 Moved from level 10.",
+      "  \u2022 Level 7",
+      "    \u2022 Lionheart (Q)",
+      "      \u2022 Increases Lion\u0027s Fang healing for damage dealt to Heroes by 50%.",
+      "    \u2022 Victory Rush (Passive)",
+      "      \u2022 Healing reduced from 400 to 350.",
+      "      \u2022 Cooldown reduced from 60 to 30 seconds.",
+      "      \u2022 Cooldown reduction reduced from 15 to 10 seconds.",
+      "    \u2022 Live by the Sword (W)",
+      "      \u2022 Removed.",
+      "  \u2022 Level 10",
+      "    \u2022 Shield Wall (W)",
+      "      \u2022 Moved from level 4.",
+      "      \u2022 Now also reduces Parry\u0027s cooldown 5 seconds, but removes 1 charge.",
+      "    \u2022 Warbringer (E)",
+      "      \u2022 Moved from level 4",
+      "      \u2022 Now also allows Varian to charge to allied Heroes.",
+      "  \u2022 Level 20",
+      "    \u2022 Demoralizing Shout (Active)",
+      "      \u2022 Damage reduction increased from 25% to 40%."
+    ]
+  },
+  "PatchFile": "alpha/2018-03-27-v2-31-0-63507-fenix-patch-alpha.json",
+  "Sources": [
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2018-03-27-live.html"
+  ]
+}

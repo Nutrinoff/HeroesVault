@@ -1,0 +1,34 @@
+{
+  "Id": "hotfix-patch-notes-december-4-2019",
+  "Title": "Deathwing Hotfix Patch #1",
+  "Subtitle": "Hotfix",
+  "Date": "Dec 4, 2019",
+  "IsoDate": "2019-12-04",
+  "FeedType": "alpha",
+  "Era": "alpha",
+  "PatchVersion": "2.49.0",
+  "FullVersion": "2.49.0.77548",
+  "Build": "77548",
+  "Link": "https://us.forums.blizzard.com/en/heroes/t/hotfix-patch-notes-december-4-2019/30208",
+  "Links": [
+    "https://us.forums.blizzard.com/en/heroes/t/hotfix-patch-notes-december-4-2019/30208",
+    "https://www.reddit.com/r/heroesofthestorm/comments/e67au1/undocumented_abathur_symbiote_buff_in_hotfix_patch"
+  ],
+  "Affected": [
+    "Abathur"
+  ],
+  "Highlights": "Hotfix",
+  "CleanedNotes": "=== Heroes: Abathur ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Experience Globe collection range of Abathur\u0027s Symbiote increased from 0 to 1.5.",
+  "Sections": {
+    "Heroes: Abathur": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Experience Globe collection range of Abathur\u0027s Symbiote increased from 0 to 1.5."
+    ]
+  },
+  "PatchFile": "alpha/2019-12-04-v2-49-0-77548-deathwing-hotfix-patch-1-alpha.json",
+  "Sources": [
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2019-12-04-hotfix.html"
+  ]
+}

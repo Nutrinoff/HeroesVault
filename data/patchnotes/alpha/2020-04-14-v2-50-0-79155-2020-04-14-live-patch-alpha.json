@@ -1,0 +1,391 @@
+{
+  "Id": "wiki-2.50.0-April 14, 2020",
+  "Title": "2020-04-14 Live Patch",
+  "Subtitle": "New Feature: Nexus Anomaly - A Call For Help New Event: Fragments of the Dark Nexus AI Rework Ranked Season 2, 2020",
+  "Date": "Apr 14, 2020",
+  "IsoDate": "2020-04-14",
+  "FeedType": "alpha",
+  "Era": "alpha",
+  "PatchVersion": "2.50.0",
+  "FullVersion": "2.50.0.79155",
+  "Build": "79155",
+  "Link": "https://news.blizzard.com/heroes-of-the-storm/23389388",
+  "Links": [
+    "https://news.blizzard.com/heroes-of-the-storm/23389388",
+    "https://heroesofthestorm.fandom.com/wiki/Nexus_Anomaly",
+    "https://heroesofthestorm.fandom.com/wiki/A_Call_For_Help",
+    "https://heroesofthestorm.fandom.com/wiki/Fragments_of_the_Dark_Nexus",
+    "https://heroesofthestorm.fandom.com/wiki/Tassadar",
+    "https://heroesofthestorm.fandom.com/wiki/Xul",
+    "https://heroesofthestorm.fandom.com/wiki/Garden_of_Terror",
+    "https://www.reddit.com/r/heroesofthestorm/comments/g1ecju/undocumented_changes_for_the_2500_patch",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/23389388"
+  ],
+  "Affected": [
+    "Heroes: Tassadar (Reworked)",
+    "Xul Ranked Battleground rotations: \u002B Garden of Terror",
+    "Battlefield of Eternity",
+    "Blackheart\u0027s Bay",
+    "Braxis Holdout",
+    "Cursed Hollow",
+    "Dragon Shire",
+    "Garden of Terror",
+    "Hanamura Temple",
+    "Infernal Shrines",
+    "Sky Temple",
+    "Tomb of the Spider Queen",
+    "Volskaya Foundry",
+    "Warhead Junction",
+    "Alexstrasza",
+    "Ana",
+    "Arthas",
+    "Deathwing",
+    "Gall",
+    "Garrosh",
+    "Hanzo",
+    "Imperius",
+    "Johanna",
+    "Kel\u0027Thuzad",
+    "Kerrigan",
+    "Nazeebo",
+    "Orphea",
+    "Probius",
+    "Samuro",
+    "Stukov",
+    "Sylvanas",
+    "Tassadar",
+    "The Lost Vikings",
+    "Tracer",
+    "Xul",
+    "Zagara",
+    "Zarya"
+  ],
+  "Highlights": "New Feature: Nexus Anomaly - A Call For Help New Event: Fragments of the Dark Nexus AI Rework Ranked Season 2, 2020",
+  "CleanedNotes": "=== General ===\r\n[Updates]\r\n  Map Rotation:\r\n  \u2022 Ranked\r\n    \u2022 [Undocumented] Garden of Terror added.\r\n  A Call For Help:\r\n  \u2022 Towers, Forts, Keeps and Cores\r\n    \u2022 A beam is now created from these Structures to their targets, making it easier to see what is being attacked at a glance.\r\n    \u2022 Allied Heroes of the Structures who are being attacked by enemy Heroes will cause the Structure to focus the offender until the offender is dead or leaves the Structure range.\r\n    \u2022 A bright beam indicates that the Structure is defending an ally Hero and is focusing on the beam target.\r\n    \u2022 Structures reset targeting when the Call for Help target becomes invalid.\r\n    \u2022 Structures reset targeting logic when they recover from being disabled.\r\n  \u2022 Towers, Forts, and Keeps\r\n    \u2022 Damage to Heroes increased by 10%.\r\n    \u2022 Attacks reduce Hero Armor by up to -40.\r\n    \u2022 Tower attacks reduce enemy Hero Armor by 5.\r\n    \u2022 Forts and Keeps attacks reduce enemy Hero Armor by 10.\r\n    \u2022 Forts and Keeps no longer Slow enemy Heroes.\r\n  \u2022 Cores\r\n    \u2022 Core Abilities added.\r\n  Mastery Rings:\r\n  \u2022 Tier 3 added at Hero Level 50. All previous Mastery Rings are required.\r\n  A.I.:\r\n  \u2022 A.I. trees have been refactored in order to reduce conflicts between the tactical and goal systems.\r\n  \u2022 Agents will attempt to stage and wait for backup around Objectives before attempting to contest.\r\n  \u2022 Disconnected players will have their A.I. return to the Hall of Storms and remain there unless they are pinged to follow.\r\n    \u2022 Follow behavior is the same for disconnected player A.I. and normal A.I.\r\n    \u2022 While following, the agent will attempt to fight while remaining close to their follow target, leashing back if they wander too far away.\r\n    \u2022 While following, the agent will mount or use their Hearthstone if their follow target uses their Mount or Hearthstone.\r\n  \u2022 Adjusting A.I. Healing Fountain goal Health threshold from 75% to 60%.\r\n  Favorite Talents:\r\n  \u2022 Create Builds\r\n    \u2022 Players can pick their favorite Talents on the Talent panel from Hero Select or draft screen.\r\n    \u2022 In order to favorite a Talent, simply click the Talent. Once it\u0027s selected, you can click the Talent again to unselect it.\r\n    \u2022 Players can create up to 3 Builds per each Hero and can activate one Build at a time.\r\n    \u2022 To switch to a different Build, click the Build buttons shown on the top of the Talent panel.\r\n    \u2022 If any significant change happens to a Talent Tier due to a Balance Patch, the selection for the Talent Tier will be reset.\r\n  \u2022 Share Builds\r\n    \u2022 You can generate a hyperlink for a Build by clicking the cog menu next to Build buttons on the Hero select screen.\r\n    \u2022 If you paste this link on the chat, it shows as a hyperlink in the chat history.\r\n    \u2022 If you left click the link, it shows the preview of the Build.\r\n    \u2022 By right clicking the link, you can copy the link to your clipboard or directly save it to your Hero\u0027s corresponding Build slots.\r\n    \u2022 The format of the Build hyperlink is as follows. [T1231231,Hero]\r\n  \u2022 Copy Builds\r\n    \u2022 A favorited Talent will display a favorite icon on top of it.\r\n    \u2022 You can switch the Build in the middle of the game based on your strategy.\r\n    \u2022 For the future Talent Tiers, you can adjust your favorite Talents by clicking the Talent button in the same way you would do in the Hero Select screen.\r\n    \u2022 All changes made in game are saved.\r\n    \u2022 After game ends, you can use the cog menu on the Talents tab to copy other players\u0027 Builds.\r\n  Storm League:\r\n  \u2022 Matchmaking\r\n    \u2022 Master and Grand Master players are no longer restricted to queuing with only one other player.\r\n    \u2022 Master and Grand Master players are no longer restricted to queuing with players who are within 5000 Ranked Points.\r\n    \u2022 Made some changes to matchmaking rules that should improve the quality of matches for Master and Grand Master players.\r\n  Experience:\r\n  \u2022 Floating text display for Experience on last-hit updated from golden to purple.\r\n  Experience Globes:\r\n  \u2022 Pickup Radius increased from 1.5 to 1.75.\r\n  \u2022 Experience Globes that are actively travelling to a Hero will attempt to follow more closely.\r\n  US Region Selection:\r\n  \u2022 After looking at the causes for North American players\u0027 longer wait times and instances of not queuing together, we are bundling matchmaking for our US regions together. This will only happen for players if they have good pings to both sites, and our simulations have shown that we can create better games faster this way. If you don\u0027t experience this, please let us know!\r\n[Bug Fixes]\r\n  \u2022 Damage that ignores positive Armor should no longer incorrectly ignore negative Armor.\r\n  \u2022 Fixed an issue where various Physical Armor buffs were not appropriately reducing damage from non-Heroic targets.\r\n\r\n=== Battlegrounds: Battlefield of Eternity ===\r\n[Updates]\r\n  A Call For Help:\r\n  \u2022 Cores (Battlefield of Eternity)\r\n    \u2022 Every ~~8~~ 12 seconds, the Core will spawn 2 volleys of Frozen Orbs that explode, dealing 5% maximum Health as damage and Rooting enemy Heroes hit for 1.5 seconds.\r\n\r\n=== Battlegrounds: Blackheart\u0027s Bay ===\r\n[Updates]\r\n  A Call For Help:\r\n  \u2022 Cores (Blackheart\u0027s Bay)\r\n    \u2022 Every 4 seconds, the Core will shoot a cannonball at 2 nearby enemy Heroes, dealing 5% maximum Health as damage, slowing them by 70% for 1.5 seconds, and knocking them back.\r\n\r\n=== Battlegrounds: Braxis Holdout ===\r\n[Updates]\r\n  A Call For Help:\r\n  \u2022 Cores (Braxis Holdout)\r\n    \u2022 Every 4 seconds, the Core will shoot 5 missiles at a nearby enemy Hero, dealing 5% maximum Health as damage per missile.\r\n\r\n=== Battlegrounds: Cursed Hollow ===\r\n[Updates]\r\n  A Call For Help:\r\n  \u2022 Cores (Cursed Hollow)\r\n    \u2022 Every 3 seconds, the Core will spawn a Curse under a nearby enemy Hero. If they are Cursed, they take 5% maximum Health as damage and their Armor is reduced by 75 for 4 seconds.\r\n\r\n=== Battlegrounds: Dragon Shire ===\r\n[Updates]\r\n  A Call For Help:\r\n  \u2022 Cores (Dragon Shire)\r\n    \u2022 Every 6 seconds, the Core will throw 2 boulders at a nearby enemy Hero. Heroes hit are turned to stone, damaged for 5% of their maximum Health, and Stunned for 1.75 seconds.\r\n\r\n=== Battlegrounds: Garden of Terror ===\r\n[Updates]\r\n  A Call For Help:\r\n  \u2022 Cores (Garden of Terror)\r\n    \u2022 Every 5 seconds, the Core shoots a seed under a nearby enemy Hero. When the seed explodes, Heroes inside are Polymorphed for 3 seconds.\r\n\r\n=== Battlegrounds: Hanamura Temple ===\r\n[Updates]\r\n  A Call For Help:\r\n  \u2022 Cores (Hanamura Temple)\r\n    \u2022 Every 8 seconds, the Core fires 2 volleys of missiles around it, dealing 5% maximum Health to enemy Heroes and slowing them by 70% for 1.25 seconds.\r\n\r\n=== Battlegrounds: Infernal Shrines ===\r\n[Updates]\r\n  A Call For Help:\r\n  \u2022 Cores (Infernal Shrines)\r\n    \u2022 Every ~~8~~ 12 seconds, the Core will spawn 2 volleys of Frozen Orbs that explode, dealing 5% maximum Health as damage and Rooting enemy Heroes hit for 1.5 seconds.\r\n\r\n=== Battlegrounds: Sky Temple ===\r\n[Updates]\r\n  A Call For Help:\r\n  \u2022 Cores (Sky Temple)\r\n    \u2022 Every 23 seconds, the Core will spawn 2 sets of 6 tornadoes which swirl around it, dealing 25 damage to enemy Heroes and knocking them back.\r\n\r\n=== Battlegrounds: Tomb of the Spider Queen ===\r\n[Updates]\r\n  A Call For Help:\r\n  \u2022 Cores (Tomb of the Spider Queen)\r\n    \u2022 Every 5 seconds, the Core will shoot a Death Wave, dealing 5% maximum Health as damage to enemy Heroes and slowing them by 70% for 1.25 seconds.\r\n\r\n=== Battlegrounds: Volskaya Foundry ===\r\n[Updates]\r\n  A Call For Help:\r\n  \u2022 Cores (Volskaya Foundry)\r\n    \u2022 Every 6 seconds, the Core shoots 3 Rocket Fists at nearby enemy Heroes, dealing 150 damage and knocking them back.\r\n\r\n=== Battlegrounds: Warhead Junction ===\r\n[Updates]\r\n  A Call For Help:\r\n  \u2022 Cores (Warhead Junction)\r\n    \u2022 Every 18 seconds, the Core launches a Nuke at a nearby enemy Hero, dealing 30% maximum health to enemy Heroes hit.\r\n\r\n=== Heroes: Alexstrasza ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Alexstrasza to have higher Health and Health Regeneration during Dragonqueen.\r\n\r\n=== Heroes: Ana ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Ana\u0027s Overdose to not apply 4 stacks of Mind-Numbing Agent.\r\n\r\n=== Heroes: Arthas ===\r\n[Bug Fixes]\r\n  \u2022 Army of the Dead Ghouls no longer stop following Arthas when affected by certain Abilities.\r\n  \u2022 [Undocumented] Fixed an issue causing Arthas\u0027s Anti-Magic Shell to not display properly in the Death Recap.\r\n\r\n=== Heroes: Deathwing ===\r\n[Bug Fixes]\r\n  \u2022 Deathwing\u0027s Energy tooltip while in Dragonflight now is correctly called Energy instead of Mana.\r\n  \u2022 [Undocumented] Fixed an issue causing Deathwing to have higher Health and Health Regeneration during Dragonflight.\r\n  \u2022 [Undocumented] Deathwing now ignores the global limitations on Haunted Mines.\r\n\r\n=== Heroes: Gall ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Gall\u0027s Edge of Madness now has critical damage indicators.\r\n\r\n=== Heroes: Garrosh ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue where Garrosh would fail to throw moving targets.\r\n\r\n=== Heroes: Hanzo ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Hanzo\u0027s Sharpened Arrowheads now applies the Armor reduction for Storm Bow before the Storm Bow damage is dealt.\r\n\r\n=== Heroes: Imperius ===\r\n[Bug Fixes]\r\n  \u2022 Imperius\u0027s Flash of Anger will now properly trigger if it kills a target.\r\n  \u2022 Clarified Flash of Anger\u0027s tooltip to reflect that it deals damage to the target as well as all targets around them.\r\n  \u2022 Fixed an issue where players were unable to issue attack commands while using Celestial Charge, causing them to auto-acquire nearby targets.\r\n  \u2022 [Undocumented] Pressing or queueing Imperius\u0027s Molten Armor during Celestial Charge will now immediately activate it rather than waiting for Celestial Charge to complete.\r\n\r\n=== Heroes: Johanna ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Johanna\u0027s Reinforce now also grants Physical Armor against Mercenaries, Monsters, Summons, Structures, and Minions.\r\n\r\n=== Heroes: Kel\u0027Thuzad ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Kel\u0027Thuzad\u0027s Armor of the Archlich now also grants Physical Armor against Mercenaries, Monsters, Summons, Structures, and Minions.\r\n\r\n=== Heroes: Kerrigan ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Kerrigan\u0027s Chrysalis radius increased from 0.5 to 0.6875.\r\n\r\n=== Heroes: Nazeebo ===\r\n[Bug Fixes]\r\n  \u2022 Crowd Control effects on Nazeebo\u0027s Zombie Wall with Dead Rush no longer causes Zombie Wall to become unresponsive.\r\n\r\n=== Heroes: Orphea ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Orphea\u0027s Ravenous Hunger to not grant Quest progress when a target of Chomp died within 1.5 seconds.\r\n\r\n=== Heroes: Probius ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Probius\u0027s Particle Accelerator to not properly give bonus damage.\r\n\r\n=== Heroes: Samuro ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Deflection now also grants Physical Armor against Mercenaries, Monsters, Summons, Structures, and Minions.\r\n  \u2022 [Undocumented] Fixed an issue causing Samuro\u0027s Way of Illusion to not properly give bonus damage.\r\n\r\n=== Heroes: Stukov ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue where Weighted Pustule was removed by Unstoppable.\r\n\r\n=== Heroes: Sylvanas ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Sylvanas\u0027s Mercenary Queen will no longer deal bonus damage to Monsters.\r\n\r\n=== Heroes: Tassadar ===\r\n[Updates]\r\n  Base:\r\n  \u2022 Vitals\r\n    \u2022 [Undocumented] Health increased from 1350 to 1550.\r\n    \u2022 [Undocumented] Health Regeneration increased from 2.81 to 3.23.\r\n  Trait:\r\n  \u2022 Resonance Beam\r\n    \u2022 Tassadar\u0027s Basic Attack is a long range channeled beam that deals 14 damage every .25 seconds and Slows its target for 10%. While channeling, your Basic Attack damage and Mana Regeneration increase by 25% a second, to a maximum of 100% bonus. While fully charged, gain an additional 3 mana per second. This bonus is lost after 6 seconds of not channeling.\r\n  Basic Abilities:\r\n  \u2022 Shock Ray [Q]\r\n    \u2022 After a .375 second cast, channel a fast moving electric beam that deals 280 damage and slows all enemies in a line by 25% for 2 seconds.\r\n    \u2022 Mana: 55 Mana.\r\n    \u2022 Cooldown: 7 seconds.\r\n  \u2022 Psionic Storm [W]\r\n    \u2022 Create a storm of psionic energy at the targeted location, dealing 38 damage every .5 seconds to enemies within its area for 3 seconds. This damage increases by 10% for each consecutive hit, to a maximum of 50% increased damage.\r\n    \u2022 Mana: 60 Mana.\r\n    \u2022 Cooldown: 8 seconds.\r\n  \u2022 Force Wall [E]\r\n    \u2022 After a .5 second delay, create a wall that blocks all units from moving through it for 2 seconds.\r\n    \u2022 Mana: 70 Mana.\r\n    \u2022 Cooldown: 21 seconds.\r\n  Heroic Abilities:\r\n  \u2022 Archon [R1]\r\n    \u2022 Transform into a powerful Archon, gaining 40% of your maximum health as a shield and empowering Basic Attacks for 12 seconds. Empowered Basic Attacks deal more damage, splash in a small area, and reduce the Spell Armor of Heroes by 20 for 2 seconds. While in Archon form, Resonance Beam is fully charged.\r\n    \u2022 Mana: 100 Mana.\r\n    \u2022 Cooldown: 90 seconds.\r\n  \u2022 Black Hole [R2]\r\n    \u2022 After a .5 second cast, launch a Black Hole that travels in a long line. While travelling, the Black Hole quickly pulls enemy Heroes towards its center. Touching the center deals 310 damage and stuns for 1.25 seconds.\r\n    \u2022 Mana: 80 Mana.\r\n    \u2022 Cooldown: 70 seconds.\r\n  Talent:\r\n  \u2022 Level 1\r\n    \u2022 Static Charge [Q]\r\n      \u2022 Quest: Heroes hit by Shock Ray permanently increase its damage by 4 and grant 33% Resonance Beam charge.\r\n      \u2022 Maximum of 200 additional damage.\r\n    \u2022 Psi-Infusion [W]\r\n      \u2022 Increase Psionic Storm\u0027s range by 33%. Each non-structure enemy hit by Psionic Storm restores .5 mana, increased to 5 against Heroes.\r\n    \u2022 Khaydarin Amulet [Trait]\r\n      \u2022 Quest: Resonance Beam charges 50% faster.\r\n      \u2022 Reward: After remaining at full charge for 80 seconds, Resonance Beam bounces to hit 1 additional target for 50% damage.\r\n      \u2022 Reward: After remaining at full charge for 160 seconds, Resonance Beam bounces to hit 2 additional targets for 50% damage.\r\n  \u2022 Level 4\r\n    \u2022 Induction [Q]\r\n      \u2022 Casting Shock Ray increases Tassadar\u0027s move speed by 15% for 3 seconds. If an enemy Hero is hit, increase this bonus by 10%.\r\n    \u2022 Electric Fence [E]\r\n      \u2022 Enemies near Force Wall take 46 damage every .5 seconds and are slowed by 35%.\r\n    \u2022 Plasma Shield [Trait]\r\n      \u2022 While Resonance Beam is fully charged, gain a shield equal to 3% of max health every second. Stacking up to 15% maximum health.\r\n  \u2022 Level 7\r\n    \u2022 Beam Alignment [Q]\r\n      \u2022 When Resonance Beam is fully charged, your Basic Attack range is increased by 1 and the cooldown of Shock Ray refreshes 100% faster.\r\n    \u2022 Psionic Echo [Q/E]\r\n      \u2022 Casting Psionic Storm causes your next Shock Ray within 3 seconds to cost 30 mana and create a Psionic Storm on the first Hero it hits.\r\n    \u2022 Arc Discharge [Trait]\r\n      \u2022 After reaching full charge, the next instance of Resonance Beam damage creates a Psionic Storm at the target\u0027s location. This effect has a 20 second cooldown that decays twice as fast while Resonance Beam is at full charge.\r\n  \u2022 Level 13\r\n    \u2022 Feedback [W/Trait]\r\n      \u2022 On targets afflicted with Psionic Storm, Resonance Beam\u0027s slow is increased to 60% and it also reduces Physical Armor by 25.\r\n    \u2022 Shadow Walk [Active]\r\n      \u2022 Activate to gain unrevealable Stealth, 40% movement speed and 25 Armor for 1.5 seconds. 60 second cooldown. Can be cast while channeling Shock Ray or Black Hole.\r\n    \u2022 Oracle [Active]\r\n      \u2022 While stationary, gain 30 Spell Armor for .75 seconds and heal for 12 health each second. Activate to channel for up to 4 seconds, revealing a gradually increasing area anywhere on the map. 45 second cooldown.\r\n  \u2022 Level 16\r\n    \u2022 Thermal Lance [Q]\r\n      \u2022 The first enemy Hero hit by Shock Ray takes 8% of their maximum health as damage.\r\n    \u2022 Psychic Shock [W]\r\n      \u2022 Psionic Storm deals damage 25% faster.\r\n    \u2022 Executor\u0027s Will [Active]\r\n      \u2022 Activate to gain full Resonance Beam charge, 15 Spell Power, and cause Ability cooldowns to refresh 25% faster. This effect lasts as long as Resonance Beam is fully charged. 60 sec cooldown.\r\n  \u2022 Level 20\r\n    \u2022 Twilight Archon [R1]\r\n      \u2022 Basic Attacks while in Archon form increase its duration by 2 seconds.\r\n    \u2022 Kugelblitz [R2]\r\n      \u2022 Each Hero hit by Black Hole creates a Psionic Storm at their location.\r\n    \u2022 Force Barrier [E]\r\n      \u2022 Increases the range of Force Wall by 50%, its duration by .5 seconds, and reduces its cooldown by 10 seconds.\r\n    \u2022 Khala\u0027s Gift [Passive]\r\n      \u2022 Gain 4 spell power for yourself and each nearby ally Hero, up to 20. Your total bonus is shared with all contributing allies.\r\n\r\n=== Heroes: The Lost Vikings ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Go Go Go!, Norse Force, Press A, and Spin to Win are now temporarily disabled after Longboat Raid is destroyed.\r\n\r\n=== Heroes: Tracer ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue where Tracer\u0027s A.I. would sometimes stop using her weapons to auto-attack targets.\r\n  \u2022 [Undocumented] The time during which Tracer\u0027s Basic Attacks are disabled right after Reload has been increased from 0.75 to 0.8125 seconds.\r\n  \u2022 [Undocumented] Fixed an issue allowing Tracer\u0027s Melee to be used for shortening the time during which Tracer\u0027s Basic Attacks are disabled by Reload.\r\n\r\n=== Heroes: Xul ===\r\n[Updates]\r\n  Base:\r\n  \u2022 Health reduced from 2200 to 2080.\r\n  \u2022 Health Regeneration reduced from 4.58 to 4.33.\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue where Corpse Explosion did not link to an ability in the Death Recap.\r\n\r\n=== Heroes: Zagara ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Zagara\u0027s Devouring Maw to not remove itself from targets immune to it.\r\n\r\n=== Heroes: Zarya ===\r\n[Bug Fixes]\r\n  \u2022 Zarya\u0027s To The Limit no longer causes Zarya\u0027s weapon beam to appear shorter at certain energy levels.\r\n  \u2022 [Undocumented] Fixed an issue causing Zarya\u0027s Defensive Shielding to grant 4 Block charges when a Shield from Shield Ally was destroyed.",
+  "Sections": {
+    "General": [
+      "[Updates]",
+      "  Map Rotation:",
+      "  \u2022 Ranked",
+      "    \u2022 [Undocumented] Garden of Terror added.",
+      "  A Call For Help:",
+      "  \u2022 Towers, Forts, Keeps and Cores",
+      "    \u2022 A beam is now created from these Structures to their targets, making it easier to see what is being attacked at a glance.",
+      "    \u2022 Allied Heroes of the Structures who are being attacked by enemy Heroes will cause the Structure to focus the offender until the offender is dead or leaves the Structure range.",
+      "    \u2022 A bright beam indicates that the Structure is defending an ally Hero and is focusing on the beam target.",
+      "    \u2022 Structures reset targeting when the Call for Help target becomes invalid.",
+      "    \u2022 Structures reset targeting logic when they recover from being disabled.",
+      "  \u2022 Towers, Forts, and Keeps",
+      "    \u2022 Damage to Heroes increased by 10%.",
+      "    \u2022 Attacks reduce Hero Armor by up to -40.",
+      "    \u2022 Tower attacks reduce enemy Hero Armor by 5.",
+      "    \u2022 Forts and Keeps attacks reduce enemy Hero Armor by 10.",
+      "    \u2022 Forts and Keeps no longer Slow enemy Heroes.",
+      "  \u2022 Cores",
+      "    \u2022 Core Abilities added.",
+      "  Mastery Rings:",
+      "  \u2022 Tier 3 added at Hero Level 50. All previous Mastery Rings are required.",
+      "  A.I.:",
+      "  \u2022 A.I. trees have been refactored in order to reduce conflicts between the tactical and goal systems.",
+      "  \u2022 Agents will attempt to stage and wait for backup around Objectives before attempting to contest.",
+      "  \u2022 Disconnected players will have their A.I. return to the Hall of Storms and remain there unless they are pinged to follow.",
+      "    \u2022 Follow behavior is the same for disconnected player A.I. and normal A.I.",
+      "    \u2022 While following, the agent will attempt to fight while remaining close to their follow target, leashing back if they wander too far away.",
+      "    \u2022 While following, the agent will mount or use their Hearthstone if their follow target uses their Mount or Hearthstone.",
+      "  \u2022 Adjusting A.I. Healing Fountain goal Health threshold from 75% to 60%.",
+      "  Favorite Talents:",
+      "  \u2022 Create Builds",
+      "    \u2022 Players can pick their favorite Talents on the Talent panel from Hero Select or draft screen.",
+      "    \u2022 In order to favorite a Talent, simply click the Talent. Once it\u0027s selected, you can click the Talent again to unselect it.",
+      "    \u2022 Players can create up to 3 Builds per each Hero and can activate one Build at a time.",
+      "    \u2022 To switch to a different Build, click the Build buttons shown on the top of the Talent panel.",
+      "    \u2022 If any significant change happens to a Talent Tier due to a Balance Patch, the selection for the Talent Tier will be reset.",
+      "  \u2022 Share Builds",
+      "    \u2022 You can generate a hyperlink for a Build by clicking the cog menu next to Build buttons on the Hero select screen.",
+      "    \u2022 If you paste this link on the chat, it shows as a hyperlink in the chat history.",
+      "    \u2022 If you left click the link, it shows the preview of the Build.",
+      "    \u2022 By right clicking the link, you can copy the link to your clipboard or directly save it to your Hero\u0027s corresponding Build slots.",
+      "    \u2022 The format of the Build hyperlink is as follows. [T1231231,Hero]",
+      "  \u2022 Copy Builds",
+      "    \u2022 A favorited Talent will display a favorite icon on top of it.",
+      "    \u2022 You can switch the Build in the middle of the game based on your strategy.",
+      "    \u2022 For the future Talent Tiers, you can adjust your favorite Talents by clicking the Talent button in the same way you would do in the Hero Select screen.",
+      "    \u2022 All changes made in game are saved.",
+      "    \u2022 After game ends, you can use the cog menu on the Talents tab to copy other players\u0027 Builds.",
+      "  Storm League:",
+      "  \u2022 Matchmaking",
+      "    \u2022 Master and Grand Master players are no longer restricted to queuing with only one other player.",
+      "    \u2022 Master and Grand Master players are no longer restricted to queuing with players who are within 5000 Ranked Points.",
+      "    \u2022 Made some changes to matchmaking rules that should improve the quality of matches for Master and Grand Master players.",
+      "  Experience:",
+      "  \u2022 Floating text display for Experience on last-hit updated from golden to purple.",
+      "  Experience Globes:",
+      "  \u2022 Pickup Radius increased from 1.5 to 1.75.",
+      "  \u2022 Experience Globes that are actively travelling to a Hero will attempt to follow more closely.",
+      "  US Region Selection:",
+      "  \u2022 After looking at the causes for North American players\u0027 longer wait times and instances of not queuing together, we are bundling matchmaking for our US regions together. This will only happen for players if they have good pings to both sites, and our simulations have shown that we can create better games faster this way. If you don\u0027t experience this, please let us know!",
+      "[Bug Fixes]",
+      "  \u2022 Damage that ignores positive Armor should no longer incorrectly ignore negative Armor.",
+      "  \u2022 Fixed an issue where various Physical Armor buffs were not appropriately reducing damage from non-Heroic targets."
+    ],
+    "Battlegrounds: Battlefield of Eternity": [
+      "[Updates]",
+      "  A Call For Help:",
+      "  \u2022 Cores (Battlefield of Eternity)",
+      "    \u2022 Every ~~8~~ 12 seconds, the Core will spawn 2 volleys of Frozen Orbs that explode, dealing 5% maximum Health as damage and Rooting enemy Heroes hit for 1.5 seconds."
+    ],
+    "Battlegrounds: Blackheart\u0027s Bay": [
+      "[Updates]",
+      "  A Call For Help:",
+      "  \u2022 Cores (Blackheart\u0027s Bay)",
+      "    \u2022 Every 4 seconds, the Core will shoot a cannonball at 2 nearby enemy Heroes, dealing 5% maximum Health as damage, slowing them by 70% for 1.5 seconds, and knocking them back."
+    ],
+    "Battlegrounds: Braxis Holdout": [
+      "[Updates]",
+      "  A Call For Help:",
+      "  \u2022 Cores (Braxis Holdout)",
+      "    \u2022 Every 4 seconds, the Core will shoot 5 missiles at a nearby enemy Hero, dealing 5% maximum Health as damage per missile."
+    ],
+    "Battlegrounds: Cursed Hollow": [
+      "[Updates]",
+      "  A Call For Help:",
+      "  \u2022 Cores (Cursed Hollow)",
+      "    \u2022 Every 3 seconds, the Core will spawn a Curse under a nearby enemy Hero. If they are Cursed, they take 5% maximum Health as damage and their Armor is reduced by 75 for 4 seconds."
+    ],
+    "Battlegrounds: Dragon Shire": [
+      "[Updates]",
+      "  A Call For Help:",
+      "  \u2022 Cores (Dragon Shire)",
+      "    \u2022 Every 6 seconds, the Core will throw 2 boulders at a nearby enemy Hero. Heroes hit are turned to stone, damaged for 5% of their maximum Health, and Stunned for 1.75 seconds."
+    ],
+    "Battlegrounds: Garden of Terror": [
+      "[Updates]",
+      "  A Call For Help:",
+      "  \u2022 Cores (Garden of Terror)",
+      "    \u2022 Every 5 seconds, the Core shoots a seed under a nearby enemy Hero. When the seed explodes, Heroes inside are Polymorphed for 3 seconds."
+    ],
+    "Battlegrounds: Hanamura Temple": [
+      "[Updates]",
+      "  A Call For Help:",
+      "  \u2022 Cores (Hanamura Temple)",
+      "    \u2022 Every 8 seconds, the Core fires 2 volleys of missiles around it, dealing 5% maximum Health to enemy Heroes and slowing them by 70% for 1.25 seconds."
+    ],
+    "Battlegrounds: Infernal Shrines": [
+      "[Updates]",
+      "  A Call For Help:",
+      "  \u2022 Cores (Infernal Shrines)",
+      "    \u2022 Every ~~8~~ 12 seconds, the Core will spawn 2 volleys of Frozen Orbs that explode, dealing 5% maximum Health as damage and Rooting enemy Heroes hit for 1.5 seconds."
+    ],
+    "Battlegrounds: Sky Temple": [
+      "[Updates]",
+      "  A Call For Help:",
+      "  \u2022 Cores (Sky Temple)",
+      "    \u2022 Every 23 seconds, the Core will spawn 2 sets of 6 tornadoes which swirl around it, dealing 25 damage to enemy Heroes and knocking them back."
+    ],
+    "Battlegrounds: Tomb of the Spider Queen": [
+      "[Updates]",
+      "  A Call For Help:",
+      "  \u2022 Cores (Tomb of the Spider Queen)",
+      "    \u2022 Every 5 seconds, the Core will shoot a Death Wave, dealing 5% maximum Health as damage to enemy Heroes and slowing them by 70% for 1.25 seconds."
+    ],
+    "Battlegrounds: Volskaya Foundry": [
+      "[Updates]",
+      "  A Call For Help:",
+      "  \u2022 Cores (Volskaya Foundry)",
+      "    \u2022 Every 6 seconds, the Core shoots 3 Rocket Fists at nearby enemy Heroes, dealing 150 damage and knocking them back."
+    ],
+    "Battlegrounds: Warhead Junction": [
+      "[Updates]",
+      "  A Call For Help:",
+      "  \u2022 Cores (Warhead Junction)",
+      "    \u2022 Every 18 seconds, the Core launches a Nuke at a nearby enemy Hero, dealing 30% maximum health to enemy Heroes hit."
+    ],
+    "Heroes: Alexstrasza": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Alexstrasza to have higher Health and Health Regeneration during Dragonqueen."
+    ],
+    "Heroes: Ana": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Ana\u0027s Overdose to not apply 4 stacks of Mind-Numbing Agent."
+    ],
+    "Heroes: Arthas": [
+      "[Bug Fixes]",
+      "  \u2022 Army of the Dead Ghouls no longer stop following Arthas when affected by certain Abilities.",
+      "  \u2022 [Undocumented] Fixed an issue causing Arthas\u0027s Anti-Magic Shell to not display properly in the Death Recap."
+    ],
+    "Heroes: Deathwing": [
+      "[Bug Fixes]",
+      "  \u2022 Deathwing\u0027s Energy tooltip while in Dragonflight now is correctly called Energy instead of Mana.",
+      "  \u2022 [Undocumented] Fixed an issue causing Deathwing to have higher Health and Health Regeneration during Dragonflight.",
+      "  \u2022 [Undocumented] Deathwing now ignores the global limitations on Haunted Mines."
+    ],
+    "Heroes: Gall": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Gall\u0027s Edge of Madness now has critical damage indicators."
+    ],
+    "Heroes: Garrosh": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue where Garrosh would fail to throw moving targets."
+    ],
+    "Heroes: Hanzo": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Hanzo\u0027s Sharpened Arrowheads now applies the Armor reduction for Storm Bow before the Storm Bow damage is dealt."
+    ],
+    "Heroes: Imperius": [
+      "[Bug Fixes]",
+      "  \u2022 Imperius\u0027s Flash of Anger will now properly trigger if it kills a target.",
+      "  \u2022 Clarified Flash of Anger\u0027s tooltip to reflect that it deals damage to the target as well as all targets around them.",
+      "  \u2022 Fixed an issue where players were unable to issue attack commands while using Celestial Charge, causing them to auto-acquire nearby targets.",
+      "  \u2022 [Undocumented] Pressing or queueing Imperius\u0027s Molten Armor during Celestial Charge will now immediately activate it rather than waiting for Celestial Charge to complete."
+    ],
+    "Heroes: Johanna": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Johanna\u0027s Reinforce now also grants Physical Armor against Mercenaries, Monsters, Summons, Structures, and Minions."
+    ],
+    "Heroes: Kel\u0027Thuzad": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Kel\u0027Thuzad\u0027s Armor of the Archlich now also grants Physical Armor against Mercenaries, Monsters, Summons, Structures, and Minions."
+    ],
+    "Heroes: Kerrigan": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Kerrigan\u0027s Chrysalis radius increased from 0.5 to 0.6875."
+    ],
+    "Heroes: Nazeebo": [
+      "[Bug Fixes]",
+      "  \u2022 Crowd Control effects on Nazeebo\u0027s Zombie Wall with Dead Rush no longer causes Zombie Wall to become unresponsive."
+    ],
+    "Heroes: Orphea": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Orphea\u0027s Ravenous Hunger to not grant Quest progress when a target of Chomp died within 1.5 seconds."
+    ],
+    "Heroes: Probius": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Probius\u0027s Particle Accelerator to not properly give bonus damage."
+    ],
+    "Heroes: Samuro": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Deflection now also grants Physical Armor against Mercenaries, Monsters, Summons, Structures, and Minions.",
+      "  \u2022 [Undocumented] Fixed an issue causing Samuro\u0027s Way of Illusion to not properly give bonus damage."
+    ],
+    "Heroes: Stukov": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue where Weighted Pustule was removed by Unstoppable."
+    ],
+    "Heroes: Sylvanas": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Sylvanas\u0027s Mercenary Queen will no longer deal bonus damage to Monsters."
+    ],
+    "Heroes: Tassadar": [
+      "[Updates]",
+      "  Base:",
+      "  \u2022 Vitals",
+      "    \u2022 [Undocumented] Health increased from 1350 to 1550.",
+      "    \u2022 [Undocumented] Health Regeneration increased from 2.81 to 3.23.",
+      "  Trait:",
+      "  \u2022 Resonance Beam",
+      "    \u2022 Tassadar\u0027s Basic Attack is a long range channeled beam that deals 14 damage every .25 seconds and Slows its target for 10%. While channeling, your Basic Attack damage and Mana Regeneration increase by 25% a second, to a maximum of 100% bonus. While fully charged, gain an additional 3 mana per second. This bonus is lost after 6 seconds of not channeling.",
+      "  Basic Abilities:",
+      "  \u2022 Shock Ray [Q]",
+      "    \u2022 After a .375 second cast, channel a fast moving electric beam that deals 280 damage and slows all enemies in a line by 25% for 2 seconds.",
+      "    \u2022 Mana: 55 Mana.",
+      "    \u2022 Cooldown: 7 seconds.",
+      "  \u2022 Psionic Storm [W]",
+      "    \u2022 Create a storm of psionic energy at the targeted location, dealing 38 damage every .5 seconds to enemies within its area for 3 seconds. This damage increases by 10% for each consecutive hit, to a maximum of 50% increased damage.",
+      "    \u2022 Mana: 60 Mana.",
+      "    \u2022 Cooldown: 8 seconds.",
+      "  \u2022 Force Wall [E]",
+      "    \u2022 After a .5 second delay, create a wall that blocks all units from moving through it for 2 seconds.",
+      "    \u2022 Mana: 70 Mana.",
+      "    \u2022 Cooldown: 21 seconds.",
+      "  Heroic Abilities:",
+      "  \u2022 Archon [R1]",
+      "    \u2022 Transform into a powerful Archon, gaining 40% of your maximum health as a shield and empowering Basic Attacks for 12 seconds. Empowered Basic Attacks deal more damage, splash in a small area, and reduce the Spell Armor of Heroes by 20 for 2 seconds. While in Archon form, Resonance Beam is fully charged.",
+      "    \u2022 Mana: 100 Mana.",
+      "    \u2022 Cooldown: 90 seconds.",
+      "  \u2022 Black Hole [R2]",
+      "    \u2022 After a .5 second cast, launch a Black Hole that travels in a long line. While travelling, the Black Hole quickly pulls enemy Heroes towards its center. Touching the center deals 310 damage and stuns for 1.25 seconds.",
+      "    \u2022 Mana: 80 Mana.",
+      "    \u2022 Cooldown: 70 seconds.",
+      "  Talent:",
+      "  \u2022 Level 1",
+      "    \u2022 Static Charge [Q]",
+      "      \u2022 Quest: Heroes hit by Shock Ray permanently increase its damage by 4 and grant 33% Resonance Beam charge.",
+      "      \u2022 Maximum of 200 additional damage.",
+      "    \u2022 Psi-Infusion [W]",
+      "      \u2022 Increase Psionic Storm\u0027s range by 33%. Each non-structure enemy hit by Psionic Storm restores .5 mana, increased to 5 against Heroes.",
+      "    \u2022 Khaydarin Amulet [Trait]",
+      "      \u2022 Quest: Resonance Beam charges 50% faster.",
+      "      \u2022 Reward: After remaining at full charge for 80 seconds, Resonance Beam bounces to hit 1 additional target for 50% damage.",
+      "      \u2022 Reward: After remaining at full charge for 160 seconds, Resonance Beam bounces to hit 2 additional targets for 50% damage.",
+      "  \u2022 Level 4",
+      "    \u2022 Induction [Q]",
+      "      \u2022 Casting Shock Ray increases Tassadar\u0027s move speed by 15% for 3 seconds. If an enemy Hero is hit, increase this bonus by 10%.",
+      "    \u2022 Electric Fence [E]",
+      "      \u2022 Enemies near Force Wall take 46 damage every .5 seconds and are slowed by 35%.",
+      "    \u2022 Plasma Shield [Trait]",
+      "      \u2022 While Resonance Beam is fully charged, gain a shield equal to 3% of max health every second. Stacking up to 15% maximum health.",
+      "  \u2022 Level 7",
+      "    \u2022 Beam Alignment [Q]",
+      "      \u2022 When Resonance Beam is fully charged, your Basic Attack range is increased by 1 and the cooldown of Shock Ray refreshes 100% faster.",
+      "    \u2022 Psionic Echo [Q/E]",
+      "      \u2022 Casting Psionic Storm causes your next Shock Ray within 3 seconds to cost 30 mana and create a Psionic Storm on the first Hero it hits.",
+      "    \u2022 Arc Discharge [Trait]",
+      "      \u2022 After reaching full charge, the next instance of Resonance Beam damage creates a Psionic Storm at the target\u0027s location. This effect has a 20 second cooldown that decays twice as fast while Resonance Beam is at full charge.",
+      "  \u2022 Level 13",
+      "    \u2022 Feedback [W/Trait]",
+      "      \u2022 On targets afflicted with Psionic Storm, Resonance Beam\u0027s slow is increased to 60% and it also reduces Physical Armor by 25.",
+      "    \u2022 Shadow Walk [Active]",
+      "      \u2022 Activate to gain unrevealable Stealth, 40% movement speed and 25 Armor for 1.5 seconds. 60 second cooldown. Can be cast while channeling Shock Ray or Black Hole.",
+      "    \u2022 Oracle [Active]",
+      "      \u2022 While stationary, gain 30 Spell Armor for .75 seconds and heal for 12 health each second. Activate to channel for up to 4 seconds, revealing a gradually increasing area anywhere on the map. 45 second cooldown.",
+      "  \u2022 Level 16",
+      "    \u2022 Thermal Lance [Q]",
+      "      \u2022 The first enemy Hero hit by Shock Ray takes 8% of their maximum health as damage.",
+      "    \u2022 Psychic Shock [W]",
+      "      \u2022 Psionic Storm deals damage 25% faster.",
+      "    \u2022 Executor\u0027s Will [Active]",
+      "      \u2022 Activate to gain full Resonance Beam charge, 15 Spell Power, and cause Ability cooldowns to refresh 25% faster. This effect lasts as long as Resonance Beam is fully charged. 60 sec cooldown.",
+      "  \u2022 Level 20",
+      "    \u2022 Twilight Archon [R1]",
+      "      \u2022 Basic Attacks while in Archon form increase its duration by 2 seconds.",
+      "    \u2022 Kugelblitz [R2]",
+      "      \u2022 Each Hero hit by Black Hole creates a Psionic Storm at their location.",
+      "    \u2022 Force Barrier [E]",
+      "      \u2022 Increases the range of Force Wall by 50%, its duration by .5 seconds, and reduces its cooldown by 10 seconds.",
+      "    \u2022 Khala\u0027s Gift [Passive]",
+      "      \u2022 Gain 4 spell power for yourself and each nearby ally Hero, up to 20. Your total bonus is shared with all contributing allies."
+    ],
+    "Heroes: The Lost Vikings": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Go Go Go!, Norse Force, Press A, and Spin to Win are now temporarily disabled after Longboat Raid is destroyed."
+    ],
+    "Heroes: Tracer": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue where Tracer\u0027s A.I. would sometimes stop using her weapons to auto-attack targets.",
+      "  \u2022 [Undocumented] The time during which Tracer\u0027s Basic Attacks are disabled right after Reload has been increased from 0.75 to 0.8125 seconds.",
+      "  \u2022 [Undocumented] Fixed an issue allowing Tracer\u0027s Melee to be used for shortening the time during which Tracer\u0027s Basic Attacks are disabled by Reload."
+    ],
+    "Heroes: Xul": [
+      "[Updates]",
+      "  Base:",
+      "  \u2022 Health reduced from 2200 to 2080.",
+      "  \u2022 Health Regeneration reduced from 4.58 to 4.33.",
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue where Corpse Explosion did not link to an ability in the Death Recap."
+    ],
+    "Heroes: Zagara": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Zagara\u0027s Devouring Maw to not remove itself from targets immune to it."
+    ],
+    "Heroes: Zarya": [
+      "[Bug Fixes]",
+      "  \u2022 Zarya\u0027s To The Limit no longer causes Zarya\u0027s weapon beam to appear shorter at certain energy levels.",
+      "  \u2022 [Undocumented] Fixed an issue causing Zarya\u0027s Defensive Shielding to grant 4 Block charges when a Shield from Shield Ally was destroyed."
+    ]
+  },
+  "PatchFile": "alpha/2020-04-14-v2-50-0-79155-2020-04-14-live-patch-alpha.json",
+  "Sources": [
+    "wiki-patches.html",
+    "2020-04-14-live.html"
+  ]
+}

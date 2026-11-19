@@ -1,0 +1,186 @@
+{
+  "Id": "patch-notes-november-13-2018",
+  "Title": "Orphea Patch",
+  "Subtitle": "New Hero: Orphea",
+  "Date": "Nov 13, 2018",
+  "IsoDate": "2018-11-13",
+  "FeedType": "alpha",
+  "Era": "alpha",
+  "PatchVersion": "2.40.0",
+  "FullVersion": "2.40.0.70200",
+  "Build": "70200",
+  "Link": "https://heroesofthestorm.com/en-us/blog/22647956",
+  "Links": [
+    "https://heroesofthestorm.com/en-us/blog/22647956",
+    "https://news.blizzard.com/heroes-of-the-storm/22647956",
+    "https://heroesofthestorm.fandom.com/wiki/Orphea",
+    "https://heroesofthestorm.fandom.com/wiki/Gul%27dan",
+    "https://heroesofthestorm.fandom.com/wiki/Braxis_Outpost",
+    "https://heroesofthestorm.fandom.com/wiki/Industrial_District",
+    "https://heroesofthestorm.fandom.com/wiki/Lost_Cavern",
+    "https://heroesofthestorm.fandom.com/wiki/Silver_City",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/22647956"
+  ],
+  "Affected": [
+    "Heroes: Gul\u0027dan Battleground updates: Braxis Outpost",
+    "Industrial District",
+    "Lost Cavern",
+    "Silver City",
+    "Dragon Shire",
+    "Volskaya Foundry",
+    "Alexstrasza",
+    "Gul\u0027dan",
+    "Hanzo",
+    "Kael\u0027thas",
+    "Kerrigan",
+    "Li Li",
+    "Li-Ming",
+    "Lt. Morales",
+    "Nazeebo",
+    "Orphea",
+    "Rehgar",
+    "Stukov",
+    "Tyrande",
+    "Whitemane",
+    "Zul\u0027jin"
+  ],
+  "Highlights": "New Hero: Orphea",
+  "CleanedNotes": "=== Battlegrounds: Dragon Shire ===\r\n  Layout:\r\n  \u2022 Art updated.\r\n\r\n=== Battlegrounds: Volskaya Foundry ===\r\n[Updates]\r\n  Objective:\r\n  \u2022 Triglav Protector\r\n    \u2022 Channelling to enter the Triglav Protector is no longer interrupted by damage.\r\n\r\n=== Heroes: Alexstrasza ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Life-Binder (R)\r\n    \u2022 Now it can only be cancelled by enemy Abilities that remove the target from the battlefield.\r\n\r\n=== Heroes: Gul\u0027dan ===\r\n[Updates]\r\n  Talents:\r\n\r\n=== Heroes: Hanzo ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Dragonstrike (R)\r\n    \u2022 Any percentage-based Spell Power modifiers now stack additively when calculating its center damage.\r\n\r\n=== Heroes: Kael\u0027thas ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Phoenix (R)\r\n    \u2022 Any percentage-based Spell Power modifiers now stack additively when calculating its damage.\r\n\r\n=== Heroes: Kerrigan ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that disabled Health and Mana regeneration during Chrysalis.\r\n\r\n=== Heroes: Li Li ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 16\r\n    \u2022 Lightning Serpent (W)\r\n      \u2022 Any percentage-based Spell Power modifiers now stack additively when calculating its damage.\r\n\r\n=== Heroes: Li-Ming ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 16\r\n    \u2022 Arcane Orbit (W)\r\n      \u2022 Any percentage-based Spell Power modifiers now stack additively when calculating its damage.\r\n\r\n=== Heroes: Lt. Morales ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Safeguard\r\n    \u2022 [Undocumented] Armor decreased from 30 to 25.\r\n\r\n=== Heroes: Nazeebo ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 20\r\n    \u2022 Vile Infection (Passive)\r\n      \u2022 Any percentage-based Spell Power modifiers now stack additively when calculating its damage.\r\n\r\n=== Heroes: Orphea ===\r\n[Releases]\r\n  Orphea, Heir of Raven Court, has been added to the Nexus and is now available for play! Read on for a brief overview of her Abilities.:\r\n  Trait:\r\n  \u2022 Overflowing Chaos (Trait)\r\n    \u2022 Hitting an enemy Hero with a Basic Ability grants 1 Chaos. Chaos can stack up to 3 times.\r\n    \u2022 While Orphea has Chaos, her Basic Attacks against Heroes consumes all Chaos, dealing 50% increased damage per stack, and healing for 100% of the damage dealt.\r\n  Basic Abilities:\r\n  \u2022 Shadow Waltz (Q)\r\n    \u2022 After 0.5 seconds, deal 150 damage to enemies in a line.\r\n    \u2022 Hitting a Hero with Shadow Waltz sets its cooldown to 2 seconds and causes Orphea to dash a short distance upon moving.\r\n  \u2022 Chomp (W)\r\n    \u2022 After 0.6 seconds, deal 285 damage to nearby enemies in front of Orphea.\r\n  \u2022 Dread (E)\r\n    \u2022 Release a wave of dread that deals 85 damage to enemies hit.\r\n    \u2022 Dread erupts 0.75 seconds after reaching the end of its path, dealing 175 damage and Slowing enemies in the area by 25% for 2 seconds.\r\n  Heroic Abilities:\r\n  \u2022 Eternal Feast (R)\r\n    \u2022 After 1.5 seconds, deal 210 damage in an area.\r\n    \u2022 Eternal Feast repeats every 1 second as long as it hits an enemy Hero.\r\n  \u2022 Crushing Jaws (R)\r\n    \u2022 After 1.25 seconds, pulls enemies in an area towards the center, dealing 275 damage and Stunning them for 0.75 seconds.\r\n[Updates]\r\n  Stats:\r\n  \u2022 Maximum Base Health reduced from 1750 to 1662\r\n  \u2022 Health Regen reduced from 4.09 to 3.46\r\n  Abilities:\r\n  \u2022 Shadow Waltz (Q)\r\n    \u2022 Base cooldown increased from 5 to 6 seconds\r\n    \u2022 Mana cost increased from 25 to 40\r\n    \u2022 Mana refund on hit increased from 25 to 40\r\n  Talents:\r\n  \u2022 Level 7\r\n    \u2022 Ravenous Hunger (W)\r\n      \u2022 Damage per Minion kill reduced from 3 to 2\r\n      \u2022 Damage per Hero kill reduced from 60 to 40\r\n  \u2022 Level 20\r\n    \u2022 Eldritch Conduit (Trait)\r\n      \u2022 Spell Power per stack reduced from 5 to 3%\r\n      \u2022 Spell power max stack bonus reduced from 50 to 30%\r\n\r\n=== Heroes: Rehgar ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Ancestral Healing (R)\r\n    \u2022 Now it can only be cancelled by enemy Abilities that remove the target from the battlefield.\r\n\r\n=== Heroes: Stukov ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue preventing Lurking Arm from revealing damaged targets if they were at the edge of its area of effect.\r\n\r\n=== Heroes: Tyrande ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue preventing Elune\u0027s Chosen from healing allies if damage was dealt to Shielded/Protected targets.\r\n\r\n=== Heroes: Whitemane ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue causing Witch Whitemane\u0027s custom mount animation to cease playing after she died once in a match.\r\n\r\n=== Heroes: Zul\u0027jin ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 20\r\n    \u2022 Buzzsaw (R)\r\n      \u2022 Any percentage-based Spell Power modifiers now stack additively when calculating its damage.",
+  "Sections": {
+    "Battlegrounds: Dragon Shire": [
+      "  Layout:",
+      "  \u2022 Art updated."
+    ],
+    "Battlegrounds: Volskaya Foundry": [
+      "[Updates]",
+      "  Objective:",
+      "  \u2022 Triglav Protector",
+      "    \u2022 Channelling to enter the Triglav Protector is no longer interrupted by damage."
+    ],
+    "Heroes: Alexstrasza": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Life-Binder (R)",
+      "    \u2022 Now it can only be cancelled by enemy Abilities that remove the target from the battlefield."
+    ],
+    "Heroes: Gul\u0027dan": [
+      "[Updates]",
+      "  Talents:"
+    ],
+    "Heroes: Hanzo": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Dragonstrike (R)",
+      "    \u2022 Any percentage-based Spell Power modifiers now stack additively when calculating its center damage."
+    ],
+    "Heroes: Kael\u0027thas": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Phoenix (R)",
+      "    \u2022 Any percentage-based Spell Power modifiers now stack additively when calculating its damage."
+    ],
+    "Heroes: Kerrigan": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that disabled Health and Mana regeneration during Chrysalis."
+    ],
+    "Heroes: Li Li": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 16",
+      "    \u2022 Lightning Serpent (W)",
+      "      \u2022 Any percentage-based Spell Power modifiers now stack additively when calculating its damage."
+    ],
+    "Heroes: Li-Ming": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 16",
+      "    \u2022 Arcane Orbit (W)",
+      "      \u2022 Any percentage-based Spell Power modifiers now stack additively when calculating its damage."
+    ],
+    "Heroes: Lt. Morales": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Safeguard",
+      "    \u2022 [Undocumented] Armor decreased from 30 to 25."
+    ],
+    "Heroes: Nazeebo": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 20",
+      "    \u2022 Vile Infection (Passive)",
+      "      \u2022 Any percentage-based Spell Power modifiers now stack additively when calculating its damage."
+    ],
+    "Heroes: Orphea": [
+      "[Releases]",
+      "  Orphea, Heir of Raven Court, has been added to the Nexus and is now available for play! Read on for a brief overview of her Abilities.:",
+      "  Trait:",
+      "  \u2022 Overflowing Chaos (Trait)",
+      "    \u2022 Hitting an enemy Hero with a Basic Ability grants 1 Chaos. Chaos can stack up to 3 times.",
+      "    \u2022 While Orphea has Chaos, her Basic Attacks against Heroes consumes all Chaos, dealing 50% increased damage per stack, and healing for 100% of the damage dealt.",
+      "  Basic Abilities:",
+      "  \u2022 Shadow Waltz (Q)",
+      "    \u2022 After 0.5 seconds, deal 150 damage to enemies in a line.",
+      "    \u2022 Hitting a Hero with Shadow Waltz sets its cooldown to 2 seconds and causes Orphea to dash a short distance upon moving.",
+      "  \u2022 Chomp (W)",
+      "    \u2022 After 0.6 seconds, deal 285 damage to nearby enemies in front of Orphea.",
+      "  \u2022 Dread (E)",
+      "    \u2022 Release a wave of dread that deals 85 damage to enemies hit.",
+      "    \u2022 Dread erupts 0.75 seconds after reaching the end of its path, dealing 175 damage and Slowing enemies in the area by 25% for 2 seconds.",
+      "  Heroic Abilities:",
+      "  \u2022 Eternal Feast (R)",
+      "    \u2022 After 1.5 seconds, deal 210 damage in an area.",
+      "    \u2022 Eternal Feast repeats every 1 second as long as it hits an enemy Hero.",
+      "  \u2022 Crushing Jaws (R)",
+      "    \u2022 After 1.25 seconds, pulls enemies in an area towards the center, dealing 275 damage and Stunning them for 0.75 seconds.",
+      "[Updates]",
+      "  Stats:",
+      "  \u2022 Maximum Base Health reduced from 1750 to 1662",
+      "  \u2022 Health Regen reduced from 4.09 to 3.46",
+      "  Abilities:",
+      "  \u2022 Shadow Waltz (Q)",
+      "    \u2022 Base cooldown increased from 5 to 6 seconds",
+      "    \u2022 Mana cost increased from 25 to 40",
+      "    \u2022 Mana refund on hit increased from 25 to 40",
+      "  Talents:",
+      "  \u2022 Level 7",
+      "    \u2022 Ravenous Hunger (W)",
+      "      \u2022 Damage per Minion kill reduced from 3 to 2",
+      "      \u2022 Damage per Hero kill reduced from 60 to 40",
+      "  \u2022 Level 20",
+      "    \u2022 Eldritch Conduit (Trait)",
+      "      \u2022 Spell Power per stack reduced from 5 to 3%",
+      "      \u2022 Spell power max stack bonus reduced from 50 to 30%"
+    ],
+    "Heroes: Rehgar": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Ancestral Healing (R)",
+      "    \u2022 Now it can only be cancelled by enemy Abilities that remove the target from the battlefield."
+    ],
+    "Heroes: Stukov": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue preventing Lurking Arm from revealing damaged targets if they were at the edge of its area of effect."
+    ],
+    "Heroes: Tyrande": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue preventing Elune\u0027s Chosen from healing allies if damage was dealt to Shielded/Protected targets."
+    ],
+    "Heroes: Whitemane": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue causing Witch Whitemane\u0027s custom mount animation to cease playing after she died once in a match."
+    ],
+    "Heroes: Zul\u0027jin": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 20",
+      "    \u2022 Buzzsaw (R)",
+      "      \u2022 Any percentage-based Spell Power modifiers now stack additively when calculating its damage."
+    ]
+  },
+  "PatchFile": "alpha/2018-11-13-v2-40-0-70200-orphea-patch-alpha.json",
+  "Sources": [
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2018-11-13-live.html"
+  ]
+}

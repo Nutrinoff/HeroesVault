@@ -1,0 +1,29 @@
+{
+  "Id": "hotfix-patch-notes-may-6-2014",
+  "Title": "Brightwing and Li Li Hotfix Patch #2",
+  "Subtitle": "Technical Alpha hotfix patch 0.2.5.30027 (May 6, 2014), second hotfix associated with Brightwing and Li Li (no official patch notes verified here).",
+  "Date": "May 6, 2014",
+  "IsoDate": "2014-05-06",
+  "FeedType": "alpha",
+  "Era": "alpha",
+  "PatchVersion": "2.5.30027",
+  "FullVersion": "2.5.30027.30027",
+  "Build": "30027",
+  "Link": "https://blizztrack.com/patch_notes/heroes_of_the_storm/30027",
+  "Links": [
+    "https://blizztrack.com/patch_notes/heroes_of_the_storm/30027"
+  ],
+  "Affected": [],
+  "Highlights": "Technical Alpha hotfix patch 0.2.5.30027 (May 6, 2014), second hotfix associated with Brightwing and Li Li (no official patch notes verified here).",
+  "CleanedNotes": "=== General ===\r\n  \u2022 - Verified: no official patch notes available for this hotfix build.",
+  "Sections": {
+    "General": [
+      "  \u2022 - Verified: no official patch notes available for this hotfix build."
+    ]
+  },
+  "PatchFile": "alpha/2014-05-06-v2-5-30027-30027-brightwing-and-li-li-hotfix-patch-2-alpha.json",
+  "Sources": [
+    "legacy-patches2014-2021.json",
+    "manual-edit"
+  ]
+}

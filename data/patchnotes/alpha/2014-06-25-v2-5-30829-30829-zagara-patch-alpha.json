@@ -1,0 +1,43 @@
+{
+  "Id": "patch-notes-june-25-2014",
+  "Title": "Zagara Patch",
+  "Subtitle": "New hero: Zagara",
+  "Date": "Jun 25, 2014",
+  "IsoDate": "2014-06-25",
+  "FeedType": "alpha",
+  "Era": "alpha",
+  "PatchVersion": "2.5.30829",
+  "FullVersion": "2.5.30829.30829",
+  "Build": "30829",
+  "Link": "http://us.battle.net/heroes/en/blog/14537490",
+  "Links": [
+    "http://us.battle.net/heroes/en/blog/14537490",
+    "https://news.blizzard.com/heroes-of-the-storm/14537490",
+    "https://heroesofthestorm.fandom.com/wiki/Zagara",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/14537490"
+  ],
+  "Affected": [
+    "Zagara"
+  ],
+  "Highlights": "New hero: Zagara",
+  "CleanedNotes": "=== Heroes: Zagara ===\r\n[Updates]\r\n  \u2022 New Hero Released \u2014 Zagara, Broodmother of the Swarm:\r\n  \u2022 - Trait \u2014 Creep Tumor (D): Spawns a Creep Tumor that generates Creep, allowing Zagara and her minions to move faster.\r\n  \u2022 - Baneling Barrage (Q): Launches a stream of Banelings that explode on contact with enemies.\r\n  \u2022 - Hunter Killer (W): Unleashes a Hunter Killer Hydralisk to attack and chase an enemy.\r\n  \u2022 - Infested Drop (E): Bombards an area with a Zerg Drop Pod that spawns Roachlings.\r\n  \u2022 - Nydus Network (R1): Places Nydus Worms to quickly traverse the Battleground.\r\n  \u2022 - Devouring Maw (R2): Summons a giant Maw to engulf enemies in an area, disabling and damaging them.",
+  "Sections": {
+    "Heroes: Zagara": [
+      "[Updates]",
+      "  \u2022 New Hero Released \u2014 Zagara, Broodmother of the Swarm:",
+      "  \u2022 - Trait \u2014 Creep Tumor (D): Spawns a Creep Tumor that generates Creep, allowing Zagara and her minions to move faster.",
+      "  \u2022 - Baneling Barrage (Q): Launches a stream of Banelings that explode on contact with enemies.",
+      "  \u2022 - Hunter Killer (W): Unleashes a Hunter Killer Hydralisk to attack and chase an enemy.",
+      "  \u2022 - Infested Drop (E): Bombards an area with a Zerg Drop Pod that spawns Roachlings.",
+      "  \u2022 - Nydus Network (R1): Places Nydus Worms to quickly traverse the Battleground.",
+      "  \u2022 - Devouring Maw (R2): Summons a giant Maw to engulf enemies in an area, disabling and damaging them."
+    ]
+  },
+  "PatchFile": "alpha/2014-06-25-v2-5-30829-30829-zagara-patch-alpha.json",
+  "Sources": [
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2014-06-25-alpha.html",
+    "manual-edit"
+  ]
+}
