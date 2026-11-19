@@ -319,7 +319,6 @@ function formatBlizzlikePatchNotesHtml(rawText) {
             continue;
         }
 
-        // Standalone short subsection line or trailing colon label like "Talents:" or "Level 20"
         const cleanSubheading = trimmed.replace(/:$/, '');
         const isStandaloneSubheading =
             cleanSubheading.length <= 48 &&
@@ -556,43 +555,49 @@ async function loadLivePatchNotes() {
     }
 }
 
+function getFilterButtonClass(type) {
+    return type === CURRENT_FILTER
+        ? 'py-1.5 px-2 rounded-lg text-xs font-bold transition border bg-sky-500 text-slate-950 border-sky-400'
+        : 'py-1.5 px-2 rounded-lg text-xs font-bold transition border bg-slate-900 text-slate-400 border-slate-800 hover:bg-slate-800';
+}
+
 function renderPatchHeaderControls() {
-    const parentContainer = document.getElementById('patch-sidebar-list')?.parentElement;
-    if (!parentContainer) return;
+    const listContainer = document.getElementById('patch-sidebar-list');
+    if (!listContainer || !listContainer.parentElement) return;
 
     let controlNav = document.getElementById('patch-type-toggle');
     if (!controlNav) {
         controlNav = document.createElement('div');
         controlNav.id = 'patch-type-toggle';
-        controlNav.className = 'grid grid-cols-3 gap-1.5 mb-4 px-2';
+        controlNav.className = 'grid grid-cols-3 gap-1.5 mb-3 px-2 shrink-0';
         controlNav.innerHTML = `
-            <button id="filter-btn-all" type="button" onclick="switchPatchFilter('all')" class="py-1.5 px-2 rounded-lg text-xs font-bold transition border ${CURRENT_FILTER === 'all' ? 'bg-sky-500 text-slate-950 border-sky-400' : 'bg-slate-900 text-slate-400 border-slate-800 hover:bg-slate-800'}">All</button>
-            <button id="filter-btn-live" type="button" onclick="switchPatchFilter('live')" class="py-1.5 px-2 rounded-lg text-xs font-bold transition border ${CURRENT_FILTER === 'live' ? 'bg-sky-500 text-slate-950 border-sky-400' : 'bg-slate-900 text-slate-400 border-slate-800 hover:bg-slate-800'}">Live</button>
-            <button id="filter-btn-ptr" type="button" onclick="switchPatchFilter('ptr')" class="py-1.5 px-2 rounded-lg text-xs font-bold transition border ${CURRENT_FILTER === 'ptr' ? 'bg-sky-500 text-slate-950 border-sky-400' : 'bg-slate-900 text-slate-400 border-slate-800 hover:bg-slate-800'}">PTR</button>
+            <button id="filter-btn-all" type="button" onclick="switchPatchFilter('all')" class="${getFilterButtonClass('all')}">All</button>
+            <button id="filter-btn-live" type="button" onclick="switchPatchFilter('live')" class="${getFilterButtonClass('live')}">Live</button>
+            <button id="filter-btn-ptr" type="button" onclick="switchPatchFilter('ptr')" class="${getFilterButtonClass('ptr')}">PTR</button>
         `;
-        parentContainer.prepend(controlNav);
+        listContainer.insertAdjacentElement('beforebegin', controlNav);
+    } else if (controlNav.nextElementSibling !== listContainer) {
+        listContainer.insertAdjacentElement('beforebegin', controlNav);
     }
+
+    ['all', 'live', 'ptr'].forEach(type => {
+        const btn = document.getElementById(`filter-btn-${type}`);
+        if (btn) btn.className = getFilterButtonClass(type);
+    });
 }
 
 window.switchPatchFilter = function(filterType) {
     if (CURRENT_FILTER === filterType) return;
     CURRENT_FILTER = filterType;
-
-    ['all', 'live', 'ptr'].forEach(type => {
-        const btn = document.getElementById(`filter-btn-${type}`);
-        if (btn) {
-            btn.className = type === filterType
-                ? 'py-1.5 px-2 rounded-lg text-xs font-bold transition border bg-sky-500 text-slate-950 border-sky-400'
-                : 'py-1.5 px-2 rounded-lg text-xs font-bold transition border bg-slate-900 text-slate-400 border-slate-800 hover:bg-slate-800';
-        }
-    });
-
+    renderPatchHeaderControls();
     loadLivePatchNotes();
 };
 
 function renderPatchSidebar(items) {
     const listContainer = document.getElementById('patch-sidebar-list');
     if (!listContainer) return;
+
+    renderPatchHeaderControls();
 
     const headerTitle = CURRENT_FILTER === 'all'
         ? 'ALL FEED'
