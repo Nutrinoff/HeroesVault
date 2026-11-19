@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "id": "fallback-ptr-1",
+    "title": "Heroes of the Storm PTR Patch Notes - September 2026",
+    "date": "September 15, 2026",
+    "feedType": "ptr",
+    "link": "https://news.blizzard.com/en-us/heroes-of-the-storm",
+    "description": "<p class=\"text-slate-300\">Testing is live on the PTR! Dive in to preview upcoming changes, new talent adjustments, and general bug fixes before they hit the live servers.</p>"
+  }
+]

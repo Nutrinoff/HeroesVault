@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "id": "fallback-live-1",
+    "title": "Heroes of the Storm Balance Patch Notes - September 28, 2026",
+    "date": "September 28, 2026",
+    "feedType": "live",
+    "link": "https://news.blizzard.com/en-us/heroes-of-the-storm",
+    "description": "<p class=\"text-slate-300\">Welcome to another balance update for the Nexus! This patch brings targeted adjustments to several heroes to fine-tune win rates and improve game balance across all battlegrounds.</p><p class=\"text-slate-300 mt-2\">Check out full details on the official Blizzard page.</p>"
+  }
+]
