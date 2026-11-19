@@ -8,42 +8,71 @@ async function updatePatchFiles() {
     }
 
     try {
-        console.log('Fetching live Heroes of the Storm news from Blizzard API...');
-        const url = 'https://news.blizzard.com/en-us/api/news/blizzard?feedCxpProductIds[]=heroes-of-the-storm';
+        console.log('Fetching official Blizzard RSS feed for Heroes of the Storm...');
+        const feedUrl = 'https://news.blizzard.com/en-us/feed/heroes-of-the-storm';
         
-        const response = await fetch(url, {
+        const response = await fetch(feedUrl, {
             headers: {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-                'Accept': 'application/json'
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
             }
         });
 
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         
-        const data = await response.json();
-        
-        // Blizzard returns an object containing an articles array
-        const articles = data.articles || data.items || [];
-        console.log(`Fetched ${articles.length} articles from Blizzard API.`);
+        const xmlText = await response.text();
+        console.log(`Fetched RSS feed successfully. Length: ${xmlText.length} bytes.`);
+
+        // Simple and robust XML item extraction using regex
+        const itemRegex = /<item>([\s\S]*?)<\/item>/g;
+        let match;
+        const articles = [];
+
+        while ((match = itemRegex.exec(xmlText)) !== null) {
+            const itemContent = match[1];
+
+            const getTagValue = (tagName) => {
+                const tagRegex = new RegExp(`<${tagName}[^>]*>([\\s\\S]*?)<\/${tagName}>`, 'i');
+                const tagMatch = itemContent.match(tagRegex);
+                if (!tagMatch) return '';
+                // Clean up CDATA if present
+                return tagMatch[1].replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1').trim();
+            };
+
+            const title = getTagValue('title');
+            const link = getTagValue('link');
+            const pubDate = getTagValue('pubDate');
+            const description = getTagValue('description');
+
+            if (title) {
+                articles.push({
+                    title,
+                    link: link || 'https://news.blizzard.com/en-us/heroes-of-the-storm',
+                    publishedDate: pubDate ? new Date(pubDate).toISOString() : new Date().toISOString(),
+                    summary: description || 'Click to view full patch notes on Blizzard.'
+                });
+            }
+        }
+
+        console.log(`Successfully parsed ${articles.length} articles from RSS feed.`);
 
         const livePatches = [];
         const ptrPatches = [];
 
         articles.forEach((art, index) => {
-            const title = art.title || art.heading || 'Untitled Update';
+            const title = art.title;
             const lowerTitle = title.toLowerCase();
 
             const formattedItem = {
                 id: `patch-${index}-${Date.now()}`,
                 title: title,
-                date: art.publishedDate ? new Date(art.publishedDate).toLocaleDateString('en-US', {
+                date: new Date(art.publishedDate).toLocaleDateString('en-US', {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric'
-                }) : 'Recent Update',
+                }),
                 feedType: lowerTitle.includes('ptr') ? 'ptr' : 'live',
-                link: art.url || art.link ? (art.url.startsWith('http') ? art.url : `https://news.blizzard.com${art.url}`) : 'https://news.blizzard.com/en-us/heroes-of-the-storm',
-                description: art.summary || art.description || '<p class="text-slate-300">Check out the official Blizzard news page for full details.</p>'
+                link: art.link,
+                description: `<div class="space-y-2"><p class="text-slate-300">${art.summary}</p></div>`
             };
 
             if (formattedItem.feedType === 'ptr') {
@@ -58,7 +87,7 @@ async function updatePatchFiles() {
 
         console.log(`Successfully saved ${livePatches.length} live patches and ${ptrPatches.length} PTR patches.`);
     } catch (err) {
-        console.error('Failed to fetch real patches from Blizzard API:', err);
+        console.error('Failed to fetch/parse RSS feed:', err);
         process.exit(1);
     }
 }
