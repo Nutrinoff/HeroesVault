@@ -582,6 +582,8 @@ async function loadLivePatchNotes() {
         <div class="text-xs text-slate-400 p-3">Loading patch notes...</div>
     `;
 
+    schedulePatchSidebarSync();
+
     try {
         const allPatches = await fetchAllMasterPatches();
 
@@ -605,6 +607,7 @@ async function loadLivePatchNotes() {
             if (mainContent) {
                 mainContent.innerHTML = `<div class="p-6 text-slate-400 text-sm">No patch notes available.</div>`;
             }
+            schedulePatchSidebarSync();
             return;
         }
 
@@ -680,6 +683,8 @@ function renderPatchSidebar(items) {
         `;
         listContainer.appendChild(btn);
     });
+
+    schedulePatchSidebarSync();
 }
 
 async function selectPatchItem(id) {
@@ -740,10 +745,105 @@ async function selectPatchItem(id) {
     if (bodyEl && ACTIVE_PATCH_ITEMS.some(x => x.id === id)) {
         bodyEl.innerHTML = notesHtml;
     }
+
+    schedulePatchSidebarSync();
+}
+
+// ==========================================
+// PATCH SIDEBAR BURGER-SQUISH CONTROLLER
+// ==========================================
+
+let patchSidebarRafId = null;
+
+function resetPatchSidebarLayout() {
+    const col = document.getElementById('patch-sidebar-column');
+    const spacer = document.getElementById('patch-sidebar-spacer');
+    if (col) {
+        col.style.position = '';
+        col.style.top = '';
+        col.style.left = '';
+        col.style.width = '';
+        col.style.height = '';
+        col.style.maxHeight = '';
+    }
+    if (spacer) {
+        spacer.style.height = '';
+    }
+}
+
+function syncPatchSidebarBurger() {
+    patchSidebarRafId = null;
+
+    const view = document.getElementById('view-patchnotes');
+    const col = document.getElementById('patch-sidebar-column');
+    const spacer = document.getElementById('patch-sidebar-spacer');
+    if (!view || !col || !spacer) return;
+
+    const isVisible = !view.classList.contains('hidden') && view.offsetParent !== null;
+    const isDesktop = window.innerWidth >= 1024; // Tailwind `lg`
+
+    if (!isVisible || !isDesktop) {
+        resetPatchSidebarLayout();
+        return;
+    }
+
+    const header = document.querySelector('header');
+    const footer = document.querySelector('footer');
+    const headerGap = 16;
+    const footerGap = 20;
+
+    const headerBottom = header ? header.getBoundingClientRect().bottom + headerGap : 80;
+    const footerTop = footer ? footer.getBoundingClientRect().top : window.innerHeight;
+    const viewportBottom = Math.min(window.innerHeight, footerTop) - footerGap;
+
+    const wasFixed = col.style.position === 'fixed';
+    if (wasFixed) {
+        col.style.position = '';
+        col.style.top = '';
+        col.style.left = '';
+        col.style.width = '';
+        col.style.height = '';
+        col.style.maxHeight = '';
+    }
+
+    const rect = col.getBoundingClientRect();
+    const naturalTop = rect.top;
+    const naturalLeft = rect.left;
+    const naturalWidth = rect.width;
+
+    const lockedTop = Math.max(naturalTop, headerBottom);
+    const availableHeight = Math.max(150, viewportBottom - lockedTop);
+
+    spacer.style.height = `${Math.max(150, viewportBottom - Math.max(naturalTop, headerBottom))}px`;
+
+    col.style.position = 'fixed';
+    col.style.top = `${Math.round(lockedTop)}px`;
+    col.style.left = `${Math.round(naturalLeft)}px`;
+    col.style.width = `${Math.round(naturalWidth)}px`;
+    col.style.height = `${Math.round(availableHeight)}px`;
+    col.style.maxHeight = `${Math.round(availableHeight)}px`;
+}
+
+function schedulePatchSidebarSync() {
+    if (patchSidebarRafId !== null) return;
+    patchSidebarRafId = window.requestAnimationFrame(syncPatchSidebarBurger);
+}
+
+window.addEventListener('scroll', schedulePatchSidebarSync, { passive: true });
+window.addEventListener('resize', schedulePatchSidebarSync, { passive: true });
+
+const patchViewEl = document.getElementById('view-patchnotes');
+if (patchViewEl && typeof MutationObserver !== 'undefined') {
+    const patchViewObserver = new MutationObserver(schedulePatchSidebarSync);
+    patchViewObserver.observe(patchViewEl, { attributes: true, attributeFilter: ['class', 'style'] });
 }
 
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initPatchFilterControls, { once: true });
+    document.addEventListener('DOMContentLoaded', () => {
+        initPatchFilterControls();
+        schedulePatchSidebarSync();
+    }, { once: true });
 } else {
     initPatchFilterControls();
+    schedulePatchSidebarSync();
 }
