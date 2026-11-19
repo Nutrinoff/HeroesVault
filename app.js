@@ -141,6 +141,10 @@ function handleRoute() {
             q.get('build') ? q.get('build').split('').map(Number) : null,
             false
         );
+    } else if (tab === 'academy') {
+        if (typeof renderAcademy === 'function') {
+            renderAcademy();
+        }
     } else if (tab === 'patchnotes') {
         if (typeof initPatchFilterControls === 'function') {
             initPatchFilterControls();
@@ -188,6 +192,10 @@ function switchTabUI(t) {
     Object.entries(navStates).forEach(([id, on]) => {
         document.getElementById(id)?.classList.toggle('nav-active', on);
     });
+
+    if (activeTab === 'academy' && typeof renderAcademy === 'function') {
+        renderAcademy();
+    }
 
     if (activeTab === 'patchnotes' && typeof schedulePatchSidebarSync === 'function') {
         schedulePatchSidebarSync();
