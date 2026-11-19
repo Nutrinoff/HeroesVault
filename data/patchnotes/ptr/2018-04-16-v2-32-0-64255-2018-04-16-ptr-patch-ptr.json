@@ -1,0 +1,205 @@
+{
+  "Id": "npn-2018-04-16-2.32.0",
+  "Title": "2018-04-16 PTR Patch",
+  "Subtitle": "=== Battlegrounds: Tomb of the Spider Queen ===",
+  "Date": "Apr 16, 2018",
+  "IsoDate": "2018-04-16",
+  "FeedType": "ptr",
+  "Era": "ptr",
+  "PatchVersion": "2.32.0",
+  "FullVersion": "2.32.0.64255",
+  "Build": "64255",
+  "Link": "https://news.blizzard.com/en-us/heroes-of-the-storm/21671838",
+  "Links": [
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/21671838"
+  ],
+  "Affected": [
+    "Tomb of the Spider Queen",
+    "Abathur",
+    "Alarak",
+    "Ana",
+    "Blaze",
+    "Brightwing",
+    "Cassia",
+    "Cho",
+    "Deckard",
+    "Fenix",
+    "Genji",
+    "Greymane",
+    "Gul\u0027dan",
+    "Hanzo",
+    "Illidan",
+    "Kel\u0027Thuzad",
+    "Li-Ming",
+    "Rexxar",
+    "Sylvanas",
+    "The Lost Vikings",
+    "Thrall",
+    "Uther",
+    "Zagara",
+    "Zeratul"
+  ],
+  "Highlights": "=== Battlegrounds: Tomb of the Spider Queen ===",
+  "CleanedNotes": "=== Battlegrounds: Tomb of the Spider Queen ===\r\n[Updates]\r\n  \u2022 The left-side team\u0027s bottom Fort can no longer attack enemy Heroes who are just beyond the Gate.\r\n\r\n=== Heroes: Abathur ===\r\n[Bug Fixes]\r\n  \u2022 The number of Minions Absorbed stacks no longer appear inconsistent in the Buff bar after Abathur dies while a Monstrosity is active.\r\n  \u2022 Fixed an issue causing Spike Burst\u0027s visual effects to appear much larger than intended when cast while targeting a Mercenary with Symbiote.\r\n\r\n=== Heroes: Alarak ===\r\n[Bug Fixes]\r\n  \u2022 Free Lightning Surge casts granted by the Lightning Barrage Talent now correctly display its cast range indicator.\r\n\r\n=== Heroes: Ana ===\r\n[Bug Fixes]\r\n  \u2022 Nano Boost\u0027s duration bar now appears next to, rather than replaces, any existing Ability duration bars for the targeted Ally, like Sonya\u0027s Whirlwind.\r\n\r\n=== Heroes: Blaze ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Bunker Drop (R)\r\n    \u2022 Players can now exit Blaze\u0027s Bunker in the direction of their choosing by right-clicking.\r\n    \u2022 The Bunker\u0027s hitbox has been adjusted to more closely match its model. This should reduce situations in which players could unintentionally enter Blaze\u0027s bunker when clicking nearby.\r\n[Bug Fixes]\r\n  \u2022 Icon art has been swapped for the Adhesive Petroleum and Oil Dispersal Talents.\r\n\r\n=== Heroes: Brightwing ===\r\n[Bug Fixes]\r\n  \u2022 Can now correctly cast Blink Heal on Turrets and Biotic Emitters that were placed by Brightwing herself.\r\n\r\n=== Heroes: Cassia ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 7\r\n    \u2022 Surge of Light (Active)\r\n      \u2022 Now has a 0.25 second cooldown between uses.\r\n\r\n=== Heroes: Cho ===\r\n[Bug Fixes]\r\n  \u2022 Entering a Stasis effect, like Zeratul\u0027s Void Prison, while Surging Fist is charging no longer places Surging Fist on full cooldown.\r\n\r\n=== Heroes: Deckard ===\r\n[Releases]\r\n  Deckard, The Last Horadrim, has been added to the Nexus and is now available for play! Read on for a brief overview of his Abilities.:\r\n  \u2022 Fortitude of the Faithful\r\n    \u2022 When at least 1 other allied Hero is nearby, Deckard gains 10 Armor and his Basic Abilities recharge 50% faster.\r\n  \u2022 Healing Potion (Q)\r\n    \u2022 Toss a Healing Potion on the ground that heals the first allied Hero that comes in contact with it for 230.\r\n    \u2022 Limit 5 active Potions.\r\n  \u2022 Horadric Cube (W)\r\n    \u2022 Throw the Horadric Cube, dealing 80 damage to all enemies in the area and Slowing them by 40% for 1.75 seconds.\r\n  \u2022 Scroll of Sealing (E)\r\n    \u2022 Unfurl an enchanted scroll, forming a triangle that deals 150 damage to enemies inside and Roots them for 1.5 seconds.\r\n  \u2022 Stay Awhile and Listen (R)\r\n    \u2022 After 1 second, Channel for 3 seconds, putting enemy Heroes in front of Deckard to Sleep while Channeling, and for 2 seconds after.\r\n    \u2022 Enemies can only be put to Sleep once per cast, and Sleep\u0027s effects end instantly if they take damage.\r\n  \u2022 Lorenado (R)\r\n    \u2022 Vector Targeting.\r\n    \u2022 Create a swirling lorenado that travels in the targeted direction, continually knocking away any enemies that come into contact with it.\r\n\r\n=== Heroes: Fenix ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Mobile Offensive (Passive)\r\n      \u2022 Now grants its Basic Attack damage bonus after any movement, rather than only after unmounted movement.\r\n\r\n=== Heroes: Genji ===\r\n[Updates]\r\n  Stats:\r\n  \u2022 Health increased from 1550 to 1620.\r\n  \u2022 Health Regen increased from 3.2304 to 3.3750.\r\n  \u2022 Basic Attack damage increased from 42 to 44.\r\n  Abilities:\r\n  \u2022 Cyber Agility (Trait) (D)\r\n    \u2022 Cooldown increased from 10 to 12 seconds.\r\n  \u2022 Swift Strike (E)\r\n    \u2022 Range reduced from 14 to 12.\r\n  \u2022 Dragonblade (R)\r\n    \u2022 Damage increased from 220 to 240.\r\n    \u2022 Removed functionality:\r\n      \u2022 Killing an enemy Hero who was recently hit by Dragonblade no longer resets Swift Strike\u0027s cooldown.\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Agile Dismount (Trait)\r\n      \u2022 Cooldown reduction increased from 5 to 7 seconds.\r\n  \u2022 Level 13\r\n    \u2022 Double Jump (Trait)\r\n      \u2022 No longer increases Cyber Agility\u0027s cooldown.\r\n  \u2022 Level 20\r\n    \u2022 The Dragon Becomes Me (R)\r\n      \u2022 Additional Functionality:\r\n        \u2022 Now also resets Swift Strike\u0027s cooldown if an enemy Hero dies within 2 seconds after being hit by Dragonblade.\r\n\r\n=== Heroes: Greymane ===\r\n[Bug Fixes]\r\n  \u2022 Partial progress earned toward the Wizened Duelist Talent\u0027s next attack damage bonus will no longer persist after dying.\r\n\r\n=== Heroes: Gul\u0027dan ===\r\n[Bug Fixes]\r\n  \u2022 The voiceover line that plays while idling on Gul\u0027dan\u0027s Hero page in the Collection no longer ends early.\r\n\r\n=== Heroes: Hanzo ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that could cause A.I. Hanzo to repeatedly Channel and cancel Storm Bow.\r\n  \u2022 Natural Agility now activates correctly after being hit by Phase Prism near a tower.\r\n\r\n=== Heroes: Illidan ===\r\n[Bug Fixes]\r\n  \u2022 Can now correctly cast Dive on Ragnaros in Molten Core form.\r\n\r\n=== Heroes: Kel\u0027Thuzad ===\r\n[Bug Fixes]\r\n  \u2022 Phylactery can no longer be activated before its animation completes.\r\n\r\n=== Heroes: Li-Ming ===\r\n[Bug Fixes]\r\n  \u2022 Spell Armor granted by the Force Armor Talent is now correctly consumed when hit by Ability damage from non-Heroic sources.\r\n\r\n=== Heroes: Rexxar ===\r\n[Bug Fixes]\r\n  \u2022 The tooltip for Misha, Focus! no longer lists a cooldown.\r\n  \u2022 Switching seats in a Triglav Protector no longer causes Rexxar to become unresponsive.\r\n\r\n=== Heroes: Sylvanas ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Shadow Dagger (W)\r\n    \u2022 Shadow Dagger now briefly reveals enemies upon spreading to them.\r\n\r\n=== Heroes: The Lost Vikings ===\r\n[Bug Fixes]\r\n  \u2022 Stealth granted by the Spy Games Talent is now correctly applied for 3 seconds after Erik moves.\r\n\r\n=== Heroes: Thrall ===\r\n[Bug Fixes]\r\n  \u2022 Killing Minions who were hit by Chain Lightning now correctly causes Echo of the Elements quest progress visual effects to appear near Thrall, rather than allies.\r\n\r\n=== Heroes: Uther ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue in which Uther could briefly use activated Talents after death, but prior to entering Eternal Vanguard form.\r\n  \u2022 The Silver Touch Talent\u0027s quest rewards no longer incorrectly benefit Flash of Light.\r\n\r\n=== Heroes: Zagara ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Nydus Network (R)\r\n    \u2022 The player can now exit Nydus Worms in a direction of their choosing by right-clicking.\r\n[Bug Fixes]\r\n  \u2022 The Infest Talent now correctly boosts nearby Ranged Minion damage by 100%.\r\n\r\n=== Heroes: Zeratul ===\r\n[Bug Fixes]\r\n  \u2022 After death, Zeratul\u0027s body will no longer teleport to the location of his last Vorpal Blade target.",
+  "Sections": {
+    "Battlegrounds: Tomb of the Spider Queen": [
+      "[Updates]",
+      "  \u2022 The left-side team\u0027s bottom Fort can no longer attack enemy Heroes who are just beyond the Gate."
+    ],
+    "Heroes: Abathur": [
+      "[Bug Fixes]",
+      "  \u2022 The number of Minions Absorbed stacks no longer appear inconsistent in the Buff bar after Abathur dies while a Monstrosity is active.",
+      "  \u2022 Fixed an issue causing Spike Burst\u0027s visual effects to appear much larger than intended when cast while targeting a Mercenary with Symbiote."
+    ],
+    "Heroes: Alarak": [
+      "[Bug Fixes]",
+      "  \u2022 Free Lightning Surge casts granted by the Lightning Barrage Talent now correctly display its cast range indicator."
+    ],
+    "Heroes: Ana": [
+      "[Bug Fixes]",
+      "  \u2022 Nano Boost\u0027s duration bar now appears next to, rather than replaces, any existing Ability duration bars for the targeted Ally, like Sonya\u0027s Whirlwind."
+    ],
+    "Heroes: Blaze": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Bunker Drop (R)",
+      "    \u2022 Players can now exit Blaze\u0027s Bunker in the direction of their choosing by right-clicking.",
+      "    \u2022 The Bunker\u0027s hitbox has been adjusted to more closely match its model. This should reduce situations in which players could unintentionally enter Blaze\u0027s bunker when clicking nearby.",
+      "[Bug Fixes]",
+      "  \u2022 Icon art has been swapped for the Adhesive Petroleum and Oil Dispersal Talents."
+    ],
+    "Heroes: Brightwing": [
+      "[Bug Fixes]",
+      "  \u2022 Can now correctly cast Blink Heal on Turrets and Biotic Emitters that were placed by Brightwing herself."
+    ],
+    "Heroes: Cassia": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 7",
+      "    \u2022 Surge of Light (Active)",
+      "      \u2022 Now has a 0.25 second cooldown between uses."
+    ],
+    "Heroes: Cho": [
+      "[Bug Fixes]",
+      "  \u2022 Entering a Stasis effect, like Zeratul\u0027s Void Prison, while Surging Fist is charging no longer places Surging Fist on full cooldown."
+    ],
+    "Heroes: Deckard": [
+      "[Releases]",
+      "  Deckard, The Last Horadrim, has been added to the Nexus and is now available for play! Read on for a brief overview of his Abilities.:",
+      "  \u2022 Fortitude of the Faithful",
+      "    \u2022 When at least 1 other allied Hero is nearby, Deckard gains 10 Armor and his Basic Abilities recharge 50% faster.",
+      "  \u2022 Healing Potion (Q)",
+      "    \u2022 Toss a Healing Potion on the ground that heals the first allied Hero that comes in contact with it for 230.",
+      "    \u2022 Limit 5 active Potions.",
+      "  \u2022 Horadric Cube (W)",
+      "    \u2022 Throw the Horadric Cube, dealing 80 damage to all enemies in the area and Slowing them by 40% for 1.75 seconds.",
+      "  \u2022 Scroll of Sealing (E)",
+      "    \u2022 Unfurl an enchanted scroll, forming a triangle that deals 150 damage to enemies inside and Roots them for 1.5 seconds.",
+      "  \u2022 Stay Awhile and Listen (R)",
+      "    \u2022 After 1 second, Channel for 3 seconds, putting enemy Heroes in front of Deckard to Sleep while Channeling, and for 2 seconds after.",
+      "    \u2022 Enemies can only be put to Sleep once per cast, and Sleep\u0027s effects end instantly if they take damage.",
+      "  \u2022 Lorenado (R)",
+      "    \u2022 Vector Targeting.",
+      "    \u2022 Create a swirling lorenado that travels in the targeted direction, continually knocking away any enemies that come into contact with it."
+    ],
+    "Heroes: Fenix": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Mobile Offensive (Passive)",
+      "      \u2022 Now grants its Basic Attack damage bonus after any movement, rather than only after unmounted movement."
+    ],
+    "Heroes: Genji": [
+      "[Updates]",
+      "  Stats:",
+      "  \u2022 Health increased from 1550 to 1620.",
+      "  \u2022 Health Regen increased from 3.2304 to 3.3750.",
+      "  \u2022 Basic Attack damage increased from 42 to 44.",
+      "  Abilities:",
+      "  \u2022 Cyber Agility (Trait) (D)",
+      "    \u2022 Cooldown increased from 10 to 12 seconds.",
+      "  \u2022 Swift Strike (E)",
+      "    \u2022 Range reduced from 14 to 12.",
+      "  \u2022 Dragonblade (R)",
+      "    \u2022 Damage increased from 220 to 240.",
+      "    \u2022 Removed functionality:",
+      "      \u2022 Killing an enemy Hero who was recently hit by Dragonblade no longer resets Swift Strike\u0027s cooldown.",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Agile Dismount (Trait)",
+      "      \u2022 Cooldown reduction increased from 5 to 7 seconds.",
+      "  \u2022 Level 13",
+      "    \u2022 Double Jump (Trait)",
+      "      \u2022 No longer increases Cyber Agility\u0027s cooldown.",
+      "  \u2022 Level 20",
+      "    \u2022 The Dragon Becomes Me (R)",
+      "      \u2022 Additional Functionality:",
+      "        \u2022 Now also resets Swift Strike\u0027s cooldown if an enemy Hero dies within 2 seconds after being hit by Dragonblade."
+    ],
+    "Heroes: Greymane": [
+      "[Bug Fixes]",
+      "  \u2022 Partial progress earned toward the Wizened Duelist Talent\u0027s next attack damage bonus will no longer persist after dying."
+    ],
+    "Heroes: Gul\u0027dan": [
+      "[Bug Fixes]",
+      "  \u2022 The voiceover line that plays while idling on Gul\u0027dan\u0027s Hero page in the Collection no longer ends early."
+    ],
+    "Heroes: Hanzo": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that could cause A.I. Hanzo to repeatedly Channel and cancel Storm Bow.",
+      "  \u2022 Natural Agility now activates correctly after being hit by Phase Prism near a tower."
+    ],
+    "Heroes: Illidan": [
+      "[Bug Fixes]",
+      "  \u2022 Can now correctly cast Dive on Ragnaros in Molten Core form."
+    ],
+    "Heroes: Kel\u0027Thuzad": [
+      "[Bug Fixes]",
+      "  \u2022 Phylactery can no longer be activated before its animation completes."
+    ],
+    "Heroes: Li-Ming": [
+      "[Bug Fixes]",
+      "  \u2022 Spell Armor granted by the Force Armor Talent is now correctly consumed when hit by Ability damage from non-Heroic sources."
+    ],
+    "Heroes: Rexxar": [
+      "[Bug Fixes]",
+      "  \u2022 The tooltip for Misha, Focus! no longer lists a cooldown.",
+      "  \u2022 Switching seats in a Triglav Protector no longer causes Rexxar to become unresponsive."
+    ],
+    "Heroes: Sylvanas": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Shadow Dagger (W)",
+      "    \u2022 Shadow Dagger now briefly reveals enemies upon spreading to them."
+    ],
+    "Heroes: The Lost Vikings": [
+      "[Bug Fixes]",
+      "  \u2022 Stealth granted by the Spy Games Talent is now correctly applied for 3 seconds after Erik moves."
+    ],
+    "Heroes: Thrall": [
+      "[Bug Fixes]",
+      "  \u2022 Killing Minions who were hit by Chain Lightning now correctly causes Echo of the Elements quest progress visual effects to appear near Thrall, rather than allies."
+    ],
+    "Heroes: Uther": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue in which Uther could briefly use activated Talents after death, but prior to entering Eternal Vanguard form.",
+      "  \u2022 The Silver Touch Talent\u0027s quest rewards no longer incorrectly benefit Flash of Light."
+    ],
+    "Heroes: Zagara": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Nydus Network (R)",
+      "    \u2022 The player can now exit Nydus Worms in a direction of their choosing by right-clicking.",
+      "[Bug Fixes]",
+      "  \u2022 The Infest Talent now correctly boosts nearby Ranged Minion damage by 100%."
+    ],
+    "Heroes: Zeratul": [
+      "[Bug Fixes]",
+      "  \u2022 After death, Zeratul\u0027s body will no longer teleport to the location of his last Vorpal Blade target."
+    ]
+  },
+  "PatchFile": "ptr/2018-04-16-v2-32-0-64255-2018-04-16-ptr-patch-ptr.json",
+  "Sources": [
+    "2018-04-16-ptr.html"
+  ]
+}

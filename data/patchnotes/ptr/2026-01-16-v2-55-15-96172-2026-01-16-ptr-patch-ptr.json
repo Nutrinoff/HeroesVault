@@ -1,0 +1,155 @@
+{
+  "Id": "npn-2026-01-16-2.55.15",
+  "Title": "2026-01-16 PTR Patch",
+  "Subtitle": "=== Battlegrounds: Blackheart\u0027s Bay ===",
+  "Date": "Jan 16, 2026",
+  "IsoDate": "2026-01-16",
+  "FeedType": "ptr",
+  "Era": "ptr",
+  "PatchVersion": "2.55.15",
+  "FullVersion": "2.55.15.96172",
+  "Build": "96172",
+  "Link": "https://www.icy-veins.com/forums/topic/85967-heroes-of-the-storm-ptr-update-january-16",
+  "Links": [
+    "https://www.icy-veins.com/forums/topic/85967-heroes-of-the-storm-ptr-update-january-16"
+  ],
+  "Affected": [
+    "Blackheart\u0027s Bay",
+    "Volskaya Foundry",
+    "Anub\u0027arak",
+    "Azmodan",
+    "Deathwing",
+    "Gazlowe",
+    "Jaina",
+    "Kerrigan",
+    "Muradin",
+    "Murky",
+    "Tyrande",
+    "Yrel",
+    "Zagara"
+  ],
+  "Highlights": "=== Battlegrounds: Blackheart\u0027s Bay ===",
+  "CleanedNotes": "=== Battlegrounds: Blackheart\u0027s Bay ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Doubloon Camps to be impossible to capture under certain conditions.\r\n\r\n=== Battlegrounds: Volskaya Foundry ===\r\n[Updates]\r\n  Objective:\r\n  \u2022 Triglav Protector\r\n    \u2022 [Undocumented] Damage bonus when both slots are occupied reduced from 45% to 35%.\r\n    \u2022 [Undocumented] Cooldown reduction when both slots are occupied reduced from 40% to 35%.\r\n  \u2022 Triglav Gunner\r\n    \u2022 [Undocumented] Damage bonus when both slots are occupied reduced from 45% to 35%.\r\n    \u2022 [Undocumented] Cooldown reduction when both slots are occupied reduced from 40% to 35%.\r\n    \u2022 [Undocumented] Energy Regeneration when both slots are occupied reduced from 40% to 35%.\r\n\r\n=== Heroes: Anub\u0027arak ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Beetles to still have a duration, in addition to losing their Health over time.\r\n\r\n=== Heroes: Azmodan ===\r\n[Updates]\r\n  Base:\r\n  \u2022 Globe of Annihilation [Q]\r\n    \u2022 [Undocumented] Upon reaching 225 Annihilation, also removes the damage reduction against Monsters.\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing the Health decay for Azmodan\u0027s Demon Warriors to not scale with levels.\r\n\r\n=== Heroes: Deathwing ===\r\n[Updates]\r\n  Stats:\r\n  \u2022 [Undocumented] Attack Damage increased from 110 to 117.\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Molten Blood\r\n      \u2022 [Undocumented] Additional functionality: Now grants Form Switch, which can be activated to swap Form.\r\n  \u2022 Level 7\r\n    \u2022 Firestorm\r\n      \u2022 [Undocumented] Cooldown reduction for Deathwing\u0027s landing Abilities increased from 2 to 3 seconds.\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Deathwing\u0027s Baseline Quest to reset when using Dragonflight.\r\n  \u2022 [Undocumented] Fixed an issue causing Deathwing\u0027s Lava Burst to deal damage after an additional 0.25 seconds.\r\n\r\n=== Heroes: Gazlowe ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Gazlowe\u0027s Rock-It! Turrets to not lose their Health over time.\r\n\r\n=== Heroes: Jaina ===\r\n[Updates]\r\n  Base:\r\n  \u2022 Frostbite [Trait]\r\n    \u2022 [Undocumented] Additional functionality: Ice Cold now also gives Unstoppable and immunity to damage over time effects for the duration.\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing the tooltip for Jaina\u0027s Ice Cold to not show correctly.\r\n\r\n=== Heroes: Kerrigan ===\r\n[Updates]\r\n  Base:\r\n  \u2022 Ravage [Q]\r\n    \u2022 [Undocumented] Kerrigan now gains stacks when enemies die within 3 range.\r\n    \u2022 [Undocumented] Time window for cooldown refund reduced from 1.5 to 0.75 seconds.\r\n    \u2022 [Undocumented] Baseline Quest requirements increased from 85/150 to 100/250.\r\n    \u2022 [Undocumented] After reaching 100 stacks, enemy Heroes killed grant 14 stacks.\r\n\r\n=== Heroes: Muradin ===\r\n[Updates]\r\n  Base:\r\n  \u2022 Storm Bolt [Q]\r\n  Talents:\r\n  \u2022 Level 7\r\n    \u2022 Perfect Storm\r\n      \u2022 [Undocumented] Additional functionality: The cooldown cannot be reset more than once every 10 seconds.\r\n  \u2022 Level 20\r\n    \u2022 Mountain King\r\n      \u2022 [Undocumented] New: Thunder Clap and Dwarf Toss have an extra charge.\r\n    \u2022 Rewind\r\n      \u2022 [Undocumented] Removed.\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Muradin\u0027s Storm Bolt to deal 1 more damage for each stack.\r\n  \u2022 [Undocumented] Fixed an issue causing the range splat for Muradin\u0027s Dwarf Toss to not be visible.\r\n  \u2022 [Undocumented] Fixed an issue causing Muradin\u0027s Skullcraker to Stun before Muradin\u0027s post-damage effects happened.\r\n\r\n=== Heroes: Murky ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Egg\u0027s Health Regeneration to not scale with levels.\r\n\r\n=== Heroes: Tyrande ===\r\n[Updates]\r\n  Stats:\r\n  \u2022 [Undocumented] Mana increased from 450 to 500.\r\n  \u2022 [Undocumented] Mana Regeneration increased from 2.7 to 3 per second.\r\n  Base:\r\n  \u2022 Sentinel [W]\r\n    \u2022 [Undocumented] Mana cost increased from 50 to 55.\r\n  \u2022 Lunar Flare [E]\r\n    \u2022 [Undocumented] Mana cost increased from 60 to 65.\r\n  \u2022 Shadowstalk [R1]\r\n    \u2022 [Undocumented] Mana cost increased from 75 to 85.\r\n  \u2022 Starfall [R2]\r\n    \u2022 [Undocumented] Mana cost increased from 75 to 85.\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Tyrande\u0027s Sentinel to not be correctly affected by cooldown reduction effects.\r\n\r\n=== Heroes: Yrel ===\r\n[Updates]\r\n  Base:\r\n  \u2022 Divine Purpose [D]\r\n    \u2022 [Undocumented] Cooldown reduced from 16 to 8 seconds.\r\n\r\n=== Heroes: Zagara ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 16\r\n    \u2022 Mutalisk\r\n      \u2022 [Undocumented] Mutalisk\u0027s Health decay reduced from 42 to 10 per second.\r\n      \u2022 [Undocumented] Mutalisk duration effectively increased from 10 to 42 seconds.",
+  "Sections": {
+    "Battlegrounds: Blackheart\u0027s Bay": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Doubloon Camps to be impossible to capture under certain conditions."
+    ],
+    "Battlegrounds: Volskaya Foundry": [
+      "[Updates]",
+      "  Objective:",
+      "  \u2022 Triglav Protector",
+      "    \u2022 [Undocumented] Damage bonus when both slots are occupied reduced from 45% to 35%.",
+      "    \u2022 [Undocumented] Cooldown reduction when both slots are occupied reduced from 40% to 35%.",
+      "  \u2022 Triglav Gunner",
+      "    \u2022 [Undocumented] Damage bonus when both slots are occupied reduced from 45% to 35%.",
+      "    \u2022 [Undocumented] Cooldown reduction when both slots are occupied reduced from 40% to 35%.",
+      "    \u2022 [Undocumented] Energy Regeneration when both slots are occupied reduced from 40% to 35%."
+    ],
+    "Heroes: Anub\u0027arak": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Beetles to still have a duration, in addition to losing their Health over time."
+    ],
+    "Heroes: Azmodan": [
+      "[Updates]",
+      "  Base:",
+      "  \u2022 Globe of Annihilation [Q]",
+      "    \u2022 [Undocumented] Upon reaching 225 Annihilation, also removes the damage reduction against Monsters.",
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing the Health decay for Azmodan\u0027s Demon Warriors to not scale with levels."
+    ],
+    "Heroes: Deathwing": [
+      "[Updates]",
+      "  Stats:",
+      "  \u2022 [Undocumented] Attack Damage increased from 110 to 117.",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Molten Blood",
+      "      \u2022 [Undocumented] Additional functionality: Now grants Form Switch, which can be activated to swap Form.",
+      "  \u2022 Level 7",
+      "    \u2022 Firestorm",
+      "      \u2022 [Undocumented] Cooldown reduction for Deathwing\u0027s landing Abilities increased from 2 to 3 seconds.",
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Deathwing\u0027s Baseline Quest to reset when using Dragonflight.",
+      "  \u2022 [Undocumented] Fixed an issue causing Deathwing\u0027s Lava Burst to deal damage after an additional 0.25 seconds."
+    ],
+    "Heroes: Gazlowe": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Gazlowe\u0027s Rock-It! Turrets to not lose their Health over time."
+    ],
+    "Heroes: Jaina": [
+      "[Updates]",
+      "  Base:",
+      "  \u2022 Frostbite [Trait]",
+      "    \u2022 [Undocumented] Additional functionality: Ice Cold now also gives Unstoppable and immunity to damage over time effects for the duration.",
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing the tooltip for Jaina\u0027s Ice Cold to not show correctly."
+    ],
+    "Heroes: Kerrigan": [
+      "[Updates]",
+      "  Base:",
+      "  \u2022 Ravage [Q]",
+      "    \u2022 [Undocumented] Kerrigan now gains stacks when enemies die within 3 range.",
+      "    \u2022 [Undocumented] Time window for cooldown refund reduced from 1.5 to 0.75 seconds.",
+      "    \u2022 [Undocumented] Baseline Quest requirements increased from 85/150 to 100/250.",
+      "    \u2022 [Undocumented] After reaching 100 stacks, enemy Heroes killed grant 14 stacks."
+    ],
+    "Heroes: Muradin": [
+      "[Updates]",
+      "  Base:",
+      "  \u2022 Storm Bolt [Q]",
+      "  Talents:",
+      "  \u2022 Level 7",
+      "    \u2022 Perfect Storm",
+      "      \u2022 [Undocumented] Additional functionality: The cooldown cannot be reset more than once every 10 seconds.",
+      "  \u2022 Level 20",
+      "    \u2022 Mountain King",
+      "      \u2022 [Undocumented] New: Thunder Clap and Dwarf Toss have an extra charge.",
+      "    \u2022 Rewind",
+      "      \u2022 [Undocumented] Removed.",
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Muradin\u0027s Storm Bolt to deal 1 more damage for each stack.",
+      "  \u2022 [Undocumented] Fixed an issue causing the range splat for Muradin\u0027s Dwarf Toss to not be visible.",
+      "  \u2022 [Undocumented] Fixed an issue causing Muradin\u0027s Skullcraker to Stun before Muradin\u0027s post-damage effects happened."
+    ],
+    "Heroes: Murky": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Egg\u0027s Health Regeneration to not scale with levels."
+    ],
+    "Heroes: Tyrande": [
+      "[Updates]",
+      "  Stats:",
+      "  \u2022 [Undocumented] Mana increased from 450 to 500.",
+      "  \u2022 [Undocumented] Mana Regeneration increased from 2.7 to 3 per second.",
+      "  Base:",
+      "  \u2022 Sentinel [W]",
+      "    \u2022 [Undocumented] Mana cost increased from 50 to 55.",
+      "  \u2022 Lunar Flare [E]",
+      "    \u2022 [Undocumented] Mana cost increased from 60 to 65.",
+      "  \u2022 Shadowstalk [R1]",
+      "    \u2022 [Undocumented] Mana cost increased from 75 to 85.",
+      "  \u2022 Starfall [R2]",
+      "    \u2022 [Undocumented] Mana cost increased from 75 to 85.",
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Tyrande\u0027s Sentinel to not be correctly affected by cooldown reduction effects."
+    ],
+    "Heroes: Yrel": [
+      "[Updates]",
+      "  Base:",
+      "  \u2022 Divine Purpose [D]",
+      "    \u2022 [Undocumented] Cooldown reduced from 16 to 8 seconds."
+    ],
+    "Heroes: Zagara": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 16",
+      "    \u2022 Mutalisk",
+      "      \u2022 [Undocumented] Mutalisk\u0027s Health decay reduced from 42 to 10 per second.",
+      "      \u2022 [Undocumented] Mutalisk duration effectively increased from 10 to 42 seconds."
+    ]
+  },
+  "PatchFile": "ptr/2026-01-16-v2-55-15-96172-2026-01-16-ptr-patch-ptr.json",
+  "Sources": [
+    "2026-01-16-ptr.html"
+  ]
+}

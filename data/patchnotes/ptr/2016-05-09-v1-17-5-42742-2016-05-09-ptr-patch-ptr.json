@@ -1,0 +1,435 @@
+{
+  "Id": "npn-2016-05-09-1.17.5",
+  "Title": "2016-05-09 PTR Patch",
+  "Subtitle": "=== Heroes: Abathur ===",
+  "Date": "May 9, 2016",
+  "IsoDate": "2016-05-09",
+  "FeedType": "ptr",
+  "Era": "ptr",
+  "PatchVersion": "1.17.5",
+  "FullVersion": "1.17.5.42742",
+  "Build": "42742",
+  "Link": "https://news.blizzard.com/en-us/heroes-of-the-storm/20112698",
+  "Links": [
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/20112698"
+  ],
+  "Affected": [
+    "Abathur",
+    "Anub\u0027arak",
+    "Arthas",
+    "Chen",
+    "Cho",
+    "Chromie",
+    "Dehaka",
+    "Diablo",
+    "ETC",
+    "Falstad",
+    "Gall",
+    "Gazlowe",
+    "Johanna",
+    "Kerrigan",
+    "Leoric",
+    "Li Li",
+    "Li-Ming",
+    "Lt. Morales",
+    "Malfurion",
+    "Muradin",
+    "Murky",
+    "Nazeebo",
+    "Nova",
+    "Raynor",
+    "Rehgar",
+    "Rexxar",
+    "Sonya",
+    "Stitches",
+    "Sylvanas",
+    "Tassadar",
+    "The Lost Vikings",
+    "Tracer",
+    "Tychus",
+    "Tyrael",
+    "Tyrande",
+    "Uther",
+    "Zagara",
+    "Zeratul"
+  ],
+  "Highlights": "=== Heroes: Abathur ===",
+  "CleanedNotes": "=== Heroes: Abathur ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that could cause Abathur and Gall players to be flagged as AFK if they did not move from the starting area, despite issuing commands to their Heroes.\r\n\r\n=== Heroes: Anub\u0027arak ===\r\n[Updates]\r\n  \u2022 Health increased from 1926 (\u002B4% per level) to 2026 (\u002B4% per level)\r\n  \u2022 Health Regeneration increased from 4.01 (\u002B4% per level) to 4.22 (\u002B4% per level) Health per second\r\n  \u2022 Dampen Magic (Talent) added at Level 1.\r\n  \u2022 Mercenary Lord (Talent) removed.\r\n  \u2022 Spell Shield (Talent) removed.\r\n  \u2022 Imposing Presence (Talent) removed.\r\n  \u2022 Locust Needles (Talent)\r\n    \u2022 Area damage increased from 50% to 60% of Basic Attack damage.\r\n  \u2022 Scarab Host (Trait)\r\n    \u2022 Assault Scarab (Talent)\r\n      \u2022 Beetle Basic Attack damage bonus increased from 25% to 30%.\r\n    \u2022 Beetle, Juiced (Talent)\r\n      \u2022 This Talent\u0027s functionality has changed, and now reads as follows:\r\n      \u2022 Every third Basic Attack against enemy Heroes spawns a Beetle.\r\n  \u2022 Impale (Q)\r\n    \u2022 Bed of Barbs (Talent) moved from Level 7 to Level 13.\r\n      \u2022 Damage increased from 26 (\u002B4% per level) to 46 (\u002B4% per level) per second.\r\n    \u2022 Extended Spikes (Talent)\r\n      \u2022 Now also increases Impale damage by 25%.\r\n  \u2022 Harden Carapace (W)\r\n    \u2022 Shield amount increased from 260 (\u002B4% per level) to 300 (\u002B4% per level)\r\n    \u2022 Cooldown decreased from 8 to 7 seconds\r\n    \u2022 Mana cost decreased from 35 to 30\r\n    \u2022 Persistent Carapace (Talent) removed.\r\n    \u2022 Symbiotic Armor (Talent) removed.\r\n    \u2022 Urticating Spines (Talent) moved from Level 7 to Level 13.\r\n      \u2022 Area damage reduced from 105 (\u002B4% per level) to 80 (\u002B4% per level), and deals double damage to enemy Heroes.\r\n    \u2022 Chitinous Plating (Talent) moved from Level 13 to Level 7.\r\n      \u2022 This Talent\u0027s functionality has changed, and now reads as follows:\r\n        \u2022 While Hardened Carapace is active, taking damage from enemy Abilities decreases its cooldown by 0.75 seconds, up to 3 seconds maximum.\r\n    \u2022 Shed Exoskeleton (Talent)\r\n      \u2022 Movement Speed bonus increased from 25% to 30%.\r\n  \u2022 Burrow Charge (E)\r\n    \u2022 Underking (Talent)\r\n      \u2022 No longer reduces the cooldown of Burrow Charge, but still increases range by 20%.\r\n      \u2022 Now also increases Burrow Charge damage by 100%.\r\n    \u2022 Epicenter (Talent)\r\n      \u2022 No longer increases Burrow Charge damage, but still increases its impact area by 85%.\r\n      \u2022 Now also decreases the cooldown of Burrow Charge by 4 seconds per enemy Hero hit.\r\n  \u2022 Locust Swarm (R)\r\n    \u2022 Mana cost decreased from 100 to 75\r\n  \u2022 Cocoon (R)\r\n    \u2022 Cryptweave (Talent)\r\n      \u2022 Channeling will now occur automatically while Anub\u0027arak remains near the Cocooned enemy.\r\n\r\n=== Heroes: Arthas ===\r\n[Updates]\r\n  \u2022 Health increased from 2382 (\u002B4% per level) to 2582 (\u002B4% per level)\r\n  \u2022 Health regeneration increased from 4.96 (\u002B4% per level) to 5.37 (\u002B4% per level)\r\n  \u2022 Regeneration Master (Talent) removed\r\n  \u2022 Mercenary Lord (Talent) removed\r\n  \u2022 Spell Shield (Talent) removed\r\n  \u2022 Relentless (Talent) removed\r\n  \u2022 Stoneskin (Talent) removed\r\n  \u2022 Rewind (Talent) removed\r\n  \u2022 New Talent (Level 7): Icebound Fortitude\r\n    \u2022 Activate to reduce damage taken by 25% and reduce the duration of silences, stuns, slows, roots, and polymorphs by 75% for 3 seconds. 50 second cooldown.\r\n  \u2022 New Talent (Level 20): Death\u0027s Advance\r\n    \u2022 Passively increases Arthas\u0027s Movement Speed by 10%. Activate to increase this bonus to 30% for 3 seconds. 50 second cooldown.\r\n  \u2022 New Talent (Level 20): Anti-Magic Shell\r\n    \u2022 Activate to reduce Ability damage taken by 100% for 3 seconds, and heal for 25% of the damage prevented. 60 second cooldown.\r\n  \u2022 Frostmourne Hungers (Trait) (D)\r\n    \u2022 Destruction (Talent) removed.\r\n    \u2022 Obliterate (Talent) removed.\r\n    \u2022 Eternal Hunger (Talent) has been reworked as a Questing Talent.\r\n      \u2022 Quest: Using Frostmourne Hungers on an enemy Hero permanently increases the Mana it restores by 4, up to a maximum of 40.\r\n      \u2022 Reward: After hitting 10 Heroes with Frostmourne Hungers, its damage bonus is increased to 125%.\r\n    \u2022 Frost Strike (Talent) moved from Level 7 to Level 13\r\n      \u2022 Now also reduces the cooldown of Frostmourne Hungers by 2 seconds.\r\n  \u2022 Death Coil (Q)\r\n    \u2022 Death Touch (Talent) removed.\r\n    \u2022 Immortal Coil (Talent) moved from Level 16 to Level 7\r\n      \u2022 Casting Death Coil on an enemy Hero now restores Health equal to 100% of the damage dealt.\r\n    \u2022 New Talent (Level 4): Deathlord\r\n      \u2022 Reduces Death Coil\u0027s cooldown by 2 seconds and increases its range by 25%.\r\n  \u2022 Howling Blast (W)\r\n    \u2022 Frost Presence (Talent)\r\n      \u2022 Now reduces Howling Blast\u0027s cooldown by 6 seconds if it hits an enemy Hero.\r\n    \u2022 Trail of Frost (Talent)\r\n      \u2022 Now also increases the range of Howling Blast by 30%.\r\n  \u2022 Frozen Tempest (E)\r\n    \u2022 Damage per second increased from 48 (\u002B4% per level) to 52 (\u002B4% per level)\r\n    \u2022 Biting Cold (Talent) moved from Level 13 to Level 4\r\n      \u2022 Damage bonus reduced from 50% to 30%\r\n    \u2022 New Talent (Level 13): Frigid Winds\r\n      \u2022 Frozen Tempest reduces enemy Attack Speed by 8% per second, up to 40% maximum.\r\n    \u2022 New Talent (Level 16): Remorseless Winter\r\n      \u2022 Enemies that remain in Frozen Tempest\u0027s area of effect for 3 seconds are rooted for 2 seconds. This effect can only occur once every 10 seconds.\r\n  \u2022 Army of the Dead (R)\r\n    \u2022 Ghoul Health increased from 799 (\u002B4% per level) to 960 (\u002B4% per level).\r\n    \u2022 Legion of Northrend (Talent)\r\n      \u2022 Ghoul bonus Heal amount increased from 25% to 50%.\r\n  \u2022 Summon Sindragosa (R)\r\n    \u2022 Damage reduced from 255 (\u002B4% per level) to 230 (\u002B4% per level).\r\n    \u2022 Slow duration increased from 2 to 3.5 seconds.\r\n    \u2022 Disable duration against non-Heroic enemies increased from 10 to 20 seconds.\r\n    \u2022 Absolute Zero (Talent).\r\n      \u2022 Slow duration increased from 2 to 3.5 seconds.\r\n  Arthas Talents:\r\n  \u2022 (!) indicates a Questing Talent.\r\n  \u2022 Italic text indicates a NEW Talent.\r\n  \u2022 Bold text indicates a MOVED Talent.\r\n\r\n=== Heroes: Chen ===\r\n[Bug Fixes]\r\n  \u2022 Additionally, if one of The Lost Vikings or Chen\u0027s Storm, Earth, Fire Spirits are hit by Isolation, only the affected unit will have reduced personal vision, but the player should retain allied vision.\r\n\r\n=== Heroes: Cho ===\r\n[Bug Fixes]\r\n  \u2022 Gall\u0027s Shove can no longer be used while Cho\u0027Gall is Rooted.\r\n\r\n=== Heroes: Chromie ===\r\n[Releases]\r\n  Chromie, Keeper of Time, has been added to the Nexus and is now available for play! Read on for a brief overview of her Abilities.:\r\n  Trait:\r\n  \u2022 Timewalker\r\n    \u2022 You\u0027ve traveled into the future, and as such, will learn your Talents 1 level earlier than your teammates.\r\n  Basic Abilities:\r\n  \u2022 Sand Blast (Q)\r\n    \u2022 After 1 second, fire a long-range blast that damages the first enemy Hero it hits.\r\n  \u2022 Dragon\u0027s Breath (W)\r\n    \u2022 Fire a blast into the air that lands after 1.5 seconds, dealing damage to enemies in an area. Enemies cannot see where the blast will land.\r\n  \u2022 Time Trap (E)\r\n    \u2022 Place a Time Trap that arms and Stealths after 2 seconds. The first enemy Hero to touch it will be placed into Stasis for 2 seconds. Only 1 Trap can exist at once.\r\n  Heroic Abilities:\r\n  \u2022 Slowing Sands (R)\r\n    \u2022 Create a swirling vortex of sand which greatly slows enemies caught within its area of effect. The longer Slowing Sands is active, the greater its slow becomes.\r\n  \u2022 Temporal Loop (R)\r\n    \u2022 Target enemy Hero will be teleported 3 seconds back in time to the position they were in when you initially cast Temporal Loop.\r\n\r\n=== Heroes: Dehaka ===\r\n[Bug Fixes]\r\n  \u2022 Casting Dehaka\u0027s Isolation on a summoned unit or Heroic pet, such as Misha, Gargantuan, or a Holo Decoy, will no longer also cause the Hero who owns that unit to lose allied vision.\r\n\r\n=== Heroes: Diablo ===\r\n[Updates]\r\n  \u2022 Shadow Charge (Q)\r\n    \u2022 The implementation for this Ability has been reworked.\r\n      \u2022 No longer automatically Stuns the target at the end of the knockback phase, and instead applies a Daze for the duration of the knockback.\r\n        \u2022 Targets that collide with terrain will still be stunned for 1 second.\r\n      \u2022 Diablo will now continue travelling toward the enemy target for the duration of the knockback phase.\r\n[Bug Fixes]\r\n  \u2022 Reset Talents in Try Mode will no longer cause Archangel Diablo\u0027s Fire Stomp flames to change color from blue to red.\r\n\r\n=== Heroes: ETC ===\r\n[Bug Fixes]\r\n  \u2022 Adjusted the positioning of a spike at the base of Master E.T.C.\u0027s guitar.\r\n\r\n=== Heroes: Falstad ===\r\n[Updates]\r\n  \u2022 Battle Momentum (Talent) removed.\r\n  \u2022 First Aid (Talent) removed.\r\n  \u2022 Overdrive (Talent) removed.\r\n  \u2022 Vigorous Assault (Talent) renamed to Hammer Gains\r\n    \u2022 This is now a Falstad-specific version of Vigorous Assault.\r\n    \u2022 Health restored per Basic Attack increased from 15% to 20% of damage dealt to the primary target.\r\n  \u2022 Tailwind (Trait)\r\n    \u2022 Flow Rider (Talent) moved from Level 4 to Level 13.\r\n  \u2022 Hammerang (Q)\r\n    \u2022 Power Throw (Talent) removed.\r\n    \u2022 Hammer Time (Talent) removed.\r\n    \u2022 Crippling Hammer (Talent) moved from Level 13 to Level 16.\r\n    \u2022 Secret Weapon (Talent)\r\n      \u2022 Now also increases Hammerang range by 30%.\r\n      \u2022 Basic Attack damage bonus reduced from 80% to 60%\r\n  \u2022 Lightning Rod (W)\r\n    \u2022 Charged Up (Talent) moved from Level 4 to Level 7.\r\n      \u2022 Now also increases Lightning Rod\u0027s range by 15%.\r\n      \u2022 Number of bonus strikes reduced from 3 to 2.\r\n    \u2022 Static Shield (Talent) moved from Level 13 to Level 4.\r\n      \u2022 Shield amount per strike reduced from 5% to 4% of maximum Health.\r\n  \u2022 Barrel Roll (E)\r\n    \u2022 Shield duration increased from 2 to 3 seconds.\r\n    \u2022 Free Roll (Talent) removed.\r\n    \u2022 Updraft (Talent) moved from Level 1 to Level 4.\r\n      \u2022 Now also increases Barrel Roll\u0027s Shield amount by 40%.\r\n\r\n=== Heroes: Gall ===\r\n[Bug Fixes]\r\n  \u2022 Gall\u0027s Giant Scorcher and Shadowflame Talents now properly use different color variations for their button art.\r\n  \u2022 Gall can now properly cast Hurry Up, Oaf! while channeling Shadowbolt Volley.\r\n  \u2022 Gall\u0027s Shadowbolt Volley will no longer be interrupted by Silence and Polymorph effects.\r\n  \u2022 Gall\u0027s Shove can no longer be used while Cho\u0027Gall is Rooted.\r\n  \u2022 Fixed an issue that could cause Abathur and Gall players to be flagged as AFK if they did not move from the starting area, despite issuing commands to their Heroes.\r\n\r\n=== Heroes: Gazlowe ===\r\n[Bug Fixes]\r\n  \u2022 Enemy Heroes hit by the outer edge of an Xplodium Charge will now properly refill Gazlowe\u0027s Rock It! Turret charges after learning the X-Tra Large Bombs and ARK Reaktor Talents.\r\n\r\n=== Heroes: Johanna ===\r\n[Updates]\r\n  \u2022 Iron Skin (Trait) (D)\r\n    \u2022 Shield amount increased from 613 (\u002B4% per level) to 674 (\u002B4% per level).\r\n[Bug Fixes]\r\n  \u2022 Johanna\u0027s Falling Sword will now properly cancel enemy Heroic Abilities when its Stun is applied during those Abilities\u0027 casting times.\r\n\r\n=== Heroes: Kerrigan ===\r\n[Updates]\r\n  \u2022 Summon Ultralisk (R)\r\n    \u2022 Cooldown reduced from 80 to 70 seconds.\r\n  \u2022 Maelstrom (R)\r\n    \u2022 Cooldown reduced from 100 to 90 seconds.\r\n\r\n=== Heroes: Leoric ===\r\n[Updates]\r\n  \u2022 Reanimation (Talent) has been changed to match Regeneration Master\u0027s new functionality.\r\n    \u2022 Upon gathering 30 Health Regeneration Globes, Leoric will respawn 10 seconds faster.\r\n\r\n=== Heroes: Li Li ===\r\n[Updates]\r\n  \u2022 Cleanse (Talent) added at Level 7\r\n  \u2022 Shake It Off (Talent) moved from Level 7 to Level 16.\r\n    \u2022 Cooldown reduced from 15 to 10 seconds.\r\n  \u2022 Fast Feet (Trait)\r\n    \u2022 Safety Sprint (Talent)\r\n      \u2022 Now provides the Movement Speed bonus regardless of Li Li\u0027s remaining Health.\r\n  \u2022 Healing Brew (Q)\r\n    \u2022 Herbal Cleanse (Talent) removed.\r\n[Bug Fixes]\r\n  \u2022 Self-casting Cloud Serpent as Li Li after learning the Mending Serpent Talent will no longer cause duplicate Healing combat text to appear.\r\n\r\n=== Heroes: Li-Ming ===\r\n[Updates]\r\n  \u2022 Cannoneer (Talent)\r\n    \u2022 Cannoneer stacks will now be displayed in the Buff bar next to the Hero Portrait.\r\n  \u2022 Tal Rasha\u0027s Elements (Talent) has been reworked, and now reads as follows:\r\n    \u2022 Using Abilities grants 5% Ability Power to a maximum of 20%. This bonus is reset when the same Ability is used within a chain.\r\n  \u2022 Disintegrate (R)\r\n    \u2022 Temporal Flux (Talent)\r\n      \u2022 Now gradually Slows enemies caught in its beam, up to maximum of 60%.\r\n[Bug Fixes]\r\n  \u2022 Casting Teleport just as Tyrael\u0027s Judgment is about to hit Li-Ming will no longer cause her to slide a long distance.\r\n\r\n=== Heroes: Lt. Morales ===\r\n[Updates]\r\n  \u2022 Advanced Block (Talent) renamed to Automated Block.\r\n[Bug Fixes]\r\n  \u2022 Lt. Morales\u0027s Safeguard will now use the new floating combat text style, rather than the old one.\r\n\r\n=== Heroes: Malfurion ===\r\n[Updates]\r\n  \u2022 Tranquility (R)\r\n    \u2022 Will no longer Heal non-Heroic units.\r\n[Bug Fixes]\r\n  \u2022 The Hardened Focus Talent will no longer affect Malfurion\u0027s Innervate cooldown.\r\n\r\n=== Heroes: Muradin ===\r\n[Updates]\r\n  \u2022 Give \u0027em the Axe! (Talent)\r\n    \u2022 After hitting a slowed, rooted, or stunned target with a Basic Attack, increase your Basic Attack damage by 60% for 3 seconds\r\n  \u2022 Second Wind (Trait)\r\n    \u2022 Third Wind (Talent)\r\n      \u2022 Bonus Health Regeneration threshold increased from 50% to 60% of maximum Health.\r\n    \u2022 Stoneform (Talent)\r\n      \u2022 Heal amount decreased from 50% to 40% of maximum Health.\r\n      \u2022 Heal duration increased from 8 to 10 seconds.\r\n  \u2022 Storm Bolt (Q)\r\n    \u2022 Infused Hammer (Talent) removed.\r\n    \u2022 Perfect Storm (Talent)\r\n      \u2022 Now also reduces Storm Bolt\u0027s Mana cost by 25%.\r\n  \u2022 Thunder Clap (W)\r\n    \u2022 Healing Static (Talent)\r\n      \u2022 Now only Heals Muradin when Thunder Clap strikes enemy Heroes.\r\n      \u2022 Heal amount per Hero hit increased from 1.5% to 5% of maximum Health.\r\n  \u2022 Dwarf Toss (E)\r\n    \u2022 Landing Momentum (Talent)\r\n      \u2022 Movement Speed bonus increased from 20% to 25%.\r\n      \u2022 Movement Speed bonus duration increased from 4 to 5 seconds.\r\n\r\n=== Heroes: Murky ===\r\n[Bug Fixes]\r\n  \u2022 When Murky\u0027s Pufferfish is cast in a Bush or Vent, its explosion radius will now briefly appear to enemies with its area of effect before the Pufferfish explodes.\r\n  \u2022 Murky\u0027s Egg will no longer be destroyed if Murky is Stuck by Tracer\u0027s Pulse Bomb, but killed before the Pulse Bomb explodes.\r\n\r\n=== Heroes: Nazeebo ===\r\n[Bug Fixes]\r\n  \u2022 The visual effects for Tassadar\u0027s Plasma Shield will now properly appear centered on Nazeebo.\r\n\r\n=== Heroes: Nova ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that could cancel Nova\u0027s Triple Tap when attempting to cast it on an enemy Nova who is already channeling Triple Tap on a different target.\r\n  \u2022 Fixed an issue that caused Nova\u0027s Holo Decoys to deal more damage than intended after learning the Anti-Armor Shells Talent.\r\n  \u2022 Enemies will now be able to more easily distinguish Nova\u0027s Holo Decoys from the real Nova when the Decoys are revealed.\r\n  \u2022 Attempting to cast Nova\u0027s Pinning Shot or Tyrande\u0027s Hunter\u0027s Mark on an enemy just as the target enters a Bush or Vent will no longer cause the Ability\u0027s sound effects and animations to play as though it were successfully cast.\r\n\r\n=== Heroes: Raynor ===\r\n[Updates]\r\n  \u2022 Berserk (Talent) removed.\r\n\r\n=== Heroes: Rehgar ===\r\n[Updates]\r\n  \u2022 Lightning Shield (W)\r\n    \u2022 Stormcaller (Talent) has been reworked.\r\n      \u2022 Now restores 3 Mana when Lightning Shield damages an enemy Hero, up to a maximum of 30.\r\n  \u2022 Earthbind Totem (E)\r\n    \u2022 Earthgrasp Totem (Talent)\r\n      \u2022 Empowered Slow duration reduced from 1.5 to 1 second.\r\n[Bug Fixes]\r\n  \u2022 The Rewind Talent will no longer affect Rehgar\u0027s Ghost Wolf cooldown.\r\n\r\n=== Heroes: Rexxar ===\r\n[Updates]\r\n  \u2022 Hunter-Gatherer (Talent) has been changed to match Regeneration Master\u0027s new functionality.\r\n    \u2022 Both Rexxar and Misha gain Health Regeneration bonuses up to 30 Health per second, but only Rexxar will gain the 600 Health bonus on Quest completion.\r\n  \u2022 Misha, Follow! (Trait) (D)\r\n    \u2022 Misha will now follow enemies to their last known location, even into bushes or vents, much like Zagara\u0027s Hunter Killer.\r\n\r\n=== Heroes: Sonya ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that could occasionally cause Sonya to stutter and fail to issue a Basic Attack.\r\n\r\n=== Heroes: Stitches ===\r\n[Updates]\r\n  \u2022 Hungry for More (Talent) has been reworked as a Questing Talent.\r\n    \u2022 Quest: Collecting Regeneration Globes permanently increases maximum Health by 30, up to a maximum of 900.\r\n    \u2022 Reward: Upon reaching 900 bonus Health, Stitches\u0027s Movement Speed is increased by 10%.\r\n\r\n=== Heroes: Sylvanas ===\r\n[Bug Fixes]\r\n  \u2022 The back of Ranger-General Sylvanas\u0027s leaf earring now appears more leaf-like.\r\n\r\n=== Heroes: Tassadar ===\r\n[Bug Fixes]\r\n  \u2022 The visual effects for Tassadar\u0027s Plasma Shield will now properly appear centered on Nazeebo.\r\n\r\n=== Heroes: The Lost Vikings ===\r\n[Bug Fixes]\r\n  \u2022 Additionally, if one of The Lost Vikings or Chen\u0027s Storm, Earth, Fire Spirits are hit by Isolation, only the affected unit will have reduced personal vision, but the player should retain allied vision.\r\n\r\n=== Heroes: Tracer ===\r\n[Bug Fixes]\r\n  \u2022 Murky\u0027s Egg will no longer be destroyed if Murky is Stuck by Tracer\u0027s Pulse Bomb, but killed before the Pulse Bomb explodes.\r\n\r\n=== Heroes: Tychus ===\r\n[Bug Fixes]\r\n  \u2022 Tychus will no longer appear to stand while Mounted.\r\n  \u2022 The visual effects Infested Tychus Skin\u0027s Overkill will now properly appear centered on the primary target.\r\n\r\n=== Heroes: Tyrael ===\r\n[Bug Fixes]\r\n  \u2022 Casting Teleport just as Tyrael\u0027s Judgment is about to hit Li-Ming will no longer cause her to slide a long distance.\r\n  \u2022 Angelic Flash will no longer allow Tyrael to teleport out of Root effects.\r\n  \u2022 Tyrael\u0027s Status bar will no longer persist on-screen during Archangel\u0027s Wrath if he is killed by Zagara\u0027s Devouring Maw.\r\n\r\n=== Heroes: Tyrande ===\r\n[Bug Fixes]\r\n  \u2022 Attempting to cast Nova\u0027s Pinning Shot or Tyrande\u0027s Hunter\u0027s Mark on an enemy just as the target enters a Bush or Vent will no longer cause the Ability\u0027s sound effects and animations to play as though it were successfully cast.\r\n\r\n=== Heroes: Uther ===\r\n[Bug Fixes]\r\n  \u2022 The armor under Judgement Uther\u0027s left armpit has been patched to offer better protection during his adventures in the Nexus.\r\n  \u2022 Fixed an issue that caused the Hardened Focus Talent to reduce cooldowns for Uther\u0027s Holy Light and Holy Shock more quickly than intended.\r\n  \u2022 Fixed an issue that prevented Uther\u0027s Holy Shock from revealing the target if it was cast just as they entered a Bush or Vent.\r\n\r\n=== Heroes: Zagara ===\r\n[Bug Fixes]\r\n  \u2022 Tyrael\u0027s Status bar will no longer persist on-screen during Archangel\u0027s Wrath if he is killed by Zagara\u0027s Devouring Maw.\r\n  \u2022 Right-clicking an enemy Structure while channeling Zagara\u0027s Baneling Barrage will no longer cause her to move to that Structure without attacking it.\r\n\r\n=== Heroes: Zeratul ===\r\n[Updates]\r\n  \u2022 Berserk (Talent) removed.\r\n[Bug Fixes]\r\n  \u2022 Zeratul\u0027s Wormhole Talent will no longer allow him to Blink out of Root effects.",
+  "Sections": {
+    "Heroes: Abathur": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that could cause Abathur and Gall players to be flagged as AFK if they did not move from the starting area, despite issuing commands to their Heroes."
+    ],
+    "Heroes: Anub\u0027arak": [
+      "[Updates]",
+      "  \u2022 Health increased from 1926 (\u002B4% per level) to 2026 (\u002B4% per level)",
+      "  \u2022 Health Regeneration increased from 4.01 (\u002B4% per level) to 4.22 (\u002B4% per level) Health per second",
+      "  \u2022 Dampen Magic (Talent) added at Level 1.",
+      "  \u2022 Mercenary Lord (Talent) removed.",
+      "  \u2022 Spell Shield (Talent) removed.",
+      "  \u2022 Imposing Presence (Talent) removed.",
+      "  \u2022 Locust Needles (Talent)",
+      "    \u2022 Area damage increased from 50% to 60% of Basic Attack damage.",
+      "  \u2022 Scarab Host (Trait)",
+      "    \u2022 Assault Scarab (Talent)",
+      "      \u2022 Beetle Basic Attack damage bonus increased from 25% to 30%.",
+      "    \u2022 Beetle, Juiced (Talent)",
+      "      \u2022 This Talent\u0027s functionality has changed, and now reads as follows:",
+      "      \u2022 Every third Basic Attack against enemy Heroes spawns a Beetle.",
+      "  \u2022 Impale (Q)",
+      "    \u2022 Bed of Barbs (Talent) moved from Level 7 to Level 13.",
+      "      \u2022 Damage increased from 26 (\u002B4% per level) to 46 (\u002B4% per level) per second.",
+      "    \u2022 Extended Spikes (Talent)",
+      "      \u2022 Now also increases Impale damage by 25%.",
+      "  \u2022 Harden Carapace (W)",
+      "    \u2022 Shield amount increased from 260 (\u002B4% per level) to 300 (\u002B4% per level)",
+      "    \u2022 Cooldown decreased from 8 to 7 seconds",
+      "    \u2022 Mana cost decreased from 35 to 30",
+      "    \u2022 Persistent Carapace (Talent) removed.",
+      "    \u2022 Symbiotic Armor (Talent) removed.",
+      "    \u2022 Urticating Spines (Talent) moved from Level 7 to Level 13.",
+      "      \u2022 Area damage reduced from 105 (\u002B4% per level) to 80 (\u002B4% per level), and deals double damage to enemy Heroes.",
+      "    \u2022 Chitinous Plating (Talent) moved from Level 13 to Level 7.",
+      "      \u2022 This Talent\u0027s functionality has changed, and now reads as follows:",
+      "        \u2022 While Hardened Carapace is active, taking damage from enemy Abilities decreases its cooldown by 0.75 seconds, up to 3 seconds maximum.",
+      "    \u2022 Shed Exoskeleton (Talent)",
+      "      \u2022 Movement Speed bonus increased from 25% to 30%.",
+      "  \u2022 Burrow Charge (E)",
+      "    \u2022 Underking (Talent)",
+      "      \u2022 No longer reduces the cooldown of Burrow Charge, but still increases range by 20%.",
+      "      \u2022 Now also increases Burrow Charge damage by 100%.",
+      "    \u2022 Epicenter (Talent)",
+      "      \u2022 No longer increases Burrow Charge damage, but still increases its impact area by 85%.",
+      "      \u2022 Now also decreases the cooldown of Burrow Charge by 4 seconds per enemy Hero hit.",
+      "  \u2022 Locust Swarm (R)",
+      "    \u2022 Mana cost decreased from 100 to 75",
+      "  \u2022 Cocoon (R)",
+      "    \u2022 Cryptweave (Talent)",
+      "      \u2022 Channeling will now occur automatically while Anub\u0027arak remains near the Cocooned enemy."
+    ],
+    "Heroes: Arthas": [
+      "[Updates]",
+      "  \u2022 Health increased from 2382 (\u002B4% per level) to 2582 (\u002B4% per level)",
+      "  \u2022 Health regeneration increased from 4.96 (\u002B4% per level) to 5.37 (\u002B4% per level)",
+      "  \u2022 Regeneration Master (Talent) removed",
+      "  \u2022 Mercenary Lord (Talent) removed",
+      "  \u2022 Spell Shield (Talent) removed",
+      "  \u2022 Relentless (Talent) removed",
+      "  \u2022 Stoneskin (Talent) removed",
+      "  \u2022 Rewind (Talent) removed",
+      "  \u2022 New Talent (Level 7): Icebound Fortitude",
+      "    \u2022 Activate to reduce damage taken by 25% and reduce the duration of silences, stuns, slows, roots, and polymorphs by 75% for 3 seconds. 50 second cooldown.",
+      "  \u2022 New Talent (Level 20): Death\u0027s Advance",
+      "    \u2022 Passively increases Arthas\u0027s Movement Speed by 10%. Activate to increase this bonus to 30% for 3 seconds. 50 second cooldown.",
+      "  \u2022 New Talent (Level 20): Anti-Magic Shell",
+      "    \u2022 Activate to reduce Ability damage taken by 100% for 3 seconds, and heal for 25% of the damage prevented. 60 second cooldown.",
+      "  \u2022 Frostmourne Hungers (Trait) (D)",
+      "    \u2022 Destruction (Talent) removed.",
+      "    \u2022 Obliterate (Talent) removed.",
+      "    \u2022 Eternal Hunger (Talent) has been reworked as a Questing Talent.",
+      "      \u2022 Quest: Using Frostmourne Hungers on an enemy Hero permanently increases the Mana it restores by 4, up to a maximum of 40.",
+      "      \u2022 Reward: After hitting 10 Heroes with Frostmourne Hungers, its damage bonus is increased to 125%.",
+      "    \u2022 Frost Strike (Talent) moved from Level 7 to Level 13",
+      "      \u2022 Now also reduces the cooldown of Frostmourne Hungers by 2 seconds.",
+      "  \u2022 Death Coil (Q)",
+      "    \u2022 Death Touch (Talent) removed.",
+      "    \u2022 Immortal Coil (Talent) moved from Level 16 to Level 7",
+      "      \u2022 Casting Death Coil on an enemy Hero now restores Health equal to 100% of the damage dealt.",
+      "    \u2022 New Talent (Level 4): Deathlord",
+      "      \u2022 Reduces Death Coil\u0027s cooldown by 2 seconds and increases its range by 25%.",
+      "  \u2022 Howling Blast (W)",
+      "    \u2022 Frost Presence (Talent)",
+      "      \u2022 Now reduces Howling Blast\u0027s cooldown by 6 seconds if it hits an enemy Hero.",
+      "    \u2022 Trail of Frost (Talent)",
+      "      \u2022 Now also increases the range of Howling Blast by 30%.",
+      "  \u2022 Frozen Tempest (E)",
+      "    \u2022 Damage per second increased from 48 (\u002B4% per level) to 52 (\u002B4% per level)",
+      "    \u2022 Biting Cold (Talent) moved from Level 13 to Level 4",
+      "      \u2022 Damage bonus reduced from 50% to 30%",
+      "    \u2022 New Talent (Level 13): Frigid Winds",
+      "      \u2022 Frozen Tempest reduces enemy Attack Speed by 8% per second, up to 40% maximum.",
+      "    \u2022 New Talent (Level 16): Remorseless Winter",
+      "      \u2022 Enemies that remain in Frozen Tempest\u0027s area of effect for 3 seconds are rooted for 2 seconds. This effect can only occur once every 10 seconds.",
+      "  \u2022 Army of the Dead (R)",
+      "    \u2022 Ghoul Health increased from 799 (\u002B4% per level) to 960 (\u002B4% per level).",
+      "    \u2022 Legion of Northrend (Talent)",
+      "      \u2022 Ghoul bonus Heal amount increased from 25% to 50%.",
+      "  \u2022 Summon Sindragosa (R)",
+      "    \u2022 Damage reduced from 255 (\u002B4% per level) to 230 (\u002B4% per level).",
+      "    \u2022 Slow duration increased from 2 to 3.5 seconds.",
+      "    \u2022 Disable duration against non-Heroic enemies increased from 10 to 20 seconds.",
+      "    \u2022 Absolute Zero (Talent).",
+      "      \u2022 Slow duration increased from 2 to 3.5 seconds.",
+      "  Arthas Talents:",
+      "  \u2022 (!) indicates a Questing Talent.",
+      "  \u2022 Italic text indicates a NEW Talent.",
+      "  \u2022 Bold text indicates a MOVED Talent."
+    ],
+    "Heroes: Chen": [
+      "[Bug Fixes]",
+      "  \u2022 Additionally, if one of The Lost Vikings or Chen\u0027s Storm, Earth, Fire Spirits are hit by Isolation, only the affected unit will have reduced personal vision, but the player should retain allied vision."
+    ],
+    "Heroes: Cho": [
+      "[Bug Fixes]",
+      "  \u2022 Gall\u0027s Shove can no longer be used while Cho\u0027Gall is Rooted."
+    ],
+    "Heroes: Chromie": [
+      "[Releases]",
+      "  Chromie, Keeper of Time, has been added to the Nexus and is now available for play! Read on for a brief overview of her Abilities.:",
+      "  Trait:",
+      "  \u2022 Timewalker",
+      "    \u2022 You\u0027ve traveled into the future, and as such, will learn your Talents 1 level earlier than your teammates.",
+      "  Basic Abilities:",
+      "  \u2022 Sand Blast (Q)",
+      "    \u2022 After 1 second, fire a long-range blast that damages the first enemy Hero it hits.",
+      "  \u2022 Dragon\u0027s Breath (W)",
+      "    \u2022 Fire a blast into the air that lands after 1.5 seconds, dealing damage to enemies in an area. Enemies cannot see where the blast will land.",
+      "  \u2022 Time Trap (E)",
+      "    \u2022 Place a Time Trap that arms and Stealths after 2 seconds. The first enemy Hero to touch it will be placed into Stasis for 2 seconds. Only 1 Trap can exist at once.",
+      "  Heroic Abilities:",
+      "  \u2022 Slowing Sands (R)",
+      "    \u2022 Create a swirling vortex of sand which greatly slows enemies caught within its area of effect. The longer Slowing Sands is active, the greater its slow becomes.",
+      "  \u2022 Temporal Loop (R)",
+      "    \u2022 Target enemy Hero will be teleported 3 seconds back in time to the position they were in when you initially cast Temporal Loop."
+    ],
+    "Heroes: Dehaka": [
+      "[Bug Fixes]",
+      "  \u2022 Casting Dehaka\u0027s Isolation on a summoned unit or Heroic pet, such as Misha, Gargantuan, or a Holo Decoy, will no longer also cause the Hero who owns that unit to lose allied vision."
+    ],
+    "Heroes: Diablo": [
+      "[Updates]",
+      "  \u2022 Shadow Charge (Q)",
+      "    \u2022 The implementation for this Ability has been reworked.",
+      "      \u2022 No longer automatically Stuns the target at the end of the knockback phase, and instead applies a Daze for the duration of the knockback.",
+      "        \u2022 Targets that collide with terrain will still be stunned for 1 second.",
+      "      \u2022 Diablo will now continue travelling toward the enemy target for the duration of the knockback phase.",
+      "[Bug Fixes]",
+      "  \u2022 Reset Talents in Try Mode will no longer cause Archangel Diablo\u0027s Fire Stomp flames to change color from blue to red."
+    ],
+    "Heroes: ETC": [
+      "[Bug Fixes]",
+      "  \u2022 Adjusted the positioning of a spike at the base of Master E.T.C.\u0027s guitar."
+    ],
+    "Heroes: Falstad": [
+      "[Updates]",
+      "  \u2022 Battle Momentum (Talent) removed.",
+      "  \u2022 First Aid (Talent) removed.",
+      "  \u2022 Overdrive (Talent) removed.",
+      "  \u2022 Vigorous Assault (Talent) renamed to Hammer Gains",
+      "    \u2022 This is now a Falstad-specific version of Vigorous Assault.",
+      "    \u2022 Health restored per Basic Attack increased from 15% to 20% of damage dealt to the primary target.",
+      "  \u2022 Tailwind (Trait)",
+      "    \u2022 Flow Rider (Talent) moved from Level 4 to Level 13.",
+      "  \u2022 Hammerang (Q)",
+      "    \u2022 Power Throw (Talent) removed.",
+      "    \u2022 Hammer Time (Talent) removed.",
+      "    \u2022 Crippling Hammer (Talent) moved from Level 13 to Level 16.",
+      "    \u2022 Secret Weapon (Talent)",
+      "      \u2022 Now also increases Hammerang range by 30%.",
+      "      \u2022 Basic Attack damage bonus reduced from 80% to 60%",
+      "  \u2022 Lightning Rod (W)",
+      "    \u2022 Charged Up (Talent) moved from Level 4 to Level 7.",
+      "      \u2022 Now also increases Lightning Rod\u0027s range by 15%.",
+      "      \u2022 Number of bonus strikes reduced from 3 to 2.",
+      "    \u2022 Static Shield (Talent) moved from Level 13 to Level 4.",
+      "      \u2022 Shield amount per strike reduced from 5% to 4% of maximum Health.",
+      "  \u2022 Barrel Roll (E)",
+      "    \u2022 Shield duration increased from 2 to 3 seconds.",
+      "    \u2022 Free Roll (Talent) removed.",
+      "    \u2022 Updraft (Talent) moved from Level 1 to Level 4.",
+      "      \u2022 Now also increases Barrel Roll\u0027s Shield amount by 40%."
+    ],
+    "Heroes: Gall": [
+      "[Bug Fixes]",
+      "  \u2022 Gall\u0027s Giant Scorcher and Shadowflame Talents now properly use different color variations for their button art.",
+      "  \u2022 Gall can now properly cast Hurry Up, Oaf! while channeling Shadowbolt Volley.",
+      "  \u2022 Gall\u0027s Shadowbolt Volley will no longer be interrupted by Silence and Polymorph effects.",
+      "  \u2022 Gall\u0027s Shove can no longer be used while Cho\u0027Gall is Rooted.",
+      "  \u2022 Fixed an issue that could cause Abathur and Gall players to be flagged as AFK if they did not move from the starting area, despite issuing commands to their Heroes."
+    ],
+    "Heroes: Gazlowe": [
+      "[Bug Fixes]",
+      "  \u2022 Enemy Heroes hit by the outer edge of an Xplodium Charge will now properly refill Gazlowe\u0027s Rock It! Turret charges after learning the X-Tra Large Bombs and ARK Reaktor Talents."
+    ],
+    "Heroes: Johanna": [
+      "[Updates]",
+      "  \u2022 Iron Skin (Trait) (D)",
+      "    \u2022 Shield amount increased from 613 (\u002B4% per level) to 674 (\u002B4% per level).",
+      "[Bug Fixes]",
+      "  \u2022 Johanna\u0027s Falling Sword will now properly cancel enemy Heroic Abilities when its Stun is applied during those Abilities\u0027 casting times."
+    ],
+    "Heroes: Kerrigan": [
+      "[Updates]",
+      "  \u2022 Summon Ultralisk (R)",
+      "    \u2022 Cooldown reduced from 80 to 70 seconds.",
+      "  \u2022 Maelstrom (R)",
+      "    \u2022 Cooldown reduced from 100 to 90 seconds."
+    ],
+    "Heroes: Leoric": [
+      "[Updates]",
+      "  \u2022 Reanimation (Talent) has been changed to match Regeneration Master\u0027s new functionality.",
+      "    \u2022 Upon gathering 30 Health Regeneration Globes, Leoric will respawn 10 seconds faster."
+    ],
+    "Heroes: Li Li": [
+      "[Updates]",
+      "  \u2022 Cleanse (Talent) added at Level 7",
+      "  \u2022 Shake It Off (Talent) moved from Level 7 to Level 16.",
+      "    \u2022 Cooldown reduced from 15 to 10 seconds.",
+      "  \u2022 Fast Feet (Trait)",
+      "    \u2022 Safety Sprint (Talent)",
+      "      \u2022 Now provides the Movement Speed bonus regardless of Li Li\u0027s remaining Health.",
+      "  \u2022 Healing Brew (Q)",
+      "    \u2022 Herbal Cleanse (Talent) removed.",
+      "[Bug Fixes]",
+      "  \u2022 Self-casting Cloud Serpent as Li Li after learning the Mending Serpent Talent will no longer cause duplicate Healing combat text to appear."
+    ],
+    "Heroes: Li-Ming": [
+      "[Updates]",
+      "  \u2022 Cannoneer (Talent)",
+      "    \u2022 Cannoneer stacks will now be displayed in the Buff bar next to the Hero Portrait.",
+      "  \u2022 Tal Rasha\u0027s Elements (Talent) has been reworked, and now reads as follows:",
+      "    \u2022 Using Abilities grants 5% Ability Power to a maximum of 20%. This bonus is reset when the same Ability is used within a chain.",
+      "  \u2022 Disintegrate (R)",
+      "    \u2022 Temporal Flux (Talent)",
+      "      \u2022 Now gradually Slows enemies caught in its beam, up to maximum of 60%.",
+      "[Bug Fixes]",
+      "  \u2022 Casting Teleport just as Tyrael\u0027s Judgment is about to hit Li-Ming will no longer cause her to slide a long distance."
+    ],
+    "Heroes: Lt. Morales": [
+      "[Updates]",
+      "  \u2022 Advanced Block (Talent) renamed to Automated Block.",
+      "[Bug Fixes]",
+      "  \u2022 Lt. Morales\u0027s Safeguard will now use the new floating combat text style, rather than the old one."
+    ],
+    "Heroes: Malfurion": [
+      "[Updates]",
+      "  \u2022 Tranquility (R)",
+      "    \u2022 Will no longer Heal non-Heroic units.",
+      "[Bug Fixes]",
+      "  \u2022 The Hardened Focus Talent will no longer affect Malfurion\u0027s Innervate cooldown."
+    ],
+    "Heroes: Muradin": [
+      "[Updates]",
+      "  \u2022 Give \u0027em the Axe! (Talent)",
+      "    \u2022 After hitting a slowed, rooted, or stunned target with a Basic Attack, increase your Basic Attack damage by 60% for 3 seconds",
+      "  \u2022 Second Wind (Trait)",
+      "    \u2022 Third Wind (Talent)",
+      "      \u2022 Bonus Health Regeneration threshold increased from 50% to 60% of maximum Health.",
+      "    \u2022 Stoneform (Talent)",
+      "      \u2022 Heal amount decreased from 50% to 40% of maximum Health.",
+      "      \u2022 Heal duration increased from 8 to 10 seconds.",
+      "  \u2022 Storm Bolt (Q)",
+      "    \u2022 Infused Hammer (Talent) removed.",
+      "    \u2022 Perfect Storm (Talent)",
+      "      \u2022 Now also reduces Storm Bolt\u0027s Mana cost by 25%.",
+      "  \u2022 Thunder Clap (W)",
+      "    \u2022 Healing Static (Talent)",
+      "      \u2022 Now only Heals Muradin when Thunder Clap strikes enemy Heroes.",
+      "      \u2022 Heal amount per Hero hit increased from 1.5% to 5% of maximum Health.",
+      "  \u2022 Dwarf Toss (E)",
+      "    \u2022 Landing Momentum (Talent)",
+      "      \u2022 Movement Speed bonus increased from 20% to 25%.",
+      "      \u2022 Movement Speed bonus duration increased from 4 to 5 seconds."
+    ],
+    "Heroes: Murky": [
+      "[Bug Fixes]",
+      "  \u2022 When Murky\u0027s Pufferfish is cast in a Bush or Vent, its explosion radius will now briefly appear to enemies with its area of effect before the Pufferfish explodes.",
+      "  \u2022 Murky\u0027s Egg will no longer be destroyed if Murky is Stuck by Tracer\u0027s Pulse Bomb, but killed before the Pulse Bomb explodes."
+    ],
+    "Heroes: Nazeebo": [
+      "[Bug Fixes]",
+      "  \u2022 The visual effects for Tassadar\u0027s Plasma Shield will now properly appear centered on Nazeebo."
+    ],
+    "Heroes: Nova": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that could cancel Nova\u0027s Triple Tap when attempting to cast it on an enemy Nova who is already channeling Triple Tap on a different target.",
+      "  \u2022 Fixed an issue that caused Nova\u0027s Holo Decoys to deal more damage than intended after learning the Anti-Armor Shells Talent.",
+      "  \u2022 Enemies will now be able to more easily distinguish Nova\u0027s Holo Decoys from the real Nova when the Decoys are revealed.",
+      "  \u2022 Attempting to cast Nova\u0027s Pinning Shot or Tyrande\u0027s Hunter\u0027s Mark on an enemy just as the target enters a Bush or Vent will no longer cause the Ability\u0027s sound effects and animations to play as though it were successfully cast."
+    ],
+    "Heroes: Raynor": [
+      "[Updates]",
+      "  \u2022 Berserk (Talent) removed."
+    ],
+    "Heroes: Rehgar": [
+      "[Updates]",
+      "  \u2022 Lightning Shield (W)",
+      "    \u2022 Stormcaller (Talent) has been reworked.",
+      "      \u2022 Now restores 3 Mana when Lightning Shield damages an enemy Hero, up to a maximum of 30.",
+      "  \u2022 Earthbind Totem (E)",
+      "    \u2022 Earthgrasp Totem (Talent)",
+      "      \u2022 Empowered Slow duration reduced from 1.5 to 1 second.",
+      "[Bug Fixes]",
+      "  \u2022 The Rewind Talent will no longer affect Rehgar\u0027s Ghost Wolf cooldown."
+    ],
+    "Heroes: Rexxar": [
+      "[Updates]",
+      "  \u2022 Hunter-Gatherer (Talent) has been changed to match Regeneration Master\u0027s new functionality.",
+      "    \u2022 Both Rexxar and Misha gain Health Regeneration bonuses up to 30 Health per second, but only Rexxar will gain the 600 Health bonus on Quest completion.",
+      "  \u2022 Misha, Follow! (Trait) (D)",
+      "    \u2022 Misha will now follow enemies to their last known location, even into bushes or vents, much like Zagara\u0027s Hunter Killer."
+    ],
+    "Heroes: Sonya": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that could occasionally cause Sonya to stutter and fail to issue a Basic Attack."
+    ],
+    "Heroes: Stitches": [
+      "[Updates]",
+      "  \u2022 Hungry for More (Talent) has been reworked as a Questing Talent.",
+      "    \u2022 Quest: Collecting Regeneration Globes permanently increases maximum Health by 30, up to a maximum of 900.",
+      "    \u2022 Reward: Upon reaching 900 bonus Health, Stitches\u0027s Movement Speed is increased by 10%."
+    ],
+    "Heroes: Sylvanas": [
+      "[Bug Fixes]",
+      "  \u2022 The back of Ranger-General Sylvanas\u0027s leaf earring now appears more leaf-like."
+    ],
+    "Heroes: Tassadar": [
+      "[Bug Fixes]",
+      "  \u2022 The visual effects for Tassadar\u0027s Plasma Shield will now properly appear centered on Nazeebo."
+    ],
+    "Heroes: The Lost Vikings": [
+      "[Bug Fixes]",
+      "  \u2022 Additionally, if one of The Lost Vikings or Chen\u0027s Storm, Earth, Fire Spirits are hit by Isolation, only the affected unit will have reduced personal vision, but the player should retain allied vision."
+    ],
+    "Heroes: Tracer": [
+      "[Bug Fixes]",
+      "  \u2022 Murky\u0027s Egg will no longer be destroyed if Murky is Stuck by Tracer\u0027s Pulse Bomb, but killed before the Pulse Bomb explodes."
+    ],
+    "Heroes: Tychus": [
+      "[Bug Fixes]",
+      "  \u2022 Tychus will no longer appear to stand while Mounted.",
+      "  \u2022 The visual effects Infested Tychus Skin\u0027s Overkill will now properly appear centered on the primary target."
+    ],
+    "Heroes: Tyrael": [
+      "[Bug Fixes]",
+      "  \u2022 Casting Teleport just as Tyrael\u0027s Judgment is about to hit Li-Ming will no longer cause her to slide a long distance.",
+      "  \u2022 Angelic Flash will no longer allow Tyrael to teleport out of Root effects.",
+      "  \u2022 Tyrael\u0027s Status bar will no longer persist on-screen during Archangel\u0027s Wrath if he is killed by Zagara\u0027s Devouring Maw."
+    ],
+    "Heroes: Tyrande": [
+      "[Bug Fixes]",
+      "  \u2022 Attempting to cast Nova\u0027s Pinning Shot or Tyrande\u0027s Hunter\u0027s Mark on an enemy just as the target enters a Bush or Vent will no longer cause the Ability\u0027s sound effects and animations to play as though it were successfully cast."
+    ],
+    "Heroes: Uther": [
+      "[Bug Fixes]",
+      "  \u2022 The armor under Judgement Uther\u0027s left armpit has been patched to offer better protection during his adventures in the Nexus.",
+      "  \u2022 Fixed an issue that caused the Hardened Focus Talent to reduce cooldowns for Uther\u0027s Holy Light and Holy Shock more quickly than intended.",
+      "  \u2022 Fixed an issue that prevented Uther\u0027s Holy Shock from revealing the target if it was cast just as they entered a Bush or Vent."
+    ],
+    "Heroes: Zagara": [
+      "[Bug Fixes]",
+      "  \u2022 Tyrael\u0027s Status bar will no longer persist on-screen during Archangel\u0027s Wrath if he is killed by Zagara\u0027s Devouring Maw.",
+      "  \u2022 Right-clicking an enemy Structure while channeling Zagara\u0027s Baneling Barrage will no longer cause her to move to that Structure without attacking it."
+    ],
+    "Heroes: Zeratul": [
+      "[Updates]",
+      "  \u2022 Berserk (Talent) removed.",
+      "[Bug Fixes]",
+      "  \u2022 Zeratul\u0027s Wormhole Talent will no longer allow him to Blink out of Root effects."
+    ]
+  },
+  "PatchFile": "ptr/2016-05-09-v1-17-5-42742-2016-05-09-ptr-patch-ptr.json",
+  "Sources": [
+    "2016-05-09-ptr.html"
+  ]
+}

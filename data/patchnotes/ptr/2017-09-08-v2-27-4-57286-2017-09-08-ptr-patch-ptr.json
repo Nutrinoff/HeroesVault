@@ -1,0 +1,51 @@
+{
+  "Id": "npn-2017-09-08-2.27.4",
+  "Title": "2017-09-08 PTR Patch",
+  "Subtitle": "=== Heroes: Anub\u0027arak ===",
+  "Date": "Sep 8, 2017",
+  "IsoDate": "2017-09-08",
+  "FeedType": "ptr",
+  "Era": "ptr",
+  "PatchVersion": "2.27.4",
+  "FullVersion": "2.27.4.57286",
+  "Build": "57286",
+  "Link": "https://news.blizzard.com/en-us/heroes-of-the-storm/21033963",
+  "Links": [
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/21033963"
+  ],
+  "Affected": [
+    "Anub\u0027arak",
+    "Gazlowe",
+    "Lt. Morales",
+    "Rehgar",
+    "Zeratul"
+  ],
+  "Highlights": "=== Heroes: Anub\u0027arak ===",
+  "CleanedNotes": "=== Heroes: Anub\u0027arak ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue causing the Neon Cyb\u0027arak Skin to replace the base Cyb\u0027arak Anub\u0027arak Skin in-game and in the Collection.\r\n\r\n=== Heroes: Gazlowe ===\r\n[Bug Fixes]\r\n  \u2022 Scrap will no longer be created when Leoric\u0027s Entomb expires.\r\n\r\n=== Heroes: Lt. Morales ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that could allow the Lt. Morales player to issue Move Commands to an active Medivac under certain circumstances.\r\n\r\n=== Heroes: Rehgar ===\r\n[Bug Fixes]\r\n  \u2022 Can no longer cast Lightning Shield on allied Vehicles, such as the Dragon Knight or Garden Terror.\r\n\r\n=== Heroes: Zeratul ===\r\n[Bug Fixes]\r\n  \u2022 The Seeker in the Dark talent\u0027s tooltip text will now display correctly in localized game clients.",
+  "Sections": {
+    "Heroes: Anub\u0027arak": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue causing the Neon Cyb\u0027arak Skin to replace the base Cyb\u0027arak Anub\u0027arak Skin in-game and in the Collection."
+    ],
+    "Heroes: Gazlowe": [
+      "[Bug Fixes]",
+      "  \u2022 Scrap will no longer be created when Leoric\u0027s Entomb expires."
+    ],
+    "Heroes: Lt. Morales": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that could allow the Lt. Morales player to issue Move Commands to an active Medivac under certain circumstances."
+    ],
+    "Heroes: Rehgar": [
+      "[Bug Fixes]",
+      "  \u2022 Can no longer cast Lightning Shield on allied Vehicles, such as the Dragon Knight or Garden Terror."
+    ],
+    "Heroes: Zeratul": [
+      "[Bug Fixes]",
+      "  \u2022 The Seeker in the Dark talent\u0027s tooltip text will now display correctly in localized game clients."
+    ]
+  },
+  "PatchFile": "ptr/2017-09-08-v2-27-4-57286-2017-09-08-ptr-patch-ptr.json",
+  "Sources": [
+    "2017-09-08-ptr.html"
+  ]
+}

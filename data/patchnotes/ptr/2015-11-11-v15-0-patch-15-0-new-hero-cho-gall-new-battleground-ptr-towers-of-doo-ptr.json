@@ -1,0 +1,192 @@
+{
+  "Id": "wiki-15.0-November 17, 2015",
+  "Title": "Patch 15.0 \u2014 New hero: Cho\u0027gall New battleground (PTR): Towers of Doom Sc...",
+  "Subtitle": "PTR patch notes (November 11, 2015, article 19953593) introducing Towers of Doom PTR playtesting, percentage-based scaling and respawn timer updates, score screen Kills/Assists split, Gathering Power changes, and balance updates for Falstad, Jaina, Zeratul, Kharazim, Uther, Leoric, and Rexxar.",
+  "Date": "Nov 11, 2015",
+  "IsoDate": "2015-11-11",
+  "FeedType": "ptr",
+  "Era": "ptr",
+  "PatchVersion": "15.0",
+  "FullVersion": "",
+  "Build": "",
+  "Link": "https://news.blizzard.com/heroes-of-the-storm/19960704",
+  "Links": [
+    "https://news.blizzard.com/heroes-of-the-storm/19960704",
+    "https://heroesofthestorm.fandom.com/wiki/Cho%27gall",
+    "https://heroesofthestorm.fandom.com/wiki/Towers_of_Doom",
+    "https://heroesofthestorm.fandom.com/wiki/Scaling",
+    "https://heroesofthestorm.fandom.com/wiki/Death_Timer",
+    "https://heroesofthestorm.fandom.com/wiki/Jaina",
+    "https://heroesofthestorm.fandom.com/wiki/Gold",
+    "https://heroesofthestorm.fandom.com/wiki/Falstad",
+    "https://heroesofthestorm.fandom.com/wiki/Kael%27thas",
+    "https://heroesofthestorm.fandom.com/wiki/Kharazim",
+    "https://heroesofthestorm.fandom.com/wiki/Leoric",
+    "https://heroesofthestorm.fandom.com/wiki/Nazeebo",
+    "https://heroesofthestorm.fandom.com/wiki/Nova",
+    "https://heroesofthestorm.fandom.com/wiki/Rexxar",
+    "https://heroesofthestorm.fandom.com/wiki/Uther",
+    "https://heroesofthestorm.fandom.com/wiki/Zeratul",
+    "https://heroesofthestorm.fandom.com/wiki/Haunted_Mines"
+  ],
+  "Affected": [
+    "Heroes: Falstad",
+    "Jaina",
+    "Kael\u0027thas",
+    "Kharazim",
+    "Leoric",
+    "Nazeebo",
+    "Nova",
+    "Rexxar",
+    "Uther",
+    "Zeratul Battlegrounds: Haunted Mines (Removed for rework)",
+    "Abathur",
+    "Brightwing",
+    "Chen",
+    "Diablo",
+    "Falstad",
+    "Kerrigan",
+    "Lt. Morales",
+    "Sonya",
+    "Stitches",
+    "Tyrande",
+    "Zeratul"
+  ],
+  "Highlights": "PTR patch notes (November 11, 2015, article 19953593) introducing Towers of Doom PTR playtesting, percentage-based scaling and respawn timer updates, score screen Kills/Assists split, Gathering Power changes, and balance updates for Falstad, Jaina, Zeratul, Kharazim, Uther, Leoric, and Rexxar.",
+  "CleanedNotes": "=== General ===\r\n[Updates]\r\n  \u2022 Scaling Changes: Health and damage scaling for all Heroes, Battleground Events, Minions, and Mercenaries changed from flat, additive values to multiplicative percentages; a large portion of total scaling previously gained over a match was added to Heroes\u0027 base values.\r\n  \u2022 Respawn timers increased for levels 1\u201310.\r\n  \u2022 Attack Speed Slows now apply only to Heroes and Summons.\r\n  \u2022 Several tooltips updated with exact details (such as delays and charges gained).\r\n  \u2022 Art \u0026 Visuals:\r\n  \u2022 - Tower targeting ring size reduced by 50%.\r\n  \u2022 - Artanis walk animations improved and Stitches given additional facial animation polish.\r\n  \u2022 - Visual polish added for Magni Muradin\u0027s Storm Bolt (Q) and Attack Speed Slow visual effects on Heroes affected by the Imposing Presence talent.\r\n  \u2022 User Interface:\r\n  \u2022 - Party and game invitation pop-ups now display the inviting player\u0027s portrait frame.\r\n  \u2022 - In-Game Score Screen (TAB): XP column removed; Takedown column split into Kills (final blow on an enemy Hero) and Assists (nearby allies when an enemy Hero dies).\r\n  \u2022 - Minimap now visually indicates when allied Heroes use Hearthstone, and a chat message displays when an ally activates Hearthstone.\r\n  \u2022 Talents:\r\n  \u2022 - Gathering Power: Hero takedowns now grant 2% Ability Power per kill up to a maximum of 30%, with all stacks lost upon death.\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that could match a team without Support Heroes against a team with Support Heroes in Quick Match.\r\n  \u2022 Fixed an issue where Auto-Select could occasionally fail to assign a Support Hero to teams lacking Supports.\r\n  \u2022 Fixed an issue causing French AZERTY keyboards to revert to QWERTY hotkeys.\r\n  \u2022 Fixed a bug that could cause Stealthed Heroes to fire a Basic Attack at a nearby enemy immediately after Mounting.\r\n  \u2022 Legendary and Epic Hero Skins are now properly labeled on the Hero Select screen.\r\n  \u2022 Fixed an issue preventing mouse-wheel scrolling through the Friends List while browsing the Shop.\r\n  \u2022 Players in Hero League draft lobbies can no longer be invited to join a Real-ID friend\u0027s party.\r\n\r\n=== Battlegrounds ===\r\n[Updates]\r\n  \u2022 Towers of Doom:\r\n  \u2022 - Cores are protected by an indestructible barrier; teams capture periodic Altars so controlled Bell Towers fire payloads at the opposing Core.\r\n  \u2022 - Destroying a Bell Tower causes it to respawn after a short delay aligned with the capturing team and grants an additional payload in Altar volleys.\r\n  \u2022 - Available as the sole Battleground in PTR matchmaking queues during playtesting through November 24 (not live immediately on patch day).\r\n[Bug Fixes]\r\n  \u2022 Updated the Plant Terror\u0027s Overgrowth tooltip so it no longer states that it does not disable the enemy Core.\r\n  \u2022 Fixed an issue preventing Hero vision radiuses from displaying on the Infernal Shrines and Battlefield of Eternity minimaps.\r\n\r\n=== Heroes: Abathur ===\r\n[Bug Fixes]\r\n  \u2022 Abathur can no longer capture objectives at his body\u0027s location while using Ultimate Evolution.\r\n  \u2022 Adrenal Overload now properly increases Monstrosity\u0027s attack speed while under the effects of Symbiote.\r\n  \u2022 Ultimate Evolution Clones and Monstrosities now properly receive benefits from Volatile Mutation if selected after a Summon is already active.\r\n\r\n=== Heroes: Brightwing ===\r\n[Bug Fixes]\r\n  \u2022 Heroes with Relentless that become Polymorphed will now properly receive damage from Brightwing\u0027s Unstable Anomaly talent when Polymorph expires.\r\n\r\n=== Heroes: Chen ===\r\n[Bug Fixes]\r\n  \u2022 Chen\u0027s Spirit forms will now properly leave Stealth after casting an Ability during Storm, Earth, Fire.\r\n\r\n=== Heroes: Diablo ===\r\n[Bug Fixes]\r\n  \u2022 Heroes simultaneously struck by Diablo\u0027s Overpower and Stitches\u0027 Hook will no longer be thrown outside the playable area.\r\n\r\n=== Heroes: Falstad ===\r\n[Updates]\r\n  \u2022 Conjurer\u0027s Pursuit and Gathering Power talents removed.\r\n  \u2022 Hammerang (Q):\r\n  \u2022 - Power Throw talent moved from Level 1 to Level 4.\r\n  \u2022 - New Level 1 Talent \u2014 Gathering Storm: Permanently increases Hammerang\u0027s damage by 1 each time it damages an enemy Hero.\r\n  \u2022 Flow Rider (Talent):\r\n  \u2022 - No longer reduces Barrel Roll\u0027s cooldown.\r\n  \u2022 - Now causes Basic Abilities to recharge 100% faster while Tailwind is active.\r\n\r\n=== Heroes: Jaina ===\r\n[Updates]\r\n  \u2022 Frostbite (Trait):\r\n  \u2022 - Deep Chill (Talent): Movement Speed slow bonus from Chill reduced from 35% to 30%.\r\n\r\n=== Heroes: Kael\u0027thas ===\r\n[Bug Fixes]\r\n  \u2022 Damage-over-time previews for Living Bomb now more accurately reflect burst damage amounts at the end of the effect.\r\n\r\n=== Heroes: Kerrigan ===\r\n[Bug Fixes]\r\n  \u2022 Ravage cooldown now properly resets when used to destroy an enemy Structure.\r\n\r\n=== Heroes: Kharazim ===\r\n[Updates]\r\n  \u2022 Insight (Trait): Mana regeneration on every third hit increased from 12 (\u002B0.21 per level) to 14 (\u002B0.36 per level).\r\n  \u2022 Iron Fists (Trait): Bonus damage on every third hit increased from 100% to 125%.\r\n  \u2022 Divine Palm: Visual effects for Butcher\u0027s Brand no longer persist on targets protected from death by Divine Palm.\r\n\r\n=== Heroes: Leoric ===\r\n[Updates]\r\n  \u2022 Drain Hope (W):\r\n  \u2022 - Cooldown reduced from 12 to 11 seconds.\r\n  \u2022 - Being stunned while casting Drain Hope no longer cancels the Ability, and the missile continues to travel.\r\n  \u2022 - Damage dealt and Health gained reduced from 25% to 20%.\r\n  \u2022 - Damage and healing now increase over time as a flat value.\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that could allow Leoric to change direction while using March of the Black King.\r\n\r\n=== Heroes: Lt. Morales ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that could cause a Medivac to persist on the battlefield if Lt. Morales died while casting Medivac Dropship.\r\n  \u2022 Damage prevented by Safeguard now always displays in whole numbers.\r\n\r\n=== Heroes: Rexxar ===\r\n[Updates]\r\n  \u2022 Misha (Trait / D):\r\n  \u2022 - Misha\u0027s death timer portrait now appears in the death timer bar while respawning.\r\n  \u2022 - Reduced how frequently Rexxar\u0027s voiceover plays when commanding Misha.\r\n  \u2022 Misha, Fixate (1) renamed to Misha, Focus!.\r\n[Bug Fixes]\r\n  \u2022 Misha can now properly return to Rexxar if on the opposite side of an enemy Gate with an open path where a Wall was destroyed.\r\n\r\n=== Heroes: Sonya ===\r\n[Bug Fixes]\r\n  \u2022 Next Basic Attack after casting Ancient Spear now properly benefits from the Follow Through talent.\r\n\r\n=== Heroes: Stitches ===\r\n[Bug Fixes]\r\n  \u2022 Heroes activating Ice Block while simultaneously coming under the effects of Gorge now properly retain Ice Block\u0027s visual effects for its duration.\r\n\r\n=== Heroes: Tyrande ===\r\n[Bug Fixes]\r\n  \u2022 Heal-over-time previews for Shadowstalk now more accurately reflect burst healing amounts at the end of the effect.\r\n\r\n=== Heroes: Uther ===\r\n[Updates]\r\n  \u2022 Eternal Devotion (Trait): Spirit form duration reduced from 10 to 8 seconds.\r\n  \u2022 Divine Shield (R): Cooldown increased from 70 to 90 seconds.\r\n\r\n=== Heroes: Zeratul ===\r\n[Updates]\r\n  \u2022 Focused Attack talent removed.\r\n  \u2022 New Level 4 Talent \u2014 Master Warp-Blade: Every 3rd consecutive Basic Attack against the same Hero deals 100% bonus damage.",
+  "Sections": {
+    "General": [
+      "[Updates]",
+      "  \u2022 Scaling Changes: Health and damage scaling for all Heroes, Battleground Events, Minions, and Mercenaries changed from flat, additive values to multiplicative percentages; a large portion of total scaling previously gained over a match was added to Heroes\u0027 base values.",
+      "  \u2022 Respawn timers increased for levels 1\u201310.",
+      "  \u2022 Attack Speed Slows now apply only to Heroes and Summons.",
+      "  \u2022 Several tooltips updated with exact details (such as delays and charges gained).",
+      "  \u2022 Art \u0026 Visuals:",
+      "  \u2022 - Tower targeting ring size reduced by 50%.",
+      "  \u2022 - Artanis walk animations improved and Stitches given additional facial animation polish.",
+      "  \u2022 - Visual polish added for Magni Muradin\u0027s Storm Bolt (Q) and Attack Speed Slow visual effects on Heroes affected by the Imposing Presence talent.",
+      "  \u2022 User Interface:",
+      "  \u2022 - Party and game invitation pop-ups now display the inviting player\u0027s portrait frame.",
+      "  \u2022 - In-Game Score Screen (TAB): XP column removed; Takedown column split into Kills (final blow on an enemy Hero) and Assists (nearby allies when an enemy Hero dies).",
+      "  \u2022 - Minimap now visually indicates when allied Heroes use Hearthstone, and a chat message displays when an ally activates Hearthstone.",
+      "  \u2022 Talents:",
+      "  \u2022 - Gathering Power: Hero takedowns now grant 2% Ability Power per kill up to a maximum of 30%, with all stacks lost upon death.",
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that could match a team without Support Heroes against a team with Support Heroes in Quick Match.",
+      "  \u2022 Fixed an issue where Auto-Select could occasionally fail to assign a Support Hero to teams lacking Supports.",
+      "  \u2022 Fixed an issue causing French AZERTY keyboards to revert to QWERTY hotkeys.",
+      "  \u2022 Fixed a bug that could cause Stealthed Heroes to fire a Basic Attack at a nearby enemy immediately after Mounting.",
+      "  \u2022 Legendary and Epic Hero Skins are now properly labeled on the Hero Select screen.",
+      "  \u2022 Fixed an issue preventing mouse-wheel scrolling through the Friends List while browsing the Shop.",
+      "  \u2022 Players in Hero League draft lobbies can no longer be invited to join a Real-ID friend\u0027s party."
+    ],
+    "Battlegrounds": [
+      "[Updates]",
+      "  \u2022 Towers of Doom:",
+      "  \u2022 - Cores are protected by an indestructible barrier; teams capture periodic Altars so controlled Bell Towers fire payloads at the opposing Core.",
+      "  \u2022 - Destroying a Bell Tower causes it to respawn after a short delay aligned with the capturing team and grants an additional payload in Altar volleys.",
+      "  \u2022 - Available as the sole Battleground in PTR matchmaking queues during playtesting through November 24 (not live immediately on patch day).",
+      "[Bug Fixes]",
+      "  \u2022 Updated the Plant Terror\u0027s Overgrowth tooltip so it no longer states that it does not disable the enemy Core.",
+      "  \u2022 Fixed an issue preventing Hero vision radiuses from displaying on the Infernal Shrines and Battlefield of Eternity minimaps."
+    ],
+    "Heroes: Abathur": [
+      "[Bug Fixes]",
+      "  \u2022 Abathur can no longer capture objectives at his body\u0027s location while using Ultimate Evolution.",
+      "  \u2022 Adrenal Overload now properly increases Monstrosity\u0027s attack speed while under the effects of Symbiote.",
+      "  \u2022 Ultimate Evolution Clones and Monstrosities now properly receive benefits from Volatile Mutation if selected after a Summon is already active."
+    ],
+    "Heroes: Brightwing": [
+      "[Bug Fixes]",
+      "  \u2022 Heroes with Relentless that become Polymorphed will now properly receive damage from Brightwing\u0027s Unstable Anomaly talent when Polymorph expires."
+    ],
+    "Heroes: Chen": [
+      "[Bug Fixes]",
+      "  \u2022 Chen\u0027s Spirit forms will now properly leave Stealth after casting an Ability during Storm, Earth, Fire."
+    ],
+    "Heroes: Diablo": [
+      "[Bug Fixes]",
+      "  \u2022 Heroes simultaneously struck by Diablo\u0027s Overpower and Stitches\u0027 Hook will no longer be thrown outside the playable area."
+    ],
+    "Heroes: Falstad": [
+      "[Updates]",
+      "  \u2022 Conjurer\u0027s Pursuit and Gathering Power talents removed.",
+      "  \u2022 Hammerang (Q):",
+      "  \u2022 - Power Throw talent moved from Level 1 to Level 4.",
+      "  \u2022 - New Level 1 Talent \u2014 Gathering Storm: Permanently increases Hammerang\u0027s damage by 1 each time it damages an enemy Hero.",
+      "  \u2022 Flow Rider (Talent):",
+      "  \u2022 - No longer reduces Barrel Roll\u0027s cooldown.",
+      "  \u2022 - Now causes Basic Abilities to recharge 100% faster while Tailwind is active."
+    ],
+    "Heroes: Jaina": [
+      "[Updates]",
+      "  \u2022 Frostbite (Trait):",
+      "  \u2022 - Deep Chill (Talent): Movement Speed slow bonus from Chill reduced from 35% to 30%."
+    ],
+    "Heroes: Kael\u0027thas": [
+      "[Bug Fixes]",
+      "  \u2022 Damage-over-time previews for Living Bomb now more accurately reflect burst damage amounts at the end of the effect."
+    ],
+    "Heroes: Kerrigan": [
+      "[Bug Fixes]",
+      "  \u2022 Ravage cooldown now properly resets when used to destroy an enemy Structure."
+    ],
+    "Heroes: Kharazim": [
+      "[Updates]",
+      "  \u2022 Insight (Trait): Mana regeneration on every third hit increased from 12 (\u002B0.21 per level) to 14 (\u002B0.36 per level).",
+      "  \u2022 Iron Fists (Trait): Bonus damage on every third hit increased from 100% to 125%.",
+      "  \u2022 Divine Palm: Visual effects for Butcher\u0027s Brand no longer persist on targets protected from death by Divine Palm."
+    ],
+    "Heroes: Leoric": [
+      "[Updates]",
+      "  \u2022 Drain Hope (W):",
+      "  \u2022 - Cooldown reduced from 12 to 11 seconds.",
+      "  \u2022 - Being stunned while casting Drain Hope no longer cancels the Ability, and the missile continues to travel.",
+      "  \u2022 - Damage dealt and Health gained reduced from 25% to 20%.",
+      "  \u2022 - Damage and healing now increase over time as a flat value.",
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that could allow Leoric to change direction while using March of the Black King."
+    ],
+    "Heroes: Lt. Morales": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that could cause a Medivac to persist on the battlefield if Lt. Morales died while casting Medivac Dropship.",
+      "  \u2022 Damage prevented by Safeguard now always displays in whole numbers."
+    ],
+    "Heroes: Rexxar": [
+      "[Updates]",
+      "  \u2022 Misha (Trait / D):",
+      "  \u2022 - Misha\u0027s death timer portrait now appears in the death timer bar while respawning.",
+      "  \u2022 - Reduced how frequently Rexxar\u0027s voiceover plays when commanding Misha.",
+      "  \u2022 Misha, Fixate (1) renamed to Misha, Focus!.",
+      "[Bug Fixes]",
+      "  \u2022 Misha can now properly return to Rexxar if on the opposite side of an enemy Gate with an open path where a Wall was destroyed."
+    ],
+    "Heroes: Sonya": [
+      "[Bug Fixes]",
+      "  \u2022 Next Basic Attack after casting Ancient Spear now properly benefits from the Follow Through talent."
+    ],
+    "Heroes: Stitches": [
+      "[Bug Fixes]",
+      "  \u2022 Heroes activating Ice Block while simultaneously coming under the effects of Gorge now properly retain Ice Block\u0027s visual effects for its duration."
+    ],
+    "Heroes: Tyrande": [
+      "[Bug Fixes]",
+      "  \u2022 Heal-over-time previews for Shadowstalk now more accurately reflect burst healing amounts at the end of the effect."
+    ],
+    "Heroes: Uther": [
+      "[Updates]",
+      "  \u2022 Eternal Devotion (Trait): Spirit form duration reduced from 10 to 8 seconds.",
+      "  \u2022 Divine Shield (R): Cooldown increased from 70 to 90 seconds."
+    ],
+    "Heroes: Zeratul": [
+      "[Updates]",
+      "  \u2022 Focused Attack talent removed.",
+      "  \u2022 New Level 4 Talent \u2014 Master Warp-Blade: Every 3rd consecutive Basic Attack against the same Hero deals 100% bonus damage."
+    ]
+  },
+  "PatchFile": "ptr/2015-11-11-v15-0-patch-15-0-new-hero-cho-gall-new-battleground-ptr-towers-of-doo-ptr.json",
+  "Sources": [
+    "wiki-patches.html",
+    "manual-edit"
+  ]
+}

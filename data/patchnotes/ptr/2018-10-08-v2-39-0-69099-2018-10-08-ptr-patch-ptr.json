@@ -1,0 +1,152 @@
+{
+  "Id": "npn-2018-10-08-2.39.0",
+  "Title": "2018-10-08 PTR Patch",
+  "Subtitle": "=== Battlegrounds: Garden of Terror ===",
+  "Date": "Oct 8, 2018",
+  "IsoDate": "2018-10-08",
+  "FeedType": "ptr",
+  "Era": "ptr",
+  "PatchVersion": "2.39.0",
+  "FullVersion": "2.39.0.69099",
+  "Build": "69099",
+  "Link": "https://news.blizzard.com/en-us/heroes-of-the-storm/22547648",
+  "Links": [
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/22547648"
+  ],
+  "Affected": [
+    "Garden of Terror",
+    "Alexstrasza",
+    "Ana",
+    "Brightwing",
+    "Chromie",
+    "Diablo",
+    "Gall",
+    "Gul\u0027dan",
+    "Kharazim",
+    "Li Li",
+    "Li-Ming",
+    "Mal\u0027Ganis",
+    "Murky",
+    "Rehgar",
+    "Sylvanas",
+    "Tyrande",
+    "Uther"
+  ],
+  "Highlights": "=== Battlegrounds: Garden of Terror ===",
+  "CleanedNotes": "=== Battlegrounds: Garden of Terror ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue where all three Garden Terrors could spawn in a single lane.\r\n\r\n=== Heroes: Alexstrasza ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Gift of Life (Q)\r\n    \u2022 Minions and Mercenaries are no longer valid targets.\r\n  \u2022 Dragonqueen: Breath of Life (Q)\r\n    \u2022 Minions and Mercenaries are no longer valid targets.\r\n\r\n=== Heroes: Ana ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Healing Dart (Q)\r\n    \u2022 Healing Dart will now pierce targets at full Health.\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue where Ana\u0027s Shrike healing was not accurately reflecting her damage done (via Spell Power or her target\u0027s Armor).\r\n\r\n=== Heroes: Brightwing ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Pixie Dust (E)\r\n    \u2022 Minions and Mercenaries are no longer valid targets.\r\n\r\n=== Heroes: Chromie ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue where Temporal Loop\u0027s return location would appear incorrect if a movement ability was used by the target.\r\n\r\n=== Heroes: Diablo ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue where Diablo would not be displaced by knockback and similar effects while casting Overpower.\r\n\r\n=== Heroes: Gall ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue where not all cases of Damage Reduction would work on Gall.\r\n\r\n=== Heroes: Gul\u0027dan ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue where Darkness Within\u0027s bonus Spell Power would not increase the healing of Drain Life.\r\n\r\n=== Heroes: Kharazim ===\r\n[Bug Fixes]\r\n  \u2022 Can now Radiant Dash to all allied units, including Mercenaries, Creep Tumors, and Toxic Nests.\r\n\r\n=== Heroes: Li Li ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Healing Brew (Q)\r\n    \u2022 Minions and Mercenaries are no longer valid targets.\r\n\r\n=== Heroes: Li-Ming ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue where Tal\u0027Rasha\u0027s Elements would grant bonus damage to Calamity after being twice in a row.\r\n\r\n=== Heroes: Mal\u0027Ganis ===\r\n[Releases]\r\n  Mal\u0027Ganis, Nathrezim Lord, has been added to the Nexus and is now available for play! Read on for a brief overview of his Abilities.:\r\n  Trait:\r\n  \u2022 Vampiric Touch\r\n    \u2022 Mal\u0027Ganis heals for 45% of damage dealt to enemy Heroes and 15% of damage dealt to non-Heroes.\r\n  Basic Abilities:\r\n  \u2022 Fel Claws (Q)\r\n    \u2022 Violently slash in the chosen direction, dealing 78 damage to enemies.\r\n    \u2022 Reactivate to slash up to 2 more times. The third slash Stuns enemies for 0.75 seconds.\r\n  \u2022 Necrotic Embrace (W)\r\n    \u2022 Desecrate the air, dealing 119 damage to nearby enemies and gaining 25 Armor for 3 seconds.\r\n  \u2022 Night Rush (E)\r\n    \u2022 After 0.75 seconds, gain 50% Movement Speed for 2 seconds. While active, Mal\u0027Ganis can move through enemy Heroes and put them to Sleep for 2.5 seconds.\r\n  Heroic Abilities:\r\n  \u2022 Carrion Swarm (R)\r\n    \u2022 After 1 second, disperse into an Invulnerable swarm of bats for 3 seconds, dealing 74 damage per second to enemies.\r\n    \u2022 Vampiric Touch heals for 100% of Carrion Swarm\u0027s damage to Heroes.\r\n  \u2022 Dark Conversion (R)\r\n    \u2022 Channel on an enemy Hero for 0.75 seconds, then swap Health percentages with the target over 3 seconds.\r\n\r\n=== Heroes: Murky ===\r\n[Bug Fixes]\r\n  \u2022 Egg Hunt\u0027s Slime no longer benefits from Slime talents.\r\n\r\n=== Heroes: Rehgar ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 4\r\n    \u2022 Healing Totem (Active)\r\n      \u2022 Minions and Mercenaries are no longer valid targets.\r\n  \u2022 Level 13\r\n    \u2022 Earth Shield (W)\r\n      \u2022 Minions and Mercenaries are no longer valid targets.\r\n\r\n=== Heroes: Sylvanas ===\r\n[Bug Fixes]\r\n  \u2022 Targets of Mind Control will now clear their move orders when affected by the ability.\r\n\r\n=== Heroes: Tyrande ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Light of Elune (Q)\r\n    \u2022 Minions and Mercenaries are no longer valid targets.\r\n\r\n=== Heroes: Uther ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Holy Light (Q)\r\n    \u2022 Minions and Mercenaries are no longer valid targets.\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue where Holy Fire\u0027s damage was affected by Spell Power.",
+  "Sections": {
+    "Battlegrounds: Garden of Terror": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue where all three Garden Terrors could spawn in a single lane."
+    ],
+    "Heroes: Alexstrasza": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Gift of Life (Q)",
+      "    \u2022 Minions and Mercenaries are no longer valid targets.",
+      "  \u2022 Dragonqueen: Breath of Life (Q)",
+      "    \u2022 Minions and Mercenaries are no longer valid targets."
+    ],
+    "Heroes: Ana": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Healing Dart (Q)",
+      "    \u2022 Healing Dart will now pierce targets at full Health.",
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue where Ana\u0027s Shrike healing was not accurately reflecting her damage done (via Spell Power or her target\u0027s Armor)."
+    ],
+    "Heroes: Brightwing": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Pixie Dust (E)",
+      "    \u2022 Minions and Mercenaries are no longer valid targets."
+    ],
+    "Heroes: Chromie": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue where Temporal Loop\u0027s return location would appear incorrect if a movement ability was used by the target."
+    ],
+    "Heroes: Diablo": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue where Diablo would not be displaced by knockback and similar effects while casting Overpower."
+    ],
+    "Heroes: Gall": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue where not all cases of Damage Reduction would work on Gall."
+    ],
+    "Heroes: Gul\u0027dan": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue where Darkness Within\u0027s bonus Spell Power would not increase the healing of Drain Life."
+    ],
+    "Heroes: Kharazim": [
+      "[Bug Fixes]",
+      "  \u2022 Can now Radiant Dash to all allied units, including Mercenaries, Creep Tumors, and Toxic Nests."
+    ],
+    "Heroes: Li Li": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Healing Brew (Q)",
+      "    \u2022 Minions and Mercenaries are no longer valid targets."
+    ],
+    "Heroes: Li-Ming": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue where Tal\u0027Rasha\u0027s Elements would grant bonus damage to Calamity after being twice in a row."
+    ],
+    "Heroes: Mal\u0027Ganis": [
+      "[Releases]",
+      "  Mal\u0027Ganis, Nathrezim Lord, has been added to the Nexus and is now available for play! Read on for a brief overview of his Abilities.:",
+      "  Trait:",
+      "  \u2022 Vampiric Touch",
+      "    \u2022 Mal\u0027Ganis heals for 45% of damage dealt to enemy Heroes and 15% of damage dealt to non-Heroes.",
+      "  Basic Abilities:",
+      "  \u2022 Fel Claws (Q)",
+      "    \u2022 Violently slash in the chosen direction, dealing 78 damage to enemies.",
+      "    \u2022 Reactivate to slash up to 2 more times. The third slash Stuns enemies for 0.75 seconds.",
+      "  \u2022 Necrotic Embrace (W)",
+      "    \u2022 Desecrate the air, dealing 119 damage to nearby enemies and gaining 25 Armor for 3 seconds.",
+      "  \u2022 Night Rush (E)",
+      "    \u2022 After 0.75 seconds, gain 50% Movement Speed for 2 seconds. While active, Mal\u0027Ganis can move through enemy Heroes and put them to Sleep for 2.5 seconds.",
+      "  Heroic Abilities:",
+      "  \u2022 Carrion Swarm (R)",
+      "    \u2022 After 1 second, disperse into an Invulnerable swarm of bats for 3 seconds, dealing 74 damage per second to enemies.",
+      "    \u2022 Vampiric Touch heals for 100% of Carrion Swarm\u0027s damage to Heroes.",
+      "  \u2022 Dark Conversion (R)",
+      "    \u2022 Channel on an enemy Hero for 0.75 seconds, then swap Health percentages with the target over 3 seconds."
+    ],
+    "Heroes: Murky": [
+      "[Bug Fixes]",
+      "  \u2022 Egg Hunt\u0027s Slime no longer benefits from Slime talents."
+    ],
+    "Heroes: Rehgar": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 4",
+      "    \u2022 Healing Totem (Active)",
+      "      \u2022 Minions and Mercenaries are no longer valid targets.",
+      "  \u2022 Level 13",
+      "    \u2022 Earth Shield (W)",
+      "      \u2022 Minions and Mercenaries are no longer valid targets."
+    ],
+    "Heroes: Sylvanas": [
+      "[Bug Fixes]",
+      "  \u2022 Targets of Mind Control will now clear their move orders when affected by the ability."
+    ],
+    "Heroes: Tyrande": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Light of Elune (Q)",
+      "    \u2022 Minions and Mercenaries are no longer valid targets."
+    ],
+    "Heroes: Uther": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Holy Light (Q)",
+      "    \u2022 Minions and Mercenaries are no longer valid targets.",
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue where Holy Fire\u0027s damage was affected by Spell Power."
+    ]
+  },
+  "PatchFile": "ptr/2018-10-08-v2-39-0-69099-2018-10-08-ptr-patch-ptr.json",
+  "Sources": [
+    "2018-10-08-ptr.html"
+  ]
+}

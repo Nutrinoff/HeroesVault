@@ -1,0 +1,115 @@
+{
+  "Id": "npn-2016-06-06-1.18.4",
+  "Title": "2016-06-06 PTR Patch",
+  "Subtitle": "=== Heroes: Abathur ===",
+  "Date": "Jun 6, 2016",
+  "IsoDate": "2016-06-06",
+  "FeedType": "ptr",
+  "Era": "ptr",
+  "PatchVersion": "1.18.4",
+  "FullVersion": "1.18.4.43527",
+  "Build": "43527",
+  "Link": "https://news.blizzard.com/en-us/heroes-of-the-storm/20131417",
+  "Links": [
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/20131417"
+  ],
+  "Affected": [
+    "Abathur",
+    "Brightwing",
+    "Chen",
+    "Cho",
+    "Dehaka",
+    "Gall",
+    "Medivh",
+    "Sylvanas",
+    "The Butcher",
+    "Tracer",
+    "Tyrael",
+    "Xul"
+  ],
+  "Highlights": "=== Heroes: Abathur ===",
+  "CleanedNotes": "=== Heroes: Abathur ===\r\n[Bug Fixes]\r\n  \u2022 You can no longer use Hearthstone to port back to base while channeling Ultimate Evolution.\r\n  \u2022 Fixed an issue that allowed Evolve Monstosity to pick up coins and gems, which were then permanently lost upon death.\r\n\r\n=== Heroes: Brightwing ===\r\n[Bug Fixes]\r\n  \u2022 The additional pulses created from the Continuous Winds talents will now properly push back enemy Heroes.\r\n  \u2022 Fixed an issue that allowed Brightwing to heal allies with Soothing Mist while dead.\r\n\r\n=== Heroes: Chen ===\r\n[Bug Fixes]\r\n  \u2022 The leap distances of the Storm Earth, Fire clones should now be consistent.\r\n\r\n=== Heroes: Cho ===\r\n[Bug Fixes]\r\n  \u2022 Shadow Bolt Volley can no longer be canceled by right clicking.\r\n\r\n=== Heroes: Dehaka ===\r\n[Bug Fixes]\r\n  \u2022 Shift queuing a command to use Essence Collection will now correctly heal Dehaka.\r\n\r\n=== Heroes: Gall ===\r\n[Bug Fixes]\r\n  \u2022 Shadow Bolt Volley can no longer be canceled by right clicking.\r\n\r\n=== Heroes: Medivh ===\r\n[Releases]\r\n  Medivh, The Last Guardian, has been added to the Nexus and is now available for play! Read on for a brief overview of his Abilities.:\r\n  Trait:\r\n  \u2022 Raven Form (Z)\r\n    \u2022 Instead of Mounting, Medivh can transform into a raven, increasing Movement Speed by 15%. While transformed, you can see and fly over all terrain, and are immune to all effects. Casting an Ability immediately transforms you out of Raven Form.\r\n  Basic Abilities:\r\n  \u2022 Arcane Rift (Q)\r\n    \u2022 Launch a rift that damages all enemies in its path. If an enemy Hero is hit, Arcane Rift\u0027s cooldown is reduced by 5 seconds and 30 Mana is refunded.\r\n  \u2022 Force of Will (W)\r\n    \u2022 Protect an allied Hero from all damage for 1.5 seconds.\r\n  \u2022 Portal (E)\r\n    \u2022 Create a set of portals between you and the target location, allowing allies to teleport between them. Portals last 6 seconds.\r\n  Heroic Abilities:\r\n  \u2022 Poly Bomb (R)\r\n    \u2022 Polymorph an enemy Hero, suppressing their attacks and Silencing them for 2 seconds. On expiration, Poly Bomb spreads to other nearby enemy Heroes.\r\n  \u2022 Ley Line Seal (R)\r\n    \u2022 After 0.5 seconds, unleash a wave of energy that imprisons enemy Heroes in Stasis for 3 seconds.\r\n\r\n=== Heroes: Sylvanas ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that made Xul uncontrollable if Sylvanas and Xul cast Mind Control and Bone Prison on each other\r\n\r\n=== Heroes: The Butcher ===\r\n[Bug Fixes]\r\n  \u2022 The cooldown of the Enraged talent now accurately matches the tooltip at 25 seconds.\r\n  \u2022 Hamstring now deals the correct amount of damage to Heroic targets when both the Cheap Shot and Chop Meat talents are selected.\r\n\r\n=== Heroes: Tracer ===\r\n[Bug Fixes]\r\n  \u2022 Basic Attack sounds will no longer play during Polymorph effects.\r\n  \u2022 The Pulse Rounds talent should now increase the range and charge rate of Pulse Bomb by the amount stated in the tooltip.\r\n\r\n=== Heroes: Tyrael ===\r\n[Updates]\r\n  Basic Abilities:\r\n  El\u0027Druin\u0027s Might (Q):\r\n  \u2022 Mana cost reduced from 55 to 50\r\n  Righteousness (W):\r\n  \u2022 Mana cost reduced from 65 to 60\r\n  Smite (E):\r\n  \u2022 Mana cost reduced from 50 to 45\r\n  Judgment (R):\r\n  \u2022 Mana cost reduced from 100 to 80\r\n[Bug Fixes]\r\n  \u2022 Fixed a bug that caused Archangel\u0027s Wrath to explode immediately in specific situations.\r\n\r\n=== Heroes: Xul ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that made Xul uncontrollable if Sylvanas and Xul cast Mind Control and Bone Prison on each other",
+  "Sections": {
+    "Heroes: Abathur": [
+      "[Bug Fixes]",
+      "  \u2022 You can no longer use Hearthstone to port back to base while channeling Ultimate Evolution.",
+      "  \u2022 Fixed an issue that allowed Evolve Monstosity to pick up coins and gems, which were then permanently lost upon death."
+    ],
+    "Heroes: Brightwing": [
+      "[Bug Fixes]",
+      "  \u2022 The additional pulses created from the Continuous Winds talents will now properly push back enemy Heroes.",
+      "  \u2022 Fixed an issue that allowed Brightwing to heal allies with Soothing Mist while dead."
+    ],
+    "Heroes: Chen": [
+      "[Bug Fixes]",
+      "  \u2022 The leap distances of the Storm Earth, Fire clones should now be consistent."
+    ],
+    "Heroes: Cho": [
+      "[Bug Fixes]",
+      "  \u2022 Shadow Bolt Volley can no longer be canceled by right clicking."
+    ],
+    "Heroes: Dehaka": [
+      "[Bug Fixes]",
+      "  \u2022 Shift queuing a command to use Essence Collection will now correctly heal Dehaka."
+    ],
+    "Heroes: Gall": [
+      "[Bug Fixes]",
+      "  \u2022 Shadow Bolt Volley can no longer be canceled by right clicking."
+    ],
+    "Heroes: Medivh": [
+      "[Releases]",
+      "  Medivh, The Last Guardian, has been added to the Nexus and is now available for play! Read on for a brief overview of his Abilities.:",
+      "  Trait:",
+      "  \u2022 Raven Form (Z)",
+      "    \u2022 Instead of Mounting, Medivh can transform into a raven, increasing Movement Speed by 15%. While transformed, you can see and fly over all terrain, and are immune to all effects. Casting an Ability immediately transforms you out of Raven Form.",
+      "  Basic Abilities:",
+      "  \u2022 Arcane Rift (Q)",
+      "    \u2022 Launch a rift that damages all enemies in its path. If an enemy Hero is hit, Arcane Rift\u0027s cooldown is reduced by 5 seconds and 30 Mana is refunded.",
+      "  \u2022 Force of Will (W)",
+      "    \u2022 Protect an allied Hero from all damage for 1.5 seconds.",
+      "  \u2022 Portal (E)",
+      "    \u2022 Create a set of portals between you and the target location, allowing allies to teleport between them. Portals last 6 seconds.",
+      "  Heroic Abilities:",
+      "  \u2022 Poly Bomb (R)",
+      "    \u2022 Polymorph an enemy Hero, suppressing their attacks and Silencing them for 2 seconds. On expiration, Poly Bomb spreads to other nearby enemy Heroes.",
+      "  \u2022 Ley Line Seal (R)",
+      "    \u2022 After 0.5 seconds, unleash a wave of energy that imprisons enemy Heroes in Stasis for 3 seconds."
+    ],
+    "Heroes: Sylvanas": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that made Xul uncontrollable if Sylvanas and Xul cast Mind Control and Bone Prison on each other"
+    ],
+    "Heroes: The Butcher": [
+      "[Bug Fixes]",
+      "  \u2022 The cooldown of the Enraged talent now accurately matches the tooltip at 25 seconds.",
+      "  \u2022 Hamstring now deals the correct amount of damage to Heroic targets when both the Cheap Shot and Chop Meat talents are selected."
+    ],
+    "Heroes: Tracer": [
+      "[Bug Fixes]",
+      "  \u2022 Basic Attack sounds will no longer play during Polymorph effects.",
+      "  \u2022 The Pulse Rounds talent should now increase the range and charge rate of Pulse Bomb by the amount stated in the tooltip."
+    ],
+    "Heroes: Tyrael": [
+      "[Updates]",
+      "  Basic Abilities:",
+      "  El\u0027Druin\u0027s Might (Q):",
+      "  \u2022 Mana cost reduced from 55 to 50",
+      "  Righteousness (W):",
+      "  \u2022 Mana cost reduced from 65 to 60",
+      "  Smite (E):",
+      "  \u2022 Mana cost reduced from 50 to 45",
+      "  Judgment (R):",
+      "  \u2022 Mana cost reduced from 100 to 80",
+      "[Bug Fixes]",
+      "  \u2022 Fixed a bug that caused Archangel\u0027s Wrath to explode immediately in specific situations."
+    ],
+    "Heroes: Xul": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that made Xul uncontrollable if Sylvanas and Xul cast Mind Control and Bone Prison on each other"
+    ]
+  },
+  "PatchFile": "ptr/2016-06-06-v1-18-4-43527-2016-06-06-ptr-patch-ptr.json",
+  "Sources": [
+    "2016-06-06-ptr.html"
+  ]
+}

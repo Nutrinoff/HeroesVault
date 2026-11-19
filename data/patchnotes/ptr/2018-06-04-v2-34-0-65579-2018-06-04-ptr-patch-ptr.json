@@ -1,0 +1,342 @@
+{
+  "Id": "npn-2018-06-04-2.34.0",
+  "Title": "2018-06-04 PTR Patch",
+  "Subtitle": "=== Battlegrounds: Alterac Pass ===",
+  "Date": "Jun 4, 2018",
+  "IsoDate": "2018-06-04",
+  "FeedType": "ptr",
+  "Era": "ptr",
+  "PatchVersion": "2.34.0",
+  "FullVersion": "2.34.0.65579",
+  "Build": "65579",
+  "Link": "https://news.blizzard.com/en-us/heroes-of-the-storm/21795071",
+  "Links": [
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/21795071"
+  ],
+  "Affected": [
+    "Alterac Pass",
+    "Abathur",
+    "Anub\u0027arak",
+    "Artanis",
+    "Arthas",
+    "Auriel",
+    "Brightwing",
+    "Cassia",
+    "Chromie",
+    "Deckard",
+    "Diablo",
+    "Fenix",
+    "Gall",
+    "Garrosh",
+    "Genji",
+    "Greymane",
+    "Johanna",
+    "Kael\u0027thas",
+    "Leoric",
+    "Li-Ming",
+    "Lunara",
+    "Maiev",
+    "Medivh",
+    "Ragnaros",
+    "Stukov",
+    "Tassadar",
+    "Tychus",
+    "Varian",
+    "Yrel",
+    "Zagara"
+  ],
+  "Highlights": "=== Battlegrounds: Alterac Pass ===",
+  "CleanedNotes": "=== Battlegrounds: Alterac Pass ===\r\n[Updates]\r\n  \u2022 Alterac Pass has been added to the Nexus and is now available for play!\r\n\r\n=== Heroes: Abathur ===\r\n[Bug Fixes]\r\n  \u2022 Removed an excess visual effect that could appear after casting Symbiote on a Monstrosity while using the Xenotech Abathur skin.\r\n  \u2022 Ultimate Evolution clones of Lil\u0027 Ragnaros will now use the correct death model when the Ability expires or the clone is destroyed.\r\n  \u2022 Increased the volume of Xenotech Abathur\u0027s voiceover lines during Symbiote.\r\n  \u2022 Symbiote now correctly creates a crown icon above an allied target\u0027s minimap portrait.\r\n\r\n=== Heroes: Anub\u0027arak ===\r\n[Updates]\r\n  Stats:\r\n  \u2022 Base Spell Armor removed.\r\n  \u2022 Health increased from 1,925 to 2,100.\r\n  \u2022 Health Regeneration increased from 4.012 to 4.375.\r\n  Abilities:\r\n  \u2022 Harden Carapace (W)\r\n    \u2022 Mana cost reduced from 30 to 25.\r\n    \u2022 Additional functionality:\r\n      \u2022 Now also grants 40 Spell Armor while active.\r\n\r\n=== Heroes: Artanis ===\r\n[Bug Fixes]\r\n  \u2022 Purifier Beam is now correctly interrupted if its target is a Hero with a post death effect, like Leoric or Uther, who is killed while the Ability is being cast.\r\n  \u2022 Damage dealt by the Plasma Burn Talent now displays correctly in Death Recaps.\r\n\r\n=== Heroes: Arthas ===\r\n[Updates]\r\n  Stats:\r\n  \u2022 Base Physical Armor removed.\r\n  \u2022 Health increased from 2,524 to 2,650.\r\n  \u2022 Health Regeneration increased from 5.258 to 5.52.\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Rime (Passive)\r\n      \u2022 Physical Armor bonus increased from 60 to 75.\r\n\r\n=== Heroes: Auriel ===\r\n[Updates]\r\n  Stats:\r\n  \u2022 Health reduced from 1,758 to 1,700.\r\n  \u2022 Health regeneration reduced from 3.66 to 3.54.\r\n  Abilities:\r\n  \u2022 Sacred Sweep (Q)\r\n    \u2022 Outer area damage reduced from 57 to 45.\r\n    \u2022 Inner area damage increased from 171 to 180.\r\n\r\n=== Heroes: Brightwing ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Soothing Mist (Trait)\r\n    \u2022 Heal amount increased from 109 to 112.\r\n  \u2022 Blink Heal (R)\r\n    \u2022 Heal amount increased from 192 to 200.\r\n\r\n=== Heroes: Cassia ===\r\n[Updates]\r\n  Stats:\r\n  \u2022 Health increased from 1,660 to 1,840\r\n  \u2022 Health Regeneration decreased from 4.0 to 3.828.\r\n  Abilities:\r\n  \u2022 Avoidance (Trait)\r\n    \u2022 Physical Armor while moving unmounted decreased from 65 to 40.\r\n\r\n=== Heroes: Chromie ===\r\n[Bug Fixes]\r\n  \u2022 A.I. Chromie will no longer cast Temporal Loop on Vehicles, like the Dragon Knight or Garden Terror.\r\n\r\n=== Heroes: Deckard ===\r\n[Bug Fixes]\r\n  \u2022 Casting Horadric Cube while on a conveyor belt no longer causes the Ability\u0027s area of effect to disjoint from its visual effects.\r\n  \u2022 Casting Scroll of Sealing while on a conveyor belt no longer causes the Ability\u0027s area of effect to disjoint from its visual effects.\r\n  \u2022 Fixed an issue that could prevent a Healing Potion from being picked up if it was placed between an injured ally and Deckard when Deckard is at full Health.\r\n\r\n=== Heroes: Diablo ===\r\n[Updates]\r\n  Stats:\r\n  \u2022 Health increased from 2,567 to 2,618.\r\n  \u2022 Health Regeneration increased from 5.3515 to 5.4542.\r\n  \u2022 Basic Attack speed increased from 0.91 to 0.95.\r\n  Abilities:\r\n  \u2022 Fire Stomp (W)\r\n    \u2022 Healing increased from 125% to 130% of the damage dealt.\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Feast on Fear (Q/E)\r\n      \u2022 Healing per second increased from 3.75% to 4%.\r\n      \u2022 Duration reduced from 4 to 3 seconds.\r\n    \u2022 Devil\u0027s Due (Trait)\r\n      \u2022 Regeneration Globe and Healing Fountain bonuses increased from 2% to 2.25% per Soul.\r\n    \u2022 Soul Shield (Active)\r\n      \u2022 Cooldown reduced from 60 to 45 seconds.\r\n  \u2022 Level 4\r\n    \u2022 Sacrificial Soul (Q)\r\n      \u2022 Armor increased from 15 to 20.\r\n      \u2022 Armor granted after gathering 100 Souls increased from 30 to 40.\r\n    \u2022 Souls to the Flame (W)\r\n      \u2022 Healing increased from 1.25% to 1.3% per Soul.\r\n  \u2022 Level 13\r\n    \u2022 Devastating Charge (Q)\r\n      \u2022 Initial damage bonus reduced from 100% to 80%.\r\n      \u2022 Quest damage bonus increased from 15% to 20% per stack.\r\n      \u2022 Maximum quest damage bonus increased from 75% to 120%.\r\n\r\n=== Heroes: Fenix ===\r\n[Updates]\r\n  Stats:\r\n  \u2022 Unit radius reduced from 1.25 to 1.125. Fenix\u0027s radius now matches Heroes like Stitches and Ragnaros.\r\n[Bug Fixes]\r\n  \u2022 Offensive Cadence will no longer stop functioning if Fenix is killed when his next Basic Attack would have triggered the Talent\u0027s bonus damage.\r\n\r\n=== Heroes: Gall ===\r\n[Bug Fixes]\r\n  \u2022 The Double Back Talent now displays the base Dread Orb icon art the Talent selection pane.\r\n\r\n=== Heroes: Garrosh ===\r\n[Updates]\r\n  \u2022 Groundbreaker (Q)\r\n    \u2022 Cooldown increased from 7 to 8 seconds.\r\n  \u2022 Wrecking Ball (E)\r\n    \u2022 Cooldown increased from 12 to 14 seconds.\r\n  \u2022 Level 16\r\n    \u2022 Mortal Combo (Q)\r\n      \u2022 Cooldown reduction increased from 7 to 9 seconds.\r\n\r\n=== Heroes: Genji ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Cyber Agility (Trait)\r\n    \u2022 Cooldown increased from 12 to 15 seconds.\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Agile Dismount (Trait)\r\n      \u2022 Cooldown reduction increased from 7 to 10 seconds.\r\n[Bug Fixes]\r\n  \u2022 Genji no longer occasionally uses a default pose after being affected by a Time Stop effect during Dragonblade.\r\n\r\n=== Heroes: Greymane ===\r\n[Bug Fixes]\r\n  \u2022 Hunter Greymane no longer hides his face behind his shoulder pad on the post-match summary screen.\r\n\r\n=== Heroes: Johanna ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Base Physical Armor removed.\r\n  \u2022 Health increased from 2,350 to 2,540.\r\n  \u2022 Health Regeneration increased from 4.895 to 5.289.\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Reinforce (Passive)\r\n      \u2022 Armor bonus increased from 50 to 75.\r\n\r\n=== Heroes: Kael\u0027thas ===\r\n[Updates]\r\n  Stats:\r\n  \u2022 Unit radius reduced from 1.15 to 1.0. Kael\u0027thas\u0027s radius now matches Heroes like E.T.C. and Zagara.\r\n  Abilities:\r\n  \u2022 Living Bomb (W)\r\n    \u2022 Periodic damage increased from 40 to 42.\r\n\r\n=== Heroes: Leoric ===\r\n[Bug Fixes]\r\n  \u2022 The Consume Vitality Talent now displays the base Skeletal Swing icon art in the Talent selection pane.\r\n  \u2022 Reduced the volume of Leoric\u0027s Basic Attack sound effects.\r\n\r\n=== Heroes: Li-Ming ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue causing Disintegrate to deal one less damage tick than intended.\r\n\r\n=== Heroes: Lunara ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 4\r\n    \u2022 Nature\u0027s Culling (Trait)\r\n      \u2022 Bonus damage reduced from 150% to 125%.\r\n  \u2022 Level 7\r\n    \u2022 Choking Pollen (Q)\r\n      \u2022 Bonus damage against enemies who have 1 stack of Nature\u0027s Toxin increased from 50% to 75%.\r\n      \u2022 Bonus damage against enemies who have 3 stacks of Nature\u0027s Toxin increased from 100% to 125%.\r\n\r\n=== Heroes: Maiev ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Umbral Bind (W)\r\n    \u2022 Cooldown increased from 12 to 14 seconds.\r\n  \u2022 Spirit of Vengeance (E)\r\n    \u2022 Cooldown increased from 10 to 13 seconds.\r\n    \u2022 Damage increased from 100 to 180.\r\n    \u2022 Adjusted functionality:\r\n      \u2022 No longer deals bonus damage to Heroes.\r\n      \u2022 Instead, if Spirit of Vengeance hits an enemy Hero, its cooldown is reduced by 4 seconds.\r\n  Talents:\r\n  \u2022 Level 4\r\n    \u2022 Blade Dance (Q)\r\n      \u2022 Area of effect reduced from 4 to 3.5.\r\n\r\n=== Heroes: Medivh ===\r\n[Bug Fixes]\r\n  \u2022 The Mystic Assault Talent and Arcane Rift\u0027s quest icon now display the base Arcane Rift icon art.\r\n\r\n=== Heroes: Ragnaros ===\r\n[Bug Fixes]\r\n  \u2022 When cast on Ragnaros in his normal form, Alarak\u0027s Rite of Rak\u0027shir and Alexstrasza\u0027s Blessing of the Red will not persist after casting Molten Core. However, Ragnaros will regain those marks once Molten Core expires.\r\n\r\n=== Heroes: Stukov ===\r\n[Updates]\r\n  \u2022 Bio-Kill Switch (Trait)\r\n    \u2022 Amount Healed after detonating a Healing Pathogen increased from 435 to 450.\r\n  \u2022 Healing Pathogen (Q)\r\n    \u2022 Healing per tick increased from 35 to 37.\r\n[Bug Fixes]\r\n  \u2022 Healing done by the Superstrain Talent no longer displays as \u201CUnknown\u201D in Death Recaps.\r\n\r\n=== Heroes: Tassadar ===\r\n[Bug Fixes]\r\n  \u2022 The Psi-Infusion Talent now displays the base Psionic Storm icon art in the Talent selection pane.\r\n\r\n=== Heroes: Tychus ===\r\n[Bug Fixes]\r\n  \u2022 Enemy A.I. Tychus was a little too chatty on the battlefield. He\u0027s been ordered to do less talkin\u0027 and more fightin\u0027.\r\n  \u2022 The Event Log now correctly displays the yellow Run and Gun icon upon completing the Dash Talent\u0027s quest.\r\n\r\n=== Heroes: Varian ===\r\n[Updates]\r\n  Stats:\r\n  \u2022 Health increased from 1,924 to 2,116.\r\n  \u2022 Health Regeneration increased from 4.001 to 4.406.\r\n  Abilities:\r\n  \u2022 Taunt (R)\r\n    \u2022 Passive Armor bonus removed\r\n    \u2022 Passive maximum Health bonus increased from 25% to 30%.\r\n\r\n=== Heroes: Yrel ===\r\n[Releases]\r\n  Yrel, Light of Hope, has been added to the Nexus and is now available for play! Read on for a brief overview of her Abilities.:\r\n  \u2022 Divine Purpose (D)\r\n    \u2022 Activate to instantly charge Yrel\u0027s next Basic Ability at no mana cost.\r\n    \u2022 Passive: Yrel\u0027s Basic Abilities charge up over 1.5 seconds, increasing in effectiveness, but reducing Yrel\u0027s Movement Speed by 25%.\r\n  \u2022 Vindication (Q)\r\n    \u2022 Unleash holy energy around Yrel, dealing 38 damage to nearby enemies and healing her for 96.\r\n    \u2022 Charging up this Ability increases its damage up to 125, and Healing up to 320.\r\n  \u2022 Righteous Hammer (W)\r\n    \u2022 Swing Yrel\u0027s hammer, dealing 38 damage to enemies in front of her and knocking them away.\r\n    \u2022 Charging up this Ability increases its knockback distance, and damage up to 125. Enemies hit at maximum charge are Stunned for 0.75 seconds.\r\n  \u2022 Avenging Wrath (E)\r\n    \u2022 Leap to a location, dealing 150 damage to enemies in an area and Slowing them by 50% for 1 second.\r\n    \u2022 Charging up this Ability increases its range.\r\n  \u2022 Ardent Defender (R)\r\n    \u2022 Surround Yrel in a barrier for 3 seconds, absorbing all damage taken and Healing her for 50% of the damage received.\r\n  \u2022 Sacred Ground (R)\r\n    \u2022 Yrel sanctifies the ground around her, gaining 40 Armor until she leaves the area.\r\n\r\n=== Heroes: Zagara ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Creep Tumor (Trait)\r\n    \u2022 Health reduced from 150 to 125.\r\n    \u2022 Health scaling increased from 3% to 4% per level.\r\n  \u2022 Hunter Killer (W)\r\n    \u2022 Health decreased from 471 to 420.\r\n    \u2022 Health scaling increased from 3.5% to 4.5% per level.\r\n    \u2022 Damage scaling increased from 4% to 5% per level.\r\n    \u2022 Movement Speed increased by 4%.\r\n  \u2022 Infested Drop (E)\r\n    \u2022 Impact damage scaling increased from 3% to 4% per level.\r\n    \u2022 Roachling Health reduced from 346 to 328.\r\n    \u2022 Roachling Health scaling increased from 3% to 4% per level.\r\n    \u2022 Roachling Damage scaling increased from 3% to 4% per level.\r\n  \u2022 Devouring Maw (R)\r\n    \u2022 Damage increased from 80 to 88.\r\n  \u2022 Nydus Network (R)\r\n    \u2022 Health reduced from 664 to 550.\r\n    \u2022 Health scaling increased from 3% to 4% per level.\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Corpse Feeders (E)\r\n      \u2022 Damage reduction from non-Heroic sources increased from 40% to 50%.\r\n  \u2022 Level 16\r\n    \u2022 Brood Expansion (W)\r\n      \u2022 Cooldown reduction increased from 6 to 7 seconds.\r\n      \u2022 Now also reduces Hunter Killer\u0027s Mana cost by 30.\r\n    \u2022 Corrosive Saliva (W)\r\n      \u2022 Damage increased from 2% to 2.5% of the target Hero\u0027s maximum Health.",
+  "Sections": {
+    "Battlegrounds: Alterac Pass": [
+      "[Updates]",
+      "  \u2022 Alterac Pass has been added to the Nexus and is now available for play!"
+    ],
+    "Heroes: Abathur": [
+      "[Bug Fixes]",
+      "  \u2022 Removed an excess visual effect that could appear after casting Symbiote on a Monstrosity while using the Xenotech Abathur skin.",
+      "  \u2022 Ultimate Evolution clones of Lil\u0027 Ragnaros will now use the correct death model when the Ability expires or the clone is destroyed.",
+      "  \u2022 Increased the volume of Xenotech Abathur\u0027s voiceover lines during Symbiote.",
+      "  \u2022 Symbiote now correctly creates a crown icon above an allied target\u0027s minimap portrait."
+    ],
+    "Heroes: Anub\u0027arak": [
+      "[Updates]",
+      "  Stats:",
+      "  \u2022 Base Spell Armor removed.",
+      "  \u2022 Health increased from 1,925 to 2,100.",
+      "  \u2022 Health Regeneration increased from 4.012 to 4.375.",
+      "  Abilities:",
+      "  \u2022 Harden Carapace (W)",
+      "    \u2022 Mana cost reduced from 30 to 25.",
+      "    \u2022 Additional functionality:",
+      "      \u2022 Now also grants 40 Spell Armor while active."
+    ],
+    "Heroes: Artanis": [
+      "[Bug Fixes]",
+      "  \u2022 Purifier Beam is now correctly interrupted if its target is a Hero with a post death effect, like Leoric or Uther, who is killed while the Ability is being cast.",
+      "  \u2022 Damage dealt by the Plasma Burn Talent now displays correctly in Death Recaps."
+    ],
+    "Heroes: Arthas": [
+      "[Updates]",
+      "  Stats:",
+      "  \u2022 Base Physical Armor removed.",
+      "  \u2022 Health increased from 2,524 to 2,650.",
+      "  \u2022 Health Regeneration increased from 5.258 to 5.52.",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Rime (Passive)",
+      "      \u2022 Physical Armor bonus increased from 60 to 75."
+    ],
+    "Heroes: Auriel": [
+      "[Updates]",
+      "  Stats:",
+      "  \u2022 Health reduced from 1,758 to 1,700.",
+      "  \u2022 Health regeneration reduced from 3.66 to 3.54.",
+      "  Abilities:",
+      "  \u2022 Sacred Sweep (Q)",
+      "    \u2022 Outer area damage reduced from 57 to 45.",
+      "    \u2022 Inner area damage increased from 171 to 180."
+    ],
+    "Heroes: Brightwing": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Soothing Mist (Trait)",
+      "    \u2022 Heal amount increased from 109 to 112.",
+      "  \u2022 Blink Heal (R)",
+      "    \u2022 Heal amount increased from 192 to 200."
+    ],
+    "Heroes: Cassia": [
+      "[Updates]",
+      "  Stats:",
+      "  \u2022 Health increased from 1,660 to 1,840",
+      "  \u2022 Health Regeneration decreased from 4.0 to 3.828.",
+      "  Abilities:",
+      "  \u2022 Avoidance (Trait)",
+      "    \u2022 Physical Armor while moving unmounted decreased from 65 to 40."
+    ],
+    "Heroes: Chromie": [
+      "[Bug Fixes]",
+      "  \u2022 A.I. Chromie will no longer cast Temporal Loop on Vehicles, like the Dragon Knight or Garden Terror."
+    ],
+    "Heroes: Deckard": [
+      "[Bug Fixes]",
+      "  \u2022 Casting Horadric Cube while on a conveyor belt no longer causes the Ability\u0027s area of effect to disjoint from its visual effects.",
+      "  \u2022 Casting Scroll of Sealing while on a conveyor belt no longer causes the Ability\u0027s area of effect to disjoint from its visual effects.",
+      "  \u2022 Fixed an issue that could prevent a Healing Potion from being picked up if it was placed between an injured ally and Deckard when Deckard is at full Health."
+    ],
+    "Heroes: Diablo": [
+      "[Updates]",
+      "  Stats:",
+      "  \u2022 Health increased from 2,567 to 2,618.",
+      "  \u2022 Health Regeneration increased from 5.3515 to 5.4542.",
+      "  \u2022 Basic Attack speed increased from 0.91 to 0.95.",
+      "  Abilities:",
+      "  \u2022 Fire Stomp (W)",
+      "    \u2022 Healing increased from 125% to 130% of the damage dealt.",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Feast on Fear (Q/E)",
+      "      \u2022 Healing per second increased from 3.75% to 4%.",
+      "      \u2022 Duration reduced from 4 to 3 seconds.",
+      "    \u2022 Devil\u0027s Due (Trait)",
+      "      \u2022 Regeneration Globe and Healing Fountain bonuses increased from 2% to 2.25% per Soul.",
+      "    \u2022 Soul Shield (Active)",
+      "      \u2022 Cooldown reduced from 60 to 45 seconds.",
+      "  \u2022 Level 4",
+      "    \u2022 Sacrificial Soul (Q)",
+      "      \u2022 Armor increased from 15 to 20.",
+      "      \u2022 Armor granted after gathering 100 Souls increased from 30 to 40.",
+      "    \u2022 Souls to the Flame (W)",
+      "      \u2022 Healing increased from 1.25% to 1.3% per Soul.",
+      "  \u2022 Level 13",
+      "    \u2022 Devastating Charge (Q)",
+      "      \u2022 Initial damage bonus reduced from 100% to 80%.",
+      "      \u2022 Quest damage bonus increased from 15% to 20% per stack.",
+      "      \u2022 Maximum quest damage bonus increased from 75% to 120%."
+    ],
+    "Heroes: Fenix": [
+      "[Updates]",
+      "  Stats:",
+      "  \u2022 Unit radius reduced from 1.25 to 1.125. Fenix\u0027s radius now matches Heroes like Stitches and Ragnaros.",
+      "[Bug Fixes]",
+      "  \u2022 Offensive Cadence will no longer stop functioning if Fenix is killed when his next Basic Attack would have triggered the Talent\u0027s bonus damage."
+    ],
+    "Heroes: Gall": [
+      "[Bug Fixes]",
+      "  \u2022 The Double Back Talent now displays the base Dread Orb icon art the Talent selection pane."
+    ],
+    "Heroes: Garrosh": [
+      "[Updates]",
+      "  \u2022 Groundbreaker (Q)",
+      "    \u2022 Cooldown increased from 7 to 8 seconds.",
+      "  \u2022 Wrecking Ball (E)",
+      "    \u2022 Cooldown increased from 12 to 14 seconds.",
+      "  \u2022 Level 16",
+      "    \u2022 Mortal Combo (Q)",
+      "      \u2022 Cooldown reduction increased from 7 to 9 seconds."
+    ],
+    "Heroes: Genji": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Cyber Agility (Trait)",
+      "    \u2022 Cooldown increased from 12 to 15 seconds.",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Agile Dismount (Trait)",
+      "      \u2022 Cooldown reduction increased from 7 to 10 seconds.",
+      "[Bug Fixes]",
+      "  \u2022 Genji no longer occasionally uses a default pose after being affected by a Time Stop effect during Dragonblade."
+    ],
+    "Heroes: Greymane": [
+      "[Bug Fixes]",
+      "  \u2022 Hunter Greymane no longer hides his face behind his shoulder pad on the post-match summary screen."
+    ],
+    "Heroes: Johanna": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Base Physical Armor removed.",
+      "  \u2022 Health increased from 2,350 to 2,540.",
+      "  \u2022 Health Regeneration increased from 4.895 to 5.289.",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Reinforce (Passive)",
+      "      \u2022 Armor bonus increased from 50 to 75."
+    ],
+    "Heroes: Kael\u0027thas": [
+      "[Updates]",
+      "  Stats:",
+      "  \u2022 Unit radius reduced from 1.15 to 1.0. Kael\u0027thas\u0027s radius now matches Heroes like E.T.C. and Zagara.",
+      "  Abilities:",
+      "  \u2022 Living Bomb (W)",
+      "    \u2022 Periodic damage increased from 40 to 42."
+    ],
+    "Heroes: Leoric": [
+      "[Bug Fixes]",
+      "  \u2022 The Consume Vitality Talent now displays the base Skeletal Swing icon art in the Talent selection pane.",
+      "  \u2022 Reduced the volume of Leoric\u0027s Basic Attack sound effects."
+    ],
+    "Heroes: Li-Ming": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue causing Disintegrate to deal one less damage tick than intended."
+    ],
+    "Heroes: Lunara": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 4",
+      "    \u2022 Nature\u0027s Culling (Trait)",
+      "      \u2022 Bonus damage reduced from 150% to 125%.",
+      "  \u2022 Level 7",
+      "    \u2022 Choking Pollen (Q)",
+      "      \u2022 Bonus damage against enemies who have 1 stack of Nature\u0027s Toxin increased from 50% to 75%.",
+      "      \u2022 Bonus damage against enemies who have 3 stacks of Nature\u0027s Toxin increased from 100% to 125%."
+    ],
+    "Heroes: Maiev": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Umbral Bind (W)",
+      "    \u2022 Cooldown increased from 12 to 14 seconds.",
+      "  \u2022 Spirit of Vengeance (E)",
+      "    \u2022 Cooldown increased from 10 to 13 seconds.",
+      "    \u2022 Damage increased from 100 to 180.",
+      "    \u2022 Adjusted functionality:",
+      "      \u2022 No longer deals bonus damage to Heroes.",
+      "      \u2022 Instead, if Spirit of Vengeance hits an enemy Hero, its cooldown is reduced by 4 seconds.",
+      "  Talents:",
+      "  \u2022 Level 4",
+      "    \u2022 Blade Dance (Q)",
+      "      \u2022 Area of effect reduced from 4 to 3.5."
+    ],
+    "Heroes: Medivh": [
+      "[Bug Fixes]",
+      "  \u2022 The Mystic Assault Talent and Arcane Rift\u0027s quest icon now display the base Arcane Rift icon art."
+    ],
+    "Heroes: Ragnaros": [
+      "[Bug Fixes]",
+      "  \u2022 When cast on Ragnaros in his normal form, Alarak\u0027s Rite of Rak\u0027shir and Alexstrasza\u0027s Blessing of the Red will not persist after casting Molten Core. However, Ragnaros will regain those marks once Molten Core expires."
+    ],
+    "Heroes: Stukov": [
+      "[Updates]",
+      "  \u2022 Bio-Kill Switch (Trait)",
+      "    \u2022 Amount Healed after detonating a Healing Pathogen increased from 435 to 450.",
+      "  \u2022 Healing Pathogen (Q)",
+      "    \u2022 Healing per tick increased from 35 to 37.",
+      "[Bug Fixes]",
+      "  \u2022 Healing done by the Superstrain Talent no longer displays as \u201CUnknown\u201D in Death Recaps."
+    ],
+    "Heroes: Tassadar": [
+      "[Bug Fixes]",
+      "  \u2022 The Psi-Infusion Talent now displays the base Psionic Storm icon art in the Talent selection pane."
+    ],
+    "Heroes: Tychus": [
+      "[Bug Fixes]",
+      "  \u2022 Enemy A.I. Tychus was a little too chatty on the battlefield. He\u0027s been ordered to do less talkin\u0027 and more fightin\u0027.",
+      "  \u2022 The Event Log now correctly displays the yellow Run and Gun icon upon completing the Dash Talent\u0027s quest."
+    ],
+    "Heroes: Varian": [
+      "[Updates]",
+      "  Stats:",
+      "  \u2022 Health increased from 1,924 to 2,116.",
+      "  \u2022 Health Regeneration increased from 4.001 to 4.406.",
+      "  Abilities:",
+      "  \u2022 Taunt (R)",
+      "    \u2022 Passive Armor bonus removed",
+      "    \u2022 Passive maximum Health bonus increased from 25% to 30%."
+    ],
+    "Heroes: Yrel": [
+      "[Releases]",
+      "  Yrel, Light of Hope, has been added to the Nexus and is now available for play! Read on for a brief overview of her Abilities.:",
+      "  \u2022 Divine Purpose (D)",
+      "    \u2022 Activate to instantly charge Yrel\u0027s next Basic Ability at no mana cost.",
+      "    \u2022 Passive: Yrel\u0027s Basic Abilities charge up over 1.5 seconds, increasing in effectiveness, but reducing Yrel\u0027s Movement Speed by 25%.",
+      "  \u2022 Vindication (Q)",
+      "    \u2022 Unleash holy energy around Yrel, dealing 38 damage to nearby enemies and healing her for 96.",
+      "    \u2022 Charging up this Ability increases its damage up to 125, and Healing up to 320.",
+      "  \u2022 Righteous Hammer (W)",
+      "    \u2022 Swing Yrel\u0027s hammer, dealing 38 damage to enemies in front of her and knocking them away.",
+      "    \u2022 Charging up this Ability increases its knockback distance, and damage up to 125. Enemies hit at maximum charge are Stunned for 0.75 seconds.",
+      "  \u2022 Avenging Wrath (E)",
+      "    \u2022 Leap to a location, dealing 150 damage to enemies in an area and Slowing them by 50% for 1 second.",
+      "    \u2022 Charging up this Ability increases its range.",
+      "  \u2022 Ardent Defender (R)",
+      "    \u2022 Surround Yrel in a barrier for 3 seconds, absorbing all damage taken and Healing her for 50% of the damage received.",
+      "  \u2022 Sacred Ground (R)",
+      "    \u2022 Yrel sanctifies the ground around her, gaining 40 Armor until she leaves the area."
+    ],
+    "Heroes: Zagara": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Creep Tumor (Trait)",
+      "    \u2022 Health reduced from 150 to 125.",
+      "    \u2022 Health scaling increased from 3% to 4% per level.",
+      "  \u2022 Hunter Killer (W)",
+      "    \u2022 Health decreased from 471 to 420.",
+      "    \u2022 Health scaling increased from 3.5% to 4.5% per level.",
+      "    \u2022 Damage scaling increased from 4% to 5% per level.",
+      "    \u2022 Movement Speed increased by 4%.",
+      "  \u2022 Infested Drop (E)",
+      "    \u2022 Impact damage scaling increased from 3% to 4% per level.",
+      "    \u2022 Roachling Health reduced from 346 to 328.",
+      "    \u2022 Roachling Health scaling increased from 3% to 4% per level.",
+      "    \u2022 Roachling Damage scaling increased from 3% to 4% per level.",
+      "  \u2022 Devouring Maw (R)",
+      "    \u2022 Damage increased from 80 to 88.",
+      "  \u2022 Nydus Network (R)",
+      "    \u2022 Health reduced from 664 to 550.",
+      "    \u2022 Health scaling increased from 3% to 4% per level.",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Corpse Feeders (E)",
+      "      \u2022 Damage reduction from non-Heroic sources increased from 40% to 50%.",
+      "  \u2022 Level 16",
+      "    \u2022 Brood Expansion (W)",
+      "      \u2022 Cooldown reduction increased from 6 to 7 seconds.",
+      "      \u2022 Now also reduces Hunter Killer\u0027s Mana cost by 30.",
+      "    \u2022 Corrosive Saliva (W)",
+      "      \u2022 Damage increased from 2% to 2.5% of the target Hero\u0027s maximum Health."
+    ]
+  },
+  "PatchFile": "ptr/2018-06-04-v2-34-0-65579-2018-06-04-ptr-patch-ptr.json",
+  "Sources": [
+    "2018-06-04-ptr.html"
+  ]
+}

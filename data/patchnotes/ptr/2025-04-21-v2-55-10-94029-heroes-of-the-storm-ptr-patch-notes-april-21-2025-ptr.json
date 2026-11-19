@@ -1,0 +1,290 @@
+{
+  "Id": "760809",
+  "Title": "Heroes of the Storm PTR Patch Notes - April 21, 2025",
+  "Subtitle": "[Heroes of the Storm PTR Patch Notes - April 21, 2025] Our next Heroes of the Storm patch has just hit the Public Test Realm and will be available for playtesting. View Full Article",
+  "Date": "Apr 21, 2025",
+  "IsoDate": "2025-04-21",
+  "FeedType": "ptr",
+  "Era": "ptr",
+  "PatchVersion": "2.55.10",
+  "FullVersion": "2.55.10.94029",
+  "Build": "94029",
+  "Link": "https://us.forums.blizzard.com/en/heroes/t/heroes-of-the-storm-ptr-patch-notes-april-21-2025/63989/1",
+  "Links": [
+    "https://us.forums.blizzard.com/en/heroes/t/heroes-of-the-storm-ptr-patch-notes-april-21-2025/63989/1",
+    "https://www.reddit.com/r/CursedHollow/comments/1k4sv0g/heroes_of_the_storm_ptr_update_20250420",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/24197273"
+  ],
+  "Affected": [
+    "Battlefield of Eternity",
+    "Blackheart\u0027s Bay",
+    "Cursed Hollow",
+    "Warhead Junction",
+    "Ana",
+    "Artanis",
+    "Azmodan",
+    "Brightwing",
+    "Chen",
+    "Dehaka",
+    "Genji",
+    "Imperius",
+    "Jaina",
+    "Johanna",
+    "Lt. Morales",
+    "Lunara",
+    "Malthael",
+    "Mephisto",
+    "Ragnaros",
+    "Samuro",
+    "Sonya",
+    "Stukov",
+    "Sylvanas",
+    "The Lost Vikings",
+    "Valeera",
+    "Zagara"
+  ],
+  "Highlights": "[Heroes of the Storm PTR Patch Notes - April 21, 2025] Our next Heroes of the Storm patch has just hit the Public Test Realm and will be available for playtesting. View Full Article",
+  "CleanedNotes": "=== General ===\r\n[Updates]\r\n  Storm League:\r\n  \u2022 Rank Decay will now only apply to Master and Grand Master players.\r\n  \u2022 Party size for Master and Grand Master players capped at 2.\r\n  Try Mode:\r\n  \u2022 Default allied Hero changed from Malfurion to Anduin.\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue with the display priority for the duration bar of Taunt effects.\r\n\r\n=== Battlegrounds: Battlefield of Eternity ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue where areas of the battlefield were not covered under Fog of War.\r\n\r\n=== Battlegrounds: Blackheart\u0027s Bay ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue where some Heroes would not be able to path around Healing Fountains [Undocumented] near bottom Keeps .\r\n\r\n=== Battlegrounds: Cursed Hollow ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue where Hogger could go through unpathable sections of the battlefield.\r\n\r\n=== Battlegrounds: Warhead Junction ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue where Healing Fountains [Undocumented] near top Keeps were not symmetrical on the battlefield.\r\n\r\n=== Heroes: Ana ===\r\n[Updates]\r\n  Base:\r\n  \u2022 Biotic Grenade [W]\r\n    \u2022 ADDED FUNCTIONALITY: If Biotic Grenade does not hit any enemies, its cooldown is reduced by 3 seconds.\r\n    \u2022 ADDED FUNCTIONALITY: If Biotic Grenade only hits Ana, its cooldown is reduced by 2 seconds.\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Vampiric Rounds\r\n      \u2022 Shrike now gives a 15% passive healing bonus.\r\n  \u2022 Level 20\r\n    \u2022 Deadeye\r\n      \u2022 ADDED FUNCTIONALITY: Eye of Horus can now be toggled On and Off.\r\n      \u2022 ADDED FUNCTIONALITY: Eye of Horus cooldown is now 0.5 seconds.\r\n      \u2022 ADDED FUNCTIONALITY: Eye of Horus rounds are regained once every 10 seconds.\r\n      \u2022 Bonuses acquired from Deadeye now lasts 7 seconds.\r\n\r\n=== Heroes: Artanis ===\r\n[Bug Fixes]\r\n  \u2022 Base\r\n    \u2022 Shield Overload [Q]\r\n      \u2022 Fixed an issue that caused Shield Overload to not display correctly if empowered by Shield Surge.\r\n\r\n=== Heroes: Azmodan ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 16\r\n    \u2022 Trample\r\n      \u2022 ADDED FUNCTIONALITY: Now reduces Heroic cooldown by 25% if Trample hits a Hero.\r\n\r\n=== Heroes: Brightwing ===\r\n[Bug Fixes]\r\n  \u2022 Level 10\r\n    \u2022 Blink Heal\r\n      \u2022 Fixed an issue that caused Blink Heal\u0027s trailing images to be visible while Brightwing has no remaining Blink Heal charges.\r\n\r\n=== Heroes: Chen ===\r\n[User Interface]\r\n  Abilities:\r\n  \u2022 Fortifying Brew [D]\r\n    \u2022 Added to the Buff Bar.\r\n[Bug Fixes]\r\n  \u2022 Base\r\n    \u2022 Fortifying Brew [D]\r\n      \u2022 Fixed an issue that caused Fortifying Brew being instantly destroyed not granting Attack Speed.\r\n\r\n=== Heroes: Dehaka ===\r\n[Bug Fixes]\r\n  \u2022 Base\r\n    \u2022 Burrow [E]\r\n      \u2022 Fixed an issue that caused Burrow\u0027s visuals to be displaced if Dehaka is launched shortly after Burrow ends.\r\n\r\n=== Heroes: Genji ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Pathfinder\r\n      \u2022 ADDED FUNCTIONALITY: Heroic Ability now heals Genji for up to 30% of the damage dealt to enemy Heroes. Healing amount is increased based on how low Genji\u0027s Health is.\r\n  \u2022 Level 10\r\n    \u2022 X-Strike\r\n      \u2022 Cooldown increased from 60 seconds to 75 seconds.\r\n      \u2022 Detonation damage increased from 275 to 290.\r\n      \u2022 Slash damage increased from 135 to 145.\r\n  \u2022 Level 13\r\n    \u2022 Shingan\r\n      \u2022 Now does 40% less damage to Structures.\r\n  \u2022 Level 20\r\n    \u2022 Living Weapon\r\n      \u2022 Cooldown reduction increased from 10 seconds to 12.5 seconds.\r\n\r\n=== Heroes: Imperius ===\r\n[Updates]\r\n  Base:\r\n  \u2022 Molten Armor [E]\r\n    \u2022 Now hits an extra target if no Heroes are in range.\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Impaling Light\r\n      \u2022 Rework: Impaling Light cooldown is reduced by 2 seconds.\r\n      \u2022 Rework: Impaling Light does 180% more damage to Heroes, reduced by 20% for each additional Hero hit.\r\n      \u2022 Rework: Impaling Light mana cost is reduced from 40 to 30.\r\n      \u2022 Rework: When a Valorous Branded target\u0027s Stun ends, Impaling Light\u0027s cooldown is reduced by 1 second for each Valorous Brand on the target.\r\n  \u2022 Level 7\r\n    \u2022 Blaze of Glory\r\n      \u2022 Blaze of Glory delay reduced from 2 seconds to 1.75 seconds.\r\n    \u2022 Holy Fervor\r\n      \u2022 Molten Armor no longer grants Holy Fervor.\r\n  \u2022 Level 20\r\n    \u2022 Heavenly Host\r\n      \u2022 ADDED FUNCTIONALITY: All Shields created by Angelic Armaments no longer expire.\r\n      \u2022 ADDED FUNCTIONALITY: Swords fired by Heavenly Host Shields can target non-Heroes, but Heroes are prioritized.\r\n    \u2022 Molten Wrath\r\n      \u2022 NEW TALENT: Molten Armor will now hit an extra target even if enemy Heroes are in range.\r\n\r\n=== Heroes: Jaina ===\r\n[Bug Fixes]\r\n  \u2022 Base\r\n    \u2022 Frostbite [Trait]\r\n      \u2022 Ice Block\u0027s before first use attention indicator is now also removed when Jaina is killed.\r\n\r\n=== Heroes: Johanna ===\r\n[Bug Fixes]\r\n  \u2022 Level 4\r\n    \u2022 Eternal Retaliation\r\n      \u2022 Updated Eternal Retaliation\u0027s visual effect to only be visible to Johanna.\r\n  \u2022 Level 10\r\n    \u2022 Blessed Shield\r\n      \u2022 Fixed an issue with the display priority for the duration bar of Blessed Shield.\r\n\r\n=== Heroes: Lt. Morales ===\r\n[Bug Fixes]\r\n  \u2022 Level 10\r\n    \u2022 Medivac Dropships\r\n      \u2022 Fixed an issue that caused Medivac Reinforcement\u0027s indicator beam to point to Lt. Morales\u0027s active position instead of where Reinforcements was cast.\r\n\r\n=== Heroes: Lunara ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 7\r\n    \u2022 Splintered Spear\r\n      \u2022 ADDED FUNCTIONALITY: Now grants 3 stacks of Splintered Spear. A stack is consumed when an extra target is attacked. Can have a maximum of 3 stacks and all stacks can be consumed in a single attack.\r\n  \u2022 Level 13\r\n    \u2022 Endless Spores\r\n      \u2022 Now also refunds 50 Mana.\r\n  \u2022 Level 20\r\n    \u2022 For The Wildlands!\r\n      \u2022 NEW TALENT: Thornwood Vine now shoots out 4 additional Vines in an arc.\r\n    \u2022 Forest\u0027s Wrath\r\n      \u2022 Can now be selected with either Heroic.\r\n\r\n=== Heroes: Malthael ===\r\n[Updates]\r\n  Base:\r\n  \u2022 Wraith Strike [W]\r\n    \u2022 Range is increased from 6 to 7.\r\n  Talents:\r\n  \u2022 Level 4\r\n    \u2022 Black Harvest\r\n      \u2022 Quest goal reduced from 180 seconds to 150 seconds.\r\n  \u2022 Level 10\r\n    \u2022 Tormented Souls\r\n      \u2022 No longer resets the cooldown of Wraith Strike when Tormented Souls ends.\r\n      \u2022 Now reduces the cooldown of Wraith Strike to 2 seconds and removes its Mana cost while Tormented Souls is active.\r\n  \u2022 Level 20\r\n    \u2022 Reaper of Souls\r\n      \u2022 While 2 or more enemy Heroes are in Tormented Souls\u0027 radius, its duration does not decay.\r\n\r\n=== Heroes: Mephisto ===\r\n[Bug Fixes]\r\n  \u2022 Base\r\n    \u2022 Shade of Mephisto [E]\r\n      \u2022 Fixed an issue with the display priority for the duration bar of Shade of Mephisto.\r\n\r\n=== Heroes: Ragnaros ===\r\n[Bug Fixes]\r\n  \u2022 Level 13\r\n    \u2022 Cauterize Wounds\r\n      \u2022 Cauterize Wounds healing is now a singular combined effect each time it heals, instead of a heal effect for each Hero hit.\r\n      \u2022 Fixed an issue that caused Cauterize Wounds healing amount to be determined by the damage dealt to the target furthest from the primary Empower Sulfuras target.\r\n      \u2022 If Cauterize Wounds is reapplied while already active, any remaining healing will apply over the refreshed duration.\r\n\r\n=== Heroes: Samuro ===\r\n[Bug Fixes]\r\n  \u2022 Base\r\n    \u2022 Critical Strike [W]\r\n      \u2022 Fixed an issue that caused Samuro\u0027s Critical Strike stacks to be visible to an enemy Samuro.\r\n\r\n=== Heroes: Sonya ===\r\n[Bug Fixes]\r\n  \u2022 Level 10\r\n    \u2022 Wrath of the Berserker\r\n      \u2022 Fixed an issue with the display priority for the duration bar of Wrath of the Berserker.\r\n\r\n=== Heroes: Stukov ===\r\n[Bug Fixes]\r\n  \u2022 Base\r\n    \u2022 Healing Pathogen [Q]\r\n      \u2022 Fixed an issue that caused Healing Pathogen to persist for a brief period after activating Bio-Kill Switch.\r\n\r\n=== Heroes: Sylvanas ===\r\n[Bug Fixes]\r\n  \u2022 Base\r\n    \u2022 Black Arrows [Trait D]\r\n      \u2022 Fixed an issue with the display priority for the duration bar of Black Arrows.\r\n  \u2022 Level 10\r\n    \u2022 Mind Control\r\n      \u2022 Fixed an issue with the display duration for the duration bar of Mind Control.\r\n  \u2022 Level 20\r\n    \u2022 Deafening Blast\r\n      \u2022 Fixed an issue that caused Deafening Blast to activate off of the center of units instead of their edge.\r\n\r\n=== Heroes: The Lost Vikings ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that prevented Olaf from charging while Silenced.\r\n\r\n=== Heroes: Valeera ===\r\n[Bug Fixes]\r\n  \u2022 Level 16\r\n    \u2022 Assassinate\r\n      \u2022 Damage bonus is now additive.\r\n      \u2022 Fixed an issue with duration extension.\r\n\r\n=== Heroes: Zagara ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 16\r\n    \u2022 Corrosive Saliva\r\n      \u2022 Damage reduced from 1.75% to 1.5% of maximum Health.",
+  "Sections": {
+    "General": [
+      "[Updates]",
+      "  Storm League:",
+      "  \u2022 Rank Decay will now only apply to Master and Grand Master players.",
+      "  \u2022 Party size for Master and Grand Master players capped at 2.",
+      "  Try Mode:",
+      "  \u2022 Default allied Hero changed from Malfurion to Anduin.",
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue with the display priority for the duration bar of Taunt effects."
+    ],
+    "Battlegrounds: Battlefield of Eternity": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue where areas of the battlefield were not covered under Fog of War."
+    ],
+    "Battlegrounds: Blackheart\u0027s Bay": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue where some Heroes would not be able to path around Healing Fountains [Undocumented] near bottom Keeps ."
+    ],
+    "Battlegrounds: Cursed Hollow": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue where Hogger could go through unpathable sections of the battlefield."
+    ],
+    "Battlegrounds: Warhead Junction": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue where Healing Fountains [Undocumented] near top Keeps were not symmetrical on the battlefield."
+    ],
+    "Heroes: Ana": [
+      "[Updates]",
+      "  Base:",
+      "  \u2022 Biotic Grenade [W]",
+      "    \u2022 ADDED FUNCTIONALITY: If Biotic Grenade does not hit any enemies, its cooldown is reduced by 3 seconds.",
+      "    \u2022 ADDED FUNCTIONALITY: If Biotic Grenade only hits Ana, its cooldown is reduced by 2 seconds.",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Vampiric Rounds",
+      "      \u2022 Shrike now gives a 15% passive healing bonus.",
+      "  \u2022 Level 20",
+      "    \u2022 Deadeye",
+      "      \u2022 ADDED FUNCTIONALITY: Eye of Horus can now be toggled On and Off.",
+      "      \u2022 ADDED FUNCTIONALITY: Eye of Horus cooldown is now 0.5 seconds.",
+      "      \u2022 ADDED FUNCTIONALITY: Eye of Horus rounds are regained once every 10 seconds.",
+      "      \u2022 Bonuses acquired from Deadeye now lasts 7 seconds."
+    ],
+    "Heroes: Artanis": [
+      "[Bug Fixes]",
+      "  \u2022 Base",
+      "    \u2022 Shield Overload [Q]",
+      "      \u2022 Fixed an issue that caused Shield Overload to not display correctly if empowered by Shield Surge."
+    ],
+    "Heroes: Azmodan": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 16",
+      "    \u2022 Trample",
+      "      \u2022 ADDED FUNCTIONALITY: Now reduces Heroic cooldown by 25% if Trample hits a Hero."
+    ],
+    "Heroes: Brightwing": [
+      "[Bug Fixes]",
+      "  \u2022 Level 10",
+      "    \u2022 Blink Heal",
+      "      \u2022 Fixed an issue that caused Blink Heal\u0027s trailing images to be visible while Brightwing has no remaining Blink Heal charges."
+    ],
+    "Heroes: Chen": [
+      "[User Interface]",
+      "  Abilities:",
+      "  \u2022 Fortifying Brew [D]",
+      "    \u2022 Added to the Buff Bar.",
+      "[Bug Fixes]",
+      "  \u2022 Base",
+      "    \u2022 Fortifying Brew [D]",
+      "      \u2022 Fixed an issue that caused Fortifying Brew being instantly destroyed not granting Attack Speed."
+    ],
+    "Heroes: Dehaka": [
+      "[Bug Fixes]",
+      "  \u2022 Base",
+      "    \u2022 Burrow [E]",
+      "      \u2022 Fixed an issue that caused Burrow\u0027s visuals to be displaced if Dehaka is launched shortly after Burrow ends."
+    ],
+    "Heroes: Genji": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Pathfinder",
+      "      \u2022 ADDED FUNCTIONALITY: Heroic Ability now heals Genji for up to 30% of the damage dealt to enemy Heroes. Healing amount is increased based on how low Genji\u0027s Health is.",
+      "  \u2022 Level 10",
+      "    \u2022 X-Strike",
+      "      \u2022 Cooldown increased from 60 seconds to 75 seconds.",
+      "      \u2022 Detonation damage increased from 275 to 290.",
+      "      \u2022 Slash damage increased from 135 to 145.",
+      "  \u2022 Level 13",
+      "    \u2022 Shingan",
+      "      \u2022 Now does 40% less damage to Structures.",
+      "  \u2022 Level 20",
+      "    \u2022 Living Weapon",
+      "      \u2022 Cooldown reduction increased from 10 seconds to 12.5 seconds."
+    ],
+    "Heroes: Imperius": [
+      "[Updates]",
+      "  Base:",
+      "  \u2022 Molten Armor [E]",
+      "    \u2022 Now hits an extra target if no Heroes are in range.",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Impaling Light",
+      "      \u2022 Rework: Impaling Light cooldown is reduced by 2 seconds.",
+      "      \u2022 Rework: Impaling Light does 180% more damage to Heroes, reduced by 20% for each additional Hero hit.",
+      "      \u2022 Rework: Impaling Light mana cost is reduced from 40 to 30.",
+      "      \u2022 Rework: When a Valorous Branded target\u0027s Stun ends, Impaling Light\u0027s cooldown is reduced by 1 second for each Valorous Brand on the target.",
+      "  \u2022 Level 7",
+      "    \u2022 Blaze of Glory",
+      "      \u2022 Blaze of Glory delay reduced from 2 seconds to 1.75 seconds.",
+      "    \u2022 Holy Fervor",
+      "      \u2022 Molten Armor no longer grants Holy Fervor.",
+      "  \u2022 Level 20",
+      "    \u2022 Heavenly Host",
+      "      \u2022 ADDED FUNCTIONALITY: All Shields created by Angelic Armaments no longer expire.",
+      "      \u2022 ADDED FUNCTIONALITY: Swords fired by Heavenly Host Shields can target non-Heroes, but Heroes are prioritized.",
+      "    \u2022 Molten Wrath",
+      "      \u2022 NEW TALENT: Molten Armor will now hit an extra target even if enemy Heroes are in range."
+    ],
+    "Heroes: Jaina": [
+      "[Bug Fixes]",
+      "  \u2022 Base",
+      "    \u2022 Frostbite [Trait]",
+      "      \u2022 Ice Block\u0027s before first use attention indicator is now also removed when Jaina is killed."
+    ],
+    "Heroes: Johanna": [
+      "[Bug Fixes]",
+      "  \u2022 Level 4",
+      "    \u2022 Eternal Retaliation",
+      "      \u2022 Updated Eternal Retaliation\u0027s visual effect to only be visible to Johanna.",
+      "  \u2022 Level 10",
+      "    \u2022 Blessed Shield",
+      "      \u2022 Fixed an issue with the display priority for the duration bar of Blessed Shield."
+    ],
+    "Heroes: Lt. Morales": [
+      "[Bug Fixes]",
+      "  \u2022 Level 10",
+      "    \u2022 Medivac Dropships",
+      "      \u2022 Fixed an issue that caused Medivac Reinforcement\u0027s indicator beam to point to Lt. Morales\u0027s active position instead of where Reinforcements was cast."
+    ],
+    "Heroes: Lunara": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 7",
+      "    \u2022 Splintered Spear",
+      "      \u2022 ADDED FUNCTIONALITY: Now grants 3 stacks of Splintered Spear. A stack is consumed when an extra target is attacked. Can have a maximum of 3 stacks and all stacks can be consumed in a single attack.",
+      "  \u2022 Level 13",
+      "    \u2022 Endless Spores",
+      "      \u2022 Now also refunds 50 Mana.",
+      "  \u2022 Level 20",
+      "    \u2022 For The Wildlands!",
+      "      \u2022 NEW TALENT: Thornwood Vine now shoots out 4 additional Vines in an arc.",
+      "    \u2022 Forest\u0027s Wrath",
+      "      \u2022 Can now be selected with either Heroic."
+    ],
+    "Heroes: Malthael": [
+      "[Updates]",
+      "  Base:",
+      "  \u2022 Wraith Strike [W]",
+      "    \u2022 Range is increased from 6 to 7.",
+      "  Talents:",
+      "  \u2022 Level 4",
+      "    \u2022 Black Harvest",
+      "      \u2022 Quest goal reduced from 180 seconds to 150 seconds.",
+      "  \u2022 Level 10",
+      "    \u2022 Tormented Souls",
+      "      \u2022 No longer resets the cooldown of Wraith Strike when Tormented Souls ends.",
+      "      \u2022 Now reduces the cooldown of Wraith Strike to 2 seconds and removes its Mana cost while Tormented Souls is active.",
+      "  \u2022 Level 20",
+      "    \u2022 Reaper of Souls",
+      "      \u2022 While 2 or more enemy Heroes are in Tormented Souls\u0027 radius, its duration does not decay."
+    ],
+    "Heroes: Mephisto": [
+      "[Bug Fixes]",
+      "  \u2022 Base",
+      "    \u2022 Shade of Mephisto [E]",
+      "      \u2022 Fixed an issue with the display priority for the duration bar of Shade of Mephisto."
+    ],
+    "Heroes: Ragnaros": [
+      "[Bug Fixes]",
+      "  \u2022 Level 13",
+      "    \u2022 Cauterize Wounds",
+      "      \u2022 Cauterize Wounds healing is now a singular combined effect each time it heals, instead of a heal effect for each Hero hit.",
+      "      \u2022 Fixed an issue that caused Cauterize Wounds healing amount to be determined by the damage dealt to the target furthest from the primary Empower Sulfuras target.",
+      "      \u2022 If Cauterize Wounds is reapplied while already active, any remaining healing will apply over the refreshed duration."
+    ],
+    "Heroes: Samuro": [
+      "[Bug Fixes]",
+      "  \u2022 Base",
+      "    \u2022 Critical Strike [W]",
+      "      \u2022 Fixed an issue that caused Samuro\u0027s Critical Strike stacks to be visible to an enemy Samuro."
+    ],
+    "Heroes: Sonya": [
+      "[Bug Fixes]",
+      "  \u2022 Level 10",
+      "    \u2022 Wrath of the Berserker",
+      "      \u2022 Fixed an issue with the display priority for the duration bar of Wrath of the Berserker."
+    ],
+    "Heroes: Stukov": [
+      "[Bug Fixes]",
+      "  \u2022 Base",
+      "    \u2022 Healing Pathogen [Q]",
+      "      \u2022 Fixed an issue that caused Healing Pathogen to persist for a brief period after activating Bio-Kill Switch."
+    ],
+    "Heroes: Sylvanas": [
+      "[Bug Fixes]",
+      "  \u2022 Base",
+      "    \u2022 Black Arrows [Trait D]",
+      "      \u2022 Fixed an issue with the display priority for the duration bar of Black Arrows.",
+      "  \u2022 Level 10",
+      "    \u2022 Mind Control",
+      "      \u2022 Fixed an issue with the display duration for the duration bar of Mind Control.",
+      "  \u2022 Level 20",
+      "    \u2022 Deafening Blast",
+      "      \u2022 Fixed an issue that caused Deafening Blast to activate off of the center of units instead of their edge."
+    ],
+    "Heroes: The Lost Vikings": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that prevented Olaf from charging while Silenced."
+    ],
+    "Heroes: Valeera": [
+      "[Bug Fixes]",
+      "  \u2022 Level 16",
+      "    \u2022 Assassinate",
+      "      \u2022 Damage bonus is now additive.",
+      "      \u2022 Fixed an issue with duration extension."
+    ],
+    "Heroes: Zagara": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 16",
+      "    \u2022 Corrosive Saliva",
+      "      \u2022 Damage reduced from 1.75% to 1.5% of maximum Health."
+    ]
+  },
+  "PatchFile": "ptr/2025-04-21-v2-55-10-94029-heroes-of-the-storm-ptr-patch-notes-april-21-2025-ptr.json",
+  "Sources": [
+    "ptr-patches.json",
+    "2025-04-21-ptr.html"
+  ]
+}

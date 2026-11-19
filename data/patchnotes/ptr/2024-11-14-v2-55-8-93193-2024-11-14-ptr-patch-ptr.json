@@ -1,0 +1,394 @@
+{
+  "Id": "npn-2024-11-14-2.55.8",
+  "Title": "2024-11-14 PTR Patch",
+  "Subtitle": "=== General ===",
+  "Date": "Nov 14, 2024",
+  "IsoDate": "2024-11-14",
+  "FeedType": "ptr",
+  "Era": "ptr",
+  "PatchVersion": "2.55.8",
+  "FullVersion": "2.55.8.93193",
+  "Build": "93193",
+  "Link": "https://www.reddit.com/r/CursedHollow/comments/1grfj7c/heroes_of_the_storm_ptr_update_20241114",
+  "Links": [
+    "https://www.reddit.com/r/CursedHollow/comments/1grfj7c/heroes_of_the_storm_ptr_update_20241114",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/24158871"
+  ],
+  "Affected": [
+    "Cursed Hollow",
+    "Volskaya Foundry",
+    "Anub\u0027arak",
+    "Artanis",
+    "Azmodan",
+    "Cassia",
+    "Chen",
+    "Cho",
+    "D.Va",
+    "Deathwing",
+    "Diablo",
+    "Fenix",
+    "Gall",
+    "Greymane",
+    "Gul\u0027dan",
+    "Hanzo",
+    "Imperius",
+    "Johanna",
+    "Junkrat",
+    "Leoric",
+    "Li Li",
+    "Lt. Morales",
+    "Maiev",
+    "Mal\u0027Ganis",
+    "Medivh",
+    "Mephisto",
+    "Murky",
+    "Nazeebo",
+    "Orphea",
+    "Rehgar",
+    "Rexxar",
+    "Samuro",
+    "Sgt. Hammer",
+    "Stitches",
+    "The Butcher",
+    "Tyrande",
+    "Whitemane",
+    "Zul\u0027jin"
+  ],
+  "Highlights": "=== General ===",
+  "CleanedNotes": "=== General ===\r\n[Bug Fixes]\r\n  \u2022 Fixed issues with Block and Basic Attacks that ignore Armor.\r\n\r\n=== Battlegrounds: Cursed Hollow ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that caused the Armor reduction from Cursed Hollow\u0027s Core Ability to not be cleared by Stasis or Invulnerable.\r\n\r\n=== Battlegrounds: Volskaya Foundry ===\r\n[Updates]\r\n  Objective:\r\n  \u2022 Triglav Protector\r\n    \u2022 New functionality: While both slots are occupied, Abilities will recharge 25% faster.\r\n  \u2022 Triglav Gunner\r\n    \u2022 New functionality: While both slots are occupied, Abilities will recharge 25% faster and Energy Regeneration will be increased by 25%.\r\n\r\n=== Heroes: Anub\u0027arak ===\r\n[Bug Fixes]\r\n  \u2022 Level 20\r\n    \u2022 Cryptweave\r\n      \u2022 Fixed an issue that caused Cryptweave\u0027s duration increase to be granted while Anub\u0027arak is dead.\r\n\r\n=== Heroes: Artanis ===\r\n[Bug Fixes]\r\n  \u2022 Level 10\r\n    \u2022 Purifier Beam\r\n      \u2022 Fixed an issue that caused Purifier Beam to last up to an additional 0.5 seconds.\r\n\r\n=== Heroes: Azmodan ===\r\n[Bug Fixes]\r\n  \u2022 Level 10\r\n    \u2022 Demonic Invasion\r\n      \u2022 Fixed an issue that caused Demonic Invasion grunts to attack Stealthed enemies.\r\n\r\n=== Heroes: Cassia ===\r\n[Bug Fixes]\r\n  \u2022 Level 20\r\n    \u2022 Titan\u0027s Revenge\r\n      \u2022 Fixed an issue that caused Titan\u0027s Revenge empowered Basic Attacks to consume Block charges.\r\n      \u2022 Fixed an issue that caused Titan\u0027s Revenge to not apply to Charged Strikes bounce attacks.\r\n\r\n=== Heroes: Chen ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 10\r\n    \u2022 Wandering Keg\r\n      \u2022 Wandering Keg updated to be a targeted forced Quick cast instead of a Self cast.\r\n\r\n=== Heroes: Cho ===\r\n[Bug Fixes]\r\n  \u2022 General\r\n    \u2022 Fixed an issue that caused Cho and Gall to become separated if Cho enters a Vehicle the moment the Vehicle expires.\r\n\r\n=== Heroes: D.Va ===\r\n[Updates]\r\n  Base:\r\n  \u2022 Max Health increased from 2100 to 2150.\r\n  \u2022 Defense Matrix [W]\r\n    \u2022 Damage reduction increased from -50% to -60%.\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Liquid Cooling\r\n      \u2022 Bonus duration increased from 35% to 50%.\r\n  \u2022 Level 7\r\n    \u2022 Get On The Point!\r\n      \u2022 Movement Speed increase duration increased from 2 seconds to 3 seconds.\r\n      \u2022 Timer reduced from 3 seconds to 2 seconds.\r\n  \u2022 Level 10\r\n    \u2022 Bunny Hop\r\n      \u2022 Damage increased from 70 to 78.\r\n      \u2022 Proc bonus damage reduced from 100% to 80%.\r\n    \u2022 Micro Missiles\r\n      \u2022 Cooldown between charges reduced from 5 to 3 seconds.\r\n      \u2022 Cooldown per charge reduced from 20 to 19 seconds.\r\n  \u2022 Level 13\r\n    \u2022 Target Locked\r\n      \u2022 Armor reduction and Slow are now refreshed in duration if the enemy Hero already has the debuffs.\r\n      \u2022 Reduced the amount of time that enemy Heroes need to be in the Defense Matrix from 1 second to 0.75 seconds.\r\n  \u2022 Level 16\r\n    \u2022 Diverting Power\r\n      \u2022 Healing reduced from 35 to 31.\r\n    \u2022 Emergency Shielding\r\n      \u2022 Duration increased from 4 to 8 seconds.\r\n      \u2022 Shield increased from 280 to 290.\r\n[Bug Fixes]\r\n  \u2022 Base\r\n    \u2022 Self Destruct [E]\r\n      \u2022 Exploding Mech visibility has been updated from the detonation area to the expanding warning indicator area.\r\n    \u2022 Boosters [Q]\r\n      \u2022 Fixed an issue that caused Boosters to not be affected by cooldown reduction granted by Allied Heroes.\r\n      \u2022 Will now behave similarly to Defense Matrix and have a fresh cooldown when a new Mech is called.\r\n\r\n=== Heroes: Deathwing ===\r\n[Bug Fixes]\r\n  \u2022 Level 10\r\n    \u2022 Bellowing Roar\r\n      \u2022 Fixed an issue to allow Deathwing to cast Bellowing Roar while Dragonflight is active.\r\n\r\n=== Heroes: Diablo ===\r\n[Bug Fixes]\r\n  \u2022 Base\r\n    \u2022 Black Soulstone [Trait]\r\n      \u2022 Fixed an issue that caused Diablo\u0027s health gained from Black Soulstone to not be accurate.\r\n\r\n=== Heroes: Fenix ===\r\n[Bug Fixes]\r\n  \u2022 Level 20\r\n    \u2022 Unconquered Spirit\r\n      \u2022 Ability will no longer be shaded as though it is disabled when off cooldown.\r\n      \u2022 Will now be properly reset when ability cooldowns are reset in Sandbox or Try Mode.\r\n\r\n=== Heroes: Gall ===\r\n[Bug Fixes]\r\n  \u2022 General\r\n    \u2022 Fixed an issue that caused Cho and Gall to become separated if Cho enters a Vehicle the moment the Vehicle expires.\r\n\r\n=== Heroes: Greymane ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 16\r\n    \u2022 Lord Of His Pack\r\n      \u2022 New: Replaces Executioner. Basic Attacks against Slowed, Rooted or Stunned enemy Heroes deal 25% additional damage for 3 seconds, increased to 50% while in Worgen Form.\r\n\r\n=== Heroes: Gul\u0027dan ===\r\n[Bug Fixes]\r\n  \u2022 Base\r\n    \u2022 Drain Life [W]\r\n      \u2022 Added a range indicator for Drain Life.\r\n\r\n=== Heroes: Hanzo ===\r\n[Bug Fixes]\r\n  \u2022 Level 16\r\n    \u2022 Piercing Arrows\r\n      \u2022 Fixed an issue that caused Storm Bow to not hit targets in close proximity to the first target hit with Piercing Arrows.\r\n\r\n=== Heroes: Imperius ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 10\r\n    \u2022 Wrath of the Angiris\r\n      \u2022 Rework: Damage reduced from 375 to 210.\r\n      \u2022 Rework: Now deals 20% additional damage for each Valorous Brand marker on the target when landing.\r\n      \u2022 Rework: Valorous Brand markers placed by Imperius will no longer be removed when launching the target into the air. These can still expire while in the air.\r\n\r\n=== Heroes: Johanna ===\r\n[Bug Fixes]\r\n  \u2022 Level 20\r\n    \u2022 Indestructible\r\n      \u2022 Ability will no longer be shaded as though it is disabled when off cooldown.\r\n      \u2022 Will now be properly reset when ability cooldowns are reset in Sandbox or Try Mode.\r\n\r\n=== Heroes: Junkrat ===\r\n[Bug Fixes]\r\n  \u2022 Level 7\r\n    \u2022 Dirty Trickster\r\n      \u2022 Will now be properly reset when ability cooldowns are reset in Sandbox or Try Mode.\r\n\r\n=== Heroes: Leoric ===\r\n[Bug Fixes]\r\n  \u2022 Level 1\r\n    \u2022 Fealty Unto Death\r\n      \u2022 Healing increased from 31.85 to 32. Updated the tooltip to display number instead of percentage.\r\n\r\n=== Heroes: Li Li ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Free Drinks\r\n      \u2022 Can now reduce the cooldown multiple times per cast (Example: Combined with Two For One).\r\n  \u2022 Level 20\r\n    \u2022 Shake It Off\r\n      \u2022 Armor now persists for 2 seconds after Stun, Silence, or Root expires.\r\n[Bug Fixes]\r\n  \u2022 Base\r\n    \u2022 Cloud Serpent [W]\r\n      \u2022 Fixed an issue that caused crit floating modifiers to not apply to Cloud Serpent damage.\r\n      \u2022 Fixed an issue that caused Defense Matrix to not apply to any Cloud Serpent damage.\r\n      \u2022 Fixed an issue that caused Spell Power to not apply to Cloud Serpent healing.\r\n  \u2022 Level 7\r\n    \u2022 The Good Stuff\r\n      \u2022 Fixed an issue that caused The Good Stuff\u0027s Fast Feet healing increase to be multiplicative.\r\n  \u2022 Level 13\r\n    \u2022 Lightning Serpent\r\n      \u2022 Fixed an issue that caused Spell Power and other damage mods to not apply to Lightning Serpent damage.\r\n  \u2022 Level 16\r\n    \u2022 Pick Me Up\r\n      \u2022 Fixed an issue that caused Pick Me Up\u0027s healing increase to be multiplicative.\r\n\r\n=== Heroes: Lt. Morales ===\r\n[Bug Fixes]\r\n  \u2022 Level 4\r\n    \u2022 Trauma Trigger\r\n      \u2022 Will now be properly reset when ability cooldowns are reset in Sandbox or Try Mode.\r\n      \u2022 Fixed an issue that caused the cooldown displayed on the ability to show incorrectly.\r\n\r\n=== Heroes: Maiev ===\r\n[Bug Fixes]\r\n  \u2022 Level 4\r\n    \u2022 Sudden Vengeance\r\n      \u2022 Fixed an issue that caused Sudden Vengeance to not activate Ruthless Spirit.\r\n\r\n=== Heroes: Mal\u0027Ganis ===\r\n[Bug Fixes]\r\n  \u2022 Level 1\r\n    \u2022 Winged Guard\r\n      \u2022 Fixed an issue that caused Winged Guard to lose Block charges to all effects that ignore Armor.\r\n\r\n=== Heroes: Medivh ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 20\r\n    \u2022 Glyph of Poly Bomb\r\n      \u2022 Rework: Target an area to apply Poly Bomb to all enemy Heroes in the area. Poly Bomb activates a second time 1 second after.\r\n\r\n=== Heroes: Mephisto ===\r\n[Bug Fixes]\r\n  \u2022 Level 16\r\n    \u2022 Lightning Reaction\r\n      \u2022 Fixed an issue that caused Lightning Reaction to activate around Shades of Mephisto when Mephisto has not selected Mimic.\r\n\r\n=== Heroes: Murky ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 13\r\n    \u2022 Egg Shell\r\n      \u2022 The Shield now regains an amount equal to 35% of Murky\u0027s current Health when Murky places a new Egg.\r\n\r\n=== Heroes: Nazeebo ===\r\n[Bug Fixes]\r\n  \u2022 Level 10\r\n    \u2022 Gargantuan\r\n      \u2022 Fixed an issue that caused Gargantuan Stomp damage to not display the correct values in the tooltip.\r\n\r\n=== Heroes: Orphea ===\r\n[Bug Fixes]\r\n  \u2022 Level 16\r\n    \u2022 Dead Magic\r\n      \u2022 Fixed an issue that caused Chaos-empowered Basic Attacks from Dead Magic to consume Block charges.\r\n\r\n=== Heroes: Rehgar ===\r\n[Bug Fixes]\r\n  \u2022 Level 7\r\n    \u2022 Purification\r\n      \u2022 When selecting Purification, Purge will now be able to target Unstoppable enemy Heroes.\r\n\r\n=== Heroes: Rexxar ===\r\n[Bug Fixes]\r\n  \u2022 Level 10\r\n    \u2022 Unleash the Boars\r\n      \u2022 Unleash the Boars damage updated to have Rexxar deal the damage instead of each Boar dealing its own damage.\r\n\r\n=== Heroes: Samuro ===\r\n[Updates]\r\n  General:\r\n  \u2022 Order of buffs in the Buff bar has been updated to match the order in which talents are gained.\r\n  \u2022 Samuro can no longer target a Mirror Image that is affected by launch effects (Example: Phase Prism).\r\n  \u2022 Samuro will no longer mirror Hearthstone and Mount commands on his Mirror Images if the command is sent while selecting a Mirror Image and not Samuro.\r\n  \u2022 Tooltips have been updated to reduce confusion.\r\n  Base:\r\n  \u2022 Wind Walk [E]\r\n    \u2022 Wind Walk will no longer cancel move and attack commands in the command queue when activated.\r\n  \u2022 Critical Strike [W]\r\n    \u2022 Activating Critical Strike while Samuro\u0027s Basic Attack is being swung will now apply to that attack, rather than the next attack, and will carry the attack reset over to the next Basic Attack.\r\n    \u2022 Samuro can now see his Critical Strike progress below his Healthplate.\r\n    \u2022 Samuro can now see the remaining duration of Critical Strike\u0027s activation around the ability button.\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Way of Illusion\r\n      \u2022 Way of Illusion quest progress is now correctly mirrored between different Mirror Images and Samuro.\r\n  \u2022 Level 7\r\n    \u2022 Burning Blade\r\n      \u2022 Burning Blade is now an additive modifier for both Samuro and his Mirror Images instead of just his Mirror Images.\r\n  \u2022 Level 13\r\n    \u2022 Kawarimi\r\n      \u2022 Kawarimi Mirror Images will now clear their command queue of Hearthstone commands when created.\r\n  \u2022 Level 16\r\n    \u2022 Harsh Winds\r\n      \u2022 Harsh Winds is now an additive modifier.\r\n[Bug Fixes]\r\n  \u2022 Base\r\n    \u2022 Image Transmission [Trait]\r\n      \u2022 Fixed an issue that allowed Samuro to cast Image Transmission on a destroyed Mirror Image if it was queued to happen directly after Mirror Image was cast.\r\n      \u2022 If Samuro activates Image Transmission or if a new Mirror Image is created, any Mirror Images that are updated will copy Blessing of the Red if it is present on Samuro instead of increasing their maximum Health as if Blessing of the Red were cast on them.\r\n  \u2022 Level 7\r\n    \u2022 Crushing Blows\r\n      \u2022 Fixed an issue that caused Crushing Blows to apply to the triggering Critical Strike.\r\n  \u2022 Level 20\r\n    \u2022 Three Blade Style\r\n      \u2022 Fixed an issue that caused Three Blade Style to increase Mirror Image maximum health if Samuro gained Blessing of the Red between the Images being created and the talent being selected.\r\n      \u2022 Fixed an issue that caused Three Blade Style to reset the duration on an active Mirror Image when selected.\r\n\r\n=== Heroes: Sgt. Hammer ===\r\n[Bug Fixes]\r\n  \u2022 General\r\n    \u2022 Sgt. Hammer\u0027s level 1 talent icon changes have been reverted.\r\n\r\n=== Heroes: Stitches ===\r\n[Bug Fixes]\r\n  \u2022 Level 13\r\n    \u2022 Meat Hook\r\n      \u2022 Fixed an issue that caused the refresh duration to not match the full duration of Meat Hook.\r\n\r\n=== Heroes: The Butcher ===\r\n[Bug Fixes]\r\n  \u2022 General\r\n    \u2022 Talent sorting for The Butcher has been updated to be the same as other Heroes.\r\n  \u2022 Base\r\n    \u2022 Fresh Meat [Trait]\r\n      \u2022 Fresh Meat is now referred to as stacks instead of charges.\r\n\r\n=== Heroes: Tyrande ===\r\n[Bug Fixes]\r\n  \u2022 Level 1\r\n    \u2022 Ranger\r\n      \u2022 Fixed an issue that caused Ranger to allow Sentinel to hit up to 3 targets.\r\n\r\n=== Heroes: Whitemane ===\r\n[Bug Fixes]\r\n  \u2022 Base\r\n    \u2022 Inquisition [W]\r\n      \u2022 Added a range indicator for Inquisition.\r\n      \u2022 Fixed an issue that caused Inquisition to not be cancelled if the target leaves the radius while Stealthed.\r\n\r\n=== Heroes: Zul\u0027jin ===\r\n[Bug Fixes]\r\n  \u2022 Level 16\r\n    \u2022 No Mercy!\r\n      \u2022 Fixed an issue that caused empowered Grievous Throw Basic Attacks from No Mercy! To not activate Medivh\u0027s Raven Familiar.",
+  "Sections": {
+    "General": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed issues with Block and Basic Attacks that ignore Armor."
+    ],
+    "Battlegrounds: Cursed Hollow": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that caused the Armor reduction from Cursed Hollow\u0027s Core Ability to not be cleared by Stasis or Invulnerable."
+    ],
+    "Battlegrounds: Volskaya Foundry": [
+      "[Updates]",
+      "  Objective:",
+      "  \u2022 Triglav Protector",
+      "    \u2022 New functionality: While both slots are occupied, Abilities will recharge 25% faster.",
+      "  \u2022 Triglav Gunner",
+      "    \u2022 New functionality: While both slots are occupied, Abilities will recharge 25% faster and Energy Regeneration will be increased by 25%."
+    ],
+    "Heroes: Anub\u0027arak": [
+      "[Bug Fixes]",
+      "  \u2022 Level 20",
+      "    \u2022 Cryptweave",
+      "      \u2022 Fixed an issue that caused Cryptweave\u0027s duration increase to be granted while Anub\u0027arak is dead."
+    ],
+    "Heroes: Artanis": [
+      "[Bug Fixes]",
+      "  \u2022 Level 10",
+      "    \u2022 Purifier Beam",
+      "      \u2022 Fixed an issue that caused Purifier Beam to last up to an additional 0.5 seconds."
+    ],
+    "Heroes: Azmodan": [
+      "[Bug Fixes]",
+      "  \u2022 Level 10",
+      "    \u2022 Demonic Invasion",
+      "      \u2022 Fixed an issue that caused Demonic Invasion grunts to attack Stealthed enemies."
+    ],
+    "Heroes: Cassia": [
+      "[Bug Fixes]",
+      "  \u2022 Level 20",
+      "    \u2022 Titan\u0027s Revenge",
+      "      \u2022 Fixed an issue that caused Titan\u0027s Revenge empowered Basic Attacks to consume Block charges.",
+      "      \u2022 Fixed an issue that caused Titan\u0027s Revenge to not apply to Charged Strikes bounce attacks."
+    ],
+    "Heroes: Chen": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 10",
+      "    \u2022 Wandering Keg",
+      "      \u2022 Wandering Keg updated to be a targeted forced Quick cast instead of a Self cast."
+    ],
+    "Heroes: Cho": [
+      "[Bug Fixes]",
+      "  \u2022 General",
+      "    \u2022 Fixed an issue that caused Cho and Gall to become separated if Cho enters a Vehicle the moment the Vehicle expires."
+    ],
+    "Heroes: D.Va": [
+      "[Updates]",
+      "  Base:",
+      "  \u2022 Max Health increased from 2100 to 2150.",
+      "  \u2022 Defense Matrix [W]",
+      "    \u2022 Damage reduction increased from -50% to -60%.",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Liquid Cooling",
+      "      \u2022 Bonus duration increased from 35% to 50%.",
+      "  \u2022 Level 7",
+      "    \u2022 Get On The Point!",
+      "      \u2022 Movement Speed increase duration increased from 2 seconds to 3 seconds.",
+      "      \u2022 Timer reduced from 3 seconds to 2 seconds.",
+      "  \u2022 Level 10",
+      "    \u2022 Bunny Hop",
+      "      \u2022 Damage increased from 70 to 78.",
+      "      \u2022 Proc bonus damage reduced from 100% to 80%.",
+      "    \u2022 Micro Missiles",
+      "      \u2022 Cooldown between charges reduced from 5 to 3 seconds.",
+      "      \u2022 Cooldown per charge reduced from 20 to 19 seconds.",
+      "  \u2022 Level 13",
+      "    \u2022 Target Locked",
+      "      \u2022 Armor reduction and Slow are now refreshed in duration if the enemy Hero already has the debuffs.",
+      "      \u2022 Reduced the amount of time that enemy Heroes need to be in the Defense Matrix from 1 second to 0.75 seconds.",
+      "  \u2022 Level 16",
+      "    \u2022 Diverting Power",
+      "      \u2022 Healing reduced from 35 to 31.",
+      "    \u2022 Emergency Shielding",
+      "      \u2022 Duration increased from 4 to 8 seconds.",
+      "      \u2022 Shield increased from 280 to 290.",
+      "[Bug Fixes]",
+      "  \u2022 Base",
+      "    \u2022 Self Destruct [E]",
+      "      \u2022 Exploding Mech visibility has been updated from the detonation area to the expanding warning indicator area.",
+      "    \u2022 Boosters [Q]",
+      "      \u2022 Fixed an issue that caused Boosters to not be affected by cooldown reduction granted by Allied Heroes.",
+      "      \u2022 Will now behave similarly to Defense Matrix and have a fresh cooldown when a new Mech is called."
+    ],
+    "Heroes: Deathwing": [
+      "[Bug Fixes]",
+      "  \u2022 Level 10",
+      "    \u2022 Bellowing Roar",
+      "      \u2022 Fixed an issue to allow Deathwing to cast Bellowing Roar while Dragonflight is active."
+    ],
+    "Heroes: Diablo": [
+      "[Bug Fixes]",
+      "  \u2022 Base",
+      "    \u2022 Black Soulstone [Trait]",
+      "      \u2022 Fixed an issue that caused Diablo\u0027s health gained from Black Soulstone to not be accurate."
+    ],
+    "Heroes: Fenix": [
+      "[Bug Fixes]",
+      "  \u2022 Level 20",
+      "    \u2022 Unconquered Spirit",
+      "      \u2022 Ability will no longer be shaded as though it is disabled when off cooldown.",
+      "      \u2022 Will now be properly reset when ability cooldowns are reset in Sandbox or Try Mode."
+    ],
+    "Heroes: Gall": [
+      "[Bug Fixes]",
+      "  \u2022 General",
+      "    \u2022 Fixed an issue that caused Cho and Gall to become separated if Cho enters a Vehicle the moment the Vehicle expires."
+    ],
+    "Heroes: Greymane": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 16",
+      "    \u2022 Lord Of His Pack",
+      "      \u2022 New: Replaces Executioner. Basic Attacks against Slowed, Rooted or Stunned enemy Heroes deal 25% additional damage for 3 seconds, increased to 50% while in Worgen Form."
+    ],
+    "Heroes: Gul\u0027dan": [
+      "[Bug Fixes]",
+      "  \u2022 Base",
+      "    \u2022 Drain Life [W]",
+      "      \u2022 Added a range indicator for Drain Life."
+    ],
+    "Heroes: Hanzo": [
+      "[Bug Fixes]",
+      "  \u2022 Level 16",
+      "    \u2022 Piercing Arrows",
+      "      \u2022 Fixed an issue that caused Storm Bow to not hit targets in close proximity to the first target hit with Piercing Arrows."
+    ],
+    "Heroes: Imperius": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 10",
+      "    \u2022 Wrath of the Angiris",
+      "      \u2022 Rework: Damage reduced from 375 to 210.",
+      "      \u2022 Rework: Now deals 20% additional damage for each Valorous Brand marker on the target when landing.",
+      "      \u2022 Rework: Valorous Brand markers placed by Imperius will no longer be removed when launching the target into the air. These can still expire while in the air."
+    ],
+    "Heroes: Johanna": [
+      "[Bug Fixes]",
+      "  \u2022 Level 20",
+      "    \u2022 Indestructible",
+      "      \u2022 Ability will no longer be shaded as though it is disabled when off cooldown.",
+      "      \u2022 Will now be properly reset when ability cooldowns are reset in Sandbox or Try Mode."
+    ],
+    "Heroes: Junkrat": [
+      "[Bug Fixes]",
+      "  \u2022 Level 7",
+      "    \u2022 Dirty Trickster",
+      "      \u2022 Will now be properly reset when ability cooldowns are reset in Sandbox or Try Mode."
+    ],
+    "Heroes: Leoric": [
+      "[Bug Fixes]",
+      "  \u2022 Level 1",
+      "    \u2022 Fealty Unto Death",
+      "      \u2022 Healing increased from 31.85 to 32. Updated the tooltip to display number instead of percentage."
+    ],
+    "Heroes: Li Li": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Free Drinks",
+      "      \u2022 Can now reduce the cooldown multiple times per cast (Example: Combined with Two For One).",
+      "  \u2022 Level 20",
+      "    \u2022 Shake It Off",
+      "      \u2022 Armor now persists for 2 seconds after Stun, Silence, or Root expires.",
+      "[Bug Fixes]",
+      "  \u2022 Base",
+      "    \u2022 Cloud Serpent [W]",
+      "      \u2022 Fixed an issue that caused crit floating modifiers to not apply to Cloud Serpent damage.",
+      "      \u2022 Fixed an issue that caused Defense Matrix to not apply to any Cloud Serpent damage.",
+      "      \u2022 Fixed an issue that caused Spell Power to not apply to Cloud Serpent healing.",
+      "  \u2022 Level 7",
+      "    \u2022 The Good Stuff",
+      "      \u2022 Fixed an issue that caused The Good Stuff\u0027s Fast Feet healing increase to be multiplicative.",
+      "  \u2022 Level 13",
+      "    \u2022 Lightning Serpent",
+      "      \u2022 Fixed an issue that caused Spell Power and other damage mods to not apply to Lightning Serpent damage.",
+      "  \u2022 Level 16",
+      "    \u2022 Pick Me Up",
+      "      \u2022 Fixed an issue that caused Pick Me Up\u0027s healing increase to be multiplicative."
+    ],
+    "Heroes: Lt. Morales": [
+      "[Bug Fixes]",
+      "  \u2022 Level 4",
+      "    \u2022 Trauma Trigger",
+      "      \u2022 Will now be properly reset when ability cooldowns are reset in Sandbox or Try Mode.",
+      "      \u2022 Fixed an issue that caused the cooldown displayed on the ability to show incorrectly."
+    ],
+    "Heroes: Maiev": [
+      "[Bug Fixes]",
+      "  \u2022 Level 4",
+      "    \u2022 Sudden Vengeance",
+      "      \u2022 Fixed an issue that caused Sudden Vengeance to not activate Ruthless Spirit."
+    ],
+    "Heroes: Mal\u0027Ganis": [
+      "[Bug Fixes]",
+      "  \u2022 Level 1",
+      "    \u2022 Winged Guard",
+      "      \u2022 Fixed an issue that caused Winged Guard to lose Block charges to all effects that ignore Armor."
+    ],
+    "Heroes: Medivh": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 20",
+      "    \u2022 Glyph of Poly Bomb",
+      "      \u2022 Rework: Target an area to apply Poly Bomb to all enemy Heroes in the area. Poly Bomb activates a second time 1 second after."
+    ],
+    "Heroes: Mephisto": [
+      "[Bug Fixes]",
+      "  \u2022 Level 16",
+      "    \u2022 Lightning Reaction",
+      "      \u2022 Fixed an issue that caused Lightning Reaction to activate around Shades of Mephisto when Mephisto has not selected Mimic."
+    ],
+    "Heroes: Murky": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 13",
+      "    \u2022 Egg Shell",
+      "      \u2022 The Shield now regains an amount equal to 35% of Murky\u0027s current Health when Murky places a new Egg."
+    ],
+    "Heroes: Nazeebo": [
+      "[Bug Fixes]",
+      "  \u2022 Level 10",
+      "    \u2022 Gargantuan",
+      "      \u2022 Fixed an issue that caused Gargantuan Stomp damage to not display the correct values in the tooltip."
+    ],
+    "Heroes: Orphea": [
+      "[Bug Fixes]",
+      "  \u2022 Level 16",
+      "    \u2022 Dead Magic",
+      "      \u2022 Fixed an issue that caused Chaos-empowered Basic Attacks from Dead Magic to consume Block charges."
+    ],
+    "Heroes: Rehgar": [
+      "[Bug Fixes]",
+      "  \u2022 Level 7",
+      "    \u2022 Purification",
+      "      \u2022 When selecting Purification, Purge will now be able to target Unstoppable enemy Heroes."
+    ],
+    "Heroes: Rexxar": [
+      "[Bug Fixes]",
+      "  \u2022 Level 10",
+      "    \u2022 Unleash the Boars",
+      "      \u2022 Unleash the Boars damage updated to have Rexxar deal the damage instead of each Boar dealing its own damage."
+    ],
+    "Heroes: Samuro": [
+      "[Updates]",
+      "  General:",
+      "  \u2022 Order of buffs in the Buff bar has been updated to match the order in which talents are gained.",
+      "  \u2022 Samuro can no longer target a Mirror Image that is affected by launch effects (Example: Phase Prism).",
+      "  \u2022 Samuro will no longer mirror Hearthstone and Mount commands on his Mirror Images if the command is sent while selecting a Mirror Image and not Samuro.",
+      "  \u2022 Tooltips have been updated to reduce confusion.",
+      "  Base:",
+      "  \u2022 Wind Walk [E]",
+      "    \u2022 Wind Walk will no longer cancel move and attack commands in the command queue when activated.",
+      "  \u2022 Critical Strike [W]",
+      "    \u2022 Activating Critical Strike while Samuro\u0027s Basic Attack is being swung will now apply to that attack, rather than the next attack, and will carry the attack reset over to the next Basic Attack.",
+      "    \u2022 Samuro can now see his Critical Strike progress below his Healthplate.",
+      "    \u2022 Samuro can now see the remaining duration of Critical Strike\u0027s activation around the ability button.",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Way of Illusion",
+      "      \u2022 Way of Illusion quest progress is now correctly mirrored between different Mirror Images and Samuro.",
+      "  \u2022 Level 7",
+      "    \u2022 Burning Blade",
+      "      \u2022 Burning Blade is now an additive modifier for both Samuro and his Mirror Images instead of just his Mirror Images.",
+      "  \u2022 Level 13",
+      "    \u2022 Kawarimi",
+      "      \u2022 Kawarimi Mirror Images will now clear their command queue of Hearthstone commands when created.",
+      "  \u2022 Level 16",
+      "    \u2022 Harsh Winds",
+      "      \u2022 Harsh Winds is now an additive modifier.",
+      "[Bug Fixes]",
+      "  \u2022 Base",
+      "    \u2022 Image Transmission [Trait]",
+      "      \u2022 Fixed an issue that allowed Samuro to cast Image Transmission on a destroyed Mirror Image if it was queued to happen directly after Mirror Image was cast.",
+      "      \u2022 If Samuro activates Image Transmission or if a new Mirror Image is created, any Mirror Images that are updated will copy Blessing of the Red if it is present on Samuro instead of increasing their maximum Health as if Blessing of the Red were cast on them.",
+      "  \u2022 Level 7",
+      "    \u2022 Crushing Blows",
+      "      \u2022 Fixed an issue that caused Crushing Blows to apply to the triggering Critical Strike.",
+      "  \u2022 Level 20",
+      "    \u2022 Three Blade Style",
+      "      \u2022 Fixed an issue that caused Three Blade Style to increase Mirror Image maximum health if Samuro gained Blessing of the Red between the Images being created and the talent being selected.",
+      "      \u2022 Fixed an issue that caused Three Blade Style to reset the duration on an active Mirror Image when selected."
+    ],
+    "Heroes: Sgt. Hammer": [
+      "[Bug Fixes]",
+      "  \u2022 General",
+      "    \u2022 Sgt. Hammer\u0027s level 1 talent icon changes have been reverted."
+    ],
+    "Heroes: Stitches": [
+      "[Bug Fixes]",
+      "  \u2022 Level 13",
+      "    \u2022 Meat Hook",
+      "      \u2022 Fixed an issue that caused the refresh duration to not match the full duration of Meat Hook."
+    ],
+    "Heroes: The Butcher": [
+      "[Bug Fixes]",
+      "  \u2022 General",
+      "    \u2022 Talent sorting for The Butcher has been updated to be the same as other Heroes.",
+      "  \u2022 Base",
+      "    \u2022 Fresh Meat [Trait]",
+      "      \u2022 Fresh Meat is now referred to as stacks instead of charges."
+    ],
+    "Heroes: Tyrande": [
+      "[Bug Fixes]",
+      "  \u2022 Level 1",
+      "    \u2022 Ranger",
+      "      \u2022 Fixed an issue that caused Ranger to allow Sentinel to hit up to 3 targets."
+    ],
+    "Heroes: Whitemane": [
+      "[Bug Fixes]",
+      "  \u2022 Base",
+      "    \u2022 Inquisition [W]",
+      "      \u2022 Added a range indicator for Inquisition.",
+      "      \u2022 Fixed an issue that caused Inquisition to not be cancelled if the target leaves the radius while Stealthed."
+    ],
+    "Heroes: Zul\u0027jin": [
+      "[Bug Fixes]",
+      "  \u2022 Level 16",
+      "    \u2022 No Mercy!",
+      "      \u2022 Fixed an issue that caused empowered Grievous Throw Basic Attacks from No Mercy! To not activate Medivh\u0027s Raven Familiar."
+    ]
+  },
+  "PatchFile": "ptr/2024-11-14-v2-55-8-93193-2024-11-14-ptr-patch-ptr.json",
+  "Sources": [
+    "2024-11-14-ptr.html"
+  ]
+}

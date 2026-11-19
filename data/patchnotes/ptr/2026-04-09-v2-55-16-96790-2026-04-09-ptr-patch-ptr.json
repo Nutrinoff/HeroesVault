@@ -1,0 +1,154 @@
+{
+  "Id": "npn-2026-04-09-2.55.16",
+  "Title": "2026-04-09 PTR Patch",
+  "Subtitle": "=== General ===",
+  "Date": "Apr 9, 2026",
+  "IsoDate": "2026-04-09",
+  "FeedType": "ptr",
+  "Era": "ptr",
+  "PatchVersion": "2.55.16",
+  "FullVersion": "2.55.16.96790",
+  "Build": "96790",
+  "Link": "https://www.icy-veins.com/forums/topic/86838-heroes-of-the-storm-ptr-update-april-9",
+  "Links": [
+    "https://www.icy-veins.com/forums/topic/86838-heroes-of-the-storm-ptr-update-april-9"
+  ],
+  "Affected": [
+    "Blackheart\u0027s Bay",
+    "Haunted Mines",
+    "Arthas",
+    "Garrosh",
+    "Gazlowe",
+    "Mal\u0027Ganis",
+    "Medivh",
+    "Muradin",
+    "Ragnaros",
+    "Sgt. Hammer",
+    "Thrall",
+    "Tyrande"
+  ],
+  "Highlights": "=== General ===",
+  "CleanedNotes": "=== General ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing increased Movement Speed visual effects to be created when joining a Toy Train.\r\n  \u2022 [Undocumented] Fixed an issue causing respawn timers from Level 10 to 23 to be lower than intended.\r\n\r\n=== Battlegrounds: Blackheart\u0027s Bay ===\r\n[Updates]\r\n  Objective:\r\n  \u2022 Bombardment\r\n    \u2022 [Undocumented] Damage increased from 2875 to 3000.\r\n\r\n=== Battlegrounds: Haunted Mines ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Heroes to collect more Skulls than allowed during the Objective phase on Haunted Mines.\r\n\r\n=== Heroes: Arthas ===\r\n[Updates]\r\n  Base:\r\n  \u2022 Frostmourne Hungers [D]\r\n    \u2022 [Undocumented] Maximum damage bonus increased from 5000 to 10000.\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Arthas\u0027s Frost Presence to fire the Quest Completed notification twice.\r\n  \u2022 [Undocumented] Fixed an issue causing Arthas\u0027s Frost Presence to give double Quest progress when hitting an enemy Hero with both the path and the circle.\r\n  \u2022 [Undocumented] Fixed an issue causing Arthas\u0027s Rime to heal Arthas even when not Stunned, Rooted, or Slowed.\r\n  \u2022 [Undocumented] Fixed an issue causing Ghouls summoned by Arthas\u0027s Army of the Dead to have a duration instead of losing Health over time.\r\n  \u2022 [Undocumented] The tooltip for Arthas\u0027s Frost Presence has been updated from \u0022Root enemy Heroes\u0022 to \u0022Hit enemy Heroes\u0022.\r\n\r\n=== Heroes: Garrosh ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Garrosh\u0027s Wrecking Ball to show the mark on targets barely not in range.\r\n\r\n=== Heroes: Gazlowe ===\r\n[Updates]\r\n  Base:\r\n  \u2022 Rock-It! Turret [Q]\r\n    \u2022 [Undocumented] Maximum duration increased from 17 to 20 seconds.\r\n  \u2022 Robo-Goblin [R1]\r\n    \u2022 Damage [Undocumented] ~~per second~~ over time increased from 90 to 100.\r\n\r\n=== Heroes: Mal\u0027Ganis ===\r\n[Updates]\r\n  Base:\r\n  \u2022 Necrotic Embrace [W]\r\n    \u2022 [Undocumented] Damage increased from 110 to 121.\r\n    \u2022 [Undocumented] Additional functionality: Now provides 15 Spell Armor for 3 seconds.\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing effects related to the duration of Mal\u0027Ganis\u0027s Necrotic Embrace to not work correctly.\r\n\r\n=== Heroes: Medivh ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Winds of Celerity\r\n      \u2022 [Undocumented] Movement Speed bonus increased from 75% to 100% of Raven Form\u0027s Movement Speed bonus.\r\n    \u2022 Raven\u0027s Intellect\r\n      \u2022 [Undocumented] Mana and Health Regeneration bonus increased from 125% to 200%.\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue that caused Medivh\u0027s Guardian of Tirisfal to not increase Arcane Rift\u0027s search duration.\r\n\r\n=== Heroes: Muradin ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 16\r\n    \u2022 Dwarf Launch\r\n      \u2022 [Undocumented] Cooldown reduction decreased from 2 to 1 second.\r\n  \u2022 Level 20\r\n    \u2022 Mountain King\r\n      \u2022 [Undocumented] Cooldown increase removed.\r\n\r\n=== Heroes: Ragnaros ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Ragnaros\u0027s Living Meteor to not deal the landing damage.\r\n\r\n=== Heroes: Sgt. Hammer ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Maelstrom Rounds\r\n      \u2022 [Undocumented] Damage bonus increased from 30% to 40%.\r\n  \u2022 Level 13\r\n    \u2022 Hyper-Cooling Engines\r\n      \u2022 [Undocumented] Now triggers against Structures too.\r\n      \u2022 [Undocumented] No longer grants bonuses from splash damage.\r\n  \u2022 Level 20\r\n    \u2022 Advanced Lava Strike\r\n      \u2022 [Undocumented] Damage bonus increased from 50% to 65%.\r\n    \u2022 Ultra Capacitors\r\n      \u2022 [Undocumented] Now triggers against Structures too.\r\n      \u2022 [Undocumented] No longer grants bonuses from splash damage.\r\n\r\n=== Heroes: Thrall ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Echo of the Elements\r\n      \u2022 [Undocumented] Time window to gain stacks increased from 1.5 to 2 seconds.\r\n      \u2022 [Undocumented] Extra bounces no longer deal reduced damage.\r\n      \u2022 [Undocumented] Quest requirements increased from 20/40/100 to 20/50/125.\r\n      \u2022 [Undocumented] Removed functionality: No longer provides an extra bounce of Chain Lightning after unlocking the second Reward.\r\n  \u2022 Level 7\r\n    \u2022 Rolling Thunder\r\n      \u2022 [Undocumented] Additional functionality: Now also provides an extra bounce of Chain Lightning.\r\n\r\n=== Heroes: Tyrande ===\r\n[Updates]\r\n  Base:\r\n  \u2022 Lunar Flare [E]\r\n    \u2022 [Undocumented] Damage bonus per stack reduced from 3.5% to 3%.\r\n  Talents:\r\n  \u2022 Level 13\r\n    \u2022 Quickening Blessing\r\n      \u2022 [Undocumented] Movement Speed bonus on Light of Elune\u0027s target increased from 20% to 25%.\r\n  \u2022 Level 20\r\n    \u2022 Commander of Sentinels\r\n      \u2022 [Undocumented] Cooldown increase removed.",
+  "Sections": {
+    "General": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing increased Movement Speed visual effects to be created when joining a Toy Train.",
+      "  \u2022 [Undocumented] Fixed an issue causing respawn timers from Level 10 to 23 to be lower than intended."
+    ],
+    "Battlegrounds: Blackheart\u0027s Bay": [
+      "[Updates]",
+      "  Objective:",
+      "  \u2022 Bombardment",
+      "    \u2022 [Undocumented] Damage increased from 2875 to 3000."
+    ],
+    "Battlegrounds: Haunted Mines": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Heroes to collect more Skulls than allowed during the Objective phase on Haunted Mines."
+    ],
+    "Heroes: Arthas": [
+      "[Updates]",
+      "  Base:",
+      "  \u2022 Frostmourne Hungers [D]",
+      "    \u2022 [Undocumented] Maximum damage bonus increased from 5000 to 10000.",
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Arthas\u0027s Frost Presence to fire the Quest Completed notification twice.",
+      "  \u2022 [Undocumented] Fixed an issue causing Arthas\u0027s Frost Presence to give double Quest progress when hitting an enemy Hero with both the path and the circle.",
+      "  \u2022 [Undocumented] Fixed an issue causing Arthas\u0027s Rime to heal Arthas even when not Stunned, Rooted, or Slowed.",
+      "  \u2022 [Undocumented] Fixed an issue causing Ghouls summoned by Arthas\u0027s Army of the Dead to have a duration instead of losing Health over time.",
+      "  \u2022 [Undocumented] The tooltip for Arthas\u0027s Frost Presence has been updated from \u0022Root enemy Heroes\u0022 to \u0022Hit enemy Heroes\u0022."
+    ],
+    "Heroes: Garrosh": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Garrosh\u0027s Wrecking Ball to show the mark on targets barely not in range."
+    ],
+    "Heroes: Gazlowe": [
+      "[Updates]",
+      "  Base:",
+      "  \u2022 Rock-It! Turret [Q]",
+      "    \u2022 [Undocumented] Maximum duration increased from 17 to 20 seconds.",
+      "  \u2022 Robo-Goblin [R1]",
+      "    \u2022 Damage [Undocumented] ~~per second~~ over time increased from 90 to 100."
+    ],
+    "Heroes: Mal\u0027Ganis": [
+      "[Updates]",
+      "  Base:",
+      "  \u2022 Necrotic Embrace [W]",
+      "    \u2022 [Undocumented] Damage increased from 110 to 121.",
+      "    \u2022 [Undocumented] Additional functionality: Now provides 15 Spell Armor for 3 seconds.",
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing effects related to the duration of Mal\u0027Ganis\u0027s Necrotic Embrace to not work correctly."
+    ],
+    "Heroes: Medivh": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Winds of Celerity",
+      "      \u2022 [Undocumented] Movement Speed bonus increased from 75% to 100% of Raven Form\u0027s Movement Speed bonus.",
+      "    \u2022 Raven\u0027s Intellect",
+      "      \u2022 [Undocumented] Mana and Health Regeneration bonus increased from 125% to 200%.",
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue that caused Medivh\u0027s Guardian of Tirisfal to not increase Arcane Rift\u0027s search duration."
+    ],
+    "Heroes: Muradin": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 16",
+      "    \u2022 Dwarf Launch",
+      "      \u2022 [Undocumented] Cooldown reduction decreased from 2 to 1 second.",
+      "  \u2022 Level 20",
+      "    \u2022 Mountain King",
+      "      \u2022 [Undocumented] Cooldown increase removed."
+    ],
+    "Heroes: Ragnaros": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Ragnaros\u0027s Living Meteor to not deal the landing damage."
+    ],
+    "Heroes: Sgt. Hammer": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Maelstrom Rounds",
+      "      \u2022 [Undocumented] Damage bonus increased from 30% to 40%.",
+      "  \u2022 Level 13",
+      "    \u2022 Hyper-Cooling Engines",
+      "      \u2022 [Undocumented] Now triggers against Structures too.",
+      "      \u2022 [Undocumented] No longer grants bonuses from splash damage.",
+      "  \u2022 Level 20",
+      "    \u2022 Advanced Lava Strike",
+      "      \u2022 [Undocumented] Damage bonus increased from 50% to 65%.",
+      "    \u2022 Ultra Capacitors",
+      "      \u2022 [Undocumented] Now triggers against Structures too.",
+      "      \u2022 [Undocumented] No longer grants bonuses from splash damage."
+    ],
+    "Heroes: Thrall": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Echo of the Elements",
+      "      \u2022 [Undocumented] Time window to gain stacks increased from 1.5 to 2 seconds.",
+      "      \u2022 [Undocumented] Extra bounces no longer deal reduced damage.",
+      "      \u2022 [Undocumented] Quest requirements increased from 20/40/100 to 20/50/125.",
+      "      \u2022 [Undocumented] Removed functionality: No longer provides an extra bounce of Chain Lightning after unlocking the second Reward.",
+      "  \u2022 Level 7",
+      "    \u2022 Rolling Thunder",
+      "      \u2022 [Undocumented] Additional functionality: Now also provides an extra bounce of Chain Lightning."
+    ],
+    "Heroes: Tyrande": [
+      "[Updates]",
+      "  Base:",
+      "  \u2022 Lunar Flare [E]",
+      "    \u2022 [Undocumented] Damage bonus per stack reduced from 3.5% to 3%.",
+      "  Talents:",
+      "  \u2022 Level 13",
+      "    \u2022 Quickening Blessing",
+      "      \u2022 [Undocumented] Movement Speed bonus on Light of Elune\u0027s target increased from 20% to 25%.",
+      "  \u2022 Level 20",
+      "    \u2022 Commander of Sentinels",
+      "      \u2022 [Undocumented] Cooldown increase removed."
+    ]
+  },
+  "PatchFile": "ptr/2026-04-09-v2-55-16-96790-2026-04-09-ptr-patch-ptr.json",
+  "Sources": [
+    "2026-04-09-ptr.html"
+  ]
+}

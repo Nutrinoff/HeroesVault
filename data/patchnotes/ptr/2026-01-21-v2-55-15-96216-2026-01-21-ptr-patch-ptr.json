@@ -1,0 +1,139 @@
+{
+  "Id": "npn-2026-01-21-2.55.15",
+  "Title": "2026-01-21 PTR Patch",
+  "Subtitle": "=== Battlegrounds: Volskaya Foundry ===",
+  "Date": "Jan 21, 2026",
+  "IsoDate": "2026-01-21",
+  "FeedType": "ptr",
+  "Era": "ptr",
+  "PatchVersion": "2.55.15",
+  "FullVersion": "2.55.15.96216",
+  "Build": "96216",
+  "Link": "https://www.icy-veins.com/forums/topic/86011-heroes-of-the-storm-ptr-update-january-21",
+  "Links": [
+    "https://www.icy-veins.com/forums/topic/86011-heroes-of-the-storm-ptr-update-january-21"
+  ],
+  "Affected": [
+    "Volskaya Foundry",
+    "Arthas",
+    "Azmodan",
+    "Deathwing",
+    "Falstad",
+    "Gazlowe",
+    "Jaina",
+    "Kerrigan",
+    "Muradin",
+    "Murky",
+    "Nazeebo",
+    "Zagara"
+  ],
+  "Highlights": "=== Battlegrounds: Volskaya Foundry ===",
+  "CleanedNotes": "=== Battlegrounds: Volskaya Foundry ===\r\n[Updates]\r\n  Objective:\r\n  \u2022 Triglav Protector\r\n    \u2022 [Undocumented] Attack Damage reduced from 155 to 130.\r\n    \u2022 [Undocumented] Attack Damage bonus against Structures increased from 50% to 100%.\r\n    \u2022 [Undocumented] Attack Damage bonus when both slots are occupied increased from 35% to 50%.\r\n    \u2022 [Undocumented] Spell Damage bonus when both slots are occupied reduced from 35% to 25%.\r\n    \u2022 [Undocumented] Cooldown reduction when both slots are occupied reduced from 35% to 25%.\r\n  \u2022 Triglav Gunner\r\n    \u2022 [Undocumented] Spell Damage bonus when both slots are occupied reduced from 35% to 25%.\r\n    \u2022 [Undocumented] Cooldown reduction when both slots are occupied reduced from 35% to 25%.\r\n    \u2022 [Undocumented] Energy Regeneration when both slots are occupied reduced from 35% to 25%.\r\n\r\n=== Heroes: Arthas ===\r\n[Updates]\r\n  Base:\r\n  \u2022 Army of the Dead [R1]\r\n    \u2022 [Undocumented] Ghouls\u0027 Health increased from 1060 to 1200.\r\n    \u2022 [Undocumented] Ghouls no longer have a duration.\r\n    \u2022 [Undocumented] Ghouls now lose 60 Health per second second (scaling).\r\n    \u2022 [Undocumented] Ghouls duration effectively increased from 15 to 20 seconds.\r\n\r\n=== Heroes: Azmodan ===\r\n[Updates]\r\n  Base:\r\n  \u2022 Globe of Annihilation [Q]\r\n    \u2022 [Undocumented] Damage bonus upon reaching 450 Annihilation increased from 125 to 150.\r\n  \u2022 Summon Demon Warrior [W]\r\n    \u2022 [Undocumented] Demon Warriors damage reduced from 83 to 53.\r\n    \u2022 [Undocumented] Additional functionality: Deals 100% more damage against Minions and Mercenaries.\r\n  \u2022 Demon Lieutenant [D]\r\n    \u2022 [Undocumented] Demon Lieutenant damage reduced from 103 to 52.\r\n    \u2022 [Undocumented] Additional functionality: Deals 100% more damage against Minions and Mercenaries.\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Azmodan\u0027s Summon Demon Warrior to not show the amount of charges available.\r\n  \u2022 [Undocumented] Fixed an issue causing the Health decay of Azmodan\u0027s Demon Warriors to scale twice per level.\r\n  \u2022 [Undocumented] Fixed an issue causing Azmodan\u0027s Wrath to still require the target to be under 75% Health in order to grant Annihilation.\r\n  \u2022 [Undocumented] Fixed an issue causing the damage from Azmodan\u0027s Wrath to cap at 400 Annihilation rather than 450 Annihilation.\r\n  \u2022 [Undocumented] Fixed an issue causing Azmodan\u0027s Battleborn to reduce the cooldown between charges instead of the charge cooldown.\r\n  \u2022 [Undocumented] Fixed an issue causing Basic Attacks empowered by Azmodan\u0027s Bombardment to give Annihilation when hitting non-Heroes.\r\n  \u2022 [Undocumented] Fixed an issue causing Basic Attacks empowered by Azmodan\u0027s Bombardment to give Annihilation while Blinded or if the target is Evading.\r\n\r\n=== Heroes: Deathwing ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Molten Blood\r\n      \u2022 [Undocumented] Removed functionality: No longer grants Form Switch, which could be activated to swap Form.\r\n\r\n=== Heroes: Falstad ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing the tooltip for Falstad\u0027s Dishonorable Discharge in the Buff Bar to not show the Quest progress correctly.\r\n  \u2022 [Undocumented] Fixed an issue causing the tooltip for Falstad\u0027s Frequent Flyer in the Buff Bar to not show the Quest progress correctly.\r\n\r\n=== Heroes: Gazlowe ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Tooltip for Gazlowe\u0027s Overcharged Capacitors updated from duration to Health gain.\r\n\r\n=== Heroes: Jaina ===\r\n[Updates]\r\n  Base:\r\n  \u2022 Frostbite [Trait]\r\n    \u2022 [Undocumented] Rework: Ice Cold no longer gives Protected, Unstoppable, and immunity to damage over time effects for the duration. Instead, it now gives Invulnerable for the duration, allowing Jaina to move and cast while active.\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Jaina\u0027s Blizzard to have 0 range.\r\n  \u2022 [Undocumented] Fixed an issue causing Jaina\u0027s Summon Water Elemental to have 0 range.\r\n  \u2022 [Undocumented] Fixed an issue causing Jaina\u0027s Baseline Quest to show its progress on the UI while dead even after completing it.\r\n\r\n=== Heroes: Kerrigan ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Kerrigan\u0027s Baseline Quest to not gain stacks correctly after reaching 150 stacks.\r\n\r\n=== Heroes: Muradin ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Muradin\u0027s Thunder Clap to not show the amount of charges available.\r\n  \u2022 [Undocumented] Fixed an issue causing Muradin\u0027s Thunder Clap to not be affected by cooldown reduction effects.\r\n  \u2022 [Undocumented] Fixed an issue causing Muradin\u0027s Dwarf Toss to not show the amount of charges available.\r\n  \u2022 [Undocumented] Fixed an issue causing Muradin\u0027s Dwarf Toss to not be affected by cooldown reduction effects.\r\n  \u2022 [Undocumented] Fixed an issue causing the cooldown reduction from Muradin\u0027s Dwarf Launch to not work correctly.\r\n  \u2022 [Undocumented] Fixed an issue causing the cooldown reduction from Muradin\u0027s Unstoppable Force to not work correctly.\r\n\r\n=== Heroes: Murky ===\r\n[Updates]\r\n  Base:\r\n  \u2022 Pufferfish [W]\r\n    \u2022 [Undocumented] Baseline Quest requirements increased from 100/200 to 200/400.\r\n    \u2022 [Undocumented] Rework: Kill Slimed enemies, or hit them with Pufferfish. Minions give 1 stack. Heroes and Structures give 5 stacks.\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Murky\u0027s Spawn Egg to not go on cooldown when destroyed or placed.\r\n  \u2022 [Undocumented] Notification message for Murky having no Egg changed from \u0022Murky\u0027s Egg\u0022 to \u0022last Murky\u0027s Egg\u0022.\r\n\r\n=== Heroes: Nazeebo ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing the tooltip for Nazeebo\u0027s Dead Rush to not show the Zombies duration correctly.\r\n  \u2022 [Undocumented] Fixed an issue causing Nazeebo\u0027s Gargantuan Stomp to not be usable 20 seconds after Gargantuan was summoned.\r\n\r\n=== Heroes: Zagara ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] The tooltip for Zagara\u0027s Mutalisk has been updated from duration to Health decay.",
+  "Sections": {
+    "Battlegrounds: Volskaya Foundry": [
+      "[Updates]",
+      "  Objective:",
+      "  \u2022 Triglav Protector",
+      "    \u2022 [Undocumented] Attack Damage reduced from 155 to 130.",
+      "    \u2022 [Undocumented] Attack Damage bonus against Structures increased from 50% to 100%.",
+      "    \u2022 [Undocumented] Attack Damage bonus when both slots are occupied increased from 35% to 50%.",
+      "    \u2022 [Undocumented] Spell Damage bonus when both slots are occupied reduced from 35% to 25%.",
+      "    \u2022 [Undocumented] Cooldown reduction when both slots are occupied reduced from 35% to 25%.",
+      "  \u2022 Triglav Gunner",
+      "    \u2022 [Undocumented] Spell Damage bonus when both slots are occupied reduced from 35% to 25%.",
+      "    \u2022 [Undocumented] Cooldown reduction when both slots are occupied reduced from 35% to 25%.",
+      "    \u2022 [Undocumented] Energy Regeneration when both slots are occupied reduced from 35% to 25%."
+    ],
+    "Heroes: Arthas": [
+      "[Updates]",
+      "  Base:",
+      "  \u2022 Army of the Dead [R1]",
+      "    \u2022 [Undocumented] Ghouls\u0027 Health increased from 1060 to 1200.",
+      "    \u2022 [Undocumented] Ghouls no longer have a duration.",
+      "    \u2022 [Undocumented] Ghouls now lose 60 Health per second second (scaling).",
+      "    \u2022 [Undocumented] Ghouls duration effectively increased from 15 to 20 seconds."
+    ],
+    "Heroes: Azmodan": [
+      "[Updates]",
+      "  Base:",
+      "  \u2022 Globe of Annihilation [Q]",
+      "    \u2022 [Undocumented] Damage bonus upon reaching 450 Annihilation increased from 125 to 150.",
+      "  \u2022 Summon Demon Warrior [W]",
+      "    \u2022 [Undocumented] Demon Warriors damage reduced from 83 to 53.",
+      "    \u2022 [Undocumented] Additional functionality: Deals 100% more damage against Minions and Mercenaries.",
+      "  \u2022 Demon Lieutenant [D]",
+      "    \u2022 [Undocumented] Demon Lieutenant damage reduced from 103 to 52.",
+      "    \u2022 [Undocumented] Additional functionality: Deals 100% more damage against Minions and Mercenaries.",
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Azmodan\u0027s Summon Demon Warrior to not show the amount of charges available.",
+      "  \u2022 [Undocumented] Fixed an issue causing the Health decay of Azmodan\u0027s Demon Warriors to scale twice per level.",
+      "  \u2022 [Undocumented] Fixed an issue causing Azmodan\u0027s Wrath to still require the target to be under 75% Health in order to grant Annihilation.",
+      "  \u2022 [Undocumented] Fixed an issue causing the damage from Azmodan\u0027s Wrath to cap at 400 Annihilation rather than 450 Annihilation.",
+      "  \u2022 [Undocumented] Fixed an issue causing Azmodan\u0027s Battleborn to reduce the cooldown between charges instead of the charge cooldown.",
+      "  \u2022 [Undocumented] Fixed an issue causing Basic Attacks empowered by Azmodan\u0027s Bombardment to give Annihilation when hitting non-Heroes.",
+      "  \u2022 [Undocumented] Fixed an issue causing Basic Attacks empowered by Azmodan\u0027s Bombardment to give Annihilation while Blinded or if the target is Evading."
+    ],
+    "Heroes: Deathwing": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Molten Blood",
+      "      \u2022 [Undocumented] Removed functionality: No longer grants Form Switch, which could be activated to swap Form."
+    ],
+    "Heroes: Falstad": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing the tooltip for Falstad\u0027s Dishonorable Discharge in the Buff Bar to not show the Quest progress correctly.",
+      "  \u2022 [Undocumented] Fixed an issue causing the tooltip for Falstad\u0027s Frequent Flyer in the Buff Bar to not show the Quest progress correctly."
+    ],
+    "Heroes: Gazlowe": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Tooltip for Gazlowe\u0027s Overcharged Capacitors updated from duration to Health gain."
+    ],
+    "Heroes: Jaina": [
+      "[Updates]",
+      "  Base:",
+      "  \u2022 Frostbite [Trait]",
+      "    \u2022 [Undocumented] Rework: Ice Cold no longer gives Protected, Unstoppable, and immunity to damage over time effects for the duration. Instead, it now gives Invulnerable for the duration, allowing Jaina to move and cast while active.",
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Jaina\u0027s Blizzard to have 0 range.",
+      "  \u2022 [Undocumented] Fixed an issue causing Jaina\u0027s Summon Water Elemental to have 0 range.",
+      "  \u2022 [Undocumented] Fixed an issue causing Jaina\u0027s Baseline Quest to show its progress on the UI while dead even after completing it."
+    ],
+    "Heroes: Kerrigan": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Kerrigan\u0027s Baseline Quest to not gain stacks correctly after reaching 150 stacks."
+    ],
+    "Heroes: Muradin": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Muradin\u0027s Thunder Clap to not show the amount of charges available.",
+      "  \u2022 [Undocumented] Fixed an issue causing Muradin\u0027s Thunder Clap to not be affected by cooldown reduction effects.",
+      "  \u2022 [Undocumented] Fixed an issue causing Muradin\u0027s Dwarf Toss to not show the amount of charges available.",
+      "  \u2022 [Undocumented] Fixed an issue causing Muradin\u0027s Dwarf Toss to not be affected by cooldown reduction effects.",
+      "  \u2022 [Undocumented] Fixed an issue causing the cooldown reduction from Muradin\u0027s Dwarf Launch to not work correctly.",
+      "  \u2022 [Undocumented] Fixed an issue causing the cooldown reduction from Muradin\u0027s Unstoppable Force to not work correctly."
+    ],
+    "Heroes: Murky": [
+      "[Updates]",
+      "  Base:",
+      "  \u2022 Pufferfish [W]",
+      "    \u2022 [Undocumented] Baseline Quest requirements increased from 100/200 to 200/400.",
+      "    \u2022 [Undocumented] Rework: Kill Slimed enemies, or hit them with Pufferfish. Minions give 1 stack. Heroes and Structures give 5 stacks.",
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Murky\u0027s Spawn Egg to not go on cooldown when destroyed or placed.",
+      "  \u2022 [Undocumented] Notification message for Murky having no Egg changed from \u0022Murky\u0027s Egg\u0022 to \u0022last Murky\u0027s Egg\u0022."
+    ],
+    "Heroes: Nazeebo": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing the tooltip for Nazeebo\u0027s Dead Rush to not show the Zombies duration correctly.",
+      "  \u2022 [Undocumented] Fixed an issue causing Nazeebo\u0027s Gargantuan Stomp to not be usable 20 seconds after Gargantuan was summoned."
+    ],
+    "Heroes: Zagara": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] The tooltip for Zagara\u0027s Mutalisk has been updated from duration to Health decay."
+    ]
+  },
+  "PatchFile": "ptr/2026-01-21-v2-55-15-96216-2026-01-21-ptr-patch-ptr.json",
+  "Sources": [
+    "2026-01-21-ptr.html"
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "Id": "npn-2016-10-10-1.21.0",
+  "Title": "2016-10-10 PTR Patch",
+  "Subtitle": "=== Heroes: Anub\u0027arak ===",
+  "Date": "Oct 10, 2016",
+  "IsoDate": "2016-10-10",
+  "FeedType": "ptr",
+  "Era": "ptr",
+  "PatchVersion": "1.21.0",
+  "FullVersion": "1.21.0.47024",
+  "Build": "47024",
+  "Link": "https://news.blizzard.com/en-us/heroes-of-the-storm/20308851",
+  "Links": [
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/20308851"
+  ],
+  "Affected": [
+    "Anub\u0027arak",
+    "Auriel",
+    "Azmodan",
+    "Chen",
+    "Greymane",
+    "Illidan",
+    "Kharazim",
+    "Leoric",
+    "Lt. Morales",
+    "Medivh",
+    "Rexxar",
+    "Samuro",
+    "Sgt. Hammer",
+    "Sylvanas",
+    "The Butcher",
+    "Zagara"
+  ],
+  "Highlights": "=== Heroes: Anub\u0027arak ===",
+  "CleanedNotes": "=== Heroes: Anub\u0027arak ===\r\n[Bug Fixes]\r\n  \u2022 The Cocoon overlay will now display correctly for enemies affected by Cocoon.\r\n\r\n=== Heroes: Auriel ===\r\n[Bug Fixes]\r\n  \u2022 The Piercing Lash Talent tooltip now correctly states that Detainment Strike will only pierce Heroes, rather than all enemies.\r\n  \u2022 Enemy Heroes will no longer occasionally be Stunned by Detainment Strike when knocked away from terrain.\r\n  \u2022 Quest progress for the Repeated Offense Talent will now be correctly tracked in the Stats panel.\r\n\r\n=== Heroes: Azmodan ===\r\n[Bug Fixes]\r\n  \u2022 Globe of Annihilation\u0027s range indicator is now visually consistent with indicators used by other long-range Abilities.\r\n\r\n=== Heroes: Chen ===\r\n[Bug Fixes]\r\n  \u2022 Keg models that appear when casting Storm, Earth, Fire using any of Chen\u0027s Skins are no longer missing certain visual effects.\r\n\r\n=== Heroes: Greymane ===\r\n[Bug Fixes]\r\n  \u2022 The Worgen model will no longer remain on screen while viewing end-of-game Stats and Talents pages.\r\n  \u2022 The Go for the Throat indicator will no longer visually persist above Heroes who have post-death forms, such as Uther or Leoric, after they are killed.\r\n\r\n=== Heroes: Illidan ===\r\n[Bug Fixes]\r\n  \u2022 The visual effects for The Hunt will now properly display on the Ability\u0027s target during replays.\r\n  \u2022 Fixed an issue that could occasionally cause Illidan to fly back to his death location if he was killed while using Dive.\r\n  \u2022 Voiceover that plays while casting The Hunt is now only audible for Illidan and his target.\r\n  \u2022 High pitched ambient sounds that play while casting The Hunt are no longer audible for the target\u0027s allies. Lower-pitched ambient sounds will still play for all players and observers.\r\n\r\n=== Heroes: Kharazim ===\r\n[Bug Fixes]\r\n  \u2022 Will no longer automatically resume attacking enemies after using Radiant Dash to dive to an ally. This fix also applies to Illidan\u0027s Friend or Foe and Kerrigan\u0027s Adaptation Talents.\r\n\r\n=== Heroes: Leoric ===\r\n[Bug Fixes]\r\n  \u2022 Minions will no longer path around Leoric when he is in Undying form.\r\n\r\n=== Heroes: Lt. Morales ===\r\n[Bug Fixes]\r\n  \u2022 Can now properly detonate Displacement Grenade near enemies.\r\n\r\n=== Heroes: Medivh ===\r\n[Bug Fixes]\r\n  \u2022 Enemy AI players will now avoid teammates that are under the effects of Medivh\u0027s Polybomb.\r\n  \u2022 The damage over time effect from Xul\u0027s Poison Nova will no longer be visually removed from Medivh\u0027s Health bar after traveling through a Portal with the Mage Armor Talent.\r\n\r\n=== Heroes: Rexxar ===\r\n[Bug Fixes]\r\n  \u2022 A delay will no longer occur between repeated Misha, Focus! casts.\r\n\r\n=== Heroes: Samuro ===\r\n[Releases]\r\n  Samuro, The Blademaster, has been added to the Nexus and is now available for play! Read on for a brief overview of his Abilities.:\r\n  Trait:\r\n  \u2022 Advancing Strike\r\n    \u2022 Basic Attacks against enemy Heroes increase your Movement Speed by 25% for 2 seconds.\r\n  Basic Abilities:\r\n  \u2022 Mirror Image (Q)\r\n    \u2022 Create 2 Mirror Images that deal 30% of your damage and have 50% of your current Health. Images last up to 16 seconds, and only 2 can be active at once.\r\n  \u2022 Critical Strike (W)\r\n    \u2022 Your next Basic Attack within 8 seconds will be a Critical Strike, dealing 50% increased damage. This also applies to Mirror Images and does not break Wind Walk.\r\n    \u2022 Passive: You and your Mirror Images deal a Critical Strike every 4th Basic Attack.\r\n  \u2022 Wind Walk (E)\r\n    \u2022 Enter Stealth for up to 8 seconds or until you attack, use an Ability, or take damage. While Stealthed, your Movement Speed is increased by 30% and you can pass through other units.\r\n    \u2022 Damage taken during the first 1 second will not break Wind Walk.\r\n  Heroic Abilities:\r\n  \u2022 Bladestorm (R)\r\n    \u2022 Become an unstoppable whirlwind, dealing moderate damage to nearby enemies every second for 4 seconds.\r\n  \u2022 Illusion Master (R)\r\n    \u2022 Switch places with the target Mirror Image.\r\n    \u2022 Passive: You can control Mirror Images separately or as a group, and they deal an additional 20% of your damage.\r\n\r\n=== Heroes: Sgt. Hammer ===\r\n[Bug Fixes]\r\n  \u2022 Re-casting Orbital BFG just as the first missile re-enters the Battleground will no longer cause the new missile to follow the previous path.\r\n\r\n=== Heroes: Sylvanas ===\r\n[Bug Fixes]\r\n  \u2022 The Death Recap tooltip for Wailing Arrow now correctly displays the Ability\u0027s description.\r\n\r\n=== Heroes: The Butcher ===\r\n[Bug Fixes]\r\n  \u2022 Hamstring will now correctly deal bonus damage to non-Heroic targets after learning the Cheap Shot Talent.\r\n\r\n=== Heroes: Zagara ===\r\n[Bug Fixes]\r\n  \u2022 The Stasis overlay will no longer appear on the screen when Zagara\u0027s Mutalisk enters Zeratul\u0027s Void Prison.",
+  "Sections": {
+    "Heroes: Anub\u0027arak": [
+      "[Bug Fixes]",
+      "  \u2022 The Cocoon overlay will now display correctly for enemies affected by Cocoon."
+    ],
+    "Heroes: Auriel": [
+      "[Bug Fixes]",
+      "  \u2022 The Piercing Lash Talent tooltip now correctly states that Detainment Strike will only pierce Heroes, rather than all enemies.",
+      "  \u2022 Enemy Heroes will no longer occasionally be Stunned by Detainment Strike when knocked away from terrain.",
+      "  \u2022 Quest progress for the Repeated Offense Talent will now be correctly tracked in the Stats panel."
+    ],
+    "Heroes: Azmodan": [
+      "[Bug Fixes]",
+      "  \u2022 Globe of Annihilation\u0027s range indicator is now visually consistent with indicators used by other long-range Abilities."
+    ],
+    "Heroes: Chen": [
+      "[Bug Fixes]",
+      "  \u2022 Keg models that appear when casting Storm, Earth, Fire using any of Chen\u0027s Skins are no longer missing certain visual effects."
+    ],
+    "Heroes: Greymane": [
+      "[Bug Fixes]",
+      "  \u2022 The Worgen model will no longer remain on screen while viewing end-of-game Stats and Talents pages.",
+      "  \u2022 The Go for the Throat indicator will no longer visually persist above Heroes who have post-death forms, such as Uther or Leoric, after they are killed."
+    ],
+    "Heroes: Illidan": [
+      "[Bug Fixes]",
+      "  \u2022 The visual effects for The Hunt will now properly display on the Ability\u0027s target during replays.",
+      "  \u2022 Fixed an issue that could occasionally cause Illidan to fly back to his death location if he was killed while using Dive.",
+      "  \u2022 Voiceover that plays while casting The Hunt is now only audible for Illidan and his target.",
+      "  \u2022 High pitched ambient sounds that play while casting The Hunt are no longer audible for the target\u0027s allies. Lower-pitched ambient sounds will still play for all players and observers."
+    ],
+    "Heroes: Kharazim": [
+      "[Bug Fixes]",
+      "  \u2022 Will no longer automatically resume attacking enemies after using Radiant Dash to dive to an ally. This fix also applies to Illidan\u0027s Friend or Foe and Kerrigan\u0027s Adaptation Talents."
+    ],
+    "Heroes: Leoric": [
+      "[Bug Fixes]",
+      "  \u2022 Minions will no longer path around Leoric when he is in Undying form."
+    ],
+    "Heroes: Lt. Morales": [
+      "[Bug Fixes]",
+      "  \u2022 Can now properly detonate Displacement Grenade near enemies."
+    ],
+    "Heroes: Medivh": [
+      "[Bug Fixes]",
+      "  \u2022 Enemy AI players will now avoid teammates that are under the effects of Medivh\u0027s Polybomb.",
+      "  \u2022 The damage over time effect from Xul\u0027s Poison Nova will no longer be visually removed from Medivh\u0027s Health bar after traveling through a Portal with the Mage Armor Talent."
+    ],
+    "Heroes: Rexxar": [
+      "[Bug Fixes]",
+      "  \u2022 A delay will no longer occur between repeated Misha, Focus! casts."
+    ],
+    "Heroes: Samuro": [
+      "[Releases]",
+      "  Samuro, The Blademaster, has been added to the Nexus and is now available for play! Read on for a brief overview of his Abilities.:",
+      "  Trait:",
+      "  \u2022 Advancing Strike",
+      "    \u2022 Basic Attacks against enemy Heroes increase your Movement Speed by 25% for 2 seconds.",
+      "  Basic Abilities:",
+      "  \u2022 Mirror Image (Q)",
+      "    \u2022 Create 2 Mirror Images that deal 30% of your damage and have 50% of your current Health. Images last up to 16 seconds, and only 2 can be active at once.",
+      "  \u2022 Critical Strike (W)",
+      "    \u2022 Your next Basic Attack within 8 seconds will be a Critical Strike, dealing 50% increased damage. This also applies to Mirror Images and does not break Wind Walk.",
+      "    \u2022 Passive: You and your Mirror Images deal a Critical Strike every 4th Basic Attack.",
+      "  \u2022 Wind Walk (E)",
+      "    \u2022 Enter Stealth for up to 8 seconds or until you attack, use an Ability, or take damage. While Stealthed, your Movement Speed is increased by 30% and you can pass through other units.",
+      "    \u2022 Damage taken during the first 1 second will not break Wind Walk.",
+      "  Heroic Abilities:",
+      "  \u2022 Bladestorm (R)",
+      "    \u2022 Become an unstoppable whirlwind, dealing moderate damage to nearby enemies every second for 4 seconds.",
+      "  \u2022 Illusion Master (R)",
+      "    \u2022 Switch places with the target Mirror Image.",
+      "    \u2022 Passive: You can control Mirror Images separately or as a group, and they deal an additional 20% of your damage."
+    ],
+    "Heroes: Sgt. Hammer": [
+      "[Bug Fixes]",
+      "  \u2022 Re-casting Orbital BFG just as the first missile re-enters the Battleground will no longer cause the new missile to follow the previous path."
+    ],
+    "Heroes: Sylvanas": [
+      "[Bug Fixes]",
+      "  \u2022 The Death Recap tooltip for Wailing Arrow now correctly displays the Ability\u0027s description."
+    ],
+    "Heroes: The Butcher": [
+      "[Bug Fixes]",
+      "  \u2022 Hamstring will now correctly deal bonus damage to non-Heroic targets after learning the Cheap Shot Talent."
+    ],
+    "Heroes: Zagara": [
+      "[Bug Fixes]",
+      "  \u2022 The Stasis overlay will no longer appear on the screen when Zagara\u0027s Mutalisk enters Zeratul\u0027s Void Prison."
+    ]
+  },
+  "PatchFile": "ptr/2016-10-10-v1-21-0-47024-2016-10-10-ptr-patch-ptr.json",
+  "Sources": [
+    "2016-10-10-ptr.html"
+  ]
+}
