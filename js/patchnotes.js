@@ -789,7 +789,7 @@ function syncPatchSidebarBurger() {
 
     const header = document.querySelector('header');
     const footer = document.querySelector('body > footer');
-    const TOP_GAP = 16;
+    const TOP_GAP = 20;
     const BOTTOM_FOOTER_GAP = TOP_GAP;
 
     const headerBottom = header
