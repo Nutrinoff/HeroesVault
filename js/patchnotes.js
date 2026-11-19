@@ -748,7 +748,6 @@ async function selectPatchItem(id) {
 
     schedulePatchSidebarSync();
 }
-
 // ==========================================
 // PATCH SIDEBAR BURGER-SQUISH CONTROLLER
 // ==========================================
@@ -796,32 +795,37 @@ function syncPatchSidebarBurger() {
     const footerTop = footer ? footer.getBoundingClientRect().top : window.innerHeight;
     const viewportBottom = Math.min(window.innerHeight, footerTop) - footerGap;
 
-    const wasFixed = col.style.position === 'fixed';
-    if (wasFixed) {
-        col.style.position = '';
-        col.style.top = '';
-        col.style.left = '';
-        col.style.width = '';
-        col.style.height = '';
-        col.style.maxHeight = '';
-    }
+    // Temporarily release fixed positioning to read true layout column geometry
+    const prevPos = col.style.position;
+    col.style.position = '';
+    col.style.top = '';
+    col.style.left = '';
+    col.style.width = '';
+    col.style.height = '';
+    col.style.maxHeight = '';
 
     const rect = col.getBoundingClientRect();
     const naturalTop = rect.top;
     const naturalLeft = rect.left;
     const naturalWidth = rect.width;
 
+    // Lock top at naturalTop first so there is zero jump on initial scroll, then pin below header
     const lockedTop = Math.max(naturalTop, headerBottom);
-    const availableHeight = Math.max(150, viewportBottom - lockedTop);
+    const clampedHeight = Math.max(160, viewportBottom - lockedTop);
 
-    spacer.style.height = `${Math.max(150, viewportBottom - Math.max(naturalTop, headerBottom))}px`;
+    // Keep spacer at least as tall as the visible sidebar box so the grid row stays consistent
+    const currentSpacerH = parseFloat(spacer.style.height) || 0;
+    const nextSpacerH = Math.max(currentSpacerH, clampedHeight);
+    spacer.style.height = `${Math.round(nextSpacerH)}px`;
 
-    col.style.position = 'fixed';
-    col.style.top = `${Math.round(lockedTop)}px`;
-    col.style.left = `${Math.round(naturalLeft)}px`;
-    col.style.width = `${Math.round(naturalWidth)}px`;
-    col.style.height = `${Math.round(availableHeight)}px`;
-    col.style.maxHeight = `${Math.round(availableHeight)}px`;
+    if (prevPos !== undefined) {
+        col.style.position = 'fixed';
+        col.style.top = `${Math.round(lockedTop)}px`;
+        col.style.left = `${Math.round(naturalLeft)}px`;
+        col.style.width = `${Math.round(naturalWidth)}px`;
+        col.style.height = `${Math.round(clampedHeight)}px`;
+        col.style.maxHeight = `${Math.round(clampedHeight)}px`;
+    }
 }
 
 function schedulePatchSidebarSync() {
