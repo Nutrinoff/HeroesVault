@@ -3,33 +3,43 @@
 // ==========================================
 
 const REPO_BASE = 'https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/';
+const KNOWN_ASSET_FOLDERS = ['abilitytalents/', 'heroportraits/', 'loadingscreens/'];
 
 function getAssetUrl(path) {
     if (!path) return '';
     if (/^https?:\/\//i.test(path)) return path;
-    
-    let p = String(path).replace(/^\.\//, '').replace(/^\//, '');
-    if (p.includes('/') && ['abilitytalents/', 'heroportraits/', 'loadingscreens/'].some(x => p.startsWith(x))) {
+
+    let p = String(path).trim().replace(/^\.\//, '').replace(/^\/+/, '');
+    if (!p) return '';
+
+    if (p.includes('/') && KNOWN_ASSET_FOLDERS.some(folder => p.startsWith(folder))) {
         return REPO_BASE + p;
     }
-    
-    if (p.includes('talent') || p.startsWith('storm_ui_icon') || p.includes('ability')) {
-        p = 'abilitytalents/' + p;
-    } else if (p.includes('hero') || p.includes('portrait') || p.startsWith('ui_') || p.startsWith('storm_ui_ingame')) {
+
+    if (p.includes('loadingscreen') || p.startsWith('loadingscreen')) {
+        p = 'loadingscreens/' + p;
+    } else if (
+        p.startsWith('storm_ui_ingame_hero_select') ||
+        p.startsWith('storm_ui_ingame_target') ||
+        p.startsWith('storm_ui_ingame_leaderboard') ||
+        p.includes('portrait')
+    ) {
         p = 'heroportraits/' + p;
+    } else {
+        p = 'abilitytalents/' + p;
     }
-    
+
     return REPO_BASE + p;
 }
 
 function getHeroPortrait(hero) {
     if (!hero) return '';
     const p = hero.portraits || {};
-    return p.draftScreen 
-        || p.heroSelect 
-        || p.leaderboard 
-        || p.target 
-        || hero.portrait 
+    return p.draftScreen
+        || p.heroSelect
+        || p.leaderboard
+        || p.target
+        || hero.portrait
         || '';
 }
 
