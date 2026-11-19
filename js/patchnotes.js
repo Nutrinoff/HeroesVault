@@ -83,6 +83,32 @@ function formatSidebarDate(rawDate, fallback = 'Unknown') {
     });
 }
 
+function formatBlizzDisplayTitle(rawTitle, displayDate, feedType, era) {
+    const cleanTitle = String(rawTitle || '').trim();
+    const datePart = displayDate && displayDate !== 'Unknown Date' ? displayDate : '';
+
+    // If title already follows "Heroes of the Storm ... Patch Notes - Date", keep it consistent
+    if (/^Heroes of the Storm\b.*\bPatch Notes\b/i.test(cleanTitle)) {
+        if (datePart && !cleanTitle.includes(datePart)) {
+            return `${cleanTitle.replace(/\s*-\s*[^-]+$/, '')} - ${datePart}`;
+        }
+        return cleanTitle;
+    }
+
+    let channelLabel = 'Live';
+    if (feedType === 'ptr') {
+        channelLabel = 'PTR';
+    } else if (era === 'alpha') {
+        channelLabel = 'Alpha';
+    } else if (era === 'beta') {
+        channelLabel = 'Beta';
+    }
+
+    return datePart
+        ? `Heroes of the Storm ${channelLabel} Patch Notes - ${datePart}`
+        : `Heroes of the Storm ${channelLabel} Patch Notes`;
+}
+
 function inferTrueEra(validIso, sourceEra, title, id) {
     const combined = `${title} ${id}`.toLowerCase();
     const ts = validIso ? Date.parse(validIso) : NaN;
@@ -366,16 +392,22 @@ function normalizeMasterEntry(item, sourceMeta, index) {
         `${sourceMeta.sourceEra}-${index + 1}`
     ).trim();
 
-    const title = String(
+    const rawTitle = String(
         item.Title ??
         item.title ??
         item.patchName ??
         id
     ).trim();
 
-    const feedType = inferFeedType(item, sourceMeta, title);
-    const era = inferTrueEra(validIso, sourceMeta.sourceEra, title, id);
+    const feedType = inferFeedType(item, sourceMeta, rawTitle);
+    const era = inferTrueEra(validIso, sourceMeta.sourceEra, rawTitle, id);
     const isArchive = !Number.isNaN(ts) && ts < ARCHIVE_CUTOFF_TS;
+
+    const displayDate = validIso
+        ? formatPatchDisplayDate(validIso)
+        : (item.Date || item.date || 'Unknown Date');
+
+    const displayTitle = formatBlizzDisplayTitle(rawTitle, displayDate, feedType, era);
 
     const rawLink = item.Link ?? item.link ?? item.officialLink ?? item.alternateLink ?? '';
     const link = isSafeUrl(rawLink) ? String(rawLink).trim() : DEFAULT_HOTS_URL;
@@ -388,8 +420,9 @@ function normalizeMasterEntry(item, sourceMeta, index) {
 
     return {
         id,
-        title,
-        date: item.Date || item.date || (validIso ? formatPatchDisplayDate(validIso) : 'Unknown Date'),
+        rawTitle,
+        title: displayTitle,
+        date: displayDate,
         listDate: validIso ? formatSidebarDate(validIso) : formatSidebarDate(rawDate),
         isoDate: validIso,
         feedType,
@@ -540,7 +573,7 @@ async function loadLivePatchNotes() {
         ACTIVE_PATCH_ITEMS = [
             {
                 id: 'fallback-feed',
-                title: 'Heroes of the Storm Patch Notes',
+                title: 'Heroes of the Storm Live Patch Notes',
                 date: 'Recent',
                 listDate: 'Recent',
                 feedType: 'live',
@@ -557,27 +590,42 @@ async function loadLivePatchNotes() {
 
 function getFilterButtonClass(type) {
     return type === CURRENT_FILTER
-        ? 'py-1.5 px-2 rounded-lg text-xs font-bold transition border bg-sky-500 text-slate-950 border-sky-400'
-        : 'py-1.5 px-2 rounded-lg text-xs font-bold transition border bg-slate-900 text-slate-400 border-slate-800 hover:bg-slate-800';
+        ? 'px-3 py-1 rounded-md text-xs font-bold transition border bg-sky-500 text-slate-950 border-sky-400 shadow-sm'
+        : 'px-3 py-1 rounded-md text-xs font-bold transition border bg-slate-900/90 text-slate-300 border-slate-700/80 hover:bg-slate-800 hover:text-white';
+}
+
+function findSidebarHeaderAnchor(listContainer) {
+    const parent = listContainer.parentElement;
+    if (!parent) return null;
+
+    // Look for an existing top header/title row inside the sidebar column
+    const candidates = Array.from(parent.children).filter(el => el !== listContainer);
+    return candidates[0] || null;
 }
 
 function renderPatchHeaderControls() {
     const listContainer = document.getElementById('patch-sidebar-list');
     if (!listContainer || !listContainer.parentElement) return;
 
+    const parent = listContainer.parentElement;
     let controlNav = document.getElementById('patch-type-toggle');
+
     if (!controlNav) {
         controlNav = document.createElement('div');
         controlNav.id = 'patch-type-toggle';
-        controlNav.className = 'grid grid-cols-3 gap-1.5 mb-3 px-2 shrink-0';
+        controlNav.className = 'flex items-center gap-2 px-3 pt-3 pb-2 shrink-0 z-10';
         controlNav.innerHTML = `
             <button id="filter-btn-all" type="button" onclick="switchPatchFilter('all')" class="${getFilterButtonClass('all')}">All</button>
             <button id="filter-btn-live" type="button" onclick="switchPatchFilter('live')" class="${getFilterButtonClass('live')}">Live</button>
             <button id="filter-btn-ptr" type="button" onclick="switchPatchFilter('ptr')" class="${getFilterButtonClass('ptr')}">PTR</button>
         `;
-        listContainer.insertAdjacentElement('beforebegin', controlNav);
-    } else if (controlNav.nextElementSibling !== listContainer) {
-        listContainer.insertAdjacentElement('beforebegin', controlNav);
+    }
+
+    const anchor = findSidebarHeaderAnchor(listContainer);
+    if (anchor && anchor.id !== 'patch-type-toggle') {
+        anchor.insertAdjacentElement('afterend', controlNav);
+    } else if (parent.firstElementChild !== controlNav) {
+        parent.prepend(controlNav);
     }
 
     ['all', 'live', 'ptr'].forEach(type => {
