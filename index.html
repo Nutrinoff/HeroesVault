@@ -49,28 +49,28 @@
       transform-origin: center;
       margin: 0.5rem 0.75rem;
     }
-/* Hollow hexagon border ~1-2px thicker than before, nothing behind the portrait */
-.hex-portrait-frame {
-  position: relative;
-  width: 110px;
-  height: 110px;
-  flex-shrink: 0;
-}
-.hex-portrait-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
-}
-.hex-portrait-ring {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  overflow: visible;
-}
+    /* Hexagon portrait (~15% larger than w-24/96px -> 110px) with outer hex border & no backing */
+    .hex-portrait-frame {
+      position: relative;
+      width: 110px;
+      height: 110px;
+      flex-shrink: 0;
+    }
+    .hex-portrait-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
+    }
+    .hex-portrait-ring {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: visible;
+    }
   </style>
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col selection:bg-sky-500 selection:text-white">
@@ -187,17 +187,17 @@
         <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-5 border-b border-slate-800">
           <div class="flex items-center gap-4">
             <div class="hex-portrait-frame">
-  <img id="hero-portrait" src="" onerror="this.src='https://via.placeholder.com/110?text=Hero'" alt="Portrait" class="hex-portrait-img"/>
-  <svg class="hex-portrait-ring" viewBox="0 0 100 100" aria-hidden="true">
-    <polygon
-      points="50,1 94,25.5 94,74.5 50,99 6,74.5 6,25.5"
-      fill="none"
-      stroke="rgba(56, 189, 248, 0.65)"
-      stroke-width="3.5"
-      stroke-linejoin="round"
-    />
-  </svg>
-</div>
+              <img id="hero-portrait" src="" onerror="this.src='https://via.placeholder.com/110?text=Hero'" alt="Portrait" class="hex-portrait-img"/>
+              <svg class="hex-portrait-ring" viewBox="0 0 100 100" aria-hidden="true">
+                <polygon
+                  points="50,-1.5 96.5,24.2 96.5,75.8 50,101.5 3.5,75.8 3.5,24.2"
+                  fill="none"
+                  stroke="rgba(56, 189, 248, 0.75)"
+                  stroke-width="4.5"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
             <div>
               <div class="flex items-center gap-3 flex-wrap">
                 <h2 id="hero-name" class="text-2xl font-bold text-white">Select a Hero</h2>
@@ -273,18 +273,18 @@
       <div id="view-builder" class="space-y-6 hidden">
         <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-5 border-b border-slate-800">
           <div class="flex items-center gap-4">
-<div class="hex-portrait-frame">
-  <img id="hero-portrait" src="" onerror="this.src='https://via.placeholder.com/110?text=Hero'" alt="Portrait" class="hex-portrait-img"/>
-  <svg class="hex-portrait-ring" viewBox="0 0 100 100" aria-hidden="true">
-    <polygon
-      points="50,1 94,25.5 94,74.5 50,99 6,74.5 6,25.5"
-      fill="none"
-      stroke="rgba(56, 189, 248, 0.65)"
-      stroke-width="3.5"
-      stroke-linejoin="round"
-    />
-  </svg>
-</div>
+            <div class="hex-portrait-frame">
+              <img id="builder-portrait" src="" onerror="this.src='https://via.placeholder.com/110?text=Hero'" alt="Portrait" class="hex-portrait-img"/>
+              <svg class="hex-portrait-ring" viewBox="0 0 100 100" aria-hidden="true">
+                <polygon
+                  points="50,-1.5 96.5,24.2 96.5,75.8 50,101.5 3.5,75.8 3.5,24.2"
+                  fill="none"
+                  stroke="rgba(56, 189, 248, 0.75)"
+                  stroke-width="4.5"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
             <div>
               <div class="flex items-center gap-3 flex-wrap">
                 <h2 id="builder-name" class="text-2xl font-bold text-white">Select a Hero</h2>
