@@ -17,11 +17,17 @@ let builderSelectedTalents = [1, 1, 1, 1, 1, 1, 1];
 
 const HERO_DATA_CACHE = new Map();
 const PRELOADED_HERO_KEYS = new Set();
+const pendingVisibleHeroIds = new Set();
+
 let heroSearchPreloadTimer = null;
+let heroListObserver = null;
+let heroScrollIdleTimer = null;
+let isHeroListScrolling = false;
 
 const TALENT_TIERS = ['1', '4', '7', '10', '13', '16', '20'];
 const TOOLTIP_CURSOR_GAP = 16;
 const TOOLTIP_VIEWPORT_MARGIN = 8;
+const SCROLL_SETTLE_DELAY_MS = 180;
 
 
 // ==========================================
@@ -190,7 +196,7 @@ function switchTabUI(t) {
 
 
 // ==========================================
-// 3. SIDEBAR, SEARCH & PREDICTIVE PRELOAD
+// 3. SIDEBAR, SEARCH & IDLE/SEARCH PRELOAD
 // ==========================================
 
 function getRawHeroEntry(heroId) {
@@ -204,27 +210,111 @@ function getRawHeroEntry(heroId) {
     return HOTS_MASTER_DATA?.[heroId] || null;
 }
 
-function warmHeroAssets(matches) {
-    if (!Array.isArray(matches) || matches.length === 0) return;
+function preloadHeroIds(ids) {
+    if (!Array.isArray(ids) || ids.length === 0) return;
 
     const rawEntries = [];
-    for (const m of matches.slice(0, 3)) {
-        const key = String(m.id || '').toLowerCase();
-        if (!key || PRELOADED_HERO_KEYS.has(key)) continue;
+    for (const id of ids) {
+        if (!id) continue;
+        const key = String(id).toLowerCase();
+        if (PRELOADED_HERO_KEYS.has(key)) continue;
 
-        const raw = getRawHeroEntry(m.id);
+        const raw = getRawHeroEntry(id);
         if (!raw) continue;
 
         PRELOADED_HERO_KEYS.add(key);
         rawEntries.push(raw);
-
-        // Pre-normalize hero structure in memory so clicking is instantaneous
-        getNormalizedHeroData(m.id);
+        getNormalizedHeroData(id);
     }
 
     if (rawEntries.length > 0 && typeof preloadAllAssets === 'function') {
         preloadAllAssets(rawEntries);
     }
+}
+
+function warmSearchMatches(matches) {
+    if (!Array.isArray(matches) || matches.length === 0) return;
+    preloadHeroIds(matches.slice(0, 3).map(m => m.id));
+}
+
+function cancelPendingVisibleHeroPreload() {
+    clearTimeout(heroScrollIdleTimer);
+    heroScrollIdleTimer = null;
+    pendingVisibleHeroIds.clear();
+}
+
+function flushVisibleHeroPreload() {
+    heroScrollIdleTimer = null;
+    if (isHeroListScrolling || pendingVisibleHeroIds.size === 0) return;
+
+    const ids = Array.from(pendingVisibleHeroIds);
+    pendingVisibleHeroIds.clear();
+    preloadHeroIds(ids);
+}
+
+function scheduleVisibleHeroPreloadAfterIdle() {
+    if (isHeroListScrolling || pendingVisibleHeroIds.size === 0) return;
+    clearTimeout(heroScrollIdleTimer);
+    heroScrollIdleTimer = setTimeout(flushVisibleHeroPreload, SCROLL_SETTLE_DELAY_MS);
+}
+
+function handleHeroListScroll(listEl) {
+    isHeroListScrolling = true;
+    cancelPendingVisibleHeroPreload();
+
+    clearTimeout(listEl._scrollSettleTimer);
+    listEl._scrollSettleTimer = setTimeout(() => {
+        isHeroListScrolling = false;
+        if (heroListObserver && listEl) {
+            listEl.querySelectorAll('[data-hero-id]').forEach(btn => {
+                heroListObserver.unobserve(btn);
+                heroListObserver.observe(btn);
+            });
+        }
+        scheduleVisibleHeroPreloadAfterIdle();
+    }, SCROLL_SETTLE_DELAY_MS);
+}
+
+function observeVisibleHeroButtons(listEl) {
+    if (!listEl || typeof IntersectionObserver === 'undefined') return;
+
+    if (!listEl.dataset.idlePreloadBound) {
+        listEl.dataset.idlePreloadBound = 'true';
+        listEl.addEventListener('scroll', () => handleHeroListScroll(listEl), { passive: true });
+        listEl.addEventListener('wheel', cancelPendingVisibleHeroPreload, { passive: true });
+        listEl.addEventListener('touchmove', cancelPendingVisibleHeroPreload, { passive: true });
+    }
+
+    if (!heroListObserver) {
+        heroListObserver = new IntersectionObserver(
+            entries => {
+                if (isHeroListScrolling) return;
+
+                for (const entry of entries) {
+                    if (entry.isIntersecting && entry.target.dataset.heroId) {
+                        const id = entry.target.dataset.heroId;
+                        if (!PRELOADED_HERO_KEYS.has(String(id).toLowerCase())) {
+                            pendingVisibleHeroIds.add(id);
+                        }
+                    }
+                }
+
+                scheduleVisibleHeroPreloadAfterIdle();
+            },
+            {
+                root: listEl,
+                rootMargin: '0px',
+                threshold: 0.25
+            }
+        );
+    } else {
+        heroListObserver.disconnect();
+    }
+
+    cancelPendingVisibleHeroPreload();
+    listEl.querySelectorAll('[data-hero-id]').forEach(btn => {
+        heroListObserver.observe(btn);
+    });
 }
 
 function renderHeroSidebar(heroes) {
@@ -241,6 +331,7 @@ function renderHeroSidebar(heroes) {
         const btn = document.createElement('button');
 
         btn.type = 'button';
+        btn.dataset.heroId = h.id;
         btn.className = `w-full text-left p-2.5 rounded-xl border transition-all ${
             activeId === h.id
                 ? 'bg-sky-500/15 border-sky-500/70'
@@ -272,6 +363,7 @@ function renderHeroSidebar(heroes) {
     });
 
     list.replaceChildren(frag);
+    observeVisibleHeroButtons(list);
 
     const countEl = document.getElementById('hero-count');
     if (countEl) {
@@ -289,7 +381,7 @@ function filterHeroes() {
 
     clearTimeout(heroSearchPreloadTimer);
     if (q) {
-        heroSearchPreloadTimer = setTimeout(() => warmHeroAssets(matches), 75);
+        heroSearchPreloadTimer = setTimeout(() => warmSearchMatches(matches), 75);
     }
 }
 
@@ -302,7 +394,7 @@ function getNormalizedHeroData(id) {
     if (!id) return null;
     if (HERO_DATA_CACHE.has(id)) return HERO_DATA_CACHE.get(id);
 
-    const h = resolveHeroMasterData(id);
+    const h = getRawHeroEntry(id);
     if (!h) return null;
 
     const normalized = {
