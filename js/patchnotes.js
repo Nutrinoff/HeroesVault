@@ -756,17 +756,17 @@ let patchSidebarRafId = null;
 
 function resetPatchSidebarLayout() {
     const col = document.getElementById('patch-sidebar-column');
-    const spacer = document.getElementById('patch-sidebar-spacer');
+    const box = document.getElementById('patch-sidebar-sticky-box');
     if (col) {
-        col.style.position = '';
-        col.style.top = '';
-        col.style.left = '';
-        col.style.width = '';
-        col.style.height = '';
-        col.style.maxHeight = '';
+        col.style.minHeight = '';
     }
-    if (spacer) {
-        spacer.style.height = '';
+    if (box) {
+        box.style.position = '';
+        box.style.top = '';
+        box.style.left = '';
+        box.style.width = '';
+        box.style.height = '';
+        box.style.maxHeight = '';
     }
 }
 
@@ -775,8 +775,8 @@ function syncPatchSidebarBurger() {
 
     const view = document.getElementById('view-patchnotes');
     const col = document.getElementById('patch-sidebar-column');
-    const spacer = document.getElementById('patch-sidebar-spacer');
-    if (!view || !col || !spacer) return;
+    const box = document.getElementById('patch-sidebar-sticky-box');
+    if (!view || !col || !box) return;
 
     const isVisible = !view.classList.contains('hidden') && view.offsetParent !== null;
     const isDesktop = window.innerWidth >= 1024; // Tailwind `lg`
@@ -795,37 +795,21 @@ function syncPatchSidebarBurger() {
     const footerTop = footer ? footer.getBoundingClientRect().top : window.innerHeight;
     const viewportBottom = Math.min(window.innerHeight, footerTop) - footerGap;
 
-    // Temporarily release fixed positioning to read true layout column geometry
-    const prevPos = col.style.position;
-    col.style.position = '';
-    col.style.top = '';
-    col.style.left = '';
-    col.style.width = '';
-    col.style.height = '';
-    col.style.maxHeight = '';
-
-    const rect = col.getBoundingClientRect();
-    const naturalTop = rect.top;
-    const naturalLeft = rect.left;
-    const naturalWidth = rect.width;
-
-    // Lock top at naturalTop first so there is zero jump on initial scroll, then pin below header
+    const colRect = col.getBoundingClientRect();
+    const naturalTop = colRect.top;
     const lockedTop = Math.max(naturalTop, headerBottom);
     const clampedHeight = Math.max(160, viewportBottom - lockedTop);
 
-    // Keep spacer at least as tall as the visible sidebar box so the grid row stays consistent
-    const currentSpacerH = parseFloat(spacer.style.height) || 0;
-    const nextSpacerH = Math.max(currentSpacerH, clampedHeight);
-    spacer.style.height = `${Math.round(nextSpacerH)}px`;
+    // Keep parent column tall enough to hold the visual box without collapsing the grid row
+    const prevMinH = parseFloat(col.style.minHeight) || 0;
+    col.style.minHeight = `${Math.round(Math.max(prevMinH, clampedHeight))}px`;
 
-    if (prevPos !== undefined) {
-        col.style.position = 'fixed';
-        col.style.top = `${Math.round(lockedTop)}px`;
-        col.style.left = `${Math.round(naturalLeft)}px`;
-        col.style.width = `${Math.round(naturalWidth)}px`;
-        col.style.height = `${Math.round(clampedHeight)}px`;
-        col.style.maxHeight = `${Math.round(clampedHeight)}px`;
-    }
+    box.style.position = 'fixed';
+    box.style.top = `${Math.round(lockedTop)}px`;
+    box.style.left = `${Math.round(colRect.left)}px`;
+    box.style.width = `${Math.round(colRect.width)}px`;
+    box.style.height = `${Math.round(clampedHeight)}px`;
+    box.style.maxHeight = `${Math.round(clampedHeight)}px`;
 }
 
 function schedulePatchSidebarSync() {
