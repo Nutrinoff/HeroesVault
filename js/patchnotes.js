@@ -158,6 +158,8 @@ function extractPatchNotesText(payload) {
     if (typeof payload !== 'object') return '';
 
     const keys = [
+        'CleanedNotes',
+        'cleanedNotes',
         'PatchNotes',
         'patchNotes',
         'CleanedPatchNotes',
@@ -184,22 +186,32 @@ function extractPatchNotesText(payload) {
         }
     }
 
-    // If the detail JSON stores structured sections (e.g. Sections / sections)
     const sections = payload.Sections ?? payload.sections;
-    if (Array.isArray(sections) && sections.length) {
-        return sections
-            .map(sec => {
-                if (typeof sec === 'string') return sec;
-                const secTitle = sec.Title ?? sec.title ?? sec.Name ?? sec.name ?? '';
-                const lines = Array.isArray(sec.Entries ?? sec.entries ?? sec.Items ?? sec.items ?? sec.Lines ?? sec.lines)
-                    ? (sec.Entries ?? sec.entries ?? sec.Items ?? sec.items ?? sec.Lines ?? sec.lines)
-                    : [];
-                const header = secTitle ? `=== ${secTitle} ===` : '';
-                const body = lines.map(l => (typeof l === 'string' ? `• ${l}` : (l.Text ?? l.text ?? ''))).filter(Boolean).join('\n');
-                return [header, body].filter(Boolean).join('\n');
-            })
-            .filter(Boolean)
-            .join('\n\n');
+    if (sections && typeof sections === 'object') {
+        if (Array.isArray(sections)) {
+            return sections
+                .map(sec => {
+                    if (typeof sec === 'string') return sec;
+                    const secTitle = sec.Title ?? sec.title ?? sec.Name ?? sec.name ?? '';
+                    const lines = Array.isArray(sec.Entries ?? sec.entries ?? sec.Items ?? sec.items ?? sec.Lines ?? sec.lines)
+                        ? (sec.Entries ?? sec.entries ?? sec.Items ?? sec.items ?? sec.Lines ?? sec.lines)
+                        : [];
+                    const header = secTitle ? `=== ${secTitle} ===` : '';
+                    const body = lines.map(l => (typeof l === 'string' ? l : (l.Text ?? l.text ?? ''))).filter(Boolean).join('\n');
+                    return [header, body].filter(Boolean).join('\n');
+                })
+                .filter(Boolean)
+                .join('\n\n');
+        }
+
+        const dictChunks = Object.entries(sections).map(([secTitle, lines]) => {
+            const header = `=== ${secTitle} ===`;
+            const body = Array.isArray(lines) ? lines.map(l => String(l)).join('\n') : String(lines ?? '');
+            return [header, body].filter(Boolean).join('\n');
+        });
+        if (dictChunks.length) {
+            return dictChunks.join('\n\n');
+        }
     }
 
     return '';
@@ -307,15 +319,17 @@ function formatBlizzlikePatchNotesHtml(rawText) {
             continue;
         }
 
+        // Standalone short subsection line or trailing colon label like "Talents:" or "Level 20"
+        const cleanSubheading = trimmed.replace(/:$/, '');
         const isStandaloneSubheading =
-            trimmed.length <= 48 &&
-            !/[.!?]$/.test(trimmed) &&
-            !/\b(increased|reduced|decreased|added|removed|fixed|updated)\b/i.test(trimmed);
+            cleanSubheading.length <= 48 &&
+            !/[.!?]$/.test(cleanSubheading) &&
+            !/\b(increased|reduced|decreased|added|removed|fixed|updated)\b/i.test(cleanSubheading);
 
         if (isStandaloneSubheading) {
             flushList();
             htmlParts.push(
-                `<h4 class="text-[15px] font-bold text-slate-100 pt-3 pb-0.5">${escapeHtml(trimmed)}</h4>`
+                `<h4 class="text-[15px] font-bold text-slate-100 pt-3 pb-0.5">${escapeHtml(cleanSubheading)}</h4>`
             );
             continue;
         }
