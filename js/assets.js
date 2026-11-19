@@ -47,8 +47,7 @@ function getHeroAssetPaths(hero) {
 
     add(getHeroPortrait(hero));
 
-    // Traverse the talent data as well as normalized ability data. Master-data
-    // formats vary, so only string-valued `icon` fields are collected here.
+    // Talent data can have several different nested shapes in the master file.
     const visited = new Set();
     const visit = value => {
         if (!value || typeof value !== 'object' || visited.has(value)) return;
@@ -69,64 +68,70 @@ function getHeroAssetPaths(hero) {
     return Array.from(paths).filter(Boolean);
 }
 
+function sortAssetPreloadQueue() {
+    ASSET_PRELOAD_QUEUE.sort((a, b) => a.priority - b.priority || a.order - b.order);
+}
+
 function pumpAssetPreloadQueue() {
     while (activeAssetPreloads < ASSET_PRELOAD_CONCURRENCY && ASSET_PRELOAD_QUEUE.length) {
         const task = ASSET_PRELOAD_QUEUE.shift();
+        if (task.state !== 'queued') continue;
+
+        task.state = 'loading';
         activeAssetPreloads++;
-        task.image.onload = task.finish;
-        task.image.onerror = task.finish;
+        task.image.onload = () => finishAssetPreload(task, true);
+        task.image.onerror = () => finishAssetPreload(task, false);
         task.image.src = task.url;
     }
 }
 
+function finishAssetPreload(task, succeeded) {
+    if (task.state !== 'loading') return;
+
+    task.state = succeeded ? 'loaded' : 'failed';
+    task.image.onload = null;
+    task.image.onerror = null;
+    task.image = null;
+    activeAssetPreloads = Math.max(0, activeAssetPreloads - 1);
+
+    if (!succeeded) ASSET_PRELOAD_CACHE.delete(task.url);
+    pumpAssetPreloadQueue();
+}
+
 function preloadAssets(paths, priority = 'low') {
+    const priorityValue = priority === 'high' ? 0 : 1;
     const urls = Array.from(new Set((paths || []).map(getAssetUrl).filter(Boolean)));
 
     urls.forEach(url => {
-        if (ASSET_PRELOAD_CACHE.has(url)) return;
+        const existing = ASSET_PRELOAD_CACHE.get(url);
+        if (existing) {
+            // Promote queued work when a hero is actually visible or selected.
+            if (existing.state === 'queued' && priorityValue < existing.priority) {
+                existing.priority = priorityValue;
+                sortAssetPreloadQueue();
+            }
+            return;
+        }
 
         const image = new Image();
         image.decoding = 'async';
-        if ('fetchPriority' in image) image.fetchPriority = priority === 'high' ? 'high' : 'low';
+        if ('fetchPriority' in image) image.fetchPriority = priorityValue === 0 ? 'high' : 'low';
 
-        let settled = false;
-        const finish = () => {
-            if (settled) return;
-            settled = true;
-            activeAssetPreloads = Math.max(0, activeAssetPreloads - 1);
-            pumpAssetPreloadQueue();
+        const task = {
+            url,
+            image,
+            priority: priorityValue,
+            order: ASSET_PRELOAD_QUEUE.length,
+            state: 'queued'
         };
-
-        // Keep image references alive until they finish; dropping temporary Image
-        // instances immediately can make speculative requests unreliable.
-        ASSET_PRELOAD_CACHE.set(url, image);
-        ASSET_PRELOAD_QUEUE.push({ image, url, finish });
+        ASSET_PRELOAD_CACHE.set(url, task);
+        ASSET_PRELOAD_QUEUE.push(task);
     });
 
+    sortAssetPreloadQueue();
     pumpAssetPreloadQueue();
 }
 
 function preloadHeroAssets(hero) {
-    if (!hero) return;
-    preloadAssets(getHeroAssetPaths(hero), 'high');
-}
-
-function preloadAllAssets(rawHeroes) {
-    if (!Array.isArray(rawHeroes) || !rawHeroes.length) return;
-
-    // Warm only the first visible roster portraits immediately. Loading every
-    // icon at startup competes with the current view and can delay visible images.
-    preloadAssets(rawHeroes.slice(0, 12).map(getHeroPortrait), 'low');
-
-    const preloadRemaining = () => {
-        const remainingHeroes = rawHeroes.slice(12);
-        const paths = remainingHeroes.flatMap(getHeroAssetPaths);
-        preloadAssets(paths, 'low');
-    };
-
-    if ('requestIdleCallback' in window) {
-        window.requestIdleCallback(preloadRemaining, { timeout: 2500 });
-    } else {
-        window.setTimeout(preloadRemaining, 1200);
-    }
+    if (hero) preloadAssets(getHeroAssetPaths(hero), 'high');
 }
