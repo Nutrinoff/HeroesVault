@@ -22,6 +22,9 @@ const MASTER_SOURCES = [
     { file: 'ptr-master.json',   defaultFeed: 'ptr',  sourceEra: 'ptr' }
 ];
 
+const ACTIVE_FILTER_CLASSES = ['bg-sky-500', 'text-slate-950', 'border-sky-400', 'shadow-sm'];
+const INACTIVE_FILTER_CLASSES = ['bg-slate-900/90', 'text-slate-300', 'border-slate-700/80', 'hover:bg-slate-800', 'hover:text-white'];
+
 function escapeHtml(str) {
     return String(str ?? '')
         .replace(/&/g, '&amp;')
@@ -525,12 +528,54 @@ async function fetchPatchDetailHtml(item) {
     return fallbackHtml;
 }
 
+function getFilterButtons() {
+    return Array.from(document.querySelectorAll('[data-patch-filter]'));
+}
+
+function syncFilterButtonStates() {
+    const buttons = getFilterButtons();
+    buttons.forEach(btn => {
+        const type = String(btn.getAttribute('data-patch-filter') || '').toLowerCase();
+        const isActive = type === CURRENT_FILTER;
+
+        btn.setAttribute('aria-pressed', String(isActive));
+        btn.classList.remove(...ACTIVE_FILTER_CLASSES, ...INACTIVE_FILTER_CLASSES);
+        btn.classList.add(...(isActive ? ACTIVE_FILTER_CLASSES : INACTIVE_FILTER_CLASSES));
+    });
+}
+
+function setPatchFilter(filterType) {
+    const normalized = ['all', 'live', 'ptr'].includes(String(filterType).toLowerCase())
+        ? String(filterType).toLowerCase()
+        : 'all';
+
+    CURRENT_FILTER = normalized;
+    syncFilterButtonStates();
+    loadLivePatchNotes();
+}
+
+function initPatchFilterControls() {
+    const buttons = getFilterButtons();
+    buttons.forEach(btn => {
+        if (btn.dataset.patchFilterBound === 'true') return;
+        btn.dataset.patchFilterBound = 'true';
+        btn.addEventListener('click', () => {
+            const type = btn.getAttribute('data-patch-filter');
+            setPatchFilter(type);
+        });
+    });
+    syncFilterButtonStates();
+}
+
+window.switchPatchFilter = setPatchFilter;
+
 async function loadLivePatchNotes() {
+    initPatchFilterControls();
+
     const listContainer = document.getElementById('patch-sidebar-list');
     if (!listContainer) return;
 
     listContainer.innerHTML = `
-        ${getFilterToggleHtml()}
         <div class="flex items-center justify-between px-2 pb-2">
             <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">${escapeHtml(CURRENT_FILTER)} Feed</h3>
         </div>
@@ -550,7 +595,6 @@ async function loadLivePatchNotes() {
 
         if (ACTIVE_PATCH_ITEMS.length === 0) {
             listContainer.innerHTML = `
-                ${getFilterToggleHtml()}
                 <div class="flex items-center justify-between px-2 pb-2">
                     <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">${escapeHtml(CURRENT_FILTER)} Feed</h3>
                     <span class="text-[10px] font-mono text-slate-500">0</span>
@@ -587,38 +631,17 @@ async function loadLivePatchNotes() {
     }
 }
 
-function getFilterButtonClass(type) {
-    return type === CURRENT_FILTER
-        ? 'px-3 py-1 rounded-md text-xs font-bold transition border bg-sky-500 text-slate-950 border-sky-400 shadow-sm'
-        : 'px-3 py-1 rounded-md text-xs font-bold transition border bg-slate-900/90 text-slate-300 border-slate-700/80 hover:bg-slate-800 hover:text-white';
-}
-
-function getFilterToggleHtml() {
-    return `
-        <div id="patch-type-toggle" class="flex items-center gap-2 px-2 pb-3">
-            <button id="filter-btn-all" type="button" onclick="switchPatchFilter('all')" class="${getFilterButtonClass('all')}">All</button>
-            <button id="filter-btn-live" type="button" onclick="switchPatchFilter('live')" class="${getFilterButtonClass('live')}">Live</button>
-            <button id="filter-btn-ptr" type="button" onclick="switchPatchFilter('ptr')" class="${getFilterButtonClass('ptr')}">PTR</button>
-        </div>
-    `;
-}
-
-window.switchPatchFilter = function(filterType) {
-    if (CURRENT_FILTER === filterType) return;
-    CURRENT_FILTER = filterType;
-    loadLivePatchNotes();
-};
-
 function renderPatchSidebar(items) {
     const listContainer = document.getElementById('patch-sidebar-list');
     if (!listContainer) return;
+
+    syncFilterButtonStates();
 
     const headerTitle = CURRENT_FILTER === 'all'
         ? 'ALL FEED'
         : `${CURRENT_FILTER.toUpperCase()} FEED`;
 
     listContainer.innerHTML = `
-        ${getFilterToggleHtml()}
         <div class="flex items-center justify-between px-2 pb-2">
             <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">${escapeHtml(headerTitle)}</h3>
             <span class="text-[11px] font-mono text-slate-500">${items.length}</span>
@@ -630,7 +653,7 @@ function renderPatchSidebar(items) {
         btn.type = 'button';
         btn.id = `btn-${CSS.escape(item.id)}`;
         btn.className = 'w-full text-left p-3.5 rounded-xl border border-slate-800/90 bg-slate-950/50 hover:bg-slate-800/70 hover:border-slate-700 transition space-y-2 group';
-        btn.onclick = () => selectPatchItem(item.id);
+        btn.addEventListener('click', () => selectPatchItem(item.id));
 
         const feedBadge = item.feedType === 'ptr'
             ? `<span class="text-[10px] px-1.5 py-0.5 rounded font-mono font-semibold text-amber-300 bg-amber-500/15 border border-amber-500/30">PTR</span>`
@@ -717,4 +740,10 @@ async function selectPatchItem(id) {
     if (bodyEl && ACTIVE_PATCH_ITEMS.some(x => x.id === id)) {
         bodyEl.innerHTML = notesHtml;
     }
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPatchFilterControls, { once: true });
+} else {
+    initPatchFilterControls();
 }
