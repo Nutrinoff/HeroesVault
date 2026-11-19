@@ -204,19 +204,21 @@ function styleCompactFilterButton(btn) {
     btn.style.minHeight = '0';
     btn.style.maxHeight = '36px';
     btn.style.width = 'auto';
+    btn.style.minWidth = '68px';
     btn.style.flex = '0 0 auto';
     btn.classList.add(
         'inline-flex',
         'items-center',
         'justify-center',
-        'px-3.5',
+        'px-4',
         'py-1.5',
         'rounded-lg',
         'text-xs',
         'font-bold',
         'leading-none',
         'whitespace-nowrap',
-        'shrink-0'
+        'shrink-0',
+        'flex-none'
     );
 }
 
