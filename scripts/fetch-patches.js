@@ -3,15 +3,23 @@ const path = require('path');
 
 const BASE_URL = 'https://blizztrack.com/api/forums/heroes';
 const CATEGORIES_URL = 'https://blizztrack.com/api/forums/heroes/categories';
+const FALLBACK_LINK = 'https://blizztrack.com/forums?game=heroes';
+
+const BROWSER_HEADERS = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+    'Accept-Language': 'en-US,en;q=0.9'
+};
 
 function decodeEntities(str) {
-    return str
+    return String(str || '')
         .replace(/&amp;/g, '&')
         .replace(/&lt;/g, '<')
         .replace(/&gt;/g, '>')
         .replace(/&quot;/g, '"')
         .replace(/&#39;/g, "'")
-        .replace(/&#x27;/g, "'");
+        .replace(/&#x27;/g, "'")
+        .replace(/&nbsp;/g, ' ');
 }
 
 function stripTags(html) {
@@ -47,7 +55,12 @@ function extractLink(post) {
         return decodeEntities(hrefMatch[1]);
     }
 
-    return 'https://blizztrack.com/forums?game=heroes';
+    return FALLBACK_LINK;
+}
+
+function extractNewsUrlFromText(text) {
+    const match = String(text || '').match(/https?:\/\/(?:[\w-]+\.)?news\.blizzard\.com\/[^\s"'<>)]+/i);
+    return match ? decodeEntities(match[0]) : null;
 }
 
 function parseDate(raw) {
@@ -72,9 +85,13 @@ function extractPostsFromPayload(payload) {
     if (Array.isArray(payload?.result?.posts)) return payload.result.posts;
     for (const key of ['posts', 'threads', 'topics', 'items', 'articles', 'data', 'results']) {
         if (Array.isArray(payload[key])) return payload[key];
-        if (Array.isArray(payload?.result?.[key])) return payload.result[key];
+        if (Array.isArray(payload?.result?.[key])) return payload[key];
     }
     return [];
+}
+
+function buildDefaultDescription(summary) {
+    return `<p class="text-slate-300">${summary}</p>`;
 }
 
 function normalizePost(post, index) {
@@ -85,6 +102,7 @@ function normalizePost(post, index) {
     const lowerTitle = title.toLowerCase();
     const feedType = lowerTitle.includes('ptr') ? 'ptr' : 'live';
     const link = extractLink(post);
+    const newsUrl = extractNewsUrlFromText(post.excerpt || '') || extractNewsUrlFromText(link);
 
     const plainExcerpt = stripTags(post.excerpt || '');
     const summary = plainExcerpt || 'View the full update details on Blizzard News.';
@@ -96,7 +114,8 @@ function normalizePost(post, index) {
         isoDate: dateObj ? dateObj.toISOString() : null,
         feedType,
         link,
-        description: `<p class="text-slate-300">${summary}</p>`
+        newsUrl,
+        description: buildDefaultDescription(summary)
     };
 }
 
@@ -120,15 +139,31 @@ async function fetchJson(url) {
     }
 }
 
+async function fetchTextSafe(url) {
+    if (!url || !/^https?:\/\//i.test(url)) return null;
+    try {
+        const res = await fetch(url, {
+            headers: BROWSER_HEADERS,
+            redirect: 'follow'
+        });
+        if (!res.ok) {
+            return { ok: false, status: res.status, finalUrl: res.url, text: null };
+        }
+        const text = await res.text();
+        return { ok: true, status: res.status, finalUrl: res.url, text };
+    } catch {
+        return { ok: false, status: 0, finalUrl: url, text: null };
+    }
+}
+
 function postSignature(post) {
-    const raw = JSON.stringify({
+    return JSON.stringify({
         id: post.id,
         title: post.title,
         posted_on: post.posted_on,
         excerpt: post.excerpt,
         url: post.url || post.link
     });
-    return raw;
 }
 
 async function fetchAllRawPosts() {
@@ -176,7 +211,6 @@ async function fetchAllRawPosts() {
             const posts = extractPostsFromPayload(res.json);
             if (posts.length === 0) continue;
 
-            // Detect if server simply echoed the exact same base batch
             const newCount = addPosts(posts);
             if (newCount > 0) {
                 pagePaginationWorked = true;
@@ -189,7 +223,6 @@ async function fetchAllRawPosts() {
     }
 
     if (!pagePaginationWorked) {
-        // Also try offset-based pagination in case the API uses offset/skip
         const pageSize = basePosts.length || 25;
         for (let step = 1; step <= maxPages; step++) {
             const offset = step * pageSize;
@@ -224,6 +257,100 @@ async function fetchAllRawPosts() {
     return allPosts;
 }
 
+function htmlToPatchHtml(html) {
+    const cleaned = String(html || '')
+        .replace(/<(script|style|nav|footer|header|aside|noscript)[^>]*>[\s\S]*?<\/\1>/gi, '')
+        .replace(/<!--[\s\S]*?-->/g, '');
+
+    const articleMatch =
+        cleaned.match(/<article[^>]*>([\s\S]*?)<\/article>/i) ||
+        cleaned.match(/<main[^>]*>([\s\S]*?)<\/main>/i);
+
+    const source = articleMatch ? articleMatch[1] : cleaned;
+    const blocks = [];
+    const tokenRegex = /<(h[1-4]|p|li)[^>]*>([\s\S]*?)<\/\1>/gi;
+    let match;
+
+    while ((match = tokenRegex.exec(source)) !== null) {
+        const tag = match[1].toLowerCase();
+        const text = decodeEntities(match[2].replace(/<[^>]+>/g, ' '))
+            .replace(/\s+/g, ' ')
+            .trim();
+
+        if (!text) continue;
+        if (/^(cookie settings|do not sell|privacy|legal|terms|all rights reserved|return to top|quick navigation|comments)$/i.test(text)) {
+            continue;
+        }
+        if (/^(required cookies|functional cookies|social media cookies|performance cookies|blizzard & affiliate)/i.test(text)) {
+            continue;
+        }
+
+        if (tag.startsWith('h')) {
+            blocks.push(`<h4 class="font-bold text-sky-300 mt-3 mb-1">${text}</h4>`);
+        } else if (tag === 'li') {
+            blocks.push(`<p class="text-slate-300 ml-3 mb-1">• ${text}</p>`);
+        } else {
+            blocks.push(`<p class="text-slate-300 mb-1.5">${text}</p>`);
+        }
+    }
+
+    const joined = blocks.join('\n');
+    return joined.length > 150 ? joined : null;
+}
+
+async function resolveAndFetchPatchContent(entry) {
+    let targetNewsUrl = entry.newsUrl || extractNewsUrlFromText(entry.link) || extractNewsUrlFromText(entry.description);
+
+    // If we only have a forum thread link (e.g. us.forums.blizzard.com), check it for a news.blizzard.com link
+    if (!targetNewsUrl && entry.link && entry.link.includes('forums.blizzard.com')) {
+        const forumRes = await fetchTextSafe(entry.link);
+        if (forumRes?.ok && forumRes.text) {
+            targetNewsUrl = extractNewsUrlFromText(forumRes.text);
+        }
+    }
+
+    if (!targetNewsUrl) {
+        return { description: null, newsUrl: null };
+    }
+
+    const articleRes = await fetchTextSafe(targetNewsUrl);
+    if (!articleRes?.ok || !articleRes.text) {
+        console.log(`Could not fetch article (${articleRes?.status || 'err'}) for ${targetNewsUrl}`);
+        return { description: null, newsUrl: targetNewsUrl };
+    }
+
+    const parsedHtml = htmlToPatchHtml(articleRes.text);
+    if (!parsedHtml) {
+        console.log(`Article fetched but no patch note blocks parsed for ${targetNewsUrl}`);
+        return { description: null, newsUrl: targetNewsUrl };
+    }
+
+    return { description: parsedHtml, newsUrl: targetNewsUrl };
+}
+
+async function enrichPatchDescriptions(entries, maxEnrichPerRun = 8) {
+    let enrichedCount = 0;
+
+    for (const item of entries) {
+        if (enrichedCount >= maxEnrichPerRun) break;
+
+        // Skip entries that already have rich patch content (longer than a short summary paragraph)
+        const existingLen = String(item.description || '').replace(/<[^>]+>/g, '').trim().length;
+        if (existingLen > 260) continue;
+
+        const { description, newsUrl } = await resolveAndFetchPatchContent(item);
+        if (newsUrl && !item.newsUrl) {
+            item.newsUrl = newsUrl;
+        }
+        if (description) {
+            item.description = description;
+            enrichedCount++;
+        }
+    }
+
+    return enrichedCount;
+}
+
 function readExistingPatches(filePath) {
     if (!fs.existsSync(filePath)) return [];
     try {
@@ -237,7 +364,7 @@ function readExistingPatches(filePath) {
 }
 
 function entryKey(item) {
-    if (item.link && item.link !== 'https://blizztrack.com/forums?game=heroes') {
+    if (item.link && item.link !== FALLBACK_LINK) {
         return `link:${item.link.trim().toLowerCase()}`;
     }
     return `id:${String(item.id).trim().toLowerCase()}`;
@@ -246,7 +373,6 @@ function entryKey(item) {
 function mergeAndSortNewestFirst(existingList, fetchedList, fallbackFeedType) {
     const byKey = new Map();
 
-    // Seed with existing items so historical entries and custom edits are retained
     for (const oldItem of existingList) {
         if (!oldItem || !oldItem.title) continue;
         const normalizedOld = {
@@ -256,21 +382,22 @@ function mergeAndSortNewestFirst(existingList, fetchedList, fallbackFeedType) {
         byKey.set(entryKey(normalizedOld), normalizedOld);
     }
 
-    // Merge fetched items: preserve any manually customized description on existing items
     for (const freshItem of fetchedList) {
         const key = entryKey(freshItem);
         const prev = byKey.get(key);
 
         if (prev) {
-            const hasCustomDescription =
-                prev.description &&
-                prev.description !== freshItem.description &&
-                prev.description.trim() !== '';
+            const prevPlain = String(prev.description || '').replace(/<[^>]+>/g, '').trim();
+            const freshPlain = String(freshItem.description || '').replace(/<[^>]+>/g, '').trim();
+            const hasRichOrCustomDescription =
+                prevPlain.length > 0 &&
+                (prevPlain.length > 260 || (prevPlain !== freshPlain && prev.description !== buildDefaultDescription(freshPlain)));
 
             byKey.set(key, {
                 ...freshItem,
                 id: prev.id || freshItem.id,
-                description: hasCustomDescription ? prev.description : freshItem.description
+                newsUrl: prev.newsUrl || freshItem.newsUrl || null,
+                description: hasRichOrCustomDescription ? prev.description : freshItem.description
             });
         } else {
             byKey.set(key, freshItem);
@@ -318,6 +445,10 @@ async function updatePatchFiles() {
 
     const mergedLive = mergeAndSortNewestFirst(existingLive, fetchedLive, 'live');
     const mergedPtr = mergeAndSortNewestFirst(existingPtr, fetchedPtr, 'ptr');
+
+    const liveEnriched = await enrichPatchDescriptions(mergedLive, 6);
+    const ptrEnriched = await enrichPatchDescriptions(mergedPtr, 6);
+    console.log(`Enriched patch descriptions -> live: ${liveEnriched}, ptr: ${ptrEnriched}`);
 
     fs.writeFileSync(livePath, `${JSON.stringify(mergedLive, null, 2)}\n`);
     fs.writeFileSync(ptrPath, `${JSON.stringify(mergedPtr, null, 2)}\n`);
