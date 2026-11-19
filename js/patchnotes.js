@@ -539,7 +539,7 @@ function syncFilterButtonStates() {
         const isActive = type === CURRENT_FILTER;
 
         btn.setAttribute('aria-pressed', String(isActive));
-        btn.classList.remove(...ACTIVE_FILTER_CLASSES, ...INACTIVE_FILTER_CLASSES);
+        btn.classList.remove('bg-slate-950', ...ACTIVE_FILTER_CLASSES, ...INACTIVE_FILTER_CLASSES);
         btn.classList.add(...(isActive ? ACTIVE_FILTER_CLASSES : INACTIVE_FILTER_CLASSES));
     });
 }
