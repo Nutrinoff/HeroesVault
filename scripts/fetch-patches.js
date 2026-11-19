@@ -1,95 +1,151 @@
 const fs = require('fs');
 const path = require('path');
 
-async function updatePatchFiles() {
-    const dir = path.join(__dirname, '../data');
-    if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir, { recursive: true });
+const API_URL = 'https://blizztrack.com/api/forums/heroes';
+
+function extractEntries(payload) {
+    if (Array.isArray(payload)) return payload;
+    if (!payload || typeof payload !== 'object') return [];
+
+    for (const key of ['posts', 'threads', 'topics', 'items', 'articles', 'data', 'results']) {
+        if (Array.isArray(payload[key])) return payload[key];
     }
-
-    try {
-        console.log('Fetching official Blizzard RSS feed for Heroes of the Storm...');
-        const feedUrl = 'https://news.blizzard.com/en-us/feed/heroes-of-the-storm';
-        
-        const response = await fetch(feedUrl, {
-            headers: {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-            }
-        });
-
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        
-        const xmlText = await response.text();
-        console.log(`Fetched RSS feed successfully. Length: ${xmlText.length} bytes.`);
-
-        // Simple and robust XML item extraction using regex
-        const itemRegex = /<item>([\s\S]*?)<\/item>/g;
-        let match;
-        const articles = [];
-
-        while ((match = itemRegex.exec(xmlText)) !== null) {
-            const itemContent = match[1];
-
-            const getTagValue = (tagName) => {
-                const tagRegex = new RegExp(`<${tagName}[^>]*>([\\s\\S]*?)<\/${tagName}>`, 'i');
-                const tagMatch = itemContent.match(tagRegex);
-                if (!tagMatch) return '';
-                // Clean up CDATA if present
-                return tagMatch[1].replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1').trim();
-            };
-
-            const title = getTagValue('title');
-            const link = getTagValue('link');
-            const pubDate = getTagValue('pubDate');
-            const description = getTagValue('description');
-
-            if (title) {
-                articles.push({
-                    title,
-                    link: link || 'https://news.blizzard.com/en-us/heroes-of-the-storm',
-                    publishedDate: pubDate ? new Date(pubDate).toISOString() : new Date().toISOString(),
-                    summary: description || 'Click to view full patch notes on Blizzard.'
-                });
-            }
-        }
-
-        console.log(`Successfully parsed ${articles.length} articles from RSS feed.`);
-
-        const livePatches = [];
-        const ptrPatches = [];
-
-        articles.forEach((art, index) => {
-            const title = art.title;
-            const lowerTitle = title.toLowerCase();
-
-            const formattedItem = {
-                id: `patch-${index}-${Date.now()}`,
-                title: title,
-                date: new Date(art.publishedDate).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                }),
-                feedType: lowerTitle.includes('ptr') ? 'ptr' : 'live',
-                link: art.link,
-                description: `<div class="space-y-2"><p class="text-slate-300">${art.summary}</p></div>`
-            };
-
-            if (formattedItem.feedType === 'ptr') {
-                ptrPatches.push(formattedItem);
-            } else {
-                livePatches.push(formattedItem);
-            }
-        });
-
-        fs.writeFileSync(path.join(dir, 'live-patches.json'), JSON.stringify(livePatches, null, 2));
-        fs.writeFileSync(path.join(dir, 'ptr-patches.json'), JSON.stringify(ptrPatches, null, 2));
-
-        console.log(`Successfully saved ${livePatches.length} live patches and ${ptrPatches.length} PTR patches.`);
-    } catch (err) {
-        console.error('Failed to fetch/parse RSS feed:', err);
-        process.exit(1);
-    }
+    return [];
 }
 
-updatePatchFiles();
+function parseDate(raw) {
+    if (!raw) return null;
+    const parsed = new Date(raw);
+    return Number.isNaN(parsed.getTime()) ? null : parsed;
+}
+
+function formatDisplayDate(dateObj) {
+    if (!dateObj) return 'Unknown Date';
+    return dateObj.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        timeZone: 'UTC'
+    });
+}
+
+function normalizeEntry(item, index) {
+    const title = String(
+        item.title || item.subject || item.topicTitle || item.name || ''
+    ).trim();
+
+    if (!title) return null;
+
+    const rawDate =
+        item.createdAt ||
+        item.publishedAt ||
+        item.postedAt ||
+        item.date ||
+        item.timestamp ||
+        item.created_at ||
+        null;
+
+    const dateObj = parseDate(rawDate);
+    const lowerTitle = title.toLowerCase();
+    const feedType = lowerTitle.includes('ptr') ? 'ptr' : 'live';
+
+    const rawLink =
+        item.url ||
+        item.link ||
+        item.threadUrl ||
+        item.postUrl ||
+        'https://blizztrack.com/forums?game=heroes';
+
+    const link = String(rawLink).startsWith('http')
+        ? String(rawLink)
+        : `https://blizztrack.com${String(rawLink).startsWith('/') ? '' : '/'}${rawLink}`;
+
+    const rawSummary =
+        item.excerpt ||
+        item.summary ||
+        item.body ||
+        item.content ||
+        item.description ||
+        '';
+
+    const cleanSummary = String(rawSummary).trim() ||
+        'View the full update details via the source link.';
+
+    return {
+        id: item.id ? String(item.id) : `${feedType}-${index}-${dateObj ? dateObj.getTime() : index}`,
+        title,
+        date: formatDisplayDate(dateObj),
+        isoDate: dateObj ? dateObj.toISOString() : null,
+        feedType,
+        link,
+        description: `<p class="text-slate-300">${cleanSummary}</p>`
+    };
+}
+
+async function updatePatchFiles() {
+    const outDir = path.join(__dirname, '../data');
+    fs.mkdirSync(outDir, { recursive: true });
+
+    console.log(`Fetching Heroes of the Storm forum data from ${API_URL}...`);
+
+    const response = await fetch(API_URL, {
+        headers: {
+            'User-Agent': 'HeroesVault-PatchFetcher/1.0 (+https://github.com/Nutrinoff/HeroesVault)',
+            'Accept': 'application/json'
+        }
+    });
+
+    console.log(`HTTP Status: ${response.status} ${response.statusText}`);
+
+    if (!response.ok) {
+        const bodySnippet = (await response.text()).slice(0, 400);
+        throw new Error(`Request failed (${response.status}): ${bodySnippet}`);
+    }
+
+    const rawText = await response.text();
+    let json;
+    try {
+        json = JSON.parse(rawText);
+    } catch {
+        throw new Error(`Expected JSON from BlizzTrack API, got: ${rawText.slice(0, 400)}`);
+    }
+
+    const rawEntries = extractEntries(json);
+    console.log(`Raw entries count: ${rawEntries.length}`);
+    if (rawEntries.length > 0) {
+        console.log('Sample entry keys:', Object.keys(rawEntries[0]));
+    }
+
+    const normalized = rawEntries
+        .map((item, idx) => normalizeEntry(item, idx))
+        .filter(Boolean)
+        .filter((entry) => {
+            const t = entry.title.toLowerCase();
+            return t.includes('patch notes') || t.includes('balance patch') || t.includes('ptr');
+        })
+        .sort((a, b) => {
+            const timeA = a.isoDate ? new Date(a.isoDate).getTime() : 0;
+            const timeB = b.isoDate ? new Date(b.isoDate).getTime() : 0;
+            return timeB - timeA;
+        });
+
+    const livePatches = normalized.filter((item) => item.feedType === 'live');
+    const ptrPatches = normalized.filter((item) => item.feedType === 'ptr');
+
+    if (livePatches.length === 0 && ptrPatches.length === 0) {
+        throw new Error(
+            `Parsed ${normalized.length} matching patch entries out of ${rawEntries.length} raw entries. ` +
+            `Payload preview: ${rawText.slice(0, 400)}`
+        );
+    }
+
+    fs.writeFileSync(path.join(outDir, 'live-patches.json'), `${JSON.stringify(livePatches, null, 2)}\n`);
+    fs.writeFileSync(path.join(outDir, 'ptr-patches.json'), `${JSON.stringify(ptrPatches, null, 2)}\n`);
+
+    console.log(`Wrote ${livePatches.length} live patches and ${ptrPatches.length} PTR patches.`);
+}
+
+updatePatchFiles().catch((err) => {
+    console.error('Patch fetch failed:', err);
+    process.exit(1);
+});
