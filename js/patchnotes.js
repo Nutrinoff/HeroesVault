@@ -87,7 +87,6 @@ function formatBlizzDisplayTitle(rawTitle, displayDate, feedType, era) {
     const cleanTitle = String(rawTitle || '').trim();
     const datePart = displayDate && displayDate !== 'Unknown Date' ? displayDate : '';
 
-    // If title already follows "Heroes of the Storm ... Patch Notes - Date", keep it consistent
     if (/^Heroes of the Storm\b.*\bPatch Notes\b/i.test(cleanTitle)) {
         if (datePart && !cleanTitle.includes(datePart)) {
             return `${cleanTitle.replace(/\s*-\s*[^-]+$/, '')} - ${datePart}`;
@@ -530,9 +529,8 @@ async function loadLivePatchNotes() {
     const listContainer = document.getElementById('patch-sidebar-list');
     if (!listContainer) return;
 
-    renderPatchHeaderControls();
-
     listContainer.innerHTML = `
+        ${getFilterToggleHtml()}
         <div class="flex items-center justify-between px-2 pb-2">
             <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">${escapeHtml(CURRENT_FILTER)} Feed</h3>
         </div>
@@ -552,6 +550,7 @@ async function loadLivePatchNotes() {
 
         if (ACTIVE_PATCH_ITEMS.length === 0) {
             listContainer.innerHTML = `
+                ${getFilterToggleHtml()}
                 <div class="flex items-center justify-between px-2 pb-2">
                     <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">${escapeHtml(CURRENT_FILTER)} Feed</h3>
                     <span class="text-[10px] font-mono text-slate-500">0</span>
@@ -594,50 +593,19 @@ function getFilterButtonClass(type) {
         : 'px-3 py-1 rounded-md text-xs font-bold transition border bg-slate-900/90 text-slate-300 border-slate-700/80 hover:bg-slate-800 hover:text-white';
 }
 
-function findSidebarHeaderAnchor(listContainer) {
-    const parent = listContainer.parentElement;
-    if (!parent) return null;
-
-    // Look for an existing top header/title row inside the sidebar column
-    const candidates = Array.from(parent.children).filter(el => el !== listContainer);
-    return candidates[0] || null;
-}
-
-function renderPatchHeaderControls() {
-    const listContainer = document.getElementById('patch-sidebar-list');
-    if (!listContainer || !listContainer.parentElement) return;
-
-    const parent = listContainer.parentElement;
-    let controlNav = document.getElementById('patch-type-toggle');
-
-    if (!controlNav) {
-        controlNav = document.createElement('div');
-        controlNav.id = 'patch-type-toggle';
-        controlNav.className = 'flex items-center gap-2 px-3 pt-3 pb-2 shrink-0 z-10';
-        controlNav.innerHTML = `
+function getFilterToggleHtml() {
+    return `
+        <div id="patch-type-toggle" class="flex items-center gap-2 px-2 pb-3">
             <button id="filter-btn-all" type="button" onclick="switchPatchFilter('all')" class="${getFilterButtonClass('all')}">All</button>
             <button id="filter-btn-live" type="button" onclick="switchPatchFilter('live')" class="${getFilterButtonClass('live')}">Live</button>
             <button id="filter-btn-ptr" type="button" onclick="switchPatchFilter('ptr')" class="${getFilterButtonClass('ptr')}">PTR</button>
-        `;
-    }
-
-    const anchor = findSidebarHeaderAnchor(listContainer);
-    if (anchor && anchor.id !== 'patch-type-toggle') {
-        anchor.insertAdjacentElement('afterend', controlNav);
-    } else if (parent.firstElementChild !== controlNav) {
-        parent.prepend(controlNav);
-    }
-
-    ['all', 'live', 'ptr'].forEach(type => {
-        const btn = document.getElementById(`filter-btn-${type}`);
-        if (btn) btn.className = getFilterButtonClass(type);
-    });
+        </div>
+    `;
 }
 
 window.switchPatchFilter = function(filterType) {
     if (CURRENT_FILTER === filterType) return;
     CURRENT_FILTER = filterType;
-    renderPatchHeaderControls();
     loadLivePatchNotes();
 };
 
@@ -645,13 +613,12 @@ function renderPatchSidebar(items) {
     const listContainer = document.getElementById('patch-sidebar-list');
     if (!listContainer) return;
 
-    renderPatchHeaderControls();
-
     const headerTitle = CURRENT_FILTER === 'all'
         ? 'ALL FEED'
         : `${CURRENT_FILTER.toUpperCase()} FEED`;
 
     listContainer.innerHTML = `
+        ${getFilterToggleHtml()}
         <div class="flex items-center justify-between px-2 pb-2">
             <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">${escapeHtml(headerTitle)}</h3>
             <span class="text-[11px] font-mono text-slate-500">${items.length}</span>
@@ -696,7 +663,7 @@ async function selectPatchItem(id) {
     const item = ACTIVE_PATCH_ITEMS.find(x => x.id === id);
     if (!item) return;
 
-    document.querySelectorAll('#patch-sidebar-list button').forEach(b => {
+    document.querySelectorAll('#patch-sidebar-list button[id^="btn-"]').forEach(b => {
         b.classList.remove('bg-sky-500/15', 'border-sky-500/70');
     });
 
