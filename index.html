@@ -49,24 +49,28 @@
       transform-origin: center;
       margin: 0.5rem 0.75rem;
     }
-    /* Hexagon border + portrait (~15% larger than w-24/96px -> 110px) with no square backing */
-    .hex-portrait-frame {
-      position: relative;
-      width: 110px;
-      height: 110px;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(56, 189, 248, 0.45);
-      clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
-    }
-    .hex-portrait-img {
-      width: 104px;
-      height: 104px;
-      object-fit: cover;
-      clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
-    }
+/* Hollow hexagon border ~1-2px thicker than before, nothing behind the portrait */
+.hex-portrait-frame {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  flex-shrink: 0;
+}
+.hex-portrait-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
+}
+.hex-portrait-ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
   </style>
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col selection:bg-sky-500 selection:text-white">
