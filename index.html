@@ -343,52 +343,46 @@
 
       <!-- VIEW: NEXUS ACADEMY -->
       <div id="view-academy" class="space-y-6 hidden">
-        <div class="flex items-center gap-3 pb-4 border-b border-slate-800">
-          <div class="p-2.5 bg-purple-500/20 border border-purple-500/40 rounded-xl text-purple-400">
-            <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-800">
+          <div class="flex items-center gap-3">
+            <div class="p-2.5 bg-purple-500/20 border border-purple-500/40 rounded-xl text-purple-400">
+              <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <h2 class="text-2xl font-bold text-white">Nexus Academy</h2>
+              <p class="text-xs text-slate-400">Structured guides across Basic &amp; Advanced tracks, laning, drafting, and mechanics</p>
+            </div>
           </div>
-          <div>
-            <h2 class="text-2xl font-bold text-white">Nexus Academy</h2>
-            <p class="text-xs text-slate-400">Core concepts, strategy guides, and advanced gameplay guides</p>
+          <div id="academy-level-filters" class="flex items-center gap-1.5 bg-slate-900 border border-slate-800 rounded-xl p-1 self-start sm:self-auto" role="group" aria-label="Skill level filter">
+            <button type="button" data-academy-level="all" onclick="setAcademyLevel('all')" class="academy-level-btn px-3 py-1 rounded-lg text-xs font-bold bg-sky-500 text-slate-950 transition">All</button>
+            <button type="button" data-academy-level="Basic" onclick="setAcademyLevel('Basic')" class="academy-level-btn px-3 py-1 rounded-lg text-xs font-bold text-slate-300 hover:bg-slate-800 hover:text-white transition">Basic</button>
+            <button type="button" data-academy-level="Advanced" onclick="setAcademyLevel('Advanced')" class="academy-level-btn px-3 py-1 rounded-lg text-xs font-bold text-slate-300 hover:bg-slate-800 hover:text-white transition">Advanced</button>
           </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <section class="space-y-2 pb-4 border-b border-slate-800/70">
-            <h3 class="font-bold text-sky-400 flex items-center gap-2 text-sm">
-              <i data-lucide="book-open" class="w-4 h-4"></i> Experience & Soaking
-            </h3>
-            <p class="text-xs text-slate-300 leading-relaxed">
-              Minion death XP is the lifeblood of HotS. Ensure every minion wave in all lanes is soaked during the early game. Missing a wave early can easily give the opposing team a pivotal level advantage for objective fights.
-            </p>
-          </section>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          <!-- Left Navigation Rail: Search, Category Pills & Article Index -->
+          <aside class="lg:col-span-4 bg-slate-900/75 border border-slate-800 rounded-2xl p-3 space-y-3 lg:sticky lg:top-20">
+            <div class="relative">
+              <i data-lucide="search" class="w-4 h-4 absolute left-3 top-2.5 text-slate-400"></i>
+              <input
+                id="academy-search"
+                type="text"
+                oninput="filterAcademyArticles()"
+                placeholder="Search guides (e.g. stutter, draft, soak)..."
+                class="w-full pl-9 pr-3 py-1.5 bg-slate-950 border border-slate-700/80 rounded-lg text-sm text-slate-200 focus:outline-none focus:border-sky-500"
+              />
+            </div>
 
-          <section class="space-y-2 pb-4 border-b border-slate-800/70">
-            <h3 class="font-bold text-amber-400 flex items-center gap-2 text-sm">
-              <i data-lucide="zap" class="w-4 h-4"></i> Talent Tier Advantages
-            </h3>
-            <p class="text-xs text-slate-300 leading-relaxed">
-              Never engage 4v5 or when down a major talent tier (especially levels 10 and 20). Level advantages grant immense stat buffs and game-changing heroic abilities that heavily swing team fights.
-            </p>
-          </section>
+            <div id="academy-category-tabs" class="flex flex-wrap gap-1.5" role="group" aria-label="Academy categories"></div>
 
-          <section class="space-y-2">
-            <h3 class="font-bold text-emerald-400 flex items-center gap-2 text-sm">
-              <i data-lucide="shield-alert" class="w-4 h-4"></i> Mercenary Timing
-            </h3>
-            <p class="text-xs text-slate-300 leading-relaxed">
-              Capture siege and bruiser camps right <em>before</em> objectives spawn. This forces the enemy team to split attention between defending structures and contesting the map objective.
-            </p>
-          </section>
+            <div id="academy-article-list" class="space-y-1.5 max-h-[60vh] overflow-y-auto pr-1"></div>
+          </aside>
 
-          <section class="space-y-2">
-            <h3 class="font-bold text-purple-400 flex items-center gap-2 text-sm">
-              <i data-lucide="users" class="w-4 h-4"></i> Team Composition Balance
-            </h3>
-            <p class="text-xs text-slate-300 leading-relaxed">
-              A balanced composition typically relies on a reliable Tank, a Healer, a Bruiser or Offlaner, a Ranged Assassin, and a flexible slot for waveclear or multi-class utility.
-            </p>
-          </section>
+          <!-- Right Reader Pane: Markdown-formatted Article View -->
+          <article id="academy-article-reader" class="lg:col-span-8 bg-slate-900/65 border border-slate-800/90 rounded-2xl p-6 space-y-5 min-w-0">
+            <div class="text-sm text-slate-400">Select an article from the list to start reading.</div>
+          </article>
         </div>
       </div>
 
@@ -478,6 +472,7 @@
   <script src="./js/maps.js"></script>
   <script src="./js/tierlist.js"></script>
   <script src="./js/patchnotes.js"></script>
+  <script src="./js/academy.js"></script>
   <script src="./app.js"></script>
 
 </body>
