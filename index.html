@@ -328,23 +328,23 @@
 
 <!-- VIEW: PATCH NOTES -->
       <div id="view-patchnotes" class="hidden">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:h-[calc(100vh-120px)] lg:min-h-[540px]">
-          <!-- Left Column: Locked Workspace Height + Scrollable Patch List -->
-          <div class="lg:col-span-4 flex flex-col gap-3 min-h-0 h-[420px] lg:h-full">
-            <div id="patch-filter-controls" class="flex items-center gap-2 px-1 shrink-0" role="group" aria-label="Patch feed filters">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <!-- Left Column: Filter Buttons + Scrollable Patch List -->
+          <div class="lg:col-span-4 space-y-3 lg:sticky lg:top-20">
+            <div id="patch-filter-controls" class="flex items-center gap-2 px-1" role="group" aria-label="Patch feed filters">
               <button type="button" data-patch-filter="all" class="patch-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition border">All</button>
               <button type="button" data-patch-filter="live" class="patch-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition border">Live</button>
               <button type="button" data-patch-filter="ptr" class="patch-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition border">PTR</button>
             </div>
 
-            <div class="bg-slate-900/75 border border-slate-800 rounded-2xl p-3 space-y-2 flex-1 min-h-0 overflow-y-auto" id="patch-sidebar-list">
+            <div class="bg-slate-900/75 border border-slate-800 rounded-2xl p-3 space-y-2 max-h-[calc(100vh-165px)] overflow-y-auto" id="patch-sidebar-list">
               <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 px-2 pb-2">Blizzard Feed</h3>
               <div class="text-xs text-slate-500 p-2">Loading live feed...</div>
             </div>
           </div>
 
-          <!-- Right Column: Independent Scroll for Long & Short Patch Notes -->
-          <div class="lg:col-span-8 bg-slate-900/65 border border-slate-800/90 rounded-2xl p-6 space-y-4 min-h-0 lg:overflow-y-auto" id="patch-main-content">
+          <!-- Right Column: Open Patch Notes Flowing Naturally on Page -->
+          <div class="lg:col-span-8 space-y-4 pt-1" id="patch-main-content">
             <h2 class="text-2xl font-bold text-white">Select a patch update</h2>
             <p class="text-xs text-slate-400">Choose an update from the left list to review details.</p>
           </div>
