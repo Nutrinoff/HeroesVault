@@ -15,6 +15,7 @@ let builderHeroId = null;
 let builderHeroData = null;
 let builderSelectedTalents = [1, 1, 1, 1, 1, 1, 1];
 let patchNotesLayoutObserver = null;
+let isApplyingPatchBarLayout = false;
 
 
 // ==========================================
@@ -178,16 +179,15 @@ function findPatchFeedAnchor(viewEl, filterButtons) {
     const buttonSet = new Set(filterButtons);
     const allEls = Array.from(viewEl.querySelectorAll('div, section, ul, ol'));
 
-    // Look for a container holding patch entries or an "ALL FEED" / feed heading
     const feedHeading = allEls.find(el => {
-        if (buttonSet.has(el)) return false;
+        if (buttonSet.has(el) || el.id === 'hv-patch-filter-bar') return false;
         const txt = (el.textContent || '').trim().toUpperCase();
         return txt === 'ALL FEED' || txt === 'LIVE FEED' || txt === 'PTR FEED';
     });
     if (feedHeading) return feedHeading;
 
     const feedContainer = allEls.find(el => {
-        if (buttonSet.has(el) || el.contains(filterButtons[0])) return false;
+        if (buttonSet.has(el) || el.id === 'hv-patch-filter-bar' || el.contains(filterButtons[0])) return false;
         const hasPatchText = /patch notes|balance patch/i.test(el.textContent || '');
         const isTallFeed = el.clientHeight > 180 && el.children.length >= 2;
         return hasPatchText && isTallFeed;
@@ -196,6 +196,9 @@ function findPatchFeedAnchor(viewEl, filterButtons) {
 }
 
 function styleCompactFilterButton(btn) {
+    if (btn.dataset.hvCompact === '1') return;
+    btn.dataset.hvCompact = '1';
+
     btn.classList.remove('h-full', 'min-h-screen', 'flex-1', 'w-full');
     btn.style.height = 'auto';
     btn.style.minHeight = '0';
@@ -213,75 +216,93 @@ function styleCompactFilterButton(btn) {
         'font-bold',
         'leading-none',
         'whitespace-nowrap',
-        'shrink-0',
-        'transition-all'
+        'shrink-0'
     );
 }
 
 function cleanupEmptyFilterColumns(viewEl, barEl) {
     const cols = Array.from(viewEl.querySelectorAll('div, section'));
     for (const col of cols) {
-        if (col === viewEl || col === barEl || col.contains(barEl)) continue;
+        if (col === viewEl || col === barEl || col.id === 'hv-patch-filter-bar' || col.contains(barEl)) continue;
         const hasVisibleContent =
             (col.textContent || '').trim().length > 0 ||
-            col.querySelector('img, svg, input, select, textarea') !== null;
-        if (!hasVisibleContent && col.children.length === 0) {
+            col.querySelector('img, svg, input, select, textarea, button, a') !== null;
+        if (!hasVisibleContent && col.children.length === 0 && col.style.display !== 'none') {
             col.style.display = 'none';
         }
     }
 }
 
 function positionPatchNotesFilterButtons() {
+    if (isApplyingPatchBarLayout) return;
+
     const viewEl = document.getElementById('view-patchnotes');
     if (!viewEl) return;
 
     const buttons = findPatchFilterButtons(viewEl);
     if (buttons.length === 0) return;
 
-    let bar = document.getElementById('hv-patch-filter-bar');
-    if (!bar) {
-        bar = document.createElement('div');
-        bar.id = 'hv-patch-filter-bar';
-        bar.className = 'flex flex-row items-center gap-2 mb-3 w-fit';
-    }
+    isApplyingPatchBarLayout = true;
+    patchNotesLayoutObserver?.disconnect();
 
-    const anchor = findPatchFeedAnchor(viewEl, buttons);
-    if (anchor && anchor.parentElement) {
-        if (bar.parentElement !== anchor.parentElement || bar.nextElementSibling !== anchor) {
-            anchor.parentElement.insertBefore(bar, anchor);
+    try {
+        let bar = document.getElementById('hv-patch-filter-bar');
+        if (!bar) {
+            bar = document.createElement('div');
+            bar.id = 'hv-patch-filter-bar';
+            bar.className = 'flex flex-row items-center gap-2 mb-3 w-fit';
         }
-    } else if (bar.parentElement !== viewEl) {
-        viewEl.prepend(bar);
-    }
 
-    for (const btn of buttons) {
-        styleCompactFilterButton(btn);
-        if (btn.parentElement !== bar) {
-            bar.appendChild(btn);
+        const anchor = findPatchFeedAnchor(viewEl, buttons);
+        if (anchor && anchor.parentElement) {
+            if (bar.parentElement !== anchor.parentElement || bar.nextElementSibling !== anchor) {
+                anchor.parentElement.insertBefore(bar, anchor);
+            }
+        } else if (bar.parentElement !== viewEl) {
+            viewEl.prepend(bar);
+        }
+
+        buttons.forEach((btn, idx) => {
+            styleCompactFilterButton(btn);
+            if (btn.parentElement !== bar || bar.children[idx] !== btn) {
+                bar.appendChild(btn);
+            }
+        });
+
+        cleanupEmptyFilterColumns(viewEl, bar);
+    } finally {
+        isApplyingPatchBarLayout = false;
+        if (patchNotesLayoutObserver) {
+            patchNotesLayoutObserver.observe(viewEl, {
+                childList: true,
+                subtree: true
+            });
         }
     }
-
-    cleanupEmptyFilterColumns(viewEl, bar);
 }
 
 function initPatchNotesFilterBar() {
     const viewEl = document.getElementById('view-patchnotes');
     if (!viewEl) return;
 
-    positionPatchNotesFilterButtons();
-
     if (patchNotesLayoutObserver) {
         patchNotesLayoutObserver.disconnect();
     }
 
     patchNotesLayoutObserver = new MutationObserver(() => {
-        positionPatchNotesFilterButtons();
+        if (isApplyingPatchBarLayout) return;
+        const buttons = findPatchFilterButtons(viewEl);
+        const bar = document.getElementById('hv-patch-filter-bar');
+        const needsPlacement =
+            buttons.length > 0 &&
+            (!bar || buttons.some(btn => btn.parentElement !== bar || btn.dataset.hvCompact !== '1'));
+
+        if (needsPlacement) {
+            positionPatchNotesFilterButtons();
+        }
     });
 
-    patchNotesLayoutObserver.observe(viewEl, {
-        childList: true,
-        subtree: true
-    });
+    positionPatchNotesFilterButtons();
 }
 
 
