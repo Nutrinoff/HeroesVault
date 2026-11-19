@@ -789,20 +789,16 @@ function syncPatchSidebarBurger() {
 
     const header = document.querySelector('header');
     const footer = document.querySelector('footer');
-    const GAP = 16;
+    const TOP_GAP = 16;
+    const BOTTOM_FOOTER_GAP = 4;
 
     const headerBottom = header
-        ? Math.round(header.getBoundingClientRect().bottom) + GAP
-        : 76 + GAP;
+        ? Math.round(header.getBoundingClientRect().bottom) + TOP_GAP
+        : 76 + TOP_GAP;
 
     const footerTop = footer
         ? Math.round(footer.getBoundingClientRect().top)
         : window.innerHeight;
-
-    // Allow the box to extend down to GAP above the footer when scrolled to the bottom
-    const bottomEdge = footerTop < window.innerHeight
-        ? footerTop - GAP
-        : window.innerHeight - GAP;
 
     const colRect = col.getBoundingClientRect();
     const naturalTop = Math.round(colRect.top);
@@ -810,6 +806,14 @@ function syncPatchSidebarBurger() {
     const naturalWidth = Math.round(colRect.width);
 
     const lockedTop = Math.max(naturalTop, headerBottom);
+
+    // Default height fills down to TOP_GAP from viewport bottom; squishes right above footer when footer enters view
+    const defaultBottom = window.innerHeight - TOP_GAP;
+    const footerClampedBottom = footerTop - BOTTOM_FOOTER_GAP;
+    const bottomEdge = footerTop < window.innerHeight
+        ? Math.min(defaultBottom, footerClampedBottom)
+        : defaultBottom;
+
     const nextHeight = Math.max(180, bottomEdge - lockedTop);
 
     box.style.position = 'fixed';
