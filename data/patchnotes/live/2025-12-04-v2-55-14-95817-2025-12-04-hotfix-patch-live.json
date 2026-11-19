@@ -1,0 +1,90 @@
+{
+  "Id": "npn-2025-12-04-2.55.14",
+  "Title": "2025-12-04 Hotfix Patch",
+  "Subtitle": "=== Battlegrounds: Blackheart\u0027s Bay ===",
+  "Date": "Dec 4, 2025",
+  "IsoDate": "2025-12-04",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "2.55.14",
+  "FullVersion": "2.55.14.95817",
+  "Build": "95817",
+  "Link": "https://www.reddit.com/r/heroesofthestorm/comments/1pevfqd/heroes_of_the_storm_hotfix_patch_notes_december_4",
+  "Links": [
+    "https://www.reddit.com/r/heroesofthestorm/comments/1pevfqd/heroes_of_the_storm_hotfix_patch_notes_december_4"
+  ],
+  "Affected": [
+    "Blackheart\u0027s Bay",
+    "Cursed Hollow",
+    "Volskaya Foundry",
+    "Kael\u0027thas",
+    "Kerrigan",
+    "L\u00FAcio",
+    "Stukov",
+    "Sylvanas",
+    "Tychus",
+    "Valla",
+    "Zul\u0027jin"
+  ],
+  "Highlights": "=== Battlegrounds: Blackheart\u0027s Bay ===",
+  "CleanedNotes": "=== Battlegrounds: Blackheart\u0027s Bay ===\r\n[Updates]\r\n  Objective:\r\n  \u2022 Bombardment\r\n    \u2022 [Undocumented] Now prioritize the top lane, the bottom lane, and then the middle lane.\r\n      \u2022 [Undocumented] Fort-level Structures are still targeted before Keep-level Structures.\r\n\r\n=== Battlegrounds: Cursed Hollow ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Fallback Towers on Cursed Hollow to not be disabled during the Raven Lord\u0027s Curse.\r\n\r\n=== Battlegrounds: Volskaya Foundry ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing some ground elements to not display correctly.\r\n\r\n=== Heroes: Kael\u0027thas ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue allowing Kael\u0027thas to target with Living Bomb enemies that have already been targeted with Living Bomb.\r\n  \u2022 [Undocumented] Fixed an issue causing the Quest progress for Kael\u0027thas\u0027s Convection to not be tracked correctly.\r\n\r\n=== Heroes: Kerrigan ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing the tooltip for Kerrigan\u0027s Ravage to not display correctly.\r\n  \u2022 [Undocumented] Fixed an issue causing Ravaging Ferocity to still use the Talent ID for Sharpened Blades.\r\n\r\n=== Heroes: L\u00FAcio ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing AI to activate L\u00FAcio\u0027s Summer Anthem without the Talent being taken.\r\n\r\n=== Heroes: Stukov ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing the range bonus from Stukov\u0027s It Hungers to display incorrectly when targeting Lurking Arm.\r\n\r\n=== Heroes: Sylvanas ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing the remaining duration of Sylvanas\u0027s Haunting Arrows to not display correctly.\r\n  \u2022 [Undocumented] Fixed an issue causing Sylvanas\u0027s Possession to require 4 charges when targeting Catapults or Reavers.\r\n  \u2022 [Undocumented] Fixed an issue causing Unrelenting Torment to still use the Talent ID for Unfurling Shadows.\r\n\r\n=== Heroes: Tychus ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Tychus\u0027s Overkill to apply the Slow from Spray \u0027n\u0027 Pray without the Talent being taken.\r\n\r\n=== Heroes: Valla ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing the status tooltip for Valla\u0027s Hatred to not display correctly.\r\n\r\n=== Heroes: Zul\u0027jin ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Zul\u0027jin\u0027s You Want Axe to not remove gained bonuses properly upon dying.\r\n  \u2022 [Undocumented] Fixed an issue causing Zul\u0027jin\u0027s You Want Axe to not increase correctly after hitting more than 1000 Basic Attacks.\r\n  \u2022 [Undocumented] Fixed an issue causing the second rotation of Zul\u0027jin\u0027s Twin Cleave to display incorrectly.",
+  "Sections": {
+    "Battlegrounds: Blackheart\u0027s Bay": [
+      "[Updates]",
+      "  Objective:",
+      "  \u2022 Bombardment",
+      "    \u2022 [Undocumented] Now prioritize the top lane, the bottom lane, and then the middle lane.",
+      "      \u2022 [Undocumented] Fort-level Structures are still targeted before Keep-level Structures."
+    ],
+    "Battlegrounds: Cursed Hollow": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Fallback Towers on Cursed Hollow to not be disabled during the Raven Lord\u0027s Curse."
+    ],
+    "Battlegrounds: Volskaya Foundry": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing some ground elements to not display correctly."
+    ],
+    "Heroes: Kael\u0027thas": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue allowing Kael\u0027thas to target with Living Bomb enemies that have already been targeted with Living Bomb.",
+      "  \u2022 [Undocumented] Fixed an issue causing the Quest progress for Kael\u0027thas\u0027s Convection to not be tracked correctly."
+    ],
+    "Heroes: Kerrigan": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing the tooltip for Kerrigan\u0027s Ravage to not display correctly.",
+      "  \u2022 [Undocumented] Fixed an issue causing Ravaging Ferocity to still use the Talent ID for Sharpened Blades."
+    ],
+    "Heroes: L\u00FAcio": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing AI to activate L\u00FAcio\u0027s Summer Anthem without the Talent being taken."
+    ],
+    "Heroes: Stukov": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing the range bonus from Stukov\u0027s It Hungers to display incorrectly when targeting Lurking Arm."
+    ],
+    "Heroes: Sylvanas": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing the remaining duration of Sylvanas\u0027s Haunting Arrows to not display correctly.",
+      "  \u2022 [Undocumented] Fixed an issue causing Sylvanas\u0027s Possession to require 4 charges when targeting Catapults or Reavers.",
+      "  \u2022 [Undocumented] Fixed an issue causing Unrelenting Torment to still use the Talent ID for Unfurling Shadows."
+    ],
+    "Heroes: Tychus": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Tychus\u0027s Overkill to apply the Slow from Spray \u0027n\u0027 Pray without the Talent being taken."
+    ],
+    "Heroes: Valla": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing the status tooltip for Valla\u0027s Hatred to not display correctly."
+    ],
+    "Heroes: Zul\u0027jin": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Zul\u0027jin\u0027s You Want Axe to not remove gained bonuses properly upon dying.",
+      "  \u2022 [Undocumented] Fixed an issue causing Zul\u0027jin\u0027s You Want Axe to not increase correctly after hitting more than 1000 Basic Attacks.",
+      "  \u2022 [Undocumented] Fixed an issue causing the second rotation of Zul\u0027jin\u0027s Twin Cleave to display incorrectly."
+    ]
+  },
+  "PatchFile": "live/2025-12-04-v2-55-14-95817-2025-12-04-hotfix-patch-live.json",
+  "Sources": [
+    "2025-12-04-hotfix.html"
+  ]
+}

@@ -1,0 +1,186 @@
+{
+  "Id": "772299",
+  "Title": "Heroes of the Storm Balance Patch Notes \u2014 February 19, 2026",
+  "Subtitle": "[Heroes of the Storm Balance Patch Notes \u2014 February 19, 2026] We\u2019ve just released a patch to the live servers in order to apply some balance and bug fixes. View Full Article",
+  "Date": "Feb 19, 2026",
+  "IsoDate": "2026-02-19",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "2.55.15",
+  "FullVersion": "2.55.15.96443",
+  "Build": "96443",
+  "Link": "https://us.forums.blizzard.com/en/heroes/t/heroes-of-the-storm-balance-patch-notes-%E2%80%94-february-19-2026/65905/1",
+  "Links": [
+    "https://us.forums.blizzard.com/en/heroes/t/heroes-of-the-storm-balance-patch-notes-%E2%80%94-february-19-2026/65905/1",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/24244471"
+  ],
+  "Affected": [
+    "Braxis Holdout",
+    "Hanamura Temple",
+    "Azmodan",
+    "Deathwing",
+    "Gul\u0027dan",
+    "Jaina",
+    "Muradin",
+    "Murky",
+    "Rehgar",
+    "Sylvanas",
+    "Thrall",
+    "Tyrande",
+    "Zagara"
+  ],
+  "Highlights": "[Heroes of the Storm Balance Patch Notes \u2014 February 19, 2026] We\u2019ve just released a patch to the live servers in order to apply some balance and bug fixes. View Full Article",
+  "CleanedNotes": "=== Battlegrounds: Braxis Holdout ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that caused terrain to be rendered incorrectly.\r\n\r\n=== Battlegrounds: Hanamura Temple ===\r\n[Bug Fixes]\r\n  \u2022 Sentinel Camps are now properly displayed with a Bruiser icon.\r\n  \u2022 [Undocumented] Fixed an issue causing Sentinel Camps to spawn 30 seconds later than intended.\r\n\r\n=== Heroes: Azmodan ===\r\n[Bug Fixes]\r\n  \u2022 Level 4\r\n    \u2022 Battleborn\r\n      \u2022 Now properly reduces the cooldown of Demon Lieutenant.\r\n  \u2022 Level 10\r\n    \u2022 Black Pool\r\n      \u2022 Now properly deals reduced damage to non-Heroes.\r\n\r\n=== Heroes: Deathwing ===\r\n[Updates]\r\n  Base:\r\n  \u2022 Incinerate [W]\r\n    \u2022 Cooldown increased from 6 to 7 seconds.\r\n  Talents:\r\n  \u2022 Level 7\r\n    \u2022 Death Drop\r\n      \u2022 Duration of Spell Armor reduction decreased from 6 to 4 seconds.\r\n[Bug Fixes]\r\n  \u2022 Base\r\n    \u2022 Form Swap\r\n      \u2022 AI can no longer use the removed Form Swap Ability.\r\n\r\n=== Heroes: Gul\u0027dan ===\r\n[Bug Fixes]\r\n  \u2022 Level 16\r\n    \u2022 Ruinous Affliction\r\n      \u2022 Fixed an issue that caused Ruinous Affliction to deal bonus damage on the 3rd and 5th hit, instead of the 3rd and 6th hit.\r\n\r\n=== Heroes: Jaina ===\r\n[Bug Fixes]\r\n  \u2022 Base\r\n    \u2022 Frostbite [Trait]\r\n      \u2022 Fixed an issue that caused Ice Block to not show the correct cooldown value in the tooltip.\r\n      \u2022 Fixed an issue that caused Ice Cold to allow Jaina to move through pathing blockers and stationary targets.\r\n\r\n=== Heroes: Muradin ===\r\n[Updates]\r\n  Base:\r\n  \u2022 Storm Bolt [Q]\r\n    \u2022 Quest requirements reduced from 50/200 to 40/160.\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Give \u0027Em The Axe\r\n      \u2022 Bonus Damage reduced from 50% to 40%.\r\n  \u2022 Level 4\r\n    \u2022 Sledgehammer\r\n      \u2022 Now also reduces the cooldown of Storm Bolt by 1.5 seconds.\r\n  \u2022 Level 7\r\n    \u2022 Perfect Storm\r\n      \u2022 Internal cooldown reduced from 10 to 8.5 seconds.\r\n      \u2022 Now also restores 25 Mana on reset.\r\n  \u2022 Level 13\r\n    \u2022 Healing Static\r\n      \u2022 Heal per Hero hit increased from 5% to 6%.\r\n[Bug Fixes]\r\n  \u2022 Base\r\n    \u2022 Dwarf Toss [E]\r\n      \u2022 Fixed an issue that caused Dwarf Toss to go on cooldown when used on invalid terrain.\r\n  \u2022 Level 1\r\n    \u2022 Dwarf Block\r\n      \u2022 Can no longer stack beyond 3 charges.\r\n\r\n=== Heroes: Murky ===\r\n[Updates]\r\n  Base:\r\n  \u2022 Spawn Egg [D]\r\n    \u2022 Revive Shield duration increased from 10 to 15 seconds.\r\n  Talents:\r\n  \u2022 Level 10\r\n    \u2022 March of the Murlocs\r\n      \u2022 Cooldown reduced from 110 to 100 seconds.\r\n  \u2022 Level 13\r\n    \u2022 Egg Shell\r\n      \u2022 Shield increased from 35% to 50% of Murky\u0027s Health.\r\n      \u2022 Shield now lasts until destroyed.\r\n  \u2022 Level 20\r\n    \u2022 Changed the order of Murky\u0027s Level 20 Talents to be the same as other Heroes (Q, W, E, etc.)\r\n    \u2022 Never-Ending March\r\n      \u2022 Will now last a minimum of 7 seconds, even if stopped.\r\n[Bug Fixes]\r\n  \u2022 Base\r\n    \u2022 Pufferfish [W]\r\n      \u2022 Puffed Up will now display first in the Buff Bar.\r\n      \u2022 Fixed an issue that caused Murky to lose his increased size after death.\r\n    \u2022 Spawn Egg [D]\r\n      \u2022 Fixed an issue that caused Murky to respawn faster than intended.\r\n  \u2022 Level 1\r\n    \u2022 Shell Game\r\n      \u2022 Shell Game now shows the Trait button for the Talent, instead of an Active button.\r\n  \u2022 Level 20\r\n    \u2022 Faster Fish\r\n      \u2022 Faster Fish now also causes the animation of the Pufferfish to play faster.\r\n      \u2022 Faster Fish now shows the W button for the talent, instead of the Trait button.\r\n\r\n=== Heroes: Rehgar ===\r\n[Bug Fixes]\r\n  \u2022 Level 20\r\n    \u2022 Elemental Conduit\r\n      \u2022 Fixed an issue that caused Elemental Conduit\u0027s Shields to not refresh to 5 seconds.\r\n      \u2022 Fixed an issue that caused Elemental Conduit\u0027s refresh to search for allies to give the Shield around the targets hit, instead of Rehgar\u0027s location.\r\n\r\n=== Heroes: Sylvanas ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 7\r\n    \u2022 Lost Soul\r\n      \u2022 Extra 10% damage bonus provided by Lost Soul has been removed.\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing the Duration Bar for Haunting Arrows to reference the incorrect string.\r\n\r\n=== Heroes: Thrall ===\r\n[Bug Fixes]\r\n  \u2022 Level 1\r\n    \u2022 Echo of the Elements\r\n      \u2022 Fixed an issue that caused Echo of the Elements bounces to bounce to cloaked targets.\r\n  \u2022 Level 7\r\n    \u2022 Rolling Thunder\r\n      \u2022 Rolling Thunder damage now displays as a crit.\r\n  \u2022 Level 16\r\n    \u2022 Alpha Wolf\r\n      \u2022 Alpha Wolf damage now displays as a crit.\r\n\r\n=== Heroes: Tyrande ===\r\n[Updates]\r\n  Base:\r\n  \u2022 Lunar Flare [E]\r\n    \u2022 Mythic Reward requirements reduced from 45 to 40.\r\n\r\n=== Heroes: Zagara ===\r\n[Bug Fixes]\r\n  \u2022 Base\r\n    \u2022 Infested Drop [E]\r\n      \u2022 Fixed an issue that caused Roaches melee attacks to launch missiles instead of directly hitting.\r\n      \u2022 Fixed an issue that caused Roaches to not display correctly in the Death Recap.",
+  "Sections": {
+    "Battlegrounds: Braxis Holdout": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that caused terrain to be rendered incorrectly."
+    ],
+    "Battlegrounds: Hanamura Temple": [
+      "[Bug Fixes]",
+      "  \u2022 Sentinel Camps are now properly displayed with a Bruiser icon.",
+      "  \u2022 [Undocumented] Fixed an issue causing Sentinel Camps to spawn 30 seconds later than intended."
+    ],
+    "Heroes: Azmodan": [
+      "[Bug Fixes]",
+      "  \u2022 Level 4",
+      "    \u2022 Battleborn",
+      "      \u2022 Now properly reduces the cooldown of Demon Lieutenant.",
+      "  \u2022 Level 10",
+      "    \u2022 Black Pool",
+      "      \u2022 Now properly deals reduced damage to non-Heroes."
+    ],
+    "Heroes: Deathwing": [
+      "[Updates]",
+      "  Base:",
+      "  \u2022 Incinerate [W]",
+      "    \u2022 Cooldown increased from 6 to 7 seconds.",
+      "  Talents:",
+      "  \u2022 Level 7",
+      "    \u2022 Death Drop",
+      "      \u2022 Duration of Spell Armor reduction decreased from 6 to 4 seconds.",
+      "[Bug Fixes]",
+      "  \u2022 Base",
+      "    \u2022 Form Swap",
+      "      \u2022 AI can no longer use the removed Form Swap Ability."
+    ],
+    "Heroes: Gul\u0027dan": [
+      "[Bug Fixes]",
+      "  \u2022 Level 16",
+      "    \u2022 Ruinous Affliction",
+      "      \u2022 Fixed an issue that caused Ruinous Affliction to deal bonus damage on the 3rd and 5th hit, instead of the 3rd and 6th hit."
+    ],
+    "Heroes: Jaina": [
+      "[Bug Fixes]",
+      "  \u2022 Base",
+      "    \u2022 Frostbite [Trait]",
+      "      \u2022 Fixed an issue that caused Ice Block to not show the correct cooldown value in the tooltip.",
+      "      \u2022 Fixed an issue that caused Ice Cold to allow Jaina to move through pathing blockers and stationary targets."
+    ],
+    "Heroes: Muradin": [
+      "[Updates]",
+      "  Base:",
+      "  \u2022 Storm Bolt [Q]",
+      "    \u2022 Quest requirements reduced from 50/200 to 40/160.",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Give \u0027Em The Axe",
+      "      \u2022 Bonus Damage reduced from 50% to 40%.",
+      "  \u2022 Level 4",
+      "    \u2022 Sledgehammer",
+      "      \u2022 Now also reduces the cooldown of Storm Bolt by 1.5 seconds.",
+      "  \u2022 Level 7",
+      "    \u2022 Perfect Storm",
+      "      \u2022 Internal cooldown reduced from 10 to 8.5 seconds.",
+      "      \u2022 Now also restores 25 Mana on reset.",
+      "  \u2022 Level 13",
+      "    \u2022 Healing Static",
+      "      \u2022 Heal per Hero hit increased from 5% to 6%.",
+      "[Bug Fixes]",
+      "  \u2022 Base",
+      "    \u2022 Dwarf Toss [E]",
+      "      \u2022 Fixed an issue that caused Dwarf Toss to go on cooldown when used on invalid terrain.",
+      "  \u2022 Level 1",
+      "    \u2022 Dwarf Block",
+      "      \u2022 Can no longer stack beyond 3 charges."
+    ],
+    "Heroes: Murky": [
+      "[Updates]",
+      "  Base:",
+      "  \u2022 Spawn Egg [D]",
+      "    \u2022 Revive Shield duration increased from 10 to 15 seconds.",
+      "  Talents:",
+      "  \u2022 Level 10",
+      "    \u2022 March of the Murlocs",
+      "      \u2022 Cooldown reduced from 110 to 100 seconds.",
+      "  \u2022 Level 13",
+      "    \u2022 Egg Shell",
+      "      \u2022 Shield increased from 35% to 50% of Murky\u0027s Health.",
+      "      \u2022 Shield now lasts until destroyed.",
+      "  \u2022 Level 20",
+      "    \u2022 Changed the order of Murky\u0027s Level 20 Talents to be the same as other Heroes (Q, W, E, etc.)",
+      "    \u2022 Never-Ending March",
+      "      \u2022 Will now last a minimum of 7 seconds, even if stopped.",
+      "[Bug Fixes]",
+      "  \u2022 Base",
+      "    \u2022 Pufferfish [W]",
+      "      \u2022 Puffed Up will now display first in the Buff Bar.",
+      "      \u2022 Fixed an issue that caused Murky to lose his increased size after death.",
+      "    \u2022 Spawn Egg [D]",
+      "      \u2022 Fixed an issue that caused Murky to respawn faster than intended.",
+      "  \u2022 Level 1",
+      "    \u2022 Shell Game",
+      "      \u2022 Shell Game now shows the Trait button for the Talent, instead of an Active button.",
+      "  \u2022 Level 20",
+      "    \u2022 Faster Fish",
+      "      \u2022 Faster Fish now also causes the animation of the Pufferfish to play faster.",
+      "      \u2022 Faster Fish now shows the W button for the talent, instead of the Trait button."
+    ],
+    "Heroes: Rehgar": [
+      "[Bug Fixes]",
+      "  \u2022 Level 20",
+      "    \u2022 Elemental Conduit",
+      "      \u2022 Fixed an issue that caused Elemental Conduit\u0027s Shields to not refresh to 5 seconds.",
+      "      \u2022 Fixed an issue that caused Elemental Conduit\u0027s refresh to search for allies to give the Shield around the targets hit, instead of Rehgar\u0027s location."
+    ],
+    "Heroes: Sylvanas": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 7",
+      "    \u2022 Lost Soul",
+      "      \u2022 Extra 10% damage bonus provided by Lost Soul has been removed.",
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing the Duration Bar for Haunting Arrows to reference the incorrect string."
+    ],
+    "Heroes: Thrall": [
+      "[Bug Fixes]",
+      "  \u2022 Level 1",
+      "    \u2022 Echo of the Elements",
+      "      \u2022 Fixed an issue that caused Echo of the Elements bounces to bounce to cloaked targets.",
+      "  \u2022 Level 7",
+      "    \u2022 Rolling Thunder",
+      "      \u2022 Rolling Thunder damage now displays as a crit.",
+      "  \u2022 Level 16",
+      "    \u2022 Alpha Wolf",
+      "      \u2022 Alpha Wolf damage now displays as a crit."
+    ],
+    "Heroes: Tyrande": [
+      "[Updates]",
+      "  Base:",
+      "  \u2022 Lunar Flare [E]",
+      "    \u2022 Mythic Reward requirements reduced from 45 to 40."
+    ],
+    "Heroes: Zagara": [
+      "[Bug Fixes]",
+      "  \u2022 Base",
+      "    \u2022 Infested Drop [E]",
+      "      \u2022 Fixed an issue that caused Roaches melee attacks to launch missiles instead of directly hitting.",
+      "      \u2022 Fixed an issue that caused Roaches to not display correctly in the Death Recap."
+    ]
+  },
+  "PatchFile": "live/2026-02-19-v2-55-15-96443-heroes-of-the-storm-balance-patch-notes-february-19-20-live.json",
+  "Sources": [
+    "live-patches.json",
+    "2026-02-19-live.html"
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "Id": "npn-2025-10-06-2.55.13",
+  "Title": "2025-10-06 Hotfix Patch",
+  "Subtitle": "=== Battlegrounds: Alterac Pass ===",
+  "Date": "Oct 6, 2025",
+  "IsoDate": "2025-10-06",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "2.55.13",
+  "FullVersion": "2.55.13.95301",
+  "Build": "95301",
+  "Link": "https://www.reddit.com/r/CursedHollow/comments/1nzyouq/heroes_of_the_storm_live_update_20251006",
+  "Links": [
+    "https://www.reddit.com/r/CursedHollow/comments/1nzyouq/heroes_of_the_storm_live_update_20251006"
+  ],
+  "Affected": [
+    "Alterac Pass",
+    "Braxis Holdout",
+    "Hanamura Temple",
+    "Volskaya Foundry",
+    "Warhead Junction",
+    "Diablo",
+    "Kael\u0027thas",
+    "L\u00FAcio",
+    "Nazeebo",
+    "The Butcher",
+    "Uther",
+    "Valla",
+    "Zagara",
+    "Zarya"
+  ],
+  "Highlights": "=== Battlegrounds: Alterac Pass ===",
+  "CleanedNotes": "=== Battlegrounds: Alterac Pass ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Generals no longer provide Armor to nearby Heroes via A Call For Help.\r\n  \u2022 [Undocumented] Fixed an issue causing Gnoll Camps to spawn 30 seconds later than intended.\r\n\r\n=== Battlegrounds: Braxis Holdout ===\r\n[Updates]\r\n  Objective:\r\n  \u2022 Zergs\r\n    \u2022 Zerglings\r\n      \u2022 [Undocumented] Baseline amount increased from 4 to 6.\r\n    \u2022 Ultralisks\r\n      \u2022 [Undocumented] Health reduced from 4700 to 3800.\r\n      \u2022 [Undocumented] Health scaling for minutes 1-5 reduced from 235 to 190.\r\n      \u2022 [Undocumented] Health scaling for minutes 6-10 reduced from 325.5 to 285.\r\n      \u2022 [Undocumented] Health scaling for minutes 11-16 reduced from 470 to 380.\r\n      \u2022 [Undocumented] Health scaling for minutes 17-30 reduced from 587.5 to 475.\r\n\r\n=== Battlegrounds: Hanamura Temple ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Recon Camps to spawn 30 seconds later than intended.\r\n\r\n=== Battlegrounds: Volskaya Foundry ===\r\n[Updates]\r\n  Objective:\r\n  \u2022 Control Points\r\n    \u2022 [Undocumented] Activation time reduced from 6 to 3 seconds.\r\n    \u2022 [Undocumented] Deactivation time increased from 6 to 12 seconds.\r\n    \u2022 [Undocumented] Time required for 100% progress reduced from 52 to 45 seconds.\r\n\r\n=== Battlegrounds: Warhead Junction ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Warheads to deal less percent damage to Structures than intended with the initial impact.\r\n  \u2022 [Undocumented] Fixed an issue causing Warheads to ignite Structures for longer than intended after impacting on them.\r\n  \u2022 [Undocumented] Fixed an issue causing Warheads to set the ignite duration on Structures higher than intended after Heroic Basic Attacks.\r\n\r\n=== Heroes: Diablo ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] The heal from Diablo\u0027s Life Leech now occurs before it grants 1 Soul instead of after it.\r\n\r\n=== Heroes: Kael\u0027thas ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing some Kael\u0027thas\u0027s Talents to not register the first time they hit an enemy Hero.\r\n\r\n=== Heroes: L\u00FAcio ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] The simple tooltip for L\u00FAcio\u0027s Party Mix now mentions radius instead of range.\r\n\r\n=== Heroes: Nazeebo ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Basic Attacks from Nazeebo\u0027s Gargantuan to not deal damage.\r\n\r\n=== Heroes: The Butcher ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] The Butcher\u0027s Brutal Strike now displays as a critical hit.\r\n\r\n=== Heroes: Uther ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Uther\u0027s Holy Fire to not display correctly in the Buff Bar.\r\n  \u2022 [Undocumented] Fixed an issue causing the tooltip for Uther\u0027s Benediction to display its cooldown incorrectly.\r\n  \u2022 [Undocumented] Fixed an issue causing the tooltip for Uther\u0027s Hand of Freedom to display its cooldown reduction incorrectly.\r\n\r\n=== Heroes: Valla ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Valla\u0027s Fire At Will to give bonus Hatred without the Talent being taken.\r\n  \u2022 [Undocumented] Fixed an issue causing Valla\u0027s Fire At Will to not display the amount of bonus Hatred correctly.\r\n\r\n=== Heroes: Zagara ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Zagara\u0027s Hydralisk Tranfusion to heal her twice.\r\n  \u2022 [Undocumented] Fixed an issue causing the tooltip for Zagara\u0027s Hunter Killer to not display its damage correctly.\r\n  \u2022 [Undocumented] The tooltip for Zagara\u0027s Hunter Killer now mentions the Hydralisk\u0027s Health.\r\n  \u2022 [Undocumented] The tooltip for Zagara\u0027s Mutalisk now mentions the Mutalisk\u0027s Health.\r\n\r\n=== Heroes: Zarya ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Deep Burn\u0027s tooltip to display Zarya\u0027s Energy gained per Basic Attack incorrectly.",
+  "Sections": {
+    "Battlegrounds: Alterac Pass": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Generals no longer provide Armor to nearby Heroes via A Call For Help.",
+      "  \u2022 [Undocumented] Fixed an issue causing Gnoll Camps to spawn 30 seconds later than intended."
+    ],
+    "Battlegrounds: Braxis Holdout": [
+      "[Updates]",
+      "  Objective:",
+      "  \u2022 Zergs",
+      "    \u2022 Zerglings",
+      "      \u2022 [Undocumented] Baseline amount increased from 4 to 6.",
+      "    \u2022 Ultralisks",
+      "      \u2022 [Undocumented] Health reduced from 4700 to 3800.",
+      "      \u2022 [Undocumented] Health scaling for minutes 1-5 reduced from 235 to 190.",
+      "      \u2022 [Undocumented] Health scaling for minutes 6-10 reduced from 325.5 to 285.",
+      "      \u2022 [Undocumented] Health scaling for minutes 11-16 reduced from 470 to 380.",
+      "      \u2022 [Undocumented] Health scaling for minutes 17-30 reduced from 587.5 to 475."
+    ],
+    "Battlegrounds: Hanamura Temple": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Recon Camps to spawn 30 seconds later than intended."
+    ],
+    "Battlegrounds: Volskaya Foundry": [
+      "[Updates]",
+      "  Objective:",
+      "  \u2022 Control Points",
+      "    \u2022 [Undocumented] Activation time reduced from 6 to 3 seconds.",
+      "    \u2022 [Undocumented] Deactivation time increased from 6 to 12 seconds.",
+      "    \u2022 [Undocumented] Time required for 100% progress reduced from 52 to 45 seconds."
+    ],
+    "Battlegrounds: Warhead Junction": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Warheads to deal less percent damage to Structures than intended with the initial impact.",
+      "  \u2022 [Undocumented] Fixed an issue causing Warheads to ignite Structures for longer than intended after impacting on them.",
+      "  \u2022 [Undocumented] Fixed an issue causing Warheads to set the ignite duration on Structures higher than intended after Heroic Basic Attacks."
+    ],
+    "Heroes: Diablo": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] The heal from Diablo\u0027s Life Leech now occurs before it grants 1 Soul instead of after it."
+    ],
+    "Heroes: Kael\u0027thas": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing some Kael\u0027thas\u0027s Talents to not register the first time they hit an enemy Hero."
+    ],
+    "Heroes: L\u00FAcio": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] The simple tooltip for L\u00FAcio\u0027s Party Mix now mentions radius instead of range."
+    ],
+    "Heroes: Nazeebo": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Basic Attacks from Nazeebo\u0027s Gargantuan to not deal damage."
+    ],
+    "Heroes: The Butcher": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] The Butcher\u0027s Brutal Strike now displays as a critical hit."
+    ],
+    "Heroes: Uther": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Uther\u0027s Holy Fire to not display correctly in the Buff Bar.",
+      "  \u2022 [Undocumented] Fixed an issue causing the tooltip for Uther\u0027s Benediction to display its cooldown incorrectly.",
+      "  \u2022 [Undocumented] Fixed an issue causing the tooltip for Uther\u0027s Hand of Freedom to display its cooldown reduction incorrectly."
+    ],
+    "Heroes: Valla": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Valla\u0027s Fire At Will to give bonus Hatred without the Talent being taken.",
+      "  \u2022 [Undocumented] Fixed an issue causing Valla\u0027s Fire At Will to not display the amount of bonus Hatred correctly."
+    ],
+    "Heroes: Zagara": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Zagara\u0027s Hydralisk Tranfusion to heal her twice.",
+      "  \u2022 [Undocumented] Fixed an issue causing the tooltip for Zagara\u0027s Hunter Killer to not display its damage correctly.",
+      "  \u2022 [Undocumented] The tooltip for Zagara\u0027s Hunter Killer now mentions the Hydralisk\u0027s Health.",
+      "  \u2022 [Undocumented] The tooltip for Zagara\u0027s Mutalisk now mentions the Mutalisk\u0027s Health."
+    ],
+    "Heroes: Zarya": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Deep Burn\u0027s tooltip to display Zarya\u0027s Energy gained per Basic Attack incorrectly."
+    ]
+  },
+  "PatchFile": "live/2025-10-06-v2-55-13-95301-2025-10-06-hotfix-patch-live.json",
+  "Sources": [
+    "2025-10-06-hotfix.html"
+  ]
+}

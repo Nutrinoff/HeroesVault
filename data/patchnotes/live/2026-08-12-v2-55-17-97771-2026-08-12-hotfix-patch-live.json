@@ -1,0 +1,52 @@
+{
+  "Id": "npn-2026-08-12-2.55.17",
+  "Title": "2026-08-12 Hotfix Patch",
+  "Subtitle": "=== Heroes: Abathur ===",
+  "Date": "Aug 12, 2026",
+  "IsoDate": "2026-08-12",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "2.55.17",
+  "FullVersion": "2.55.17.97771",
+  "Build": "97771",
+  "Link": "https://www.icy-veins.com/heroes/news/heroes-of-the-storm-hotfix-patch-notes-august-12",
+  "Links": [
+    "https://www.icy-veins.com/heroes/news/heroes-of-the-storm-hotfix-patch-notes-august-12"
+  ],
+  "Affected": [
+    "Abathur",
+    "Alexstrasza",
+    "Chromie",
+    "Nazeebo",
+    "Ragnaros"
+  ],
+  "Highlights": "=== Heroes: Abathur ===",
+  "CleanedNotes": "=== Heroes: Abathur ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Abathur\u0027s Slaphatur now displays as a critical hit.\r\n\r\n=== Heroes: Alexstrasza ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Alexstrasza\u0027s Cleansing Flame to not provide Stasis frames at the correct time.\r\n\r\n=== Heroes: Chromie ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Chromie\u0027s Once Again the First Time to provide a lower bonus for Echo mimic Sand Blast damage than Echo mimic Basic Attacks damage.\r\n\r\n=== Heroes: Nazeebo ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Nazeebo\u0027s Thing of the Deep to not give any Reward if picked when already having enough stacks.\r\n  \u2022 [Undocumented] Fixed an issue causing Nazeebo\u0027s Vile Infection to not give any Reward if picked when already having enough stacks.\r\n\r\n=== Heroes: Ragnaros ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing the damage over time from Ragnaros\u0027s Explosive Rune in Molten Core to not behave as a damage over time effect.",
+  "Sections": {
+    "Heroes: Abathur": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Abathur\u0027s Slaphatur now displays as a critical hit."
+    ],
+    "Heroes: Alexstrasza": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Alexstrasza\u0027s Cleansing Flame to not provide Stasis frames at the correct time."
+    ],
+    "Heroes: Chromie": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Chromie\u0027s Once Again the First Time to provide a lower bonus for Echo mimic Sand Blast damage than Echo mimic Basic Attacks damage."
+    ],
+    "Heroes: Nazeebo": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Nazeebo\u0027s Thing of the Deep to not give any Reward if picked when already having enough stacks.",
+      "  \u2022 [Undocumented] Fixed an issue causing Nazeebo\u0027s Vile Infection to not give any Reward if picked when already having enough stacks."
+    ],
+    "Heroes: Ragnaros": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing the damage over time from Ragnaros\u0027s Explosive Rune in Molten Core to not behave as a damage over time effect."
+    ]
+  },
+  "PatchFile": "live/2026-08-12-v2-55-17-97771-2026-08-12-hotfix-patch-live.json",
+  "Sources": [
+    "2026-08-12-hotfix.html"
+  ]
+}
