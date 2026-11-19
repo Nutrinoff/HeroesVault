@@ -1,0 +1,25 @@
+{
+  "Id": "hotfix-patch-notes-november-12-2019",
+  "Title": "Qhira Hotfix Patch #6",
+  "Subtitle": "Hotfix",
+  "Date": "Nov 12, 2019",
+  "IsoDate": "2019-11-12",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "2.48.3",
+  "FullVersion": "2.48.3.77205",
+  "Build": "77205",
+  "Link": "https://us.forums.blizzard.com/en/heroes/t/heroes-of-the-storm-patch-notes-november-12-2019/29099",
+  "Links": [
+    "https://us.forums.blizzard.com/en/heroes/t/heroes-of-the-storm-patch-notes-november-12-2019/29099"
+  ],
+  "Affected": [],
+  "Highlights": "Hotfix",
+  "CleanedNotes": "Hotfix",
+  "Sections": {},
+  "PatchFile": "live/2019-11-12-v2-48-3-77205-qhira-hotfix-patch-6-live.json",
+  "Sources": [
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html"
+  ]
+}

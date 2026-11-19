@@ -1,0 +1,36 @@
+{
+  "Id": "hotfix-patch-notes-december-13-2018",
+  "Title": "Orphea Hotfix Patch",
+  "Subtitle": "Volskaya Foundry Support Camp Unstoppable bug fix.",
+  "Date": "Dec 13, 2018",
+  "IsoDate": "2018-12-13",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "2.41.1",
+  "FullVersion": "2.41.1.71040",
+  "Build": "71040",
+  "Link": "https://heroesofthestorm.com/en-us/blog/22819173",
+  "Links": [
+    "https://heroesofthestorm.com/en-us/blog/22819173",
+    "https://news.blizzard.com/heroes-of-the-storm/22819173",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/22819173"
+  ],
+  "Affected": [
+    "Volskaya Foundry"
+  ],
+  "Highlights": "Volskaya Foundry Support Camp Unstoppable bug fix.",
+  "CleanedNotes": "=== Battlegrounds: Volskaya Foundry ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue causing the Support Camp on Volskaya Foundry to lose Unstoppable after the Objective spawned.",
+  "Sections": {
+    "Battlegrounds: Volskaya Foundry": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue causing the Support Camp on Volskaya Foundry to lose Unstoppable after the Objective spawned."
+    ]
+  },
+  "PatchFile": "live/2018-12-13-v2-41-1-71040-orphea-hotfix-patch-live.json",
+  "Sources": [
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2018-12-13-hotfix.html",
+    "manual-edit"
+  ]
+}

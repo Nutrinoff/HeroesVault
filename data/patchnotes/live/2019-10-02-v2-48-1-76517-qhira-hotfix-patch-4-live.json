@@ -1,0 +1,33 @@
+{
+  "Id": "hotfix-patch-notes-october-2-2019",
+  "Title": "Qhira Hotfix Patch #4",
+  "Subtitle": "Hotfix",
+  "Date": "Oct 2, 2019",
+  "IsoDate": "2019-10-02",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "2.48.1",
+  "FullVersion": "2.48.1.76517",
+  "Build": "76517",
+  "Link": "https://us.forums.blizzard.com/en/heroes/t/hotfix-patch-notes-october-2-2019/27063",
+  "Links": [
+    "https://us.forums.blizzard.com/en/heroes/t/hotfix-patch-notes-october-2-2019/27063"
+  ],
+  "Affected": [
+    "ETC"
+  ],
+  "Highlights": "Hotfix",
+  "CleanedNotes": "=== Heroes: ETC ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue causing E.T.C. Mosh Pit to not be properly interrupted during the initial cast time.",
+  "Sections": {
+    "Heroes: ETC": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue causing E.T.C. Mosh Pit to not be properly interrupted during the initial cast time."
+    ]
+  },
+  "PatchFile": "live/2019-10-02-v2-48-1-76517-qhira-hotfix-patch-4-live.json",
+  "Sources": [
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2019-10-02-hotfix.html"
+  ]
+}

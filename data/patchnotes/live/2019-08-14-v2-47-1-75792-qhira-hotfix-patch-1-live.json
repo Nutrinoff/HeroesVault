@@ -1,0 +1,36 @@
+{
+  "Id": "hotfix-patch-notes-august-14-2019",
+  "Title": "Qhira Hotfix Patch #1",
+  "Subtitle": "Hotfix",
+  "Date": "Aug 14, 2019",
+  "IsoDate": "2019-08-14",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "2.47.1",
+  "FullVersion": "2.47.1.75792",
+  "Build": "75792",
+  "Link": "https://heroesofthestorm.com/en-us/blog/23096767",
+  "Links": [
+    "https://heroesofthestorm.com/en-us/blog/23096767",
+    "https://news.blizzard.com/heroes-of-the-storm/23096767",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/23096767"
+  ],
+  "Affected": [
+    "Qhira"
+  ],
+  "Highlights": "Hotfix",
+  "CleanedNotes": "=== Heroes: Qhira ===\r\n[Bug Fixes]\r\n  \u2022 Fatal Wounds no longer causes Blood Rage to deal bonus damage to enemies that have less than 5 stacks.\r\n  \u2022 Fatal Wounds no longer causes the activated portion of Blood Rage to deal bonus damage.",
+  "Sections": {
+    "Heroes: Qhira": [
+      "[Bug Fixes]",
+      "  \u2022 Fatal Wounds no longer causes Blood Rage to deal bonus damage to enemies that have less than 5 stacks.",
+      "  \u2022 Fatal Wounds no longer causes the activated portion of Blood Rage to deal bonus damage."
+    ]
+  },
+  "PatchFile": "live/2019-08-14-v2-47-1-75792-qhira-hotfix-patch-1-live.json",
+  "Sources": [
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2019-08-14-hotfix.html"
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "Id": "wiki-2.55.2-May 11, 2022",
+  "Title": "2022-05-11 Hotfix Patch",
+  "Subtitle": "Hotfix",
+  "Date": "May 11, 2022",
+  "IsoDate": "2022-05-11",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "2.55.2",
+  "FullVersion": "2.55.2.88122",
+  "Build": "88122",
+  "Link": "https://us.forums.blizzard.com/en/heroes/t/heroes-of-the-storm-hotfix-patch-notes-may-11-2022/57572",
+  "Links": [
+    "https://us.forums.blizzard.com/en/heroes/t/heroes-of-the-storm-hotfix-patch-notes-may-11-2022/57572"
+  ],
+  "Affected": [
+    "Hanzo",
+    "Rehgar",
+    "Sylvanas"
+  ],
+  "Highlights": "Hotfix",
+  "CleanedNotes": "=== General ===\r\n[Bug Fixes]\r\n  \u2022 Fixed a few tooltip descriptions in Italian language.\r\n  \u2022 Fixed the description for the 6 Year Anniversary Spray.\r\n  \u2022 The 6.5 Year Banner is now properly awarded along with other 6 Year Anniversary rewards.\r\n  \u2022 The Battle Ready Li-Ming Spray is now properly functioning in game when equipped in a Hero\u0027s loadout.\r\n  \u2022 Fixed an issue where the Classic 2021 Emoji Pack is not showing properly.\r\n\r\n=== Heroes: Hanzo ===\r\n[Bug Fixes]\r\n  \u2022 Hanzo\u0027s Scatter Shot now ricochets as intended from all sides in Alterac Pass.\r\n\r\n=== Heroes: Rehgar ===\r\n[Bug Fixes]\r\n  \u2022 Desert Adept Shaman Rehgar Skin now properly shows in game.\r\n\r\n=== Heroes: Sylvanas ===\r\n[Bug Fixes]\r\n  \u2022 Sylvanas\u0027s Wailing Arrow with Deafening Blast is now effective as the graphical indicator radius shows.\r\n  \u2022 Sylvanas\u0027s Overwhelming Affliction is now properly applied to a secondary target getting 3 stacks from the Withering Fire applying stacks from Remorseless.",
+  "Sections": {
+    "General": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed a few tooltip descriptions in Italian language.",
+      "  \u2022 Fixed the description for the 6 Year Anniversary Spray.",
+      "  \u2022 The 6.5 Year Banner is now properly awarded along with other 6 Year Anniversary rewards.",
+      "  \u2022 The Battle Ready Li-Ming Spray is now properly functioning in game when equipped in a Hero\u0027s loadout.",
+      "  \u2022 Fixed an issue where the Classic 2021 Emoji Pack is not showing properly."
+    ],
+    "Heroes: Hanzo": [
+      "[Bug Fixes]",
+      "  \u2022 Hanzo\u0027s Scatter Shot now ricochets as intended from all sides in Alterac Pass."
+    ],
+    "Heroes: Rehgar": [
+      "[Bug Fixes]",
+      "  \u2022 Desert Adept Shaman Rehgar Skin now properly shows in game."
+    ],
+    "Heroes: Sylvanas": [
+      "[Bug Fixes]",
+      "  \u2022 Sylvanas\u0027s Wailing Arrow with Deafening Blast is now effective as the graphical indicator radius shows.",
+      "  \u2022 Sylvanas\u0027s Overwhelming Affliction is now properly applied to a secondary target getting 3 stacks from the Withering Fire applying stacks from Remorseless."
+    ]
+  },
+  "PatchFile": "live/2022-05-11-v2-55-2-88122-2022-05-11-hotfix-patch-live.json",
+  "Sources": [
+    "wiki-patches.html",
+    "2022-05-11-hotfix.html"
+  ]
+}

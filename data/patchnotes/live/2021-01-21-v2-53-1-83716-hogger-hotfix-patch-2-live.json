@@ -1,0 +1,41 @@
+{
+  "Id": "hotfix-patch-notes-january-21-2021",
+  "Title": "Hogger Hotfix Patch #2",
+  "Subtitle": "Hotfix",
+  "Date": "Jan 21, 2021",
+  "IsoDate": "2021-01-21",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "2.53.1",
+  "FullVersion": "2.53.1.83716",
+  "Build": "83716",
+  "Link": "https://www.reddit.com/r/heroesofthestorm/comments/l2cja9/new_patch_available_just_had_to_restart/gk4l5fi/",
+  "Links": [
+    "https://www.reddit.com/r/heroesofthestorm/comments/l2cja9/new_patch_available_just_had_to_restart/gk4l5fi/",
+    "https://www.reddit.com/r/heroesofthestorm/comments/l2cja9/comment/gk4l5fi"
+  ],
+  "Affected": [
+    "Ragnaros",
+    "Zul\u0027jin"
+  ],
+  "Highlights": "Hotfix",
+  "CleanedNotes": "=== Heroes: Ragnaros ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Molten Power to not increase its stack count for enemy Heroes hit with the initial impact.\r\n\r\n=== Heroes: Zul\u0027jin ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing the percent damage bonus from No Mercy to be available without taking the Talent.\r\n  \u2022 [Undocumented] Fixed an issue causing the percent damage bonus from No Mercy to not apply on the Basic Attack that removed the Grevious Throw\u0027s marker.\r\n  \u2022 [Undocumented] Fixed an issue causing the percent damage bonus from No Mercy to affect non-Heroic targets.",
+  "Sections": {
+    "Heroes: Ragnaros": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Molten Power to not increase its stack count for enemy Heroes hit with the initial impact."
+    ],
+    "Heroes: Zul\u0027jin": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing the percent damage bonus from No Mercy to be available without taking the Talent.",
+      "  \u2022 [Undocumented] Fixed an issue causing the percent damage bonus from No Mercy to not apply on the Basic Attack that removed the Grevious Throw\u0027s marker.",
+      "  \u2022 [Undocumented] Fixed an issue causing the percent damage bonus from No Mercy to affect non-Heroic targets."
+    ]
+  },
+  "PatchFile": "live/2021-01-21-v2-53-1-83716-hogger-hotfix-patch-2-live.json",
+  "Sources": [
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2021-01-21-hotfix.html"
+  ]
+}
