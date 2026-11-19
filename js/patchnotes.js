@@ -759,7 +759,7 @@ function resetPatchSidebarLayout() {
     const col = document.getElementById('patch-sidebar-column');
     const box = document.getElementById('patch-sidebar-sticky-box');
     if (col) {
-        col.style.minHeight = '';
+        col.style.height = '';
     }
     if (box) {
         box.style.position = '';
@@ -780,7 +780,7 @@ function syncPatchSidebarBurger() {
     if (!view || !col || !box) return;
 
     const isVisible = !view.classList.contains('hidden') && view.offsetParent !== null;
-    const isDesktop = window.innerWidth >= 1024; // Tailwind `lg`
+    const isDesktop = window.innerWidth >= 1024;
 
     if (!isVisible || !isDesktop) {
         resetPatchSidebarLayout();
@@ -789,30 +789,30 @@ function syncPatchSidebarBurger() {
 
     const header = document.querySelector('header');
     const footer = document.querySelector('footer');
-
-    // Symmetrical gap above and below the sidebar box
     const GAP = 16;
 
-    const headerBottom = header ? Math.round(header.getBoundingClientRect().bottom) + GAP : 76 + GAP;
-    const footerTop = footer ? Math.round(footer.getBoundingClientRect().top) : window.innerHeight;
+    const headerBottom = header
+        ? Math.round(header.getBoundingClientRect().bottom) + GAP
+        : 76 + GAP;
 
-    // Only clamp to footerTop when the footer actually enters the viewport
-    const effectiveBottom = footerTop < window.innerHeight
-        ? footerTop - GAP
-        : window.innerHeight - GAP;
+    const footerTop = footer
+        ? Math.round(footer.getBoundingClientRect().top)
+        : window.innerHeight;
 
-    // Read true grid-column anchor geometry without mutating layout mid-read
+    // Match the bottom margin above the footer to the top gap below the header
+    const bottomEdge = Math.min(window.innerHeight - GAP, footerTop - GAP);
+
     const colRect = col.getBoundingClientRect();
     const naturalTop = Math.round(colRect.top);
     const naturalLeft = Math.round(colRect.left);
     const naturalWidth = Math.round(colRect.width);
 
-    // Stay at naturalTop until the page scrolls past headerBottom; never jump ahead of it
-    const lockedTop = naturalTop <= headerBottom ? headerBottom : naturalTop;
-    const clampedHeight = Math.max(160, effectiveBottom - lockedTop);
+    const lockedTop = Math.max(naturalTop, headerBottom);
+    const clampedHeight = Math.max(160, bottomEdge - lockedTop);
 
-    const prevMinH = parseFloat(col.style.minHeight) || 0;
-    col.style.minHeight = `${Math.round(Math.max(prevMinH, clampedHeight))}px`;
+    // Reserve full column height so right-side content & scroll range stay steady
+    const fullViewportHeight = Math.max(160, (window.innerHeight - GAP) - headerBottom);
+    col.style.height = `${fullViewportHeight}px`;
 
     box.style.position = 'fixed';
     box.style.top = `${lockedTop}px`;
