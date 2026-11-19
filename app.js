@@ -348,7 +348,18 @@ function renderHeroSidebar(heroes) {
 
         btn.innerHTML = `
             <div class="flex items-center gap-3 min-w-0">
-                <img src="${getAssetUrl(h.portrait)}" onerror="this.src='https://via.placeholder.com/56?text=H'" class="w-14 h-14 object-contain" loading="lazy">
+                <div class="hex-sidebar-frame">
+                    <img src="${getAssetUrl(h.portrait)}" onerror="this.src='https://via.placeholder.com/56?text=H'" alt="${h.name}" class="hex-sidebar-img" loading="lazy">
+                    <svg class="hex-sidebar-ring" viewBox="0 0 100 100" aria-hidden="true">
+                        <polygon
+                            points="50,-1.5 96.5,24.2 96.5,75.8 50,101.5 3.5,75.8 3.5,24.2"
+                            fill="none"
+                            stroke="rgba(56, 189, 248, 0.75)"
+                            stroke-width="4.5"
+                            stroke-linejoin="round"
+                        />
+                    </svg>
+                </div>
                 <div class="min-w-0 flex-1">
                     <h4 class="text-sm font-bold truncate">${h.name}</h4>
                     <p class="text-xs text-slate-400 truncate">${h.role || 'Nexus Combatant'}</p>
