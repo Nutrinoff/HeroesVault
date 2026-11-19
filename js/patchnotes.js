@@ -759,7 +759,7 @@ function resetPatchSidebarLayout() {
     const col = document.getElementById('patch-sidebar-column');
     const box = document.getElementById('patch-sidebar-sticky-box');
     if (col) {
-        col.style.height = '';
+        col.style.minHeight = '';
     }
     if (box) {
         box.style.position = '';
@@ -799,8 +799,10 @@ function syncPatchSidebarBurger() {
         ? Math.round(footer.getBoundingClientRect().top)
         : window.innerHeight;
 
-    // Match the bottom margin above the footer to the top gap below the header
-    const bottomEdge = Math.min(window.innerHeight - GAP, footerTop - GAP);
+    // Allow the box to extend down to GAP above the footer when scrolled to the bottom
+    const bottomEdge = footerTop < window.innerHeight
+        ? footerTop - GAP
+        : window.innerHeight - GAP;
 
     const colRect = col.getBoundingClientRect();
     const naturalTop = Math.round(colRect.top);
@@ -808,18 +810,14 @@ function syncPatchSidebarBurger() {
     const naturalWidth = Math.round(colRect.width);
 
     const lockedTop = Math.max(naturalTop, headerBottom);
-    const clampedHeight = Math.max(160, bottomEdge - lockedTop);
-
-    // Reserve full column height so right-side content & scroll range stay steady
-    const fullViewportHeight = Math.max(160, (window.innerHeight - GAP) - headerBottom);
-    col.style.height = `${fullViewportHeight}px`;
+    const nextHeight = Math.max(180, bottomEdge - lockedTop);
 
     box.style.position = 'fixed';
     box.style.top = `${lockedTop}px`;
     box.style.left = `${naturalLeft}px`;
     box.style.width = `${naturalWidth}px`;
-    box.style.height = `${clampedHeight}px`;
-    box.style.maxHeight = `${clampedHeight}px`;
+    box.style.height = `${nextHeight}px`;
+    box.style.maxHeight = `${nextHeight}px`;
 }
 
 function schedulePatchSidebarSync() {
