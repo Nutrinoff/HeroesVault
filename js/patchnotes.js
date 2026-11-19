@@ -90,7 +90,6 @@ function inferTrueEra(validIso, sourceEra, title, id) {
     if (!Number.isNaN(ts)) {
         if (ts < ALPHA_CUTOFF_TS) return 'alpha';
         if (ts < BETA_CUTOFF_TS) return 'beta';
-        // Post-2015 items are never Technical Alpha/Beta even if a JSON has a bad "alpha" tag
         if (sourceEra === 'ptr' || combined.includes('ptr')) return 'ptr';
         return 'live';
     }
@@ -110,12 +109,12 @@ function inferFeedType(item, sourceMeta, title) {
     return sourceMeta.defaultFeed || 'live';
 }
 
-function resolveDetailPaths(item, era, id) {
+function resolveDetailPath(item, era) {
     const explicit =
+        item.PatchFile ||
+        item.patchFile ||
         item.detailFile ||
         item.DetailFile ||
-        item.patchFile ||
-        item.PatchFile ||
         item.notesFile ||
         item.NotesFile ||
         item.file ||
@@ -124,37 +123,28 @@ function resolveDetailPaths(item, era, id) {
         item.Path ||
         '';
 
-    const cleanExplicit = String(explicit || '').trim().replace(/^\/+/, '');
+    const clean = String(explicit || '').trim().replace(/^\/+/, '');
+    if (!clean) return null;
+
+    if (clean.startsWith('data/patchnotes/')) {
+        return `./${clean}`;
+    }
+    if (clean.startsWith('./data/patchnotes/')) {
+        return clean;
+    }
+    if (clean.includes('/')) {
+        return `${PATCH_DATA_DIR}/${clean}`;
+    }
+
     const safeFolder = ['alpha', 'beta', 'live', 'ptr'].includes(era) ? era : 'live';
-    const safeId = encodeURIComponent(String(id || '').trim());
-
-    const candidates = [];
-
-    if (cleanExplicit) {
-        if (cleanExplicit.startsWith('data/patchnotes/')) {
-            candidates.push(`./${cleanExplicit}`);
-        } else if (cleanExplicit.startsWith('./')) {
-            candidates.push(cleanExplicit);
-        } else if (cleanExplicit.includes('/')) {
-            candidates.push(`${PATCH_DATA_DIR}/${cleanExplicit}`);
-        } else {
-            candidates.push(`${PATCH_DATA_DIR}/${safeFolder}/${cleanExplicit}`);
-        }
-    }
-
-    if (safeId) {
-        candidates.push(`${PATCH_DATA_DIR}/${safeFolder}/${safeId}.json`);
-        candidates.push(`${PATCH_DATA_DIR}/${safeFolder}/${safeId}.txt`);
-    }
-
-    return [...new Set(candidates)];
+    return `${PATCH_DATA_DIR}/${safeFolder}/${clean}`;
 }
 
 function extractPatchNotesText(payload) {
     if (!payload) return '';
+
     if (typeof payload === 'string') {
         const trimmed = payload.trim();
-        // Avoid dumping raw JSON objects as plain text
         if (trimmed.startsWith('{') || trimmed.startsWith('[')) {
             try {
                 return extractPatchNotesText(JSON.parse(trimmed));
@@ -168,18 +158,20 @@ function extractPatchNotesText(payload) {
     if (typeof payload !== 'object') return '';
 
     const keys = [
-        'patchNotes',
         'PatchNotes',
-        'cleanedPatchNotes',
+        'patchNotes',
         'CleanedPatchNotes',
-        'rawPatchNotes',
+        'cleanedPatchNotes',
         'RawPatchNotes',
-        'notes',
+        'rawPatchNotes',
         'Notes',
-        'body',
+        'notes',
         'Body',
+        'body',
+        'Content',
         'content',
-        'Content'
+        'Text',
+        'text'
     ];
 
     for (const key of keys) {
@@ -192,15 +184,27 @@ function extractPatchNotesText(payload) {
         }
     }
 
+    // If the detail JSON stores structured sections (e.g. Sections / sections)
+    const sections = payload.Sections ?? payload.sections;
+    if (Array.isArray(sections) && sections.length) {
+        return sections
+            .map(sec => {
+                if (typeof sec === 'string') return sec;
+                const secTitle = sec.Title ?? sec.title ?? sec.Name ?? sec.name ?? '';
+                const lines = Array.isArray(sec.Entries ?? sec.entries ?? sec.Items ?? sec.items ?? sec.Lines ?? sec.lines)
+                    ? (sec.Entries ?? sec.entries ?? sec.Items ?? sec.items ?? sec.Lines ?? sec.lines)
+                    : [];
+                const header = secTitle ? `=== ${secTitle} ===` : '';
+                const body = lines.map(l => (typeof l === 'string' ? `• ${l}` : (l.Text ?? l.text ?? ''))).filter(Boolean).join('\n');
+                return [header, body].filter(Boolean).join('\n');
+            })
+            .filter(Boolean)
+            .join('\n\n');
+    }
+
     return '';
 }
 
-/**
- * Formats patch notes in a clean Blizzard-like hierarchy:
- * - Major headings (e.g. "=== Heroes ===" or "=== Heroes: Chromie ===")
- * - Subheadings (e.g. "[Updates]", "[Bug Fixes]", "Talents", "Base", "Level 1")
- * - Clean bulleted & sub-bulleted lists with bold lead-ins
- */
 function formatBlizzlikePatchNotesHtml(rawText) {
     if (!rawText) {
         return `<p class="text-slate-400">No patch notes recorded for this build.</p>`;
@@ -210,7 +214,7 @@ function formatBlizzlikePatchNotesHtml(rawText) {
     const lines = normalized.split('\n');
 
     const htmlParts = [];
-    let listStack = []; // { indent: number, items: [{ text, children: [] }] }
+    let listStack = [];
 
     const listStyleByDepth = [
         'list-disc pl-5 space-y-1.5 text-[14px] text-slate-200',
@@ -269,7 +273,6 @@ function formatBlizzlikePatchNotesHtml(rawText) {
             continue;
         }
 
-        // Major section header: === General === or === Heroes: Chromie ===
         const majorMatch = trimmed.match(/^={2,}\s*(.+?)\s*={2,}$/);
         if (majorMatch) {
             flushList();
@@ -287,7 +290,6 @@ function formatBlizzlikePatchNotesHtml(rawText) {
             continue;
         }
 
-        // Bracketed subgroup: [Updates], [Bug Fixes], [Releases]
         const bracketMatch = trimmed.match(/^\[([^\]]+)\]\s*$/);
         if (bracketMatch) {
             flushList();
@@ -297,7 +299,6 @@ function formatBlizzlikePatchNotesHtml(rawText) {
             continue;
         }
 
-        // Bullet line: "• ...", "- ...", "* ..."
         const bulletMatch = line.match(/^(\s*)(?:•|[-*])\s+(.*)$/);
         if (bulletMatch) {
             const spaces = bulletMatch[1].replace(/\t/g, '    ').length;
@@ -306,7 +307,6 @@ function formatBlizzlikePatchNotesHtml(rawText) {
             continue;
         }
 
-        // Standalone short subsection line (e.g. "Talents", "Base", "Level 1", "Deth Lazor [W]")
         const isStandaloneSubheading =
             trimmed.length <= 48 &&
             !/[.!?]$/.test(trimmed) &&
@@ -332,7 +332,6 @@ function formatBlizzlikePatchNotesHtml(rawText) {
 
 function formatBlizzLine(text) {
     let safe = escapeHtml(text);
-    // Bold lead-in before a colon (e.g., "Cooldown:", "New Hero Released —")
     safe = safe.replace(
         /^([A-Za-z0-9'’().\- /+\[\]]{2,50}):(\s|$)/,
         '<strong class="font-semibold text-white">$1:</strong>$2'
@@ -372,6 +371,7 @@ function normalizeMasterEntry(item, sourceMeta, index) {
     const fullVersion = String(item.FullVersion ?? item.fullVersion ?? '').trim() || null;
     const build = String(item.Build ?? item.build ?? item.liveBuild ?? '').trim() || null;
     const inlineNotes = extractPatchNotesText(item);
+    const detailPath = resolveDetailPath(item, era);
 
     return {
         id,
@@ -387,7 +387,7 @@ function normalizeMasterEntry(item, sourceMeta, index) {
         build,
         link,
         inlineNotes,
-        detailPaths: resolveDetailPaths(item, era, id)
+        detailPath
     };
 }
 
@@ -453,33 +453,29 @@ async function fetchPatchDetailHtml(item) {
         return html;
     }
 
-    for (const candidateUrl of item.detailPaths) {
+    if (item.detailPath) {
         try {
-            const res = await fetch(candidateUrl);
-            if (!res.ok) continue;
+            const res = await fetch(item.detailPath);
+            if (res.ok) {
+                const rawBody = await res.text();
+                if (rawBody.trim()) {
+                    const notesText = item.detailPath.endsWith('.json')
+                        ? extractPatchNotesText(JSON.parse(rawBody))
+                        : extractPatchNotesText(rawBody);
 
-            const rawBody = await res.text();
-            if (!rawBody.trim()) continue;
-
-            let notesText = '';
-            if (candidateUrl.endsWith('.json')) {
-                const parsed = JSON.parse(rawBody);
-                notesText = extractPatchNotesText(parsed);
-            } else {
-                notesText = extractPatchNotesText(rawBody);
+                    if (notesText) {
+                        const html = formatBlizzlikePatchNotesHtml(notesText);
+                        PATCH_DETAIL_CACHE.set(item.id, html);
+                        return html;
+                    }
+                }
             }
-
-            if (notesText) {
-                const html = formatBlizzlikePatchNotesHtml(notesText);
-                PATCH_DETAIL_CACHE.set(item.id, html);
-                return html;
-            }
-        } catch {
-            // Try next candidate path
+        } catch (err) {
+            console.warn(`Failed to load patch detail ${item.detailPath}:`, err);
         }
     }
 
-    const fallbackHtml = `<p class="text-slate-400">No patch note details available yet for <span class="font-mono text-slate-300">${escapeHtml(item.id)}</span>.</p>`;
+    const fallbackHtml = `<p class="text-slate-400">No patch note details found for <span class="font-mono text-slate-300">${escapeHtml(item.detailPath || item.id)}</span>.</p>`;
     PATCH_DETAIL_CACHE.set(item.id, fallbackHtml);
     return fallbackHtml;
 }
