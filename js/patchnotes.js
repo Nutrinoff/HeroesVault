@@ -788,9 +788,9 @@ function syncPatchSidebarBurger() {
     }
 
     const header = document.querySelector('header');
-    const footer = document.querySelector('footer');
+    const footer = document.querySelector('body > footer');
     const TOP_GAP = 16;
-    const BOTTOM_FOOTER_GAP = 4;
+    const BOTTOM_FOOTER_GAP = TOP_GAP;
 
     const headerBottom = header
         ? Math.round(header.getBoundingClientRect().bottom) + TOP_GAP
@@ -807,7 +807,6 @@ function syncPatchSidebarBurger() {
 
     const lockedTop = Math.max(naturalTop, headerBottom);
 
-    // Default height fills down to TOP_GAP from viewport bottom; squishes right above footer when footer enters view
     const defaultBottom = window.innerHeight - TOP_GAP;
     const footerClampedBottom = footerTop - BOTTOM_FOOTER_GAP;
     const bottomEdge = footerTop < window.innerHeight
