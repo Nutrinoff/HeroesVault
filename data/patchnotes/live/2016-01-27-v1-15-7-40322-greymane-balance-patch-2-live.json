@@ -1,0 +1,113 @@
+{
+  "Id": "balance-update-notes-january-27-2016",
+  "Title": "Greymane Balance Patch #2",
+  "Subtitle": "Balance Update",
+  "Date": "Jan 27, 2016",
+  "IsoDate": "2016-01-27",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "15.7",
+  "FullVersion": "1.15.7.40322",
+  "Build": "40322",
+  "Link": "http://us.battle.net/heroes/en/blog/20021838",
+  "Links": [
+    "http://us.battle.net/heroes/en/blog/20021838",
+    "https://news.blizzard.com/heroes-of-the-storm/20021838",
+    "https://heroesofthestorm.fandom.com/wiki/Arthas",
+    "https://heroesofthestorm.fandom.com/wiki/Brightwing",
+    "https://heroesofthestorm.fandom.com/wiki/E.T.C.",
+    "https://heroesofthestorm.fandom.com/wiki/Falstad",
+    "https://heroesofthestorm.fandom.com/wiki/Greymane",
+    "https://heroesofthestorm.fandom.com/wiki/Johanna",
+    "https://heroesofthestorm.fandom.com/wiki/Kharazim",
+    "https://heroesofthestorm.fandom.com/wiki/Lt._Morales",
+    "https://heroesofthestorm.fandom.com/wiki/Malfurion",
+    "https://heroesofthestorm.fandom.com/wiki/Muradin",
+    "https://heroesofthestorm.fandom.com/wiki/Rehgar",
+    "https://heroesofthestorm.fandom.com/wiki/Sgt._Hammer",
+    "https://heroesofthestorm.fandom.com/wiki/Uther",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/20021838"
+  ],
+  "Affected": [
+    "Heroes: Arthas",
+    "Brightwing",
+    "E.T.C.",
+    "Falstad",
+    "Greymane",
+    "Johanna",
+    "Kharazim",
+    "Lt. Morales",
+    "Malfurion",
+    "Muradin",
+    "Rehgar",
+    "Sgt. Hammer",
+    "Uther",
+    "Arthas",
+    "ETC"
+  ],
+  "Highlights": "Balance Update",
+  "CleanedNotes": "=== Heroes: Arthas ===\r\n[Updates]\r\n  \u2022 Summon Sindragosa (R)\r\n    \u2022 Damage increased from 205 (\u002B4% per level) to 255 (\u002B4% per level)\r\n    \u2022 Cooldown increased from 80 to 100 seconds\r\n\r\n=== Heroes: ETC ===\r\n[Updates]\r\n  \u2022 Stage Dive (R)\r\n    \u2022 Damage increased from 155 (\u002B4% per level) to 201 (\u002B4% per level)\r\n\r\n=== Heroes: Falstad ===\r\n[Updates]\r\n  \u2022 Hinterland Blast (R)\r\n    \u2022 Damage increased from 411 (\u002B4% per level) to 411 (\u002B4.75% per level)\r\n    \u2022 Cooldown increased from 90 to 120 seconds\r\n\r\n=== Heroes: Greymane ===\r\n[Updates]\r\n  \u2022 Health increased from 1876 (\u002B4% per level) to 1876 (\u002B4.5% per level)\r\n  \u2022 Health Regeneration increased from 3.906 (\u002B4% per level) to 3.906 (\u002B4.5% per level)\r\n  \u2022 Gilnean Cocktail (Q)\r\n    \u2022 Mana cost reduced from 80 to 70\r\n    \u2022 Cooldown reduced from 9 to 8 seconds\r\n    \u2022 Perfect Aim (Talent)\r\n      \u2022 Mana restoration decreased from 60 to 50\r\n  \u2022 Razor Swipe (Worgen) (Q)\r\n    \u2022 Unfettered Assault (Talent)\r\n      \u2022 No longer increases Razor Swipe\u0027s cooldown\r\n  \u2022 Inner Beast (W)\r\n    \u2022 Insatiable (Talent)\r\n      \u2022 Maximum Mana restoration increased from 120 to 140\r\n  \u2022 Darkflight (E)\r\n    \u2022 Cooldown reduced from 6 to 5 seconds\r\n  \u2022 Disengage (Worgen) (E)\r\n    \u2022 Cooldown reduced from 6 to 5 seconds\r\n\r\n=== Heroes: Johanna ===\r\n[Updates]\r\n  \u2022 Falling Sword (R)\r\n    \u2022 Cooldown decreased from 80 to 60 seconds\r\n    \u2022 No longer slows movement while airborne\r\n\r\n=== Heroes: Muradin ===\r\n[Updates]\r\n  \u2022 Avatar (R)\r\n    \u2022 Basic Attacks during Avatar no longer Stun the target\r\n    \u2022 Health bonus increased from 1022 (\u002B4% per level) to 1124 (\u002B4% per level)\r\n    \u2022 Cooldown reduced from 100 to 90 seconds\r\n\r\n=== Heroes: Sgt. Hammer ===\r\n[Updates]\r\n  \u2022 Blunt Force Gun (R)\r\n    \u2022 Damage increased from 365 (\u002B4% per level) to 500 (\u002B3% per level)",
+  "Sections": {
+    "Heroes: Arthas": [
+      "[Updates]",
+      "  \u2022 Summon Sindragosa (R)",
+      "    \u2022 Damage increased from 205 (\u002B4% per level) to 255 (\u002B4% per level)",
+      "    \u2022 Cooldown increased from 80 to 100 seconds"
+    ],
+    "Heroes: ETC": [
+      "[Updates]",
+      "  \u2022 Stage Dive (R)",
+      "    \u2022 Damage increased from 155 (\u002B4% per level) to 201 (\u002B4% per level)"
+    ],
+    "Heroes: Falstad": [
+      "[Updates]",
+      "  \u2022 Hinterland Blast (R)",
+      "    \u2022 Damage increased from 411 (\u002B4% per level) to 411 (\u002B4.75% per level)",
+      "    \u2022 Cooldown increased from 90 to 120 seconds"
+    ],
+    "Heroes: Greymane": [
+      "[Updates]",
+      "  \u2022 Health increased from 1876 (\u002B4% per level) to 1876 (\u002B4.5% per level)",
+      "  \u2022 Health Regeneration increased from 3.906 (\u002B4% per level) to 3.906 (\u002B4.5% per level)",
+      "  \u2022 Gilnean Cocktail (Q)",
+      "    \u2022 Mana cost reduced from 80 to 70",
+      "    \u2022 Cooldown reduced from 9 to 8 seconds",
+      "    \u2022 Perfect Aim (Talent)",
+      "      \u2022 Mana restoration decreased from 60 to 50",
+      "  \u2022 Razor Swipe (Worgen) (Q)",
+      "    \u2022 Unfettered Assault (Talent)",
+      "      \u2022 No longer increases Razor Swipe\u0027s cooldown",
+      "  \u2022 Inner Beast (W)",
+      "    \u2022 Insatiable (Talent)",
+      "      \u2022 Maximum Mana restoration increased from 120 to 140",
+      "  \u2022 Darkflight (E)",
+      "    \u2022 Cooldown reduced from 6 to 5 seconds",
+      "  \u2022 Disengage (Worgen) (E)",
+      "    \u2022 Cooldown reduced from 6 to 5 seconds"
+    ],
+    "Heroes: Johanna": [
+      "[Updates]",
+      "  \u2022 Falling Sword (R)",
+      "    \u2022 Cooldown decreased from 80 to 60 seconds",
+      "    \u2022 No longer slows movement while airborne"
+    ],
+    "Heroes: Muradin": [
+      "[Updates]",
+      "  \u2022 Avatar (R)",
+      "    \u2022 Basic Attacks during Avatar no longer Stun the target",
+      "    \u2022 Health bonus increased from 1022 (\u002B4% per level) to 1124 (\u002B4% per level)",
+      "    \u2022 Cooldown reduced from 100 to 90 seconds"
+    ],
+    "Heroes: Sgt. Hammer": [
+      "[Updates]",
+      "  \u2022 Blunt Force Gun (R)",
+      "    \u2022 Damage increased from 365 (\u002B4% per level) to 500 (\u002B3% per level)"
+    ]
+  },
+  "PatchFile": "live/2016-01-27-v1-15-7-40322-greymane-balance-patch-2-live.json",
+  "Sources": [
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2016-01-27-live.html"
+  ]
+}

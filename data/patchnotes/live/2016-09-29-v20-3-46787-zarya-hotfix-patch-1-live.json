@@ -1,0 +1,29 @@
+{
+  "Id": "hotfix-patch-notes-september-29-2016",
+  "Title": "Zarya Hotfix Patch #1",
+  "Subtitle": "Hotfix patch 20.3.46787 (September 29, 2016) following Zarya\u0027s release (no official patch notes verified here).",
+  "Date": "Sep 29, 2016",
+  "IsoDate": "2016-09-29",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "20.3",
+  "FullVersion": "20.3.46787",
+  "Build": "46787",
+  "Link": "https://us.battle.net/forums/en/heroes/topic/20749236711",
+  "Links": [
+    "https://us.battle.net/forums/en/heroes/topic/20749236711"
+  ],
+  "Affected": [],
+  "Highlights": "Hotfix patch 20.3.46787 (September 29, 2016) following Zarya\u0027s release (no official patch notes verified here).",
+  "CleanedNotes": "=== General ===\r\n  \u2022 - Verified: no official patch notes available for this hotfix build.",
+  "Sections": {
+    "General": [
+      "  \u2022 - Verified: no official patch notes available for this hotfix build."
+    ]
+  },
+  "PatchFile": "live/2016-09-29-v20-3-46787-zarya-hotfix-patch-1-live.json",
+  "Sources": [
+    "legacy-patches2014-2021.json",
+    "manual-edit"
+  ]
+}

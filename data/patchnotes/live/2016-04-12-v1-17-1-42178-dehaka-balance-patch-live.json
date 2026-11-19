@@ -1,0 +1,204 @@
+{
+  "Id": "balance-update-notes-april-12-2016",
+  "Title": "Dehaka Balance Patch",
+  "Subtitle": "Balance Update",
+  "Date": "Apr 12, 2016",
+  "IsoDate": "2016-04-12",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "17.1",
+  "FullVersion": "1.17.1.42178",
+  "Build": "42178",
+  "Link": "http://us.battle.net/heroes/en/blog/20090404",
+  "Links": [
+    "http://us.battle.net/heroes/en/blog/20090404",
+    "https://news.blizzard.com/heroes-of-the-storm/20090404",
+    "https://heroesofthestorm.fandom.com/wiki/Abathur",
+    "https://heroesofthestorm.fandom.com/wiki/Brightwing",
+    "https://heroesofthestorm.fandom.com/wiki/E.T.C.",
+    "https://heroesofthestorm.fandom.com/wiki/Falstad",
+    "https://heroesofthestorm.fandom.com/wiki/Illidan",
+    "https://heroesofthestorm.fandom.com/wiki/Johanna",
+    "https://heroesofthestorm.fandom.com/wiki/Kael%27thas",
+    "https://heroesofthestorm.fandom.com/wiki/Li_Li",
+    "https://heroesofthestorm.fandom.com/wiki/Li-Ming",
+    "https://heroesofthestorm.fandom.com/wiki/Malfurion",
+    "https://heroesofthestorm.fandom.com/wiki/Muradin",
+    "https://heroesofthestorm.fandom.com/wiki/Stitches",
+    "https://heroesofthestorm.fandom.com/wiki/Thrall",
+    "https://heroesofthestorm.fandom.com/wiki/Tychus",
+    "https://heroesofthestorm.fandom.com/wiki/Tyrande",
+    "https://heroesofthestorm.fandom.com/wiki/Uther",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/20090404"
+  ],
+  "Affected": [
+    "Heroes: Abathur",
+    "Brightwing",
+    "E.T.C.",
+    "Falstad",
+    "Illidan",
+    "Johanna",
+    "Kael\u0027thas",
+    "Li Li",
+    "Li-Ming",
+    "Malfurion",
+    "Muradin",
+    "Stitches",
+    "Thrall",
+    "Tychus",
+    "Tyrande",
+    "Uther",
+    "Abathur",
+    "ETC",
+    "Kerrigan",
+    "Sgt. Hammer"
+  ],
+  "Highlights": "Balance Update",
+  "CleanedNotes": "=== Heroes: Abathur ===\r\n[Updates]\r\n  \u2022 Evolve Monstrosity (R)\r\n    \u2022 Maximum Minion stacks increased from 30 to 40.\r\n    \u2022 Health increased from 931 (\u002B4% per level) to 1000 (\u002B4% per level).\r\n\r\n=== Heroes: Brightwing ===\r\n[Updates]\r\n  \u2022 Emerald Wind (R)\r\n    \u2022 Now passively increases Soothing Mist healing by 8%.\r\n\r\n=== Heroes: ETC ===\r\n[Updates]\r\n  \u2022 Stage Dive (R)\r\n    \u2022 Damage increased from 201 (\u002B4% per level) to 330 (\u002B4% per level).\r\n\r\n=== Heroes: Falstad ===\r\n[Updates]\r\n  \u2022 Mighty Gust (R)\r\n    \u2022 Cooldown increased from 40 to 60 seconds.\r\n\r\n=== Heroes: Illidan ===\r\n[Updates]\r\n  \u2022 Betrayer\u0027s Thirst (Trait)\r\n    \u2022 Heal amount granted per Basic Attack decreased from 40% to 30% of damage dealt.\r\n    \u2022 Thirsting Blade (Talent)\r\n      \u2022 Basic Attack Healing during Sweeping Strikes decreased from 60% to 50%.\r\n  \u2022 Dive (Q)\r\n    \u2022 Friend or Foe (Talent)\r\n      \u2022 Range bonus decreased from 33% to 20%.\r\n    \u2022 Reflexive Block (Talent)\r\n      \u2022 Block charges granted after casting Dive reduced from 3 to 2.\r\n  \u2022 Sweeping Strike (W)\r\n    \u2022 Battered Assault (Talent)\r\n      \u2022 Damage bonus increased from 100% to 125%.\r\n    \u2022 Unbound (Talent)\r\n      \u2022 Cooldown reduction is now also granted when Sweeping Strike hits non-Heroic enemies.\r\n      \u2022 Cooldown reduction decreased from 5 to 4 seconds.\r\n\r\n=== Heroes: Johanna ===\r\n[Updates]\r\n  \u2022 Falling Sword (R)\r\n    \u2022 Damage increased from 251 (\u002B4% per level) to 365 (\u002B4% per level).\r\n\r\n=== Heroes: Kael\u0027thas ===\r\n[Updates]\r\n  \u2022 Health increased from 1465 to 1520.\r\n  \u2022 Health Regeneration increased from approximately 3.05 to 3.17 Health per second.\r\n  \u2022 Flamestrike (Q)\r\n    \u2022 Range increased by 10%.\r\n    \u2022 Damage increased from 213 (\u002B4% per level) to 320 (\u002B4% per level).\r\n    \u2022 Flamestrike damage is no longer increased when empowered by Verdant Spheres.\r\n  \u2022 Living Bomb (W)\r\n    \u2022 Damage dealt over time increased from 228 (\u002B4% per level) to 252 (\u002B4% per level).\r\n    \u2022 Explosion damage increased from 114 (\u002B4% per level) to 138 (\u002B4% per level).\r\n  \u2022 Gravity Lapse (E)\r\n    \u2022 Cooldown decreased from 13 to 12 seconds.\r\n    \u2022 Mana cost decreased from 85 to 80.\r\n    \u2022 Nether Wind (Talent)\r\n      \u2022 Mana restored after hitting an enemy Hero decreased from 85 to 80.\r\n    \u2022 Gravity Crush (Talent)\r\n      \u2022 Bonus damage taken by enemies hit increased from 25% to 30%.\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue which allowed Kael\u0027thas to repeatedly cast Living Bomb for free under certain circumstances.\r\n\r\n=== Heroes: Kerrigan ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that prevented Kerrigan from casting Ravage on Earthbind Totem and several other summoned units.\r\n\r\n=== Heroes: Li Li ===\r\n[Updates]\r\n  \u2022 Water Dragon (R)\r\n    \u2022 Damage increased from 192 (\u002B4% per level) to 318 (\u002B4% per level).\r\n    \u2022 Mana cost decreased from 100 to 50.\r\n\r\n=== Heroes: Li-Ming ===\r\n[Updates]\r\n  \u2022 Dominance (Talent)\r\n    \u2022 Health restoration decreased from 25% to 20% of maximum Health.\r\n  \u2022 Arcane Orb (W)\r\n    \u2022 Damage reduced by 10% overall, from 150 (\u002B3% per level) to 135 (\u002B3% per level) initial damage, and 450 (\u002B3% per level) to 405 (\u002B3% per level) damage at maximum range.\r\n    \u2022 Cooldown decreased from 10 to 8 seconds.\r\n    \u2022 Mana cost reduced from 50 to 40.\r\n    \u2022 Triumvirate (Talent)\r\n      \u2022 Cooldown reduction decreased from 6 to 5 seconds.\r\n    \u2022 Zei\u0027s Vengeance (Talent)\r\n      \u2022 No longer causes Triumvirate to deal reduced damage to enemies that are close to Li-Ming.\r\n  \u2022 Teleport (E)\r\n    \u2022 Calamity (Talent)\r\n      \u2022 Area of effect reduced by 10%.\r\n    \u2022 Illusionist (Talent)\r\n      \u2022 Minimum amount of damage taken in order to refresh Teleport\u0027s cooldown increased from 15% to 20% of maximum Health.\r\n  \u2022 Disintegrate (R)\r\n    \u2022 Cooldown increased from 20 to 30 seconds.\r\n\r\n=== Heroes: Malfurion ===\r\n[Updates]\r\n  \u2022 Twilight Dream (R)\r\n    \u2022 Now passively increases Malfurion\u0027s Mana Regeneration by 1.5 Mana per second.\r\n\r\n=== Heroes: Muradin ===\r\n[Updates]\r\n  \u2022 Haymaker (R)\r\n    \u2022 Damage dealt to secondary targets increased from 25% to 100% damage of Haymaker\u0027s primary target damage.\r\n\r\n=== Heroes: Sgt. Hammer ===\r\n[Bug Fixes]\r\n  \u2022 The tooltip for Sgt. Hammer\u0027s Siege Mode will no longer reference a nonexistent Talent.\r\n\r\n=== Heroes: Thrall ===\r\n[Updates]\r\n  \u2022 Sundering (R)\r\n    \u2022 Stun duration reduced from 1.5 to 1.25 seconds.\r\n\r\n=== Heroes: Tychus ===\r\n[Updates]\r\n  \u2022 Health increased from 1669 (\u002B4% per level) to 1836 (\u002B4% per level).\r\n  \u2022 Health Regeneration increased from approximately 3.48 to 3.83 Health per second\r\n  \u2022 Master Assassin (Talent)\r\n    \u2022 Attack Speed bonus per stack decreased from 2% to 1%.\r\n    \u2022 Maximum number of stacks increased from 10 to 15.\r\n  \u2022 Minigun (Trait) (D)\r\n    \u2022 Damage bonus increased from 1.5% to 2% of the target\u0027s maximum Health.\r\n    \u2022 The Bigger They Are. . . (Talent)\r\n      \u2022 Damage bonus increased from 3% to 4% of the target\u0027s maximum Health.\r\n\r\n=== Heroes: Tyrande ===\r\n[Updates]\r\n  \u2022 Starfall (R)\r\n    \u2022 Damage per second increased from 69 (\u002B4% per level) to 91 (\u002B4% per level).\r\n    \u2022 Cooldown reduced from 100 to 80 seconds.\r\n    \u2022 Mana cost reduced from 100 to 75.\r\n\r\n=== Heroes: Uther ===\r\n[Updates]\r\n  \u2022 Divine Storm (R)\r\n    \u2022 Stun duration increased from 1.5 to 1.75 seconds.",
+  "Sections": {
+    "Heroes: Abathur": [
+      "[Updates]",
+      "  \u2022 Evolve Monstrosity (R)",
+      "    \u2022 Maximum Minion stacks increased from 30 to 40.",
+      "    \u2022 Health increased from 931 (\u002B4% per level) to 1000 (\u002B4% per level)."
+    ],
+    "Heroes: Brightwing": [
+      "[Updates]",
+      "  \u2022 Emerald Wind (R)",
+      "    \u2022 Now passively increases Soothing Mist healing by 8%."
+    ],
+    "Heroes: ETC": [
+      "[Updates]",
+      "  \u2022 Stage Dive (R)",
+      "    \u2022 Damage increased from 201 (\u002B4% per level) to 330 (\u002B4% per level)."
+    ],
+    "Heroes: Falstad": [
+      "[Updates]",
+      "  \u2022 Mighty Gust (R)",
+      "    \u2022 Cooldown increased from 40 to 60 seconds."
+    ],
+    "Heroes: Illidan": [
+      "[Updates]",
+      "  \u2022 Betrayer\u0027s Thirst (Trait)",
+      "    \u2022 Heal amount granted per Basic Attack decreased from 40% to 30% of damage dealt.",
+      "    \u2022 Thirsting Blade (Talent)",
+      "      \u2022 Basic Attack Healing during Sweeping Strikes decreased from 60% to 50%.",
+      "  \u2022 Dive (Q)",
+      "    \u2022 Friend or Foe (Talent)",
+      "      \u2022 Range bonus decreased from 33% to 20%.",
+      "    \u2022 Reflexive Block (Talent)",
+      "      \u2022 Block charges granted after casting Dive reduced from 3 to 2.",
+      "  \u2022 Sweeping Strike (W)",
+      "    \u2022 Battered Assault (Talent)",
+      "      \u2022 Damage bonus increased from 100% to 125%.",
+      "    \u2022 Unbound (Talent)",
+      "      \u2022 Cooldown reduction is now also granted when Sweeping Strike hits non-Heroic enemies.",
+      "      \u2022 Cooldown reduction decreased from 5 to 4 seconds."
+    ],
+    "Heroes: Johanna": [
+      "[Updates]",
+      "  \u2022 Falling Sword (R)",
+      "    \u2022 Damage increased from 251 (\u002B4% per level) to 365 (\u002B4% per level)."
+    ],
+    "Heroes: Kael\u0027thas": [
+      "[Updates]",
+      "  \u2022 Health increased from 1465 to 1520.",
+      "  \u2022 Health Regeneration increased from approximately 3.05 to 3.17 Health per second.",
+      "  \u2022 Flamestrike (Q)",
+      "    \u2022 Range increased by 10%.",
+      "    \u2022 Damage increased from 213 (\u002B4% per level) to 320 (\u002B4% per level).",
+      "    \u2022 Flamestrike damage is no longer increased when empowered by Verdant Spheres.",
+      "  \u2022 Living Bomb (W)",
+      "    \u2022 Damage dealt over time increased from 228 (\u002B4% per level) to 252 (\u002B4% per level).",
+      "    \u2022 Explosion damage increased from 114 (\u002B4% per level) to 138 (\u002B4% per level).",
+      "  \u2022 Gravity Lapse (E)",
+      "    \u2022 Cooldown decreased from 13 to 12 seconds.",
+      "    \u2022 Mana cost decreased from 85 to 80.",
+      "    \u2022 Nether Wind (Talent)",
+      "      \u2022 Mana restored after hitting an enemy Hero decreased from 85 to 80.",
+      "    \u2022 Gravity Crush (Talent)",
+      "      \u2022 Bonus damage taken by enemies hit increased from 25% to 30%.",
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue which allowed Kael\u0027thas to repeatedly cast Living Bomb for free under certain circumstances."
+    ],
+    "Heroes: Kerrigan": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that prevented Kerrigan from casting Ravage on Earthbind Totem and several other summoned units."
+    ],
+    "Heroes: Li Li": [
+      "[Updates]",
+      "  \u2022 Water Dragon (R)",
+      "    \u2022 Damage increased from 192 (\u002B4% per level) to 318 (\u002B4% per level).",
+      "    \u2022 Mana cost decreased from 100 to 50."
+    ],
+    "Heroes: Li-Ming": [
+      "[Updates]",
+      "  \u2022 Dominance (Talent)",
+      "    \u2022 Health restoration decreased from 25% to 20% of maximum Health.",
+      "  \u2022 Arcane Orb (W)",
+      "    \u2022 Damage reduced by 10% overall, from 150 (\u002B3% per level) to 135 (\u002B3% per level) initial damage, and 450 (\u002B3% per level) to 405 (\u002B3% per level) damage at maximum range.",
+      "    \u2022 Cooldown decreased from 10 to 8 seconds.",
+      "    \u2022 Mana cost reduced from 50 to 40.",
+      "    \u2022 Triumvirate (Talent)",
+      "      \u2022 Cooldown reduction decreased from 6 to 5 seconds.",
+      "    \u2022 Zei\u0027s Vengeance (Talent)",
+      "      \u2022 No longer causes Triumvirate to deal reduced damage to enemies that are close to Li-Ming.",
+      "  \u2022 Teleport (E)",
+      "    \u2022 Calamity (Talent)",
+      "      \u2022 Area of effect reduced by 10%.",
+      "    \u2022 Illusionist (Talent)",
+      "      \u2022 Minimum amount of damage taken in order to refresh Teleport\u0027s cooldown increased from 15% to 20% of maximum Health.",
+      "  \u2022 Disintegrate (R)",
+      "    \u2022 Cooldown increased from 20 to 30 seconds."
+    ],
+    "Heroes: Malfurion": [
+      "[Updates]",
+      "  \u2022 Twilight Dream (R)",
+      "    \u2022 Now passively increases Malfurion\u0027s Mana Regeneration by 1.5 Mana per second."
+    ],
+    "Heroes: Muradin": [
+      "[Updates]",
+      "  \u2022 Haymaker (R)",
+      "    \u2022 Damage dealt to secondary targets increased from 25% to 100% damage of Haymaker\u0027s primary target damage."
+    ],
+    "Heroes: Sgt. Hammer": [
+      "[Bug Fixes]",
+      "  \u2022 The tooltip for Sgt. Hammer\u0027s Siege Mode will no longer reference a nonexistent Talent."
+    ],
+    "Heroes: Thrall": [
+      "[Updates]",
+      "  \u2022 Sundering (R)",
+      "    \u2022 Stun duration reduced from 1.5 to 1.25 seconds."
+    ],
+    "Heroes: Tychus": [
+      "[Updates]",
+      "  \u2022 Health increased from 1669 (\u002B4% per level) to 1836 (\u002B4% per level).",
+      "  \u2022 Health Regeneration increased from approximately 3.48 to 3.83 Health per second",
+      "  \u2022 Master Assassin (Talent)",
+      "    \u2022 Attack Speed bonus per stack decreased from 2% to 1%.",
+      "    \u2022 Maximum number of stacks increased from 10 to 15.",
+      "  \u2022 Minigun (Trait) (D)",
+      "    \u2022 Damage bonus increased from 1.5% to 2% of the target\u0027s maximum Health.",
+      "    \u2022 The Bigger They Are. . . (Talent)",
+      "      \u2022 Damage bonus increased from 3% to 4% of the target\u0027s maximum Health."
+    ],
+    "Heroes: Tyrande": [
+      "[Updates]",
+      "  \u2022 Starfall (R)",
+      "    \u2022 Damage per second increased from 69 (\u002B4% per level) to 91 (\u002B4% per level).",
+      "    \u2022 Cooldown reduced from 100 to 80 seconds.",
+      "    \u2022 Mana cost reduced from 100 to 75."
+    ],
+    "Heroes: Uther": [
+      "[Updates]",
+      "  \u2022 Divine Storm (R)",
+      "    \u2022 Stun duration increased from 1.5 to 1.75 seconds."
+    ]
+  },
+  "PatchFile": "live/2016-04-12-v1-17-1-42178-dehaka-balance-patch-live.json",
+  "Sources": [
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2016-04-12-live.html"
+  ]
+}

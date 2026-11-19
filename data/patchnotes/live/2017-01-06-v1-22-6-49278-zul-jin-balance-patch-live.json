@@ -1,0 +1,128 @@
+{
+  "Id": "balance-update-notes-january-6-2017",
+  "Title": "Zul\u0027jin Balance Patch",
+  "Subtitle": "Balance Update",
+  "Date": "Jan 6, 2017",
+  "IsoDate": "2017-01-06",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "22.6",
+  "FullVersion": "1.22.6.49278",
+  "Build": "49278",
+  "Link": "http://us.battle.net/heroes/en/blog/20462409",
+  "Links": [
+    "http://us.battle.net/heroes/en/blog/20462409",
+    "https://news.blizzard.com/heroes-of-the-storm/20462409",
+    "https://heroesofthestorm.fandom.com/wiki/Dehaka",
+    "https://heroesofthestorm.fandom.com/wiki/Diablo",
+    "https://heroesofthestorm.fandom.com/wiki/Lt._Morales",
+    "https://heroesofthestorm.fandom.com/wiki/Ragnaros",
+    "https://heroesofthestorm.fandom.com/wiki/Rehgar",
+    "https://heroesofthestorm.fandom.com/wiki/Thrall",
+    "https://heroesofthestorm.fandom.com/wiki/Varian",
+    "https://heroesofthestorm.fandom.com/wiki/Zul%27jin",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/20462409"
+  ],
+  "Affected": [
+    "Heroes: Dehaka",
+    "Diablo",
+    "Lt. Morales",
+    "Ragnaros",
+    "Rehgar",
+    "Thrall",
+    "Varian",
+    "Zul\u0027jin",
+    "Azmodan",
+    "Dehaka"
+  ],
+  "Highlights": "Balance Update",
+  "CleanedNotes": "=== Heroes: Azmodan ===\r\n[Bug Fixes]\r\n  \u2022 Can no longer mount while channeling All Shall Burn.\r\n\r\n=== Heroes: Dehaka ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Primal Aggression (W)\r\n      \u2022 Bonus damage to Minions and Mercenaries reduced from 100 to 90%\r\n  \u2022 Level 7\r\n    \u2022 Symbiosis (W)\r\n      \u2022 Cooldown reduction per Hero hit decreased from 0.5 to 0.4 seconds\r\n  \u2022 Level 13\r\n    \u2022 Primal Swarm (W)\r\n      \u2022 Armor reduction after being hit by Dark Swarm decreased from -15 to -10\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that caused Dark Swarm to deal more damage than intended to Minions, and Mercenaries after learning Primal Aggression.\r\n  \u2022 Fixed an issue that caused Dark Swarm to deal bonus damage to Monsters after learning Primal Aggression.\r\n\r\n=== Heroes: Diablo ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Fire Stomp (W)\r\n    \u2022 Initial damage reduced from 60 to 54\r\n    \u2022 Return damage reduced from 90 to 81\r\n  Talents:\r\n  \u2022 Level 13\r\n    \u2022 Fire Devil (W)\r\n      \u2022 Damage reduced from 22 to 20 per second\r\n\r\n=== Heroes: Lt. Morales ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 16\r\n    \u2022 Inoculation (W)\r\n      \u2022 Removed\r\n\r\n=== Heroes: Ragnaros ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Empower Sulfuras (Q)\r\n    \u2022 Damage reduced from 211 to 201\r\n  Talents:\r\n  \u2022 Level 20\r\n    \u2022 Heroic Difficulty (D)\r\n      \u2022 Health and Damage bonus reduced from 50 to 25%\r\n\r\n=== Heroes: Rehgar ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Bloodlust (R)\r\n    \u2022 Duration reduced from 10 to 8 seconds\r\n    \u2022 Movement Speed bonus reduced from 30 to 25%\r\n\r\n=== Heroes: Thrall ===\r\n[Updates]\r\n  \u2022 Earthquake (R)\r\n    \u2022 Cooldown increased from 60 to 100 seconds\r\n  \u2022 Sundering (R)\r\n    \u2022 Damage increased from 274 to 290\r\n\r\n=== Heroes: Varian ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Charge (E)\r\n    \u2022 Cooldown reduced from 16 to 14 seconds\r\n    \u2022 Mana cost reduced from 50 to 45\r\n  Talents:\r\n  \u2022 Level 4\r\n    \u2022 Warbringer (E)\r\n      \u2022 Cooldown reduction decreased from 8 to 6 seconds\r\n\r\n=== Heroes: Zul\u0027jin ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Taz\u0027dingo! (R)\r\n    \u2022 Cooldown increased from 60 to 90 seconds\r\n    \u2022 Mana cost increased from 50 to 75",
+  "Sections": {
+    "Heroes: Azmodan": [
+      "[Bug Fixes]",
+      "  \u2022 Can no longer mount while channeling All Shall Burn."
+    ],
+    "Heroes: Dehaka": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Primal Aggression (W)",
+      "      \u2022 Bonus damage to Minions and Mercenaries reduced from 100 to 90%",
+      "  \u2022 Level 7",
+      "    \u2022 Symbiosis (W)",
+      "      \u2022 Cooldown reduction per Hero hit decreased from 0.5 to 0.4 seconds",
+      "  \u2022 Level 13",
+      "    \u2022 Primal Swarm (W)",
+      "      \u2022 Armor reduction after being hit by Dark Swarm decreased from -15 to -10",
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that caused Dark Swarm to deal more damage than intended to Minions, and Mercenaries after learning Primal Aggression.",
+      "  \u2022 Fixed an issue that caused Dark Swarm to deal bonus damage to Monsters after learning Primal Aggression."
+    ],
+    "Heroes: Diablo": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Fire Stomp (W)",
+      "    \u2022 Initial damage reduced from 60 to 54",
+      "    \u2022 Return damage reduced from 90 to 81",
+      "  Talents:",
+      "  \u2022 Level 13",
+      "    \u2022 Fire Devil (W)",
+      "      \u2022 Damage reduced from 22 to 20 per second"
+    ],
+    "Heroes: Lt. Morales": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 16",
+      "    \u2022 Inoculation (W)",
+      "      \u2022 Removed"
+    ],
+    "Heroes: Ragnaros": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Empower Sulfuras (Q)",
+      "    \u2022 Damage reduced from 211 to 201",
+      "  Talents:",
+      "  \u2022 Level 20",
+      "    \u2022 Heroic Difficulty (D)",
+      "      \u2022 Health and Damage bonus reduced from 50 to 25%"
+    ],
+    "Heroes: Rehgar": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Bloodlust (R)",
+      "    \u2022 Duration reduced from 10 to 8 seconds",
+      "    \u2022 Movement Speed bonus reduced from 30 to 25%"
+    ],
+    "Heroes: Thrall": [
+      "[Updates]",
+      "  \u2022 Earthquake (R)",
+      "    \u2022 Cooldown increased from 60 to 100 seconds",
+      "  \u2022 Sundering (R)",
+      "    \u2022 Damage increased from 274 to 290"
+    ],
+    "Heroes: Varian": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Charge (E)",
+      "    \u2022 Cooldown reduced from 16 to 14 seconds",
+      "    \u2022 Mana cost reduced from 50 to 45",
+      "  Talents:",
+      "  \u2022 Level 4",
+      "    \u2022 Warbringer (E)",
+      "      \u2022 Cooldown reduction decreased from 8 to 6 seconds"
+    ],
+    "Heroes: Zul\u0027jin": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Taz\u0027dingo! (R)",
+      "    \u2022 Cooldown increased from 60 to 90 seconds",
+      "    \u2022 Mana cost increased from 50 to 75"
+    ]
+  },
+  "PatchFile": "live/2017-01-06-v1-22-6-49278-zul-jin-balance-patch-live.json",
+  "Sources": [
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2017-01-06-live.html"
+  ]
+}

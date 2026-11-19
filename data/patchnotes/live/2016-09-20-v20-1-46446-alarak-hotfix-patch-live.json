@@ -1,0 +1,44 @@
+{
+  "Id": "hotfix-patch-notes-september-20-2016",
+  "Title": "Alarak Hotfix Patch",
+  "Subtitle": "Hotfix 20.1.46446 (September 20, 2016), fixing a Sgt. Hammer Focused Attacks cooldown bug along with hotkey targeting and Alarak Home Screen menu issues.",
+  "Date": "Sep 20, 2016",
+  "IsoDate": "2016-09-20",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "20.1",
+  "FullVersion": "20.1.46446",
+  "Build": "46446",
+  "Link": "http://us.battle.net/heroes/en/blog/20285862",
+  "Links": [
+    "http://us.battle.net/heroes/en/blog/20285862",
+    "https://news.blizzard.com/heroes-of-the-storm/20285862",
+    "https://heroesofthestorm.fandom.com/wiki/Azmodan",
+    "https://heroesofthestorm.fandom.com/wiki/Gold",
+    "https://heroesofthestorm.fandom.com/wiki/Gazlowe",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/20285862"
+  ],
+  "Affected": [
+    "Sgt. Hammer"
+  ],
+  "Highlights": "Hotfix 20.1.46446 (September 20, 2016), fixing a Sgt. Hammer Focused Attacks cooldown bug along with hotkey targeting and Alarak Home Screen menu issues.",
+  "CleanedNotes": "=== General ===\r\n[Bug Fixes]\r\n  \u2022 Repeatedly pressing an Ability hotkey in quick succession no longer cancels targeting mode.\r\n  \u2022 Removed a stray toaster pastry from the far-left edge of the Alarak Home Screen on ultra-wide displays.\r\n\r\n=== Heroes: Sgt. Hammer ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue where each Basic Attack from Sgt. Hammer could reduce her Ability cooldowns multiple times after taking the Focused Attacks talent.",
+  "Sections": {
+    "General": [
+      "[Bug Fixes]",
+      "  \u2022 Repeatedly pressing an Ability hotkey in quick succession no longer cancels targeting mode.",
+      "  \u2022 Removed a stray toaster pastry from the far-left edge of the Alarak Home Screen on ultra-wide displays."
+    ],
+    "Heroes: Sgt. Hammer": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue where each Basic Attack from Sgt. Hammer could reduce her Ability cooldowns multiple times after taking the Focused Attacks talent."
+    ]
+  },
+  "PatchFile": "live/2016-09-20-v20-1-46446-alarak-hotfix-patch-live.json",
+  "Sources": [
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2016-09-20-hotfix.html",
+    "manual-edit"
+  ]
+}

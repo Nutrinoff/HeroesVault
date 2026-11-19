@@ -1,0 +1,52 @@
+{
+  "Id": "hotfix-patch-notes-february-8-2017",
+  "Title": "Valeera Hotfix Patch",
+  "Subtitle": "Hotfix",
+  "Date": "Feb 8, 2017",
+  "IsoDate": "2017-02-08",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "23.2",
+  "FullVersion": "1.23.2.50286",
+  "Build": "50286",
+  "Link": "http://us.battle.net/heroes/en/blog/20532382",
+  "Links": [
+    "http://us.battle.net/heroes/en/blog/20532382",
+    "https://news.blizzard.com/heroes-of-the-storm/20532382",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/20532382"
+  ],
+  "Affected": [
+    "Kael\u0027thas",
+    "Nazeebo",
+    "Ragnaros",
+    "Zagara"
+  ],
+  "Highlights": "Hotfix",
+  "CleanedNotes": "=== Heroes: Kael\u0027thas ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that could cause Pyroblast to move unpredictably when fired at a target that enters and exits the mines.\r\n  \u2022 Fixed an issue that could cause Pyroblast\u0027s targeting indicator to persist indefinitely when targeting a Hero as they become Unrevealable.\r\n\r\n=== Heroes: Nazeebo ===\r\n[Bug Fixes]\r\n  \u2022 The Corpse Spiders vase will no longer fall through the terrain when the Ability does not hit any enemies at its landing location.\r\n\r\n=== Heroes: Ragnaros ===\r\n[Bug Fixes]\r\n  \u2022 Activating Empower Sulfuras will no longer cause Ragnaros to lose his current target if that target was automatically acquired during attack-move command.\r\n  \u2022 Catching Fire\u0027s Talent and Quest Progress tooltips now each state that Ragnaros gains 1.5 Health Regeneration per Regeneration Globe he gathers.\r\n\r\n=== Heroes: Zagara ===\r\n[Bug Fixes]\r\n  \u2022 Mutalisks will now correctly fly around or over unpathable terrain.",
+  "Sections": {
+    "Heroes: Kael\u0027thas": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that could cause Pyroblast to move unpredictably when fired at a target that enters and exits the mines.",
+      "  \u2022 Fixed an issue that could cause Pyroblast\u0027s targeting indicator to persist indefinitely when targeting a Hero as they become Unrevealable."
+    ],
+    "Heroes: Nazeebo": [
+      "[Bug Fixes]",
+      "  \u2022 The Corpse Spiders vase will no longer fall through the terrain when the Ability does not hit any enemies at its landing location."
+    ],
+    "Heroes: Ragnaros": [
+      "[Bug Fixes]",
+      "  \u2022 Activating Empower Sulfuras will no longer cause Ragnaros to lose his current target if that target was automatically acquired during attack-move command.",
+      "  \u2022 Catching Fire\u0027s Talent and Quest Progress tooltips now each state that Ragnaros gains 1.5 Health Regeneration per Regeneration Globe he gathers."
+    ],
+    "Heroes: Zagara": [
+      "[Bug Fixes]",
+      "  \u2022 Mutalisks will now correctly fly around or over unpathable terrain."
+    ]
+  },
+  "PatchFile": "live/2017-02-08-v1-23-2-50286-valeera-hotfix-patch-live.json",
+  "Sources": [
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2017-02-08-hotfix.html"
+  ]
+}

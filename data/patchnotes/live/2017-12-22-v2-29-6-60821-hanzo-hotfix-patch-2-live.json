@@ -1,0 +1,30 @@
+{
+  "Id": "hotfix-patch-notes-december-22-2017",
+  "Title": "Hanzo Hotfix Patch #2",
+  "Subtitle": "Hotfix patch following Hanzo\u0027s release (no official patch notes archived).",
+  "Date": "Dec 22, 2017",
+  "IsoDate": "2017-12-22",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "2.29.6",
+  "FullVersion": "2.29.6.60821",
+  "Build": "60821",
+  "Link": "https://blizztrack.com/patch_notes/heroes_of_the_storm/60821",
+  "Links": [
+    "https://blizztrack.com/patch_notes/heroes_of_the_storm/60821"
+  ],
+  "Affected": [],
+  "Highlights": "Hotfix patch following Hanzo\u0027s release (no official patch notes archived).",
+  "CleanedNotes": "=== General ===\r\n  \u2022 - Verified: no official patch notes available for this hotfix build.",
+  "Sections": {
+    "General": [
+      "  \u2022 - Verified: no official patch notes available for this hotfix build."
+    ]
+  },
+  "PatchFile": "live/2017-12-22-v2-29-6-60821-hanzo-hotfix-patch-2-live.json",
+  "Sources": [
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "manual-edit"
+  ]
+}

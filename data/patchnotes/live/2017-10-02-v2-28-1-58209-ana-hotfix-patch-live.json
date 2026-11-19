@@ -1,0 +1,60 @@
+{
+  "Id": "hotfix-patch-notes-october-2-2017",
+  "Title": "Ana Hotfix Patch",
+  "Subtitle": "Hotfix",
+  "Date": "Oct 2, 2017",
+  "IsoDate": "2017-10-02",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "2.28.1",
+  "FullVersion": "2.28.1.58209",
+  "Build": "58209",
+  "Link": "http://us.battle.net/heroes/en/blog/21072617",
+  "Links": [
+    "http://us.battle.net/heroes/en/blog/21072617",
+    "https://news.blizzard.com/heroes-of-the-storm/21072617",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/21072617"
+  ],
+  "Affected": [
+    "Brightwing",
+    "D.Va",
+    "Diablo",
+    "Falstad",
+    "Gazlowe",
+    "Lt. Morales"
+  ],
+  "Highlights": "Hotfix",
+  "CleanedNotes": "=== Heroes: Brightwing ===\r\n[Bug Fixes]\r\n  \u2022 Phase Shift will no longer be placed on full cooldown when interrupted by Root, Silence, or Polymorph effects.\r\n\r\n=== Heroes: D.Va ===\r\n[Bug Fixes]\r\n  \u2022 Will no longer become permanently stuck after colliding with Structures or Terrain after using Boosters.\r\n\r\n=== Heroes: Diablo ===\r\n[Bug Fixes]\r\n  \u2022 The Devastating Charge Talent will now correctly apply its bonus damage to enemies stunned by Shadow Charge.\r\n\r\n=== Heroes: Falstad ===\r\n[Bug Fixes]\r\n  \u2022 Tailwind\u0027s Movement Speed buff will now correctly be placed on cooldown after taking damage.\r\n\r\n=== Heroes: Gazlowe ===\r\n[Bug Fixes]\r\n  \u2022 Rock-It! Turrets will now correctly grant allied vision of the area around their placement locations.\r\n\r\n=== Heroes: Lt. Morales ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue which allowed the Medivac to move toward and pick up allied Heroes on the way to its intended destination.",
+  "Sections": {
+    "Heroes: Brightwing": [
+      "[Bug Fixes]",
+      "  \u2022 Phase Shift will no longer be placed on full cooldown when interrupted by Root, Silence, or Polymorph effects."
+    ],
+    "Heroes: D.Va": [
+      "[Bug Fixes]",
+      "  \u2022 Will no longer become permanently stuck after colliding with Structures or Terrain after using Boosters."
+    ],
+    "Heroes: Diablo": [
+      "[Bug Fixes]",
+      "  \u2022 The Devastating Charge Talent will now correctly apply its bonus damage to enemies stunned by Shadow Charge."
+    ],
+    "Heroes: Falstad": [
+      "[Bug Fixes]",
+      "  \u2022 Tailwind\u0027s Movement Speed buff will now correctly be placed on cooldown after taking damage."
+    ],
+    "Heroes: Gazlowe": [
+      "[Bug Fixes]",
+      "  \u2022 Rock-It! Turrets will now correctly grant allied vision of the area around their placement locations."
+    ],
+    "Heroes: Lt. Morales": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue which allowed the Medivac to move toward and pick up allied Heroes on the way to its intended destination."
+    ]
+  },
+  "PatchFile": "live/2017-10-02-v2-28-1-58209-ana-hotfix-patch-live.json",
+  "Sources": [
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2017-10-02-hotfix.html"
+  ]
+}

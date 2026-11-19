@@ -1,0 +1,115 @@
+{
+  "Id": "balance-update-notes-january-20-2016",
+  "Title": "Greymane Balance Patch #1",
+  "Subtitle": "Balance Update",
+  "Date": "Jan 20, 2016",
+  "IsoDate": "2016-01-20",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "15.6",
+  "FullVersion": "1.15.6.40087",
+  "Build": "40087",
+  "Link": "http://us.battle.net/heroes/en/blog/19996517",
+  "Links": [
+    "http://us.battle.net/heroes/en/blog/19996517",
+    "https://news.blizzard.com/heroes-of-the-storm/19996517",
+    "https://heroesofthestorm.fandom.com/wiki/Brightwing",
+    "https://heroesofthestorm.fandom.com/wiki/Kharazim",
+    "https://heroesofthestorm.fandom.com/wiki/Lt._Morales",
+    "https://heroesofthestorm.fandom.com/wiki/Lunara",
+    "https://heroesofthestorm.fandom.com/wiki/Malfurion",
+    "https://heroesofthestorm.fandom.com/wiki/Raynor",
+    "https://heroesofthestorm.fandom.com/wiki/Rehgar",
+    "https://heroesofthestorm.fandom.com/wiki/Stitches",
+    "https://heroesofthestorm.fandom.com/wiki/Tyrande",
+    "https://heroesofthestorm.fandom.com/wiki/Uther",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/19996517"
+  ],
+  "Affected": [
+    "Heroes: Brightwing",
+    "Kharazim",
+    "Lt. Morales",
+    "Lunara",
+    "Malfurion",
+    "Raynor",
+    "Rehgar",
+    "Stitches",
+    "Tyrande",
+    "Uther",
+    "Brightwing"
+  ],
+  "Highlights": "Balance Update",
+  "CleanedNotes": "=== Heroes: Brightwing ===\r\n[Updates]\r\n  \u2022 Arcane Flare (Q)\r\n    \u2022 Inner area damage increased from 137 to 274\r\n    \u2022 Mana cost reduced from 50 to 35\r\n    \u2022 Cooldown decreased from 8 to 6 seconds\r\n    \u2022 Arcane Precision (Talent) removed\r\n\r\n=== Heroes: Lunara ===\r\n[Updates]\r\n  \u2022 Health increased from 1300 to 1430\r\n  \u2022 Health Regeneration increased from 2.7083 to 2.9804 Health per second\r\n  \u2022 Nature\u0027s Toxin (Trait)\r\n    \u2022 Damage increased from 32 (\u002B4% per level) to 34 (\u002B5% per level)\r\n\r\n=== Heroes: Malfurion ===\r\n[Updates]\r\n  \u2022 Regrowth (Q)\r\n    \u2022 Initial heal amount increased from 134 to 150 Health\r\n    \u2022 Periodic healing increased from 67 to 75 Health per tick\r\n  \u2022 Tranquility (R)\r\n    \u2022 Periodic healing decreased from 46 to 40 Health per tick\r\n\r\n=== Heroes: Raynor ===\r\n[Updates]\r\n  \u2022 Health decreased from 1371 to 1302\r\n  \u2022 Health Regeneration decreased from 2.8554 to 2.7125 Health per second\r\n  \u2022 Penetrating Round (Q)\r\n    \u2022 Bullseye (Talent)\r\n      \u2022 Stun duration decreased from 1.5 to 1.0 second\r\n\r\n=== Heroes: Stitches ===\r\n[Updates]\r\n  \u2022 Basic Attack damage increased from 74 to 85\r\n  \u2022 Slam (W)\r\n    \u2022 Damage increased from 80 to 96\r\n\r\n=== Heroes: Tyrande ===\r\n[Updates]\r\n  \u2022 Basic Attack damage decreased from 92 to 87\r\n  \u2022 Trueshot Aura (Talent)\r\n    \u2022 Basic Attack damage bonus now only affects allied Heroes\r\n  \u2022 Hunter\u0027s Mark (Trait)\r\n    \u2022 Ranger\u0027s Mark (Talent)\r\n      \u2022 Hunter\u0027s Mark cooldown reduction amount decreased from 8 to 6 seconds\r\n    \u2022 Huntress\u0027 Fury (Talent)\r\n      \u2022 Attack Speed bonus duration increased from 4 to 5 seconds\r\n  \u2022 Light of Elune (Q)\r\n    \u2022 Allied Heal amount increased from 310 to 320 Health\r\n    \u2022 Overflowing Light (Talent)\r\n      \u2022 Allied healing bonus decreased from 35% to 30%\r\n  \u2022 Lunar Flare (E)\r\n    \u2022 Stun duration decreased from 1 to 0.75 seconds.\r\n    \u2022 Lunar Blaze (Talent)\r\n      \u2022 Range bonus decreased from 50% to 40%\r\n  \u2022 Shadowstalk (R)\r\n    \u2022 Cooldown increased from 50 to 60 seconds\r\n    \u2022 Periodic Healing decreased from 16 to 15 Health per tick\r\n    \u2022 Final burst Heal amount decreased from 100 to 95 Health\r\n    \u2022 Hunter\u0027s Swiftness (Talent)\r\n      \u2022 Movement Speed bonus decreased from 40% to 30%\r\n  \u2022 Starfall (R)\r\n    \u2022 Damage increased from 64 per second to 69 per second",
+  "Sections": {
+    "Heroes: Brightwing": [
+      "[Updates]",
+      "  \u2022 Arcane Flare (Q)",
+      "    \u2022 Inner area damage increased from 137 to 274",
+      "    \u2022 Mana cost reduced from 50 to 35",
+      "    \u2022 Cooldown decreased from 8 to 6 seconds",
+      "    \u2022 Arcane Precision (Talent) removed"
+    ],
+    "Heroes: Lunara": [
+      "[Updates]",
+      "  \u2022 Health increased from 1300 to 1430",
+      "  \u2022 Health Regeneration increased from 2.7083 to 2.9804 Health per second",
+      "  \u2022 Nature\u0027s Toxin (Trait)",
+      "    \u2022 Damage increased from 32 (\u002B4% per level) to 34 (\u002B5% per level)"
+    ],
+    "Heroes: Malfurion": [
+      "[Updates]",
+      "  \u2022 Regrowth (Q)",
+      "    \u2022 Initial heal amount increased from 134 to 150 Health",
+      "    \u2022 Periodic healing increased from 67 to 75 Health per tick",
+      "  \u2022 Tranquility (R)",
+      "    \u2022 Periodic healing decreased from 46 to 40 Health per tick"
+    ],
+    "Heroes: Raynor": [
+      "[Updates]",
+      "  \u2022 Health decreased from 1371 to 1302",
+      "  \u2022 Health Regeneration decreased from 2.8554 to 2.7125 Health per second",
+      "  \u2022 Penetrating Round (Q)",
+      "    \u2022 Bullseye (Talent)",
+      "      \u2022 Stun duration decreased from 1.5 to 1.0 second"
+    ],
+    "Heroes: Stitches": [
+      "[Updates]",
+      "  \u2022 Basic Attack damage increased from 74 to 85",
+      "  \u2022 Slam (W)",
+      "    \u2022 Damage increased from 80 to 96"
+    ],
+    "Heroes: Tyrande": [
+      "[Updates]",
+      "  \u2022 Basic Attack damage decreased from 92 to 87",
+      "  \u2022 Trueshot Aura (Talent)",
+      "    \u2022 Basic Attack damage bonus now only affects allied Heroes",
+      "  \u2022 Hunter\u0027s Mark (Trait)",
+      "    \u2022 Ranger\u0027s Mark (Talent)",
+      "      \u2022 Hunter\u0027s Mark cooldown reduction amount decreased from 8 to 6 seconds",
+      "    \u2022 Huntress\u0027 Fury (Talent)",
+      "      \u2022 Attack Speed bonus duration increased from 4 to 5 seconds",
+      "  \u2022 Light of Elune (Q)",
+      "    \u2022 Allied Heal amount increased from 310 to 320 Health",
+      "    \u2022 Overflowing Light (Talent)",
+      "      \u2022 Allied healing bonus decreased from 35% to 30%",
+      "  \u2022 Lunar Flare (E)",
+      "    \u2022 Stun duration decreased from 1 to 0.75 seconds.",
+      "    \u2022 Lunar Blaze (Talent)",
+      "      \u2022 Range bonus decreased from 50% to 40%",
+      "  \u2022 Shadowstalk (R)",
+      "    \u2022 Cooldown increased from 50 to 60 seconds",
+      "    \u2022 Periodic Healing decreased from 16 to 15 Health per tick",
+      "    \u2022 Final burst Heal amount decreased from 100 to 95 Health",
+      "    \u2022 Hunter\u0027s Swiftness (Talent)",
+      "      \u2022 Movement Speed bonus decreased from 40% to 30%",
+      "  \u2022 Starfall (R)",
+      "    \u2022 Damage increased from 64 per second to 69 per second"
+    ]
+  },
+  "PatchFile": "live/2016-01-20-v1-15-6-40087-greymane-balance-patch-1-live.json",
+  "Sources": [
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2016-01-20-live.html"
+  ]
+}

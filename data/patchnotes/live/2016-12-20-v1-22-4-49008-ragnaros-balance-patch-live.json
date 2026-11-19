@@ -1,0 +1,106 @@
+{
+  "Id": "balance-update-notes-december-20-2016",
+  "Title": "Ragnaros Balance Patch",
+  "Subtitle": "Balance Update",
+  "Date": "Dec 20, 2016",
+  "IsoDate": "2016-12-20",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "22.4",
+  "FullVersion": "1.22.4.49008",
+  "Build": "49008",
+  "Link": "http://us.battle.net/heroes/en/blog/20407399",
+  "Links": [
+    "http://us.battle.net/heroes/en/blog/20407399",
+    "https://news.blizzard.com/heroes-of-the-storm/20407399",
+    "https://heroesofthestorm.fandom.com/wiki/Artanis",
+    "https://heroesofthestorm.fandom.com/wiki/Dehaka",
+    "https://heroesofthestorm.fandom.com/wiki/Diablo",
+    "https://heroesofthestorm.fandom.com/wiki/Ragnaros",
+    "https://heroesofthestorm.fandom.com/wiki/Zeratul",
+    "https://heroesofthestorm.fandom.com/wiki/Haunted_Mines",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/20407399"
+  ],
+  "Affected": [
+    "Heroes: Artanis",
+    "Dehaka",
+    "Diablo",
+    "Ragnaros",
+    "Zeratul Battlegrounds: Haunted Mines",
+    "Artanis",
+    "Zeratul"
+  ],
+  "Highlights": "Balance Update",
+  "CleanedNotes": "=== Heroes: Artanis ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Shield Overload (Trait)\r\n    \u2022 Increased Shield Value from 360 to 375\r\n[Bug Fixes]\r\n  \u2022 The Talent tooltip for Templar\u0027s Zeal now correctly states that the cooldown for Blade Dash recharges 100% faster, rather than 150% faster, while Artanis is below 50% Health.\r\n\r\n=== Heroes: Dehaka ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Enhanced Agility (Trait)\r\n      \u2022 Increased Quest reward per 50 Essence Stacks from 1 to 1.5% Movement Speed\r\n[Bug Fixes]\r\n  \u2022 The Talent tooltip for Lurker Strain\u0027s now correctly states that Stealth is granted upon emerging from Burrow.\r\n  \u2022 The Essence Collection Ability tooltip now correctly lists a 5 second cooldown.\r\n\r\n=== Heroes: Diablo ===\r\n[Updates]\r\n  Stats:\r\n  \u2022 Base Maximum Health reduced from 2647 to 2567\r\n  \u2022 Health Regen reduced from 5.52 to 5.35\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Bulwark (Q)\r\n      \u2022 Duration increase on Shadow Charge\u0027s Resistance decreased from 3 to 2 seconds\r\n  \u2022 Level 7\r\n    \u2022 Soul Shield (Passive)\r\n      \u2022 Ability damage reduction per Soul reduced from .35 to .25%\r\n  \u2022 Level 20\r\n    \u2022 Hellgate (Active)\r\n      \u2022 Cooldown increased from 70 to 90 seconds\r\n\r\n=== Heroes: Ragnaros ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Empower Sulfuras (Q)\r\n    \u2022 Damage reduced from 222 to 211\r\n  \u2022 Living Meteor (W)\r\n    \u2022 Damage reduced from 75 to 72\r\n  \u2022 Molten Core (Trait)\r\n    \u2022 Cooldown increased from 100 to 120 seconds\r\n    \u2022 Molten Swing damage reduced from 169 to 161\r\n    \u2022 Meteor Shower damage reduced from 159 to 151\r\n    \u2022 Explosive Rune damage reduced from 300 to 285\r\n  \u2022 Lava Wave (R)\r\n    \u2022 Cooldown increased from 100 to 120 seconds\r\n    \u2022 Damage reduced from 86 to 60\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Shifting Meteor (W)\r\n      \u2022 Quest requirement increased from 50 to 75 Heroic target hits.\r\n[Bug Fixes]\r\n  \u2022 Pressing ALT \u002B R will now properly self-cast Sulfuras Smash.\r\n\r\n=== Heroes: Zeratul ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 7\r\n    \u2022 Wormhole (E)\r\n      \u2022 Now has a short delay before it can be re-activated to avoid accidental activation. This was always the case prior to his recent rework but was an unintended change made during the rework process.",
+  "Sections": {
+    "Heroes: Artanis": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Shield Overload (Trait)",
+      "    \u2022 Increased Shield Value from 360 to 375",
+      "[Bug Fixes]",
+      "  \u2022 The Talent tooltip for Templar\u0027s Zeal now correctly states that the cooldown for Blade Dash recharges 100% faster, rather than 150% faster, while Artanis is below 50% Health."
+    ],
+    "Heroes: Dehaka": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Enhanced Agility (Trait)",
+      "      \u2022 Increased Quest reward per 50 Essence Stacks from 1 to 1.5% Movement Speed",
+      "[Bug Fixes]",
+      "  \u2022 The Talent tooltip for Lurker Strain\u0027s now correctly states that Stealth is granted upon emerging from Burrow.",
+      "  \u2022 The Essence Collection Ability tooltip now correctly lists a 5 second cooldown."
+    ],
+    "Heroes: Diablo": [
+      "[Updates]",
+      "  Stats:",
+      "  \u2022 Base Maximum Health reduced from 2647 to 2567",
+      "  \u2022 Health Regen reduced from 5.52 to 5.35",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Bulwark (Q)",
+      "      \u2022 Duration increase on Shadow Charge\u0027s Resistance decreased from 3 to 2 seconds",
+      "  \u2022 Level 7",
+      "    \u2022 Soul Shield (Passive)",
+      "      \u2022 Ability damage reduction per Soul reduced from .35 to .25%",
+      "  \u2022 Level 20",
+      "    \u2022 Hellgate (Active)",
+      "      \u2022 Cooldown increased from 70 to 90 seconds"
+    ],
+    "Heroes: Ragnaros": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Empower Sulfuras (Q)",
+      "    \u2022 Damage reduced from 222 to 211",
+      "  \u2022 Living Meteor (W)",
+      "    \u2022 Damage reduced from 75 to 72",
+      "  \u2022 Molten Core (Trait)",
+      "    \u2022 Cooldown increased from 100 to 120 seconds",
+      "    \u2022 Molten Swing damage reduced from 169 to 161",
+      "    \u2022 Meteor Shower damage reduced from 159 to 151",
+      "    \u2022 Explosive Rune damage reduced from 300 to 285",
+      "  \u2022 Lava Wave (R)",
+      "    \u2022 Cooldown increased from 100 to 120 seconds",
+      "    \u2022 Damage reduced from 86 to 60",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Shifting Meteor (W)",
+      "      \u2022 Quest requirement increased from 50 to 75 Heroic target hits.",
+      "[Bug Fixes]",
+      "  \u2022 Pressing ALT \u002B R will now properly self-cast Sulfuras Smash."
+    ],
+    "Heroes: Zeratul": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 7",
+      "    \u2022 Wormhole (E)",
+      "      \u2022 Now has a short delay before it can be re-activated to avoid accidental activation. This was always the case prior to his recent rework but was an unintended change made during the rework process."
+    ]
+  },
+  "PatchFile": "live/2016-12-20-v1-22-4-49008-ragnaros-balance-patch-live.json",
+  "Sources": [
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2016-12-20-live.html"
+  ]
+}

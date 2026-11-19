@@ -1,0 +1,175 @@
+{
+  "Id": "patch-notes-april-4-2017",
+  "Title": "Cassia Patch",
+  "Subtitle": "New Hero: Cassia",
+  "Date": "Apr 4, 2017",
+  "IsoDate": "2017-04-04",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "24.4",
+  "FullVersion": "1.24.4.52124",
+  "Build": "52124",
+  "Link": "http://us.battle.net/heroes/en/blog/20673818",
+  "Links": [
+    "http://us.battle.net/heroes/en/blog/20673818",
+    "https://news.blizzard.com/heroes-of-the-storm/20673818",
+    "https://heroesofthestorm.fandom.com/wiki/Cassia",
+    "https://heroesofthestorm.fandom.com/wiki/Abathur",
+    "https://heroesofthestorm.fandom.com/wiki/Butcher",
+    "https://heroesofthestorm.fandom.com/wiki/E.T.C.",
+    "https://heroesofthestorm.fandom.com/wiki/Gul%27dan",
+    "https://heroesofthestorm.fandom.com/wiki/Li_Li",
+    "https://heroesofthestorm.fandom.com/wiki/Muradin",
+    "https://heroesofthestorm.fandom.com/wiki/Nova",
+    "https://heroesofthestorm.fandom.com/wiki/Rexxar",
+    "https://heroesofthestorm.fandom.com/wiki/Sgt._Hammer",
+    "https://heroesofthestorm.fandom.com/wiki/The_Lost_Vikings",
+    "https://heroesofthestorm.fandom.com/wiki/Thrall",
+    "https://heroesofthestorm.fandom.com/wiki/Tracer",
+    "https://heroesofthestorm.fandom.com/wiki/Uther",
+    "https://heroesofthestorm.fandom.com/wiki/Valeera",
+    "https://heroesofthestorm.fandom.com/wiki/Varian",
+    "https://heroesofthestorm.fandom.com/wiki/Zagara",
+    "https://heroesofthestorm.fandom.com/wiki/Zeratul",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/20673818"
+  ],
+  "Affected": [
+    "Heroes: Abathur",
+    "Butcher",
+    "E.T.C.",
+    "Gul\u0027dan",
+    "Li Li",
+    "Muradin",
+    "Nova",
+    "Rexxar",
+    "Sgt. Hammer",
+    "The Lost Vikings",
+    "Thrall",
+    "Tracer",
+    "Uther",
+    "Valeera",
+    "Varian",
+    "Zagara",
+    "Zeratul",
+    "Abathur",
+    "Cassia",
+    "Diablo",
+    "ETC",
+    "Lt. Morales",
+    "Probius",
+    "Ragnaros",
+    "Raynor",
+    "Rehgar",
+    "The Butcher",
+    "Valla"
+  ],
+  "Highlights": "New Hero: Cassia",
+  "CleanedNotes": "=== Heroes: Abathur ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that caused Heroes affected by Abathur\u0027s Symbiote to fail to trigger Valeera\u0027s Assassinate talent.\r\n\r\n=== Heroes: Cassia ===\r\n[Releases]\r\n  Cassia, Amazon Warmatron, has been added to the Nexus and is now available for play! Read on for a brief overview of her Abilities.:\r\n  Trait:\r\n  \u2022 Avoidance\r\n    \u2022 When moving unmounted, Cassia gains 65 Physical Armor against Heroic Basic Attacks, reducing the damage taken by 65%.\r\n  Basic Abilities:\r\n  \u2022 Lightning Fury (Q)\r\n    \u2022 Hurl a javelin that damages the first enemy hit, and splits into two lightning bolts that deal damage to enemies in their paths.\r\n  \u2022 Blinding Light (W)\r\n    \u2022 After 0.5 seconds, Blind enemies in the target area for 2 seconds.\r\n    \u2022 Passive: Cassia deals 15% increased damage to Blinded targets.\r\n  \u2022 Fend (E)\r\n    \u2022 Charge at an enemy and on arrival channel for 1.5 seconds, damaging enemies in front of Cassia every 0.25 seconds.\r\n    \u2022 Deals 50% reduced damage to non-Heroes.\r\n  Heroic Abilities:\r\n  \u2022 Ball Lightning (R)\r\n    \u2022 Throw a ball of lightning at an enemy Hero that bounces up to 6 times between nearby enemy Heroes and Cassia, damaging enemies hit.\r\n  \u2022 Valkyrie (R)\r\n    \u2022 Summon a Valkyrie that rushes to Cassia after 0.75 seconds, pulling and damaging the first enemy Hero hit and stunning them for 0.5 seconds at the end of her rush.\r\n    \u2022 The Valkyrie knocks back all other enemy Heroes in her way.\r\n\r\n=== Heroes: Diablo ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that caused Devastating Charge damage to show as damage dealt to Diablo on the Death Recap screen.\r\n\r\n=== Heroes: ETC ===\r\n[Updates]\r\n  Stats:\r\n  \u2022 Health reduced from 2428 to 2100\r\n  \u2022 Health Regeneration reduced from 5.06 to 4.37\r\n  Abilities:\r\n  \u2022 Rockstar (Trait)\r\n    \u2022 Redesigned:\r\n      \u2022 Instead of increasing nearby allies\u0027 Basic Attack speeds, Rockstar now grants E.T.C. 20 Armor for 2 seconds when he uses a Basic or Heroic Ability. This effect does not stack with itself.\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Guitar Hero (E)\r\n      \u2022 Healing gained from Basic Attacks increased from 35% to 40%.\r\n      \u2022 No longer increases Attack Speed.\r\n  \u2022 Level 7\r\n    \u2022 Echo Pedal (Passive)\r\n      \u2022 Damage reduced from 29 to 15.\r\n      \u2022 Damage bonus against Minions and Mercenaries increased from 75% to 250%.\r\n  \u2022 Level 16\r\n    \u2022 Show Stopper (Q)\r\n      \u2022 Armor reduced from 25 to 15.\r\n\r\n=== Heroes: Lt. Morales ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue causing the Punisher minion to instantly kill Lt. Morales\u0027s Medivac.\r\n\r\n=== Heroes: Probius ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that caused the Turbo Charged talent to grant too much movement speed during Worker Rush.\r\n  \u2022 Fixed an issue preventing crowd control duration bars to fail to display on Probius\u0027s health bar while he was in a Pylon power field.\r\n\r\n=== Heroes: Ragnaros ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue causing Blast Wave to reveal their cloaked targets when they damaged enemy units.\r\n\r\n=== Heroes: Raynor ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue with the Relentless Leader talent causing it to fail to grant the passive cooldown reduction.\r\n\r\n=== Heroes: Rehgar ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue causing Lightning Shield to reveal their cloaked targets when they damaged enemy units.\r\n\r\n=== Heroes: Rexxar ===\r\n[Bug Fixes]\r\n  \u2022 Misha will now have a reduced death timer in Arena mode Heroes Brawls.\r\n\r\n=== Heroes: The Butcher ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Fresh Meat (Trait)\r\n    \u2022 Hold ALT and click the Fresh Meat Ability icon to notify allies of The Butcher\u0027s current number of Meat stacks.\r\n\r\n=== Heroes: The Lost Vikings ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that caused focus to be taken away from the currently selected Viking if a Viking enters the Garden Terror.\r\n\r\n=== Heroes: Valeera ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that caused Heroes affected by Abathur\u0027s Symbiote to fail to trigger Valeera\u0027s Assassinate talent.\r\n\r\n=== Heroes: Valla ===\r\n[Bug Fixes]\r\n  \u2022 Fixed a rare issue that could cause Valla\u0027s Hatred stacks to drop to 0 while firing Basic Attacks.\r\n\r\n=== Heroes: Varian ===\r\n[Bug Fixes]\r\n  \u2022 The sound effect associated with the Iron Forge Banner will no longer play globally.",
+  "Sections": {
+    "Heroes: Abathur": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that caused Heroes affected by Abathur\u0027s Symbiote to fail to trigger Valeera\u0027s Assassinate talent."
+    ],
+    "Heroes: Cassia": [
+      "[Releases]",
+      "  Cassia, Amazon Warmatron, has been added to the Nexus and is now available for play! Read on for a brief overview of her Abilities.:",
+      "  Trait:",
+      "  \u2022 Avoidance",
+      "    \u2022 When moving unmounted, Cassia gains 65 Physical Armor against Heroic Basic Attacks, reducing the damage taken by 65%.",
+      "  Basic Abilities:",
+      "  \u2022 Lightning Fury (Q)",
+      "    \u2022 Hurl a javelin that damages the first enemy hit, and splits into two lightning bolts that deal damage to enemies in their paths.",
+      "  \u2022 Blinding Light (W)",
+      "    \u2022 After 0.5 seconds, Blind enemies in the target area for 2 seconds.",
+      "    \u2022 Passive: Cassia deals 15% increased damage to Blinded targets.",
+      "  \u2022 Fend (E)",
+      "    \u2022 Charge at an enemy and on arrival channel for 1.5 seconds, damaging enemies in front of Cassia every 0.25 seconds.",
+      "    \u2022 Deals 50% reduced damage to non-Heroes.",
+      "  Heroic Abilities:",
+      "  \u2022 Ball Lightning (R)",
+      "    \u2022 Throw a ball of lightning at an enemy Hero that bounces up to 6 times between nearby enemy Heroes and Cassia, damaging enemies hit.",
+      "  \u2022 Valkyrie (R)",
+      "    \u2022 Summon a Valkyrie that rushes to Cassia after 0.75 seconds, pulling and damaging the first enemy Hero hit and stunning them for 0.5 seconds at the end of her rush.",
+      "    \u2022 The Valkyrie knocks back all other enemy Heroes in her way."
+    ],
+    "Heroes: Diablo": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that caused Devastating Charge damage to show as damage dealt to Diablo on the Death Recap screen."
+    ],
+    "Heroes: ETC": [
+      "[Updates]",
+      "  Stats:",
+      "  \u2022 Health reduced from 2428 to 2100",
+      "  \u2022 Health Regeneration reduced from 5.06 to 4.37",
+      "  Abilities:",
+      "  \u2022 Rockstar (Trait)",
+      "    \u2022 Redesigned:",
+      "      \u2022 Instead of increasing nearby allies\u0027 Basic Attack speeds, Rockstar now grants E.T.C. 20 Armor for 2 seconds when he uses a Basic or Heroic Ability. This effect does not stack with itself.",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Guitar Hero (E)",
+      "      \u2022 Healing gained from Basic Attacks increased from 35% to 40%.",
+      "      \u2022 No longer increases Attack Speed.",
+      "  \u2022 Level 7",
+      "    \u2022 Echo Pedal (Passive)",
+      "      \u2022 Damage reduced from 29 to 15.",
+      "      \u2022 Damage bonus against Minions and Mercenaries increased from 75% to 250%.",
+      "  \u2022 Level 16",
+      "    \u2022 Show Stopper (Q)",
+      "      \u2022 Armor reduced from 25 to 15."
+    ],
+    "Heroes: Lt. Morales": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue causing the Punisher minion to instantly kill Lt. Morales\u0027s Medivac."
+    ],
+    "Heroes: Probius": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that caused the Turbo Charged talent to grant too much movement speed during Worker Rush.",
+      "  \u2022 Fixed an issue preventing crowd control duration bars to fail to display on Probius\u0027s health bar while he was in a Pylon power field."
+    ],
+    "Heroes: Ragnaros": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue causing Blast Wave to reveal their cloaked targets when they damaged enemy units."
+    ],
+    "Heroes: Raynor": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue with the Relentless Leader talent causing it to fail to grant the passive cooldown reduction."
+    ],
+    "Heroes: Rehgar": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue causing Lightning Shield to reveal their cloaked targets when they damaged enemy units."
+    ],
+    "Heroes: Rexxar": [
+      "[Bug Fixes]",
+      "  \u2022 Misha will now have a reduced death timer in Arena mode Heroes Brawls."
+    ],
+    "Heroes: The Butcher": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Fresh Meat (Trait)",
+      "    \u2022 Hold ALT and click the Fresh Meat Ability icon to notify allies of The Butcher\u0027s current number of Meat stacks."
+    ],
+    "Heroes: The Lost Vikings": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that caused focus to be taken away from the currently selected Viking if a Viking enters the Garden Terror."
+    ],
+    "Heroes: Valeera": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that caused Heroes affected by Abathur\u0027s Symbiote to fail to trigger Valeera\u0027s Assassinate talent."
+    ],
+    "Heroes: Valla": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed a rare issue that could cause Valla\u0027s Hatred stacks to drop to 0 while firing Basic Attacks."
+    ],
+    "Heroes: Varian": [
+      "[Bug Fixes]",
+      "  \u2022 The sound effect associated with the Iron Forge Banner will no longer play globally."
+    ]
+  },
+  "PatchFile": "live/2017-04-04-v1-24-4-52124-cassia-patch-live.json",
+  "Sources": [
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2017-04-04-live.html"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "Id": "hotfix-patch-notes-july-2-2015",
+  "Title": "The Butcher Hotfix Patch #1",
+  "Subtitle": "Hotfix patch 12.1.36280 (July 2, 2015) following The Butcher\u0027s release (no official patch notes verified here).",
+  "Date": "Jul 2, 2015",
+  "IsoDate": "2015-07-02",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "12.1",
+  "FullVersion": "12.1.36280",
+  "Build": "36280",
+  "Link": "https://us.battle.net/forums/en/heroes/topic/18300810379",
+  "Links": [
+    "https://us.battle.net/forums/en/heroes/topic/18300810379"
+  ],
+  "Affected": [],
+  "Highlights": "Hotfix patch 12.1.36280 (July 2, 2015) following The Butcher\u0027s release (no official patch notes verified here).",
+  "CleanedNotes": "=== General ===\r\n  \u2022 - Verified: no official patch notes available for this hotfix build.",
+  "Sections": {
+    "General": [
+      "  \u2022 - Verified: no official patch notes available for this hotfix build."
+    ]
+  },
+  "PatchFile": "live/2015-07-02-v12-1-36280-the-butcher-hotfix-patch-1-live.json",
+  "Sources": [
+    "legacy-patches2014-2021.json",
+    "manual-edit"
+  ]
+}

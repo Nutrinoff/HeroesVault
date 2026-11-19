@@ -1,0 +1,40 @@
+{
+  "Id": "hotfix-patch-notes-october-25-2017",
+  "Title": "Junkrat Hotfix Patch",
+  "Subtitle": "Hotfix",
+  "Date": "Oct 25, 2017",
+  "IsoDate": "2017-10-25",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "2.28.4",
+  "FullVersion": "2.28.4.58795",
+  "Build": "58795",
+  "Link": "http://us.battle.net/heroes/en/blog/21120247",
+  "Links": [
+    "http://us.battle.net/heroes/en/blog/21120247",
+    "https://news.blizzard.com/heroes-of-the-storm/21120247",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/21120247"
+  ],
+  "Affected": [
+    "D.Va",
+    "Junkrat"
+  ],
+  "Highlights": "Hotfix",
+  "CleanedNotes": "=== Heroes: D.Va ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue preventing Boosters from receiving the Rush-down Talent\u0027s cooldown reduction bonus if D.Va was attacking an enemy shortly before activating Boosters.\r\n\r\n=== Heroes: Junkrat ===\r\n[Bug Fixes]\r\n  \u2022 Using Concussion Mine to destroy D.Va\u0027s Mech and knock her into the terrain will no longer remove her from the Battleground until she respawns.",
+  "Sections": {
+    "Heroes: D.Va": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue preventing Boosters from receiving the Rush-down Talent\u0027s cooldown reduction bonus if D.Va was attacking an enemy shortly before activating Boosters."
+    ],
+    "Heroes: Junkrat": [
+      "[Bug Fixes]",
+      "  \u2022 Using Concussion Mine to destroy D.Va\u0027s Mech and knock her into the terrain will no longer remove her from the Battleground until she respawns."
+    ]
+  },
+  "PatchFile": "live/2017-10-25-v2-28-4-58795-junkrat-hotfix-patch-live.json",
+  "Sources": [
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2017-10-25-hotfix.html"
+  ]
+}
