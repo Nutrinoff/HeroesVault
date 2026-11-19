@@ -14,8 +14,6 @@ let currentBuildIndex = 0;
 let builderHeroId = null;
 let builderHeroData = null;
 let builderSelectedTalents = [1, 1, 1, 1, 1, 1, 1];
-let patchNotesLayoutObserver = null;
-let isApplyingPatchBarLayout = false;
 
 
 // ==========================================
@@ -61,7 +59,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         renderHeroSidebar(MASTER_HERO_LIST);
         renderTierList();
-        initPatchNotesFilterBar();
+
+        if (typeof initPatchFilterControls === 'function') {
+            initPatchFilterControls();
+        }
+
         handleRoute();
 
         if (window.lucide) {
@@ -70,11 +72,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         window.addEventListener('popstate', handleRoute);
 
-        window.onclick = e => {
+        document.addEventListener('click', e => {
             if (!e.target.closest('#maps-dropdown-menu') && !e.target.closest('#maps-dropdown-toggle')) {
                 document.getElementById('maps-dropdown-menu')?.classList.add('hidden');
             }
-        };
+        });
     } catch (e) {
         console.error('Failed loading data files:', e);
     }
@@ -108,203 +110,69 @@ function handleRoute() {
 
     switchTabUI(tab);
 
-    if (tab === 'home') {
-        // Home view controller logic if needed
-    } else if (tab === 'builds' || tab === 'heroes') {
+    if (tab === 'builds' || tab === 'heroes') {
         selectHero(q.get('hero') || MASTER_HERO_LIST[0]?.id, false);
     } else if (tab === 'map') {
         if (typeof selectMap === 'function') {
             selectMap(q.get('id') || 'alteracpass', false);
         }
     } else if (tab === 'builder') {
-        openBuilder(q.get('hero') || MASTER_HERO_LIST[0]?.id, q.get('build') ? q.get('build').split('').map(Number) : null, false);
-    } else if (tab === 'academy') {
-        // Nexus Academy view controller logic if needed
+        openBuilder(
+            q.get('hero') || MASTER_HERO_LIST[0]?.id,
+            q.get('build') ? q.get('build').split('').map(Number) : null,
+            false
+        );
     } else if (tab === 'patchnotes') {
+        if (typeof initPatchFilterControls === 'function') {
+            initPatchFilterControls();
+        }
         if (typeof loadLivePatchNotes === 'function') {
             loadLivePatchNotes();
         }
-        positionPatchNotesFilterButtons();
+        if (typeof schedulePatchSidebarSync === 'function') {
+            schedulePatchSidebarSync();
+        }
     }
 }
 
 function switchTabUI(t) {
     const activeTab = t === 'heroes' ? 'builds' : t;
 
-    const hm = activeTab === 'home';
-    const h = activeTab === 'builds';
-    const m = activeTab === 'map';
-    const b = activeTab === 'builder';
-    const a = activeTab === 'academy';
-    const pn = activeTab === 'patchnotes';
-    const l = activeTab === 'tierlist';
+    const states = {
+        'view-home': activeTab === 'home',
+        'view-builds': activeTab === 'builds',
+        'view-map': activeTab === 'map',
+        'view-builder': activeTab === 'builder',
+        'view-academy': activeTab === 'academy',
+        'view-patchnotes': activeTab === 'patchnotes',
+        'view-tierlist': activeTab === 'tierlist'
+    };
 
-    [['view-home', hm], ['view-builds', h], ['view-map', m], ['view-builder', b], ['view-academy', a], ['view-patchnotes', pn], ['view-tierlist', l]].forEach(([id, on]) => {
+    Object.entries(states).forEach(([id, on]) => {
         document.getElementById(id)?.classList.toggle('hidden', !on);
     });
 
-    document.getElementById('sidebar-container').classList.toggle('hidden', !h && !b);
+    const sidebar = document.getElementById('sidebar-container');
+    if (sidebar) {
+        sidebar.classList.toggle('hidden', activeTab !== 'builds' && activeTab !== 'builder');
+    }
 
-    [['nav-home', hm], ['nav-builds', h], ['nav-builder', b], ['nav-academy', a], ['nav-patchnotes', pn], ['nav-tierlist', l]].forEach(([id, on]) => {
+    const navStates = {
+        'nav-home': activeTab === 'home',
+        'nav-builds': activeTab === 'builds',
+        'nav-builder': activeTab === 'builder',
+        'nav-academy': activeTab === 'academy',
+        'nav-patchnotes': activeTab === 'patchnotes',
+        'nav-tierlist': activeTab === 'tierlist'
+    };
+
+    Object.entries(navStates).forEach(([id, on]) => {
         document.getElementById(id)?.classList.toggle('nav-active', on);
     });
 
-    if (pn) {
-        positionPatchNotesFilterButtons();
+    if (activeTab === 'patchnotes' && typeof schedulePatchSidebarSync === 'function') {
+        schedulePatchSidebarSync();
     }
-}
-
-
-// ==========================================
-// 2B. PATCH NOTES FILTER BAR LAYOUT
-// ==========================================
-
-function findPatchFilterButtons(viewEl) {
-    const targetLabels = ['all', 'live', 'ptr'];
-    const candidates = Array.from(viewEl.querySelectorAll('button, [role="tab"], a'))
-        .filter(el => !el.closest('header, nav'));
-
-    const matched = [];
-    for (const label of targetLabels) {
-        const found = candidates.find(el => {
-            const text = (el.textContent || '').trim().toLowerCase();
-            return text === label || text.startsWith(label + ' ');
-        });
-        if (found) matched.push(found);
-    }
-    return matched;
-}
-
-function findPatchFeedAnchor(viewEl, filterButtons) {
-    const buttonSet = new Set(filterButtons);
-    const allEls = Array.from(viewEl.querySelectorAll('div, section, ul, ol'));
-
-    const feedHeading = allEls.find(el => {
-        if (buttonSet.has(el) || el.id === 'hv-patch-filter-bar') return false;
-        const txt = (el.textContent || '').trim().toUpperCase();
-        return txt === 'ALL FEED' || txt === 'LIVE FEED' || txt === 'PTR FEED';
-    });
-    if (feedHeading) return feedHeading;
-
-    const feedContainer = allEls.find(el => {
-        if (buttonSet.has(el) || el.id === 'hv-patch-filter-bar' || el.contains(filterButtons[0])) return false;
-        const hasPatchText = /patch notes|balance patch/i.test(el.textContent || '');
-        const isTallFeed = el.clientHeight > 180 && el.children.length >= 2;
-        return hasPatchText && isTallFeed;
-    });
-    return feedContainer || null;
-}
-
-function styleCompactFilterButton(btn) {
-    if (btn.dataset.hvCompact === '1') return;
-    btn.dataset.hvCompact = '1';
-
-    btn.classList.remove('h-full', 'min-h-screen', 'flex-1', 'w-full');
-    btn.style.height = 'auto';
-    btn.style.minHeight = '0';
-    btn.style.maxHeight = '36px';
-    btn.style.width = 'auto';
-    btn.style.minWidth = '68px';
-    btn.style.flex = '0 0 auto';
-    btn.classList.add(
-        'inline-flex',
-        'items-center',
-        'justify-center',
-        'px-4',
-        'py-1.5',
-        'rounded-lg',
-        'text-xs',
-        'font-bold',
-        'leading-none',
-        'whitespace-nowrap',
-        'shrink-0',
-        'flex-none'
-    );
-}
-
-function cleanupEmptyFilterColumns(viewEl, barEl) {
-    const cols = Array.from(viewEl.querySelectorAll('div, section'));
-    for (const col of cols) {
-        if (col === viewEl || col === barEl || col.id === 'hv-patch-filter-bar' || col.contains(barEl)) continue;
-        const hasVisibleContent =
-            (col.textContent || '').trim().length > 0 ||
-            col.querySelector('img, svg, input, select, textarea, button, a') !== null;
-        if (!hasVisibleContent && col.children.length === 0 && col.style.display !== 'none') {
-            col.style.display = 'none';
-        }
-    }
-}
-
-function positionPatchNotesFilterButtons() {
-    if (isApplyingPatchBarLayout) return;
-
-    const viewEl = document.getElementById('view-patchnotes');
-    if (!viewEl) return;
-
-    const buttons = findPatchFilterButtons(viewEl);
-    if (buttons.length === 0) return;
-
-    isApplyingPatchBarLayout = true;
-    patchNotesLayoutObserver?.disconnect();
-
-    try {
-        let bar = document.getElementById('hv-patch-filter-bar');
-        if (!bar) {
-            bar = document.createElement('div');
-            bar.id = 'hv-patch-filter-bar';
-            bar.className = 'flex flex-row items-center gap-2 mb-3 w-fit';
-        }
-
-        const anchor = findPatchFeedAnchor(viewEl, buttons);
-        if (anchor && anchor.parentElement) {
-            if (bar.parentElement !== anchor.parentElement || bar.nextElementSibling !== anchor) {
-                anchor.parentElement.insertBefore(bar, anchor);
-            }
-        } else if (bar.parentElement !== viewEl) {
-            viewEl.prepend(bar);
-        }
-
-        buttons.forEach((btn, idx) => {
-            styleCompactFilterButton(btn);
-            if (btn.parentElement !== bar || bar.children[idx] !== btn) {
-                bar.appendChild(btn);
-            }
-        });
-
-        cleanupEmptyFilterColumns(viewEl, bar);
-    } finally {
-        isApplyingPatchBarLayout = false;
-        if (patchNotesLayoutObserver) {
-            patchNotesLayoutObserver.observe(viewEl, {
-                childList: true,
-                subtree: true
-            });
-        }
-    }
-}
-
-function initPatchNotesFilterBar() {
-    const viewEl = document.getElementById('view-patchnotes');
-    if (!viewEl) return;
-
-    if (patchNotesLayoutObserver) {
-        patchNotesLayoutObserver.disconnect();
-    }
-
-    patchNotesLayoutObserver = new MutationObserver(() => {
-        if (isApplyingPatchBarLayout) return;
-        const buttons = findPatchFilterButtons(viewEl);
-        const bar = document.getElementById('hv-patch-filter-bar');
-        const needsPlacement =
-            buttons.length > 0 &&
-            (!bar || buttons.some(btn => btn.parentElement !== bar || btn.dataset.hvCompact !== '1'));
-
-        if (needsPlacement) {
-            positionPatchNotesFilterButtons();
-        }
-    });
-
-    positionPatchNotesFilterButtons();
 }
 
 
@@ -318,23 +186,28 @@ function renderHeroSidebar(heroes) {
 
     list.innerHTML = '';
 
-    const isB = !document.getElementById('view-builder').classList.contains('hidden');
-    const active = isB ? builderHeroId : currentSelectedHeroId;
+    const isBuilder = !document.getElementById('view-builder')?.classList.contains('hidden');
+    const activeId = isBuilder ? builderHeroId : currentSelectedHeroId;
 
     heroes.forEach(h => {
         const tier = getHeroTier(h.id);
         const s = TIER_STYLES[tier] || TIER_STYLES.D;
         const btn = document.createElement('button');
 
+        btn.type = 'button';
         btn.className = `w-full text-left p-2.5 rounded-xl border transition-all ${
-            active === h.id
+            activeId === h.id
                 ? 'bg-sky-500/15 border-sky-500/70'
                 : 'border-slate-800 bg-slate-950/40 hover:bg-slate-800/80'
         }`;
 
-        btn.onclick = () => isB
-            ? openBuilder(h.id, null, true)
-            : navigateTo('builds', { hero: h.id });
+        btn.addEventListener('click', () => {
+            if (isBuilder) {
+                openBuilder(h.id, null, true);
+            } else {
+                navigateTo('builds', { hero: h.id });
+            }
+        });
 
         btn.innerHTML = `
             <div class="flex items-center gap-3 min-w-0">
@@ -352,12 +225,19 @@ function renderHeroSidebar(heroes) {
         list.appendChild(btn);
     });
 
-    document.getElementById('hero-count').innerText = `${heroes.length} Heroes`;
+    const countEl = document.getElementById('hero-count');
+    if (countEl) {
+        countEl.innerText = `${heroes.length} Heroes`;
+    }
 }
 
 function filterHeroes() {
-    const q = document.getElementById('hero-search').value.toLowerCase();
-    renderHeroSidebar(MASTER_HERO_LIST.filter(h => h.name.toLowerCase().includes(q) || h.id.toLowerCase().includes(q)));
+    const q = (document.getElementById('hero-search')?.value || '').toLowerCase();
+    renderHeroSidebar(
+        MASTER_HERO_LIST.filter(h =>
+            h.name.toLowerCase().includes(q) || h.id.toLowerCase().includes(q)
+        )
+    );
 }
 
 
@@ -397,8 +277,8 @@ function renderAbilityStrip(abilitiesList, containerId) {
     list.forEach(a => {
         const el = document.createElement('div');
         el.className = 'flex flex-col items-center gap-1 bg-slate-950/60 border border-slate-800 rounded-xl p-1.5 min-w-12';
-        el.onmouseenter = e => showAbilityTooltip(e, a);
-        el.onmouseleave = hideTooltip;
+        el.addEventListener('mouseenter', e => showAbilityTooltip(e, a));
+        el.addEventListener('mouseleave', hideTooltip);
         el.innerHTML = `
             <img src="${getAssetUrl(a.icon)}" onerror="this.src='https://via.placeholder.com/32?text=?'" class="w-8 h-8 rounded-lg border border-slate-700 object-cover">
             <span class="text-[10px] font-mono font-bold text-sky-300">${a.key || 'Z'}</span>
@@ -412,10 +292,15 @@ function renderHeroHeader(heroData) {
     if (!heroData) return;
     const portraitUrl = getAssetUrl(heroData.portrait);
 
-    document.getElementById('hero-portrait').src = portraitUrl;
-    document.getElementById('hero-name').innerText = heroData.name;
-    document.getElementById('hero-role').innerText = heroData.role;
-    document.getElementById('hero-title').innerText = heroData.title;
+    const portraitEl = document.getElementById('hero-portrait');
+    const nameEl = document.getElementById('hero-name');
+    const roleEl = document.getElementById('hero-role');
+    const titleEl = document.getElementById('hero-title');
+
+    if (portraitEl) portraitEl.src = portraitUrl;
+    if (nameEl) nameEl.innerText = heroData.name;
+    if (roleEl) roleEl.innerText = heroData.role;
+    if (titleEl) titleEl.innerText = heroData.title;
 
     renderAbilityStrip(heroData.abilities, 'hero-abilities');
 }
@@ -424,15 +309,17 @@ function renderBuilderHeader(heroData) {
     if (!heroData) return;
     const portraitUrl = getAssetUrl(heroData.portrait);
 
-    document.getElementById('builder-portrait').src = portraitUrl;
-    document.getElementById('builder-name').innerText = heroData.name;
-    document.getElementById('builder-role').innerText = heroData.role;
-    document.getElementById('builder-title').innerText = heroData.title;
-
+    const portraitEl = document.getElementById('builder-portrait');
+    const nameEl = document.getElementById('builder-name');
+    const roleEl = document.getElementById('builder-role');
+    const titleEl = document.getElementById('builder-title');
     const bgModel = document.getElementById('builder-model-bg');
-    if (bgModel) {
-        bgModel.src = portraitUrl;
-    }
+
+    if (portraitEl) portraitEl.src = portraitUrl;
+    if (nameEl) nameEl.innerText = heroData.name;
+    if (roleEl) roleEl.innerText = heroData.role;
+    if (titleEl) titleEl.innerText = heroData.title;
+    if (bgModel) bgModel.src = portraitUrl;
 
     renderAbilityStrip(heroData.abilities, 'builder-abilities');
 }
@@ -456,7 +343,10 @@ async function selectHero(id, update = true) {
     renderHeroSidebar(MASTER_HERO_LIST);
 
     const h = resolveHeroMasterData(id);
-    if (!h) return console.error('Missing hero master entry', id);
+    if (!h) {
+        console.error('Missing hero master entry', id);
+        return;
+    }
 
     currentHeroData = {
         id,
@@ -480,6 +370,7 @@ function renderActiveBuild() {
     const tabs = document.getElementById('build-tabs');
     const notes = document.getElementById('detail-notes');
 
+    if (!tabs || !notes) return;
     tabs.innerHTML = '';
 
     if (!d?.builds?.length) {
@@ -490,16 +381,17 @@ function renderActiveBuild() {
 
     d.builds.forEach((v, i) => {
         const b = document.createElement('button');
+        b.type = 'button';
         b.className = `px-3.5 py-1.5 rounded-lg text-xs font-bold border ${
             i === currentBuildIndex
                 ? 'bg-amber-500/20 text-amber-300 border-amber-500/50'
                 : 'bg-slate-950 text-slate-400 border-slate-800'
         }`;
         b.innerText = `Build ${i + 1}: ${v.buildName || 'Unnamed'}`;
-        b.onclick = () => {
+        b.addEventListener('click', () => {
             currentBuildIndex = i;
             renderActiveBuild();
-        };
+        });
         tabs.appendChild(b);
     });
 
@@ -510,6 +402,7 @@ function renderActiveBuild() {
 
 function renderBuildStrip(h, code) {
     const box = document.getElementById('build-strip');
+    if (!box) return;
     box.innerHTML = '';
 
     const p = decodeBuildCode(code);
@@ -521,8 +414,8 @@ function renderBuildStrip(h, code) {
         el.className = 'bg-slate-950/60 border border-slate-800 rounded-xl p-2 flex flex-col items-center gap-2 transition-all hover:border-sky-500/60';
 
         if (t) {
-            el.onmouseenter = e => showTalentTooltip(e, t, l);
-            el.onmouseleave = hideTooltip;
+            el.addEventListener('mouseenter', e => showTalentTooltip(e, t, l));
+            el.addEventListener('mouseleave', hideTooltip);
 
             el.innerHTML = `
                 <img src="${getAssetUrl(t.icon)}" onerror="this.src='https://via.placeholder.com/44?text=?'" class="w-11 h-11 rounded-lg border border-slate-700 object-cover">
@@ -554,15 +447,23 @@ function showTalentTooltip(e, t, l) {
 
 function showTooltip(e, name, level, description, icon) {
     const tip = document.getElementById('talent-tooltip');
-    document.getElementById('tip-icon').src = getAssetUrl(icon);
-    document.getElementById('tip-name').innerText = name || '';
-    document.getElementById('tip-level').innerText = level;
-    document.getElementById('tip-desc').innerHTML = formatGameText(description) || 'No description available.';
+    if (!tip) return;
+
+    const tipIcon = document.getElementById('tip-icon');
+    const tipName = document.getElementById('tip-name');
+    const tipLevel = document.getElementById('tip-level');
+    const tipDesc = document.getElementById('tip-desc');
+
+    if (tipIcon) tipIcon.src = getAssetUrl(icon);
+    if (tipName) tipName.innerText = name || '';
+    if (tipLevel) tipLevel.innerText = level;
+    if (tipDesc) tipDesc.innerHTML = formatGameText(description) || 'No description available.';
+
     tip.style.left = `${e.clientX + 15}px`;
     tip.style.top = `${e.clientY + 15}px`;
     tip.classList.remove('hidden');
 }
 
 function hideTooltip() {
-    document.getElementById('talent-tooltip').classList.add('hidden');
+    document.getElementById('talent-tooltip')?.classList.add('hidden');
 }
