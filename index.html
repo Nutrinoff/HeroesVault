@@ -283,6 +283,35 @@
             <span class="text-[11px] font-bold uppercase tracking-wider text-violet-200">Browse Guides &rarr;</span>
           </div>
         </div>
+
+        <!-- WEEKLY FREE HERO ROTATION & BATTLEGROUND ROTATION -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
+          <!-- Free-to-Play Hero Rotation (10 Heroes) -->
+          <section class="lg:col-span-8 hots-panel p-4 rounded space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#2e1866] pb-2">
+              <h3 class="hots-label text-cyan-300 flex items-center gap-2">
+                <i data-lucide="users" class="w-3.5 h-3.5"></i> Free-to-Play Hero Rotation
+              </h3>
+              <span id="home-f2p-timespan" class="text-[11px] font-mono text-amber-300/90">Weekly Rotation</span>
+            </div>
+            <div id="home-f2p-grid" class="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
+              <div class="col-span-full text-xs text-violet-200/70 py-3">Loading free rotation...</div>
+            </div>
+          </section>
+
+          <!-- Current Battleground Rotation -->
+          <section class="lg:col-span-4 hots-panel p-4 rounded space-y-3">
+            <div class="flex items-center justify-between border-b border-[#2e1866] pb-2">
+              <h3 class="hots-label text-amber-300 flex items-center gap-2">
+                <i data-lucide="map" class="w-3.5 h-3.5"></i> Battleground Rotation
+              </h3>
+              <span class="text-[10px] font-mono uppercase text-violet-300/70">Active Pools</span>
+            </div>
+            <div id="home-bg-rotation" class="space-y-3">
+              <div class="text-xs text-violet-200/70 py-2">Loading battlegrounds...</div>
+            </div>
+          </section>
+        </div>
       </div>
 
       <!-- VIEW: BUILDS -->
@@ -508,7 +537,7 @@
 
   <!-- FOOTER -->
   <footer class="bg-gradient-to-t from-[#070312] to-[#110829] border-t border-[#371e78] mt-6 py-6">
-    <div class="max-w-[1600px] mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+    <div class="max-w-[1600px] mx-auto px-6 flex flex-col items-center justify-center gap-3 text-center">
       <div class="flex items-center gap-3">
         <svg class="w-6 h-6 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <polygon points="12 2 22 7 22 17 12 22 2 17 2 7 12 2"/>
@@ -517,19 +546,7 @@
         <span class="text-sm font-extrabold uppercase tracking-wider text-slate-100">HeroesVault &copy; 2026</span>
       </div>
 
-      <!-- Footer Navigation Links -->
-      <div class="flex flex-wrap items-center justify-center gap-6 text-xs font-bold uppercase tracking-wider text-violet-200/80">
-        <button onclick="navigateTo('home'); window.scrollTo({top: 0, behavior: 'smooth'});" class="hover:text-cyan-300 transition cursor-pointer">Home</button>
-        <button onclick="navigateTo('builds'); window.scrollTo({top: 0, behavior: 'smooth'});" class="hover:text-cyan-300 transition cursor-pointer">Builds</button>
-        <button onclick="navigateTo('builder'); window.scrollTo({top: 0, behavior: 'smooth'});" class="hover:text-cyan-300 transition cursor-pointer">Talent Builder</button>
-        <button onclick="navigateTo('academy'); window.scrollTo({top: 0, behavior: 'smooth'});" class="hover:text-cyan-300 transition cursor-pointer">Nexus Academy</button>
-        <button onclick="navigateTo('patchnotes'); window.scrollTo({top: 0, behavior: 'smooth'});" class="hover:text-cyan-300 transition cursor-pointer">Patch Notes</button>
-        <button onclick="navigateTo('tierlist'); window.scrollTo({top: 0, behavior: 'smooth'});" class="hover:text-cyan-300 transition cursor-pointer">Tier List</button>
-      </div>
-    </div>
-
-    <div class="max-w-[1600px] mx-auto px-6 mt-4 pt-4 border-t border-[#281559] text-center">
-      <p class="text-[11px] text-violet-300/60 leading-relaxed max-w-4xl mx-auto">
+      <p class="text-[11px] text-violet-300/60 leading-relaxed max-w-4xl">
         HeroesVault is a zero-backend community fan project and is not affiliated with, endorsed by, or connected to Blizzard Entertainment. Heroes of the Storm and all associated game assets, icons, and hero portraits are trademarks or registered trademarks of Blizzard Entertainment, Inc.
       </p>
     </div>
@@ -553,6 +570,7 @@
   <script src="./js/maps.js"></script>
   <script src="./js/tierlist.js"></script>
   <script src="./js/patchnotes.js"></script>
+  <script src="./js/rotation.js"></script>
   <script src="./data/academy-articles.js"></script>
   <script src="./js/academy.js"></script>
   <script src="./app.js"></script>
