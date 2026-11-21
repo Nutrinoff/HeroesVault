@@ -5,6 +5,11 @@
 const LOCAL_ROTATION_DATA_URL = './data/rotation.json';
 const ROTATION_FETCH_TIMEOUT_MS = 4000;
 
+const HERO_SLUG_ALIASES = {
+    deckardcain: 'deckard',
+    deckard: 'deckardcain'
+};
+
 const FALLBACK_ROTATION_PORTRAIT =
     'data:image/svg+xml;utf8,' +
     encodeURIComponent(
@@ -22,6 +27,19 @@ function normalizeSlugKey(val) {
         .toLowerCase()
         .replace(/^the\s+/i, '')
         .replace(/[^a-z0-9]/g, '');
+}
+
+function expandSlugKeys(rawKeys) {
+    const expanded = [];
+    for (const key of rawKeys) {
+        if (!key) continue;
+        if (!expanded.includes(key)) expanded.push(key);
+        const alias = HERO_SLUG_ALIASES[key];
+        if (alias && !expanded.includes(alias)) {
+            expanded.push(alias);
+        }
+    }
+    return expanded;
 }
 
 function parseDateBoundary(val, isEndOfDay = false) {
@@ -125,11 +143,11 @@ function buildHeroLookupIndex() {
 
     for (const hero of roster) {
         if (!hero) continue;
-        const keys = [
+        const keys = expandSlugKeys([
             normalizeSlugKey(hero.id),
             normalizeSlugKey(hero.name),
             normalizeSlugKey(String(hero.name || '').split(',')[0])
-        ].filter(Boolean);
+        ]);
 
         for (const key of keys) {
             if (!index.has(key)) index.set(key, hero);
@@ -148,13 +166,13 @@ function buildRawMasterLookupIndex() {
 
     for (const hero of entries) {
         if (!hero) continue;
-        const keys = [
+        const keys = expandSlugKeys([
             normalizeSlugKey(hero.id),
             normalizeSlugKey(hero.hyperlinkId),
             normalizeSlugKey(hero.attributeId),
             normalizeSlugKey(hero.name),
             normalizeSlugKey(String(hero.name || '').split(',')[0])
-        ].filter(Boolean);
+        ]);
 
         for (const key of keys) {
             if (!index.has(key)) index.set(key, hero);
@@ -189,11 +207,11 @@ function matchHeroWithIndex(entry, heroIndex, rawMasterIndex) {
     const rawName = item.Name || item.name || '';
     const rawId = item.ID || item.id || '';
 
-    const keys = [
+    const keys = expandSlugKeys([
         normalizeSlugKey(rawId),
         normalizeSlugKey(rawName),
         normalizeSlugKey(rawName.split(',')[0])
-    ].filter(Boolean);
+    ]);
 
     let matched = null;
     let rawMaster = null;
@@ -201,19 +219,25 @@ function matchHeroWithIndex(entry, heroIndex, rawMasterIndex) {
     for (const key of keys) {
         if (!matched && heroIndex.has(key)) matched = heroIndex.get(key);
         if (!rawMaster && rawMasterIndex.has(key)) rawMaster = rawMasterIndex.get(key);
+        if (matched && rawMaster) break;
     }
 
-    const resolvedId =
+    let resolvedId =
         matched?.id ||
         rawMaster?.id ||
         rawMaster?.hyperlinkId ||
         rawId ||
         normalizeSlugKey(rawName);
 
-    if (!matched && resolvedId && typeof resolveHeroMasterData === 'function') {
-        const viaResolver = resolveHeroMasterData(resolvedId);
-        if (viaResolver) {
-            matched = viaResolver;
+    if (!matched && typeof resolveHeroMasterData === 'function') {
+        for (const candidate of [resolvedId, ...keys]) {
+            if (!candidate) continue;
+            const viaResolver = resolveHeroMasterData(candidate);
+            if (viaResolver) {
+                matched = viaResolver;
+                resolvedId = matched.id || candidate;
+                break;
+            }
         }
     }
 
@@ -226,7 +250,13 @@ function matchHeroWithIndex(entry, heroIndex, rawMasterIndex) {
     return {
         id: resolvedId || normalizeSlugKey(fallbackName),
         name: matched?.name || rawMaster?.name || fallbackName,
-        role: matched?.role || (rawMaster?.roles && rawMaster.roles[0]) || rawMaster?.expandedRole || 'Free Rotation',
+        role:
+            matched?.role ||
+            (Array.isArray(matched?.roles) && matched.roles[0]) ||
+            matched?.expandedRole ||
+            (Array.isArray(rawMaster?.roles) && rawMaster.roles[0]) ||
+            rawMaster?.expandedRole ||
+            'Free Rotation',
         portraitUrl: resolvePortraitUrl(rawPortrait) || FALLBACK_ROTATION_PORTRAIT,
         reqLevel: item.ReqLevel ?? item.reqLevel ?? null
     };
