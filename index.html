@@ -9,26 +9,28 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     :root {
-      --nexus-bg: #070b14;
-      --nexus-surface: #0d1526;
-      --nexus-surface-elevated: #121d34;
-      --nexus-border: #1e2d4a;
-      --nexus-cyan: #22d3ee;
-      --nexus-gold: #f59e0b;
+      --hots-void: #090614;
+      --hots-panel: #120b26;
+      --hots-panel-raised: #1a1038;
+      --hots-border: #2e1d5e;
+      --hots-cyan: #29c5ff;
+      --hots-violet: #8b5cf6;
+      --hots-gold: #f59e0b;
+      --hots-emerald: #10b981;
     }
     ::-webkit-scrollbar {
       width: 6px;
       height: 6px;
     }
     ::-webkit-scrollbar-track {
-      background: #070b14;
+      background: #090614;
     }
     ::-webkit-scrollbar-thumb {
-      background: #243656;
+      background: #36226e;
       border-radius: 3px;
     }
     ::-webkit-scrollbar-thumb:hover {
-      background: #354e7a;
+      background: #4c3199;
     }
     .nav-button {
       padding: .5rem 1.15rem;
@@ -39,17 +41,17 @@
       display: flex;
       align-items: center;
       gap: .5rem;
-      color: #cbd5e1;
+      color: #ddd6fe;
     }
     .nav-button:hover {
-      background: #132038;
+      background: rgba(139, 92, 246, .2);
       color: #fff;
     }
     .nav-active {
-      background: rgba(34, 211, 238, .14) !important;
-      color: #67e8f9 !important;
-      border: 1px solid rgba(34, 211, 238, .38);
-      box-shadow: inset 0 1px 0 rgba(251, 191, 36, .18);
+      background: linear-gradient(180deg, rgba(41, 197, 255, .22), rgba(109, 40, 217, .28)) !important;
+      color: #7dd3fc !important;
+      border: 1px solid rgba(41, 197, 255, .5);
+      box-shadow: inset 0 1px 0 rgba(251, 191, 36, .28);
     }
     /* Scale up ability strip items (boxes, icons, and text) by ~25% */
     #hero-abilities > div,
@@ -104,10 +106,10 @@
     }
   </style>
 </head>
-<body class="bg-[#070b14] text-slate-100 font-sans min-h-screen flex flex-col selection:bg-cyan-400 selection:text-slate-950">
+<body class="bg-[#090614] text-slate-100 font-sans min-h-screen flex flex-col selection:bg-cyan-400 selection:text-slate-950">
 
   <!-- HEADER -->
-  <header class="bg-[#0b1220]/95 backdrop-blur border-b border-[#1e2d4a] sticky top-0 z-50">
+  <header class="bg-[#100924]/95 backdrop-blur border-b border-[#2e1d5e] sticky top-0 z-50">
     <div class="max-w-[1600px] mx-auto px-6 py-3 flex flex-col items-center justify-between gap-3 md:flex-row">
       <div class="flex items-center gap-3 cursor-pointer" onclick="navigateTo('home')">
         <svg class="w-9 h-9 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -115,13 +117,13 @@
           <circle cx="12" cy="12" r="3" class="text-amber-400" fill="currentColor"/>
         </svg>
         <div class="text-center md:text-left">
-          <h1 class="text-2xl font-extrabold tracking-wider bg-gradient-to-r from-cyan-300 via-sky-200 to-amber-300 bg-clip-text text-transparent">
+          <h1 class="text-2xl font-extrabold tracking-wider bg-gradient-to-r from-cyan-300 via-violet-200 to-amber-300 bg-clip-text text-transparent">
             HEROES<span class="text-amber-400">VAULT</span>
           </h1>
-          <p class="text-[10px] uppercase tracking-[0.3em] text-slate-400 font-semibold">Nexus Strategy & Spec Database</p>
+          <p class="text-[10px] uppercase tracking-[0.3em] text-violet-300/75 font-semibold">Nexus Strategy & Spec Database</p>
         </div>
       </div>
-      <nav class="flex items-center gap-1.5 bg-[#070b14]/90 border border-[#1e2d4a] rounded-xl p-1 relative flex-wrap justify-center">
+      <nav class="flex items-center gap-1.5 bg-[#090614]/90 border border-[#2e1d5e] rounded-xl p-1 relative flex-wrap justify-center">
         <button id="nav-home" onclick="navigateTo('home')" class="nav-button">
           <i data-lucide="home" class="w-4 h-4"></i> Home
         </button>
@@ -132,7 +134,7 @@
           <button id="maps-dropdown-toggle" onclick="toggleMapsDropdown(event)" class="nav-button">
             <i data-lucide="map" class="w-4 h-4"></i> Maps <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
           </button>
-          <div id="maps-dropdown-menu" class="absolute left-0 mt-2 w-56 bg-[#0d1526] border border-[#1e2d4a] rounded-xl shadow-2xl py-2 hidden z-50"></div>
+          <div id="maps-dropdown-menu" class="absolute left-0 mt-2 w-56 bg-[#120b26] border border-[#2e1d5e] rounded-xl shadow-2xl py-2 hidden z-50"></div>
         </div>
         <button id="nav-builder" onclick="navigateTo('builder')" class="nav-button">
           <i data-lucide="cpu" class="w-4 h-4"></i> Talent Builder
@@ -154,13 +156,13 @@
   <div class="flex-1 max-w-[1600px] w-full mx-auto px-6 py-5 flex flex-col lg:flex-row gap-6 items-start">
 
     <!-- SIDEBAR (Shown on Builds & Talent Builder views) -->
-    <aside id="sidebar-container" class="w-full lg:w-72 flex-shrink-0 bg-[#0d1526]/85 border border-[#1e2d4a] rounded-xl flex flex-col lg:max-h-[calc(100vh-110px)] lg:sticky lg:top-20 overflow-hidden">
-      <div class="p-3 border-b border-[#1e2d4a] bg-[#0b1220] flex flex-col gap-2">
+    <aside id="sidebar-container" class="w-full lg:w-72 flex-shrink-0 bg-[#120b26]/90 border border-[#2e1d5e] rounded-xl flex flex-col lg:max-h-[calc(100vh-110px)] lg:sticky lg:top-20 overflow-hidden">
+      <div class="p-3 border-b border-[#2e1d5e] bg-[#170e30] flex flex-col gap-2">
         <div class="relative">
-          <i data-lucide="search" class="w-4 h-4 absolute left-3 top-2.5 text-slate-400"></i>
-          <input id="hero-search" type="text" oninput="filterHeroes()" placeholder="Search heroes..." class="w-full pl-9 pr-3 py-1.5 bg-[#070b14] border border-[#243656] rounded-lg text-sm text-slate-200 focus:outline-none focus:border-cyan-400" />
+          <i data-lucide="search" class="w-4 h-4 absolute left-3 top-2.5 text-violet-300/70"></i>
+          <input id="hero-search" type="text" oninput="filterHeroes()" placeholder="Search heroes..." class="w-full pl-9 pr-3 py-1.5 bg-[#090614] border border-[#382373] rounded-lg text-sm text-slate-100 placeholder-violet-300/40 focus:outline-none focus:border-cyan-400" />
         </div>
-        <div class="flex items-center justify-between px-1 text-xs text-slate-400">
+        <div class="flex items-center justify-between px-1 text-xs text-violet-200/75">
           <span>Roster</span>
           <span id="hero-count" class="text-cyan-300 font-mono">0 Heroes</span>
         </div>
@@ -173,11 +175,11 @@
 
       <!-- VIEW: HOME -->
       <div id="view-home" class="space-y-4">
-        <div class="bg-[#0d1526]/90 border border-[#1e2d4a] border-l-4 border-l-cyan-400 px-6 py-5 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="bg-gradient-to-r from-[#1c1042] via-[#130c29] to-[#241438] border border-[#382373] border-l-4 border-l-cyan-400 px-6 py-5 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div class="space-y-1">
-            <div class="text-[11px] font-mono uppercase tracking-widest text-amber-300/90">Heroes of the Storm Companion</div>
+            <div class="text-[11px] font-mono uppercase tracking-widest text-amber-400">Heroes of the Storm Companion</div>
             <h2 class="text-2xl font-extrabold text-white tracking-tight">HeroesVault</h2>
-            <p class="text-xs sm:text-sm text-slate-300 max-w-2xl">
+            <p class="text-xs sm:text-sm text-violet-100/80 max-w-2xl">
               Hero talent loadouts, build code calculator, battleground guides, patch feed, and personal tier rankings.
             </p>
           </div>
@@ -185,57 +187,57 @@
             <button onclick="navigateTo('builds')" class="bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold px-4 py-2 rounded-lg text-xs sm:text-sm transition flex items-center gap-2">
               <i data-lucide="shield" class="w-4 h-4"></i> Hero Builds
             </button>
-            <button onclick="navigateTo('builder')" class="bg-[#121d34] hover:bg-[#192847] text-amber-200 font-bold px-4 py-2 rounded-lg text-xs sm:text-sm border border-amber-400/30 transition flex items-center gap-2">
+            <button onclick="navigateTo('builder')" class="bg-[#1e1242] hover:bg-[#291959] text-amber-300 font-bold px-4 py-2 rounded-lg text-xs sm:text-sm border border-amber-400/40 transition flex items-center gap-2">
               <i data-lucide="cpu" class="w-4 h-4"></i> Talent Builder
             </button>
           </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div onclick="navigateTo('builds')" class="bg-[#0d1526]/75 hover:bg-[#121d34]/95 border border-[#1e2d4a] hover:border-cyan-400/50 p-4 rounded-xl cursor-pointer transition flex flex-col justify-between gap-3">
+          <div onclick="navigateTo('builds')" class="bg-[#120b26]/85 hover:bg-[#1a1038] border border-[#2e1d5e] hover:border-cyan-400/60 p-4 rounded-xl cursor-pointer transition flex flex-col justify-between gap-3">
             <div class="space-y-1.5">
               <div class="flex items-center justify-between">
                 <span class="text-cyan-300 flex items-center gap-2 font-bold text-sm">
                   <i data-lucide="shield" class="w-4 h-4"></i> Builds &amp; Matchups
                 </span>
-                <span id="home-hero-count" class="text-[11px] font-mono text-slate-400">Roster</span>
+                <span id="home-hero-count" class="text-[11px] font-mono text-violet-300/75">Roster</span>
               </div>
-              <p class="text-xs text-slate-400 leading-relaxed">Saved talent loadouts, ability strips, and matchup notes per hero.</p>
+              <p class="text-xs text-violet-100/70 leading-relaxed">Saved talent loadouts, ability strips, and matchup notes per hero.</p>
             </div>
             <span class="text-[11px] font-semibold text-cyan-300">Open Builds &rarr;</span>
           </div>
 
-          <div onclick="navigateTo('builder')" class="bg-[#0d1526]/75 hover:bg-[#121d34]/95 border border-[#1e2d4a] hover:border-amber-400/50 p-4 rounded-xl cursor-pointer transition flex flex-col justify-between gap-3">
+          <div onclick="navigateTo('builder')" class="bg-[#120b26]/85 hover:bg-[#1a1038] border border-[#2e1d5e] hover:border-amber-400/60 p-4 rounded-xl cursor-pointer transition flex flex-col justify-between gap-3">
             <div class="space-y-1.5">
               <div class="flex items-center justify-between">
                 <span class="text-amber-300 flex items-center gap-2 font-bold text-sm">
                   <i data-lucide="cpu" class="w-4 h-4"></i> Talent Calculator
                 </span>
-                <span id="home-build-count" class="text-[11px] font-mono text-slate-400">Sandbox</span>
+                <span id="home-build-count" class="text-[11px] font-mono text-violet-300/75">Sandbox</span>
               </div>
-              <p class="text-xs text-slate-400 leading-relaxed">Pick tiers 1–20, inspect talent tooltips, and copy build strings.</p>
+              <p class="text-xs text-violet-100/70 leading-relaxed">Pick tiers 1–20, inspect talent tooltips, and copy build strings.</p>
             </div>
             <span class="text-[11px] font-semibold text-amber-300">Open Calculator &rarr;</span>
           </div>
 
-          <div onclick="navigateTo('academy')" class="bg-[#0d1526]/75 hover:bg-[#121d34]/95 border border-[#1e2d4a] hover:border-cyan-400/50 p-4 rounded-xl cursor-pointer transition flex flex-col justify-between gap-3">
+          <div onclick="navigateTo('academy')" class="bg-[#120b26]/85 hover:bg-[#1a1038] border border-[#2e1d5e] hover:border-violet-400/60 p-4 rounded-xl cursor-pointer transition flex flex-col justify-between gap-3">
             <div class="space-y-1.5">
               <div class="flex items-center justify-between">
-                <span class="text-sky-300 flex items-center gap-2 font-bold text-sm">
+                <span class="text-violet-300 flex items-center gap-2 font-bold text-sm">
                   <i data-lucide="graduation-cap" class="w-4 h-4"></i> Nexus Academy
                 </span>
-                <span id="home-guide-count" class="text-[11px] font-mono text-slate-400">Guides</span>
+                <span id="home-guide-count" class="text-[11px] font-mono text-violet-300/75">Guides</span>
               </div>
-              <p class="text-xs text-slate-400 leading-relaxed">Basic and advanced notes on soaking, drafting, and mechanics.</p>
+              <p class="text-xs text-violet-100/70 leading-relaxed">Basic and advanced notes on soaking, drafting, and mechanics.</p>
             </div>
-            <span class="text-[11px] font-semibold text-sky-300">Browse Guides &rarr;</span>
+            <span class="text-[11px] font-semibold text-violet-300">Browse Guides &rarr;</span>
           </div>
         </div>
       </div>
 
       <!-- VIEW: BUILDS -->
       <div id="view-builds" class="space-y-6 hidden">
-        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-5 border-b border-[#1e2d4a]">
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-5 border-b border-[#2e1d5e]">
           <div class="flex items-center gap-4">
             <div class="hex-portrait-frame">
               <img id="hero-portrait" src="" onerror="this.src='https://via.placeholder.com/110?text=Hero'" alt="Portrait" class="hex-portrait-img"/>
@@ -243,7 +245,7 @@
                 <polygon
                   points="50,-1.5 96.5,24.2 96.5,75.8 50,101.5 3.5,75.8 3.5,24.2"
                   fill="none"
-                  stroke="rgba(34, 211, 238, 0.8)"
+                  stroke="rgba(41, 197, 255, 0.85)"
                   stroke-width="4.5"
                   stroke-linejoin="round"
                 />
@@ -252,9 +254,9 @@
             <div>
               <div class="flex items-center gap-3 flex-wrap">
                 <h2 id="hero-name" class="text-2xl font-bold text-white">Select a Hero</h2>
-                <span id="hero-role" class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-500/15 text-amber-300 border border-amber-400/30">Role</span>
+                <span id="hero-role" class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-500/15 text-amber-300 border border-amber-400/35">Role</span>
               </div>
-              <p id="hero-title" class="text-xs text-slate-400 mt-1">Title</p>
+              <p id="hero-title" class="text-xs text-violet-200/75 mt-1">Title</p>
             </div>
           </div>
           <div id="hero-abilities" class="flex items-center justify-center gap-2 flex-wrap py-1"></div>
@@ -263,56 +265,56 @@
         <section class="space-y-3">
           <div class="flex justify-between items-center">
             <h3 class="font-bold text-cyan-300 text-sm uppercase tracking-wider">Spec Loadouts</h3>
-            <span class="text-xs text-slate-400">Select build variations configured for this hero</span>
+            <span class="text-xs text-violet-200/70">Select build variations configured for this hero</span>
           </div>
           <div id="build-tabs" class="flex flex-wrap gap-2"></div>
         </section>
 
-        <section class="space-y-3 pt-4 border-t border-[#1e2d4a]/80">
+        <section class="space-y-3 pt-4 border-t border-[#2e1d5e]/80">
           <h3 class="font-bold text-amber-300 text-sm uppercase tracking-wider">Selected Build Talents</h3>
           <div id="build-strip" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3"></div>
         </section>
 
-        <section class="space-y-3 pt-4 border-t border-[#1e2d4a]/80">
+        <section class="space-y-3 pt-4 border-t border-[#2e1d5e]/80">
           <h3 class="font-bold text-amber-300 text-sm uppercase tracking-wider">Notes & Matchup Guide</h3>
-          <div id="detail-notes" class="text-sm text-slate-300 bg-[#0d1526]/75 border border-[#1e2d4a]/80 p-4 rounded-xl leading-relaxed"></div>
+          <div id="detail-notes" class="text-sm text-violet-100/85 bg-[#120b26]/85 border border-[#2e1d5e] p-4 rounded-xl leading-relaxed"></div>
         </section>
       </div>
 
       <!-- VIEW: MAP -->
       <div id="view-map" class="space-y-6 hidden">
-        <div class="relative rounded-xl overflow-hidden border border-[#1e2d4a]">
+        <div class="relative rounded-xl overflow-hidden border border-[#2e1d5e]">
           <img id="map-portrait" src="" onerror="this.src='https://via.placeholder.com/1200x500?text=Map'" class="w-full h-64 md:h-80 object-cover"/>
-          <div class="absolute inset-0 bg-gradient-to-t from-[#070b14] via-[#070b14]/40 to-transparent flex items-end p-6">
+          <div class="absolute inset-0 bg-gradient-to-t from-[#090614] via-[#090614]/45 to-transparent flex items-end p-6">
             <div>
               <span class="text-xs uppercase tracking-widest text-amber-300 font-bold">Battleground</span>
               <h2 id="map-name" class="text-3xl font-extrabold text-white"></h2>
-              <p id="map-theme" class="text-sm text-slate-300 mt-1"></p>
+              <p id="map-theme" class="text-sm text-violet-100/80 mt-1"></p>
             </div>
           </div>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div class="lg:col-span-2 space-y-6">
-            <section class="space-y-2 pb-5 border-b border-[#1e2d4a]/80">
+            <section class="space-y-2 pb-5 border-b border-[#2e1d5e]/80">
               <h3 class="font-bold text-cyan-300 text-sm uppercase tracking-wider">Map Objective</h3>
-              <div id="map-mechanic" class="text-sm text-slate-300 leading-relaxed"></div>
+              <div id="map-mechanic" class="text-sm text-violet-100/85 leading-relaxed"></div>
             </section>
-            <section class="space-y-2 pb-5 border-b border-[#1e2d4a]/80">
+            <section class="space-y-2 pb-5 border-b border-[#2e1d5e]/80">
               <h3 class="font-bold text-amber-300 text-sm uppercase tracking-wider">Strategic Overview</h3>
-              <div id="map-strategy" class="text-sm text-slate-300 leading-relaxed"></div>
+              <div id="map-strategy" class="text-sm text-violet-100/85 leading-relaxed"></div>
             </section>
             <section class="space-y-2">
               <h3 class="font-bold text-cyan-300 text-sm uppercase tracking-wider">Good to Know & Tips</h3>
-              <div id="map-notes" class="text-sm text-slate-300 leading-relaxed"></div>
+              <div id="map-notes" class="text-sm text-violet-100/85 leading-relaxed"></div>
             </section>
           </div>
-          <div class="space-y-6 lg:border-l lg:border-[#1e2d4a]/80 lg:pl-6">
+          <div class="space-y-6 lg:border-l lg:border-[#2e1d5e]/80 lg:pl-6">
             <section class="space-y-3">
               <h3 class="font-bold text-amber-300 text-sm uppercase tracking-wider">Top 5 Golden Heroes</h3>
               <div id="map-heroes-list" class="grid grid-cols-1 gap-2"></div>
             </section>
-            <section class="space-y-3 pt-4 border-t border-[#1e2d4a]/80">
+            <section class="space-y-3 pt-4 border-t border-[#2e1d5e]/80">
               <h3 class="font-bold text-rose-400 text-sm uppercase tracking-wider">Mercenary Camps</h3>
               <div id="map-camps-stack" class="space-y-3"></div>
             </section>
@@ -322,7 +324,7 @@
 
       <!-- VIEW: BUILDER -->
       <div id="view-builder" class="space-y-6 hidden">
-        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-5 border-b border-[#1e2d4a]">
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-5 border-b border-[#2e1d5e]">
           <div class="flex items-center gap-4">
             <div class="hex-portrait-frame">
               <img id="builder-portrait" src="" onerror="this.src='https://via.placeholder.com/110?text=Hero'" alt="Portrait" class="hex-portrait-img"/>
@@ -330,7 +332,7 @@
                 <polygon
                   points="50,-1.5 96.5,24.2 96.5,75.8 50,101.5 3.5,75.8 3.5,24.2"
                   fill="none"
-                  stroke="rgba(34, 211, 238, 0.8)"
+                  stroke="rgba(41, 197, 255, 0.85)"
                   stroke-width="4.5"
                   stroke-linejoin="round"
                 />
@@ -339,19 +341,19 @@
             <div>
               <div class="flex items-center gap-3 flex-wrap">
                 <h2 id="builder-name" class="text-2xl font-bold text-white">Select a Hero</h2>
-                <span id="builder-role" class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-500/15 text-amber-300 border border-amber-400/30">Role</span>
+                <span id="builder-role" class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-500/15 text-amber-300 border border-amber-400/35">Role</span>
               </div>
-              <p id="builder-title" class="text-xs text-slate-400 mt-1">Title</p>
+              <p id="builder-title" class="text-xs text-violet-200/75 mt-1">Title</p>
             </div>
           </div>
           <div id="builder-abilities" class="flex items-center justify-center gap-2 flex-wrap py-1"></div>
         </div>
 
         <!-- TALENT MATRIX CONTAINER -->
-        <section class="relative bg-[#0d1526]/75 border border-[#1e2d4a] rounded-xl p-5 overflow-hidden">
+        <section class="relative bg-[#120b26]/85 border border-[#2e1d5e] rounded-xl p-5 overflow-hidden">
           <img id="builder-model-bg" src="" onerror="this.style.display='none'" class="absolute inset-0 w-full h-full object-cover opacity-15 pointer-events-none"/>
           <div class="relative z-10 space-y-4">
-            <div class="flex items-center justify-between pb-3 border-b border-[#1e2d4a]/80">
+            <div class="flex items-center justify-between pb-3 border-b border-[#2e1d5e]/80">
               <h3 class="text-base font-bold text-cyan-300 uppercase tracking-wider">Talent Matrix</h3>
               <button onclick="resetBuilder()" class="bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 px-3 py-1.5 rounded-lg border border-amber-400/35 text-xs font-bold">Reset</button>
             </div>
@@ -360,8 +362,8 @@
               <div id="builder-matrix" class="space-y-3 flex-1"></div>
 
               <div class="flex items-center gap-3 self-end lg:self-auto flex-shrink-0">
-                <code id="builder-string-code" class="bg-[#070b14] border border-[#1e2d4a] rounded-xl px-4 py-2.5 text-xs text-cyan-300 font-mono">[T0000000,Hero]</code>
-                <button onclick="copyBuilderString()" class="bg-cyan-400/15 hover:bg-cyan-400/25 text-cyan-200 px-4 py-2.5 rounded-xl border border-cyan-400/35 text-xs font-bold flex items-center gap-2 transition flex-shrink-0">
+                <code id="builder-string-code" class="bg-[#090614] border border-[#2e1d5e] rounded-xl px-4 py-2.5 text-xs text-cyan-300 font-mono">[T0000000,Hero]</code>
+                <button onclick="copyBuilderString()" class="bg-cyan-400/15 hover:bg-cyan-400/25 text-cyan-200 px-4 py-2.5 rounded-xl border border-cyan-400/40 text-xs font-bold flex items-center gap-2 transition flex-shrink-0">
                   <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Link
                 </button>
               </div>
@@ -372,34 +374,34 @@
 
       <!-- VIEW: NEXUS ACADEMY -->
       <div id="view-academy" class="space-y-6 hidden">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#1e2d4a]">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#2e1d5e]">
           <div class="flex items-center gap-3">
             <div class="p-2.5 bg-amber-500/15 border border-amber-400/35 rounded-xl text-amber-300">
               <i data-lucide="graduation-cap" class="w-6 h-6"></i>
             </div>
             <div>
               <h2 class="text-2xl font-bold text-white">Nexus Academy</h2>
-              <p class="text-xs text-slate-400">Structured guides across Basic &amp; Advanced tracks, laning, drafting, and mechanics</p>
+              <p class="text-xs text-violet-200/75">Structured guides across Basic &amp; Advanced tracks, laning, drafting, and mechanics</p>
             </div>
           </div>
-          <div id="academy-level-filters" class="flex items-center gap-1.5 bg-[#0d1526] border border-[#1e2d4a] rounded-xl p-1 self-start sm:self-auto" role="group" aria-label="Skill level filter">
+          <div id="academy-level-filters" class="flex items-center gap-1.5 bg-[#120b26] border border-[#2e1d5e] rounded-xl p-1 self-start sm:self-auto" role="group" aria-label="Skill level filter">
             <button type="button" data-academy-level="all" onclick="setAcademyLevel('all')" class="academy-level-btn px-3 py-1 rounded-lg text-xs font-bold bg-cyan-400 text-slate-950 transition">All</button>
-            <button type="button" data-academy-level="Basic" onclick="setAcademyLevel('Basic')" class="academy-level-btn px-3 py-1 rounded-lg text-xs font-bold text-slate-300 hover:bg-[#121d34] hover:text-white transition">Basic</button>
-            <button type="button" data-academy-level="Advanced" onclick="setAcademyLevel('Advanced')" class="academy-level-btn px-3 py-1 rounded-lg text-xs font-bold text-slate-300 hover:bg-[#121d34] hover:text-white transition">Advanced</button>
+            <button type="button" data-academy-level="Basic" onclick="setAcademyLevel('Basic')" class="academy-level-btn px-3 py-1 rounded-lg text-xs font-bold text-violet-200 hover:bg-[#1a1038] hover:text-white transition">Basic</button>
+            <button type="button" data-academy-level="Advanced" onclick="setAcademyLevel('Advanced')" class="academy-level-btn px-3 py-1 rounded-lg text-xs font-bold text-violet-200 hover:bg-[#1a1038] hover:text-white transition">Advanced</button>
           </div>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           <!-- Left Navigation Rail: Search, Category Pills & Article Index -->
-          <aside class="lg:col-span-4 bg-[#0d1526]/85 border border-[#1e2d4a] rounded-xl p-3 space-y-3 lg:sticky lg:top-20">
+          <aside class="lg:col-span-4 bg-[#120b26]/90 border border-[#2e1d5e] rounded-xl p-3 space-y-3 lg:sticky lg:top-20">
             <div class="relative">
-              <i data-lucide="search" class="w-4 h-4 absolute left-3 top-2.5 text-slate-400"></i>
+              <i data-lucide="search" class="w-4 h-4 absolute left-3 top-2.5 text-violet-300/70"></i>
               <input
                 id="academy-search"
                 type="text"
                 oninput="filterAcademyArticles()"
                 placeholder="Search guides (e.g. stutter, draft, soak)..."
-                class="w-full pl-9 pr-3 py-1.5 bg-[#070b14] border border-[#243656] rounded-lg text-sm text-slate-200 focus:outline-none focus:border-cyan-400"
+                class="w-full pl-9 pr-3 py-1.5 bg-[#090614] border border-[#382373] rounded-lg text-sm text-slate-100 placeholder-violet-300/40 focus:outline-none focus:border-cyan-400"
               />
             </div>
 
@@ -409,8 +411,8 @@
           </aside>
 
           <!-- Right Reader Pane: Markdown-formatted Article View -->
-          <article id="academy-article-reader" class="lg:col-span-8 bg-[#0d1526]/75 border border-[#1e2d4a] rounded-xl p-6 space-y-5 min-w-0">
-            <div class="text-sm text-slate-400">Select an article from the list to start reading.</div>
+          <article id="academy-article-reader" class="lg:col-span-8 bg-[#120b26]/85 border border-[#2e1d5e] rounded-xl p-6 space-y-5 min-w-0">
+            <div class="text-sm text-violet-200/70">Select an article from the list to start reading.</div>
           </article>
         </div>
       </div>
@@ -420,16 +422,16 @@
         <div id="patch-layout-grid" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           <!-- Left Grid Cell (4 cols) -->
           <div id="patch-sidebar-column" class="w-full lg:col-span-4">
-            <div id="patch-sidebar-sticky-box" class="flex flex-col gap-3 z-20 bg-[#0d1526] border border-[#1e2d4a] rounded-xl p-3">
+            <div id="patch-sidebar-sticky-box" class="flex flex-col gap-3 z-20 bg-[#120b26] border border-[#2e1d5e] rounded-xl p-3">
               <div id="patch-filter-controls" class="flex items-center gap-2 px-1 shrink-0" role="group" aria-label="Patch feed filters">
                 <button type="button" data-patch-filter="all" class="patch-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition border bg-cyan-400 text-slate-950 border-cyan-300">All</button>
-                <button type="button" data-patch-filter="live" class="patch-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition border bg-[#070b14] text-slate-300 border-[#243656] hover:bg-[#121d34] hover:text-white">Live</button>
-                <button type="button" data-patch-filter="ptr" class="patch-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition border bg-[#070b14] text-slate-300 border-[#243656] hover:bg-[#121d34] hover:text-white">PTR</button>
+                <button type="button" data-patch-filter="live" class="patch-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition border bg-[#090614] text-violet-200 border-[#382373] hover:bg-[#1a1038] hover:text-white">Live</button>
+                <button type="button" data-patch-filter="ptr" class="patch-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition border bg-[#090614] text-violet-200 border-[#382373] hover:bg-[#1a1038] hover:text-white">PTR</button>
               </div>
 
-              <div class="bg-[#070b14] border border-[#1e2d4a]/90 rounded-xl p-2.5 space-y-2 flex-1 min-h-0 overflow-y-auto" id="patch-sidebar-list">
-                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 px-2 pb-2">Blizzard Feed</h3>
-                <div class="text-xs text-slate-500 p-2">Loading live feed...</div>
+              <div class="bg-[#090614] border border-[#2e1d5e]/90 rounded-xl p-2.5 space-y-2 flex-1 min-h-0 overflow-y-auto" id="patch-sidebar-list">
+                <h3 class="text-xs font-bold uppercase tracking-wider text-violet-300/75 px-2 pb-2">Blizzard Feed</h3>
+                <div class="text-xs text-violet-300/50 p-2">Loading live feed...</div>
               </div>
             </div>
           </div>
@@ -437,16 +439,16 @@
           <!-- Right Grid Cell (8 cols): Open Patch Notes Flowing Naturally with Page -->
           <div class="w-full lg:col-span-8 space-y-4 pt-1 min-w-0" id="patch-main-content">
             <h2 class="text-2xl font-bold text-white">Select a patch update</h2>
-            <p class="text-xs text-slate-400">Choose an update from the left list to review details.</p>
+            <p class="text-xs text-violet-200/70">Choose an update from the left list to review details.</p>
           </div>
         </div>
       </div>
 
       <!-- VIEW: TIER LIST -->
       <div id="view-tierlist" class="space-y-5 hidden">
-        <div class="pb-3 border-b border-[#1e2d4a]">
+        <div class="pb-3 border-b border-[#2e1d5e]">
           <h2 class="text-2xl font-bold text-white">Personal Ranked Tier List</h2>
-          <p class="text-xs text-slate-400 mt-1">Your roster grouped by tier</p>
+          <p class="text-xs text-violet-200/70 mt-1">Your roster grouped by tier</p>
         </div>
         <div id="tierlist-rows-container" class="space-y-3"></div>
       </div>
@@ -455,18 +457,18 @@
   </div>
 
   <!-- FOOTER -->
-  <footer class="bg-[#0b1220] border-t border-[#1e2d4a] mt-6 py-6">
+  <footer class="bg-[#100924] border-t border-[#2e1d5e] mt-6 py-6">
     <div class="max-w-[1600px] mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
       <div class="flex items-center gap-3">
         <svg class="w-6 h-6 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <polygon points="12 2 22 7 22 17 12 22 2 17 2 7 12 2"/>
           <circle cx="12" cy="12" r="3" class="text-amber-400" fill="currentColor"/>
         </svg>
-        <span class="text-sm font-bold text-slate-200">HeroesVault &copy; 2026</span>
+        <span class="text-sm font-bold text-slate-100">HeroesVault &copy; 2026</span>
       </div>
 
       <!-- Footer Navigation Links -->
-      <div class="flex flex-wrap items-center justify-center gap-6 text-xs font-semibold text-slate-400">
+      <div class="flex flex-wrap items-center justify-center gap-6 text-xs font-semibold text-violet-200/75">
         <button onclick="navigateTo('home'); window.scrollTo({top: 0, behavior: 'smooth'});" class="hover:text-cyan-300 transition">Home</button>
         <button onclick="navigateTo('builds'); window.scrollTo({top: 0, behavior: 'smooth'});" class="hover:text-cyan-300 transition">Builds</button>
         <button onclick="navigateTo('builder'); window.scrollTo({top: 0, behavior: 'smooth'});" class="hover:text-cyan-300 transition">Talent Builder</button>
@@ -476,23 +478,23 @@
       </div>
     </div>
 
-    <div class="max-w-[1600px] mx-auto px-6 mt-4 pt-4 border-t border-[#1e2d4a]/80 text-center">
-      <p class="text-[11px] text-slate-500 leading-relaxed max-w-4xl mx-auto">
+    <div class="max-w-[1600px] mx-auto px-6 mt-4 pt-4 border-t border-[#2e1d5e]/80 text-center">
+      <p class="text-[11px] text-violet-300/55 leading-relaxed max-w-4xl mx-auto">
         HeroesVault is a zero-backend community fan project and is not affiliated with, endorsed by, or connected to Blizzard Entertainment. Heroes of the Storm and all associated game assets, icons, and hero portraits are trademarks or registered trademarks of Blizzard Entertainment, Inc.
       </p>
     </div>
   </footer>
 
   <!-- TOOLTIP OVERLAY -->
-  <div id="talent-tooltip" class="fixed z-50 hidden pointer-events-none bg-[#0d1526]/95 border border-cyan-400/45 rounded-xl p-3 shadow-2xl max-w-xs">
+  <div id="talent-tooltip" class="fixed z-50 hidden pointer-events-none bg-[#120b26]/95 border border-cyan-400/50 rounded-xl p-3 shadow-2xl max-w-xs">
     <div class="flex items-center gap-3">
-      <img id="tip-icon" src="" class="w-8 h-8 rounded-lg border border-[#243656] object-cover bg-[#070b14]"/>
+      <img id="tip-icon" src="" class="w-8 h-8 rounded-lg border border-[#382373] object-cover bg-[#090614]"/>
       <div>
         <h4 id="tip-name" class="text-xs font-bold text-white"></h4>
         <span id="tip-level" class="text-[10px] font-mono text-cyan-300"></span>
       </div>
     </div>
-    <p id="tip-desc" class="text-[11px] text-slate-300 leading-relaxed mt-1"></p>
+    <p id="tip-desc" class="text-[11px] text-violet-100/85 leading-relaxed mt-1"></p>
   </div>
 
   <script src="./js/assets.js"></script>
