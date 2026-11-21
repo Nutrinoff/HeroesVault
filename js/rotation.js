@@ -3,16 +3,27 @@
 // ==========================================
 
 const NEXUS_ROTATION_API_URL = 'https://nexuscompendium.com/api/currently/herorotation+bgrotation';
-const ROTATION_PROXY_URL = ''; // Set to your deployed Worker URL, e.g. 'https://hots-rotation-proxy.your-name.workers.dev'
+const ROTATION_PROXY_URL = ''; // Set to your CORS-enabled Worker/proxy URL, e.g. 'https://hots-rotation-proxy.your-name.workers.dev'
 const LOCAL_ROTATION_FALLBACK_URL = './data/rotation.json';
-const ROTATION_FETCH_TIMEOUT_MS = 4500;
-const FALLBACK_ROTATION_PORTRAIT = 'https://via.placeholder.com/56?text=H';
+const ROTATION_FETCH_TIMEOUT_MS = 5000;
+
+const HERO_PORTRAITS_BASE = 'https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/heroportraits/';
+const FALLBACK_PORTRAIT_DATA_URI =
+    'data:image/svg+xml;utf8,' +
+    encodeURIComponent(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">' +
+        '<rect width="64" height="64" fill="#160b33"/>' +
+        '<polygon points="32,6 56,19 56,45 32,58 8,45 8,19" fill="#251354" stroke="#24c6ff" stroke-width="2"/>' +
+        '<text x="32" y="38" text-anchor="middle" fill="#f4b41a" font-family="sans-serif" font-size="16" font-weight="bold">H</text>' +
+        '</svg>'
+    );
 
 let currentRotationData = null;
 
 function normalizeSlugKey(val) {
     return String(val || '')
         .toLowerCase()
+        .replace(/^the\s+/i, '')
         .replace(/[^a-z0-9]/g, '');
 }
 
@@ -21,16 +32,95 @@ function isLocalHostname() {
     return host === 'localhost' || host === '127.0.0.1' || host === '[::1]';
 }
 
+function toHeroPortraitUrl(rawPath) {
+    if (!rawPath) return '';
+    const trimmed = String(rawPath).trim();
+    if (/^(https?:\/\/|data:image\/)/i.test(trimmed)) {
+        return trimmed;
+    }
+
+    const cleaned = trimmed.replace(/^\.\//, '').replace(/^\/+/, '');
+    if (!cleaned) return '';
+
+    if (cleaned.startsWith('heroportraits/')) {
+        return `https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/${cleaned}`;
+    }
+
+    if (cleaned.includes('/')) {
+        if (typeof getAssetUrl === 'function') {
+            return getAssetUrl(cleaned);
+        }
+        return `https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/${cleaned}`;
+    }
+
+    return HERO_PORTRAITS_BASE + cleaned;
+}
+
+function extractPortraitCandidate(heroObj) {
+    if (!heroObj) return '';
+    if (typeof getHeroPortrait === 'function') {
+        const p = getHeroPortrait(heroObj);
+        if (p) return p;
+    }
+    const portraits = heroObj.portraits || {};
+    return (
+        portraits.draftScreen ||
+        portraits.heroSelect ||
+        portraits.leaderboard ||
+        portraits.target ||
+        heroObj.portrait ||
+        heroObj.portraitUrl ||
+        heroObj.ImageURL ||
+        heroObj.imageUrl ||
+        heroObj.icon ||
+        ''
+    );
+}
+
 function buildHeroLookupIndex() {
     const index = new Map();
     const roster = Array.isArray(window.MASTER_HERO_LIST) ? window.MASTER_HERO_LIST : [];
 
     for (const hero of roster) {
         if (!hero) continue;
-        const idKey = normalizeSlugKey(hero.id);
-        const nameKey = normalizeSlugKey(hero.name);
-        if (idKey && !index.has(idKey)) index.set(idKey, hero);
-        if (nameKey && !index.has(nameKey)) index.set(nameKey, hero);
+        const keys = [
+            normalizeSlugKey(hero.id),
+            normalizeSlugKey(hero.name),
+            normalizeSlugKey(String(hero.name || '').split(',')[0])
+        ].filter(Boolean);
+
+        for (const key of keys) {
+            if (!index.has(key)) {
+                index.set(key, hero);
+            }
+        }
+    }
+
+    return index;
+}
+
+function buildRawMasterLookupIndex() {
+    const index = new Map();
+    const source = window.HOTS_MASTER_DATA;
+    const entries = Array.isArray(source)
+        ? source
+        : (source && typeof source === 'object' ? Object.values(source) : []);
+
+    for (const hero of entries) {
+        if (!hero) continue;
+        const keys = [
+            normalizeSlugKey(hero.id),
+            normalizeSlugKey(hero.hyperlinkId),
+            normalizeSlugKey(hero.attributeId),
+            normalizeSlugKey(hero.name),
+            normalizeSlugKey(String(hero.name || '').split(',')[0])
+        ].filter(Boolean);
+
+        for (const key of keys) {
+            if (!index.has(key)) {
+                index.set(key, hero);
+            }
+        }
     }
 
     return index;
@@ -43,60 +133,61 @@ function buildMapLookupIndex() {
     for (const mapItem of maps) {
         if (!mapItem) continue;
         const mapId = mapItem.id || mapItem.mapId;
-        const idKey = normalizeSlugKey(mapId);
-        const nameKey = normalizeSlugKey(mapItem.name);
-        if (idKey && !index.has(idKey)) index.set(idKey, mapItem);
-        if (nameKey && !index.has(nameKey)) index.set(nameKey, mapItem);
+        const keys = [
+            normalizeSlugKey(mapId),
+            normalizeSlugKey(mapItem.name)
+        ].filter(Boolean);
+
+        for (const key of keys) {
+            if (!index.has(key)) {
+                index.set(key, mapItem);
+            }
+        }
     }
 
     return index;
 }
 
-function resolveRotationPortraitUrl(rawPortrait, heroName) {
-    const candidate =
-        rawPortrait ||
-        (typeof getHeroPortrait === 'function' ? getHeroPortrait({ name: heroName }) : '');
-
-    if (!candidate) return FALLBACK_ROTATION_PORTRAIT;
-    if (typeof resolvePortraitUrl === 'function') {
-        return resolvePortraitUrl(candidate);
-    }
-    if (typeof getAssetUrl === 'function') {
-        return getAssetUrl(candidate) || FALLBACK_ROTATION_PORTRAIT;
-    }
-    return candidate;
-}
-
-function matchHeroWithIndex(apiHero, heroIndex) {
+function matchHeroWithIndex(apiHero, heroIndex, rawMasterIndex) {
+    const rawName = apiHero?.Name || apiHero?.name || '';
+    const rawId = apiHero?.ID || apiHero?.id || '';
     const keys = [
-        normalizeSlugKey(apiHero?.ID),
-        normalizeSlugKey(apiHero?.Name)
+        normalizeSlugKey(rawId),
+        normalizeSlugKey(rawName),
+        normalizeSlugKey(rawName.split(',')[0])
     ].filter(Boolean);
 
     let matched = null;
+    let rawMaster = null;
+
     for (const key of keys) {
-        if (heroIndex.has(key)) {
-            matched = heroIndex.get(key);
-            break;
-        }
+        if (!matched && heroIndex.has(key)) matched = heroIndex.get(key);
+        if (!rawMaster && rawMasterIndex.has(key)) rawMaster = rawMasterIndex.get(key);
     }
 
-    const fallbackName = apiHero?.Name || apiHero?.ID || 'Unknown Hero';
-    const rawPortrait = matched?.portrait || apiHero?.ImageURL || '';
+    const fallbackName = rawName || rawId || 'Unknown Hero';
+    const rawPortrait =
+        extractPortraitCandidate(rawMaster) ||
+        extractPortraitCandidate(matched) ||
+        extractPortraitCandidate(apiHero);
+
+    const portraitUrl = toHeroPortraitUrl(rawPortrait) || FALLBACK_PORTRAIT_DATA_URI;
 
     return {
-        id: matched ? matched.id : (apiHero?.ID || normalizeSlugKey(fallbackName)),
-        name: matched?.name || fallbackName,
-        role: matched?.role || 'Free Rotation',
-        portraitUrl: resolveRotationPortraitUrl(rawPortrait, matched?.name || fallbackName),
-        reqLevel: apiHero?.ReqLevel ?? null
+        id: matched?.id || rawMaster?.id || rawMaster?.hyperlinkId || rawId || normalizeSlugKey(fallbackName),
+        name: matched?.name || rawMaster?.name || fallbackName,
+        role: matched?.role || (rawMaster?.roles && rawMaster.roles[0]) || rawMaster?.expandedRole || 'Free Rotation',
+        portraitUrl,
+        reqLevel: apiHero?.ReqLevel ?? apiHero?.reqLevel ?? null
     };
 }
 
 function matchMapWithIndex(apiMap, mapIndex) {
+    const rawName = apiMap?.Name || apiMap?.name || '';
+    const rawId = apiMap?.ID || apiMap?.id || '';
     const keys = [
-        normalizeSlugKey(apiMap?.ID),
-        normalizeSlugKey(apiMap?.Name)
+        normalizeSlugKey(rawId),
+        normalizeSlugKey(rawName)
     ].filter(Boolean);
 
     let matched = null;
@@ -110,25 +201,27 @@ function matchMapWithIndex(apiMap, mapIndex) {
     const matchedId = matched ? (matched.id || matched.mapId) : null;
 
     return {
-        id: matchedId || apiMap?.ID || normalizeSlugKey(apiMap?.Name),
-        name: matched?.name || apiMap?.Name || apiMap?.ID || 'Battleground',
+        id: matchedId || rawId || normalizeSlugKey(rawName),
+        name: matched?.name || rawName || rawId || 'Battleground',
         inApp: Boolean(matched && matchedId)
     };
 }
 
 function parseRotationPayload(raw) {
-    const root = raw?.data || raw || {};
+    const sourceTag = raw?._source || 'none';
+    const root = raw?.data && typeof raw.data === 'object' ? raw.data : (raw || {});
     const heroBlock = root.RotationHero || root.rotationHero || {};
     const bgBlock = root.RotationBattleground || root.rotationBattleground || {};
 
     const heroIndex = buildHeroLookupIndex();
+    const rawMasterIndex = buildRawMasterLookupIndex();
     const mapIndex = buildMapLookupIndex();
 
     const rawHeroes = Array.isArray(heroBlock.Heroes)
         ? heroBlock.Heroes
         : (Array.isArray(heroBlock.heroes) ? heroBlock.heroes : []);
 
-    const heroes = rawHeroes.map(h => matchHeroWithIndex(h, heroIndex));
+    const heroes = rawHeroes.map(h => matchHeroWithIndex(h, heroIndex, rawMasterIndex));
 
     const timespan =
         heroBlock.Timespan ||
@@ -162,7 +255,7 @@ function parseRotationPayload(raw) {
         allHeroesFree,
         modes,
         flatFallback,
-        source: root._source || 'none'
+        source: sourceTag
     };
 }
 
@@ -199,13 +292,15 @@ function createFreeHeroCard(hero) {
     frame.className = 'hex-sidebar-frame';
 
     const img = document.createElement('img');
-    img.src = hero.portraitUrl;
+    img.src = hero.portraitUrl || FALLBACK_PORTRAIT_DATA_URI;
     img.alt = `${hero.name} portrait`;
     img.className = 'hex-sidebar-img';
-    img.loading = 'lazy';
+    img.loading = 'eager';
     img.addEventListener('error', () => {
-        img.src = FALLBACK_ROTATION_PORTRAIT;
-    }, { once: true });
+        if (img.src !== FALLBACK_PORTRAIT_DATA_URI) {
+            img.src = FALLBACK_PORTRAIT_DATA_URI;
+        }
+    });
 
     const ringSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     ringSvg.setAttribute('class', 'hex-sidebar-ring');
@@ -243,10 +338,11 @@ function renderFreeRotationHeroes(data) {
     const spanEl = document.getElementById('home-f2p-timespan');
     if (!grid) return;
 
+    const sourceSuffix = data.source === 'fallback' ? ' · Local Cache' : '';
+    const freeSuffix = data.allHeroesFree ? ' · All Heroes Free' : '';
+
     if (spanEl) {
-        spanEl.textContent = data.allHeroesFree
-            ? `${data.timespan} · All Heroes Free`
-            : data.timespan;
+        spanEl.textContent = `${data.timespan}${freeSuffix}${sourceSuffix}`;
     }
 
     const displayHeroes = (data.heroes || []).slice(0, 10);
@@ -336,7 +432,6 @@ function getRotationFetchCandidates() {
     const candidates = [];
     const proxyUrl = typeof ROTATION_PROXY_URL === 'string' ? ROTATION_PROXY_URL.trim() : '';
 
-    // Avoid direct cross-origin requests from GitHub Pages when no proxy is configured
     if (proxyUrl) {
         candidates.push({ url: proxyUrl, source: 'proxy' });
     } else if (isLocalHostname()) {
@@ -358,7 +453,7 @@ async function loadAndRenderRotation() {
                 break;
             }
         } catch (_) {
-            // Fall through to the next candidate source
+            // Try next candidate source
         }
     }
 
