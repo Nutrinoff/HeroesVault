@@ -1,14 +1,14 @@
 // ==========================================
-// NEXUS ROTATION MODULE (F2P HEROES & MAPS)
+// NEXUS ROTATION MODULE (JSON SCHEDULE READER)
 // ==========================================
 
-const NEXUS_ROTATION_API_URL = 'https://nexuscompendium.com/api/currently/herorotation+bgrotation';
-const ROTATION_PROXY_URL = ''; // Set to your CORS-enabled Worker/proxy URL, e.g. 'https://hots-rotation-proxy.your-name.workers.dev'
-const LOCAL_ROTATION_FALLBACK_URL = './data/rotation.json';
-const ROTATION_FETCH_TIMEOUT_MS = 5000;
+const LOCAL_ROTATION_DATA_URL = './data/rotation.json';
+const ROTATION_FETCH_TIMEOUT_MS = 4000;
 
-const HERO_PORTRAITS_BASE = 'https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/heroportraits/';
-const FALLBACK_PORTRAIT_DATA_URI =
+const HERO_PORTRAITS_BASE =
+    'https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/heroportraits/';
+
+const FALLBACK_ROTATION_PORTRAIT =
     'data:image/svg+xml;utf8,' +
     encodeURIComponent(
         '<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">' +
@@ -27,9 +27,48 @@ function normalizeSlugKey(val) {
         .replace(/[^a-z0-9]/g, '');
 }
 
-function isLocalHostname() {
-    const host = window.location?.hostname || '';
-    return host === 'localhost' || host === '127.0.0.1' || host === '[::1]';
+function parseDateBoundary(val, isEndOfDay = false) {
+    if (!val) return null;
+    if (val instanceof Date && !Number.isNaN(val.getTime())) {
+        return new Date(val.getTime());
+    }
+
+    const str = String(val).trim();
+    const isoDayMatch = /^(\d{4})-(\d{2})-(\d{2})$/.exec(str);
+    if (isoDayMatch) {
+        const year = Number(isoDayMatch[1]);
+        const month = Number(isoDayMatch[2]) - 1;
+        const day = Number(isoDayMatch[3]);
+        return isEndOfDay
+            ? new Date(year, month, day, 23, 59, 59, 999)
+            : new Date(year, month, day, 0, 0, 0, 0);
+    }
+
+    const parsed = new Date(str);
+    if (Number.isNaN(parsed.getTime())) return null;
+    if (isEndOfDay && !str.includes('T') && !str.includes(':')) {
+        parsed.setHours(23, 59, 59, 999);
+    }
+    return parsed;
+}
+
+function pickActiveScheduleEntry(list, now = new Date()) {
+    if (!Array.isArray(list) || list.length === 0) return null;
+    const nowMs = now.getTime();
+
+    for (const entry of list) {
+        if (!entry || typeof entry !== 'object') continue;
+        const start = parseDateBoundary(entry.startDate || entry.StartDate, false);
+        const end = parseDateBoundary(entry.endDate || entry.EndDate, true);
+
+        const afterStart = !start || nowMs >= start.getTime();
+        const beforeEnd = !end || nowMs <= end.getTime();
+        if ((start || end) && afterStart && beforeEnd) {
+            return entry;
+        }
+    }
+
+    return null;
 }
 
 function toHeroPortraitUrl(rawPath) {
@@ -42,14 +81,14 @@ function toHeroPortraitUrl(rawPath) {
     const cleaned = trimmed.replace(/^\.\//, '').replace(/^\/+/, '');
     if (!cleaned) return '';
 
-    if (cleaned.startsWith('heroportraits/')) {
-        return `https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/${cleaned}`;
+    if (typeof getAssetUrl === 'function') {
+        const resolved = getAssetUrl(cleaned);
+        if (resolved && !resolved.endsWith('/abilitytalents/' + cleaned)) {
+            return resolved;
+        }
     }
 
-    if (cleaned.includes('/')) {
-        if (typeof getAssetUrl === 'function') {
-            return getAssetUrl(cleaned);
-        }
+    if (cleaned.startsWith('heroportraits/') || cleaned.includes('/')) {
         return `https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/${cleaned}`;
     }
 
@@ -90,9 +129,7 @@ function buildHeroLookupIndex() {
         ].filter(Boolean);
 
         for (const key of keys) {
-            if (!index.has(key)) {
-                index.set(key, hero);
-            }
+            if (!index.has(key)) index.set(key, hero);
         }
     }
 
@@ -117,9 +154,7 @@ function buildRawMasterLookupIndex() {
         ].filter(Boolean);
 
         for (const key of keys) {
-            if (!index.has(key)) {
-                index.set(key, hero);
-            }
+            if (!index.has(key)) index.set(key, hero);
         }
     }
 
@@ -139,18 +174,18 @@ function buildMapLookupIndex() {
         ].filter(Boolean);
 
         for (const key of keys) {
-            if (!index.has(key)) {
-                index.set(key, mapItem);
-            }
+            if (!index.has(key)) index.set(key, mapItem);
         }
     }
 
     return index;
 }
 
-function matchHeroWithIndex(apiHero, heroIndex, rawMasterIndex) {
-    const rawName = apiHero?.Name || apiHero?.name || '';
-    const rawId = apiHero?.ID || apiHero?.id || '';
+function matchHeroWithIndex(entry, heroIndex, rawMasterIndex) {
+    const item = typeof entry === 'string' ? { name: entry, id: entry } : (entry || {});
+    const rawName = item.Name || item.name || '';
+    const rawId = item.ID || item.id || '';
+
     const keys = [
         normalizeSlugKey(rawId),
         normalizeSlugKey(rawName),
@@ -169,22 +204,22 @@ function matchHeroWithIndex(apiHero, heroIndex, rawMasterIndex) {
     const rawPortrait =
         extractPortraitCandidate(rawMaster) ||
         extractPortraitCandidate(matched) ||
-        extractPortraitCandidate(apiHero);
-
-    const portraitUrl = toHeroPortraitUrl(rawPortrait) || FALLBACK_PORTRAIT_DATA_URI;
+        extractPortraitCandidate(item);
 
     return {
         id: matched?.id || rawMaster?.id || rawMaster?.hyperlinkId || rawId || normalizeSlugKey(fallbackName),
         name: matched?.name || rawMaster?.name || fallbackName,
         role: matched?.role || (rawMaster?.roles && rawMaster.roles[0]) || rawMaster?.expandedRole || 'Free Rotation',
-        portraitUrl,
-        reqLevel: apiHero?.ReqLevel ?? apiHero?.reqLevel ?? null
+        portraitUrl: toHeroPortraitUrl(rawPortrait) || FALLBACK_ROTATION_PORTRAIT,
+        reqLevel: item.ReqLevel ?? item.reqLevel ?? null
     };
 }
 
 function matchMapWithIndex(apiMap, mapIndex) {
-    const rawName = apiMap?.Name || apiMap?.name || '';
-    const rawId = apiMap?.ID || apiMap?.id || '';
+    const item = typeof apiMap === 'string' ? { name: apiMap, id: apiMap } : (apiMap || {});
+    const rawName = item.Name || item.name || '';
+    const rawId = item.ID || item.id || '';
+
     const keys = [
         normalizeSlugKey(rawId),
         normalizeSlugKey(rawName)
@@ -207,35 +242,65 @@ function matchMapWithIndex(apiMap, mapIndex) {
     };
 }
 
-function parseRotationPayload(raw) {
-    const sourceTag = raw?._source || 'none';
-    const root = raw?.data && typeof raw.data === 'object' ? raw.data : (raw || {});
-    const heroBlock = root.RotationHero || root.rotationHero || {};
-    const bgBlock = root.RotationBattleground || root.rotationBattleground || {};
+function resolveHeroBlockFromJson(root, now = new Date()) {
+    const scheduleList = Array.isArray(root.rotations)
+        ? root.rotations
+        : (Array.isArray(root.Rotations)
+            ? root.Rotations
+            : (Array.isArray(root.schedule)
+                ? root.schedule
+                : (Array.isArray(root.Schedule) ? root.Schedule : null)));
+
+    const activeSlot = pickActiveScheduleEntry(scheduleList, now);
+    if (activeSlot) {
+        return {
+            heroes: Array.isArray(activeSlot.heroes)
+                ? activeSlot.heroes
+                : (Array.isArray(activeSlot.Heroes) ? activeSlot.Heroes : []),
+            timespan:
+                activeSlot.timespan ||
+                activeSlot.Timespan ||
+                activeSlot.label ||
+                [activeSlot.startDate || activeSlot.StartDate, activeSlot.endDate || activeSlot.EndDate]
+                    .filter(Boolean)
+                    .join(' – ') ||
+                'Current Rotation',
+            allHeroesFree: Boolean(activeSlot.allHeroesFree ?? activeSlot.AllHeroesFree)
+        };
+    }
+
+    const fallbackBlock = root.RotationHero || root.rotationHero || root.current || {};
+    const fallbackHeroes = Array.isArray(fallbackBlock.Heroes)
+        ? fallbackBlock.Heroes
+        : (Array.isArray(fallbackBlock.heroes) ? fallbackBlock.heroes : []);
+
+    return {
+        heroes: fallbackHeroes,
+        timespan:
+            fallbackBlock.Timespan ||
+            fallbackBlock.timespan ||
+            [fallbackBlock.StartDate, fallbackBlock.EndDate].filter(Boolean).join(' – ') ||
+            'Weekly Rotation',
+        allHeroesFree: Boolean(fallbackBlock.AllHeroesFree ?? fallbackBlock.allHeroesFree)
+    };
+}
+
+function parseRotationPayload(raw, now = new Date()) {
+    const root = raw && typeof raw === 'object' ? (raw.data && typeof raw.data === 'object' ? raw.data : raw) : {};
+    const bgBlock = root.RotationBattleground || root.rotationBattleground || root.battlegrounds || {};
 
     const heroIndex = buildHeroLookupIndex();
     const rawMasterIndex = buildRawMasterLookupIndex();
     const mapIndex = buildMapLookupIndex();
 
-    const rawHeroes = Array.isArray(heroBlock.Heroes)
-        ? heroBlock.Heroes
-        : (Array.isArray(heroBlock.heroes) ? heroBlock.heroes : []);
-
-    const heroes = rawHeroes.map(h => matchHeroWithIndex(h, heroIndex, rawMasterIndex));
-
-    const timespan =
-        heroBlock.Timespan ||
-        heroBlock.timespan ||
-        [heroBlock.StartDate, heroBlock.EndDate].filter(Boolean).join(' – ') ||
-        'Weekly Rotation';
-
-    const allHeroesFree = Boolean(heroBlock.AllHeroesFree ?? heroBlock.allHeroesFree);
+    const heroBlock = resolveHeroBlockFromJson(root, now);
+    const heroes = (heroBlock.heroes || []).map(h => matchHeroWithIndex(h, heroIndex, rawMasterIndex));
 
     const extractModeList = modeKey => {
         const bucket = bgBlock?.[modeKey] || bgBlock?.[modeKey.toLowerCase()];
         const list = Array.isArray(bucket?.Battlegrounds)
             ? bucket.Battlegrounds
-            : (Array.isArray(bucket?.battlegrounds) ? bucket.battlegrounds : []);
+            : (Array.isArray(bucket?.battlegrounds) ? bucket.battlegrounds : (Array.isArray(bucket) ? bucket : []));
         return list.map(m => matchMapWithIndex(m, mapIndex));
     };
 
@@ -251,15 +316,14 @@ function parseRotationPayload(raw) {
 
     return {
         heroes,
-        timespan,
-        allHeroesFree,
+        timespan: heroBlock.timespan,
+        allHeroesFree: heroBlock.allHeroesFree,
         modes,
-        flatFallback,
-        source: sourceTag
+        flatFallback
     };
 }
 
-async function fetchRotationJson(url, timeoutMs = ROTATION_FETCH_TIMEOUT_MS) {
+async function fetchLocalRotationJson(url = LOCAL_ROTATION_DATA_URL, timeoutMs = ROTATION_FETCH_TIMEOUT_MS) {
     const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
     const timer = controller ? setTimeout(() => controller.abort(), timeoutMs) : null;
 
@@ -280,7 +344,8 @@ async function fetchRotationJson(url, timeoutMs = ROTATION_FETCH_TIMEOUT_MS) {
 function createFreeHeroCard(hero) {
     const btn = document.createElement('button');
     btn.type = 'button';
-    btn.className = 'hots-subpanel hover:border-cyan-400/70 p-2.5 rounded flex flex-col items-center text-center gap-2 transition cursor-pointer group';
+    btn.className =
+        'hots-subpanel hover:border-cyan-400/70 p-2.5 rounded flex flex-col items-center text-center gap-2 transition cursor-pointer group';
     btn.title = `View ${hero.name} builds`;
     btn.addEventListener('click', () => {
         if (typeof navigateTo === 'function') {
@@ -292,15 +357,19 @@ function createFreeHeroCard(hero) {
     frame.className = 'hex-sidebar-frame';
 
     const img = document.createElement('img');
-    img.src = hero.portraitUrl || FALLBACK_PORTRAIT_DATA_URI;
+    img.src = hero.portraitUrl || FALLBACK_ROTATION_PORTRAIT;
     img.alt = `${hero.name} portrait`;
     img.className = 'hex-sidebar-img';
     img.loading = 'eager';
-    img.addEventListener('error', () => {
-        if (img.src !== FALLBACK_PORTRAIT_DATA_URI) {
-            img.src = FALLBACK_PORTRAIT_DATA_URI;
-        }
-    });
+    img.addEventListener(
+        'error',
+        () => {
+            if (img.src !== FALLBACK_ROTATION_PORTRAIT) {
+                img.src = FALLBACK_ROTATION_PORTRAIT;
+            }
+        },
+        { once: true }
+    );
 
     const ringSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     ringSvg.setAttribute('class', 'hex-sidebar-ring');
@@ -338,16 +407,16 @@ function renderFreeRotationHeroes(data) {
     const spanEl = document.getElementById('home-f2p-timespan');
     if (!grid) return;
 
-    const sourceSuffix = data.source === 'fallback' ? ' · Local Cache' : '';
-    const freeSuffix = data.allHeroesFree ? ' · All Heroes Free' : '';
-
     if (spanEl) {
-        spanEl.textContent = `${data.timespan}${freeSuffix}${sourceSuffix}`;
+        spanEl.textContent = data.allHeroesFree
+            ? `${data.timespan} · All Heroes Free`
+            : data.timespan;
     }
 
     const displayHeroes = (data.heroes || []).slice(0, 10);
     if (!displayHeroes.length) {
-        grid.innerHTML = '<div class="col-span-full text-xs text-violet-200/70 py-3">No free rotation heroes available right now.</div>';
+        grid.innerHTML =
+            '<div class="col-span-full text-xs text-violet-200/70 py-3">No free rotation heroes available right now.</div>';
         return;
     }
 
@@ -361,7 +430,8 @@ function renderFreeRotationHeroes(data) {
 function createMapChipButton(mapItem) {
     const btn = document.createElement('button');
     btn.type = 'button';
-    btn.className = 'px-2.5 py-1 rounded-sm text-xs font-semibold bg-[#180c38] hover:bg-[#241254] text-violet-100 hover:text-cyan-200 border border-[#3a207d] hover:border-cyan-400/60 transition cursor-pointer';
+    btn.className =
+        'px-2.5 py-1 rounded-sm text-xs font-semibold bg-[#180c38] hover:bg-[#241254] text-violet-100 hover:text-cyan-200 border border-[#3a207d] hover:border-cyan-400/60 transition cursor-pointer';
     btn.textContent = mapItem.name;
     btn.addEventListener('click', () => {
         if (typeof navigateTo !== 'function') return;
@@ -425,39 +495,20 @@ function renderBattlegroundRotation(data) {
         return;
     }
 
-    container.innerHTML = '<div class="text-xs text-violet-200/70 py-2">Battleground rotation unavailable right now.</div>';
-}
-
-function getRotationFetchCandidates() {
-    const candidates = [];
-    const proxyUrl = typeof ROTATION_PROXY_URL === 'string' ? ROTATION_PROXY_URL.trim() : '';
-
-    if (proxyUrl) {
-        candidates.push({ url: proxyUrl, source: 'proxy' });
-    } else if (isLocalHostname()) {
-        candidates.push({ url: NEXUS_ROTATION_API_URL, source: 'live-local' });
-    }
-
-    candidates.push({ url: LOCAL_ROTATION_FALLBACK_URL, source: 'fallback' });
-    return candidates;
+    container.innerHTML =
+        '<div class="text-xs text-violet-200/70 py-2">Battleground rotation unavailable right now.</div>';
 }
 
 async function loadAndRenderRotation() {
-    let rawPayload = null;
+    let rawPayload = {};
 
-    for (const candidate of getRotationFetchCandidates()) {
-        try {
-            const json = await fetchRotationJson(candidate.url);
-            if (json && typeof json === 'object') {
-                rawPayload = { ...json, _source: candidate.source };
-                break;
-            }
-        } catch (_) {
-            // Try next candidate source
-        }
+    try {
+        rawPayload = await fetchLocalRotationJson(LOCAL_ROTATION_DATA_URL);
+    } catch (_) {
+        rawPayload = {};
     }
 
-    currentRotationData = parseRotationPayload(rawPayload || { _source: 'none' });
+    currentRotationData = parseRotationPayload(rawPayload, new Date());
     renderFreeRotationHeroes(currentRotationData);
     renderBattlegroundRotation(currentRotationData);
 }
