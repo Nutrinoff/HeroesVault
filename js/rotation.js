@@ -5,9 +5,6 @@
 const LOCAL_ROTATION_DATA_URL = './data/rotation.json';
 const ROTATION_FETCH_TIMEOUT_MS = 4000;
 
-const HERO_PORTRAITS_BASE =
-    'https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/heroportraits/';
-
 const FALLBACK_ROTATION_PORTRAIT =
     'data:image/svg+xml;utf8,' +
     encodeURIComponent(
@@ -71,46 +68,52 @@ function pickActiveScheduleEntry(list, now = new Date()) {
     return null;
 }
 
-function toHeroPortraitUrl(rawPath) {
+function resolvePortraitUrl(rawPath) {
     if (!rawPath) return '';
-    const trimmed = String(rawPath).trim();
-    if (/^(https?:\/\/|data:image\/)/i.test(trimmed)) {
-        return trimmed;
+    if (typeof getAssetUrl === 'function') {
+        const url = getAssetUrl(rawPath);
+        if (!url) return '';
+
+        // assets.js defaults unrecognized bare names to /abilitytalents/;
+        // reroute to /heroportraits/ when resolving a hero portrait field.
+        const cleaned = String(rawPath).trim().replace(/^\.\//, '').replace(/^\/+/, '');
+        if (
+            !cleaned.includes('/') &&
+            url.includes('/heroesimages/abilitytalents/') &&
+            !cleaned.startsWith('storm_ui_talent') &&
+            !cleaned.startsWith('storm_ui_icon_')
+        ) {
+            return url.replace('/heroesimages/abilitytalents/', '/heroesimages/heroportraits/');
+        }
+        return url;
     }
 
+    const trimmed = String(rawPath).trim();
+    if (/^(https?:\/\/|data:image\/)/i.test(trimmed)) return trimmed;
     const cleaned = trimmed.replace(/^\.\//, '').replace(/^\/+/, '');
     if (!cleaned) return '';
-
-    if (typeof getAssetUrl === 'function') {
-        const resolved = getAssetUrl(cleaned);
-        if (resolved && !resolved.endsWith('/abilitytalents/' + cleaned)) {
-            return resolved;
-        }
-    }
-
     if (cleaned.startsWith('heroportraits/') || cleaned.includes('/')) {
         return `https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/${cleaned}`;
     }
-
-    return HERO_PORTRAITS_BASE + cleaned;
+    return `https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/heroportraits/${cleaned}`;
 }
 
-function extractPortraitCandidate(heroObj) {
+function extractPortraitPath(heroObj) {
     if (!heroObj) return '';
     if (typeof getHeroPortrait === 'function') {
-        const p = getHeroPortrait(heroObj);
-        if (p) return p;
+        const fromHelper = getHeroPortrait(heroObj);
+        if (fromHelper) return fromHelper;
     }
-    const portraits = heroObj.portraits || {};
+    const p = heroObj.portraits || {};
     return (
-        portraits.draftScreen ||
-        portraits.heroSelect ||
-        portraits.leaderboard ||
-        portraits.target ||
+        p.draftScreen ||
+        p.heroSelect ||
+        p.leaderboard ||
+        p.target ||
         heroObj.portrait ||
         heroObj.portraitUrl ||
-        heroObj.ImageURL ||
         heroObj.imageUrl ||
+        heroObj.ImageURL ||
         heroObj.icon ||
         ''
     );
@@ -200,17 +203,31 @@ function matchHeroWithIndex(entry, heroIndex, rawMasterIndex) {
         if (!rawMaster && rawMasterIndex.has(key)) rawMaster = rawMasterIndex.get(key);
     }
 
+    const resolvedId =
+        matched?.id ||
+        rawMaster?.id ||
+        rawMaster?.hyperlinkId ||
+        rawId ||
+        normalizeSlugKey(rawName);
+
+    if (!matched && resolvedId && typeof resolveHeroMasterData === 'function') {
+        const viaResolver = resolveHeroMasterData(resolvedId);
+        if (viaResolver) {
+            matched = viaResolver;
+        }
+    }
+
     const fallbackName = rawName || rawId || 'Unknown Hero';
     const rawPortrait =
-        extractPortraitCandidate(rawMaster) ||
-        extractPortraitCandidate(matched) ||
-        extractPortraitCandidate(item);
+        extractPortraitPath(matched) ||
+        extractPortraitPath(rawMaster) ||
+        extractPortraitPath(item);
 
     return {
-        id: matched?.id || rawMaster?.id || rawMaster?.hyperlinkId || rawId || normalizeSlugKey(fallbackName),
+        id: resolvedId || normalizeSlugKey(fallbackName),
         name: matched?.name || rawMaster?.name || fallbackName,
         role: matched?.role || (rawMaster?.roles && rawMaster.roles[0]) || rawMaster?.expandedRole || 'Free Rotation',
-        portraitUrl: toHeroPortraitUrl(rawPortrait) || FALLBACK_ROTATION_PORTRAIT,
+        portraitUrl: resolvePortraitUrl(rawPortrait) || FALLBACK_ROTATION_PORTRAIT,
         reqLevel: item.ReqLevel ?? item.reqLevel ?? null
     };
 }
@@ -342,11 +359,16 @@ async function fetchLocalRotationJson(url = LOCAL_ROTATION_DATA_URL, timeoutMs =
 }
 
 function createFreeHeroCard(hero) {
+    const isLvlSlot = hero.reqLevel === 'LVL';
+
     const btn = document.createElement('button');
     btn.type = 'button';
-    btn.className =
-        'hots-subpanel hover:border-cyan-400/70 p-2.5 rounded flex flex-col items-center text-center gap-2 transition cursor-pointer group';
-    btn.title = `View ${hero.name} builds`;
+    btn.className = isLvlSlot
+        ? 'hots-subpanel border-rose-500/50 hover:border-cyan-400/70 p-2.5 rounded flex flex-col items-center text-center gap-2 transition cursor-pointer group'
+        : 'hots-subpanel hover:border-cyan-400/70 p-2.5 rounded flex flex-col items-center text-center gap-2 transition cursor-pointer group';
+    btn.title = isLvlSlot
+        ? `${hero.name} — Unlocked rotation slot (Account Level 5, 10, 15, or 20)`
+        : `View ${hero.name} builds`;
     btn.addEventListener('click', () => {
         if (typeof navigateTo === 'function') {
             navigateTo('builds', { hero: hero.id });
@@ -379,7 +401,7 @@ function createFreeHeroCard(hero) {
     const poly = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
     poly.setAttribute('points', '50,-1.5 96.5,24.2 96.5,75.8 50,101.5 3.5,75.8 3.5,24.2');
     poly.setAttribute('fill', 'none');
-    poly.setAttribute('stroke', 'rgba(41, 197, 255, 0.85)');
+    poly.setAttribute('stroke', isLvlSlot ? 'rgba(244, 63, 94, 0.85)' : 'rgba(41, 197, 255, 0.85)');
     poly.setAttribute('stroke-width', '4.5');
     poly.setAttribute('stroke-linejoin', 'round');
     ringSvg.appendChild(poly);
@@ -394,8 +416,12 @@ function createFreeHeroCard(hero) {
     nameEl.textContent = hero.name;
 
     const badgeEl = document.createElement('div');
-    badgeEl.className = 'text-[10px] font-mono text-amber-300/90 mt-0.5';
-    badgeEl.textContent = hero.reqLevel ? `Lv ${hero.reqLevel}+` : 'F2P';
+    badgeEl.className = isLvlSlot
+        ? 'text-[10px] font-mono text-rose-400 font-semibold mt-0.5'
+        : 'text-[10px] font-mono text-amber-300/90 mt-0.5';
+    badgeEl.textContent = isLvlSlot
+        ? 'LVL'
+        : (hero.reqLevel ? `Lv ${hero.reqLevel}+` : 'F2P');
 
     textWrap.append(nameEl, badgeEl);
     btn.append(frame, textWrap);
@@ -413,7 +439,7 @@ function renderFreeRotationHeroes(data) {
             : data.timespan;
     }
 
-    const displayHeroes = (data.heroes || []).slice(0, 10);
+    const displayHeroes = (data.heroes || []).slice(0, 14);
     if (!displayHeroes.length) {
         grid.innerHTML =
             '<div class="col-span-full text-xs text-violet-200/70 py-3">No free rotation heroes available right now.</div>';
