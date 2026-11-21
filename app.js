@@ -1,6 +1,6 @@
-// =========================================
+// ==========================================
 // 1. GLOBAL STATE & CONFIGURATIONS
-// =========================================
+// ==========================================
 
 let MASTER_HERO_LIST = [];
 let MASTER_MAP_LIST = [];
@@ -33,6 +33,22 @@ const SCROLL_SETTLE_DELAY_MS = 180;
 // ==========================================
 // 2. INITIALIZATION & ROUTING
 // ==========================================
+
+function syncHomeSummaryCounts() {
+    const heroCountEl = document.getElementById('home-hero-count');
+    const buildCountEl = document.getElementById('home-build-count');
+    const guideCountEl = document.getElementById('home-guide-count');
+
+    if (heroCountEl) {
+        heroCountEl.textContent = `${MASTER_HERO_LIST.length} Heroes`;
+    }
+    if (buildCountEl) {
+        buildCountEl.textContent = `${PERSONAL_BUILDS.length} Sets`;
+    }
+    if (guideCountEl && typeof getAcademyArticlesList === 'function') {
+        guideCountEl.textContent = `${getAcademyArticlesList().length} Guides`;
+    }
+}
 
 document.addEventListener('DOMContentLoaded', async () => {
     try {
@@ -77,6 +93,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         renderHeroSidebar(MASTER_HERO_LIST);
         renderTierList();
+        syncHomeSummaryCounts();
+
+        if (typeof loadAndRenderRotation === 'function') {
+            loadAndRenderRotation();
+        }
 
         if (typeof initPatchFilterControls === 'function') {
             initPatchFilterControls();
@@ -633,7 +654,7 @@ function positionTooltip(clientX, clientY) {
 
     let top = clientY + TOOLTIP_CURSOR_GAP;
     if (top + height > viewportHeight - TOOLTIP_VIEWPORT_MARGIN) {
-        top = clientY - height - TOOLTIP_CURSOR_GAP;
+        top = clientY - height - TOOLTIP_VIEWPORT_MARGIN;
     }
     top = Math.max(TOOLTIP_VIEWPORT_MARGIN, Math.min(top, viewportHeight - height - TOOLTIP_VIEWPORT_MARGIN));
 
