@@ -1,0 +1,51 @@
+{
+  "RotationHero": {
+    "Timespan": "Weekly Rotation (Fallback)",
+    "AllHeroesFree": false,
+    "Heroes": [
+      { "ID": "Jaina", "Name": "Jaina", "ReqLevel": 1 },
+      { "ID": "Muradin", "Name": "Muradin", "ReqLevel": 1 },
+      { "ID": "Valla", "Name": "Valla", "ReqLevel": 1 },
+      { "ID": "Rehgar", "Name": "Rehgar", "ReqLevel": 1 },
+      { "ID": "Sonya", "Name": "Sonya", "ReqLevel": 1 },
+      { "ID": "Thrall", "Name": "Thrall", "ReqLevel": 5 },
+      { "ID": "LiMing", "Name": "Li-Ming", "ReqLevel": 5 },
+      { "ID": "Johanna", "Name": "Johanna", "ReqLevel": 10 },
+      { "ID": "Malfurion", "Name": "Malfurion", "ReqLevel": 12 },
+      { "ID": "Zeratul", "Name": "Zeratul", "ReqLevel": 15 }
+    ]
+  },
+  "RotationBattleground": {
+    "Ranked": {
+      "Battlegrounds": [
+        { "ID": "alteracpass", "Name": "Alterac Pass" },
+        { "ID": "battlefieldofeternity", "Name": "Battlefield of Eternity" },
+        { "ID": "braxisholdout", "Name": "Braxis Holdout" },
+        { "ID": "dragonshire", "Name": "Dragon Shire" },
+        { "ID": "infernalshrines", "Name": "Infernal Shrines" },
+        { "ID": "skytemple", "Name": "Sky Temple" },
+        { "ID": "towersofdoom", "Name": "Towers of Doom" }
+      ]
+    },
+    "Unranked": {
+      "Battlegrounds": [
+        { "ID": "alteracpass", "Name": "Alterac Pass" },
+        { "ID": "battlefieldofeternity", "Name": "Battlefield of Eternity" },
+        { "ID": "braxisholdout", "Name": "Braxis Holdout" },
+        { "ID": "cursedhollow", "Name": "Cursed Hollow" },
+        { "ID": "dragonshire", "Name": "Dragon Shire" },
+        { "ID": "gardenofterror", "Name": "Garden of Terror" },
+        { "ID": "infernalshrines", "Name": "Infernal Shrines" },
+        { "ID": "skytemple", "Name": "Sky Temple" },
+        { "ID": "towersofdoom", "Name": "Towers of Doom" },
+        { "ID": "volskayafoundry", "Name": "Volskaya Foundry" }
+      ]
+    },
+    "ARAM": {
+      "Battlegrounds": [
+        { "ID": "silvercity", "Name": "Silver City" },
+        { "ID": "lostcavern", "Name": "Lost Cavern" }
+      ]
+    }
+  }
+}
