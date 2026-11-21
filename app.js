@@ -28,10 +28,38 @@ const TALENT_TIERS = ['1', '4', '7', '10', '13', '16', '20'];
 const TOOLTIP_CURSOR_GAP = 16;
 const TOOLTIP_VIEWPORT_MARGIN = 8;
 const SCROLL_SETTLE_DELAY_MS = 180;
+const FALLBACK_HERO_PORTRAIT = 'https://via.placeholder.com/110?text=Hero';
 
 
 // ==========================================
-// 2. INITIALIZATION & ROUTING
+// 2. PORTRAIT & ASSET HELPERS
+// ==========================================
+
+function resolvePortraitPath(rawHero) {
+    if (!rawHero) return '';
+    if (typeof getHeroPortrait === 'function') {
+        const fromHelper = getHeroPortrait(rawHero);
+        if (fromHelper) return fromHelper;
+    }
+    if (typeof rawHero === 'string') return rawHero;
+    return rawHero.portrait || rawHero.portraitUrl || rawHero.icon || rawHero.imageUrl || '';
+}
+
+function resolvePortraitUrl(rawOrPath) {
+    const rawPath = typeof rawOrPath === 'object' && rawOrPath !== null
+        ? resolvePortraitPath(rawOrPath)
+        : rawOrPath;
+
+    if (!rawPath) return FALLBACK_HERO_PORTRAIT;
+    if (typeof getAssetUrl === 'function') {
+        return getAssetUrl(rawPath) || FALLBACK_HERO_PORTRAIT;
+    }
+    return rawPath;
+}
+
+
+// ==========================================
+// 3. INITIALIZATION & ROUTING
 // ==========================================
 
 function syncHomeSummaryCounts() {
@@ -74,12 +102,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                     name: h.name || 'Unknown Hero',
                     title: h.title || 'Nexus Combatant',
                     role: (h.roles && h.roles[0]) || h.expandedRole || 'Nexus Combatant',
-                    portrait: getHeroPortrait(h),
+                    portrait: resolvePortraitPath(h),
                     searchText: `${h.name || ''} ${id || ''}`.toLowerCase()
                 };
             });
 
-            preloadAllAssets(rawHeroes);
+            if (typeof preloadAllAssets === 'function') {
+                preloadAllAssets(rawHeroes);
+            }
         }
 
         if (br?.ok) PERSONAL_BUILDS = await br.json();
@@ -225,7 +255,7 @@ function switchTabUI(t) {
 
 
 // ==========================================
-// 3. SIDEBAR, SEARCH & IDLE/SEARCH PRELOAD
+// 4. SIDEBAR, SEARCH & IDLE/SEARCH PRELOAD
 // ==========================================
 
 function getRawHeroEntry(heroId) {
@@ -357,14 +387,15 @@ function renderHeroSidebar(heroes) {
     heroes.forEach(h => {
         const tier = getHeroTier(h.id);
         const s = TIER_STYLES[tier] || TIER_STYLES.D;
+        const portraitUrl = resolvePortraitUrl(h.portrait || getRawHeroEntry(h.id));
         const btn = document.createElement('button');
 
         btn.type = 'button';
         btn.dataset.heroId = h.id;
         btn.className = `w-full text-left p-2.5 rounded-xl border transition-all ${
             activeId === h.id
-                ? 'bg-sky-500/15 border-sky-500/70'
-                : 'border-slate-800 bg-slate-950/40 hover:bg-slate-800/80'
+                ? 'bg-cyan-400/15 border-cyan-400/70'
+                : 'border-[#2e1866] bg-[#090417]/50 hover:bg-[#1c0e40]/80'
         }`;
 
         btn.addEventListener('click', () => {
@@ -378,22 +409,22 @@ function renderHeroSidebar(heroes) {
         btn.innerHTML = `
             <div class="flex items-center gap-3 min-w-0">
                 <div class="hex-sidebar-frame">
-                    <img src="${getAssetUrl(h.portrait)}" onerror="this.src='https://via.placeholder.com/56?text=H'" alt="${h.name}" class="hex-sidebar-img" loading="lazy">
+                    <img src="${portraitUrl}" onerror="this.onerror=null;this.src='${FALLBACK_HERO_PORTRAIT}'" alt="${h.name}" class="hex-sidebar-img" loading="lazy">
                     <svg class="hex-sidebar-ring" viewBox="0 0 100 100" aria-hidden="true">
                         <polygon
                             points="50,-1.5 96.5,24.2 96.5,75.8 50,101.5 3.5,75.8 3.5,24.2"
                             fill="none"
-                            stroke="rgba(56, 189, 248, 0.75)"
+                            stroke="rgba(41, 197, 255, 0.85)"
                             stroke-width="4.5"
                             stroke-linejoin="round"
                         />
                     </svg>
                 </div>
                 <div class="min-w-0 flex-1">
-                    <h4 class="text-sm font-bold truncate">${h.name}</h4>
-                    <p class="text-xs text-slate-400 truncate">${h.role || 'Nexus Combatant'}</p>
+                    <h4 class="text-sm font-bold truncate text-white">${h.name}</h4>
+                    <p class="text-xs text-violet-200/75 truncate">${h.role || 'Nexus Combatant'}</p>
                 </div>
-                <span class="text-[10px] font-mono font-bold px-2 py-1 rounded-md border ${s.bg} ${s.text} ${s.border}">
+                <span class="text-[10px] font-mono font-bold px-2 py-1 rounded-sm border ${s.bg} ${s.text} ${s.border}">
                     ${tier} Tier
                 </span>
             </div>
@@ -427,7 +458,7 @@ function filterHeroes() {
 
 
 // ==========================================
-// 4. UNIFIED HERO DATA & HEADER RENDERERS
+// 5. UNIFIED HERO DATA & HEADER RENDERERS
 // ==========================================
 
 function getNormalizedHeroData(id) {
@@ -442,9 +473,9 @@ function getNormalizedHeroData(id) {
         name: h.name || id,
         title: h.title || 'Nexus Combatant',
         role: (h.roles && h.roles[0]) || h.expandedRole || 'Nexus Combatant',
-        portrait: getHeroPortrait(h),
-        abilities: flattenHeroAbilities(h),
-        talents: normalizeTalentTree(h.talents || h.talentTree || {})
+        portrait: resolvePortraitPath(h),
+        abilities: typeof flattenHeroAbilities === 'function' ? flattenHeroAbilities(h) : [],
+        talents: typeof normalizeTalentTree === 'function' ? normalizeTalentTree(h.talents || h.talentTree || {}) : {}
     };
 
     HERO_DATA_CACHE.set(id, normalized);
@@ -475,20 +506,20 @@ function renderAbilityStrip(abilitiesList, containerId) {
     });
 
     if (!list.length) {
-        box.innerHTML = '<span class="text-xs text-slate-500">No abilities configured</span>';
+        box.innerHTML = '<span class="text-xs text-violet-300/60">No abilities configured</span>';
         return;
     }
 
     const frag = document.createDocumentFragment();
     list.forEach(a => {
         const el = document.createElement('div');
-        el.className = 'flex flex-col items-center gap-1 bg-slate-950/60 border border-slate-800 rounded-xl p-1.5 min-w-12';
+        el.className = 'flex flex-col items-center gap-1 bg-[#090417]/80 border border-[#371e78] rounded p-1.5 min-w-12';
         el.addEventListener('mouseenter', e => showAbilityTooltip(e, a));
         el.addEventListener('mouseleave', hideTooltip);
         el.innerHTML = `
-            <img src="${getAssetUrl(a.icon)}" onerror="this.src='https://via.placeholder.com/32?text=?'" class="w-8 h-8 rounded-lg border border-slate-700 object-cover">
-            <span class="text-[10px] font-mono font-bold text-sky-300">${a.key || 'Z'}</span>
-            ${a.variant ? `<span class="text-[8px] text-slate-400 max-w-16 truncate" title="${a.variant}">${a.variant}</span>` : ''}
+            <img src="${resolvePortraitUrl(a.icon)}" onerror="this.onerror=null;this.src='https://via.placeholder.com/32?text=?'" class="w-8 h-8 rounded-sm border border-[#4a2b9c] object-cover">
+            <span class="text-[10px] font-mono font-bold text-cyan-300">${a.key || 'Z'}</span>
+            ${a.variant ? `<span class="text-[8px] text-violet-200/75 max-w-16 truncate" title="${a.variant}">${a.variant}</span>` : ''}
         `;
         frag.appendChild(el);
     });
@@ -498,14 +529,21 @@ function renderAbilityStrip(abilitiesList, containerId) {
 
 function renderHeroHeader(heroData) {
     if (!heroData) return;
-    const portraitUrl = getAssetUrl(heroData.portrait);
+    const portraitUrl = resolvePortraitUrl(heroData.portrait || getRawHeroEntry(heroData.id));
 
     const portraitEl = document.getElementById('hero-portrait');
     const nameEl = document.getElementById('hero-name');
     const roleEl = document.getElementById('hero-role');
     const titleEl = document.getElementById('hero-title');
 
-    if (portraitEl) portraitEl.src = portraitUrl;
+    if (portraitEl) {
+        portraitEl.onerror = () => {
+            portraitEl.onerror = null;
+            portraitEl.src = FALLBACK_HERO_PORTRAIT;
+        };
+        portraitEl.src = portraitUrl;
+        portraitEl.alt = `${heroData.name} portrait`;
+    }
     if (nameEl) nameEl.innerText = heroData.name;
     if (roleEl) roleEl.innerText = heroData.role;
     if (titleEl) titleEl.innerText = heroData.title;
@@ -515,7 +553,7 @@ function renderHeroHeader(heroData) {
 
 function renderBuilderHeader(heroData) {
     if (!heroData) return;
-    const portraitUrl = getAssetUrl(heroData.portrait);
+    const portraitUrl = resolvePortraitUrl(heroData.portrait || getRawHeroEntry(heroData.id));
 
     const portraitEl = document.getElementById('builder-portrait');
     const nameEl = document.getElementById('builder-name');
@@ -523,7 +561,14 @@ function renderBuilderHeader(heroData) {
     const titleEl = document.getElementById('builder-title');
     const bgModel = document.getElementById('builder-model-bg');
 
-    if (portraitEl) portraitEl.src = portraitUrl;
+    if (portraitEl) {
+        portraitEl.onerror = () => {
+            portraitEl.onerror = null;
+            portraitEl.src = FALLBACK_HERO_PORTRAIT;
+        };
+        portraitEl.src = portraitUrl;
+        portraitEl.alt = `${heroData.name} portrait`;
+    }
     if (nameEl) nameEl.innerText = heroData.name;
     if (roleEl) roleEl.innerText = heroData.role;
     if (titleEl) titleEl.innerText = heroData.title;
@@ -534,7 +579,7 @@ function renderBuilderHeader(heroData) {
 
 
 // ==========================================
-// 5. HERO DETAILS & BUILDS VIEW
+// 6. HERO DETAILS & BUILDS VIEW
 // ==========================================
 
 async function selectHero(id, update = true) {
@@ -581,10 +626,10 @@ function renderActiveBuild() {
     d.builds.forEach((v, i) => {
         const b = document.createElement('button');
         b.type = 'button';
-        b.className = `px-3.5 py-1.5 rounded-lg text-xs font-bold border ${
+        b.className = `px-3.5 py-1.5 rounded-sm text-xs font-bold uppercase tracking-wider border cursor-pointer ${
             i === currentBuildIndex
-                ? 'bg-amber-500/20 text-amber-300 border-amber-500/50'
-                : 'bg-slate-950 text-slate-400 border-slate-800'
+                ? 'bg-amber-500/20 text-amber-300 border-amber-400/55'
+                : 'bg-[#090417] text-violet-200/75 border-[#321a6e] hover:border-cyan-400/50'
         }`;
         b.innerText = `Build ${i + 1}: ${v.buildName || 'Unnamed'}`;
         b.addEventListener('click', () => {
@@ -605,26 +650,26 @@ function renderBuildStrip(h, code) {
     const box = document.getElementById('build-strip');
     if (!box) return;
 
-    const p = decodeBuildCode(code);
+    const p = typeof decodeBuildCode === 'function' ? decodeBuildCode(code) : [1, 1, 1, 1, 1, 1, 1];
     const frag = document.createDocumentFragment();
 
     TALENT_TIERS.forEach((l, i) => {
-        const t = h.talents[l]?.[p[i] - 1] || h.talents[l]?.[0];
+        const t = h.talents?.[l]?.[p[i] - 1] || h.talents?.[l]?.[0];
         const el = document.createElement('div');
 
-        el.className = 'bg-slate-950/60 border border-slate-800 rounded-xl p-2 flex flex-col items-center gap-2 transition-all hover:border-sky-500/60';
+        el.className = 'hots-subpanel rounded p-2 flex flex-col items-center gap-2 transition-all hover:border-cyan-400/60';
 
         if (t) {
             el.addEventListener('mouseenter', e => showTalentTooltip(e, t, l));
             el.addEventListener('mouseleave', hideTooltip);
 
             el.innerHTML = `
-                <img src="${getAssetUrl(t.icon)}" onerror="this.src='https://via.placeholder.com/44?text=?'" class="w-11 h-11 rounded-lg border border-slate-700 object-cover">
-                <span class="text-[10px] text-sky-300">Lv ${l}</span>
-                <span class="text-[10px] text-center text-slate-200 truncate max-w-20" title="${t.name}">${t.name}</span>
+                <img src="${resolvePortraitUrl(t.icon)}" onerror="this.onerror=null;this.src='https://via.placeholder.com/44?text=?'" class="w-11 h-11 rounded-sm border border-[#4a2b9c] object-cover">
+                <span class="text-[10px] font-mono text-cyan-300">Lv ${l}</span>
+                <span class="text-[10px] text-center text-slate-100 truncate max-w-20" title="${t.name}">${t.name}</span>
             `;
         } else {
-            el.innerHTML = `<span class="text-[10px] text-slate-500">Lv ${l} · none</span>`;
+            el.innerHTML = `<span class="text-[10px] text-violet-300/60">Lv ${l} · none</span>`;
         }
 
         frag.appendChild(el);
@@ -635,7 +680,7 @@ function renderBuildStrip(h, code) {
 
 
 // ==========================================
-// 6. TOOLTIPS
+// 7. TOOLTIPS
 // ==========================================
 
 function positionTooltip(clientX, clientY) {
@@ -681,10 +726,12 @@ function showTooltip(e, name, level, description, icon) {
     const tipLevel = document.getElementById('tip-level');
     const tipDesc = document.getElementById('tip-desc');
 
-    if (tipIcon) tipIcon.src = getAssetUrl(icon);
+    if (tipIcon) tipIcon.src = resolvePortraitUrl(icon);
     if (tipName) tipName.innerText = name || '';
     if (tipLevel) tipLevel.innerText = level;
-    if (tipDesc) tipDesc.innerHTML = formatGameText(description) || 'No description available.';
+    if (tipDesc) tipDesc.innerHTML = typeof formatGameText === 'function'
+        ? (formatGameText(description) || 'No description available.')
+        : (description || 'No description available.');
 
     tip.classList.remove('hidden');
     positionTooltip(e.clientX, e.clientY);
