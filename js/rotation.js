@@ -6,9 +6,9 @@ const LOCAL_ROTATION_DATA_URL = './data/rotation.json';
 const ROTATION_FETCH_TIMEOUT_MS = 4000;
 const ROTATION_PORTRAIT_SIZE_PX = 39;
 
-const HERO_SLUG_ALIASES = {
-    deckardcain: 'deckard',
-    deckard: 'deckardcain'
+// Only use for genuine name/ID mismatches that cannot be matched via master fields or prefix tokens.
+const EXPLICIT_ROTATION_OVERRIDES = {
+    deckardcain: 'deckard'
 };
 
 const FALLBACK_ROTATION_PORTRAIT =
@@ -26,27 +26,20 @@ let rawRotationCache = null;
 
 
 // ==========================================
-// 2. DATE & HERO LOOKUP HELPERS
+// 2. DATE & CANONICAL HERO LOOKUP HELPERS
 // ==========================================
 
 function normalizeSlugKey(val) {
     return String(val || '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
         .toLowerCase()
         .replace(/^the\s+/i, '')
         .replace(/[^a-z0-9]/g, '');
 }
 
-function expandSlugKeys(rawKeys) {
-    const expanded = [];
-    for (const key of rawKeys) {
-        if (!key) continue;
-        if (!expanded.includes(key)) expanded.push(key);
-        const alias = HERO_SLUG_ALIASES[key];
-        if (alias && !expanded.includes(alias)) {
-            expanded.push(alias);
-        }
-    }
-    return expanded;
+function stripUnitIdPrefix(unitId) {
+    return String(unitId || '').replace(/^hero/i, '');
 }
 
 function parseDateBoundary(val, isEndOfDay = false) {
@@ -93,75 +86,128 @@ function pickActiveScheduleEntry(list, now = new Date()) {
     return null;
 }
 
-function buildHeroLookupIndex() {
-    const index = new Map();
-    const roster = Array.isArray(window.MASTER_HERO_LIST) ? window.MASTER_HERO_LIST : [];
+function collectMasterHeroRecords() {
+    const records = [];
+    const seen = new Set();
 
-    for (const hero of roster) {
-        if (!hero) continue;
-        const keys = expandSlugKeys([
-            normalizeSlugKey(hero.id),
-            normalizeSlugKey(hero.name),
-            normalizeSlugKey(String(hero.name || '').split(',')[0])
-        ]);
+    const addRecord = (record, explicitKey = '') => {
+        if (!record || typeof record !== 'object') return;
+        const rawId =
+            record.id ||
+            record.hyperlinkId ||
+            record.attributeId ||
+            stripUnitIdPrefix(record.unitId) ||
+            explicitKey ||
+            record.name;
+        const canonicalId = String(rawId || '').trim();
+        const dedupeKey = normalizeSlugKey(canonicalId || record.name);
+        if (!dedupeKey || seen.has(dedupeKey)) return;
+        seen.add(dedupeKey);
 
-        for (const key of keys) {
-            if (!index.has(key)) index.set(key, hero);
-        }
+        const rawEntry = typeof getRawHeroEntry === 'function' ? getRawHeroEntry(canonicalId) : null;
+        records.push({
+            canonicalId,
+            listItem: typeof record.name === 'string' && record.portrait !== undefined ? record : null,
+            rawEntry: rawEntry || (rawEntry === null && (record.abilities || record.talents || record.unitId || record.portraits) ? record : null)
+        });
+    };
+
+    if (Array.isArray(window.MASTER_HERO_LIST)) {
+        for (const h of window.MASTER_HERO_LIST) addRecord(h);
     }
 
-    return index;
-}
-
-function buildRawMasterLookupIndex() {
-    const index = new Map();
     const source = window.HOTS_MASTER_DATA;
-    const entries = Array.isArray(source)
-        ? source
-        : (source && typeof source === 'object' ? Object.values(source) : []);
+    if (Array.isArray(source)) {
+        for (const h of source) addRecord(h);
+    } else if (source && typeof source === 'object') {
+        for (const [key, h] of Object.entries(source)) addRecord(h, key);
+    }
 
-    for (const hero of entries) {
-        if (!hero) continue;
-        const keys = expandSlugKeys([
-            normalizeSlugKey(hero.id),
-            normalizeSlugKey(hero.hyperlinkId),
-            normalizeSlugKey(hero.attributeId),
-            normalizeSlugKey(hero.name),
-            normalizeSlugKey(String(hero.name || '').split(',')[0])
-        ]);
+    return records;
+}
 
-        for (const key of keys) {
-            if (!index.has(key)) index.set(key, hero);
+function buildCanonicalHeroIndex() {
+    const byKey = new Map();
+    const records = collectMasterHeroRecords();
+
+    for (const rec of records) {
+        const listHero = rec.listItem || {};
+        const rawHero = rec.rawEntry || {};
+        const keys = [
+            rec.canonicalId,
+            listHero.id,
+            listHero.name,
+            String(listHero.name || '').split(',')[0],
+            rawHero.id,
+            rawHero.hyperlinkId,
+            rawHero.attributeId,
+            stripUnitIdPrefix(rawHero.unitId),
+            rawHero.name,
+            String(rawHero.name || '').split(',')[0]
+        ];
+
+        for (const candidate of keys) {
+            const norm = normalizeSlugKey(candidate);
+            if (norm && !byKey.has(norm)) {
+                byKey.set(norm, rec);
+            }
         }
     }
 
-    return index;
+    return { byKey, records };
 }
 
-function resolveRotationPortraitUrl(matched, rawMaster, item) {
-    const candidates = [matched, rawMaster, item];
+function findPrefixMasterMatch(normalizedCandidates, records) {
+    let bestMatch = null;
+    let bestLen = 0;
+
+    for (const candidate of normalizedCandidates) {
+        if (!candidate || candidate.length < 3) continue;
+
+        for (const rec of records) {
+            const listHero = rec.listItem || {};
+            const rawHero = rec.rawEntry || {};
+            const canonicalKeys = [
+                normalizeSlugKey(rec.canonicalId),
+                normalizeSlugKey(listHero.name),
+                normalizeSlugKey(rawHero.name),
+                normalizeSlugKey(stripUnitIdPrefix(rawHero.unitId))
+            ].filter(Boolean);
+
+            for (const cKey of canonicalKeys) {
+                if (cKey.length >= 3 && candidate.startsWith(cKey) && cKey.length > bestLen) {
+                    bestMatch = rec;
+                    bestLen = cKey.length;
+                }
+            }
+        }
+    }
+
+    return bestMatch;
+}
+
+function resolveRotationPortraitUrl(record, item) {
+    const sources = [record?.listItem, record?.rawEntry, item].filter(Boolean);
     if (typeof resolveAssetUrl === 'function') {
-        for (const candidate of candidates) {
-            if (!candidate) continue;
-            const resolved = resolveAssetUrl(candidate, '');
+        for (const src of sources) {
+            const resolved = resolveAssetUrl(src, '');
             if (resolved) return resolved;
         }
         return FALLBACK_ROTATION_PORTRAIT;
     }
 
-    for (const candidate of candidates) {
-        if (!candidate) continue;
-        const p = candidate.portraits || {};
+    for (const src of sources) {
+        const p = src.portraits || {};
         const rawPath =
             p.draftScreen ||
             p.heroSelect ||
             p.leaderboard ||
             p.target ||
-            candidate.portrait ||
-            candidate.portraitUrl ||
-            candidate.imageUrl ||
-            candidate.ImageURL ||
-            candidate.icon ||
+            src.portrait ||
+            src.portraitUrl ||
+            src.imageUrl ||
+            src.ImageURL ||
+            src.icon ||
             '';
         if (rawPath) return String(rawPath).trim();
     }
@@ -169,58 +215,61 @@ function resolveRotationPortraitUrl(matched, rawMaster, item) {
     return FALLBACK_ROTATION_PORTRAIT;
 }
 
-function matchHeroWithIndex(entry, heroIndex, rawMasterIndex) {
+function matchHeroWithIndex(entry, indexBundle) {
     const item = typeof entry === 'string' ? { name: entry, id: entry } : (entry || {});
     const rawName = item.Name || item.name || '';
     const rawId = item.ID || item.id || '';
 
-    const keys = expandSlugKeys([
-        normalizeSlugKey(rawId),
-        normalizeSlugKey(rawName),
-        normalizeSlugKey(rawName.split(',')[0])
-    ]);
+    const rawCandidates = [rawId, rawName, String(rawName).split(',')[0]].filter(Boolean);
+    const normalizedCandidates = [];
 
-    let matched = null;
-    let rawMaster = null;
-
-    for (const key of keys) {
-        if (!matched && heroIndex.has(key)) matched = heroIndex.get(key);
-        if (!rawMaster && rawMasterIndex.has(key)) rawMaster = rawMasterIndex.get(key);
-        if (matched && rawMaster) break;
-    }
-
-    let resolvedId =
-        matched?.id ||
-        rawMaster?.id ||
-        rawMaster?.hyperlinkId ||
-        rawId ||
-        normalizeSlugKey(rawName);
-
-    if (!matched && typeof resolveHeroMasterData === 'function') {
-        for (const candidate of [resolvedId, ...keys]) {
-            if (!candidate) continue;
-            const viaResolver = resolveHeroMasterData(candidate);
-            if (viaResolver) {
-                matched = viaResolver;
-                resolvedId = matched.id || candidate;
-                break;
-            }
+    for (const c of rawCandidates) {
+        const norm = normalizeSlugKey(c);
+        if (!norm) continue;
+        if (!normalizedCandidates.includes(norm)) normalizedCandidates.push(norm);
+        const override = EXPLICIT_ROTATION_OVERRIDES[norm];
+        const normOverride = normalizeSlugKey(override);
+        if (normOverride && !normalizedCandidates.includes(normOverride)) {
+            normalizedCandidates.push(normOverride);
         }
     }
 
+    let matchedRecord = null;
+    for (const key of normalizedCandidates) {
+        if (indexBundle.byKey.has(key)) {
+            matchedRecord = indexBundle.byKey.get(key);
+            break;
+        }
+    }
+
+    if (!matchedRecord) {
+        matchedRecord = findPrefixMasterMatch(normalizedCandidates, indexBundle.records);
+    }
+
     const fallbackName = rawName || rawId || 'Unknown Hero';
+    const fallbackId = rawId || normalizeSlugKey(fallbackName);
+
+    if (!matchedRecord) {
+        console.warn('[Rotation] Unmatched hero in rotation data:', { id: rawId, name: rawName });
+    }
+
+    const listHero = matchedRecord?.listItem || {};
+    const rawHero = matchedRecord?.rawEntry || {};
+    const canonicalId = matchedRecord?.canonicalId || fallbackId;
+    const canonicalName = listHero.name || rawHero.name || fallbackName;
+    const canonicalRole =
+        listHero.role ||
+        (Array.isArray(listHero.roles) && listHero.roles[0]) ||
+        listHero.expandedRole ||
+        (Array.isArray(rawHero.roles) && rawHero.roles[0]) ||
+        rawHero.expandedRole ||
+        'Free Rotation';
 
     return {
-        id: resolvedId || normalizeSlugKey(fallbackName),
-        name: matched?.name || rawMaster?.name || fallbackName,
-        role:
-            matched?.role ||
-            (Array.isArray(matched?.roles) && matched.roles[0]) ||
-            matched?.expandedRole ||
-            (Array.isArray(rawMaster?.roles) && rawMaster.roles[0]) ||
-            rawMaster?.expandedRole ||
-            'Free Rotation',
-        portraitUrl: resolveRotationPortraitUrl(matched, rawMaster, item),
+        id: canonicalId,
+        name: canonicalName,
+        role: canonicalRole,
+        portraitUrl: resolveRotationPortraitUrl(matchedRecord, item),
         reqLevel: item.ReqLevel ?? item.reqLevel ?? null
     };
 }
@@ -275,10 +324,9 @@ function resolveHeroBlockFromJson(root, now = new Date()) {
 
 function parseRotationPayload(raw, now = new Date()) {
     const root = raw && typeof raw === 'object' ? (raw.data && typeof raw.data === 'object' ? raw.data : raw) : {};
-    const heroIndex = buildHeroLookupIndex();
-    const rawMasterIndex = buildRawMasterLookupIndex();
+    const indexBundle = buildCanonicalHeroIndex();
     const heroBlock = resolveHeroBlockFromJson(root, now);
-    const heroes = (heroBlock.heroes || []).map(h => matchHeroWithIndex(h, heroIndex, rawMasterIndex));
+    const heroes = (heroBlock.heroes || []).map(h => matchHeroWithIndex(h, indexBundle));
 
     return {
         heroes,
