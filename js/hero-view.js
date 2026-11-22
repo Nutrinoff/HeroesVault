@@ -33,12 +33,20 @@ function renderAbilityStrip(abilitiesList, containerId) {
     const box = document.getElementById(containerId);
     if (!box) return;
 
+    const seen = new Set();
+
     const list = (abilitiesList || []).filter(a => {
         const keyUpper = String(a.key || '').toUpperCase();
         const nameLower = String(a.name || '').toLowerCase();
         const catLower = String(a.category || '').toLowerCase();
+        const variantLower = String(a.variant || '').toLowerCase();
 
-        if (['HEROIC', 'R', 'B'].includes(keyUpper) || catLower === 'hearth' || nameLower === 'hearth') {
+        if (
+            ['HEROIC', 'R', 'B', 'ACTIVE'].includes(keyUpper) ||
+            catLower === 'hearth' ||
+            catLower === 'activable' ||
+            nameLower === 'hearth'
+        ) {
             return false;
         }
 
@@ -48,6 +56,12 @@ function renderAbilityStrip(abilitiesList, containerId) {
                 return false;
             }
         }
+
+        const dedupeSignature = `${keyUpper}|${nameLower}|${variantLower}`;
+        if (seen.has(dedupeSignature)) {
+            return false;
+        }
+        seen.add(dedupeSignature);
 
         return true;
     });
