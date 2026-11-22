@@ -10,8 +10,8 @@ const PATCH_DETAIL_CACHE = new Map();
 const PATCH_DATA_DIR = './data/patchnotes';
 const DEFAULT_HOTS_URL = 'https://news.blizzard.com/en-us/heroes-of-the-storm';
 
-// Technical Alpha ended March 24, 2015; Closed Beta ran March 25 – June 1, 2015
-const ALPHA_CUTOFF_TS = Date.parse('2015-03-25T00:00:00Z');
+// Technical Alpha ended January 12, 2015; Closed/Open Beta ran January 13 – June 1, 2015; Live started June 2, 2015
+const ALPHA_CUTOFF_TS = Date.parse('2015-01-13T00:00:00Z');
 const BETA_CUTOFF_TS = Date.parse('2015-06-02T00:00:00Z');
 const ARCHIVE_CUTOFF_TS = Date.parse('2022-01-01T00:00:00Z');
 
@@ -111,28 +111,37 @@ function formatBlizzDisplayTitle(rawTitle, displayDate, feedType, era) {
         : `Heroes of the Storm ${channelLabel} Patch Notes`;
 }
 
-function inferTrueEra(validIso, sourceEra, title, id) {
+function inferTrueEra(item, validIso, sourceEra, title, id) {
+    const explicitEra = String(item?.Era ?? item?.era ?? '').trim().toLowerCase();
     const combined = `${title} ${id}`.toLowerCase();
     const ts = validIso ? Date.parse(validIso) : NaN;
+
+    if (['alpha', 'beta', 'live', 'ptr'].includes(explicitEra)) {
+        if (explicitEra === 'ptr') return 'ptr';
+        if (!Number.isNaN(ts)) {
+            if (ts < ALPHA_CUTOFF_TS) return 'alpha';
+            if (ts < BETA_CUTOFF_TS) return 'beta';
+            return 'live';
+        }
+        return explicitEra;
+    }
 
     if (!Number.isNaN(ts)) {
         if (ts < ALPHA_CUTOFF_TS) return 'alpha';
         if (ts < BETA_CUTOFF_TS) return 'beta';
-        if (sourceEra === 'ptr' || combined.includes('ptr')) return 'ptr';
+        if (sourceEra === 'ptr' || /\bptr\b/.test(combined)) return 'ptr';
         return 'live';
     }
 
-    if (sourceEra === 'ptr' || combined.includes('ptr')) return 'ptr';
-    if (sourceEra === 'alpha' && combined.includes('alpha')) return 'alpha';
-    if (sourceEra === 'beta' && combined.includes('beta')) return 'beta';
-    return 'live';
+    if (sourceEra === 'ptr' || /\bptr\b/.test(combined)) return 'ptr';
+    return sourceEra || 'live';
 }
 
 function inferFeedType(item, sourceMeta, title) {
     const rawFeed = String(item.FeedType ?? item.feedType ?? '').trim().toLowerCase();
     const combined = `${item.patchType || ''} ${title}`.toLowerCase();
 
-    if (rawFeed === 'ptr' || combined.includes('ptr')) return 'ptr';
+    if (rawFeed === 'ptr' || /\bptr\b/.test(combined) || combined.includes('public test')) return 'ptr';
     if (rawFeed === 'live') return 'live';
     return sourceMeta.defaultFeed || 'live';
 }
@@ -402,7 +411,7 @@ function normalizeMasterEntry(item, sourceMeta, index) {
     ).trim();
 
     const feedType = inferFeedType(item, sourceMeta, rawTitle);
-    const era = inferTrueEra(validIso, sourceMeta.sourceEra, rawTitle, id);
+    const era = inferTrueEra(item, validIso, sourceMeta.sourceEra, rawTitle, id);
     const isArchive = !Number.isNaN(ts) && ts < ARCHIVE_CUTOFF_TS;
 
     const displayDate = validIso
@@ -444,7 +453,7 @@ function deduplicateAndSortPatches(items) {
 
     for (const item of items) {
         if (!item || shouldRemovePatch(item)) continue;
-        const key = `id:${String(item.id).trim().toLowerCase()}`;
+        const key = `${String(item.feedType || 'live').trim().toLowerCase()}:${String(item.id).trim().toLowerCase()}`;
         if (!seen.has(key)) {
             seen.set(key, item);
         }
@@ -491,13 +500,14 @@ async function fetchAllMasterPatches() {
 }
 
 async function fetchPatchDetailHtml(item) {
-    if (PATCH_DETAIL_CACHE.has(item.id)) {
-        return PATCH_DETAIL_CACHE.get(item.id);
+    const cacheKey = `${item.feedType || 'live'}:${item.id}`;
+    if (PATCH_DETAIL_CACHE.has(cacheKey)) {
+        return PATCH_DETAIL_CACHE.get(cacheKey);
     }
 
     if (item.inlineNotes) {
         const html = formatBlizzlikePatchNotesHtml(item.inlineNotes);
-        PATCH_DETAIL_CACHE.set(item.id, html);
+        PATCH_DETAIL_CACHE.set(cacheKey, html);
         return html;
     }
 
@@ -513,7 +523,7 @@ async function fetchPatchDetailHtml(item) {
 
                     if (notesText) {
                         const html = formatBlizzlikePatchNotesHtml(notesText);
-                        PATCH_DETAIL_CACHE.set(item.id, html);
+                        PATCH_DETAIL_CACHE.set(cacheKey, html);
                         return html;
                     }
                 }
@@ -524,7 +534,7 @@ async function fetchPatchDetailHtml(item) {
     }
 
     const fallbackHtml = `<p class="text-slate-400">No patch note details found for <span class="font-mono text-slate-300">${escapeHtml(item.detailPath || item.id)}</span>.</p>`;
-    PATCH_DETAIL_CACHE.set(item.id, fallbackHtml);
+    PATCH_DETAIL_CACHE.set(cacheKey, fallbackHtml);
     return fallbackHtml;
 }
 
@@ -703,9 +713,7 @@ async function selectPatchItem(id) {
     const mainContent = document.getElementById('patch-main-content');
     if (!mainContent) return;
 
-    const ctaLabel = item.link.includes('reddit.com')
-        ? 'View Source Thread on Reddit'
-        : 'View Full Article on Blizzard';
+    const ctaLabel = 'View Full Article on Blizzard';
 
     const metaParts = [
         item.era ? `Era <span class="text-slate-200 font-semibold uppercase">${escapeHtml(item.era)}</span>` : null,
