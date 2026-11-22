@@ -5,26 +5,28 @@
 const REPO_BASE = 'https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/';
 const KNOWN_ASSET_FOLDERS = ['abilitytalents/', 'heroportraits/', 'loadingscreens/'];
 
-function getAssetUrl(path) {
-    if (!path) return '';
+function getAssetUrl(path, fallback = '') {
+    if (!path) return fallback;
     if (/^https?:\/\//i.test(path)) return path;
 
     let p = String(path).trim().replace(/^\.\//, '').replace(/^\/+/, '');
-    if (!p) return '';
+    if (!p) return fallback;
 
     if (p.includes('/') && KNOWN_ASSET_FOLDERS.some(folder => p.startsWith(folder))) {
         return REPO_BASE + p;
     }
 
-    if (p.includes('loadingscreen') || p.startsWith('loadingscreen')) {
-        p = 'loadingscreens/' + p;
-    } else if (
+    if (
+        p.startsWith('storm_ui_ingame_hero_loadingscreen') ||
         p.startsWith('storm_ui_ingame_hero_select') ||
+        p.startsWith('storm_ui_ingame_heroselect') ||
         p.startsWith('storm_ui_ingame_target') ||
         p.startsWith('storm_ui_ingame_leaderboard') ||
         p.includes('portrait')
     ) {
         p = 'heroportraits/' + p;
+    } else if (p.includes('loadingscreen') || p.startsWith('loadingscreen')) {
+        p = 'loadingscreens/' + p;
     } else {
         p = 'abilitytalents/' + p;
     }
@@ -57,7 +59,6 @@ function getHeroLoadingPortrait(heroOrRaw) {
 
     return typeof getAssetUrl === 'function' ? getAssetUrl(loadingPath) : loadingPath;
 }
-
 function preloadAllAssets(rawHeroes) {
     if (!Array.isArray(rawHeroes) || rawHeroes.length === 0) return;
 
