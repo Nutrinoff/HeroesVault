@@ -23,19 +23,26 @@ function syncBuilderAbilityStrip() {
     renderBuilderHeader(builderHeroData, getBuilderSelectedTalentObjects());
 }
 
-function syncBuilderUrl(push = false) {
-    if (!builderHeroId) return;
-    const buildStr = encodeTalentSelections(builderSelectedTalents);
-    const url = `#builder?hero=${encodeURIComponent(builderHeroId)}&build=${buildStr}`;
+function buildBuilderHashAndState(heroId, selections) {
+    const buildStr = typeof encodeTalentSelections === 'function'
+        ? encodeTalentSelections(selections)
+        : normalizeTalentSelections(selections).join('');
+    const hashUrl = `#builder?hero=${encodeURIComponent(heroId)}&build=${encodeURIComponent(buildStr)}`;
     const state = {
         tab: 'builder',
-        params: { hero: builderHeroId, build: buildStr }
+        params: { hero: heroId, build: buildStr }
     };
+    return { buildStr, hashUrl, state };
+}
+
+function syncBuilderUrl(push = false) {
+    if (!builderHeroId) return;
+    const { hashUrl, state } = buildBuilderHashAndState(builderHeroId, builderSelectedTalents);
 
     if (push) {
-        history.pushState(state, '', url);
+        history.pushState(state, '', hashUrl);
     } else {
-        history.replaceState(state, '', url);
+        history.replaceState(state, '', hashUrl);
     }
 }
 
@@ -89,6 +96,16 @@ function updateBuilderMatrixSelection() {
     });
 }
 
+function resolveBuilderTalentIcon(iconPath) {
+    if (typeof resolveAssetUrl === 'function') {
+        return resolveAssetUrl(iconPath, TALENT_ICON_FALLBACK);
+    }
+    if (typeof getAssetUrl === 'function') {
+        return getAssetUrl(iconPath, TALENT_ICON_FALLBACK);
+    }
+    return TALENT_ICON_FALLBACK;
+}
+
 function renderBuilderMatrix() {
     const box = document.getElementById('builder-matrix');
     if (!box) return;
@@ -138,7 +155,7 @@ function renderBuilderMatrix() {
                     img.src = TALENT_ICON_FALLBACK;
                 }
             });
-            img.src = getAssetUrl(t.icon);
+            img.src = resolveBuilderTalentIcon(t.icon);
 
             b.appendChild(img);
             choices.appendChild(b);
@@ -158,10 +175,17 @@ function resetBuilder() {
     updateBuilderOutput(true);
 }
 
+function getBuilderDisplayCode() {
+    if (typeof encodeBuildCode === 'function') {
+        return encodeBuildCode(builderSelectedTalents, builderHeroId);
+    }
+    return `[T${normalizeTalentSelections(builderSelectedTalents).join('')},${builderHeroId || ''}]`;
+}
+
 function updateBuilderOutput(updateUrl = true) {
     const codeEl = document.getElementById('builder-string-code');
     if (codeEl) {
-        codeEl.innerText = encodeBuildCode(builderSelectedTalents, builderHeroId);
+        codeEl.innerText = getBuilderDisplayCode();
     }
     if (updateUrl) {
         syncBuilderUrl(false);
@@ -170,7 +194,20 @@ function updateBuilderOutput(updateUrl = true) {
 
 function getIngameBuildString() {
     const heroLabel = builderHeroData?.name || builderHeroId || '';
+    if (typeof encodeIngameBuildCode === 'function') {
+        return encodeIngameBuildCode(builderSelectedTalents, heroLabel);
+    }
     return encodeBuildCode(builderSelectedTalents, heroLabel);
+}
+
+function getShareableBuilderUrl() {
+    if (!builderHeroId) return window.location.href;
+    const { buildStr } = buildBuilderHashAndState(builderHeroId, builderSelectedTalents);
+    if (typeof buildBuilderShareUrl === 'function') {
+        const base = `${window.location.origin}${window.location.pathname}`;
+        return `${base}?view=builder&hero=${encodeURIComponent(builderHeroId)}&build=${encodeURIComponent(buildStr)}`;
+    }
+    return `${window.location.origin}${window.location.pathname}#builder?hero=${encodeURIComponent(builderHeroId)}&build=${encodeURIComponent(buildStr)}`;
 }
 
 function flashCopyButtonState(btn, copiedText) {
@@ -203,7 +240,7 @@ function copyTextWithFallback(text, label, buttonEl = null, copiedLabel = 'Copie
 
 function copyBuilderUrl(buttonEl = null) {
     syncBuilderUrl(false);
-    copyTextWithFallback(window.location.href, 'build URL', buttonEl, 'Copied URL');
+    copyTextWithFallback(getShareableBuilderUrl(), 'build URL', buttonEl, 'Copied URL');
 }
 
 function copyIngameBuildCode(buttonEl = null) {
