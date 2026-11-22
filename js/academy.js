@@ -175,20 +175,23 @@ function renderAcademyCategories() {
     if (!container) return;
 
     const categories = getAcademyCategories();
-    container.innerHTML = categories.map(cat => {
+    const frag = document.createDocumentFragment();
+
+    categories.forEach(cat => {
         const active = academyState.category === cat;
-        return `
-            <button
-                type="button"
-                onclick="setAcademyCategory('${escapeAcademyHtml(cat)}')"
-                class="px-2.5 py-1 rounded-lg text-xs font-semibold border transition ${
-                    active
-                        ? 'bg-purple-500/20 text-purple-200 border-purple-400/50'
-                        : 'bg-slate-950/70 text-slate-400 border-slate-800 hover:text-slate-200 hover:border-slate-700'
-                }"
-            >${escapeAcademyHtml(cat)}</button>
-        `;
-    }).join('');
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `px-2.5 py-1 rounded-lg text-xs font-semibold border transition ${
+            active
+                ? 'bg-purple-500/20 text-purple-200 border-purple-400/50'
+                : 'bg-slate-950/70 text-slate-400 border-slate-800 hover:text-slate-200 hover:border-slate-700'
+        }`;
+        btn.textContent = cat;
+        btn.addEventListener('click', () => setAcademyCategory(cat));
+        frag.appendChild(btn);
+    });
+
+    container.replaceChildren(frag);
 }
 
 function getLevelBadgeClasses(level) {
@@ -223,26 +226,27 @@ function renderAcademyListAndReader(scrollReader) {
     const activeIndex = filtered.findIndex(a => a.id === academyState.activeId);
     const activeArticle = filtered[activeIndex] || filtered[0];
 
-    listEl.innerHTML = filtered.map(article => {
+    const listFrag = document.createDocumentFragment();
+    filtered.forEach(article => {
         const isSelected = article.id === activeArticle.id;
-        return `
-            <button
-                type="button"
-                onclick="selectAcademyArticle('${escapeAcademyHtml(article.id)}')"
-                class="w-full text-left p-2.5 rounded-xl border transition ${
-                    isSelected
-                        ? 'bg-sky-500/15 border-sky-500/60 text-white'
-                        : 'bg-slate-950/50 border-slate-800/80 text-slate-300 hover:bg-slate-800/70'
-                }"
-            >
-                <div class="flex items-center justify-between gap-2 mb-1">
-                    <span class="text-[10px] font-bold uppercase tracking-wider text-sky-400">${escapeAcademyHtml(article.category)}</span>
-                    <span class="text-[10px] font-semibold px-1.5 py-0.5 rounded border ${getLevelBadgeClasses(article.level)}">${escapeAcademyHtml(article.level)}</span>
-                </div>
-                <div class="text-xs font-bold leading-snug">${escapeAcademyHtml(article.title)}</div>
-            </button>
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `w-full text-left p-2.5 rounded-xl border transition ${
+            isSelected
+                ? 'bg-sky-500/15 border-sky-500/60 text-white'
+                : 'bg-slate-950/50 border-slate-800/80 text-slate-300 hover:bg-slate-800/70'
+        }`;
+        btn.innerHTML = `
+            <div class="flex items-center justify-between gap-2 mb-1">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-sky-400">${escapeAcademyHtml(article.category)}</span>
+                <span class="text-[10px] font-semibold px-1.5 py-0.5 rounded border ${getLevelBadgeClasses(article.level)}">${escapeAcademyHtml(article.level)}</span>
+            </div>
+            <div class="text-xs font-bold leading-snug">${escapeAcademyHtml(article.title)}</div>
         `;
-    }).join('');
+        btn.addEventListener('click', () => selectAcademyArticle(article.id));
+        listFrag.appendChild(btn);
+    });
+    listEl.replaceChildren(listFrag);
 
     const prevArticle = activeIndex > 0 ? filtered[activeIndex - 1] : null;
     const nextArticle = activeIndex < filtered.length - 1 ? filtered[activeIndex + 1] : null;
@@ -262,24 +266,56 @@ function renderAcademyListAndReader(scrollReader) {
             ${renderAcademyMarkdown(activeArticle.markdown)}
         </div>
 
-        <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between gap-3">
-            ${prevArticle
-                ? `<button type="button" onclick="selectAcademyArticle('${escapeAcademyHtml(prevArticle.id)}')" class="px-3.5 py-2 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-800 text-xs font-semibold text-slate-200 transition">&larr; ${escapeAcademyHtml(prevArticle.title)}</button>`
-                : `<span></span>`
-            }
-            ${nextArticle
-                ? `<button type="button" onclick="selectAcademyArticle('${escapeAcademyHtml(nextArticle.id)}')" class="px-3.5 py-2 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-800 text-xs font-semibold text-slate-200 transition">${escapeAcademyHtml(nextArticle.title)} &rarr;</button>`
-                : `<span></span>`
-            }
-        </div>
+        <div id="academy-article-nav" class="pt-4 border-t border-slate-800/80 flex items-center justify-between gap-3"></div>
     `;
+
+    const navEl = readerEl.querySelector('#academy-article-nav');
+    if (navEl) {
+        if (prevArticle) {
+            const prevBtn = document.createElement('button');
+            prevBtn.type = 'button';
+            prevBtn.className = 'px-3.5 py-2 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-800 text-xs font-semibold text-slate-200 transition';
+            prevBtn.textContent = `← ${prevArticle.title}`;
+            prevBtn.addEventListener('click', () => selectAcademyArticle(prevArticle.id));
+            navEl.appendChild(prevBtn);
+        } else {
+            navEl.appendChild(document.createElement('span'));
+        }
+
+        if (nextArticle) {
+            const nextBtn = document.createElement('button');
+            nextBtn.type = 'button';
+            nextBtn.className = 'px-3.5 py-2 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-800 text-xs font-semibold text-slate-200 transition';
+            nextBtn.textContent = `${nextArticle.title} →`;
+            nextBtn.addEventListener('click', () => selectAcademyArticle(nextArticle.id));
+            navEl.appendChild(nextBtn);
+        } else {
+            navEl.appendChild(document.createElement('span'));
+        }
+    }
 
     if (scrollReader && window.innerWidth < 1024) {
         readerEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 }
 
+function bindAcademyEvents() {
+    document.querySelectorAll('[data-academy-level]').forEach(btn => {
+        if (btn.dataset.academyLevelBound === 'true') return;
+        btn.dataset.academyLevelBound = 'true';
+        const level = btn.getAttribute('data-academy-level');
+        btn.addEventListener('click', () => setAcademyLevel(level));
+    });
+
+    const searchInput = document.getElementById('academy-search');
+    if (searchInput && searchInput.dataset.academySearchBound !== 'true') {
+        searchInput.dataset.academySearchBound = 'true';
+        searchInput.addEventListener('input', filterAcademyArticles);
+    }
+}
+
 function renderAcademy() {
+    bindAcademyEvents();
     if (!academyState.activeId) {
         academyState.activeId = getAcademyArticlesList()[0]?.id || null;
     }
@@ -288,4 +324,10 @@ function renderAcademy() {
     if (window.lucide && typeof window.lucide.createIcons === 'function') {
         window.lucide.createIcons();
     }
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bindAcademyEvents, { once: true });
+} else {
+    bindAcademyEvents();
 }
