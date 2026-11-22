@@ -343,7 +343,9 @@ function renderBuildStrip(h, code) {
     const box = document.getElementById('build-strip');
     if (!box) return;
 
-    const p = typeof decodeBuildCode === 'function' ? decodeBuildCode(code) : [1, 1, 1, 1, 1, 1, 1];
+    const p = typeof decodeBuildCode === 'function'
+    ? decodeBuildCode(code)
+    : [...DEFAULT_TALENT_SELECTIONS];
     const tiers = typeof TALENT_TIERS !== 'undefined' ? TALENT_TIERS : ['1', '4', '7', '10', '13', '16', '20'];
     const frag = document.createDocumentFragment();
 
