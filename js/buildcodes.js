@@ -25,9 +25,9 @@ function encodeTalentSelections(selections) {
 }
 
 function encodeBuildCode(selections, heroId = '') {
-    const code = `[T${encodeTalentSelections(selections)}]`;
-    if (!heroId) return code;
-    return `[T${encodeTalentSelections(selections)},${String(heroId).trim()}]`;
+    const encoded = encodeTalentSelections(selections);
+    if (!heroId) return `[T${encoded}]`;
+    return `[T${encoded},${String(heroId).trim()}]`;
 }
 
 
@@ -36,15 +36,20 @@ function encodeBuildCode(selections, heroId = '') {
 // ==========================================
 
 function decodeTalentSelections(codeOrString) {
-    const str = String(codeOrString || '');
-    const match = str.match(/\[?T(\d{7})(?:,[^\]]*)?\]?/i) || str.match(/\b([1-6]{7})\b/);
+    const trimmed = String(codeOrString || '').trim();
+    if (!trimmed) {
+        return [...DEFAULT_TALENT_SELECTIONS];
+    }
+
+    const match =
+        trimmed.match(/^\[?T([1-6]{7})(?:,[^\]]*)?\]?$/i) ||
+        trimmed.match(/^([1-6]{7})$/);
+
     if (!match) {
         return [...DEFAULT_TALENT_SELECTIONS];
     }
-    return match[1].split('').map(digit => {
-        const num = Number(digit);
-        return num >= 1 && num <= 6 ? num : 1;
-    });
+
+    return match[1].split('').map(digit => Number(digit));
 }
 
 function decodeBuildCode(codeOrString) {
