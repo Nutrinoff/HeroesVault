@@ -6,6 +6,23 @@ const ACTIVE_TALENT_CLASSES = ['border-amber-400', 'shadow-lg', 'scale-105'];
 const INACTIVE_TALENT_CLASSES = ['border-slate-700', 'hover:border-slate-400', 'opacity-75', 'hover:opacity-100'];
 const TALENT_ICON_FALLBACK = 'https://via.placeholder.com/48?text=?';
 
+function getBuilderSelectedTalentObjects() {
+    if (!builderHeroData?.talents || !Array.isArray(builderSelectedTalents)) return [];
+    const tiers = typeof TALENT_TIERS !== 'undefined' ? TALENT_TIERS : ['1', '4', '7', '10', '13', '16', '20'];
+
+    return tiers.map((tier, idx) => {
+        const tierList = builderHeroData.talents?.[tier] || builderHeroData.talents?.[`Level${tier}`] || [];
+        const choiceNum = Number(builderSelectedTalents[idx]);
+        if (!choiceNum || choiceNum < 1) return null;
+        return tierList[choiceNum - 1] || null;
+    }).filter(Boolean);
+}
+
+function syncBuilderAbilityStrip() {
+    if (!builderHeroData || typeof renderBuilderHeader !== 'function') return;
+    renderBuilderHeader(builderHeroData, getBuilderSelectedTalentObjects());
+}
+
 function syncBuilderUrl(push = false) {
     if (!builderHeroId) return;
     const buildStr = encodeTalentSelections(builderSelectedTalents);
@@ -44,7 +61,7 @@ async function openBuilder(id = null, selections = null, update = true) {
     }
 
     builderHeroData = heroData;
-    renderBuilderHeader(builderHeroData);
+    syncBuilderAbilityStrip();
     renderBuilderMatrix();
     updateBuilderOutput(false);
 
@@ -106,6 +123,7 @@ function renderBuilderMatrix() {
             b.addEventListener('click', () => {
                 builderSelectedTalents[idx] = n;
                 updateBuilderMatrixSelection();
+                syncBuilderAbilityStrip();
                 updateBuilderOutput(true);
             });
 
@@ -136,6 +154,7 @@ function renderBuilderMatrix() {
 function resetBuilder() {
     resetBuilderState(builderHeroId, null);
     updateBuilderMatrixSelection();
+    syncBuilderAbilityStrip();
     updateBuilderOutput(true);
 }
 
