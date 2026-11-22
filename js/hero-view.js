@@ -29,42 +29,117 @@ function setSafeImageSrc(imgEl, primaryUrl, fallbackUrl = '', { hideOnFail = fal
     }
 }
 
-function renderAbilityStrip(abilitiesList, containerId) {
+function isLostVikingsHero(hero) {
+    if (!hero) return false;
+    const norm = typeof normalizeHeroKey === 'function'
+        ? normalizeHeroKey
+        : v => String(v || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    const idKey = norm(hero.id || hero.heroId || '');
+    const nameKey = norm(hero.name || '');
+    return idKey.includes('lostviking') || nameKey.includes('lostviking');
+}
+
+function getTalentGrantedAbilities(activeTalents) {
+    if (!Array.isArray(activeTalents) || !activeTalents.length) return [];
+
+    const granted = [];
+    const seen = new Set();
+
+    activeTalents.forEach(t => {
+        if (!t) return;
+        const keyUpper = String(t.abilityType || t.hotkey || t.key || '').toUpperCase();
+        const isGrantedHotkey = ['Q', 'W', 'E'].includes(keyUpper) && (t.hasHotkey === true || !t.upgradesAbilityType);
+        if (!isGrantedHotkey) return;
+
+        const name = t.name || '';
+        const sig = `${keyUpper}|${name.toLowerCase()}`;
+        if (seen.has(sig)) return;
+        seen.add(sig);
+
+        granted.push({
+            id: t.talentId || t.id || sig,
+            name,
+            key: keyUpper,
+            icon: t.icon || '',
+            shortText: t.shortText || '',
+            fullText: t.fullText || t.description || '',
+            cooldownText: t.cooldownText || '',
+            category: 'Talent'
+        });
+    });
+
+    return granted;
+}
+
+function getSelectedTalentsForBuild(h, code) {
+    if (!h?.talents) return [];
+    const p = typeof decodeBuildCode === 'function'
+        ? decodeBuildCode(code)
+        : [...DEFAULT_TALENT_SELECTIONS];
+    const tiers = typeof TALENT_TIERS !== 'undefined' ? TALENT_TIERS : ['1', '4', '7', '10', '13', '16', '20'];
+
+    return tiers.map((tier, idx) => {
+        const tierList = h.talents?.[tier] || h.talents?.[`Level${tier}`] || [];
+        const selIdx = Number(p[idx]) - 1;
+        return selIdx >= 0 ? tierList[selIdx] || null : null;
+    }).filter(Boolean);
+}
+
+function renderAbilityStrip(abilitiesList, containerId, options = {}) {
     const box = document.getElementById(containerId);
     if (!box) return;
 
+    const isVikings = Boolean(options.isLostVikings);
+    let hasTrait = false;
+    let hasMountZ = false;
     const seen = new Set();
 
-    const list = (abilitiesList || []).filter(a => {
-        const keyUpper = String(a.key || '').toUpperCase();
+    const baseList = (abilitiesList || []).filter(a => {
+        const keyUpper = String(a.key || a.abilityType || '').toUpperCase();
         const nameLower = String(a.name || '').toLowerCase();
         const catLower = String(a.category || '').toLowerCase();
         const variantLower = String(a.variant || '').toLowerCase();
 
-        if (
-            ['HEROIC', 'R', 'B', 'ACTIVE'].includes(keyUpper) ||
-            catLower === 'hearth' ||
-            catLower === 'activable' ||
-            nameLower === 'hearth'
-        ) {
+        if (['HEROIC', 'R', 'B'].includes(keyUpper) || catLower === 'hearth' || nameLower === 'hearth') {
             return false;
         }
 
-        if (keyUpper === 'Z' || catLower === 'mount' || nameLower.includes('mount')) {
-            const isCustomZ = nameLower.includes('tunnel') || nameLower.includes('flight') || nameLower.includes('burrow');
-            if (!isCustomZ && (nameLower.includes('summon mount') || nameLower === 'mount' || catLower === 'mount')) {
-                return false;
+        if (isVikings && (keyUpper === 'ACTIVE' || catLower === 'activable')) {
+            return false;
+        }
+
+        const isTrait = keyUpper === 'TRAIT' || catLower === 'trait';
+        if (isVikings && isTrait) {
+            if (hasTrait) return false;
+            hasTrait = true;
+        }
+
+        const isMountOrZ = keyUpper === 'Z' || catLower === 'mount' || nameLower.includes('mount');
+        if (isMountOrZ) {
+            if (isVikings) {
+                if (hasMountZ) return false;
+                hasMountZ = true;
+            } else {
+                const isCustomZ = nameLower.includes('tunnel') || nameLower.includes('flight') || nameLower.includes('burrow');
+                if (!isCustomZ && (nameLower.includes('summon mount') || nameLower === 'mount' || catLower === 'mount')) {
+                    return false;
+                }
             }
         }
 
-        const dedupeSignature = `${keyUpper}|${nameLower}|${variantLower}`;
-        if (seen.has(dedupeSignature)) {
+        if (isVikings && ['Q', 'W', 'E'].includes(keyUpper) && catLower !== 'talent') {
             return false;
         }
-        seen.add(dedupeSignature);
+
+        const sig = `${keyUpper}|${nameLower}|${variantLower}`;
+        if (seen.has(sig)) return false;
+        seen.add(sig);
 
         return true;
     });
+
+    const grantedAbilities = isVikings ? getTalentGrantedAbilities(options.activeTalents) : [];
+    const list = [...baseList, ...grantedAbilities];
 
     if (!list.length) {
         box.innerHTML = '<span class="text-xs text-violet-300/60">No abilities configured</span>';
@@ -93,7 +168,7 @@ function renderAbilityStrip(abilitiesList, containerId) {
 
         const keySpan = document.createElement('span');
         keySpan.className = 'text-[10px] font-mono font-bold text-cyan-300';
-        keySpan.textContent = a.key || 'Z';
+        keySpan.textContent = a.key || a.abilityType || 'Z';
 
         el.append(iconImg, keySpan);
 
@@ -111,7 +186,7 @@ function renderAbilityStrip(abilitiesList, containerId) {
     box.replaceChildren(frag);
 }
 
-function renderHeroHeader(heroData) {
+function renderHeroHeader(heroData, activeTalents = []) {
     if (!heroData) return;
     const rawEntry = typeof getRawHeroEntry === 'function' ? getRawHeroEntry(heroData.id) : null;
     const portraitUrl = resolveHeroUiPortraitUrl(heroData.portrait || rawEntry);
@@ -129,10 +204,13 @@ function renderHeroHeader(heroData) {
     if (roleEl) roleEl.innerText = heroData.role;
     if (titleEl) titleEl.innerText = heroData.title;
 
-    renderAbilityStrip(heroData.abilities, 'hero-abilities');
+    renderAbilityStrip(heroData.abilities, 'hero-abilities', {
+        isLostVikings: isLostVikingsHero(rawEntry || heroData),
+        activeTalents
+    });
 }
 
-function renderBuilderHeader(heroData) {
+function renderBuilderHeader(heroData, activeTalents = []) {
     if (!heroData) return;
     const rawEntry = typeof getRawHeroEntry === 'function' ? getRawHeroEntry(heroData.id) : null;
     const heroSource = rawEntry || heroData;
@@ -165,7 +243,10 @@ function renderBuilderHeader(heroData) {
         );
     }
 
-    renderAbilityStrip(heroData.abilities, 'builder-abilities');
+    renderAbilityStrip(heroData.abilities, 'builder-abilities', {
+        isLostVikings: isLostVikingsHero(heroSource),
+        activeTalents
+    });
 }
 
 function renderBuildStrip(h, code) {
@@ -237,6 +318,7 @@ function renderActiveBuild() {
     if (!d?.builds?.length) {
         tabs.innerHTML = '';
         notes.innerText = 'No notes added for this hero yet.';
+        renderHeroHeader(h, []);
         renderBuildStrip(h, null);
         return;
     }
@@ -262,6 +344,7 @@ function renderActiveBuild() {
 
     const v = d.builds[currentBuildIndex] || d.builds[0];
     notes.innerHTML = v.notes || 'No notes added yet.';
+    renderHeroHeader(h, getSelectedTalentsForBuild(h, v.buildCode));
     renderBuildStrip(h, v.buildCode);
 }
 
@@ -288,6 +371,6 @@ async function selectHero(id, update = true) {
     }
 
     currentHeroData = heroData;
-    renderHeroHeader(currentHeroData);
+    renderHeroHeader(currentHeroData, []);
     renderActiveBuild();
 }
