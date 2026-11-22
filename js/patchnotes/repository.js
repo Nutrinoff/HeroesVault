@@ -1,13 +1,10 @@
 // ==========================================
-// 1. PATCH REPOSITORY, STATE & NORMALIZATION
+// 1. PATCH REPOSITORY, CACHING & NORMALIZATION
 // ==========================================
 
-let CURRENT_FILTER = 'all'; // 'all', 'live', or 'ptr'
-let ACTIVE_PATCH_ITEMS = [];
 let CACHED_MASTER_PATCHES = null;
+const PATCH_RAW_NOTES_CACHE = new Map();
 const PATCH_DETAIL_CACHE = new Map();
-const HOME_LATEST_PATCHES = { live: null, ptr: null };
-let PENDING_DEEP_LINK_PATCH = null;
 
 const PATCH_DATA_DIR = './data/patchnotes';
 const DEFAULT_HOTS_URL = 'https://news.blizzard.com/en-us/heroes-of-the-storm';
@@ -23,6 +20,10 @@ const MASTER_SOURCES = [
     { file: 'live-master.json',  defaultFeed: 'live', sourceEra: 'live' },
     { file: 'ptr-master.json',   defaultFeed: 'ptr',  sourceEra: 'ptr' }
 ];
+
+function getPatchCacheKey(item) {
+    return `${String(item?.feedType || 'live').trim().toLowerCase()}:${String(item?.id || '').trim().toLowerCase()}`;
+}
 
 function shouldRemovePatch(item) {
     if (!item || typeof item !== 'object') return true;
@@ -295,8 +296,8 @@ function deduplicateAndSortPatches(items) {
     const seen = new Map();
 
     for (const item of items) {
-        if (!item || shouldRemovePatch(item)) continue;
-        const key = `${String(item.feedType || 'live').trim().toLowerCase()}:${String(item.id).trim().toLowerCase()}`;
+        if (!item) continue;
+        const key = getPatchCacheKey(item);
         if (!seen.has(key)) {
             seen.set(key, item);
         }
@@ -346,6 +347,11 @@ async function fetchPatchRawNotesText(item) {
     if (!item) return '';
     if (item.inlineNotes) return item.inlineNotes;
 
+    const cacheKey = getPatchCacheKey(item);
+    if (PATCH_RAW_NOTES_CACHE.has(cacheKey)) {
+        return PATCH_RAW_NOTES_CACHE.get(cacheKey);
+    }
+
     if (item.detailPath) {
         try {
             const res = await fetch(item.detailPath);
@@ -357,7 +363,7 @@ async function fetchPatchRawNotesText(item) {
                         : extractPatchNotesText(rawBody);
 
                     if (notesText) {
-                        item.inlineNotes = notesText;
+                        PATCH_RAW_NOTES_CACHE.set(cacheKey, notesText);
                         return notesText;
                     }
                 }
@@ -371,7 +377,7 @@ async function fetchPatchRawNotesText(item) {
 }
 
 async function fetchPatchDetailHtml(item) {
-    const cacheKey = `${item.feedType || 'live'}:${item.id}`;
+    const cacheKey = getPatchCacheKey(item);
     if (PATCH_DETAIL_CACHE.has(cacheKey)) {
         return PATCH_DETAIL_CACHE.get(cacheKey);
     }
