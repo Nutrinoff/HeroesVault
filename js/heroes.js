@@ -18,14 +18,18 @@ function normalizeHero(rawHero, fallbackId = '') {
     const id = rawHero.id || rawHero.hyperlinkId || rawHero.attributeId || fallbackId;
     if (!id) return null;
 
+    const portraitPath = typeof getHeroPortrait === 'function'
+        ? getHeroPortrait(rawHero)
+        : (typeof extractPortraitPath === 'function'
+            ? extractPortraitPath(rawHero)
+            : (rawHero.portrait || ''));
+
     return {
         id,
         name: rawHero.name || id,
         title: rawHero.title || 'Nexus Combatant',
         role: (rawHero.roles && rawHero.roles[0]) || rawHero.expandedRole || 'Nexus Combatant',
-        portrait: typeof resolvePortraitPath === 'function'
-            ? resolvePortraitPath(rawHero)
-            : (rawHero.portrait || ''),
+        portrait: portraitPath,
         abilities: typeof flattenHeroAbilities === 'function' ? flattenHeroAbilities(rawHero) : [],
         talents: typeof normalizeTalentTree === 'function'
             ? normalizeTalentTree(rawHero.talents || rawHero.talentTree || {})
