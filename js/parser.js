@@ -73,7 +73,10 @@ function abilityEntry(a, category, variant = '', fallbackKey = 'Q') {
         icon: a.icon || '',
         desc: a.fullText || a.shortText || a.description || '',
         category: category || 'Basic',
-        variant
+        variant,
+        cooldownText: a.cooldownText ?? a.cooldown ?? '',
+        energyText: a.energyText ?? a.mana ?? a.cost ?? '',
+        charges: a.charges ?? null
     };
 }
 
