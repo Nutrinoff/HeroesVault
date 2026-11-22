@@ -552,7 +552,7 @@
   z-index: 90;
   width: 450px;
   max-width: calc(100vw - 16px);
-  padding: 26px 30px 25px;
+  padding: 16px 20px;
   pointer-events: none;
   background:
     linear-gradient(
