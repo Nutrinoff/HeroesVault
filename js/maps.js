@@ -132,14 +132,14 @@ function populateMapsDropdown() {
     const frag = document.createDocumentFragment();
 
     const header = document.createElement('div');
-    header.className = 'px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-500 whitespace-nowrap';
+    header.className = 'hots-label px-3 py-1 text-[#8c83a2] whitespace-nowrap';
     header.textContent = 'Battlegrounds';
     frag.appendChild(header);
 
     sortedMaps.forEach(m => {
         const link = document.createElement('a');
         link.href = `#map?id=${encodeURIComponent(m.id)}`;
-        link.className = 'block px-4 py-2 text-sm text-slate-300 hover:bg-slate-800 whitespace-nowrap';
+        link.className = 'block px-4 py-1.5 text-sm text-[#e6ecff]/85 hover:bg-[#190e40] hover:text-[#cbe8ff] transition whitespace-nowrap';
         link.textContent = m.name || m.id;
 
         link.addEventListener('mouseenter', () => warmMapAssets(m.id), { passive: true });
@@ -162,19 +162,118 @@ function selectMapFromDropdown(id) {
     }
 }
 
+function formatSpawnPatternValue(pattern) {
+    if (!pattern) return '';
+    if (Array.isArray(pattern)) {
+        return pattern.map(item => String(item || '').trim()).filter(Boolean).join(' → ');
+    }
+    if (typeof pattern === 'object') {
+        const parts = [];
+        if (pattern.first || pattern.initial) parts.push(`1st: ${pattern.first || pattern.initial}`);
+        if (pattern.rotation || pattern.cycle || pattern.rule) parts.push(pattern.rotation || pattern.cycle || pattern.rule);
+        if (Array.isArray(pattern.locations) && pattern.locations.length) {
+            parts.push(`Locations: ${pattern.locations.join(', ')}`);
+        }
+        return parts.join(' · ');
+    }
+    return String(pattern).trim();
+}
+
+function renderMapCadence(mapData) {
+    const rowEl = document.getElementById('map-objective-cadence-row');
+    const firstBlock = document.getElementById('map-first-objective-block');
+    const firstEl = document.getElementById('map-first-objective');
+    const patternBlock = document.getElementById('map-spawn-pattern-block');
+    const patternEl = document.getElementById('map-spawn-pattern');
+    const layoutMetaEl = document.getElementById('map-layout-meta');
+
+    if (!rowEl || !firstBlock || !firstEl || !patternBlock || !patternEl) return;
+
+    const firstObjRaw = mapData.firstObjective || mapData.firstSpawn || mapData.objectiveStart || '';
+    const firstText = typeof firstObjRaw === 'object'
+        ? [firstObjRaw.timing || firstObjRaw.time, firstObjRaw.location || firstObjRaw.detail].filter(Boolean).join(' — ')
+        : String(firstObjRaw || '').trim();
+
+    const patternText = formatSpawnPatternValue(
+        mapData.spawnPattern || mapData.objectivePattern || mapData.spawnLocations || mapData.rotationPattern || ''
+    );
+
+    if (firstText) {
+        firstEl.textContent = firstText;
+        firstBlock.classList.remove('hidden');
+    } else {
+        firstEl.textContent = '';
+        firstBlock.classList.add('hidden');
+    }
+
+    if (patternText) {
+        patternEl.textContent = patternText;
+        patternBlock.classList.remove('hidden');
+    } else {
+        patternEl.textContent = '';
+        patternBlock.classList.add('hidden');
+    }
+
+    if (firstText || patternText) {
+        rowEl.classList.remove('hidden');
+    } else {
+        rowEl.classList.add('hidden');
+    }
+
+    if (layoutMetaEl) {
+        const metaItems = [];
+        if (mapData.lanes) metaItems.push({ label: 'Lanes', value: String(mapData.lanes) });
+        if (mapData.bosses) {
+            const bossVal = Array.isArray(mapData.bosses) ? mapData.bosses.join(', ') : String(mapData.bosses);
+            metaItems.push({ label: 'Bosses', value: bossVal });
+        }
+        if (mapData.objectiveDuration) metaItems.push({ label: 'Cadence', value: String(mapData.objectiveDuration) });
+
+        if (metaItems.length) {
+            const frag = document.createDocumentFragment();
+            metaItems.forEach(item => {
+                const wrap = document.createElement('div');
+                wrap.className = 'flex items-center gap-1.5';
+
+                const k = document.createElement('span');
+                k.className = 'font-mono text-[10px] uppercase tracking-wider text-[#8c83a2]';
+                k.textContent = `${item.label}:`;
+
+                const v = document.createElement('span');
+                v.className = 'text-[#e6ecff]/90';
+                v.textContent = item.value;
+
+                wrap.append(k, v);
+                frag.appendChild(wrap);
+            });
+            layoutMetaEl.replaceChildren(frag);
+            layoutMetaEl.classList.remove('hidden');
+        } else {
+            layoutMetaEl.replaceChildren();
+            layoutMetaEl.classList.add('hidden');
+        }
+    }
+}
+
 function renderMapMechanic(mechEl, mechanic) {
     if (!mechEl) return;
 
     if (mechanic && typeof mechanic === 'object') {
         const wrapper = document.createElement('div');
-        const titleEl = document.createElement('strong');
-        titleEl.className = 'text-white block mb-1';
-        titleEl.textContent = String(mechanic.title || 'Objective');
+        wrapper.className = 'space-y-1';
 
-        const descEl = document.createElement('span');
+        if (mechanic.title) {
+            const titleEl = document.createElement('div');
+            titleEl.className = 'font-semibold text-[#cbe8ff]';
+            titleEl.textContent = String(mechanic.title);
+            wrapper.appendChild(titleEl);
+        }
+
+        const descEl = document.createElement('p');
+        descEl.className = 'text-[#e6ecff]/90';
         descEl.textContent = String(mechanic.description || '');
+        wrapper.appendChild(descEl);
 
-        wrapper.append(titleEl, descEl);
         mechEl.replaceChildren(wrapper);
         return;
     }
@@ -188,32 +287,45 @@ function renderMapCamps(campsEl, camps) {
     const list = Array.isArray(camps) ? camps : [];
     if (!list.length) {
         const empty = document.createElement('p');
-        empty.className = 'text-xs text-slate-500';
+        empty.className = 'text-xs text-[#8c83a2]';
         empty.textContent = 'No camp data configured.';
         campsEl.replaceChildren(empty);
         return;
     }
 
     const frag = document.createDocumentFragment();
-    for (const c of list) {
-        const card = document.createElement('div');
-        card.className = 'p-3 bg-slate-950/60 border border-slate-800 rounded-xl';
+    list.forEach((c, idx) => {
+        const row = document.createElement('div');
+        row.className = idx === 0 ? 'pb-2.5 space-y-1' : 'py-2.5 space-y-1';
 
-        const titleEl = document.createElement('b');
-        titleEl.className = 'text-sm';
+        const topLine = document.createElement('div');
+        topLine.className = 'flex items-baseline justify-between gap-2';
+
+        const titleEl = document.createElement('span');
+        titleEl.className = 'text-xs font-bold text-[#e6ecff]';
         titleEl.textContent = String(c?.name || 'Camp');
 
-        const timingEl = document.createElement('p');
-        timingEl.className = 'text-xs text-amber-300 mt-1';
-        timingEl.textContent = String(c?.timing || '');
+        topLine.appendChild(titleEl);
 
-        const notesEl = document.createElement('p');
-        notesEl.className = 'text-xs text-slate-400 mt-1';
-        notesEl.textContent = String(c?.notes || c?.tip || '');
+        if (c?.timing) {
+            const timingEl = document.createElement('span');
+            timingEl.className = 'text-[11px] font-mono text-[#f5d89a] shrink-0';
+            timingEl.textContent = String(c.timing);
+            topLine.appendChild(timingEl);
+        }
 
-        card.append(titleEl, timingEl, notesEl);
-        frag.appendChild(card);
-    }
+        row.appendChild(topLine);
+
+        const noteText = String(c?.notes || c?.tip || '').trim();
+        if (noteText) {
+            const notesEl = document.createElement('p');
+            notesEl.className = 'text-xs text-[#9cb6ff]/75 leading-snug';
+            notesEl.textContent = noteText;
+            row.appendChild(notesEl);
+        }
+
+        frag.appendChild(row);
+    });
 
     campsEl.replaceChildren(frag);
 }
@@ -222,7 +334,7 @@ function renderGoldenHeroes(heroesEl, goldenHeroes) {
     if (!heroesEl) return;
 
     const frag = document.createDocumentFragment();
-    const golden = Array.isArray(goldenHeroes) ? goldenHeroes : [];
+    const golden = Array.isArray(goldenHeroes) ? goldenHeroes.slice(0, 5) : [];
     const roster = Array.isArray(MASTER_HERO_LIST) ? MASTER_HERO_LIST : [];
     const keyNormalizer = typeof normalizeHeroKey === 'function'
         ? normalizeHeroKey
@@ -235,15 +347,15 @@ function renderGoldenHeroes(heroesEl, goldenHeroes) {
 
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.className = 'flex items-center gap-2 bg-slate-950/60 border border-slate-800 rounded-lg p-2 text-left hover:border-sky-500';
+        btn.className = 'inline-flex items-center gap-1.5 rounded-[2px] border border-[#38247a]/90 bg-[#0c0621]/80 px-2 py-1 text-[11px] text-[#e6ecff] hover:border-[#58baff]/75 hover:text-[#cbe8ff] transition cursor-pointer';
         btn.addEventListener('click', () => {
             if (typeof navigateTo === 'function') {
-                navigateTo('heroes', { hero: h.id });
+                navigateTo('builds', { hero: h.id });
             }
         });
 
         const img = document.createElement('img');
-        img.className = 'w-9 h-9 rounded object-cover';
+        img.className = 'w-5 h-5 rounded-[2px] border border-[#5c42b8]/65 object-cover shrink-0';
         img.alt = `${h.name} portrait`;
         img.loading = 'lazy';
         img.onerror = () => {
@@ -253,7 +365,7 @@ function renderGoldenHeroes(heroesEl, goldenHeroes) {
         img.src = resolveMapAssetUrl(h.portrait, MAP_HERO_FALLBACK_PORTRAIT);
 
         const label = document.createElement('span');
-        label.className = 'text-xs';
+        label.className = 'truncate max-w-[7.5rem]';
         label.textContent = h.name;
 
         btn.append(img, label);
@@ -264,7 +376,7 @@ function renderGoldenHeroes(heroesEl, goldenHeroes) {
         heroesEl.replaceChildren(frag);
     } else {
         const empty = document.createElement('span');
-        empty.className = 'text-xs text-slate-500';
+        empty.className = 'text-xs text-[#8c83a2]';
         empty.textContent = 'No golden heroes configured.';
         heroesEl.replaceChildren(empty);
     }
@@ -284,7 +396,7 @@ function renderMapView(m, fallbackId) {
     if (nameEl) nameEl.textContent = mapData.name || fallbackId;
     if (themeEl) themeEl.textContent = mapData.theme || '';
     if (portraitEl) {
-        portraitEl.alt = `${mapData.name || fallbackId} battleground banner`;
+        portraitEl.alt = `${mapData.name || fallbackId} battleground backdrop`;
         portraitEl.onerror = () => {
             portraitEl.onerror = null;
             portraitEl.src = MAP_FALLBACK_BANNER;
@@ -292,6 +404,7 @@ function renderMapView(m, fallbackId) {
         portraitEl.src = resolveMapAssetUrl(mapData.portrait, MAP_FALLBACK_BANNER);
     }
 
+    renderMapCadence(mapData);
     renderMapMechanic(mechEl, mapData.mechanic);
 
     if (strategyEl) strategyEl.textContent = mapData.strategy || 'Strategy guide coming soon.';
