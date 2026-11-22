@@ -3,21 +3,33 @@
   "name": "Infernal Shrines",
   "theme": "Secure the active Shrine and defeat its Guardians to unleash a devastating Punisher against the enemy base.",
   "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/ui_ingame_mapmechanic_loadscreen_shrines.png",
+  "firstObjective": "Warning at 1:45, spawns at 2:15 (~1:45 cooldown after a Punisher is defeated)",
+  "spawnPattern": "3 fixed Shrine locations (Top, Mid & Bottom); cycles between Arcane, Mortar (Fire), and Frozen Punishers",
+  "lanes": "3 Lanes (Top, Mid & Bottom)",
+  "bosses": "None",
   "mechanic": {
     "title": "The Punisher Shrines",
-    "description": "Shrines (Arcane, Fire, or Frost) activate periodically across the map (first warning at 1:45, spawns at 2:15). Teams must secure the area and kill 40 Shrine Guardians. The team that claims the final minion kill awakens a powerful Punisher that leaps to targets, attacks structures, and possesses a unique afflicting affix (Arcane Lasers, Mortar Bombs, or Frozen Rings)."
+    "description": "Defeat Shrine Guardians inside the active Shrine zone to earn progress toward summoning a Punisher—the team that reaches 100% first awakens a Punisher that leaps onto targets, prioritizes enemy Heroes when attacked or nearby, and attacks structures with a specialized affix (Arcane lasers, Mortar explosions, or Frozen rings)."
   },
   "camps": [
     {
       "name": "Siege Giants (2 Camps)",
-      "timing": "Spawns at 1:00 (3:00 respawn)",
-      "notes": "Located safely on either side of the map. Excellent for steady lane pressure while teams position for upcoming shrine spawns."
+      "timing": "Spawns at 0:30 (3:00 respawn)",
+      "notes": "Located near the side lanes. Ranged siege mercenaries that provide steady lane pressure while teams position for upcoming Shrine phases."
     },
     {
       "name": "Bruisers / Khazra Camp (2 Camps)",
-      "timing": "Spawns at 1:00 (4:00 respawn)",
-      "notes": "Located in the side lanes. These camps feature spear-throwers and a heavy melee unit that shreds minion waves and forces defensive rotations."
+      "timing": "Spawns at 0:30 (4:00 respawn)",
+      "notes": "Located in the upper/lower jungle paths. Pairs ranged spear-throwers with a durable melee bruiser to push lanes and clear waves."
     }
   ],
-  "strategy": "Infernal Shrines rewards waveclear and AoE damage heavily. Heroes who can clear the 40 Shrine Guardians quickly (like Jaina, Kael'thas, or Sonya) swing control of the objective drastically. Always try to clear the surrounding minion waves and capture siege/bruiser camps right *before* a shrine spawns so your lanes push automatically while the enemy is forced to contest the Punisher objective."
+  "strategy": "Infernal Shrines heavily favors strong AoE waveclear and sustain to clear Shrine Guardians fast while contesting the circle. Clear side waves and capture Siege or Bruiser camps just before a Shrine activates so lane pressure forces enemies into split rotations, and decide whether to peel/fight inside the Shrine or poke enemies down before committing.",
+  "notes": "Once summoned, the Punisher leaps toward targets and can be kited or body-blocked slightly around walls, while its affix (Arcane, Mortar, or Frozen) changes how dangerous standing still or clumping is during a push—avoid getting caught in repeated Arcane beams or Mortar bursts while defending.",
+  "goldenHeroes": [
+    "jaina",
+    "kaelthas",
+    "sonya",
+    "johanna",
+    "valla"
+  ]
 }
