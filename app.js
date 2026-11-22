@@ -148,7 +148,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             loadAndRenderRotation();
         }
 
-        if (typeof initPatchFilterControls === 'function') {
+        if (typeof initPatchNotes === 'function') {
+            initPatchNotes({ hydrateHome: true });
+        } else if (typeof initPatchFilterControls === 'function') {
             initPatchFilterControls();
         }
 
@@ -232,21 +234,29 @@ function handleRoute() {
             renderAcademy();
         }
     } else if (tab === 'patchnotes') {
-        if (q.get('patch') && typeof PENDING_DEEP_LINK_PATCH !== 'undefined') {
-            PENDING_DEEP_LINK_PATCH = {
-                patchId: q.get('patch'),
+        if (typeof initPatchNotes === 'function') {
+            initPatchNotes({
+                patchId: q.get('patch') || null,
                 feed: q.get('feed') || null,
                 openView: true
-            };
-        }
-        if (typeof initPatchFilterControls === 'function') {
-            initPatchFilterControls();
-        }
-        if (typeof loadLivePatchNotes === 'function') {
-            loadLivePatchNotes();
-        }
-        if (typeof schedulePatchSidebarSync === 'function') {
-            schedulePatchSidebarSync();
+            });
+        } else {
+            if (q.get('patch') && typeof PENDING_DEEP_LINK_PATCH !== 'undefined') {
+                PENDING_DEEP_LINK_PATCH = {
+                    patchId: q.get('patch'),
+                    feed: q.get('feed') || null,
+                    openView: true
+                };
+            }
+            if (typeof initPatchFilterControls === 'function') {
+                initPatchFilterControls();
+            }
+            if (typeof loadLivePatchNotes === 'function') {
+                loadLivePatchNotes();
+            }
+            if (typeof schedulePatchSidebarSync === 'function') {
+                schedulePatchSidebarSync();
+            }
         }
     }
 }
