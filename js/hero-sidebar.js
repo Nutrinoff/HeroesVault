@@ -3,6 +3,7 @@
 // ==========================================
 
 const HERO_SCROLL_SETTLE_DELAY_MS = 180;
+const HERO_SEARCH_PRELOAD_DELAY_MS = 75;
 const HERO_FALLBACK_PORTRAIT = 'https://via.placeholder.com/110?text=Hero';
 
 const PRELOADED_HERO_KEYS = new Set();
@@ -123,6 +124,15 @@ function observeVisibleHeroButtons(listEl) {
     });
 }
 
+function navigateFromSidebar(heroId, isBuilderView) {
+    if (!heroId || typeof navigateTo !== 'function') return;
+    if (isBuilderView) {
+        navigateTo('builder', { hero: heroId });
+    } else {
+        navigateTo('builds', { hero: heroId });
+    }
+}
+
 function renderHeroSidebar(heroes) {
     bindHeroSidebarEvents();
 
@@ -155,15 +165,7 @@ function renderHeroSidebar(heroes) {
                 : 'border-[#2e1866] bg-[#090417]/50 hover:bg-[#1c0e40]/80'
         }`;
 
-        btn.addEventListener('click', () => {
-            if (isBuilder && typeof openBuilder === 'function') {
-                openBuilder(h.id, null, true);
-            } else if (typeof navigateTo === 'function') {
-                navigateTo('builds', { hero: h.id });
-            } else {
-                selectHero(h.id, false);
-            }
-        });
+        btn.addEventListener('click', () => navigateFromSidebar(h.id, isBuilder));
 
         btn.innerHTML = `
             <div class="flex items-center gap-3 min-w-0">
@@ -223,7 +225,7 @@ function filterHeroes() {
 
     clearTimeout(heroSearchPreloadTimer);
     if (q) {
-        heroSearchPreloadTimer = setTimeout(() => warmSearchMatches(matches), 75);
+        heroSearchPreloadTimer = setTimeout(() => warmSearchMatches(matches), HERO_SEARCH_PRELOAD_DELAY_MS);
     }
 }
 
@@ -233,6 +235,11 @@ function bindHeroSidebarEvents() {
         searchInput.dataset.heroSearchBound = 'true';
         searchInput.addEventListener('input', filterHeroes);
     }
+}
+
+function initializeHeroSidebar(heroes = MASTER_HERO_LIST) {
+    bindHeroSidebarEvents();
+    renderHeroSidebar(heroes);
 }
 
 if (document.readyState === 'loading') {
