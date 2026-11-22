@@ -23,6 +23,27 @@ function escapeSidebarHtml(value) {
         .replace(/'/g, '&#39;');
 }
 
+function getHeroDisplayName(hero) {
+    return String(hero?.name || hero?.id || '').trim();
+}
+
+function sortHeroesByDisplayName(heroes) {
+    return [...(Array.isArray(heroes) ? heroes : [])].sort((a, b) => {
+        const nameA = getHeroDisplayName(a);
+        const nameB = getHeroDisplayName(b);
+        const byName = nameA.localeCompare(nameB, undefined, {
+            sensitivity: 'base',
+            numeric: true
+        });
+        if (byName !== 0) return byName;
+
+        return String(a?.id || '').localeCompare(String(b?.id || ''), undefined, {
+            sensitivity: 'base',
+            numeric: true
+        });
+    });
+}
+
 function preloadHeroIds(ids) {
     if (!Array.isArray(ids) || ids.length === 0) return;
 
@@ -143,6 +164,7 @@ function renderHeroSidebar(heroes) {
     const list = document.getElementById('hero-list');
     if (!list) return;
 
+    const sortedHeroes = sortHeroesByDisplayName(heroes);
     const isBuilder = !document.getElementById('view-builder')?.classList.contains('hidden');
     const activeId = isBuilder ? builderHeroId : currentSelectedHeroId;
     const fallbackPortrait = typeof HERO_VIEW_ICON_FALLBACK === 'string'
@@ -150,7 +172,7 @@ function renderHeroSidebar(heroes) {
         : HERO_FALLBACK_PORTRAIT;
     const frag = document.createDocumentFragment();
 
-    (heroes || []).forEach(h => {
+    sortedHeroes.forEach(h => {
         if (!h || typeof h !== 'object') return;
 
         const tier = String(typeof getHeroTier === 'function' ? getHeroTier(h.id) : 'D').toUpperCase();
@@ -159,7 +181,8 @@ function renderHeroSidebar(heroes) {
             ? resolveAssetUrl(h.portrait || rawEntry, fallbackPortrait)
             : fallbackPortrait;
 
-        const safeName = escapeSidebarHtml(h.name || h.id || 'Hero');
+        const displayName = getHeroDisplayName(h) || 'Hero';
+        const safeName = escapeSidebarHtml(displayName);
         const safeRole = escapeSidebarHtml(h.role || 'Nexus Combatant');
         const safeTier = escapeSidebarHtml(tier);
 
@@ -216,7 +239,7 @@ function renderHeroSidebar(heroes) {
 
     const countEl = document.getElementById('hero-count');
     if (countEl) {
-        countEl.innerText = `${(heroes || []).length} Heroes`;
+        countEl.innerText = `${sortedHeroes.length} Heroes`;
     }
 }
 
@@ -230,10 +253,11 @@ function filterHeroes() {
         ? MASTER_HERO_LIST.filter(h => String(h.searchText || `${h.name || ''} ${h.id || ''}`).toLowerCase().includes(q))
         : MASTER_HERO_LIST;
 
-    renderHeroSidebar(matches);
+    const sortedMatches = sortHeroesByDisplayName(matches);
+    renderHeroSidebar(sortedMatches);
 
     if (q) {
-        heroSearchPreloadTimer = setTimeout(() => warmSearchMatches(matches), HERO_SEARCH_PRELOAD_DELAY_MS);
+        heroSearchPreloadTimer = setTimeout(() => warmSearchMatches(sortedMatches), HERO_SEARCH_PRELOAD_DELAY_MS);
     }
 }
 
