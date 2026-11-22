@@ -138,11 +138,32 @@ function updateBuilderOutput(updateUrl = true) {
     }
 }
 
-function copyBuilderString() {
-    const u = location.href;
-    if (navigator.clipboard) {
-        navigator.clipboard.writeText(u).then(() => alert(`Copied build link:\n${u}`));
+function getIngameBuildString() {
+    const heroLabel = builderHeroData?.name || builderHeroId || '';
+    return encodeBuildCode(builderSelectedTalents, heroLabel);
+}
+
+function copyTextWithFallback(text, label) {
+    if (!text) return;
+
+    if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+        navigator.clipboard.writeText(text)
+            .then(() => alert(`Copied ${label}:\n${text}`))
+            .catch(() => prompt(`Copy ${label}:`, text));
     } else {
-        prompt('Copy build link:', u);
+        prompt(`Copy ${label}:`, text);
     }
+}
+
+function copyBuilderUrl() {
+    syncBuilderUrl(false);
+    copyTextWithFallback(window.location.href, 'build URL');
+}
+
+function copyIngameBuildCode() {
+    copyTextWithFallback(getIngameBuildString(), 'ingame build code');
+}
+
+function copyBuilderString() {
+    copyBuilderUrl();
 }
