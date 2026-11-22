@@ -59,7 +59,7 @@ function resolvePortraitUrl(rawOrPath) {
 
 
 // ==========================================
-// 3. INITIALIZATION & ROUTING
+// 3. APP BOOTSTRAP & ROUTING
 // ==========================================
 
 function syncHomeSummaryCounts() {
@@ -297,7 +297,7 @@ function switchTabUI(t) {
 
 
 // ==========================================
-// 4. SIDEBAR, SEARCH & IDLE/SEARCH PRELOAD
+// 4. HERO SIDEBAR & PRELOADING
 // ==========================================
 
 function getRawHeroEntry(heroId) {
@@ -500,7 +500,7 @@ function filterHeroes() {
 
 
 // ==========================================
-// 5. UNIFIED HERO DATA & HEADER RENDERERS
+// 5. HERO DATA, HEADERS & BUILDS VIEW
 // ==========================================
 
 function getNormalizedHeroData(id) {
@@ -619,11 +619,6 @@ function renderBuilderHeader(heroData) {
     renderAbilityStrip(heroData.abilities, 'builder-abilities');
 }
 
-
-// ==========================================
-// 6. HERO DETAILS & BUILDS VIEW
-// ==========================================
-
 async function selectHero(id, update = true) {
     if (!id) return;
 
@@ -722,7 +717,7 @@ function renderBuildStrip(h, code) {
 
 
 // ==========================================
-// 7. TOOLTIPS
+// 6. TOOLTIPS
 // ==========================================
 
 function positionTooltip(clientX, clientY) {
