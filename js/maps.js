@@ -219,11 +219,11 @@ function renderMapSpecTable(mapData) {
     const frag = document.createDocumentFragment();
     rows.forEach(row => {
         const tr = document.createElement('tr');
-        tr.className = 'align-top';
+        tr.className = 'align-baseline';
 
         const th = document.createElement('th');
         th.scope = 'row';
-        th.className = 'py-2.5 pr-3 w-24 font-mono text-[10px] uppercase tracking-wider text-[#9cb6ff]/80 font-semibold';
+        th.className = 'py-2.5 pr-3 w-24 font-mono text-[10px] uppercase tracking-wider text-[#9d90ff] font-semibold whitespace-nowrap';
         th.textContent = row.label;
 
         const td = document.createElement('td');
@@ -278,30 +278,24 @@ function renderMapCamps(campsEl, camps) {
     const frag = document.createDocumentFragment();
     list.forEach((c, idx) => {
         const row = document.createElement('div');
-        row.className = idx === 0 ? 'pb-2.5 space-y-1' : 'py-2.5 space-y-1';
+        row.className = idx === 0 ? 'pb-3 space-y-1' : 'pt-3 pb-1 space-y-1';
 
-        const topLine = document.createElement('div');
-        topLine.className = 'flex items-baseline justify-between gap-2';
-
-        const titleEl = document.createElement('span');
-        titleEl.className = 'text-xs font-bold text-[#e6ecff]';
+        const titleEl = document.createElement('div');
+        titleEl.className = 'text-xs font-bold text-[#e6ecff] leading-snug';
         titleEl.textContent = String(c?.name || 'Camp');
-
-        topLine.appendChild(titleEl);
+        row.appendChild(titleEl);
 
         if (c?.timing) {
-            const timingEl = document.createElement('span');
-            timingEl.className = 'text-[11px] font-mono text-[#f5d89a] shrink-0';
+            const timingEl = document.createElement('div');
+            timingEl.className = 'text-[11px] font-mono text-[#f5d89a] leading-snug';
             timingEl.textContent = String(c.timing);
-            topLine.appendChild(timingEl);
+            row.appendChild(timingEl);
         }
-
-        row.appendChild(topLine);
 
         const noteText = String(c?.notes || c?.tip || '').trim();
         if (noteText) {
             const notesEl = document.createElement('p');
-            notesEl.className = 'text-xs text-[#9cb6ff]/75 leading-snug';
+            notesEl.className = 'text-xs text-[#9cb6ff]/80 leading-relaxed pt-0.5';
             notesEl.textContent = noteText;
             row.appendChild(notesEl);
         }
@@ -331,7 +325,7 @@ function renderGoldenHeroes(heroesEl, goldenHeroes) {
         btn.type = 'button';
         btn.title = h.name;
         btn.setAttribute('aria-label', `View ${h.name} builds`);
-        btn.className = 'w-11 h-11 md:w-12 md:h-12 rounded-[2px] border border-[#5c42b8]/85 bg-[#070412]/90 overflow-hidden hover:border-[#58baff] hover:shadow-[0_0_12px_rgba(0,156,255,0.45)] transition cursor-pointer shrink-0';
+        btn.className = 'w-11 h-11 md:w-12 md:h-12 rounded-[2px] border border-[#5c42b8]/90 bg-[#070412]/90 overflow-hidden hover:border-[#58baff] hover:shadow-[0_0_12px_rgba(0,156,255,0.45)] transition cursor-pointer shrink-0';
         btn.addEventListener('click', () => {
             if (typeof navigateTo === 'function') {
                 navigateTo('builds', { hero: h.id });
