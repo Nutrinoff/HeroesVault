@@ -217,16 +217,35 @@ function resolveRotationPortraitUrl(record, item) {
 
 function matchHeroWithIndex(entry, indexBundle) {
     const item = typeof entry === 'string' ? { name: entry, id: entry } : (entry || {});
-    const rawName = item.Name || item.name || '';
-    const rawId = item.ID || item.id || '';
+    const rawName =
+        item.Name ||
+        item.name ||
+        item.heroName ||
+        item.Hero ||
+        item.title ||
+        '';
+    const rawId =
+        item.ID ||
+        item.id ||
+        item.hyperlinkId ||
+        item.attributeId ||
+        item.unitId ||
+        item.slug ||
+        '';
 
-    const rawCandidates = [rawId, rawName, String(rawName).split(',')[0]].filter(Boolean);
+    const rawCandidates = [
+        rawId,
+        stripUnitIdPrefix(rawId),
+        rawName,
+        String(rawName).split(',')[0]
+    ].filter(Boolean);
+
     const normalizedCandidates = [];
-
     for (const c of rawCandidates) {
         const norm = normalizeSlugKey(c);
         if (!norm) continue;
         if (!normalizedCandidates.includes(norm)) normalizedCandidates.push(norm);
+
         const override = EXPLICIT_ROTATION_OVERRIDES[norm];
         const normOverride = normalizeSlugKey(override);
         if (normOverride && !normalizedCandidates.includes(normOverride)) {
@@ -250,7 +269,7 @@ function matchHeroWithIndex(entry, indexBundle) {
     const fallbackId = rawId || normalizeSlugKey(fallbackName);
 
     if (!matchedRecord) {
-        console.warn('[Rotation] Unmatched hero in rotation data:', { id: rawId, name: rawName });
+        console.warn(`[Rotation] Unmatched hero in rotation data: id="${rawId}" name="${rawName}"`, item);
     }
 
     const listHero = matchedRecord?.listItem || {};
