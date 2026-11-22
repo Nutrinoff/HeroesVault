@@ -310,27 +310,35 @@
         </div>
 
         <!-- TALENT MATRIX CONTAINER -->
-        <section class="relative hots-panel rounded p-5 overflow-hidden">
-          <img id="builder-model-bg" src="" alt="" class="absolute inset-0 w-full h-full object-cover opacity-15 pointer-events-none"/>
-          <div class="relative z-10 space-y-4">
-            <div class="flex items-center justify-between pb-3 border-b border-[#2e1866]">
-              <h3 class="hots-label text-cyan-300">Talent Matrix</h3>
-              <button id="builder-reset-btn" type="button" class="hots-btn-gold px-3.5 py-1.5 text-xs font-extrabold uppercase tracking-wider cursor-pointer">Reset</button>
-            </div>
+        <section class="hots-panel rounded p-5 space-y-4">
+          <div class="flex items-center justify-between pb-3 border-b border-[#2e1866]">
+            <h3 class="hots-label text-cyan-300">Talent Matrix</h3>
+            <button id="builder-reset-btn" type="button" class="hots-btn-gold px-3.5 py-1.5 text-xs font-extrabold uppercase tracking-wider cursor-pointer">Reset</button>
+          </div>
 
-            <div class="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-6">
-              <div id="builder-matrix" class="space-y-3 flex-1"></div>
+          <div class="flex flex-col xl:flex-row items-stretch xl:items-center justify-between gap-6">
+            <div id="builder-matrix" class="space-y-3 flex-1 min-w-0"></div>
 
-              <div class="flex flex-wrap items-center gap-2.5 self-end lg:self-auto flex-shrink-0">
-                <code id="builder-string-code" class="hots-subpanel rounded px-4 py-2.5 text-xs text-cyan-300 font-mono">[T0000000,Hero]</code>
-                <button id="builder-copy-url-btn" type="button" class="hots-btn-cyan px-4 py-2.5 text-xs font-extrabold uppercase tracking-wider flex items-center gap-2 transition flex-shrink-0 cursor-pointer">
-                  <i data-lucide="link" class="w-3.5 h-3.5"></i> Copy URL
-                </button>
-                <button id="builder-copy-ingame-btn" type="button" class="hots-btn-gold px-4 py-2.5 text-xs font-extrabold uppercase tracking-wider flex items-center gap-2 transition flex-shrink-0 cursor-pointer">
-                  <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Ingame
-                </button>
+            <div class="w-full xl:w-80 2xl:w-96 shrink-0 flex items-center justify-center">
+              <div class="hots-subpanel rounded p-2 w-full max-w-sm">
+                <img
+                  id="builder-loading-art"
+                  src=""
+                  alt=""
+                  class="w-full h-64 sm:h-72 object-contain rounded-sm bg-[#070312]/70"
+                />
               </div>
             </div>
+          </div>
+
+          <div class="flex flex-wrap items-center justify-end gap-2.5 pt-2 border-t border-[#2e1866]/70">
+            <code id="builder-string-code" class="hots-subpanel rounded px-4 py-2.5 text-xs text-cyan-300 font-mono">[T0000000,Hero]</code>
+            <button id="builder-copy-url-btn" type="button" class="hots-btn-cyan px-4 py-2.5 text-xs font-extrabold uppercase tracking-wider flex items-center gap-2 transition flex-shrink-0 cursor-pointer">
+              <i data-lucide="link" class="w-3.5 h-3.5"></i> Copy URL
+            </button>
+            <button id="builder-copy-ingame-btn" type="button" class="hots-btn-gold px-4 py-2.5 text-xs font-extrabold uppercase tracking-wider flex items-center gap-2 transition flex-shrink-0 cursor-pointer">
+              <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Ingame
+            </button>
           </div>
         </section>
       </div>
