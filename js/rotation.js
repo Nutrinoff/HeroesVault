@@ -329,8 +329,8 @@ function createFreeHeroRow(hero) {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = isLvlSlot
-        ? 'f2p-row-item f2p-row-lvl min-w-0 text-left group'
-        : 'f2p-row-item min-w-0 text-left group';
+        ? 'f2p-row-item f2p-row-lvl group'
+        : 'f2p-row-item group';
     btn.title = isLvlSlot
         ? `${hero.name} — Unlocked rotation slot (Account Level 5, 10, 15, or 20)`
         : `View ${hero.name} builds`;
@@ -341,7 +341,7 @@ function createFreeHeroRow(hero) {
     });
 
     const frame = document.createElement('div');
-    frame.className = 'hex-sidebar-frame !w-8 !h-8';
+    frame.className = 'hex-sidebar-frame !w-9 !h-9';
 
     const img = document.createElement('img');
     img.src = hero.portraitUrl || FALLBACK_ROTATION_PORTRAIT;
@@ -374,55 +374,17 @@ function createFreeHeroRow(hero) {
     frame.append(img, ringSvg);
 
     const nameEl = document.createElement('span');
-    nameEl.className = 'text-xs font-semibold text-slate-100 group-hover:text-cyan-300 truncate flex-1';
+    nameEl.className = 'w-full text-[11px] font-semibold text-slate-100 group-hover:text-cyan-300 truncate leading-tight';
     nameEl.textContent = hero.name;
 
     const badgeEl = document.createElement('span');
     badgeEl.className = isLvlSlot
-        ? 'text-[9px] font-mono font-bold uppercase px-1.5 py-0.5 rounded-sm bg-rose-500/15 text-rose-400 border border-rose-500/35 shrink-0'
-        : 'text-[9px] font-mono font-bold uppercase px-1.5 py-0.5 rounded-sm bg-cyan-500/15 text-cyan-300 border border-cyan-400/35 shrink-0';
+        ? 'text-[9px] font-mono font-bold uppercase px-1.5 py-0.2 rounded-sm bg-rose-500/15 text-rose-400 border border-rose-500/35'
+        : 'text-[9px] font-mono font-bold uppercase px-1.5 py-0.2 rounded-sm bg-cyan-500/15 text-cyan-300 border border-cyan-400/35';
     badgeEl.textContent = isLvlSlot
         ? 'LVL'
         : (hero.reqLevel ? `Lv ${hero.reqLevel}+` : 'F2P');
 
     btn.append(frame, nameEl, badgeEl);
     return btn;
-}
-
-function renderFreeRotationHeroes(data) {
-    const grid = document.getElementById('home-f2p-grid');
-    const spanEl = document.getElementById('home-f2p-timespan');
-    if (!grid) return;
-
-    if (spanEl) {
-        spanEl.textContent = data.allHeroesFree
-            ? `${data.timespan} · All Heroes Free`
-            : data.timespan;
-    }
-
-    const sortedHeroes = sortRotationHeroesF2pFirst((data.heroes || []).slice(0, 14));
-    if (!sortedHeroes.length) {
-        grid.innerHTML =
-            '<div class="col-span-2 text-xs text-violet-200/70 py-3">No free rotation heroes available right now.</div>';
-        return;
-    }
-
-    const frag = document.createDocumentFragment();
-    for (const hero of sortedHeroes) {
-        frag.appendChild(createFreeHeroRow(hero));
-    }
-    grid.replaceChildren(frag);
-}
-
-async function loadAndRenderRotation() {
-    let rawPayload = {};
-
-    try {
-        rawPayload = await fetchLocalRotationJson(LOCAL_ROTATION_DATA_URL);
-    } catch (_) {
-        rawPayload = {};
-    }
-
-    currentRotationData = parseRotationPayload(rawPayload, new Date());
-    renderFreeRotationHeroes(currentRotationData);
 }
