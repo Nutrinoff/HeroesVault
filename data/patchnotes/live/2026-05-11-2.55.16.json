@@ -1,0 +1,198 @@
+{
+  "Id": "775203",
+  "Title": "Heroes of the Storm Balance Patch Notes - May 11, 2026",
+  "Subtitle": "[Heroes of the Storm Balance Patch Notes - May 11, 2026] We\u2019ve just released a patch to the live servers in order to apply some balance and bug fixes. View Full Article",
+  "Date": "May 11, 2026",
+  "IsoDate": "2026-05-11",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "2.55.16",
+  "FullVersion": "2.55.16.97039",
+  "Build": "97039",
+  "Link": "https://us.forums.blizzard.com/en/heroes/t/heroes-of-the-storm-balance-patch-notes-may-11-2026/66353/1",
+  "Links": [
+    "https://us.forums.blizzard.com/en/heroes/t/heroes-of-the-storm-balance-patch-notes-may-11-2026/66353/1",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/24276959"
+  ],
+  "Affected": [
+    "Haunted Mines",
+    "Arthas",
+    "Azmodan",
+    "Chen",
+    "Deathwing",
+    "Gazlowe",
+    "Mal\u0027Ganis",
+    "Mei",
+    "Muradin",
+    "Murky",
+    "Rexxar",
+    "Tychus",
+    "Tyrande",
+    "Zagara"
+  ],
+  "Highlights": "[Heroes of the Storm Balance Patch Notes - May 11, 2026] We\u2019ve just released a patch to the live servers in order to apply some balance and bug fixes. View Full Article",
+  "CleanedNotes": "=== Battlegrounds: Haunted Mines ===\r\n[Updates]\r\n  Objective:\r\n  \u2022 Grave Golem\r\n    \u2022 Overall\r\n      \u2022 [Undocumented] ~~Grave Golem scaling before 5 minutes decreased.~~\r\n      \u2022 [Undocumented] ~~Grave Golem scaling later in the game significantly increased.~~\r\n    \u2022 Defender\r\n      \u2022 [Undocumented] Ability damage scaling for minutes 1-5 reduced from 7% to 2%.\r\n      \u2022 [Undocumented] Ability damage scaling for minutes 16-40 increased from 4% to 5%.\r\n      \u2022 [Undocumented] Health scaling for minutes 1-5 reduced from 1100 to 350.\r\n      \u2022 [Undocumented] Health scaling for minutes 6-10 increased from 350 to 525.\r\n      \u2022 [Undocumented] Health scaling for minutes 21-40 increased from 900 to 1000.\r\n      \u2022 [Undocumented] Basic Attacks damage scaling for minutes 1-5 reduced from 4 to 0.\r\n      \u2022 [Undocumented] Basic Attacks damage scaling for minutes 6-10 increased from 0 to 4.\r\n      \u2022 [Undocumented] Basic Attacks damage scaling for minutes 21-40 increased from 10 to 15.\r\n    \u2022 Laner\r\n      \u2022 Grave Golem scaling per Skull increased from 5% to 7%.\r\n\r\n=== Heroes: Arthas ===\r\n[Updates]\r\n  Stats:\r\n  \u2022 Health increased from 2625 to 2750.\r\n  \u2022 [Undocumented] Health Regeneration increased from 5.4687 to 5.7304 per second.\r\n  Base:\r\n  \u2022 Death Coil [Q]\r\n    \u2022 Healing increased from 262 to 275.\r\n  \u2022 Frostmourne Hungers [D]\r\n    \u2022 Attack Damage per Quest stack reduced from 1 to 0.75.\r\n    \u2022 Damage bonus on empowered Basic Attacks increased from 1 to 3.\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Frost Presence\r\n      \u2022 Upon unlocking the line damage, targets can now be hit by both the line AND the final area.\r\n      \u2022 Death Coil Slow benefit duration increased from 0.75 to 1.25 seconds.\r\n  \u2022 Level 7\r\n    \u2022 Icebound Fortitude\r\n      \u2022 Now removes Slows and Roots upon activation.\r\n  \u2022 Level 20\r\n    \u2022 Path of Frost\r\n      \u2022 Now increases minimum Movement Speed to 140%, rather than providing 40% additional Movement Speed.\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that caused the healing from Arthas\u0027s Rime to not be displayed correctly in the Death Recap.\r\n  \u2022 Fixed an issue that caused the healing from Arthas\u0027s Remorseless Winter to not be displayed correctly in the Death Recap.\r\n  \u2022 [Undocumented] Fixed an issue that caused Arthas\u0027s Summon Sindragosa to not disable Fallback Towers.\r\n\r\n=== Heroes: Azmodan ===\r\n[Updates]\r\n  Base:\r\n  \u2022 Summon Demon Warrior [W]\r\n    \u2022 [Undocumented] Demon Warrior\u0027s Attack Range increased from 1 to 2.\r\n  \u2022 Demonic Invasion [R]\r\n    \u2022 [Undocumented] Maximum duration increased from 10 to 20.\r\n    \u2022 [Undocumented] Grunt\u0027s Basic Attacks damage reduced from 39 to 30.\r\n    \u2022 [Undocumented] Grunt\u0027s Attack Range reduced from 1 to 0.8.\r\n    \u2022 [Undocumented] Grunt\u0027s collision radius reduced from 0.6875 to 0.\r\n    \u2022 [Undocumented] Grunt\u0027s unit radius reduced from 0.6875 to 0.5.\r\n\r\n=== Heroes: Chen ===\r\n[Updates]\r\n  Base:\r\n  \u2022 Flying Kick [Q]\r\n    \u2022 Damage increased from 120 to 130.\r\n  \u2022 Fortifying Brew [D]\r\n    \u2022 Delay before being able to interrupt decreased [Undocumented] ~~slightly~~ from 0.3125 to 0.25 .\r\n    \u2022 Shields provided per tick increased from 90 to 95.\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Accumulating Flame\r\n      \u2022 Stack requirements increased from 20/75 to 25/80.\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that caused Breath of Fire to not deal impact damage [Undocumented] to Brew-soaked enemies .\r\n  \u2022 Fixed an issue that caused Breath of Fire\u0027s initial hit to not give Quest progress for Accumulating Flames.\r\n\r\n=== Heroes: Deathwing ===\r\n[Updates]\r\n  Base:\r\n  \u2022 Molten Flame [Q]\r\n    \u2022 Damage per tick increased from 19 to 20.\r\n  Talents:\r\n  \u2022 Level 20\r\n    \u2022 Destroyer\u0027s Rampage\r\n      \u2022 Duration reduced from 6 to 4 seconds.\r\n\r\n=== Heroes: Gazlowe ===\r\n[Updates]\r\n  Base:\r\n  \u2022 Rock-It! Turret [Q]\r\n    \u2022 Damage increased from 37 to 43.\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 One Man Wrecking Crew\r\n      \u2022 Damage bonus increased from 60% to 75%.\r\n\r\n=== Heroes: Mal\u0027Ganis ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Will of Tichondrius\r\n      \u2022 Damage bonus for hitting Heroes with Fel Claws reduced from 0.5 to 0.25.\r\n      \u2022 [Undocumented] Damage bonus for hitting 4 Heroes with the first 2 slashes of Fel Claws reduced from 2 to 1.\r\n      \u2022 Damage bonus required to unlock Quest Reward decreased from 40 to 20.\r\n    \u2022 Winged Guard\r\n      \u2022 Internal cooldown reduced from 6 to 5 seconds.\r\n  \u2022 Level 13\r\n    \u2022 Deep Sleep\r\n      \u2022 Movement Speed bonus increased from 10% to 15%.\r\n  \u2022 Level 20\r\n    \u2022 Wrath of Nathreza\r\n      \u2022 Transferred damage increased from 75% to 85%.\r\n\r\n=== Heroes: Mei ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue that caused Mei\u0027s Slushball to not disable Fallback Towers.\r\n\r\n=== Heroes: Muradin ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that caused the Quest progression indicator for Muradin\u0027s Storm Bolt to show around the target that killed the Hero.\r\n  \u2022 Fixed an issue that caused the Mana refund from Muradin\u0027s Perfect Storm to not be granted.\r\n  \u2022 Fixed an issue that caused the Mana refund from Muradin\u0027s Perfect Storm\u0027s to increase Muradin\u0027s Self Healing score.\r\n  \u2022 Fixed an issue that caused Muradin\u0027s Perfect Storm to be able to go on cooldown when already on cooldown.\r\n\r\n=== Heroes: Murky ===\r\n[Updates]\r\n  Base:\r\n  \u2022 March of Murlocs [R1]\r\n    \u2022 Cooldown reduced from 100 to 90 seconds.\r\n\r\n=== Heroes: Rexxar ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that caused Misha to not respawn when her Respawn Timer expires.\r\n\r\n=== Heroes: Tychus ===\r\n[Updates]\r\n  Base:\r\n  \u2022 Drakken Laser Drill [R2]\r\n    \u2022 [Undocumented] Laser Drill\u0027s maximum Health increased from 1255 to 1500.\r\n    \u2022 [Undocumented] Laser Drill no longer has a duration.\r\n    \u2022 [Undocumented] Laser Drill now loses 60 Health per second.\r\n    \u2022 [Undocumented] Laser Drill duration effectively increased from 22 to 25 seconds.\r\n\r\n=== Heroes: Tyrande ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that caused the Quest progression indicator for Tyrande\u0027s Lunar Blaze to show around the target that killed the Hero.\r\n  \u2022 Fixed an issue that caused the Quest progress for Tyrande\u0027s Lunar Blaze to not be granted when the targeted Hero dies and they have a non-standard death state.\r\n  \u2022 Fixed an issue that caused the Quest progress for Tyrande\u0027s Lunar Blaze to not be granted when the targeted Hero is killed by a non-Hero.\r\n\r\n=== Heroes: Zagara ===\r\n[User Interface]\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Infest\r\n      \u2022 Now displays as a Quest.",
+  "Sections": {
+    "Battlegrounds: Haunted Mines": [
+      "[Updates]",
+      "  Objective:",
+      "  \u2022 Grave Golem",
+      "    \u2022 Overall",
+      "      \u2022 [Undocumented] ~~Grave Golem scaling before 5 minutes decreased.~~",
+      "      \u2022 [Undocumented] ~~Grave Golem scaling later in the game significantly increased.~~",
+      "    \u2022 Defender",
+      "      \u2022 [Undocumented] Ability damage scaling for minutes 1-5 reduced from 7% to 2%.",
+      "      \u2022 [Undocumented] Ability damage scaling for minutes 16-40 increased from 4% to 5%.",
+      "      \u2022 [Undocumented] Health scaling for minutes 1-5 reduced from 1100 to 350.",
+      "      \u2022 [Undocumented] Health scaling for minutes 6-10 increased from 350 to 525.",
+      "      \u2022 [Undocumented] Health scaling for minutes 21-40 increased from 900 to 1000.",
+      "      \u2022 [Undocumented] Basic Attacks damage scaling for minutes 1-5 reduced from 4 to 0.",
+      "      \u2022 [Undocumented] Basic Attacks damage scaling for minutes 6-10 increased from 0 to 4.",
+      "      \u2022 [Undocumented] Basic Attacks damage scaling for minutes 21-40 increased from 10 to 15.",
+      "    \u2022 Laner",
+      "      \u2022 Grave Golem scaling per Skull increased from 5% to 7%."
+    ],
+    "Heroes: Arthas": [
+      "[Updates]",
+      "  Stats:",
+      "  \u2022 Health increased from 2625 to 2750.",
+      "  \u2022 [Undocumented] Health Regeneration increased from 5.4687 to 5.7304 per second.",
+      "  Base:",
+      "  \u2022 Death Coil [Q]",
+      "    \u2022 Healing increased from 262 to 275.",
+      "  \u2022 Frostmourne Hungers [D]",
+      "    \u2022 Attack Damage per Quest stack reduced from 1 to 0.75.",
+      "    \u2022 Damage bonus on empowered Basic Attacks increased from 1 to 3.",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Frost Presence",
+      "      \u2022 Upon unlocking the line damage, targets can now be hit by both the line AND the final area.",
+      "      \u2022 Death Coil Slow benefit duration increased from 0.75 to 1.25 seconds.",
+      "  \u2022 Level 7",
+      "    \u2022 Icebound Fortitude",
+      "      \u2022 Now removes Slows and Roots upon activation.",
+      "  \u2022 Level 20",
+      "    \u2022 Path of Frost",
+      "      \u2022 Now increases minimum Movement Speed to 140%, rather than providing 40% additional Movement Speed.",
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that caused the healing from Arthas\u0027s Rime to not be displayed correctly in the Death Recap.",
+      "  \u2022 Fixed an issue that caused the healing from Arthas\u0027s Remorseless Winter to not be displayed correctly in the Death Recap.",
+      "  \u2022 [Undocumented] Fixed an issue that caused Arthas\u0027s Summon Sindragosa to not disable Fallback Towers."
+    ],
+    "Heroes: Azmodan": [
+      "[Updates]",
+      "  Base:",
+      "  \u2022 Summon Demon Warrior [W]",
+      "    \u2022 [Undocumented] Demon Warrior\u0027s Attack Range increased from 1 to 2.",
+      "  \u2022 Demonic Invasion [R]",
+      "    \u2022 [Undocumented] Maximum duration increased from 10 to 20.",
+      "    \u2022 [Undocumented] Grunt\u0027s Basic Attacks damage reduced from 39 to 30.",
+      "    \u2022 [Undocumented] Grunt\u0027s Attack Range reduced from 1 to 0.8.",
+      "    \u2022 [Undocumented] Grunt\u0027s collision radius reduced from 0.6875 to 0.",
+      "    \u2022 [Undocumented] Grunt\u0027s unit radius reduced from 0.6875 to 0.5."
+    ],
+    "Heroes: Chen": [
+      "[Updates]",
+      "  Base:",
+      "  \u2022 Flying Kick [Q]",
+      "    \u2022 Damage increased from 120 to 130.",
+      "  \u2022 Fortifying Brew [D]",
+      "    \u2022 Delay before being able to interrupt decreased [Undocumented] ~~slightly~~ from 0.3125 to 0.25 .",
+      "    \u2022 Shields provided per tick increased from 90 to 95.",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Accumulating Flame",
+      "      \u2022 Stack requirements increased from 20/75 to 25/80.",
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that caused Breath of Fire to not deal impact damage [Undocumented] to Brew-soaked enemies .",
+      "  \u2022 Fixed an issue that caused Breath of Fire\u0027s initial hit to not give Quest progress for Accumulating Flames."
+    ],
+    "Heroes: Deathwing": [
+      "[Updates]",
+      "  Base:",
+      "  \u2022 Molten Flame [Q]",
+      "    \u2022 Damage per tick increased from 19 to 20.",
+      "  Talents:",
+      "  \u2022 Level 20",
+      "    \u2022 Destroyer\u0027s Rampage",
+      "      \u2022 Duration reduced from 6 to 4 seconds."
+    ],
+    "Heroes: Gazlowe": [
+      "[Updates]",
+      "  Base:",
+      "  \u2022 Rock-It! Turret [Q]",
+      "    \u2022 Damage increased from 37 to 43.",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 One Man Wrecking Crew",
+      "      \u2022 Damage bonus increased from 60% to 75%."
+    ],
+    "Heroes: Mal\u0027Ganis": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Will of Tichondrius",
+      "      \u2022 Damage bonus for hitting Heroes with Fel Claws reduced from 0.5 to 0.25.",
+      "      \u2022 [Undocumented] Damage bonus for hitting 4 Heroes with the first 2 slashes of Fel Claws reduced from 2 to 1.",
+      "      \u2022 Damage bonus required to unlock Quest Reward decreased from 40 to 20.",
+      "    \u2022 Winged Guard",
+      "      \u2022 Internal cooldown reduced from 6 to 5 seconds.",
+      "  \u2022 Level 13",
+      "    \u2022 Deep Sleep",
+      "      \u2022 Movement Speed bonus increased from 10% to 15%.",
+      "  \u2022 Level 20",
+      "    \u2022 Wrath of Nathreza",
+      "      \u2022 Transferred damage increased from 75% to 85%."
+    ],
+    "Heroes: Mei": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue that caused Mei\u0027s Slushball to not disable Fallback Towers."
+    ],
+    "Heroes: Muradin": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that caused the Quest progression indicator for Muradin\u0027s Storm Bolt to show around the target that killed the Hero.",
+      "  \u2022 Fixed an issue that caused the Mana refund from Muradin\u0027s Perfect Storm to not be granted.",
+      "  \u2022 Fixed an issue that caused the Mana refund from Muradin\u0027s Perfect Storm\u0027s to increase Muradin\u0027s Self Healing score.",
+      "  \u2022 Fixed an issue that caused Muradin\u0027s Perfect Storm to be able to go on cooldown when already on cooldown."
+    ],
+    "Heroes: Murky": [
+      "[Updates]",
+      "  Base:",
+      "  \u2022 March of Murlocs [R1]",
+      "    \u2022 Cooldown reduced from 100 to 90 seconds."
+    ],
+    "Heroes: Rexxar": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that caused Misha to not respawn when her Respawn Timer expires."
+    ],
+    "Heroes: Tychus": [
+      "[Updates]",
+      "  Base:",
+      "  \u2022 Drakken Laser Drill [R2]",
+      "    \u2022 [Undocumented] Laser Drill\u0027s maximum Health increased from 1255 to 1500.",
+      "    \u2022 [Undocumented] Laser Drill no longer has a duration.",
+      "    \u2022 [Undocumented] Laser Drill now loses 60 Health per second.",
+      "    \u2022 [Undocumented] Laser Drill duration effectively increased from 22 to 25 seconds."
+    ],
+    "Heroes: Tyrande": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that caused the Quest progression indicator for Tyrande\u0027s Lunar Blaze to show around the target that killed the Hero.",
+      "  \u2022 Fixed an issue that caused the Quest progress for Tyrande\u0027s Lunar Blaze to not be granted when the targeted Hero dies and they have a non-standard death state.",
+      "  \u2022 Fixed an issue that caused the Quest progress for Tyrande\u0027s Lunar Blaze to not be granted when the targeted Hero is killed by a non-Hero."
+    ],
+    "Heroes: Zagara": [
+      "[User Interface]",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Infest",
+      "      \u2022 Now displays as a Quest."
+    ]
+  },
+  "PatchFile": "live/2026-05-11-2.55.16.json",
+  "Sources": [
+    "live-master.json",
+    "live-patches.json",
+    "2026-05-11-live.html",
+    "2026-05-11-v2-55-16-97039-heroes-of-the-storm-balance-patch-notes-may-11-2026-live.json"
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "Id": "npn-2025-02-03-2.55.9",
+  "Title": "2025-02-03 Hotfix Patch",
+  "Subtitle": "=== Heroes: Chromie ===",
+  "Date": "Feb 3, 2025",
+  "IsoDate": "2025-02-03",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "2.55.9",
+  "FullVersion": "2.55.9.93640",
+  "Build": "93640",
+  "Link": "",
+  "Links": [],
+  "Affected": [
+    "Chromie",
+    "D.Va",
+    "Nazeebo",
+    "Zul\u0027jin"
+  ],
+  "Highlights": "=== Heroes: Chromie ===",
+  "CleanedNotes": "=== Heroes: Chromie ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] The tooltip for Chromie\u0027s Unravelling now mentions the increased cast range.\r\n\r\n=== Heroes: D.Va ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing D.Va\u0027s Self-Destruct to instantly go off if the Mech was hit by Malthael\u0027s Death Shroud with Throwing Shade selected.\r\n\r\n=== Heroes: Nazeebo ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing the healing from Nazeebo\u0027s Hexed Crawlers to show incorrectly in the Death Recap.\r\n\r\n=== Heroes: Zul\u0027jin ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Wrong Place Wrong Time to not grant stacks of You Want Axe.\r\n  \u2022 [Undocumented] Fixed an issue causing Zul\u0027jin\u0027s Guillotine to not instantly update its damage when casting Amani Rage.",
+  "Sections": {
+    "Heroes: Chromie": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] The tooltip for Chromie\u0027s Unravelling now mentions the increased cast range."
+    ],
+    "Heroes: D.Va": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing D.Va\u0027s Self-Destruct to instantly go off if the Mech was hit by Malthael\u0027s Death Shroud with Throwing Shade selected."
+    ],
+    "Heroes: Nazeebo": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing the healing from Nazeebo\u0027s Hexed Crawlers to show incorrectly in the Death Recap."
+    ],
+    "Heroes: Zul\u0027jin": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Wrong Place Wrong Time to not grant stacks of You Want Axe.",
+      "  \u2022 [Undocumented] Fixed an issue causing Zul\u0027jin\u0027s Guillotine to not instantly update its damage when casting Amani Rage."
+    ]
+  },
+  "PatchFile": "live/2025-02-03-2.55.9.json",
+  "Sources": [
+    "live-master.json",
+    "2025-02-03-hotfix.html",
+    "2025-02-03-v2-55-9-93640-2025-02-03-hotfix-patch-live.json"
+  ]
+}

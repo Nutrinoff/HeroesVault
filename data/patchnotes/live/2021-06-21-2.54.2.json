@@ -1,0 +1,47 @@
+{
+  "Id": "wiki-2.54.2-June 21, 2021",
+  "Title": "2021-06-21 Hotfix Patch",
+  "Subtitle": "Hotfix",
+  "Date": "Jun 21, 2021",
+  "IsoDate": "2021-06-21",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "2.54.2",
+  "FullVersion": "2.54.2.85311",
+  "Build": "85311",
+  "Link": "",
+  "Links": [],
+  "Affected": [
+    "Heroes: Brightwing",
+    "Garrosh",
+    "Muradin",
+    "Stukov",
+    "Towers of Doom"
+  ],
+  "Highlights": "Hotfix",
+  "CleanedNotes": "=== Battlegrounds: Towers of Doom ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing the Waygate Entrance on Towers of Doom to be hit by area of effect and skillshot Abilities.\r\n\r\n=== Heroes: Muradin ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] The tooltip for Muradin\u0027s Sledgehammer no longer mentions extra stacks for It\u0027s Hammer Time.\r\n\r\n=== Heroes: Stukov ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Stukov\u0027s Fetid Touch now has sounds and animations previously used by Spine Launcher.\r\n  \u2022 [Undocumented] Stukov\u0027s It Hungers now resets its counter when Lurking Arm is cast.\r\n  \u2022 [Undocumented] Stukov\u0027s Reactive Ballistospores cooldown is no longer increased by the number of seconds equal to your Death Timer.\r\n  \u2022 [Undocumented] Stukov\u0027s Bio-Kill Switch now has a 0.0625 second cooldown between uses.",
+  "Sections": {
+    "Battlegrounds: Towers of Doom": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing the Waygate Entrance on Towers of Doom to be hit by area of effect and skillshot Abilities."
+    ],
+    "Heroes: Muradin": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] The tooltip for Muradin\u0027s Sledgehammer no longer mentions extra stacks for It\u0027s Hammer Time."
+    ],
+    "Heroes: Stukov": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Stukov\u0027s Fetid Touch now has sounds and animations previously used by Spine Launcher.",
+      "  \u2022 [Undocumented] Stukov\u0027s It Hungers now resets its counter when Lurking Arm is cast.",
+      "  \u2022 [Undocumented] Stukov\u0027s Reactive Ballistospores cooldown is no longer increased by the number of seconds equal to your Death Timer.",
+      "  \u2022 [Undocumented] Stukov\u0027s Bio-Kill Switch now has a 0.0625 second cooldown between uses."
+    ]
+  },
+  "PatchFile": "live/2021-06-21-2.54.2.json",
+  "Sources": [
+    "live-master.json",
+    "wiki-patches.html",
+    "2021-06-21-hotfix.html",
+    "2021-06-21-v2-54-2-85311-2021-06-21-hotfix-patch-live.json"
+  ]
+}

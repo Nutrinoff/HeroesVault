@@ -1,0 +1,39 @@
+{
+  "Id": "npn-2024-12-13-2.55.8",
+  "Title": "2024-12-13 Hotfix Patch",
+  "Subtitle": "=== Heroes: D",
+  "Date": "Dec 13, 2024",
+  "IsoDate": "2024-12-13",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "2.55.8",
+  "FullVersion": "2.55.8.93382",
+  "Build": "93382",
+  "Link": "",
+  "Links": [],
+  "Affected": [
+    "D.Va",
+    "Samuro"
+  ],
+  "Highlights": "=== Heroes: D",
+  "CleanedNotes": "=== Heroes: D.Va ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing D.Va\u0027s Target Locked to be refreshed by Defense Matrix cast by a different D.Va than applied Target Locked.\r\n\r\n=== Heroes: Samuro ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing the Critical Strike\u0027s remaining duration of Samuro\u0027s Mirror Image to not match the Critical Strike\u0027s remaining duration of Samuro when created or when Image Transmission is used.\r\n  \u2022 [Undocumented] Fixed an issue causing Samuro\u0027s Way of Illusion to not be replicated on Mirror Images if selected while Mirror Images are already active.\r\n  \u2022 [Undocumented] Fixed an issue causing the Quest stacks of Samuro\u0027s Way of Illusion on Mirror Images to be increased by 1 when created or when Image Transmission is used.\r\n  \u2022 [Undocumented] Fixed an issue causing the Quests stacks of Samuro\u0027s Way of Illusion to be granted when hitting non-Heroes with Critical Strike active.",
+  "Sections": {
+    "Heroes: D.Va": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing D.Va\u0027s Target Locked to be refreshed by Defense Matrix cast by a different D.Va than applied Target Locked."
+    ],
+    "Heroes: Samuro": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing the Critical Strike\u0027s remaining duration of Samuro\u0027s Mirror Image to not match the Critical Strike\u0027s remaining duration of Samuro when created or when Image Transmission is used.",
+      "  \u2022 [Undocumented] Fixed an issue causing Samuro\u0027s Way of Illusion to not be replicated on Mirror Images if selected while Mirror Images are already active.",
+      "  \u2022 [Undocumented] Fixed an issue causing the Quest stacks of Samuro\u0027s Way of Illusion on Mirror Images to be increased by 1 when created or when Image Transmission is used.",
+      "  \u2022 [Undocumented] Fixed an issue causing the Quests stacks of Samuro\u0027s Way of Illusion to be granted when hitting non-Heroes with Critical Strike active."
+    ]
+  },
+  "PatchFile": "live/2024-12-13-2.55.8.json",
+  "Sources": [
+    "live-master.json",
+    "2024-12-13-hotfix.html",
+    "2024-12-13-v2-55-8-93382-2024-12-13-hotfix-patch-live.json"
+  ]
+}

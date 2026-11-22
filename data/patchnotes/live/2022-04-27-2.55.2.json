@@ -1,0 +1,43 @@
+{
+  "Id": "wiki-2.55.2-April 27, 2022",
+  "Title": "2022-04-27 Hotfix Patch",
+  "Subtitle": "Alterac Pass prisoner cage fix with Hogger\u0027s Loot Hoard and Collection portrait/mount fixes.",
+  "Date": "Apr 27, 2022",
+  "IsoDate": "2022-04-27",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "2.55.2",
+  "FullVersion": "2.55.2.87990",
+  "Build": "87990",
+  "Link": "https://us.forums.blizzard.com/en/heroes/t/heroes-of-the-storm-hotfix-patch-notes-april-27-2022/57430",
+  "Links": [
+    "https://us.forums.blizzard.com/en/heroes/t/heroes-of-the-storm-hotfix-patch-notes-april-27-2022/57430"
+  ],
+  "Affected": [
+    "Alterac Pass",
+    "Hogger"
+  ],
+  "Highlights": "Alterac Pass prisoner cage fix with Hogger\u0027s Loot Hoard and Collection portrait/mount fixes.",
+  "CleanedNotes": "=== Shop ===\r\n[Bug Fixes]\r\n  \u2022 The Shaman of the Earthen Ring and Lord of the Clans portraits for Thrall are available after purchase.\r\n  \u2022 The Dark Lady Sylvanas portrait is granted and can be equipped after purchasing with Shards.\r\n  \u2022 Leoric\u0027s Phantom mount is now available in Collections.\r\n  \u2022 The Classic Xul portrait is now available in Collections.\r\n\r\n=== Battlegrounds: Alterac Pass ===\r\n[Bug Fixes]\r\n  \u2022 The prisoner can no longer be moved out of the cage by using Hogger\u0027s Loot Hoard.",
+  "Sections": {
+    "Shop": [
+      "[Bug Fixes]",
+      "  \u2022 The Shaman of the Earthen Ring and Lord of the Clans portraits for Thrall are available after purchase.",
+      "  \u2022 The Dark Lady Sylvanas portrait is granted and can be equipped after purchasing with Shards.",
+      "  \u2022 Leoric\u0027s Phantom mount is now available in Collections.",
+      "  \u2022 The Classic Xul portrait is now available in Collections."
+    ],
+    "Battlegrounds: Alterac Pass": [
+      "[Bug Fixes]",
+      "  \u2022 The prisoner can no longer be moved out of the cage by using Hogger\u0027s Loot Hoard."
+    ]
+  },
+  "PatchFile": "live/2022-04-27-2.55.2.json",
+  "Sources": [
+    "live-master.json",
+    "wiki-patches.html",
+    "2022-04-27-hotfix.html",
+    "manual-edit",
+    "2022-04-27-v2-55-2-87990-2022-04-27-hotfix-patch-live.json"
+  ]
+}

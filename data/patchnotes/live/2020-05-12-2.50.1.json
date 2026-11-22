@@ -1,0 +1,36 @@
+{
+  "Id": "npn-2020-05-12-2.50.1",
+  "Title": "2020-05-12 Hotfix Patch",
+  "Subtitle": "=== Battlegrounds: Hanamura Temple ===",
+  "Date": "May 12, 2020",
+  "IsoDate": "2020-05-12",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "2.50.1",
+  "FullVersion": "2.50.1.79515",
+  "Build": "79515",
+  "Link": "",
+  "Links": [],
+  "Affected": [
+    "Hanamura Temple"
+  ],
+  "Highlights": "=== Battlegrounds: Hanamura Temple ===",
+  "CleanedNotes": "=== Battlegrounds: Hanamura Temple ===\r\n[Updates]\r\n  Mercenaries:\r\n  \u2022 Sentinel Camp\r\n    \u2022 Sentinel\r\n      \u2022 Laner\r\n        \u2022 [Undocumented] Health reduced from 8000 to 7200.\r\n        \u2022 [Undocumented] Health scaling reduced by about 10%.",
+  "Sections": {
+    "Battlegrounds: Hanamura Temple": [
+      "[Updates]",
+      "  Mercenaries:",
+      "  \u2022 Sentinel Camp",
+      "    \u2022 Sentinel",
+      "      \u2022 Laner",
+      "        \u2022 [Undocumented] Health reduced from 8000 to 7200.",
+      "        \u2022 [Undocumented] Health scaling reduced by about 10%."
+    ]
+  },
+  "PatchFile": "live/2020-05-12-2.50.1.json",
+  "Sources": [
+    "live-master.json",
+    "2020-05-12-hotfix.html",
+    "2020-05-12-v2-50-1-79515-2020-05-12-hotfix-patch-live.json"
+  ]
+}

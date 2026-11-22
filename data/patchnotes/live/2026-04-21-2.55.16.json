@@ -1,0 +1,39 @@
+{
+  "Id": "npn-2026-04-21-2.55.16",
+  "Title": "2026-04-21 Hotfix Patch",
+  "Subtitle": "=== Heroes: Chen ===",
+  "Date": "Apr 21, 2026",
+  "IsoDate": "2026-04-21",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "2.55.16",
+  "FullVersion": "2.55.16.96881",
+  "Build": "96881",
+  "Link": "",
+  "Links": [],
+  "Affected": [
+    "Chen",
+    "Falstad"
+  ],
+  "Highlights": "=== Heroes: Chen ===",
+  "CleanedNotes": "=== Heroes: Chen ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Chen\u0027s Accumulating Flame to only grant bonus stacks from Hero Takedowns when the killer is a Hero.\r\n  \u2022 [Undocumented] Fixed an issue causing Chen\u0027s Accumulating Flame to grant stacks before dealing damage.\r\n  \u2022 [Undocumented] Fixed an issue causing Chen\u0027s Accumulating Flame to not grant stacks if the target dies to Breath of Fire\u0027s initial damage.\r\n\r\n=== Heroes: Falstad ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Falstad\u0027s Hinterland Blast to deal 0 damage.\r\n  \u2022 [Undocumented] Fixed an issue causing Falstad\u0027s Frequent Flyer to give stacks from dying Clones.",
+  "Sections": {
+    "Heroes: Chen": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Chen\u0027s Accumulating Flame to only grant bonus stacks from Hero Takedowns when the killer is a Hero.",
+      "  \u2022 [Undocumented] Fixed an issue causing Chen\u0027s Accumulating Flame to grant stacks before dealing damage.",
+      "  \u2022 [Undocumented] Fixed an issue causing Chen\u0027s Accumulating Flame to not grant stacks if the target dies to Breath of Fire\u0027s initial damage."
+    ],
+    "Heroes: Falstad": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Falstad\u0027s Hinterland Blast to deal 0 damage.",
+      "  \u2022 [Undocumented] Fixed an issue causing Falstad\u0027s Frequent Flyer to give stacks from dying Clones."
+    ]
+  },
+  "PatchFile": "live/2026-04-21-2.55.16.json",
+  "Sources": [
+    "live-master.json",
+    "2026-04-21-hotfix.html",
+    "2026-04-21-v2-55-16-96881-2026-04-21-hotfix-patch-live.json"
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "Id": "hotfix-patch-notes-march-4-2021",
+  "Title": "Hogger Hotfix Patch #3",
+  "Subtitle": "Hotfix",
+  "Date": "Mar 4, 2021",
+  "IsoDate": "2021-03-04",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "2.53.3",
+  "FullVersion": "2.53.3.84249",
+  "Build": "84249",
+  "Link": "",
+  "Links": [],
+  "Affected": [
+    "Alexstrasza",
+    "Falstad",
+    "Mephisto",
+    "Tyrael"
+  ],
+  "Highlights": "Hotfix",
+  "CleanedNotes": "=== Heroes: Alexstrasza ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue causing the passive Health cost reduction from Lifeblossom would not properly apply.\r\n\r\n=== Heroes: Falstad ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue causing Dishonorable Discharge to gain Quest progress from subsequent Lightning Rod strikes after the third strike against non-Heroes.\r\n  \u2022 Fixed an issue causing Dishonorable Discharge\u0027s damage bonus to be multiplicative with Lightning Rod\u0027s bonus damage to Minions and Mercenaries.\r\n  \u2022 Fixed an issue causing Frequent Flyer to not display the cooldown in its tooltip.\r\n\r\n=== Heroes: Mephisto ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue causing Durance of Hatred to have a reduced cast time.\r\n  \u2022 Fixed an issue where Skull Missile would not be affected by Basic Ability cooldown reduction effects.\r\n\r\n=== Heroes: Tyrael ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue causing Tyrael to get Death Timer reduction for damaging non-Heroes with Archangel\u0027s Wrath.\r\n  \u2022 Fixed an issue causing Bound By Law to heal Tyrael for damaging non-Heroes.",
+  "Sections": {
+    "Heroes: Alexstrasza": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue causing the passive Health cost reduction from Lifeblossom would not properly apply."
+    ],
+    "Heroes: Falstad": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue causing Dishonorable Discharge to gain Quest progress from subsequent Lightning Rod strikes after the third strike against non-Heroes.",
+      "  \u2022 Fixed an issue causing Dishonorable Discharge\u0027s damage bonus to be multiplicative with Lightning Rod\u0027s bonus damage to Minions and Mercenaries.",
+      "  \u2022 Fixed an issue causing Frequent Flyer to not display the cooldown in its tooltip."
+    ],
+    "Heroes: Mephisto": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue causing Durance of Hatred to have a reduced cast time.",
+      "  \u2022 Fixed an issue where Skull Missile would not be affected by Basic Ability cooldown reduction effects."
+    ],
+    "Heroes: Tyrael": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue causing Tyrael to get Death Timer reduction for damaging non-Heroes with Archangel\u0027s Wrath.",
+      "  \u2022 Fixed an issue causing Bound By Law to heal Tyrael for damaging non-Heroes."
+    ]
+  },
+  "PatchFile": "live/2021-03-04-2.53.3.json",
+  "Sources": [
+    "live-master.json",
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2021-03-04-hotfix.html",
+    "2021-03-04-v2-53-3-84249-hogger-hotfix-patch-3-live.json"
+  ]
+}

@@ -1,0 +1,214 @@
+{
+  "Id": "npn-2023-09-20-2.55.3",
+  "Title": "2023-09-20 Live Patch",
+  "Subtitle": "=== General ===",
+  "Date": "Sep 20, 2023",
+  "IsoDate": "2023-09-20",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "2.55.3",
+  "FullVersion": "2.55.3.91020",
+  "Build": "91020",
+  "Link": "https://news.blizzard.com/en-us/heroes-of-the-storm/23999073",
+  "Links": [
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/23999073"
+  ],
+  "Affected": [
+    "Braxis Holdout",
+    "Abathur",
+    "Alexstrasza",
+    "Anduin",
+    "Blaze",
+    "Cho",
+    "Chromie",
+    "D.Va",
+    "Deathwing",
+    "Gall",
+    "Hogger",
+    "Imperius",
+    "Kharazim",
+    "Li Li",
+    "Li-Ming",
+    "Medivh",
+    "Mei",
+    "Mephisto",
+    "Murky",
+    "Nazeebo",
+    "Orphea",
+    "Ragnaros",
+    "Samuro",
+    "Sylvanas",
+    "The Lost Vikings",
+    "Tychus",
+    "Tyrael",
+    "Zarya",
+    "Zeratul"
+  ],
+  "Highlights": "=== General ===",
+  "CleanedNotes": "=== General ===\r\n[Updates]\r\n  ARAM:\r\n  \u2022 Same Hero Mode chance reduced from 5% to 2%.\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that prevented the Robin Woodland Guardian Mount from being usable.\r\n  \u2022 Fixed an issue that prevented the Tangerine Woodland Guardian Mount from being usable.\r\n  \u2022 Fixed several Abilities that were not disabled when activating Toy Train.\r\n  \u2022 Fixed several Abilities that were not disabled while using a Mount.\r\n  \u2022 [Undocumented] Experience Globes can no longer be disjointed by teleporting.\r\n  \u2022 [Undocumented] Fixed an issue that caused the Target Info Panel to display incorrectly after being moved.\r\n\r\n=== Battlegrounds: Braxis Holdout ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Banelings from Zerg Waves to not explode on impact while Blinded.\r\n\r\n=== Heroes: Abathur ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that prevented the Monstrosity from using the Force Move command.\r\n  \u2022 Fixed an issue causing Abathur\u0027s Ultimate Evolution to benefit from Talents (Spin to Win, Norse Force, Jump!, or Nordic Attack Force) when used to clone one of The Lost Vikings.\r\n  \u2022 [Undocumented] Fixed an issue causing the Shield from Abathur\u0027s Evolutionary Link to also be created on the previous target of Ultimate Evolution while Ultimate Evolution is active.\r\n  \u2022 [Undocumented] Fixed an issue causing Gall\u0027s Shifting Nether to also teleport an Abathur\u0027s Ultimate Evolution copy of Cho if it was nearby when cast.\r\n\r\n=== Heroes: Alexstrasza ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that caused Flames of Fury to not reduce the amount of Mana gained from hitting an ignited enemy with Flame Buffet.\r\n  \u2022 Fixed an issue that Dragon Scales could be refreshed when requirements were met while the buff was still up.\r\n\r\n=== Heroes: Anduin ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that caused Speed of the Pious to not grant cooldown reduction when bringing an allied Hero to full health with Divine Star.\r\n\r\n=== Heroes: Blaze ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that caused the Bunker to be destroyed by the Punisher on Infernal Shrines in a single hit.\r\n  \u2022 Fixed an issue where Blaze\u0027s Ignited Oil Spill was not affected by any forms of damage modification when not ignited directly by Blaze.\r\n  \u2022 [Undocumented] Fixed an issue causing Blaze\u0027s Suppressive Fire to not reduce healing dealt.\r\n\r\n=== Heroes: Cho ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that caused Cho\u0027s radius to be increased after casting Surging Fist.\r\n  \u2022 [Undocumented] Fixed an issue causing Gall\u0027s Shifting Nether to also teleport an Abathur\u0027s Ultimate Evolution copy of Cho if it was nearby when cast.\r\n\r\n=== Heroes: Chromie ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that caused Temporal Loop to permanently reveal the target when used in certain conditions.\r\n  \u2022 Chromie may no longer attempt to place a Time Trap in locations it cannot be placed.\r\n\r\n=== Heroes: D.Va ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that allowed Self-Destruct to be activated while D.Va\u0027s Mech was disabled by taking enough damage to eject D.Va if her Boosters were active.\r\n  \u2022 Fixed an issue that caused Liquid Cooling to not apply properly if Call Mech was used shortly after activating Self-Destruct.\r\n  \u2022 Fixed an issue that allowed Defense Matrix to push targets not intended to be pushable if Diverting Power was selected.\r\n  \u2022 Fixed an issue that caused Diverting Power to not increase D.Va\u0027s Self Healing when it restores Health to the Mech.\r\n\r\n=== Heroes: Deathwing ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue where Gaze Onto Destruction reduced the damage of non Heroes.\r\n\r\n=== Heroes: Gall ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Gall\u0027s Shifting Nether to also teleport an Abathur\u0027s Ultimate Evolution copy of Cho if it was nearby when cast.\r\n\r\n=== Heroes: Hogger ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that allowed Hogger to use his Dance without incurring movement restrictions.\r\n\r\n=== Heroes: Imperius ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue where Molten Armor dealt inconsistent damage.\r\n\r\n=== Heroes: Kharazim ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Kharazim\u0027s Air Ally to not grant Spell Power to Gall.\r\n\r\n=== Heroes: Li Li ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue where Blessings of Yu\u0027lon reduced the healing of Cloud Serpent.\r\n  \u2022 Fixed an issue where Mistweaver healed Li Li for the incorrect amount.\r\n  \u2022 Fixed issues with interactions between Blessings of Yu\u0027lon, Cloud Serpent, and multiple Li Li heroes.\r\n  \u2022 Fixed issues with Li Li\u0027s Cloud Serpent Healing Score and floating text.\r\n  \u2022 Fixed an issue where the healing dealt by Blessings of Yu\u0027lon would be incorrect if Li Li did not cast Cloud Serpent on herself.\r\n  \u2022 Fixed an issue where Blessings of Yu\u0027lon increased Li Li\u0027s healing even if they do not have the talent.\r\n  \u2022 Fixed an issue where Wind Serpent increased Li Li\u0027s speed even if they do not have the talent.\r\n\r\n=== Heroes: Li-Ming ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Li-Ming\u0027s Glass Cannon to not increase healing dealt.\r\n  \u2022 [Undocumented] Fixed an issue causing Li-Ming\u0027s Power Hungry to not increase healing dealt.\r\n\r\n=== Heroes: Medivh ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Medivh\u0027s Force of Magic to not increase healing dealt.\r\n\r\n=== Heroes: Mei ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue where Mei\u0027s Skating Away did not give 50 Armor ~~to nearby~~ [Undocumented] when taking damage from non-Heroes.\r\n  \u2022 Fixed an issue where Mei\u0027s The Big One only gained 50% increased damage from Slushball.\r\n\r\n=== Heroes: Mephisto ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Mephisto\u0027s Abhorred Skull to not increase healing dealt by the correct amount.\r\n\r\n=== Heroes: Murky ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Murky\u0027s Living the Dream to not increase healing dealt.\r\n\r\n=== Heroes: Nazeebo ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Nazeebo\u0027s Thing of the Deep to not increase healing dealt.\r\n  \u2022 [Undocumented] Fixed an issue causing Nazeebo\u0027s Soul Harvest to not increase healing dealt.\r\n\r\n=== Heroes: Orphea ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that allowed Orphea to have her Shadow Waltz be fired at an enemy without aiming in their direction.\r\n\r\n=== Heroes: Ragnaros ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Ragnaros\u0027s Lava Wave to gain Experience from small Experience Globes as though they were full Experience Globes.\r\n\r\n=== Heroes: Samuro ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that allowed Samuro to activate Image Transmission on a Mirror Image directly after his Hearthstone activates.\r\n  \u2022 Fixed an issue that caused Samuro to lose the benefits of the Deflection talent if Three-Blade Style is selected while any Mirror Images are active.\r\n\r\n=== Heroes: Sylvanas ===\r\n[Bug Fixes]\r\n  \u2022 Fixed issues with Withering Fire\u0027s projectile missile.\r\n  \u2022 Fixed an issue that caused Black Arrows to apply from Basic Attacks prior to the damage being dealt, increasing the damage from the attack that applies the third stack of Black Arrows by 25%.\r\n  \u2022 Fixed an isue that caused Black Arrows to apply from Basic Attacks prior to Lost Soul checking for stacks, causing the attack that applies the third stack of Black Arrows to grant cooldown reduction.\r\n  \u2022 Fixed an issue that caused Black Arrows to apply from Basic Attacks prior to Remorseles checking for stacks, causing the attack that applies the third stack of Black Arrows to activate Remorseless.\r\n  \u2022 Fixed an issue that caused Black Arrows to apply from Basic Attacks prior to Overwhelming Affliction checking for stacks, allowing the attack that applies the third stack of Black Arrows to slow the target, and then deal percent damage in that same attack if the target was able to be slowed, but was not slowed prior to the attack.\r\n  \u2022 Fixed an issue that caused Remorseless to apply Black Arrows prior to the damage being dealt, increasing the damage dealt by 25% if the target had two stacks prior to the damage being dealt.\r\n  \u2022 Fixed an issue that caused Withering Fire to apply Black Arrows(when the Withering Barrage talent is selected) prior to the damage being dealt, increasing the damage dealt by 25% if the target had two stacks of Black Arrows prior to the damage being dealt.\r\n  \u2022 Fixed an issue that caused Haunting Wave to apply Black Arrows(when the Festering Wounds talent is selected) prior to the damage being dealt, increasing the damage by 25% if the target did not have three stacks of Black Arrows prior to the damage being dealt.\r\n  \u2022 Fixed an issue that caused the impacting damage from Shadow Dagger to grant Unfurling Shadows quest progress prior to the damage being dealt, increasing the damage dealt by 0.5%.\r\n\r\n=== Heroes: The Lost Vikings ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that prevented the Longboat Raid from using the Force Move command.\r\n\r\n=== Heroes: Tychus ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that caused Tychus\u0027s That\u0027s the Stuff! to not display correctly in the Death Recap.\r\n\r\n=== Heroes: Tyrael ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue where Archangel Wrath applied damage reduction to non Heroes.\r\n\r\n=== Heroes: Zarya ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Zarya\u0027s Defensive Shielding to not apply correctly on Shield Ally expiring.\r\n\r\n=== Heroes: Zeratul ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that caused Singularity Spike when cast from Might of the Nerazim to act as a non-Might of the Nerazim Singularity Spike.",
+  "Sections": {
+    "General": [
+      "[Updates]",
+      "  ARAM:",
+      "  \u2022 Same Hero Mode chance reduced from 5% to 2%.",
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that prevented the Robin Woodland Guardian Mount from being usable.",
+      "  \u2022 Fixed an issue that prevented the Tangerine Woodland Guardian Mount from being usable.",
+      "  \u2022 Fixed several Abilities that were not disabled when activating Toy Train.",
+      "  \u2022 Fixed several Abilities that were not disabled while using a Mount.",
+      "  \u2022 [Undocumented] Experience Globes can no longer be disjointed by teleporting.",
+      "  \u2022 [Undocumented] Fixed an issue that caused the Target Info Panel to display incorrectly after being moved."
+    ],
+    "Battlegrounds: Braxis Holdout": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Banelings from Zerg Waves to not explode on impact while Blinded."
+    ],
+    "Heroes: Abathur": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that prevented the Monstrosity from using the Force Move command.",
+      "  \u2022 Fixed an issue causing Abathur\u0027s Ultimate Evolution to benefit from Talents (Spin to Win, Norse Force, Jump!, or Nordic Attack Force) when used to clone one of The Lost Vikings.",
+      "  \u2022 [Undocumented] Fixed an issue causing the Shield from Abathur\u0027s Evolutionary Link to also be created on the previous target of Ultimate Evolution while Ultimate Evolution is active.",
+      "  \u2022 [Undocumented] Fixed an issue causing Gall\u0027s Shifting Nether to also teleport an Abathur\u0027s Ultimate Evolution copy of Cho if it was nearby when cast."
+    ],
+    "Heroes: Alexstrasza": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that caused Flames of Fury to not reduce the amount of Mana gained from hitting an ignited enemy with Flame Buffet.",
+      "  \u2022 Fixed an issue that Dragon Scales could be refreshed when requirements were met while the buff was still up."
+    ],
+    "Heroes: Anduin": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that caused Speed of the Pious to not grant cooldown reduction when bringing an allied Hero to full health with Divine Star."
+    ],
+    "Heroes: Blaze": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that caused the Bunker to be destroyed by the Punisher on Infernal Shrines in a single hit.",
+      "  \u2022 Fixed an issue where Blaze\u0027s Ignited Oil Spill was not affected by any forms of damage modification when not ignited directly by Blaze.",
+      "  \u2022 [Undocumented] Fixed an issue causing Blaze\u0027s Suppressive Fire to not reduce healing dealt."
+    ],
+    "Heroes: Cho": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that caused Cho\u0027s radius to be increased after casting Surging Fist.",
+      "  \u2022 [Undocumented] Fixed an issue causing Gall\u0027s Shifting Nether to also teleport an Abathur\u0027s Ultimate Evolution copy of Cho if it was nearby when cast."
+    ],
+    "Heroes: Chromie": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that caused Temporal Loop to permanently reveal the target when used in certain conditions.",
+      "  \u2022 Chromie may no longer attempt to place a Time Trap in locations it cannot be placed."
+    ],
+    "Heroes: D.Va": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that allowed Self-Destruct to be activated while D.Va\u0027s Mech was disabled by taking enough damage to eject D.Va if her Boosters were active.",
+      "  \u2022 Fixed an issue that caused Liquid Cooling to not apply properly if Call Mech was used shortly after activating Self-Destruct.",
+      "  \u2022 Fixed an issue that allowed Defense Matrix to push targets not intended to be pushable if Diverting Power was selected.",
+      "  \u2022 Fixed an issue that caused Diverting Power to not increase D.Va\u0027s Self Healing when it restores Health to the Mech."
+    ],
+    "Heroes: Deathwing": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue where Gaze Onto Destruction reduced the damage of non Heroes."
+    ],
+    "Heroes: Gall": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Gall\u0027s Shifting Nether to also teleport an Abathur\u0027s Ultimate Evolution copy of Cho if it was nearby when cast."
+    ],
+    "Heroes: Hogger": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that allowed Hogger to use his Dance without incurring movement restrictions."
+    ],
+    "Heroes: Imperius": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue where Molten Armor dealt inconsistent damage."
+    ],
+    "Heroes: Kharazim": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Kharazim\u0027s Air Ally to not grant Spell Power to Gall."
+    ],
+    "Heroes: Li Li": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue where Blessings of Yu\u0027lon reduced the healing of Cloud Serpent.",
+      "  \u2022 Fixed an issue where Mistweaver healed Li Li for the incorrect amount.",
+      "  \u2022 Fixed issues with interactions between Blessings of Yu\u0027lon, Cloud Serpent, and multiple Li Li heroes.",
+      "  \u2022 Fixed issues with Li Li\u0027s Cloud Serpent Healing Score and floating text.",
+      "  \u2022 Fixed an issue where the healing dealt by Blessings of Yu\u0027lon would be incorrect if Li Li did not cast Cloud Serpent on herself.",
+      "  \u2022 Fixed an issue where Blessings of Yu\u0027lon increased Li Li\u0027s healing even if they do not have the talent.",
+      "  \u2022 Fixed an issue where Wind Serpent increased Li Li\u0027s speed even if they do not have the talent."
+    ],
+    "Heroes: Li-Ming": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Li-Ming\u0027s Glass Cannon to not increase healing dealt.",
+      "  \u2022 [Undocumented] Fixed an issue causing Li-Ming\u0027s Power Hungry to not increase healing dealt."
+    ],
+    "Heroes: Medivh": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Medivh\u0027s Force of Magic to not increase healing dealt."
+    ],
+    "Heroes: Mei": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue where Mei\u0027s Skating Away did not give 50 Armor ~~to nearby~~ [Undocumented] when taking damage from non-Heroes.",
+      "  \u2022 Fixed an issue where Mei\u0027s The Big One only gained 50% increased damage from Slushball."
+    ],
+    "Heroes: Mephisto": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Mephisto\u0027s Abhorred Skull to not increase healing dealt by the correct amount."
+    ],
+    "Heroes: Murky": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Murky\u0027s Living the Dream to not increase healing dealt."
+    ],
+    "Heroes: Nazeebo": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Nazeebo\u0027s Thing of the Deep to not increase healing dealt.",
+      "  \u2022 [Undocumented] Fixed an issue causing Nazeebo\u0027s Soul Harvest to not increase healing dealt."
+    ],
+    "Heroes: Orphea": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that allowed Orphea to have her Shadow Waltz be fired at an enemy without aiming in their direction."
+    ],
+    "Heroes: Ragnaros": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Ragnaros\u0027s Lava Wave to gain Experience from small Experience Globes as though they were full Experience Globes."
+    ],
+    "Heroes: Samuro": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that allowed Samuro to activate Image Transmission on a Mirror Image directly after his Hearthstone activates.",
+      "  \u2022 Fixed an issue that caused Samuro to lose the benefits of the Deflection talent if Three-Blade Style is selected while any Mirror Images are active."
+    ],
+    "Heroes: Sylvanas": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed issues with Withering Fire\u0027s projectile missile.",
+      "  \u2022 Fixed an issue that caused Black Arrows to apply from Basic Attacks prior to the damage being dealt, increasing the damage from the attack that applies the third stack of Black Arrows by 25%.",
+      "  \u2022 Fixed an isue that caused Black Arrows to apply from Basic Attacks prior to Lost Soul checking for stacks, causing the attack that applies the third stack of Black Arrows to grant cooldown reduction.",
+      "  \u2022 Fixed an issue that caused Black Arrows to apply from Basic Attacks prior to Remorseles checking for stacks, causing the attack that applies the third stack of Black Arrows to activate Remorseless.",
+      "  \u2022 Fixed an issue that caused Black Arrows to apply from Basic Attacks prior to Overwhelming Affliction checking for stacks, allowing the attack that applies the third stack of Black Arrows to slow the target, and then deal percent damage in that same attack if the target was able to be slowed, but was not slowed prior to the attack.",
+      "  \u2022 Fixed an issue that caused Remorseless to apply Black Arrows prior to the damage being dealt, increasing the damage dealt by 25% if the target had two stacks prior to the damage being dealt.",
+      "  \u2022 Fixed an issue that caused Withering Fire to apply Black Arrows(when the Withering Barrage talent is selected) prior to the damage being dealt, increasing the damage dealt by 25% if the target had two stacks of Black Arrows prior to the damage being dealt.",
+      "  \u2022 Fixed an issue that caused Haunting Wave to apply Black Arrows(when the Festering Wounds talent is selected) prior to the damage being dealt, increasing the damage by 25% if the target did not have three stacks of Black Arrows prior to the damage being dealt.",
+      "  \u2022 Fixed an issue that caused the impacting damage from Shadow Dagger to grant Unfurling Shadows quest progress prior to the damage being dealt, increasing the damage dealt by 0.5%."
+    ],
+    "Heroes: The Lost Vikings": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that prevented the Longboat Raid from using the Force Move command."
+    ],
+    "Heroes: Tychus": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that caused Tychus\u0027s That\u0027s the Stuff! to not display correctly in the Death Recap."
+    ],
+    "Heroes: Tyrael": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue where Archangel Wrath applied damage reduction to non Heroes."
+    ],
+    "Heroes: Zarya": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Zarya\u0027s Defensive Shielding to not apply correctly on Shield Ally expiring."
+    ],
+    "Heroes: Zeratul": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that caused Singularity Spike when cast from Might of the Nerazim to act as a non-Might of the Nerazim Singularity Spike."
+    ]
+  },
+  "PatchFile": "live/2023-09-20-2.55.3.json",
+  "Sources": [
+    "live-master.json",
+    "2023-09-20-live.html",
+    "2023-09-20-v2-55-3-91020-2023-09-20-live-patch-live.json"
+  ]
+}

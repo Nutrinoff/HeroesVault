@@ -1,0 +1,38 @@
+{
+  "Id": "hotfix-patch-notes-december-7-2020",
+  "Title": "Hogger Hotfix Patch #1",
+  "Subtitle": "Hotfix",
+  "Date": "Dec 7, 2020",
+  "IsoDate": "2020-12-07",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "2.53.0",
+  "FullVersion": "2.53.0.83086",
+  "Build": "83086",
+  "Link": "",
+  "Links": [],
+  "Affected": [
+    "Hogger"
+  ],
+  "Highlights": "Hotfix",
+  "CleanedNotes": "=== General ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing several Skins and Mounts to not be available for selection in the Loadout panel after purchasing them.\r\n  \u2022 [Undocumented] Fixed an issue causing D.Va\u0027s Speederbike to be accessible.\r\n\r\n=== Heroes: Hogger ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Hogger\u0027s mesh collision hitbox to not be reduced while Hogg Wild is active.",
+  "Sections": {
+    "General": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing several Skins and Mounts to not be available for selection in the Loadout panel after purchasing them.",
+      "  \u2022 [Undocumented] Fixed an issue causing D.Va\u0027s Speederbike to be accessible."
+    ],
+    "Heroes: Hogger": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Hogger\u0027s mesh collision hitbox to not be reduced while Hogg Wild is active."
+    ]
+  },
+  "PatchFile": "live/2020-12-07-2.53.0.json",
+  "Sources": [
+    "alpha-master.json",
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2020-12-07-hotfix.html",
+    "2020-12-07-v2-53-0-83086-hogger-hotfix-patch-1-alpha.json"
+  ]
+}
