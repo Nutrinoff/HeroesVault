@@ -27,6 +27,25 @@
   background: #5831bd;
 }
 
+/* Keyboard accessibility focus indicators */
+:where(a[href], button:not(:disabled), input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex]:not([tabindex="-1"])):focus-visible {
+  outline: 2px solid var(--hots-cyan);
+  outline-offset: 2px;
+}
+
+.hots-btn-cyan:focus-visible,
+.hots-btn-gold:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(36, 198, 255, 0.55);
+}
+
+.f2p-row-item:focus-visible {
+  outline: 2px solid var(--hots-cyan);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
 /* HotS beveled surface & chamfered clip feel */
 .hots-panel {
   background: linear-gradient(180deg, rgba(28, 14, 64, 0.92) 0%, rgba(14, 7, 33, 0.96) 100%);
@@ -181,4 +200,15 @@
 
 .f2p-row-lvl {
   order: 99;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-button,
+  .f2p-row-item {
+    transition: none;
+  }
+
+  .f2p-row-item:hover {
+    transform: none;
+  }
 }
