@@ -14,6 +14,15 @@ let heroListObserver = null;
 let heroScrollIdleTimer = null;
 let isHeroListScrolling = false;
 
+function escapeSidebarHtml(value) {
+    return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
 function preloadHeroIds(ids) {
     if (!Array.isArray(ids) || ids.length === 0) return;
 
@@ -72,12 +81,6 @@ function handleHeroListScroll(listEl) {
     clearTimeout(listEl._scrollSettleTimer);
     listEl._scrollSettleTimer = setTimeout(() => {
         isHeroListScrolling = false;
-        if (heroListObserver && listEl) {
-            listEl.querySelectorAll('[data-hero-id]').forEach(btn => {
-                heroListObserver.unobserve(btn);
-                heroListObserver.observe(btn);
-            });
-        }
         scheduleVisibleHeroPreloadAfterIdle();
     }, HERO_SCROLL_SETTLE_DELAY_MS);
 }
@@ -95,18 +98,23 @@ function observeVisibleHeroButtons(listEl) {
     if (!heroListObserver) {
         heroListObserver = new IntersectionObserver(
             entries => {
-                if (isHeroListScrolling) return;
-
                 for (const entry of entries) {
-                    if (entry.isIntersecting && entry.target.dataset.heroId) {
-                        const id = entry.target.dataset.heroId;
-                        if (!PRELOADED_HERO_KEYS.has(String(id).toLowerCase())) {
-                            PENDING_VISIBLE_HERO_IDS.add(id);
+                    const heroId = entry.target?.dataset?.heroId;
+                    if (!heroId) continue;
+
+                    const key = String(heroId).toLowerCase();
+                    if (entry.isIntersecting) {
+                        if (!PRELOADED_HERO_KEYS.has(key)) {
+                            PENDING_VISIBLE_HERO_IDS.add(heroId);
                         }
+                    } else {
+                        PENDING_VISIBLE_HERO_IDS.delete(heroId);
                     }
                 }
 
-                scheduleVisibleHeroPreloadAfterIdle();
+                if (!isHeroListScrolling) {
+                    scheduleVisibleHeroPreloadAfterIdle();
+                }
             },
             {
                 root: listEl,
@@ -126,11 +134,7 @@ function observeVisibleHeroButtons(listEl) {
 
 function navigateFromSidebar(heroId, isBuilderView) {
     if (!heroId || typeof navigateTo !== 'function') return;
-    if (isBuilderView) {
-        navigateTo('builder', { hero: heroId });
-    } else {
-        navigateTo('builds', { hero: heroId });
-    }
+    navigateTo(isBuilderView ? 'builder' : 'builds', { hero: heroId });
 }
 
 function renderHeroSidebar(heroes) {
@@ -141,16 +145,25 @@ function renderHeroSidebar(heroes) {
 
     const isBuilder = !document.getElementById('view-builder')?.classList.contains('hidden');
     const activeId = isBuilder ? builderHeroId : currentSelectedHeroId;
+    const fallbackPortrait = typeof HERO_VIEW_ICON_FALLBACK === 'string'
+        ? HERO_VIEW_ICON_FALLBACK
+        : HERO_FALLBACK_PORTRAIT;
     const frag = document.createDocumentFragment();
 
     (heroes || []).forEach(h => {
+        if (!h || typeof h !== 'object') return;
+
         const tier = String(typeof getHeroTier === 'function' ? getHeroTier(h.id) : 'D').toUpperCase();
         const rawEntry = typeof getRawHeroEntry === 'function' ? getRawHeroEntry(h.id) : null;
         const portraitUrl = typeof resolveAssetUrl === 'function'
-            ? resolveAssetUrl(h.portrait || rawEntry, HERO_FALLBACK_PORTRAIT)
-            : HERO_FALLBACK_PORTRAIT;
-        const btn = document.createElement('button');
+            ? resolveAssetUrl(h.portrait || rawEntry, fallbackPortrait)
+            : fallbackPortrait;
 
+        const safeName = escapeSidebarHtml(h.name || h.id || 'Hero');
+        const safeRole = escapeSidebarHtml(h.role || 'Nexus Combatant');
+        const safeTier = escapeSidebarHtml(tier);
+
+        const btn = document.createElement('button');
         btn.type = 'button';
         btn.dataset.heroId = h.id;
         btn.className = `w-full text-left p-2.5 rounded-[2px] border transition-all cursor-pointer ${
@@ -164,7 +177,7 @@ function renderHeroSidebar(heroes) {
         btn.innerHTML = `
             <div class="flex items-center gap-3 min-w-0">
                 <div class="hex-sidebar-frame">
-                    <img alt="${h.name}" class="hex-sidebar-img" loading="lazy">
+                    <img alt="${safeName}" class="hex-sidebar-img" loading="lazy">
                     <svg class="hex-sidebar-ring" viewBox="0 0 100 100" aria-hidden="true">
                         <polygon
                             points="50,-1.5 96.5,24.2 96.5,75.8 50,101.5 3.5,75.8 3.5,24.2"
@@ -176,11 +189,11 @@ function renderHeroSidebar(heroes) {
                     </svg>
                 </div>
                 <div class="min-w-0 flex-1">
-                    <h4 class="text-sm font-bold truncate text-[#e6ecff]">${h.name}</h4>
-                    <p class="text-xs text-[#9cb6ff]/75 truncate">${h.role || 'Nexus Combatant'}</p>
+                    <h4 class="text-sm font-bold truncate text-[#e6ecff]">${safeName}</h4>
+                    <p class="text-xs text-[#9cb6ff]/75 truncate">${safeRole}</p>
                 </div>
-                <span class="hots-tier-btn is-active shrink-0" data-tier="${tier}">
-                    ${tier} Tier
+                <span class="hots-tier-btn is-active shrink-0" data-tier="${safeTier}">
+                    ${safeTier} Tier
                 </span>
             </div>
         `;
@@ -188,10 +201,10 @@ function renderHeroSidebar(heroes) {
         const img = btn.querySelector('img');
         if (img) {
             img.addEventListener('error', () => {
-                if (img.src !== HERO_FALLBACK_PORTRAIT) {
-                    img.src = HERO_FALLBACK_PORTRAIT;
+                if (img.src !== fallbackPortrait) {
+                    img.src = fallbackPortrait;
                 }
-            });
+            }, { once: true });
             img.src = portraitUrl;
         }
 
@@ -209,6 +222,8 @@ function renderHeroSidebar(heroes) {
 
 function filterHeroes() {
     bindHeroSidebarEvents();
+    clearTimeout(heroSearchPreloadTimer);
+    heroSearchPreloadTimer = null;
 
     const q = (document.getElementById('hero-search')?.value || '').trim().toLowerCase();
     const matches = q
@@ -217,7 +232,6 @@ function filterHeroes() {
 
     renderHeroSidebar(matches);
 
-    clearTimeout(heroSearchPreloadTimer);
     if (q) {
         heroSearchPreloadTimer = setTimeout(() => warmSearchMatches(matches), HERO_SEARCH_PRELOAD_DELAY_MS);
     }
