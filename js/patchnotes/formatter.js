@@ -219,7 +219,7 @@ function formatBlizzLine(text) {
     );
 
     safe = safe.replace(
-        /^([A-Za-z0-9'’().\- /+\[\]]{2,55}):(\s|$)/,
+        /^([A-Za-z0-9'’().\-\s/+\[\]]{2,55}?):(\s|$)/,
         '<strong class="font-semibold text-white">$1:</strong>$2'
     );
 
@@ -265,28 +265,30 @@ function formatBlizzlikePatchNotesHtml(rawText) {
     }
 
     function addBullet(text, indentLevel) {
+        const nextItem = { indent: indentLevel, text, children: [] };
+
         if (!listStack.length) {
-            listStack.push({ indent: indentLevel, items: [{ indent: indentLevel, text, children: [] }] });
+            listStack.push({ indent: indentLevel, items: [nextItem] });
             return;
         }
 
         const top = listStack[listStack.length - 1];
         if (indentLevel > top.indent) {
-            const parentItems = top.items;
-            const lastParent = parentItems[parentItems.length - 1];
-            const childItem = { indent: indentLevel, text, children: [] };
+            const lastParent = top.items[top.items.length - 1];
             if (lastParent) {
-                lastParent.children.push(childItem);
+                lastParent.children.push(nextItem);
                 listStack.push({ indent: indentLevel, items: lastParent.children });
             } else {
-                parentItems.push(childItem);
+                top.items.push(nextItem);
             }
-        } else {
-            while (listStack.length > 1 && indentLevel < listStack[listStack.length - 1].indent) {
-                listStack.pop();
-            }
-            listStack[listStack.length - 1].items.push({ indent: indentLevel, text, children: [] });
+            return;
         }
+
+        while (listStack.length > 1 && listStack[listStack.length - 1].indent > indentLevel) {
+            listStack.pop();
+        }
+
+        listStack[listStack.length - 1].items.push(nextItem);
     }
 
     for (const rawLine of lines) {
