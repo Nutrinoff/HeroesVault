@@ -45,47 +45,66 @@ function syncHomeSummaryCounts() {
     }
 }
 
+async function fetchJsonSafe(url) {
+    try {
+        const res = await fetch(url);
+        if (!res.ok) return null;
+        return await res.json();
+    } catch (err) {
+        console.warn(`[HeroesVault] Failed fetching ${url}:`, err);
+        return null;
+    }
+}
+
 async function loadInitialData() {
-    const [mr, br, mapr, tr] = await Promise.all([
-        fetch('./data/heroes-master.json'),
-        fetch('./data/builds.json'),
-        fetch('./data/maps.json'),
-        fetch('./data/tiers.json')
-    ].map(p => p.catch(() => null)));
+    const [masterData, buildsData, mapsData, tiersData] = await Promise.all([
+        fetchJsonSafe('./data/heroes-master.json'),
+        fetchJsonSafe('./data/builds.json'),
+        fetchJsonSafe('./data/maps.json'),
+        fetchJsonSafe('./data/tiers.json')
+    ]);
 
-    if (mr?.ok) {
-        const d = await mr.json();
-        HOTS_MASTER_DATA = d.items || d;
+    if (masterData) {
+        const rawSource = masterData.items || masterData;
+        HOTS_MASTER_DATA = rawSource;
 
-        const rawHeroes = Array.isArray(HOTS_MASTER_DATA)
-            ? HOTS_MASTER_DATA
-            : Object.values(HOTS_MASTER_DATA);
+        const rawHeroes = Array.isArray(rawSource)
+            ? rawSource
+            : (rawSource && typeof rawSource === 'object' ? Object.values(rawSource) : []);
 
-        MASTER_HERO_LIST = rawHeroes.map(h => {
-            const id = h.id || h.hyperlinkId || h.attributeId;
-            return {
-                id,
-                name: h.name || 'Unknown Hero',
-                title: h.title || 'Nexus Combatant',
-                role: (h.roles && h.roles[0]) || h.expandedRole || 'Nexus Combatant',
-                portrait: typeof getHeroPortrait === 'function' ? getHeroPortrait(h) : (h.portrait || ''),
-                searchText: `${h.name || ''} ${id || ''}`.toLowerCase()
-            };
-        });
+        MASTER_HERO_LIST = rawHeroes
+            .filter(Boolean)
+            .map(h => {
+                const id = h.id || h.hyperlinkId || h.attributeId;
+                const portraitPath = typeof getHeroPortrait === 'function'
+                    ? getHeroPortrait(h)
+                    : (typeof extractPortraitPath === 'function' ? extractPortraitPath(h) : (h.portrait || ''));
 
-        if (typeof preloadAllAssets === 'function') {
-            preloadAllAssets(rawHeroes);
-        }
+                return {
+                    id,
+                    name: h.name || 'Unknown Hero',
+                    title: h.title || 'Nexus Combatant',
+                    role: (Array.isArray(h.roles) && h.roles[0]) || h.expandedRole || 'Nexus Combatant',
+                    portrait: portraitPath,
+                    searchText: `${h.name || ''} ${id || ''}`.toLowerCase()
+                };
+            });
     }
 
-    if (br?.ok) PERSONAL_BUILDS = await br.json();
-    if (mapr?.ok) {
-        MASTER_MAP_LIST = await mapr.json();
+    if (Array.isArray(buildsData)) {
+        PERSONAL_BUILDS = buildsData;
+    }
+
+    if (Array.isArray(mapsData)) {
+        MASTER_MAP_LIST = mapsData;
         if (typeof populateMapsDropdown === 'function') {
             populateMapsDropdown();
         }
     }
-    if (tr?.ok) MASTER_TIERS = await tr.json();
+
+    if (tiersData && typeof tiersData === 'object') {
+        MASTER_TIERS = tiersData;
+    }
 }
 
 
@@ -95,21 +114,35 @@ async function loadInitialData() {
 
 function runFeatureSafe(label, fn) {
     try {
-        fn();
+        return fn();
     } catch (err) {
         console.error(`[HeroesVault] ${label} failed:`, err);
+        return undefined;
     }
 }
 
-function initializeFeatures() {
+function bindGlobalDismissHandlers() {
+    if (!document.body || document.body.dataset.mapsDropdownBound === 'true') return;
+    document.body.dataset.mapsDropdownBound = 'true';
+
+    document.addEventListener('click', e => {
+        if (!e.target.closest('#maps-dropdown-menu') && !e.target.closest('#maps-dropdown-toggle')) {
+            document.getElementById('maps-dropdown-menu')?.classList.add('hidden');
+        }
+    });
+}
+
+async function initializeFeatures() {
     runFeatureSafe('initializeTooltips', () => {
         if (typeof initializeTooltips === 'function') {
             initializeTooltips();
         }
     });
 
-    runFeatureSafe('renderHeroSidebar', () => {
-        if (typeof renderHeroSidebar === 'function') {
+    runFeatureSafe('initializeHeroSidebar', () => {
+        if (typeof initializeHeroSidebar === 'function') {
+            initializeHeroSidebar(MASTER_HERO_LIST);
+        } else if (typeof renderHeroSidebar === 'function') {
             renderHeroSidebar(MASTER_HERO_LIST);
         }
     });
@@ -122,9 +155,9 @@ function initializeFeatures() {
 
     runFeatureSafe('syncHomeSummaryCounts', syncHomeSummaryCounts);
 
-    runFeatureSafe('loadAndRenderRotation', () => {
+    await runFeatureSafe('loadAndRenderRotation', async () => {
         if (typeof loadAndRenderRotation === 'function') {
-            loadAndRenderRotation();
+            await loadAndRenderRotation();
         }
     });
 
@@ -136,15 +169,11 @@ function initializeFeatures() {
         }
     });
 
+    runFeatureSafe('bindGlobalDismissHandlers', bindGlobalDismissHandlers);
+
     runFeatureSafe('lucide.createIcons', () => {
         if (window.lucide) {
             lucide.createIcons();
-        }
-    });
-
-    document.addEventListener('click', e => {
-        if (!e.target.closest('#maps-dropdown-menu') && !e.target.closest('#maps-dropdown-toggle')) {
-            document.getElementById('maps-dropdown-menu')?.classList.add('hidden');
         }
     });
 }
@@ -153,8 +182,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
         assertRequiredGlobals();
         await loadInitialData();
-        initializeFeatures();
-        initializeRouter();
+        await initializeFeatures();
+        if (typeof initializeRouter === 'function') {
+            initializeRouter();
+        }
     } catch (e) {
         console.error('[HeroesVault] Failed initializing app:', e);
     }
