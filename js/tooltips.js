@@ -49,38 +49,39 @@ function positionTooltip(clientX, clientY) {
     tip.style.top = `${top}px`;
 }
 
-function formatTooltipDetailsLine(item) {
-    if (!item || typeof item !== 'object') return '';
-    const parts = [];
-
-    const rawCooldown = item.cooldownText ?? item.cooldown;
-    const cleanCooldown = cleanTooltipInlineText(rawCooldown);
-    if (cleanCooldown) {
-        const hasPrefix = /^(cooldown|charge cooldown|recharge)\b/i.test(cleanCooldown);
-        parts.push(hasPrefix ? cleanCooldown : `Cooldown: ${cleanCooldown}`);
-    }
+function getTooltipDetailLines(item) {
+    if (!item || typeof item !== 'object') return [];
+    const lines = [];
 
     const rawEnergy = item.energyText ?? item.mana ?? item.cost;
     const cleanEnergy = cleanTooltipInlineText(rawEnergy);
     if (cleanEnergy) {
         const hasPrefix = /^(mana|energy|brew|fury|hope|cost)\b/i.test(cleanEnergy);
         if (hasPrefix) {
-            parts.push(cleanEnergy);
+            lines.push(cleanEnergy);
         } else if (item.mana != null && String(item.mana).trim() !== '') {
-            parts.push(`Mana: ${cleanEnergy}`);
+            lines.push(`Mana: ${cleanEnergy}`);
         } else {
-            parts.push(`Cost: ${cleanEnergy}`);
+            lines.push(`Cost: ${cleanEnergy}`);
         }
+    }
+
+    const rawCooldown = item.cooldownText ?? item.cooldown;
+    const cleanCooldown = cleanTooltipInlineText(rawCooldown);
+    if (cleanCooldown) {
+        const hasPrefix = /^(cooldown|charge cooldown|recharge)\b/i.test(cleanCooldown);
+        lines.push(hasPrefix ? cleanCooldown : `Cooldown: ${cleanCooldown}`);
     }
 
     if (item.charges && typeof item.charges === 'object') {
         const maxCharges = Number(item.charges.countMax);
-        if (Number.isFinite(maxCharges) && maxCharges > 1 && !/charges?\b/i.test(parts.join(' '))) {
-            parts.push(`${maxCharges} Charges`);
+        const combinedText = lines.join(' ');
+        if (Number.isFinite(maxCharges) && maxCharges > 1 && !/charges?\b/i.test(combinedText)) {
+            lines.push(`Charges: ${maxCharges}`);
         }
     }
 
-    return parts.join(' · ');
+    return lines;
 }
 
 function showAbilityTooltip(e, a) {
@@ -89,7 +90,7 @@ function showAbilityTooltip(e, a) {
     const variant = a.variant || '';
     const meta = `Ability${key ? ` [${key}]` : ''}${variant ? ` · ${variant}` : ''}`;
     const desc = a.desc ?? a.fullText ?? a.shortText ?? '';
-    showTooltip(e, a.name, meta, desc, a.icon, formatTooltipDetailsLine(a));
+    showTooltip(e, a.name, meta, desc, a.icon, getTooltipDetailLines(a));
 }
 
 function showTalentTooltip(e, t, l) {
@@ -101,7 +102,7 @@ function showTalentTooltip(e, t, l) {
         levelLabel,
         t.fullText || t.shortText || t.description || t.desc || '',
         t.icon,
-        formatTooltipDetailsLine(t)
+        getTooltipDetailLines(t)
     );
 }
 
@@ -142,9 +143,20 @@ function showTooltip(e, name, level, description, icon, details = '') {
         tipLevel.classList.toggle('hidden', !level);
     }
 
+    const detailLines = Array.isArray(details)
+        ? details.filter(Boolean)
+        : (details ? [String(details)] : []);
+
     if (tipCooldown) {
-        tipCooldown.innerText = details || '';
-        tipCooldown.classList.toggle('hidden', !details);
+        if (detailLines.length > 0) {
+            tipCooldown.innerHTML = detailLines
+                .map(line => `<div class="hots-tooltip-stat-line">${cleanTooltipInlineText(line)}</div>`)
+                .join('');
+            tipCooldown.classList.remove('hidden');
+        } else {
+            tipCooldown.innerHTML = '';
+            tipCooldown.classList.add('hidden');
+        }
     }
 
     if (tipDesc) {
