@@ -1,0 +1,69 @@
+{
+  "Id": "balance-update-notes-march-16-2016",
+  "Title": "Xul Balance Patch #2",
+  "Subtitle": "Balance Update",
+  "Date": "Mar 16, 2016",
+  "IsoDate": "2016-03-16",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "16.5",
+  "FullVersion": "1.16.5.41504",
+  "Build": "41504",
+  "Link": "http://us.battle.net/heroes/en/blog/20057110",
+  "Links": [
+    "http://us.battle.net/heroes/en/blog/20057110",
+    "https://news.blizzard.com/heroes-of-the-storm/20057110",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/20057110"
+  ],
+  "Affected": [
+    "Heroes: Nova",
+    "Rehgar",
+    "Xul",
+    "Nova"
+  ],
+  "Highlights": "Balance Update",
+  "CleanedNotes": "=== Heroes: Nova ===\r\n[Updates]\r\n  \u2022 Health increased from 1,273 (\u002B4% per level) to 1,350 (\u002B4% per level)\r\n  \u2022 Health Regeneration increased from 2.65 per second (\u002B4% per level) to 2.81 per second (\u002B4% per level)\r\n  \u2022 Snipe (Q)\r\n    \u2022 Cooldown decreased from 8 to 6 seconds\r\n    \u2022 Mana cost decreased from 60 to 50\r\n    \u2022 Perfect Shot (Talent)\r\n      \u2022 Cooldown reduction decreased from 4 to 3 seconds\r\n  \u2022 Pinning Show (W)\r\n    \u2022 Slow amount increased from 30% to 40%\r\n    \u2022 Covert Ops (Talent)\r\n      \u2022 Maximum slow amount increased from 50% to 60%\r\n\r\n=== Heroes: Rehgar ===\r\n[Updates]\r\n  \u2022 Ancestral Healing (R)\r\n    \u2022 Can no longer be self-cast\r\n\r\n=== Heroes: Xul ===\r\n[Updates]\r\n  \u2022 Basic Attack damage reduced from 115 (\u002B4% per level) to 104 (\u002B4% per level)\r\n  \u2022 Raise Skeleton (Trait)\r\n    \u2022 Skeleton Mastery (Talent)\r\n      \u2022 Damage bonus reduced from 100% to 50%\r\n    \u2022 Corpse Explosion (Talent)\r\n      \u2022 Damage reduced from 65 (\u002B4% per level) to 55 (\u002B4% per level)\r\n  \u2022 Spectral Scythe (Q)\r\n    \u2022 Damage reduced from 300 (\u002B4% per level) to 240 (\u002B4% per level).\r\n    \u2022 Mana cost increased from 45 to 60\r\n  \u2022 Cursed Strikes (W)\r\n    \u2022 Attack Speed slow amount reduced from 50% to 40%",
+  "Sections": {
+    "Heroes: Nova": [
+      "[Updates]",
+      "  \u2022 Health increased from 1,273 (\u002B4% per level) to 1,350 (\u002B4% per level)",
+      "  \u2022 Health Regeneration increased from 2.65 per second (\u002B4% per level) to 2.81 per second (\u002B4% per level)",
+      "  \u2022 Snipe (Q)",
+      "    \u2022 Cooldown decreased from 8 to 6 seconds",
+      "    \u2022 Mana cost decreased from 60 to 50",
+      "    \u2022 Perfect Shot (Talent)",
+      "      \u2022 Cooldown reduction decreased from 4 to 3 seconds",
+      "  \u2022 Pinning Show (W)",
+      "    \u2022 Slow amount increased from 30% to 40%",
+      "    \u2022 Covert Ops (Talent)",
+      "      \u2022 Maximum slow amount increased from 50% to 60%"
+    ],
+    "Heroes: Rehgar": [
+      "[Updates]",
+      "  \u2022 Ancestral Healing (R)",
+      "    \u2022 Can no longer be self-cast"
+    ],
+    "Heroes: Xul": [
+      "[Updates]",
+      "  \u2022 Basic Attack damage reduced from 115 (\u002B4% per level) to 104 (\u002B4% per level)",
+      "  \u2022 Raise Skeleton (Trait)",
+      "    \u2022 Skeleton Mastery (Talent)",
+      "      \u2022 Damage bonus reduced from 100% to 50%",
+      "    \u2022 Corpse Explosion (Talent)",
+      "      \u2022 Damage reduced from 65 (\u002B4% per level) to 55 (\u002B4% per level)",
+      "  \u2022 Spectral Scythe (Q)",
+      "    \u2022 Damage reduced from 300 (\u002B4% per level) to 240 (\u002B4% per level).",
+      "    \u2022 Mana cost increased from 45 to 60",
+      "  \u2022 Cursed Strikes (W)",
+      "    \u2022 Attack Speed slow amount reduced from 50% to 40%"
+    ]
+  },
+  "PatchFile": "live/2016-03-16-16.5.json",
+  "Sources": [
+    "live-master.json",
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2016-03-16-live.html",
+    "2016-03-16-v1-16-5-41504-xul-balance-patch-2-live.json"
+  ]
+}

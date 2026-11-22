@@ -1,0 +1,67 @@
+{
+  "Id": "balance-update-notes-october-25-2016",
+  "Title": "Samuro Balance Patch #1",
+  "Subtitle": "Balance Update",
+  "Date": "Oct 25, 2016",
+  "IsoDate": "2016-10-25",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "21.1",
+  "FullVersion": "1.21.1.47479",
+  "Build": "47479",
+  "Link": "http://us.battle.net/heroes/en/blog/20324866",
+  "Links": [
+    "http://us.battle.net/heroes/en/blog/20324866",
+    "https://news.blizzard.com/heroes-of-the-storm/20324866",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/20324866"
+  ],
+  "Affected": [
+    "Heroes: Samuro",
+    "Chen",
+    "Lt. Morales",
+    "Samuro"
+  ],
+  "Highlights": "Balance Update",
+  "CleanedNotes": "=== Heroes: Chen ===\r\n[Bug Fixes]\r\n  \u2022 Chen\r\n\r\n=== Heroes: Lt. Morales ===\r\n[Bug Fixes]\r\n  \u2022 \u2013 Fixed an issue causing Samuro to deselect himself after entering Lt. Morales\u0027s Medivac Dropship.\r\n\r\n=== Heroes: Samuro ===\r\n[Updates]\r\n  Stats:\r\n  \u2022 Base Maximum Health decreased from 1750 to 1650\r\n  \u2022 Base Health Regen decreased from 3.64 to 3.44\r\n  Abilities:\r\n  \u2022 Mirror Images (Q)\r\n    \u2022 Cooldown increased from 16 to 18 seconds\r\n    \u2022 Mirror Image timed life increased from 16 to 18 seconds\r\n  \u2022 Windwalk (E)\r\n    \u2022 Movement speed bonus reduced from 30 to 25%\r\n  \u2022 Illusion Master (R)\r\n    \u2022 Illusion damage bonus reduced from 20 to 15%\r\n  Talents:\r\n  \u2022 Level 20\r\n    \u2022 Three Blade Style (R)\r\n      \u2022 Mirror Image timed life increased from 32 to 36 seconds\r\n[Bug Fixes]\r\n  \u2022 Samuro\r\n  \u2022 \u2013 Fixed an issue causing Mirror Images to deal an extra swing of Samuro\u0027s full damage if their attacks landed just as the Mirror Images expired.\r\n  \u2022 Samuro\r\n  \u2022 \u2013 Fixed an issue causing Samuro to deselect himself after entering Lt. Morales\u0027s Medivac Dropship.",
+  "Sections": {
+    "Heroes: Chen": [
+      "[Bug Fixes]",
+      "  \u2022 Chen"
+    ],
+    "Heroes: Lt. Morales": [
+      "[Bug Fixes]",
+      "  \u2022 \u2013 Fixed an issue causing Samuro to deselect himself after entering Lt. Morales\u0027s Medivac Dropship."
+    ],
+    "Heroes: Samuro": [
+      "[Updates]",
+      "  Stats:",
+      "  \u2022 Base Maximum Health decreased from 1750 to 1650",
+      "  \u2022 Base Health Regen decreased from 3.64 to 3.44",
+      "  Abilities:",
+      "  \u2022 Mirror Images (Q)",
+      "    \u2022 Cooldown increased from 16 to 18 seconds",
+      "    \u2022 Mirror Image timed life increased from 16 to 18 seconds",
+      "  \u2022 Windwalk (E)",
+      "    \u2022 Movement speed bonus reduced from 30 to 25%",
+      "  \u2022 Illusion Master (R)",
+      "    \u2022 Illusion damage bonus reduced from 20 to 15%",
+      "  Talents:",
+      "  \u2022 Level 20",
+      "    \u2022 Three Blade Style (R)",
+      "      \u2022 Mirror Image timed life increased from 32 to 36 seconds",
+      "[Bug Fixes]",
+      "  \u2022 Samuro",
+      "  \u2022 \u2013 Fixed an issue causing Mirror Images to deal an extra swing of Samuro\u0027s full damage if their attacks landed just as the Mirror Images expired.",
+      "  \u2022 Samuro",
+      "  \u2022 \u2013 Fixed an issue causing Samuro to deselect himself after entering Lt. Morales\u0027s Medivac Dropship."
+    ]
+  },
+  "PatchFile": "live/2016-10-25-21.1.json",
+  "Sources": [
+    "live-master.json",
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2016-10-25-live.html",
+    "2016-10-25-v1-21-1-47479-samuro-balance-patch-1-live.json"
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "Id": "balance-update-notes-april-27-2016",
+  "Title": "Tracer Balance Patch #1",
+  "Subtitle": "Balance Update",
+  "Date": "Apr 27, 2016",
+  "IsoDate": "2016-04-27",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "17.4",
+  "FullVersion": "1.17.4.42506",
+  "Build": "42506",
+  "Link": "http://us.battle.net/heroes/en/blog/20102776",
+  "Links": [
+    "http://us.battle.net/heroes/en/blog/20102776",
+    "https://news.blizzard.com/heroes-of-the-storm/20102776",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/20102776"
+  ],
+  "Affected": [
+    "Heroes: Butcher",
+    "Kael\u0027thas",
+    "Nazeebo",
+    "Rexxar",
+    "Malfurion",
+    "Murky",
+    "The Butcher",
+    "Tracer",
+    "Tyrande"
+  ],
+  "Highlights": "Balance Update",
+  "CleanedNotes": "=== Heroes: Kael\u0027thas ===\r\n[Updates]\r\n  \u2022 Verdant Spheres (Trait) (D)\r\n    \u2022 Mana Addict (Talent)\r\n      \u2022 Regeneration Globes required to complete the Quest have been reduced from 25 to 20.\r\n    \u2022 Fel Infusion (Talent)\r\n      \u2022 Bonus Ability Power decreased from 5% to 4%.\r\n  \u2022 Flame Strike (Q)\r\n    \u2022 Convection (Talent)\r\n      \u2022 Bonus damage on Quest completion increased from 150 to 175.\r\n  \u2022 Living Bomb (W)\r\n    \u2022 Sun King\u0027s Fury (Talent)\r\n      \u2022 Bonus damage decreased from 190 (\u002B4% per level) to 171 (\u002B4% per level).\r\n\r\n=== Heroes: Malfurion ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue causing Malfurion to receive an inconsistent amount of healing when casting Tranquility. Additionally, the tooltip for the Serenity talent should now reflect the correct amount of bonus healing provided.\r\n\r\n=== Heroes: Murky ===\r\n[Bug Fixes]\r\n  \u2022 Murky\u0027s Egg location will no longer be revealed if he is killed by Tracer\u0027s Melee Ability.\r\n\r\n=== Heroes: Nazeebo ===\r\n[Updates]\r\n  \u2022 Gargantuan (R)\r\n    \u2022 Basic Attack damage reduced from 274 (\u002B4% per level) to 219 (\u002B4% per level).\r\n    \u2022 Stomp damage increased from 151 (\u002B4% per level) to 181 (\u002B4% per level).\r\n\r\n=== Heroes: Rexxar ===\r\n[Updates]\r\n  \u2022 Basic Attack range increased by 22%.\r\n  \u2022 Health increased from 1643 (\u002B4% per level) to 1725 (\u002B4% per level).\r\n  \u2022 Health regeneration increased from 3.42 (\u002B4% per level) to 3.59 (\u002B4% per level) per second.\r\n  \u2022 Throwing Axes (Talent) removed.\r\n  \u2022 Misha (Trait)\r\n    \u2022 Leash range increased by approximately 12.5%.\r\n  \u2022 Misha Charge! (W)\r\n    \u2022 Cooldown reduced from 12 to 10 seconds.\r\n    \u2022 Aspect of the Beast (Talent)\r\n      \u2022 Cooldown reduction earned from Misha\u0027s Basic Attacks reduced from 2 to 1.5 second.\r\n\r\n=== Heroes: The Butcher ===\r\n[Updates]\r\n  \u2022 Enraged (Talent)\r\n    \u2022 Cooldown reduced from 30 to 25 seconds.\r\n  \u2022 Hamstring (Q)\r\n    \u2022 Chop Meat (Talent)\r\n      \u2022 Bonus damage to Minions and Mercenaries increased from 50% to 100%.\r\n  \u2022 Butcher\u0027s Brand (W)\r\n    \u2022 Insatiable Blade (Talent)\r\n      \u2022 Bonus Healing from Basic Attacks increased from 25% to 50%.\r\n  \u2022 Ruthless Onslaught (E)\r\n    \u2022 Cooldown reduced from 20 to 15 seconds.\r\n    \u2022 Mana cost from 75 to 55.\r\n    \u2022 Unrelenting Pursuit (Talent)\r\n      \u2022 Cooldown reduction decreased from 40% to 33%.\r\n  \u2022 Furnace Blast (R)\r\n    \u2022 Cooldown reduced from 90 to 80 seconds.\r\n    \u2022 Damage increased from 456 (\u002B4% per level) to 500 (\u002B4% per level).\r\n\r\n=== Heroes: Tracer ===\r\n[Bug Fixes]\r\n  \u2022 Murky\u0027s Egg location will no longer be revealed if he is killed by Tracer\u0027s Melee Ability.\r\n  \u2022 Regeneration Globes will no longer grant 200% Health Regeneration to Tracer after learning her Untouchable Talent.\r\n\r\n=== Heroes: Tyrande ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue causing Tyrande\u0027s Starfall to deal lower than intended damage, and have a higher than intended Mana cost and cooldown after learning her Celestial Wrath Talent.",
+  "Sections": {
+    "Heroes: Kael\u0027thas": [
+      "[Updates]",
+      "  \u2022 Verdant Spheres (Trait) (D)",
+      "    \u2022 Mana Addict (Talent)",
+      "      \u2022 Regeneration Globes required to complete the Quest have been reduced from 25 to 20.",
+      "    \u2022 Fel Infusion (Talent)",
+      "      \u2022 Bonus Ability Power decreased from 5% to 4%.",
+      "  \u2022 Flame Strike (Q)",
+      "    \u2022 Convection (Talent)",
+      "      \u2022 Bonus damage on Quest completion increased from 150 to 175.",
+      "  \u2022 Living Bomb (W)",
+      "    \u2022 Sun King\u0027s Fury (Talent)",
+      "      \u2022 Bonus damage decreased from 190 (\u002B4% per level) to 171 (\u002B4% per level)."
+    ],
+    "Heroes: Malfurion": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue causing Malfurion to receive an inconsistent amount of healing when casting Tranquility. Additionally, the tooltip for the Serenity talent should now reflect the correct amount of bonus healing provided."
+    ],
+    "Heroes: Murky": [
+      "[Bug Fixes]",
+      "  \u2022 Murky\u0027s Egg location will no longer be revealed if he is killed by Tracer\u0027s Melee Ability."
+    ],
+    "Heroes: Nazeebo": [
+      "[Updates]",
+      "  \u2022 Gargantuan (R)",
+      "    \u2022 Basic Attack damage reduced from 274 (\u002B4% per level) to 219 (\u002B4% per level).",
+      "    \u2022 Stomp damage increased from 151 (\u002B4% per level) to 181 (\u002B4% per level)."
+    ],
+    "Heroes: Rexxar": [
+      "[Updates]",
+      "  \u2022 Basic Attack range increased by 22%.",
+      "  \u2022 Health increased from 1643 (\u002B4% per level) to 1725 (\u002B4% per level).",
+      "  \u2022 Health regeneration increased from 3.42 (\u002B4% per level) to 3.59 (\u002B4% per level) per second.",
+      "  \u2022 Throwing Axes (Talent) removed.",
+      "  \u2022 Misha (Trait)",
+      "    \u2022 Leash range increased by approximately 12.5%.",
+      "  \u2022 Misha Charge! (W)",
+      "    \u2022 Cooldown reduced from 12 to 10 seconds.",
+      "    \u2022 Aspect of the Beast (Talent)",
+      "      \u2022 Cooldown reduction earned from Misha\u0027s Basic Attacks reduced from 2 to 1.5 second."
+    ],
+    "Heroes: The Butcher": [
+      "[Updates]",
+      "  \u2022 Enraged (Talent)",
+      "    \u2022 Cooldown reduced from 30 to 25 seconds.",
+      "  \u2022 Hamstring (Q)",
+      "    \u2022 Chop Meat (Talent)",
+      "      \u2022 Bonus damage to Minions and Mercenaries increased from 50% to 100%.",
+      "  \u2022 Butcher\u0027s Brand (W)",
+      "    \u2022 Insatiable Blade (Talent)",
+      "      \u2022 Bonus Healing from Basic Attacks increased from 25% to 50%.",
+      "  \u2022 Ruthless Onslaught (E)",
+      "    \u2022 Cooldown reduced from 20 to 15 seconds.",
+      "    \u2022 Mana cost from 75 to 55.",
+      "    \u2022 Unrelenting Pursuit (Talent)",
+      "      \u2022 Cooldown reduction decreased from 40% to 33%.",
+      "  \u2022 Furnace Blast (R)",
+      "    \u2022 Cooldown reduced from 90 to 80 seconds.",
+      "    \u2022 Damage increased from 456 (\u002B4% per level) to 500 (\u002B4% per level)."
+    ],
+    "Heroes: Tracer": [
+      "[Bug Fixes]",
+      "  \u2022 Murky\u0027s Egg location will no longer be revealed if he is killed by Tracer\u0027s Melee Ability.",
+      "  \u2022 Regeneration Globes will no longer grant 200% Health Regeneration to Tracer after learning her Untouchable Talent."
+    ],
+    "Heroes: Tyrande": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue causing Tyrande\u0027s Starfall to deal lower than intended damage, and have a higher than intended Mana cost and cooldown after learning her Celestial Wrath Talent."
+    ]
+  },
+  "PatchFile": "live/2016-04-27-17.4.json",
+  "Sources": [
+    "live-master.json",
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2016-04-27-live.html",
+    "2016-04-27-v1-17-4-42506-tracer-balance-patch-1-live.json"
+  ]
+}

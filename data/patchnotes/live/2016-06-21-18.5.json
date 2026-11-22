@@ -1,0 +1,74 @@
+{
+  "Id": "balance-update-notes-june-21-2016",
+  "Title": "Medivh Balance Patch #1",
+  "Subtitle": "Balance Update",
+  "Date": "Jun 21, 2016",
+  "IsoDate": "2016-06-21",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "18.5",
+  "FullVersion": "1.18.5.43905",
+  "Build": "43905",
+  "Link": "http://us.battle.net/heroes/en/blog/20157260",
+  "Links": [
+    "http://us.battle.net/heroes/en/blog/20157260",
+    "https://news.blizzard.com/heroes-of-the-storm/20157260",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/20157260"
+  ],
+  "Affected": [
+    "Heroes: Chromie",
+    "Kael\u0027thas",
+    "Rehgar",
+    "Chromie",
+    "Tracer"
+  ],
+  "Highlights": "Balance Update",
+  "CleanedNotes": "=== Heroes: Chromie ===\r\n[Updates]\r\n  Basic Abilities:\r\n  \u2022 Time Trap (E)\r\n    \u2022 Mana cost reduced from 50 to 25\r\n    \u2022 Cast range increased by 50%.\r\n    \u2022 Time Trap Base Health increased from 200 to 300.\r\n\r\n=== Heroes: Kael\u0027thas ===\r\n[Updates]\r\n  Basic Abilities:\r\n  \u2022 Living Bomb (W)\r\n    \u2022 Damage over time reduced from 84 to 50.\r\n    \u2022 Explosion damage increased from 138 to 200.\r\n\r\n=== Heroes: Rehgar ===\r\n[Updates]\r\n  Stats:\r\n  \u2022 Basic Attack damage increased from 95 to 99.\r\n  Basic Abilities:\r\n  \u2022 Chain Heal (Q)\r\n    \u2022 Primary heal amount reduced from 372 to 334.\r\n    \u2022 Secondary bounce heal amount reduced from 186 to 167.\r\n  \u2022 Lightning Shield (W)\r\n    \u2022 Damage increased from 60 damage per second to 64 damage per second.\r\n  Talents:\r\n  Level 4:\r\n  \u2022 Stormcaller (W)\r\n    \u2022 Mana return increased from 3 to 4 per Hero hit.\r\n    \u2022 Maximum Mana returned increased from 30 to 40.\r\n[Bug Fixes]\r\n  \u2022 The untalented Lightning Shield gained from the Lightning Bond talent will no longer increase the damage dealt by Rising Storm when both talents are taken.\r\n\r\n=== Heroes: Tracer ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue causing Pulse Bomb to deal unintended additional damage when certain talents were chosen.",
+  "Sections": {
+    "Heroes: Chromie": [
+      "[Updates]",
+      "  Basic Abilities:",
+      "  \u2022 Time Trap (E)",
+      "    \u2022 Mana cost reduced from 50 to 25",
+      "    \u2022 Cast range increased by 50%.",
+      "    \u2022 Time Trap Base Health increased from 200 to 300."
+    ],
+    "Heroes: Kael\u0027thas": [
+      "[Updates]",
+      "  Basic Abilities:",
+      "  \u2022 Living Bomb (W)",
+      "    \u2022 Damage over time reduced from 84 to 50.",
+      "    \u2022 Explosion damage increased from 138 to 200."
+    ],
+    "Heroes: Rehgar": [
+      "[Updates]",
+      "  Stats:",
+      "  \u2022 Basic Attack damage increased from 95 to 99.",
+      "  Basic Abilities:",
+      "  \u2022 Chain Heal (Q)",
+      "    \u2022 Primary heal amount reduced from 372 to 334.",
+      "    \u2022 Secondary bounce heal amount reduced from 186 to 167.",
+      "  \u2022 Lightning Shield (W)",
+      "    \u2022 Damage increased from 60 damage per second to 64 damage per second.",
+      "  Talents:",
+      "  Level 4:",
+      "  \u2022 Stormcaller (W)",
+      "    \u2022 Mana return increased from 3 to 4 per Hero hit.",
+      "    \u2022 Maximum Mana returned increased from 30 to 40.",
+      "[Bug Fixes]",
+      "  \u2022 The untalented Lightning Shield gained from the Lightning Bond talent will no longer increase the damage dealt by Rising Storm when both talents are taken."
+    ],
+    "Heroes: Tracer": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue causing Pulse Bomb to deal unintended additional damage when certain talents were chosen."
+    ]
+  },
+  "PatchFile": "live/2016-06-21-18.5.json",
+  "Sources": [
+    "live-master.json",
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2016-06-21-live.html",
+    "2016-06-21-v1-18-5-43905-medivh-balance-patch-1-live.json"
+  ]
+}

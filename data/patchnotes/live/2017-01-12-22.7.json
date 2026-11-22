@@ -1,0 +1,49 @@
+{
+  "Id": "hotfix-patch-notes-january-12-2017",
+  "Title": "Zul\u0027jin Hotfix Patch",
+  "Subtitle": "Hotfix",
+  "Date": "Jan 12, 2017",
+  "IsoDate": "2017-01-12",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "22.7",
+  "FullVersion": "1.22.7.49495",
+  "Build": "49495",
+  "Link": "http://us.battle.net/heroes/en/blog/20474696",
+  "Links": [
+    "http://us.battle.net/heroes/en/blog/20474696",
+    "https://news.blizzard.com/heroes-of-the-storm/20474696",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/20474696"
+  ],
+  "Affected": [
+    "Artanis",
+    "Li-Ming",
+    "Zul\u0027jin"
+  ],
+  "Highlights": "Hotfix",
+  "CleanedNotes": "=== Heroes: Artanis ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that could prevent Artanis from swapping positions with his target after using Blade Dash and Phase Prism.\r\n\r\n=== Heroes: Li-Ming ===\r\n[Bug Fixes]\r\n  \u2022 Basic Attacks that are empowered by the Cannoneer Talent will now correctly trigger the bonus damage granted by the Charged Blast Talent.\r\n\r\n=== Heroes: Zul\u0027jin ===\r\n[Bug Fixes]\r\n  \u2022 Kael\u0027thas\u0027s Living Bomb will no longer repeatedly explode after being cast on Zul\u0027jin while Taz\u0027dingo is active.\r\n  \u2022 Rehgar\u0027s Ancestral Healing will no longer fail to heal Zul\u0027jin if it is cast in the same moment that Berserker would reduce his Health to 1.\r\n  \u2022 Taz\u0027dingo will now be placed on a reduced cooldown, rather than full cooldown, if it is cast at the exact same moment that he takes fatal damage.",
+  "Sections": {
+    "Heroes: Artanis": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that could prevent Artanis from swapping positions with his target after using Blade Dash and Phase Prism."
+    ],
+    "Heroes: Li-Ming": [
+      "[Bug Fixes]",
+      "  \u2022 Basic Attacks that are empowered by the Cannoneer Talent will now correctly trigger the bonus damage granted by the Charged Blast Talent."
+    ],
+    "Heroes: Zul\u0027jin": [
+      "[Bug Fixes]",
+      "  \u2022 Kael\u0027thas\u0027s Living Bomb will no longer repeatedly explode after being cast on Zul\u0027jin while Taz\u0027dingo is active.",
+      "  \u2022 Rehgar\u0027s Ancestral Healing will no longer fail to heal Zul\u0027jin if it is cast in the same moment that Berserker would reduce his Health to 1.",
+      "  \u2022 Taz\u0027dingo will now be placed on a reduced cooldown, rather than full cooldown, if it is cast at the exact same moment that he takes fatal damage."
+    ]
+  },
+  "PatchFile": "live/2017-01-12-22.7.json",
+  "Sources": [
+    "live-master.json",
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2017-01-12-hotfix.html",
+    "2017-01-12-v1-22-7-49495-zul-jin-hotfix-patch-live.json"
+  ]
+}

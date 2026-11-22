@@ -1,0 +1,31 @@
+{
+  "Id": "hotfix-patch-notes-april-21-2016",
+  "Title": "Tracer Hotfix Patch",
+  "Subtitle": "Hotfix patch 17.3.42406 (April 21, 2016) following Tracer\u0027s release (no official patch notes verified here).",
+  "Date": "Apr 21, 2016",
+  "IsoDate": "2016-04-21",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "17.3",
+  "FullVersion": "17.3.42406",
+  "Build": "42406",
+  "Link": "https://us.battle.net/forums/en/heroes/topic/20743474272#1",
+  "Links": [
+    "https://us.battle.net/forums/en/heroes/topic/20743474272#1"
+  ],
+  "Affected": [],
+  "Highlights": "Hotfix patch 17.3.42406 (April 21, 2016) following Tracer\u0027s release (no official patch notes verified here).",
+  "CleanedNotes": "=== General ===\r\n  \u2022 - Verified: no official patch notes available for this hotfix build.",
+  "Sections": {
+    "General": [
+      "  \u2022 - Verified: no official patch notes available for this hotfix build."
+    ]
+  },
+  "PatchFile": "live/2016-04-21-17.3.json",
+  "Sources": [
+    "live-master.json",
+    "legacy-patches2014-2021.json",
+    "manual-edit",
+    "2016-04-21-v17-3-42406-tracer-hotfix-patch-live.json"
+  ]
+}

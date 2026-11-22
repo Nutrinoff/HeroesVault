@@ -1,0 +1,34 @@
+{
+  "Id": "hotfix-patch-notes-july-21-2016",
+  "Title": "Gul\u0027dan Hotfix Patch #2",
+  "Subtitle": "Hotfix 19.2.44797 (July 21, 2016), fixing a game client crash on startup.",
+  "Date": "Jul 21, 2016",
+  "IsoDate": "2016-07-21",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "19.2",
+  "FullVersion": "19.2.44797",
+  "Build": "44797",
+  "Link": "http://us.battle.net/heroes/en/blog/20185029",
+  "Links": [
+    "http://us.battle.net/heroes/en/blog/20185029",
+    "https://news.blizzard.com/heroes-of-the-storm/20185029"
+  ],
+  "Affected": [],
+  "Highlights": "Hotfix 19.2.44797 (July 21, 2016), fixing a game client crash on startup.",
+  "CleanedNotes": "=== General ===\r\n[Bug Fixes]\r\n  \u2022 Resolved an issue that could cause Heroes of the Storm to crash when starting up.",
+  "Sections": {
+    "General": [
+      "[Bug Fixes]",
+      "  \u2022 Resolved an issue that could cause Heroes of the Storm to crash when starting up."
+    ]
+  },
+  "PatchFile": "live/2016-07-21-19.2.json",
+  "Sources": [
+    "live-master.json",
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "manual-edit",
+    "2016-07-21-v19-2-44797-gul-dan-hotfix-patch-2-live.json"
+  ]
+}

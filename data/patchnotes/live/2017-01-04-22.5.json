@@ -1,0 +1,207 @@
+{
+  "Id": "patch-notes-january-4-2017",
+  "Title": "Zul\u0027jin Patch",
+  "Subtitle": "New Hero: Zul\u0027jin Armor system",
+  "Date": "Jan 4, 2017",
+  "IsoDate": "2017-01-04",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "22.5",
+  "FullVersion": "1.22.5.49076",
+  "Build": "49076",
+  "Link": "http://us.battle.net/heroes/en/blog/20407400",
+  "Links": [
+    "http://us.battle.net/heroes/en/blog/20407400",
+    "https://news.blizzard.com/heroes-of-the-storm/20407400",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/20407400"
+  ],
+  "Affected": [
+    "Heroes: Anub\u0027arak",
+    "Arthas",
+    "Azmodan",
+    "Greymane",
+    "Lunara",
+    "Nova",
+    "Raynor",
+    "Sylvanas Battlegrounds: Haunted Mines",
+    "Alarak",
+    "Anub\u0027arak",
+    "Chromie",
+    "Gazlowe",
+    "Kharazim",
+    "Samuro",
+    "Sylvanas",
+    "Thrall",
+    "Tychus",
+    "Zeratul",
+    "Zul\u0027jin"
+  ],
+  "Highlights": "New Hero: Zul\u0027jin Armor system",
+  "CleanedNotes": "=== Heroes: Alarak ===\r\n[Bug Fixes]\r\n  \u2022 Telekinesis will now correctly interrupt E.T.C.\u0027s Mosh Pit.\r\n\r\n=== Heroes: Anub\u0027arak ===\r\n[Updates]\r\n  \u2022 Stats\r\n    \u2022 Now has 25 Spell Armor\r\n    \u2022 Health decreased from 2226 to 2003\r\n    \u2022 Health Regeneration decreased from 4.64 to 4.17\r\n\r\n=== Heroes: Arthas ===\r\n[Updates]\r\n  Stats:\r\n  \u2022 Now has 15 Physical Armor\r\n  \u2022 Health decreased from 2582 to 2404\r\n  \u2022 Health Regeneration decreased from 5.36 to 5.01\r\n\r\n=== Heroes: Azmodan ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 All Shall Burn (E)\r\n    \u2022 Can now move at 40% base Movement Speed while channeling\r\n    \u2022 Initial cast range of the ability has been decreased by 7%\r\n    \u2022 Tether range required to cancel the effect has been increased by 6%\r\n  \u2022 Demonic Invasion (R)\r\n    \u2022 Impact damage reduced from 110 to 104\r\n    \u2022 Demon Attack damage reduced from 54 to 51\r\n  Talents:\r\n  \u2022 Level 4\r\n    \u2022 Mercenary Lord (Passive)\r\n      \u2022 Removed\r\n    \u2022 New Talent: Hellish Hirelings (Trait)\r\n      \u2022 Doubles the effects of General of Hell on Mercenaries (15 to 30%).\r\n    \u2022 Sin\u0027s Grasp (Active)\r\n      \u2022 Cooldown increased from 100 to 120 seconds\r\n      \u2022 Cooldown reduction from killing Minions increased from 5 to 10 seconds\r\n    \u2022 Gluttony (E)\r\n      \u2022 Healing increased from 20 to 25% of All Shall Burn damage\r\n  \u2022 Level 7\r\n    \u2022 March of Sin (E)\r\n      \u2022 Now increases Movement Speed while channeling All Shall Burn from 40 to 80%\r\n    \u2022 Gluttonous Ward (Active)\r\n      \u2022 Cooldown reduced from 60 to 45 seconds\r\n  \u2022 Level 16\r\n    \u2022 Sin for Sin (Active)\r\n      \u2022 Reduced cooldown from 60 to 45 seconds\r\n    \u2022 Imposing Presence (Active)\r\n      \u2022 Removed\r\n\r\n=== Heroes: Chromie ===\r\n[Bug Fixes]\r\n  \u2022 Chromie\u0027s Hourglass will no longer appear to flicker after casting Hearthstone while moving.\r\n\r\n=== Heroes: Gazlowe ===\r\n[Bug Fixes]\r\n  \u2022 Rock-It! Turret range indicators will now correctly display while they are active.\r\n\r\n=== Heroes: Greymane ===\r\n[Updates]\r\n  Stats:\r\n  \u2022 Now has 10 Armor while in Worgen form\r\n\r\n=== Heroes: Kharazim ===\r\n[Bug Fixes]\r\n  \u2022 Becoming trapped by Chromie\u0027s Time Trap while using Radiant Dash with the Way of the Hundred Fists Talent will no longer prevent Kharazim from issuing Basic Attacks until Radiant Dash is cast a second time.\r\n\r\n=== Heroes: Lunara ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 7\r\n    \u2022 Nature\u0027s Culling and Siphoning Toxin have had their icon colors swapped (Siphoning Toxin now has the green icon since it heals.) Their position in the talent tier remains the same.\r\n\r\n=== Heroes: Nova ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Tactical Espionage (Passive)\r\n      \u2022 Removed\r\n    \u2022 Advanced Cloaking (Passive)\r\n      \u2022 Now also restores 2 Mana per second while Stealthed\r\n    \u2022 Covert Ops (Passive)\r\n      \u2022 Functionality changed:\r\n        \u2022 After being Stealthed for 5 seconds, Pinning Shot\u0027s slow is increased to 55% and costs no Mana. Bonus is lost after losing Stealth for 1 second.\r\n\r\n=== Heroes: Raynor ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 4\r\n    \u2022 Relentless Leader (E)\r\n      \u2022 Now places an inactive button on the item bar to display the cooldown of this talent\u0027s AoE Knockback effect\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue causing Hyperion to gain benefits from several of Raynor\u0027s Basic Attack Talents.\r\n\r\n=== Heroes: Samuro ===\r\n[Bug Fixes]\r\n  \u2022 A bowl no longer appears at Samuro\u0027s feet during his dance animation.\r\n  \u2022 The cooldown for Critical Strike will no longer stop counting down when he is killed.\r\n  \u2022 Casting Mirror Image after learning Way of Illusion will no longer cause a Talent Quest progress sound to play.\r\n  \u2022 Fixed an issue that could cause certain Hero Abilities and Summons to continue tracking the primary Samuro after casting Mirror Image.\r\n\r\n=== Heroes: Sylvanas ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Mind Control (R)\r\n    \u2022 Cast range increased from 10 to 11\r\n    \u2022 Cooldown decreased from 70 to 60 seconds\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Paralysis (Trait)\r\n      \u2022 Removed\r\n    \u2022 New Talent: Dreadful Wake (E)\r\n      \u2022 Haunting Wave now disables Minions and Mercenaries for 7 seconds\r\n      \u2022 Restores 5 Mana per minion hit by Haunting Wave\r\n  \u2022 Level 7\r\n    \u2022 Possession (Active)\r\n      \u2022 Cooldown per charge decreased from 12 to 8 seconds\r\n  \u2022 Level 13\r\n    \u2022 Will of the Forsaken (Active)\r\n      \u2022 Movement speed increased from 30 to 40%\r\n\r\n=== Heroes: Thrall ===\r\n[Bug Fixes]\r\n  \u2022 The Earthquake tooltip has been updated to reflect that it pulses once every 4 seconds.\r\n\r\n=== Heroes: Tychus ===\r\n[Bug Fixes]\r\n  \u2022 The range indicator for Overkill will now correctly display while the Ability is active.\r\n  \u2022 The range indicator for Drakken Laser Drill will now correctly display while the Ability is active.\r\n\r\n=== Heroes: Zeratul ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that could prevent Shields granted by the Shroud of Adun Talent from fully recharging.\r\n  \u2022 Shroud of Adun will no longer accumulate Shields while using Hearthstone.\r\n  \u2022 Seeker in the Dark\u0027s duration is now correctly paused while a target affected by Singularity Spike is caught within Void Prison.\r\n\r\n=== Heroes: Zul\u0027jin ===\r\n[Releases]\r\n  Zul\u0027jin, Warlord of the Amani, has been added to the Nexus and is now available for play! Read on for a brief overview of his Abilities.:\r\n  Trait:\r\n  \u2022 Berserker (D)\r\n    \u2022 Activate to increase Zul\u0027jin\u0027s Basic Attack damage by 25%, but consume 2% maximum Health per attack.\r\n    \u2022 Passive: Zul\u0027jin attacks 1% faster for every 1% of maximum Health missing.\r\n  Basic Abilities:\r\n  \u2022 Grievous Throw (Q)\r\n    \u2022 Zul\u0027jin throws an axe forward, dealing damage to the first 2 enemies hit and marking them for 8 seconds. Marked enemies take 50% bonus damage from Zul\u0027jin\u0027s next 3 Basic Attacks against them.\r\n  \u2022 Twin Cleave (W)\r\n    \u2022 Throw 2 axes in a large circular arc, dealing damage and slowing affected enemies by 15% per axe for 2 seconds.\r\n  \u2022 Regeneration (E)\r\n    \u2022 Zul\u0027jin channels to regenerate 25% of his maximum Health over 4 seconds. Moving or taking damage while channeling will interrupt this effect.\r\n  Heroic Abilities:\r\n  \u2022 Taz\u0027dingo (R)\r\n    \u2022 Zul\u0027jin is Unkillable for the next 4 seconds, and cannot be reduced to less than 1 Health. Taz\u0027dingo!\r\n  \u2022 Guillotine (R)\r\n    \u2022 Zul\u0027jin throws a massive guillotine blade into the sky that crashes down on enemies in the targeted area. The lower Zul\u0027jin\u0027s Health, the more damage it deals.",
+  "Sections": {
+    "Heroes: Alarak": [
+      "[Bug Fixes]",
+      "  \u2022 Telekinesis will now correctly interrupt E.T.C.\u0027s Mosh Pit."
+    ],
+    "Heroes: Anub\u0027arak": [
+      "[Updates]",
+      "  \u2022 Stats",
+      "    \u2022 Now has 25 Spell Armor",
+      "    \u2022 Health decreased from 2226 to 2003",
+      "    \u2022 Health Regeneration decreased from 4.64 to 4.17"
+    ],
+    "Heroes: Arthas": [
+      "[Updates]",
+      "  Stats:",
+      "  \u2022 Now has 15 Physical Armor",
+      "  \u2022 Health decreased from 2582 to 2404",
+      "  \u2022 Health Regeneration decreased from 5.36 to 5.01"
+    ],
+    "Heroes: Azmodan": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 All Shall Burn (E)",
+      "    \u2022 Can now move at 40% base Movement Speed while channeling",
+      "    \u2022 Initial cast range of the ability has been decreased by 7%",
+      "    \u2022 Tether range required to cancel the effect has been increased by 6%",
+      "  \u2022 Demonic Invasion (R)",
+      "    \u2022 Impact damage reduced from 110 to 104",
+      "    \u2022 Demon Attack damage reduced from 54 to 51",
+      "  Talents:",
+      "  \u2022 Level 4",
+      "    \u2022 Mercenary Lord (Passive)",
+      "      \u2022 Removed",
+      "    \u2022 New Talent: Hellish Hirelings (Trait)",
+      "      \u2022 Doubles the effects of General of Hell on Mercenaries (15 to 30%).",
+      "    \u2022 Sin\u0027s Grasp (Active)",
+      "      \u2022 Cooldown increased from 100 to 120 seconds",
+      "      \u2022 Cooldown reduction from killing Minions increased from 5 to 10 seconds",
+      "    \u2022 Gluttony (E)",
+      "      \u2022 Healing increased from 20 to 25% of All Shall Burn damage",
+      "  \u2022 Level 7",
+      "    \u2022 March of Sin (E)",
+      "      \u2022 Now increases Movement Speed while channeling All Shall Burn from 40 to 80%",
+      "    \u2022 Gluttonous Ward (Active)",
+      "      \u2022 Cooldown reduced from 60 to 45 seconds",
+      "  \u2022 Level 16",
+      "    \u2022 Sin for Sin (Active)",
+      "      \u2022 Reduced cooldown from 60 to 45 seconds",
+      "    \u2022 Imposing Presence (Active)",
+      "      \u2022 Removed"
+    ],
+    "Heroes: Chromie": [
+      "[Bug Fixes]",
+      "  \u2022 Chromie\u0027s Hourglass will no longer appear to flicker after casting Hearthstone while moving."
+    ],
+    "Heroes: Gazlowe": [
+      "[Bug Fixes]",
+      "  \u2022 Rock-It! Turret range indicators will now correctly display while they are active."
+    ],
+    "Heroes: Greymane": [
+      "[Updates]",
+      "  Stats:",
+      "  \u2022 Now has 10 Armor while in Worgen form"
+    ],
+    "Heroes: Kharazim": [
+      "[Bug Fixes]",
+      "  \u2022 Becoming trapped by Chromie\u0027s Time Trap while using Radiant Dash with the Way of the Hundred Fists Talent will no longer prevent Kharazim from issuing Basic Attacks until Radiant Dash is cast a second time."
+    ],
+    "Heroes: Lunara": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 7",
+      "    \u2022 Nature\u0027s Culling and Siphoning Toxin have had their icon colors swapped (Siphoning Toxin now has the green icon since it heals.) Their position in the talent tier remains the same."
+    ],
+    "Heroes: Nova": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Tactical Espionage (Passive)",
+      "      \u2022 Removed",
+      "    \u2022 Advanced Cloaking (Passive)",
+      "      \u2022 Now also restores 2 Mana per second while Stealthed",
+      "    \u2022 Covert Ops (Passive)",
+      "      \u2022 Functionality changed:",
+      "        \u2022 After being Stealthed for 5 seconds, Pinning Shot\u0027s slow is increased to 55% and costs no Mana. Bonus is lost after losing Stealth for 1 second."
+    ],
+    "Heroes: Raynor": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 4",
+      "    \u2022 Relentless Leader (E)",
+      "      \u2022 Now places an inactive button on the item bar to display the cooldown of this talent\u0027s AoE Knockback effect",
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue causing Hyperion to gain benefits from several of Raynor\u0027s Basic Attack Talents."
+    ],
+    "Heroes: Samuro": [
+      "[Bug Fixes]",
+      "  \u2022 A bowl no longer appears at Samuro\u0027s feet during his dance animation.",
+      "  \u2022 The cooldown for Critical Strike will no longer stop counting down when he is killed.",
+      "  \u2022 Casting Mirror Image after learning Way of Illusion will no longer cause a Talent Quest progress sound to play.",
+      "  \u2022 Fixed an issue that could cause certain Hero Abilities and Summons to continue tracking the primary Samuro after casting Mirror Image."
+    ],
+    "Heroes: Sylvanas": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Mind Control (R)",
+      "    \u2022 Cast range increased from 10 to 11",
+      "    \u2022 Cooldown decreased from 70 to 60 seconds",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Paralysis (Trait)",
+      "      \u2022 Removed",
+      "    \u2022 New Talent: Dreadful Wake (E)",
+      "      \u2022 Haunting Wave now disables Minions and Mercenaries for 7 seconds",
+      "      \u2022 Restores 5 Mana per minion hit by Haunting Wave",
+      "  \u2022 Level 7",
+      "    \u2022 Possession (Active)",
+      "      \u2022 Cooldown per charge decreased from 12 to 8 seconds",
+      "  \u2022 Level 13",
+      "    \u2022 Will of the Forsaken (Active)",
+      "      \u2022 Movement speed increased from 30 to 40%"
+    ],
+    "Heroes: Thrall": [
+      "[Bug Fixes]",
+      "  \u2022 The Earthquake tooltip has been updated to reflect that it pulses once every 4 seconds."
+    ],
+    "Heroes: Tychus": [
+      "[Bug Fixes]",
+      "  \u2022 The range indicator for Overkill will now correctly display while the Ability is active.",
+      "  \u2022 The range indicator for Drakken Laser Drill will now correctly display while the Ability is active."
+    ],
+    "Heroes: Zeratul": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that could prevent Shields granted by the Shroud of Adun Talent from fully recharging.",
+      "  \u2022 Shroud of Adun will no longer accumulate Shields while using Hearthstone.",
+      "  \u2022 Seeker in the Dark\u0027s duration is now correctly paused while a target affected by Singularity Spike is caught within Void Prison."
+    ],
+    "Heroes: Zul\u0027jin": [
+      "[Releases]",
+      "  Zul\u0027jin, Warlord of the Amani, has been added to the Nexus and is now available for play! Read on for a brief overview of his Abilities.:",
+      "  Trait:",
+      "  \u2022 Berserker (D)",
+      "    \u2022 Activate to increase Zul\u0027jin\u0027s Basic Attack damage by 25%, but consume 2% maximum Health per attack.",
+      "    \u2022 Passive: Zul\u0027jin attacks 1% faster for every 1% of maximum Health missing.",
+      "  Basic Abilities:",
+      "  \u2022 Grievous Throw (Q)",
+      "    \u2022 Zul\u0027jin throws an axe forward, dealing damage to the first 2 enemies hit and marking them for 8 seconds. Marked enemies take 50% bonus damage from Zul\u0027jin\u0027s next 3 Basic Attacks against them.",
+      "  \u2022 Twin Cleave (W)",
+      "    \u2022 Throw 2 axes in a large circular arc, dealing damage and slowing affected enemies by 15% per axe for 2 seconds.",
+      "  \u2022 Regeneration (E)",
+      "    \u2022 Zul\u0027jin channels to regenerate 25% of his maximum Health over 4 seconds. Moving or taking damage while channeling will interrupt this effect.",
+      "  Heroic Abilities:",
+      "  \u2022 Taz\u0027dingo (R)",
+      "    \u2022 Zul\u0027jin is Unkillable for the next 4 seconds, and cannot be reduced to less than 1 Health. Taz\u0027dingo!",
+      "  \u2022 Guillotine (R)",
+      "    \u2022 Zul\u0027jin throws a massive guillotine blade into the sky that crashes down on enemies in the targeted area. The lower Zul\u0027jin\u0027s Health, the more damage it deals."
+    ]
+  },
+  "PatchFile": "live/2017-01-04-22.5.json",
+  "Sources": [
+    "live-master.json",
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2017-01-04-live.html",
+    "2017-01-04-v1-22-5-49076-zul-jin-patch-live.json"
+  ]
+}

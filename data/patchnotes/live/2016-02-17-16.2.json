@@ -1,0 +1,70 @@
+{
+  "Id": "balance-update-notes-february-17-2016",
+  "Title": "Li-Ming Balance Patch #2",
+  "Subtitle": "Balance Update",
+  "Date": "Feb 17, 2016",
+  "IsoDate": "2016-02-17",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "16.2",
+  "FullVersion": "1.16.2.40798",
+  "Build": "40798",
+  "Link": "http://us.battle.net/heroes/en/blog/20038832",
+  "Links": [
+    "http://us.battle.net/heroes/en/blog/20038832",
+    "https://news.blizzard.com/heroes-of-the-storm/20038832",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/20038832"
+  ],
+  "Affected": [
+    "Heroes: Anub\u0027arak",
+    "Li-Ming",
+    "Rehgar",
+    "Stitches",
+    "Anub\u0027arak"
+  ],
+  "Highlights": "Balance Update",
+  "CleanedNotes": "=== Heroes: Anub\u0027arak ===\r\n[Updates]\r\n  \u2022 Hardened Carapace (W)\r\n    \u2022 Shield amount increased from 242 (\u002B4% per level) to 260 (\u002B4% per level)\r\n\r\n=== Heroes: Li-Ming ===\r\n[Updates]\r\n  \u2022 Astral Presence (Talent)\r\n    \u2022 Mana Regeneration bonus now only triggers while below 25% Mana, rather than 50%\r\n  \u2022 Diamond Skin (Talent)\r\n    \u2022 Shield amount decreased from 25% to 20% of maximum Health\r\n  \u2022 Tal Rasha\u0027s Elements (Talent)\r\n    \u2022 Ability Power bonus decreased from 20% to 10%\r\n  \u2022 Magic Missiles (Q)\r\n    \u2022 Damage reduced from 147 (\u002B3.5% per level) to 147 (\u002B3% per level)\r\n  \u2022 Arcane Orb (W)\r\n    \u2022 Ess of Johan (Talent) removed\r\n    \u2022 Triumvirate (Talent)\r\n      \u2022 Distance traveled requirement reduced from 80% to 65% of maximum distance\r\n\r\n=== Heroes: Rehgar ===\r\n[Updates]\r\n  \u2022 Lightning Shield (W)\r\n    \u2022 Rising Storm (Talent)\r\n      \u2022 Damage bonus reduced from 20% to 10% per stack\r\n      \u2022 Maximum stacks increased from 10 to 20\r\n\r\n=== Heroes: Stitches ===\r\n[Updates]\r\n  \u2022 Devour (E)\r\n    \u2022 Last Bite (Talent)\r\n      \u2022 Cooldown reduction on kill decreased from 15 to 12 seconds",
+  "Sections": {
+    "Heroes: Anub\u0027arak": [
+      "[Updates]",
+      "  \u2022 Hardened Carapace (W)",
+      "    \u2022 Shield amount increased from 242 (\u002B4% per level) to 260 (\u002B4% per level)"
+    ],
+    "Heroes: Li-Ming": [
+      "[Updates]",
+      "  \u2022 Astral Presence (Talent)",
+      "    \u2022 Mana Regeneration bonus now only triggers while below 25% Mana, rather than 50%",
+      "  \u2022 Diamond Skin (Talent)",
+      "    \u2022 Shield amount decreased from 25% to 20% of maximum Health",
+      "  \u2022 Tal Rasha\u0027s Elements (Talent)",
+      "    \u2022 Ability Power bonus decreased from 20% to 10%",
+      "  \u2022 Magic Missiles (Q)",
+      "    \u2022 Damage reduced from 147 (\u002B3.5% per level) to 147 (\u002B3% per level)",
+      "  \u2022 Arcane Orb (W)",
+      "    \u2022 Ess of Johan (Talent) removed",
+      "    \u2022 Triumvirate (Talent)",
+      "      \u2022 Distance traveled requirement reduced from 80% to 65% of maximum distance"
+    ],
+    "Heroes: Rehgar": [
+      "[Updates]",
+      "  \u2022 Lightning Shield (W)",
+      "    \u2022 Rising Storm (Talent)",
+      "      \u2022 Damage bonus reduced from 20% to 10% per stack",
+      "      \u2022 Maximum stacks increased from 10 to 20"
+    ],
+    "Heroes: Stitches": [
+      "[Updates]",
+      "  \u2022 Devour (E)",
+      "    \u2022 Last Bite (Talent)",
+      "      \u2022 Cooldown reduction on kill decreased from 15 to 12 seconds"
+    ]
+  },
+  "PatchFile": "live/2016-02-17-16.2.json",
+  "Sources": [
+    "live-master.json",
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2016-02-17-live.html",
+    "2016-02-17-v1-16-2-40798-li-ming-balance-patch-2-live.json"
+  ]
+}

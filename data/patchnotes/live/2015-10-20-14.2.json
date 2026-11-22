@@ -1,0 +1,71 @@
+{
+  "Id": "patch-notes-october-20-2015",
+  "Title": "Artanis Patch",
+  "Subtitle": "New hero (prerelease): Artanis",
+  "Date": "Oct 20, 2015",
+  "IsoDate": "2015-10-20",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "14.2",
+  "FullVersion": "1.14.2.38593",
+  "Build": "38593",
+  "Link": "http://us.battle.net/heroes/en/blog/19923883",
+  "Links": [
+    "http://us.battle.net/heroes/en/blog/19923883",
+    "http://us.battle.net/heroes/en/blog/19923883/heroes-of-the-storm-patch-notes-october-20-2015-10-20-2015",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/19923883"
+  ],
+  "Affected": [
+    "Heroes: Lt. Morales",
+    "Abathur",
+    "Artanis",
+    "Lt. Morales",
+    "Nazeebo"
+  ],
+  "Highlights": "New hero (prerelease): Artanis",
+  "CleanedNotes": "=== Heroes: Abathur ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue preventing Abathur\u0027s Toxic Nests from dealing splash damage.\r\n\r\n=== Heroes: Artanis ===\r\n[Releases]\r\n  Artanis, Hierarch of the Daelaam, has been added to the Nexus and is now available for play! Read on for a brief overview of his Abilities.:\r\n  Trait:\r\n  \u2022 Shield Overload\r\n    \u2022 If you take damage while below 50% Health, gain a Shield for 5 seconds. Your Basic Attacks lower the cooldown of Shield Overload by 4 seconds.\r\n  Basic Abilities:\r\n  \u2022 Blade Dash (Q)\r\n    \u2022 Dash forward to deal damage to enemies, then return to deal significantly more damage.\r\n  \u2022 Twin Blades (W)\r\n    \u2022 Your next Basic Attack immediately strikes the enemy twice.\r\n  \u2022 Phase Prism (E)\r\n    \u2022 Fire a Phase Prism that deals damage to a Hero and swaps your position with theirs.\r\n  Heroic Abilities:\r\n  \u2022 Purifier Beam (R)\r\n    \u2022 Target an enemy with an orbital beam from the Spear of Adun, dealing damage every second for 8 seconds. The beam will chase the target as they move. Unlimited range.\r\n  \u2022 Suppression Pulse (R)\r\n    \u2022 Fire a large area pulse from the Spear of Adun, dealing damage and Blinding enemies for 4 seconds. Unlimited range.\r\n\r\n=== Heroes: Lt. Morales ===\r\n[Updates]\r\n  \u2022 Health increased from 700 (\u002B110 per level) to 840 (\u002B130 per level)\r\n  \u2022 Base Health Regeneration increased from 1.46 per second to 1.75\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that caused the player\u0027s camera to remain locked on Lt. Morales\u0027s Medivac Dropship after exiting it with Camera Lock enabled.\r\n\r\n=== Heroes: Nazeebo ===\r\n[Bug Fixes]\r\n  \u2022 Nazeebo\u0027s Corpse Spiders and Zombie Wall Abilities will now deal damage to Immortals on the Battlefield of Eternity battleground.",
+  "Sections": {
+    "Heroes: Abathur": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue preventing Abathur\u0027s Toxic Nests from dealing splash damage."
+    ],
+    "Heroes: Artanis": [
+      "[Releases]",
+      "  Artanis, Hierarch of the Daelaam, has been added to the Nexus and is now available for play! Read on for a brief overview of his Abilities.:",
+      "  Trait:",
+      "  \u2022 Shield Overload",
+      "    \u2022 If you take damage while below 50% Health, gain a Shield for 5 seconds. Your Basic Attacks lower the cooldown of Shield Overload by 4 seconds.",
+      "  Basic Abilities:",
+      "  \u2022 Blade Dash (Q)",
+      "    \u2022 Dash forward to deal damage to enemies, then return to deal significantly more damage.",
+      "  \u2022 Twin Blades (W)",
+      "    \u2022 Your next Basic Attack immediately strikes the enemy twice.",
+      "  \u2022 Phase Prism (E)",
+      "    \u2022 Fire a Phase Prism that deals damage to a Hero and swaps your position with theirs.",
+      "  Heroic Abilities:",
+      "  \u2022 Purifier Beam (R)",
+      "    \u2022 Target an enemy with an orbital beam from the Spear of Adun, dealing damage every second for 8 seconds. The beam will chase the target as they move. Unlimited range.",
+      "  \u2022 Suppression Pulse (R)",
+      "    \u2022 Fire a large area pulse from the Spear of Adun, dealing damage and Blinding enemies for 4 seconds. Unlimited range."
+    ],
+    "Heroes: Lt. Morales": [
+      "[Updates]",
+      "  \u2022 Health increased from 700 (\u002B110 per level) to 840 (\u002B130 per level)",
+      "  \u2022 Base Health Regeneration increased from 1.46 per second to 1.75",
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that caused the player\u0027s camera to remain locked on Lt. Morales\u0027s Medivac Dropship after exiting it with Camera Lock enabled."
+    ],
+    "Heroes: Nazeebo": [
+      "[Bug Fixes]",
+      "  \u2022 Nazeebo\u0027s Corpse Spiders and Zombie Wall Abilities will now deal damage to Immortals on the Battlefield of Eternity battleground."
+    ]
+  },
+  "PatchFile": "live/2015-10-20-14.2.json",
+  "Sources": [
+    "live-master.json",
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2015-10-20-live.html",
+    "2015-10-20-v1-14-2-38593-artanis-patch-live.json"
+  ]
+}

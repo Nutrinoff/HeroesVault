@@ -1,0 +1,63 @@
+{
+  "Id": "patch-notes-january-12-2016",
+  "Title": "Greymane Patch",
+  "Subtitle": "New hero: Greymane",
+  "Date": "Jan 12, 2016",
+  "IsoDate": "2016-01-12",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "15.5",
+  "FullVersion": "1.15.5.39951",
+  "Build": "39951",
+  "Link": "http://us.battle.net/heroes/en/blog/19993879",
+  "Links": [
+    "http://us.battle.net/heroes/en/blog/19993879",
+    "https://news.blizzard.com/heroes-of-the-storm/19993879",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/19993879"
+  ],
+  "Affected": [
+    "Greymane",
+    "Leoric"
+  ],
+  "Highlights": "New hero: Greymane",
+  "CleanedNotes": "=== Heroes: Greymane ===\r\n[Releases]\r\n  Greymane, Lord of the Worgen, has been added to the Nexus and is now available for play! Read on for a brief overview of his Abilities.:\r\n  Trait:\r\n  \u2022 Curse of the Worgen\r\n    \u2022 Use certain Abilities to shapeshift between Human and Worgen form.\r\n      \u2022 While in Human form, your Basic Attacks are ranged.\r\n      \u2022 While in Worgen form, your Basic Attacks are melee, but deal 40% more damage.\r\n  Basic Abilities:\r\n  \u2022 Human: Gilnean Cocktail (Q)\r\n    \u2022 Hurl a flask that damages the first enemy hit, and explodes to deal heavy damage to enemies behind the first in a cone.\r\n  \u2022 Worgen: Razor Swipe (Q)\r\n    \u2022 Swipe toward a direction, damaging enemies in front of you.\r\n  \u2022 Inner Beast (W)\r\n    \u2022 Gain 50% Attack Speed for 3 seconds. Basic Attacks refresh this duration.\r\n  \u2022 Human: Darkflight (E)\r\n    \u2022 Shapeshift into a Worgen, and leap at and damage an enemy.\r\n  \u2022 Worgen: Disengage (E)\r\n    \u2022 Shapeshift into a Human, and roll away in the specified direction.\r\n  Heroic Abilities:\r\n  \u2022 Go for the Throat (R)\r\n    \u2022 Shapeshift into a Worgen and leap at an enemy Hero, slashing the target 3 times and dealing heavy damage. If this kills the target, Go for the Throat can be used a second time within 10 seconds for free.\r\n  \u2022 Marked for the Kill (R)\r\n    \u2022 Shapeshift into a Human and fire a shot that makes the first enemy Hero it strikes Vulnerable for 5 seconds. Reactivate to shapeshift into a Worgen and leap at the Hero.\r\n\r\n=== Heroes: Leoric ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that made Leoric unable to walk through enemy Gates while in Undying form.",
+  "Sections": {
+    "Heroes: Greymane": [
+      "[Releases]",
+      "  Greymane, Lord of the Worgen, has been added to the Nexus and is now available for play! Read on for a brief overview of his Abilities.:",
+      "  Trait:",
+      "  \u2022 Curse of the Worgen",
+      "    \u2022 Use certain Abilities to shapeshift between Human and Worgen form.",
+      "      \u2022 While in Human form, your Basic Attacks are ranged.",
+      "      \u2022 While in Worgen form, your Basic Attacks are melee, but deal 40% more damage.",
+      "  Basic Abilities:",
+      "  \u2022 Human: Gilnean Cocktail (Q)",
+      "    \u2022 Hurl a flask that damages the first enemy hit, and explodes to deal heavy damage to enemies behind the first in a cone.",
+      "  \u2022 Worgen: Razor Swipe (Q)",
+      "    \u2022 Swipe toward a direction, damaging enemies in front of you.",
+      "  \u2022 Inner Beast (W)",
+      "    \u2022 Gain 50% Attack Speed for 3 seconds. Basic Attacks refresh this duration.",
+      "  \u2022 Human: Darkflight (E)",
+      "    \u2022 Shapeshift into a Worgen, and leap at and damage an enemy.",
+      "  \u2022 Worgen: Disengage (E)",
+      "    \u2022 Shapeshift into a Human, and roll away in the specified direction.",
+      "  Heroic Abilities:",
+      "  \u2022 Go for the Throat (R)",
+      "    \u2022 Shapeshift into a Worgen and leap at an enemy Hero, slashing the target 3 times and dealing heavy damage. If this kills the target, Go for the Throat can be used a second time within 10 seconds for free.",
+      "  \u2022 Marked for the Kill (R)",
+      "    \u2022 Shapeshift into a Human and fire a shot that makes the first enemy Hero it strikes Vulnerable for 5 seconds. Reactivate to shapeshift into a Worgen and leap at the Hero."
+    ],
+    "Heroes: Leoric": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that made Leoric unable to walk through enemy Gates while in Undying form."
+    ]
+  },
+  "PatchFile": "live/2016-01-12-15.5.json",
+  "Sources": [
+    "live-master.json",
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2016-01-12-live.html",
+    "2016-01-12-v1-15-5-39951-greymane-patch-live.json"
+  ]
+}

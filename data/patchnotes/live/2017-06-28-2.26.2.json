@@ -1,0 +1,27 @@
+{
+  "Id": "hotfix-patch-notes-june-28-2017",
+  "Title": "Malthael Hotfix Patch",
+  "Subtitle": "Hotfix",
+  "Date": "Jun 28, 2017",
+  "IsoDate": "2017-06-28",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "2.26.2",
+  "FullVersion": "2.26.2.55010",
+  "Build": "55010",
+  "Link": "https://news.blizzard.com/heroes-of-the-storm/20861968",
+  "Links": [
+    "https://news.blizzard.com/heroes-of-the-storm/20861968"
+  ],
+  "Affected": [],
+  "Highlights": "Hotfix",
+  "CleanedNotes": "Hotfix",
+  "Sections": {},
+  "PatchFile": "live/2017-06-28-2.26.2.json",
+  "Sources": [
+    "live-master.json",
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2017-06-28-v2-26-2-55010-malthael-hotfix-patch-live.json"
+  ]
+}

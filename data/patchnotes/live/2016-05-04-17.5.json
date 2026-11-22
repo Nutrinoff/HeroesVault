@@ -1,0 +1,56 @@
+{
+  "Id": "balance-update-notes-may-4-2016",
+  "Title": "Tracer Balance Patch #2",
+  "Subtitle": "Balance Update",
+  "Date": "May 4, 2016",
+  "IsoDate": "2016-05-04",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "17.5",
+  "FullVersion": "1.17.5.42590",
+  "Build": "42590",
+  "Link": "http://us.battle.net/heroes/en/blog/20097945",
+  "Links": [
+    "http://us.battle.net/heroes/en/blog/20097945",
+    "https://news.blizzard.com/heroes-of-the-storm/20097945",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/20097945"
+  ],
+  "Affected": [
+    "Heroes: Tracer",
+    "Kael\u0027thas",
+    "Tracer"
+  ],
+  "Highlights": "Balance Update",
+  "CleanedNotes": "=== Heroes: Kael\u0027thas ===\r\n[Bug Fixes]\r\n  \u2022 Bonus damage from the Sun King\u0027s Fury Talent will no longer be applied when Kael\u0027thas\u0027s Basic Attacks miss due to Blind or Evasion effects.\r\n\r\n=== Heroes: Tracer ===\r\n[Updates]\r\n  \u2022 Health decreased from 1270 (\u002B4% per level) to 1206 (\u002B4% per level).\r\n  \u2022 Health Regeneration decreased from 5.25 (\u002B4% per level) to approximately 5.02 (\u002B4% per level) Health per second.\r\n  \u2022 Basic Attack damage reduced from 29 (\u002B4% per level) to 27 (\u002B4% per level).\r\n  \u2022 Focus Fire (Talent)\r\n    \u2022 Final shot damage bonus increased from 30% to 35% of the total magazine\u0027s damage.\r\n  \u2022 Locked and Loaded (Talent)\r\n    \u2022 Damage bonus increased from 35% to 40%.\r\n  \u2022 Melee (W)\r\n    \u2022 Pulse Strike (Talent)\r\n      \u2022 Pulse Bomb charge bonus increased from 15% to 20%.\r\n  \u2022 Recall (E)\r\n    \u2022 Cooldown increased from 24 to 26 seconds.\r\n    \u2022 Slipstream (Talent)\r\n      \u2022 Cooldown reduction decreased from 4 to 2 seconds.",
+  "Sections": {
+    "Heroes: Kael\u0027thas": [
+      "[Bug Fixes]",
+      "  \u2022 Bonus damage from the Sun King\u0027s Fury Talent will no longer be applied when Kael\u0027thas\u0027s Basic Attacks miss due to Blind or Evasion effects."
+    ],
+    "Heroes: Tracer": [
+      "[Updates]",
+      "  \u2022 Health decreased from 1270 (\u002B4% per level) to 1206 (\u002B4% per level).",
+      "  \u2022 Health Regeneration decreased from 5.25 (\u002B4% per level) to approximately 5.02 (\u002B4% per level) Health per second.",
+      "  \u2022 Basic Attack damage reduced from 29 (\u002B4% per level) to 27 (\u002B4% per level).",
+      "  \u2022 Focus Fire (Talent)",
+      "    \u2022 Final shot damage bonus increased from 30% to 35% of the total magazine\u0027s damage.",
+      "  \u2022 Locked and Loaded (Talent)",
+      "    \u2022 Damage bonus increased from 35% to 40%.",
+      "  \u2022 Melee (W)",
+      "    \u2022 Pulse Strike (Talent)",
+      "      \u2022 Pulse Bomb charge bonus increased from 15% to 20%.",
+      "  \u2022 Recall (E)",
+      "    \u2022 Cooldown increased from 24 to 26 seconds.",
+      "    \u2022 Slipstream (Talent)",
+      "      \u2022 Cooldown reduction decreased from 4 to 2 seconds."
+    ]
+  },
+  "PatchFile": "live/2016-05-04-17.5.json",
+  "Sources": [
+    "live-master.json",
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2016-05-04-live.html",
+    "2016-05-04-v1-17-5-42590-tracer-balance-patch-2-live.json"
+  ]
+}

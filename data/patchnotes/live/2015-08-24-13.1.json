@@ -1,0 +1,31 @@
+{
+  "Id": "hotfix-patch-notes-august-24-2015",
+  "Title": "Kharazim Hotfix Patch #1",
+  "Subtitle": "Hotfix patch 13.1.37274 (August 24, 2015) following Kharazim\u0027s release (no official patch notes verified here).",
+  "Date": "Aug 24, 2015",
+  "IsoDate": "2015-08-24",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "13.1",
+  "FullVersion": "13.1.37274",
+  "Build": "37274",
+  "Link": "https://us.battle.net/forums/en/heroes/topic/18700822848",
+  "Links": [
+    "https://us.battle.net/forums/en/heroes/topic/18700822848"
+  ],
+  "Affected": [],
+  "Highlights": "Hotfix patch 13.1.37274 (August 24, 2015) following Kharazim\u0027s release (no official patch notes verified here).",
+  "CleanedNotes": "=== General ===\r\n  \u2022 - Verified: no official patch notes available for this hotfix build.",
+  "Sections": {
+    "General": [
+      "  \u2022 - Verified: no official patch notes available for this hotfix build."
+    ]
+  },
+  "PatchFile": "live/2015-08-24-13.1.json",
+  "Sources": [
+    "live-master.json",
+    "legacy-patches2014-2021.json",
+    "manual-edit",
+    "2015-08-24-v13-1-37274-kharazim-hotfix-patch-1-live.json"
+  ]
+}

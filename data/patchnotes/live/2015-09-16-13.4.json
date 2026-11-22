@@ -1,0 +1,31 @@
+{
+  "Id": "hotfix-patch-notes-september-16-2015",
+  "Title": "Rexxar Hotfix Patch",
+  "Subtitle": "Hotfix patch 13.4.37795 (September 16, 2015) addressing issues following Rexxar\u0027s release (no official patch notes verified here).",
+  "Date": "Sep 16, 2015",
+  "IsoDate": "2015-09-16",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "13.4",
+  "FullVersion": "13.4.37795",
+  "Build": "37795",
+  "Link": "https://us.battle.net/forums/en/heroes/topic/18724769272",
+  "Links": [
+    "https://us.battle.net/forums/en/heroes/topic/18724769272"
+  ],
+  "Affected": [],
+  "Highlights": "Hotfix patch 13.4.37795 (September 16, 2015) addressing issues following Rexxar\u0027s release (no official patch notes verified here).",
+  "CleanedNotes": "=== General ===\r\n  \u2022 - Verified: no official patch notes available for this hotfix build.",
+  "Sections": {
+    "General": [
+      "  \u2022 - Verified: no official patch notes available for this hotfix build."
+    ]
+  },
+  "PatchFile": "live/2015-09-16-13.4.json",
+  "Sources": [
+    "live-master.json",
+    "legacy-patches2014-2021.json",
+    "manual-edit",
+    "2015-09-16-v13-4-37795-rexxar-hotfix-patch-live.json"
+  ]
+}

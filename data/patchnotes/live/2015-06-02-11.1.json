@@ -1,0 +1,52 @@
+{
+  "Id": "patch-notes-june-2-2015",
+  "Title": "Johanna Patch, Launch Day",
+  "Subtitle": "Launch event New hero: Johanna",
+  "Date": "Jun 2, 2015",
+  "IsoDate": "2015-06-02",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "11.1",
+  "FullVersion": "1.11.1.35702",
+  "Build": "35702",
+  "Link": "http://us.battle.net/heroes/en/blog/19529833",
+  "Links": [
+    "http://us.battle.net/heroes/en/blog/19529833",
+    "http://us.battle.net/heroes/en/blog/19529833/heroes-of-the-storm-patch-notes-june-2-2015-6-2-2015",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/19529833"
+  ],
+  "Affected": [
+    "Johanna"
+  ],
+  "Highlights": "Launch event New hero: Johanna",
+  "CleanedNotes": "=== Heroes: Johanna ===\r\n[Releases]\r\n  Johanna, Crusader of Zakarum, has been added to the Nexus and is now available for play! Read on for a brief overview of her Abilities.:\r\n  Trait:\r\n  \u2022 Iron Skin (D)\r\n    \u2022 Become Unstoppable and gain a Shield that absorbs damage for 4 seconds.\r\n  Basic Abilities:\r\n  \u2022 Punish (Q)\r\n    \u2022 Deal damage and slow enemies by 60%, decaying over 2 seconds.\r\n  \u2022 Condemn (W)\r\n    \u2022 After a 1 second delay, you pull nearby enemies toward you, stunning them and dealing damage.\r\n  \u2022 Shield Glare (E)\r\n    \u2022 Deal damage to enemies and cause them to miss their next 2 Basic Attacks within 4 seconds.\r\n  Heroic Abilities:\r\n  \u2022 Falling Sword (R)\r\n    \u2022 You leap toward an area. While in the air, you can steer the landing location by moving. You land after 2 seconds, dealing damage to nearby enemies and knocking them into the air.\r\n  \u2022 Blessed Shield (R)\r\n    \u2022 Deal damage and stun the first enemy hit for 2 seconds. Blessed Shield then bounces to 2 nearby enemies, dealing half damage and stunning them for 1 second.",
+  "Sections": {
+    "Heroes: Johanna": [
+      "[Releases]",
+      "  Johanna, Crusader of Zakarum, has been added to the Nexus and is now available for play! Read on for a brief overview of her Abilities.:",
+      "  Trait:",
+      "  \u2022 Iron Skin (D)",
+      "    \u2022 Become Unstoppable and gain a Shield that absorbs damage for 4 seconds.",
+      "  Basic Abilities:",
+      "  \u2022 Punish (Q)",
+      "    \u2022 Deal damage and slow enemies by 60%, decaying over 2 seconds.",
+      "  \u2022 Condemn (W)",
+      "    \u2022 After a 1 second delay, you pull nearby enemies toward you, stunning them and dealing damage.",
+      "  \u2022 Shield Glare (E)",
+      "    \u2022 Deal damage to enemies and cause them to miss their next 2 Basic Attacks within 4 seconds.",
+      "  Heroic Abilities:",
+      "  \u2022 Falling Sword (R)",
+      "    \u2022 You leap toward an area. While in the air, you can steer the landing location by moving. You land after 2 seconds, dealing damage to nearby enemies and knocking them into the air.",
+      "  \u2022 Blessed Shield (R)",
+      "    \u2022 Deal damage and stun the first enemy hit for 2 seconds. Blessed Shield then bounces to 2 nearby enemies, dealing half damage and stunning them for 1 second."
+    ]
+  },
+  "PatchFile": "live/2015-06-02-11.1.json",
+  "Sources": [
+    "live-master.json",
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2015-06-02-live.html",
+    "2015-06-02-v1-11-1-35702-johanna-patch-launch-day-live.json"
+  ]
+}
