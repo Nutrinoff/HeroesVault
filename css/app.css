@@ -1,16 +1,16 @@
 :root {
-  --hots-bg: #070314;
-  --hots-surface: #13092e;
-  --hots-surface-raised: #211052;
-  --hots-border: #3d238a;
-  --hots-border-bright: #6744d6;
-  --hots-cyan: #29c7ff;
-  --hots-cyan-bright: #66d9ff;
-  --hots-gold: #f5b82e;
-  --hots-gold-bright: #ffd166;
-  --hots-violet: #9d5cff;
-  --hots-text: #ede9fe;
-  --hots-text-muted: #c4b5fd;
+  --hots-bg: #080514;
+  --hots-surface: #120b2e;
+  --hots-surface-raised: #1c1145;
+  --hots-border: #3d2882;
+  --hots-border-bright: #5e43bd;
+  --hots-cyan: #38bdf8;
+  --hots-cyan-bright: #7dd3fc;
+  --hots-gold: #f0b429;
+  --hots-gold-bright: #fcd34d;
+  --hots-royal: #3b5bdb;
+  --hots-text: #f1efff;
+  --hots-text-muted: #a99cd6;
 }
 
 /* Custom Nexus Scrollbars */
@@ -20,26 +20,26 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #070314;
+  background: #080514;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #3e238c;
+  background: #352275;
   border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #5c38c7;
+  background: #4d34a3;
 }
 
-/* Base Body & Subtle Nexus Ambient Glow */
+/* Base Body & Deep In-Game Indigo Backdrop */
 .hots-body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   background-color: var(--hots-bg);
   background-image:
-    radial-gradient(ellipse 80% 45% at 50% -8%, rgba(88, 42, 196, 0.28), transparent 70%),
-    radial-gradient(circle at 88% 18%, rgba(41, 199, 255, 0.08), transparent 45%),
-    radial-gradient(circle at 12% 75%, rgba(245, 184, 46, 0.06), transparent 45%);
+    radial-gradient(ellipse 85% 45% at 50% -10%, rgba(56, 36, 130, 0.34), transparent 72%),
+    radial-gradient(circle at 82% 22%, rgba(37, 62, 155, 0.14), transparent 48%),
+    radial-gradient(circle at 18% 78%, rgba(44, 25, 105, 0.18), transparent 52%);
   color: var(--hots-text);
 }
 
@@ -53,11 +53,11 @@
 
 /* Top Client Chrome & Navigation Rail */
 .hots-topbar {
-  background: linear-gradient(180deg, #1d0e47 0%, #11072c 62%, #0b041d 100%);
-  border-bottom: 1px solid #482ba3;
+  background: linear-gradient(180deg, #160d38 0%, #0d0724 70%, #09051a 100%);
+  border-bottom: 1px solid #352275;
   box-shadow:
-    inset 0 -1px 0 rgba(41, 199, 255, 0.16),
-    0 6px 24px rgba(0, 0, 0, 0.72);
+    inset 0 -1px 0 rgba(125, 211, 252, 0.1),
+    0 6px 22px rgba(0, 0, 0, 0.78);
 }
 
 .hots-brand-emblem {
@@ -65,24 +65,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 6px;
-  background: linear-gradient(180deg, rgba(41, 199, 255, 0.14) 0%, rgba(24, 11, 61, 0.9) 100%);
-  border: 1px solid rgba(103, 68, 214, 0.55);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  width: 42px;
+  height: 42px;
+  border-radius: 5px;
+  background: linear-gradient(180deg, rgba(36, 56, 138, 0.32) 0%, rgba(16, 9, 43, 0.92) 100%);
+  border: 1px solid rgba(94, 67, 189, 0.55);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
 .hots-nav-rail {
-  background: linear-gradient(180deg, rgba(11, 5, 29, 0.96) 0%, rgba(7, 3, 19, 0.98) 100%);
-  border: 1px solid #3c2287;
-  box-shadow: inset 0 1px 0 rgba(167, 139, 250, 0.12);
+  background: linear-gradient(180deg, #0b061c 0%, #070413 100%);
+  border: 1px solid #2e1c69;
+  box-shadow: inset 0 1px 0 rgba(169, 156, 214, 0.08);
 }
 
 .hots-footer {
-  background: linear-gradient(180deg, #11082b 0%, #070313 100%);
-  border-top: 1px solid #3d238a;
-  box-shadow: inset 0 1px 0 rgba(167, 139, 250, 0.14);
+  background: linear-gradient(180deg, #0e0826 0%, #070412 100%);
+  border-top: 1px solid #32206e;
+  box-shadow: inset 0 1px 0 rgba(169, 156, 214, 0.1);
 }
 
 /* Keyboard Accessibility Focus Indicators */
@@ -95,7 +95,7 @@
 .hots-btn-gold:focus-visible {
   outline: 2px solid #ffffff;
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(41, 199, 255, 0.55);
+  box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.45);
 }
 
 .f2p-row-item:focus-visible {
@@ -104,70 +104,70 @@
   border-radius: 8px;
 }
 
-/* HotS Beveled Glass Panels & Subpanels */
+/* Deep In-Game Panels & Subpanels */
 .hots-panel {
   max-width: 100%;
-  background: linear-gradient(180deg, rgba(34, 17, 82, 0.9) 0%, rgba(18, 9, 44, 0.95) 55%, rgba(12, 6, 31, 0.98) 100%);
-  border: 1px solid #3f248f;
+  background: linear-gradient(180deg, rgba(25, 15, 61, 0.92) 0%, rgba(15, 9, 38, 0.96) 60%, rgba(11, 6, 29, 0.98) 100%);
+  border: 1px solid #3c2780;
   box-shadow:
-    inset 0 1px 0 rgba(180, 155, 255, 0.22),
-    inset 0 -1px 0 rgba(5, 2, 14, 0.92),
-    0 10px 26px rgba(0, 0, 0, 0.55);
+    inset 0 1px 0 rgba(169, 156, 214, 0.16),
+    inset 0 -1px 0 rgba(4, 2, 12, 0.94),
+    0 10px 26px rgba(0, 0, 0, 0.62);
 }
 
 .hots-banner-accent {
   border-left: 4px solid var(--hots-gold);
   box-shadow:
-    inset 0 1px 0 rgba(255, 214, 102, 0.24),
-    inset 0 -1px 0 rgba(5, 2, 14, 0.92),
-    0 12px 28px rgba(0, 0, 0, 0.6);
+    inset 0 1px 0 rgba(252, 211, 77, 0.16),
+    inset 0 -1px 0 rgba(4, 2, 12, 0.94),
+    0 12px 28px rgba(0, 0, 0, 0.65);
 }
 
 .hots-card-live:hover {
-  border-color: rgba(41, 199, 255, 0.78);
+  border-color: rgba(56, 189, 248, 0.72);
   box-shadow:
-    inset 0 1px 0 rgba(102, 217, 255, 0.3),
-    0 10px 26px rgba(0, 0, 0, 0.6),
-    0 0 18px rgba(41, 199, 255, 0.14);
+    inset 0 1px 0 rgba(125, 211, 252, 0.22),
+    0 10px 26px rgba(0, 0, 0, 0.65),
+    0 0 16px rgba(56, 189, 248, 0.12);
 }
 
 .hots-card-ptr:hover {
-  border-color: rgba(245, 184, 46, 0.78);
+  border-color: rgba(240, 180, 41, 0.72);
   box-shadow:
-    inset 0 1px 0 rgba(255, 209, 102, 0.3),
-    0 10px 26px rgba(0, 0, 0, 0.6),
-    0 0 18px rgba(245, 184, 46, 0.14);
+    inset 0 1px 0 rgba(252, 211, 77, 0.22),
+    0 10px 26px rgba(0, 0, 0, 0.65),
+    0 0 16px rgba(240, 180, 41, 0.12);
 }
 
 .hots-subpanel {
-  background: linear-gradient(180deg, rgba(16, 8, 40, 0.96) 0%, rgba(10, 5, 25, 0.99) 100%);
-  border: 1px solid #301a6e;
-  box-shadow: inset 0 1px 0 rgba(157, 92, 255, 0.16);
+  background: linear-gradient(180deg, rgba(12, 7, 31, 0.96) 0%, rgba(8, 4, 21, 0.99) 100%);
+  border: 1px solid #2b1a61;
+  box-shadow: inset 0 1px 0 rgba(130, 112, 196, 0.12);
 }
 
 .hots-dropdown {
-  background: linear-gradient(180deg, #211052 0%, #11082c 100%);
-  border: 1px solid #5333b5;
+  background: linear-gradient(180deg, #1b1042 0%, #0e0724 100%);
+  border: 1px solid #4c339e;
   box-shadow:
-    inset 0 1px 0 rgba(180, 155, 255, 0.24),
-    0 14px 32px rgba(0, 0, 0, 0.78);
+    inset 0 1px 0 rgba(169, 156, 214, 0.18),
+    0 14px 32px rgba(0, 0, 0, 0.82);
 }
 
 .hots-role-badge {
-  background: linear-gradient(180deg, rgba(58, 28, 128, 0.85) 0%, rgba(31, 14, 74, 0.95) 100%);
-  border: 1px solid rgba(245, 184, 46, 0.5);
-  box-shadow: inset 0 1px 0 rgba(255, 209, 102, 0.2);
+  background: linear-gradient(180deg, rgba(38, 23, 89, 0.9) 0%, rgba(21, 12, 54, 0.96) 100%);
+  border: 1px solid rgba(240, 180, 41, 0.45);
+  box-shadow: inset 0 1px 0 rgba(252, 211, 77, 0.14);
 }
 
 .hots-input {
-  background-color: #090418;
-  border: 1px solid #3e238c;
+  background-color: #080415;
+  border: 1px solid #38237a;
   transition: border-color 0.14s ease, box-shadow 0.14s ease;
 }
 
 .hots-input:focus {
   border-color: var(--hots-cyan);
-  box-shadow: 0 0 0 2px rgba(41, 199, 255, 0.2);
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.18);
 }
 
 .hots-label {
@@ -181,39 +181,39 @@
 
 /* Chamfered HotS Action Buttons */
 .hots-btn-cyan {
-  background: linear-gradient(180deg, #47d7ff 0%, #1198de 55%, #0976b5 100%);
-  color: #04101c;
-  border: 1px solid #96ebff;
+  background: linear-gradient(180deg, #38bdf8 0%, #0ea5e9 58%, #0284c7 100%);
+  color: #05111d;
+  border: 1px solid #bae6fd;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.55),
-    0 3px 14px rgba(17, 152, 222, 0.42);
+    inset 0 1px 0 rgba(255, 255, 255, 0.48),
+    0 3px 12px rgba(2, 132, 199, 0.36);
   clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
 }
 
 .hots-btn-cyan:hover {
-  background: linear-gradient(180deg, #6ee1ff 0%, #1ba9f2 55%, #0c89cf 100%);
+  background: linear-gradient(180deg, #7dd3fc 0%, #38bdf8 58%, #0369a1 100%);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.7),
-    0 4px 18px rgba(41, 199, 255, 0.55);
+    inset 0 1px 0 rgba(255, 255, 255, 0.65),
+    0 4px 16px rgba(56, 189, 248, 0.45);
 }
 
 .hots-btn-gold {
-  background: linear-gradient(180deg, rgba(245, 184, 46, 0.34) 0%, rgba(168, 98, 12, 0.44) 100%);
-  color: #ffe699;
-  border: 1px solid rgba(245, 184, 46, 0.75);
+  background: linear-gradient(180deg, rgba(240, 180, 41, 0.24) 0%, rgba(133, 81, 14, 0.36) 100%);
+  color: #fde68a;
+  border: 1px solid rgba(240, 180, 41, 0.68);
   box-shadow:
-    inset 0 1px 0 rgba(255, 230, 153, 0.32),
-    0 3px 12px rgba(0, 0, 0, 0.4);
+    inset 0 1px 0 rgba(253, 230, 138, 0.24),
+    0 3px 10px rgba(0, 0, 0, 0.42);
   clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
 }
 
 .hots-btn-gold:hover {
-  background: linear-gradient(180deg, rgba(255, 204, 77, 0.46) 0%, rgba(196, 116, 16, 0.54) 100%);
+  background: linear-gradient(180deg, rgba(240, 180, 41, 0.34) 0%, rgba(161, 98, 16, 0.46) 100%);
   color: #ffffff;
-  border-color: #ffd166;
+  border-color: #fcd34d;
 }
 
-/* Top Client Nav Tabs */
+/* Top Client Nav Tabs (In-Game Royal Cobalt & Periwinkle) */
 .nav-button {
   font-family: 'Chakra Petch', 'Inter', sans-serif;
   padding: 0.48rem 1.02rem;
@@ -226,25 +226,25 @@
   display: flex;
   align-items: center;
   gap: 0.45rem;
-  color: #c4b5fd;
+  color: #a89ad6;
   border: 1px solid transparent;
   position: relative;
 }
 
 .nav-button:hover {
-  background: linear-gradient(180deg, rgba(124, 58, 237, 0.28) 0%, rgba(67, 26, 145, 0.32) 100%);
-  color: #ffffff;
-  border-color: rgba(157, 92, 255, 0.45);
+  background: linear-gradient(180deg, rgba(44, 62, 150, 0.34) 0%, rgba(27, 17, 69, 0.42) 100%);
+  color: #f1efff;
+  border-color: rgba(94, 67, 189, 0.45);
 }
 
 .nav-active {
-  background: linear-gradient(180deg, rgba(41, 199, 255, 0.25) 0%, rgba(92, 42, 194, 0.42) 100%) !important;
+  background: linear-gradient(180deg, rgba(43, 74, 179, 0.42) 0%, rgba(24, 15, 64, 0.72) 100%) !important;
   color: #ffffff !important;
-  border: 1px solid rgba(41, 199, 255, 0.75) !important;
+  border: 1px solid rgba(96, 165, 250, 0.68) !important;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.28),
-    inset 0 -2px 0 #29c7ff,
-    0 0 14px rgba(41, 199, 255, 0.18);
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -2px 0 #38bdf8,
+    0 2px 10px rgba(37, 99, 235, 0.22);
 }
 
 /* Scale up ability strip items (boxes, icons, and text) by ~25% */
