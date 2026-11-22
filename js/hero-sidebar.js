@@ -146,6 +146,8 @@ function observeVisibleHeroButtons(listEl) {
 }
 
 function renderHeroSidebar(heroes) {
+    bindHeroSidebarEvents();
+
     const list = document.getElementById('hero-list');
     if (!list) return;
 
@@ -186,7 +188,7 @@ function renderHeroSidebar(heroes) {
         btn.innerHTML = `
             <div class="flex items-center gap-3 min-w-0">
                 <div class="hex-sidebar-frame">
-                    <img src="${portraitUrl}" onerror="this.onerror=null;this.src='${HERO_FALLBACK_PORTRAIT}'" alt="${h.name}" class="hex-sidebar-img" loading="lazy">
+                    <img alt="${h.name}" class="hex-sidebar-img" loading="lazy">
                     <svg class="hex-sidebar-ring" viewBox="0 0 100 100" aria-hidden="true">
                         <polygon
                             points="50,-1.5 96.5,24.2 96.5,75.8 50,101.5 3.5,75.8 3.5,24.2"
@@ -207,6 +209,16 @@ function renderHeroSidebar(heroes) {
             </div>
         `;
 
+        const img = btn.querySelector('img');
+        if (img) {
+            img.addEventListener('error', () => {
+                if (img.src !== HERO_FALLBACK_PORTRAIT) {
+                    img.src = HERO_FALLBACK_PORTRAIT;
+                }
+            });
+            img.src = portraitUrl;
+        }
+
         frag.appendChild(btn);
     });
 
@@ -220,6 +232,8 @@ function renderHeroSidebar(heroes) {
 }
 
 function filterHeroes() {
+    bindHeroSidebarEvents();
+
     const q = (document.getElementById('hero-search')?.value || '').trim().toLowerCase();
     const matches = q
         ? MASTER_HERO_LIST.filter(h => String(h.searchText || `${h.name || ''} ${h.id || ''}`).toLowerCase().includes(q))
@@ -231,4 +245,18 @@ function filterHeroes() {
     if (q) {
         heroSearchPreloadTimer = setTimeout(() => warmSearchMatches(matches), 75);
     }
+}
+
+function bindHeroSidebarEvents() {
+    const searchInput = document.getElementById('hero-search');
+    if (searchInput && searchInput.dataset.heroSearchBound !== 'true') {
+        searchInput.dataset.heroSearchBound = 'true';
+        searchInput.addEventListener('input', filterHeroes);
+    }
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bindHeroSidebarEvents, { once: true });
+} else {
+    bindHeroSidebarEvents();
 }
