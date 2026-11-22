@@ -13,28 +13,6 @@ let heroListObserver = null;
 let heroScrollIdleTimer = null;
 let isHeroListScrolling = false;
 
-function resolveHeroUiPortraitPath(rawHero) {
-    if (!rawHero) return '';
-    if (typeof getHeroPortrait === 'function') {
-        const fromHelper = getHeroPortrait(rawHero);
-        if (fromHelper) return fromHelper;
-    }
-    if (typeof rawHero === 'string') return rawHero;
-    return rawHero.portrait || rawHero.portraitUrl || rawHero.icon || rawHero.imageUrl || '';
-}
-
-function resolveHeroUiPortraitUrl(rawOrPath) {
-    const rawPath = typeof rawOrPath === 'object' && rawOrPath !== null
-        ? resolveHeroUiPortraitPath(rawOrPath)
-        : rawOrPath;
-
-    if (!rawPath) return HERO_FALLBACK_PORTRAIT;
-    if (typeof getAssetUrl === 'function') {
-        return getAssetUrl(rawPath) || HERO_FALLBACK_PORTRAIT;
-    }
-    return rawPath;
-}
-
 function preloadHeroIds(ids) {
     if (!Array.isArray(ids) || ids.length === 0) return;
 
@@ -164,7 +142,9 @@ function renderHeroSidebar(heroes) {
             border: 'border-slate-600'
         };
         const rawEntry = typeof getRawHeroEntry === 'function' ? getRawHeroEntry(h.id) : null;
-        const portraitUrl = resolveHeroUiPortraitUrl(h.portrait || rawEntry);
+        const portraitUrl = typeof resolveAssetUrl === 'function'
+            ? resolveAssetUrl(h.portrait || rawEntry, HERO_FALLBACK_PORTRAIT)
+            : HERO_FALLBACK_PORTRAIT;
         const btn = document.createElement('button');
 
         btn.type = 'button';
