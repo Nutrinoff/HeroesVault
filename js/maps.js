@@ -4,13 +4,19 @@
 
 const MAP_DETAILS_CACHE = new Map();
 const PRELOADED_MAP_IMAGES = new Set();
+const MAP_FALLBACK_BANNER = 'https://via.placeholder.com/1200x500?text=Map';
+const MAP_HERO_FALLBACK_PORTRAIT = 'https://via.placeholder.com/40?text=H';
 
 function preloadMapImage(portraitPath) {
     if (!portraitPath) return;
-    const url = getAssetUrl(portraitPath);
+    const url = typeof getAssetUrl === 'function' ? getAssetUrl(portraitPath) : portraitPath;
     if (!url || PRELOADED_MAP_IMAGES.has(url)) return;
 
     PRELOADED_MAP_IMAGES.add(url);
+    if (typeof preloadAllAssets === 'function') {
+        preloadAllAssets([url]);
+        return;
+    }
     const img = new Image();
     img.src = url;
 }
@@ -68,7 +74,17 @@ function toggleMapsDropdown(e) {
     }
 }
 
+function bindMapsEvents() {
+    const toggleBtn = document.getElementById('maps-dropdown-toggle');
+    if (toggleBtn && toggleBtn.dataset.mapsBound !== 'true') {
+        toggleBtn.dataset.mapsBound = 'true';
+        toggleBtn.addEventListener('click', toggleMapsDropdown);
+    }
+}
+
 function populateMapsDropdown() {
+    bindMapsEvents();
+
     const menu = document.getElementById('maps-dropdown-menu');
     if (!menu) return;
 
@@ -115,8 +131,14 @@ function renderMapView(m, fallbackId) {
 
     if (nameEl) nameEl.innerText = m.name || fallbackId;
     if (themeEl) themeEl.innerText = m.theme || '';
-    if (portraitEl && m.portrait) {
-        portraitEl.src = getAssetUrl(m.portrait);
+    if (portraitEl) {
+        portraitEl.onerror = () => {
+            portraitEl.onerror = null;
+            portraitEl.src = MAP_FALLBACK_BANNER;
+        };
+        portraitEl.src = m.portrait
+            ? (typeof getAssetUrl === 'function' ? getAssetUrl(m.portrait) : m.portrait)
+            : MAP_FALLBACK_BANNER;
     }
 
     if (mechEl) {
@@ -152,10 +174,23 @@ function renderMapView(m, fallbackId) {
             btn.type = 'button';
             btn.className = 'flex items-center gap-2 bg-slate-950/60 border border-slate-800 rounded-lg p-2 text-left hover:border-sky-500';
             btn.addEventListener('click', () => navigateTo('heroes', { hero: h.id }));
-            btn.innerHTML = `
-                <img src="${getAssetUrl(h.portrait)}" onerror="this.src='https://via.placeholder.com/40?text=H'" class="w-9 h-9 rounded object-cover">
-                <span class="text-xs">${h.name}</span>
-            `;
+
+            const img = document.createElement('img');
+            img.className = 'w-9 h-9 rounded object-cover';
+            img.alt = h.name;
+            img.onerror = () => {
+                img.onerror = null;
+                img.src = MAP_HERO_FALLBACK_PORTRAIT;
+            };
+            img.src = h.portrait
+                ? (typeof getAssetUrl === 'function' ? getAssetUrl(h.portrait) : h.portrait)
+                : MAP_HERO_FALLBACK_PORTRAIT;
+
+            const label = document.createElement('span');
+            label.className = 'text-xs';
+            label.textContent = h.name;
+
+            btn.append(img, label);
             frag.appendChild(btn);
         });
 
