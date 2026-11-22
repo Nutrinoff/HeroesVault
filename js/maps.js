@@ -132,14 +132,14 @@ function populateMapsDropdown() {
     const frag = document.createDocumentFragment();
 
     const header = document.createElement('div');
-    header.className = 'px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-500';
+    header.className = 'px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-500 whitespace-nowrap';
     header.textContent = 'Battlegrounds';
     frag.appendChild(header);
 
     sortedMaps.forEach(m => {
         const link = document.createElement('a');
         link.href = `#map?id=${encodeURIComponent(m.id)}`;
-        link.className = 'block px-4 py-2 text-sm text-slate-300 hover:bg-slate-800';
+        link.className = 'block px-4 py-2 text-sm text-slate-300 hover:bg-slate-800 whitespace-nowrap';
         link.textContent = m.name || m.id;
 
         link.addEventListener('mouseenter', () => warmMapAssets(m.id), { passive: true });
