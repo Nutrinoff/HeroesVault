@@ -332,6 +332,43 @@
   pointer-events: none;
 }
 
+/* Frameless HotS Filter Tabs (ALL / BASIC / ADVANCED & All / Live / PTR) */
+.academy-level-btn,
+.patch-filter-btn {
+  font-family: 'Chakra Petch', 'Inter', sans-serif;
+  padding: 0.25rem 0.65rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0;
+  cursor: pointer;
+  color: rgba(156, 182, 255, 0.34) !important;
+  text-shadow: 0 0 12px rgba(0, 99, 200, 0.28);
+  transition: color 0.16s ease, text-shadow 0.16s ease, filter 0.16s ease;
+}
+
+.academy-level-btn:hover,
+.patch-filter-btn:hover {
+  color: rgba(203, 232, 255, 0.72) !important;
+  text-shadow: 0 0 14px rgba(0, 156, 255, 0.42);
+}
+
+.academy-level-btn.is-active,
+.academy-level-btn[aria-pressed="true"],
+.patch-filter-btn.is-active,
+.patch-filter-btn[aria-pressed="true"] {
+  color: #e6f4ff !important;
+  text-shadow:
+    0 0 8px rgba(203, 232, 255, 0.78),
+    0 0 18px rgba(0, 156, 255, 0.62),
+    0 0 28px rgba(0, 99, 200, 0.45);
+}
+
 /* Scale up ability strip items (boxes, icons, and text) by ~25% */
 #hero-abilities > div,
 #builder-abilities > div {
@@ -414,6 +451,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .nav-button,
+  .academy-level-btn,
+  .patch-filter-btn,
   .f2p-row-item,
   .hots-input,
   .hots-brand-emblem svg {
