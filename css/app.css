@@ -18,10 +18,10 @@
   --hots-cyan-vivid: #00f0ff;
   --hots-royal: #0063c8;
 
-  /* Warm gold & amber reward/callout accents (ColorGold / ColorGoldGradient) */
-  --hots-gold: #e38b0d;
-  --hots-gold-bright: #ffeab6;
-  --hots-gold-vivid: #fed600;
+  /* Restrained warm bronze-amber callout accents */
+  --hots-gold: #c97a16;
+  --hots-gold-bright: #f5d89a;
+  --hots-gold-vivid: #e39a24;
 
   /* Typography hierarchy (ColorPaleBlue / ColorStatusBlue / ColorLightPurple) */
   --hots-text: #e6ecff;
@@ -87,14 +87,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   border-radius: 3px;
-  background: linear-gradient(180deg, rgba(0, 99, 200, 0.28) 0%, rgba(15, 8, 40, 0.94) 100%);
-  border: 1px solid rgba(139, 129, 211, 0.55);
+  background:
+    radial-gradient(circle at 50% 45%, rgba(88, 186, 255, 0.22), rgba(14, 7, 38, 0.96) 72%);
+  border: 1px solid rgba(124, 156, 255, 0.45);
   box-shadow:
-    inset 0 1px 0 rgba(203, 232, 255, 0.18),
-    0 0 12px rgba(0, 99, 200, 0.22);
+    inset 0 1px 0 rgba(203, 232, 255, 0.22),
+    inset 0 -1px 0 rgba(0, 99, 200, 0.35),
+    0 0 16px rgba(0, 156, 255, 0.24);
 }
 
 .hots-nav-rail {
@@ -117,9 +119,9 @@
 
 .hots-btn-cyan:focus-visible,
 .hots-btn-gold:focus-visible {
-  outline: 2px solid #ffffff;
+  outline: 2px solid var(--hots-cyan-bright);
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(0, 156, 255, 0.48);
+  box-shadow: 0 0 0 4px rgba(0, 156, 255, 0.36);
 }
 
 .f2p-row-item:focus-visible {
@@ -141,12 +143,12 @@
 }
 
 .hots-banner-accent {
-  border-left: 4px solid var(--hots-gold-vivid);
+  border-left: 3px solid rgba(88, 186, 255, 0.85);
   box-shadow:
-    inset 0 1px 0 rgba(255, 234, 182, 0.22),
+    inset 0 1px 0 rgba(203, 232, 255, 0.18),
     inset 0 -1px 0 rgba(4, 2, 12, 0.95),
     0 12px 28px rgba(0, 0, 0, 0.75),
-    -4px 0 16px rgba(227, 139, 13, 0.25);
+    -3px 0 14px rgba(0, 156, 255, 0.24);
 }
 
 .hots-card-live:hover {
@@ -158,11 +160,11 @@
 }
 
 .hots-card-ptr:hover {
-  border-color: rgba(254, 214, 0, 0.75);
+  border-color: rgba(245, 216, 154, 0.65);
   box-shadow:
-    inset 0 1px 0 rgba(255, 254, 232, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
     0 10px 26px rgba(0, 0, 0, 0.72),
-    0 0 18px rgba(227, 139, 13, 0.28);
+    0 0 16px rgba(201, 122, 22, 0.22);
 }
 
 .hots-subpanel {
@@ -183,9 +185,9 @@
 
 .hots-role-badge {
   border-radius: 2px;
-  background: linear-gradient(180deg, rgba(44, 25, 98, 0.92) 0%, rgba(20, 11, 51, 0.97) 100%);
-  border: 1px solid rgba(254, 214, 0, 0.48);
-  box-shadow: inset 0 1px 0 rgba(255, 234, 182, 0.16);
+  background: linear-gradient(180deg, rgba(35, 22, 82, 0.92) 0%, rgba(16, 9, 41, 0.97) 100%);
+  border: 1px solid rgba(156, 182, 255, 0.34);
+  box-shadow: inset 0 1px 0 rgba(203, 232, 255, 0.14);
 }
 
 .hots-input {
@@ -214,42 +216,48 @@
   color: var(--hots-text-soft);
 }
 
-/* Chamfered HotS Action Buttons */
+/* Refined HotS Nexus Action Buttons */
 .hots-btn-cyan {
-  background: linear-gradient(180deg, var(--hots-cyan) 0%, #1682e8 56%, var(--hots-royal) 100%);
-  color: #04101d;
-  border: 1px solid var(--hots-cyan-bright);
+  border-radius: 2px;
+  background: linear-gradient(180deg, rgba(88, 186, 255, 0.26) 0%, rgba(0, 99, 200, 0.34) 55%, rgba(12, 24, 66, 0.92) 100%);
+  color: var(--hots-cyan-bright);
+  border: 1px solid rgba(88, 186, 255, 0.65);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.55),
-    0 3px 14px var(--hots-glow-blue);
-  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    inset 0 1px 0 rgba(203, 232, 255, 0.28),
+    0 4px 14px rgba(0, 0, 0, 0.55),
+    0 0 12px rgba(0, 156, 255, 0.18);
+  text-shadow: 0 0 8px rgba(0, 156, 255, 0.45);
 }
 
 .hots-btn-cyan:hover {
-  background: linear-gradient(180deg, #ffffff 0%, var(--hots-cyan-bright) 46%, #009cff 100%);
-  color: #030b14;
+  background: linear-gradient(180deg, rgba(136, 208, 255, 0.38) 0%, rgba(22, 130, 232, 0.46) 55%, rgba(16, 34, 88, 0.95) 100%);
+  color: #ffffff;
+  border-color: var(--hots-cyan-bright);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.75),
-    0 4px 18px rgba(0, 156, 255, 0.55);
+    inset 0 1px 0 rgba(255, 255, 255, 0.42),
+    0 4px 18px rgba(0, 0, 0, 0.65),
+    0 0 18px rgba(0, 156, 255, 0.38);
 }
 
 .hots-btn-gold {
-  background: linear-gradient(180deg, rgba(254, 214, 0, 0.25) 0%, rgba(227, 139, 13, 0.25) 55%, rgba(138, 72, 0, 0.44) 100%);
+  border-radius: 2px;
+  background: linear-gradient(180deg, rgba(64, 41, 106, 0.72) 0%, rgba(29, 17, 66, 0.92) 58%, rgba(15, 8, 38, 0.96) 100%);
   color: var(--hots-gold-bright);
-  border: 1px solid rgba(254, 214, 0, 0.72);
+  border: 1px solid rgba(201, 122, 22, 0.55);
   box-shadow:
-    inset 0 1px 0 rgba(255, 254, 232, 0.28),
-    0 3px 12px rgba(227, 139, 13, 0.28);
-  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    inset 0 1px 0 rgba(245, 216, 154, 0.2),
+    0 4px 14px rgba(0, 0, 0, 0.55);
+  text-shadow: 0 0 8px rgba(201, 122, 22, 0.32);
 }
 
 .hots-btn-gold:hover {
-  background: linear-gradient(180deg, rgba(255, 254, 232, 0.34) 0%, rgba(254, 214, 0, 0.34) 52%, rgba(227, 139, 13, 0.42) 100%);
+  background: linear-gradient(180deg, rgba(84, 52, 132, 0.82) 0%, rgba(42, 23, 88, 0.95) 58%, rgba(19, 10, 46, 0.98) 100%);
   color: #ffffff;
-  border-color: #fffee8;
+  border-color: rgba(245, 216, 154, 0.75);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.45),
-    0 0 16px rgba(227, 139, 13, 0.42);
+    inset 0 1px 0 rgba(255, 245, 220, 0.3),
+    0 4px 18px rgba(0, 0, 0, 0.65),
+    0 0 16px rgba(201, 122, 22, 0.24);
 }
 
 /* Top Client Nav Tabs (TaskBarSubNavigation -> TaskBarSubNavigationSelected) */
