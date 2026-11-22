@@ -332,9 +332,10 @@
   pointer-events: none;
 }
 
-/* Frameless HotS Filter Tabs (ALL / BASIC / ADVANCED & All / Live / PTR) */
+/* Frameless HotS Filter Tabs (ALL / BASIC / ADVANCED, All / Live / PTR & Academy Categories) */
 .academy-level-btn,
-.patch-filter-btn {
+.patch-filter-btn,
+.academy-category-btn {
   font-family: 'Chakra Petch', 'Inter', sans-serif;
   padding: 0.25rem 0.65rem;
   font-size: 0.78rem;
@@ -353,7 +354,8 @@
 }
 
 .academy-level-btn:hover,
-.patch-filter-btn:hover {
+.patch-filter-btn:hover,
+.academy-category-btn:hover {
   color: rgba(203, 232, 255, 0.72) !important;
   text-shadow: 0 0 14px rgba(0, 156, 255, 0.42);
 }
@@ -361,7 +363,9 @@
 .academy-level-btn.is-active,
 .academy-level-btn[aria-pressed="true"],
 .patch-filter-btn.is-active,
-.patch-filter-btn[aria-pressed="true"] {
+.patch-filter-btn[aria-pressed="true"],
+.academy-category-btn.is-active,
+.academy-category-btn[aria-pressed="true"] {
   color: #e6f4ff !important;
   text-shadow:
     0 0 8px rgba(203, 232, 255, 0.78),
@@ -453,6 +457,7 @@
   .nav-button,
   .academy-level-btn,
   .patch-filter-btn,
+  .academy-category-btn,
   .f2p-row-item,
   .hots-input,
   .hots-brand-emblem svg {
