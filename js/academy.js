@@ -25,11 +25,12 @@ function getAcademyCategories() {
 }
 
 function escapeAcademyHtml(str) {
-    return String(str || '')
+    return String(str ?? '')
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;');
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
 }
 
 function formatAcademyInline(text) {
@@ -145,11 +146,27 @@ function getFilteredAcademyArticles() {
 
 function setAcademyLevel(level) {
     academyState.level = level;
-    document.querySelectorAll('.academy-level-btn').forEach(btn => {
+    document.querySelectorAll('.academy-level-btn, [data-academy-level]').forEach(btn => {
         const active = btn.dataset.academyLevel === level;
-        btn.className = active
-            ? 'academy-level-btn px-3 py-1 rounded-lg text-xs font-bold bg-sky-500 text-slate-950 transition'
-            : 'academy-level-btn px-3 py-1 rounded-lg text-xs font-bold text-slate-300 hover:bg-slate-800 hover:text-white transition';
+        btn.setAttribute('aria-pressed', String(active));
+        btn.classList.remove(
+            'bg-sky-500',
+            'text-slate-950',
+            'text-slate-300',
+            'hover:bg-slate-800',
+            'hover:text-white'
+        );
+        btn.classList.add(
+            'px-3',
+            'py-1',
+            'rounded-lg',
+            'text-xs',
+            'font-bold',
+            'transition',
+            ...(active
+                ? ['bg-sky-500', 'text-slate-950']
+                : ['text-slate-300', 'hover:bg-slate-800', 'hover:text-white'])
+        );
     });
     renderAcademy();
 }
@@ -181,6 +198,7 @@ function renderAcademyCategories() {
         const active = academyState.category === cat;
         const btn = document.createElement('button');
         btn.type = 'button';
+        btn.setAttribute('aria-pressed', String(active));
         btn.className = `px-2.5 py-1 rounded-lg text-xs font-semibold border transition ${
             active
                 ? 'bg-purple-500/20 text-purple-200 border-purple-400/50'
@@ -196,9 +214,41 @@ function renderAcademyCategories() {
 
 function getLevelBadgeClasses(level) {
     if (level === 'Advanced') {
-        return 'bg-amber-500/15 text-amber-300 border-amber-500/30';
+        return ['bg-amber-500/15', 'text-amber-300', 'border-amber-500/30'];
     }
-    return 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30';
+    return ['bg-emerald-500/15', 'text-emerald-300', 'border-emerald-500/30'];
+}
+
+function buildAcademyArticleCardButton(article, isSelected) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = `w-full text-left p-2.5 rounded-xl border transition ${
+        isSelected
+            ? 'bg-sky-500/15 border-sky-500/60 text-white'
+            : 'bg-slate-950/50 border-slate-800/80 text-slate-300 hover:bg-slate-800/70'
+    }`;
+
+    const topRow = document.createElement('div');
+    topRow.className = 'flex items-center justify-between gap-2 mb-1';
+
+    const catEl = document.createElement('span');
+    catEl.className = 'text-[10px] font-bold uppercase tracking-wider text-sky-400';
+    catEl.textContent = article.category || 'General';
+
+    const levelEl = document.createElement('span');
+    levelEl.className = 'text-[10px] font-semibold px-1.5 py-0.5 rounded border';
+    levelEl.classList.add(...getLevelBadgeClasses(article.level));
+    levelEl.textContent = article.level || 'Basic';
+
+    topRow.append(catEl, levelEl);
+
+    const titleEl = document.createElement('div');
+    titleEl.className = 'text-xs font-bold leading-snug';
+    titleEl.textContent = article.title || 'Untitled Guide';
+
+    btn.append(topRow, titleEl);
+    btn.addEventListener('click', () => selectAcademyArticle(article.id));
+    return btn;
 }
 
 function renderAcademyListAndReader(scrollReader) {
@@ -209,13 +259,24 @@ function renderAcademyListAndReader(scrollReader) {
     const filtered = getFilteredAcademyArticles();
 
     if (filtered.length === 0) {
-        listEl.innerHTML = `<div class="text-xs text-slate-500 p-3 text-center">No guides match your current filter.</div>`;
-        readerEl.innerHTML = `
-            <div class="text-center py-10 space-y-2">
-                <p class="text-sm font-bold text-slate-200">No matching Academy articles</p>
-                <p class="text-xs text-slate-400">Try clearing your search or switching Basic / Advanced / Category filters.</p>
-            </div>
-        `;
+        const emptyListMsg = document.createElement('div');
+        emptyListMsg.className = 'text-xs text-slate-500 p-3 text-center';
+        emptyListMsg.textContent = 'No guides match your current filter.';
+        listEl.replaceChildren(emptyListMsg);
+
+        const emptyReader = document.createElement('div');
+        emptyReader.className = 'text-center py-10 space-y-2';
+
+        const heading = document.createElement('p');
+        heading.className = 'text-sm font-bold text-slate-200';
+        heading.textContent = 'No matching Academy articles';
+
+        const sub = document.createElement('p');
+        sub.className = 'text-xs text-slate-400';
+        sub.textContent = 'Try clearing your search or switching Basic / Advanced / Category filters.';
+
+        emptyReader.append(heading, sub);
+        readerEl.replaceChildren(emptyReader);
         return;
     }
 
@@ -228,71 +289,84 @@ function renderAcademyListAndReader(scrollReader) {
 
     const listFrag = document.createDocumentFragment();
     filtered.forEach(article => {
-        const isSelected = article.id === activeArticle.id;
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = `w-full text-left p-2.5 rounded-xl border transition ${
-            isSelected
-                ? 'bg-sky-500/15 border-sky-500/60 text-white'
-                : 'bg-slate-950/50 border-slate-800/80 text-slate-300 hover:bg-slate-800/70'
-        }`;
-        btn.innerHTML = `
-            <div class="flex items-center justify-between gap-2 mb-1">
-                <span class="text-[10px] font-bold uppercase tracking-wider text-sky-400">${escapeAcademyHtml(article.category)}</span>
-                <span class="text-[10px] font-semibold px-1.5 py-0.5 rounded border ${getLevelBadgeClasses(article.level)}">${escapeAcademyHtml(article.level)}</span>
-            </div>
-            <div class="text-xs font-bold leading-snug">${escapeAcademyHtml(article.title)}</div>
-        `;
-        btn.addEventListener('click', () => selectAcademyArticle(article.id));
-        listFrag.appendChild(btn);
+        listFrag.appendChild(buildAcademyArticleCardButton(article, article.id === activeArticle.id));
     });
     listEl.replaceChildren(listFrag);
 
     const prevArticle = activeIndex > 0 ? filtered[activeIndex - 1] : null;
     const nextArticle = activeIndex < filtered.length - 1 ? filtered[activeIndex + 1] : null;
 
-    readerEl.innerHTML = `
-        <div class="space-y-2 pb-4 border-b border-slate-800/90">
-            <div class="flex flex-wrap items-center gap-2 text-xs">
-                <span class="px-2.5 py-0.5 rounded-full font-semibold bg-purple-500/20 text-purple-300 border border-purple-500/30">${escapeAcademyHtml(activeArticle.category)}</span>
-                <span class="px-2.5 py-0.5 rounded-full font-semibold border ${getLevelBadgeClasses(activeArticle.level)}">${escapeAcademyHtml(activeArticle.level)}</span>
-                ${activeArticle.readTime ? `<span class="text-slate-400 font-mono text-[11px]">${escapeAcademyHtml(activeArticle.readTime)}</span>` : ''}
-            </div>
-            <h3 class="text-2xl font-extrabold text-white">${escapeAcademyHtml(activeArticle.title)}</h3>
-            ${activeArticle.summary ? `<p class="text-sm text-slate-400 leading-relaxed">${escapeAcademyHtml(activeArticle.summary)}</p>` : ''}
-        </div>
+    const readerFrag = document.createDocumentFragment();
 
-        <div class="space-y-3">
-            ${renderAcademyMarkdown(activeArticle.markdown)}
-        </div>
+    const header = document.createElement('div');
+    header.className = 'space-y-2 pb-4 border-b border-slate-800/90';
 
-        <div id="academy-article-nav" class="pt-4 border-t border-slate-800/80 flex items-center justify-between gap-3"></div>
-    `;
+    const metaRow = document.createElement('div');
+    metaRow.className = 'flex flex-wrap items-center gap-2 text-xs';
 
-    const navEl = readerEl.querySelector('#academy-article-nav');
-    if (navEl) {
-        if (prevArticle) {
-            const prevBtn = document.createElement('button');
-            prevBtn.type = 'button';
-            prevBtn.className = 'px-3.5 py-2 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-800 text-xs font-semibold text-slate-200 transition';
-            prevBtn.textContent = `← ${prevArticle.title}`;
-            prevBtn.addEventListener('click', () => selectAcademyArticle(prevArticle.id));
-            navEl.appendChild(prevBtn);
-        } else {
-            navEl.appendChild(document.createElement('span'));
-        }
+    const catBadge = document.createElement('span');
+    catBadge.className = 'px-2.5 py-0.5 rounded-full font-semibold bg-purple-500/20 text-purple-300 border border-purple-500/30';
+    catBadge.textContent = activeArticle.category || 'General';
 
-        if (nextArticle) {
-            const nextBtn = document.createElement('button');
-            nextBtn.type = 'button';
-            nextBtn.className = 'px-3.5 py-2 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-800 text-xs font-semibold text-slate-200 transition';
-            nextBtn.textContent = `${nextArticle.title} →`;
-            nextBtn.addEventListener('click', () => selectAcademyArticle(nextArticle.id));
-            navEl.appendChild(nextBtn);
-        } else {
-            navEl.appendChild(document.createElement('span'));
-        }
+    const levelBadge = document.createElement('span');
+    levelBadge.className = 'px-2.5 py-0.5 rounded-full font-semibold border';
+    levelBadge.classList.add(...getLevelBadgeClasses(activeArticle.level));
+    levelBadge.textContent = activeArticle.level || 'Basic';
+
+    metaRow.append(catBadge, levelBadge);
+
+    if (activeArticle.readTime) {
+        const readTimeEl = document.createElement('span');
+        readTimeEl.className = 'text-slate-400 font-mono text-[11px]';
+        readTimeEl.textContent = activeArticle.readTime;
+        metaRow.appendChild(readTimeEl);
     }
+
+    const titleHeading = document.createElement('h3');
+    titleHeading.className = 'text-2xl font-extrabold text-white';
+    titleHeading.textContent = activeArticle.title || 'Untitled Guide';
+
+    header.append(metaRow, titleHeading);
+
+    if (activeArticle.summary) {
+        const summaryEl = document.createElement('p');
+        summaryEl.className = 'text-sm text-slate-400 leading-relaxed';
+        summaryEl.textContent = activeArticle.summary;
+        header.appendChild(summaryEl);
+    }
+
+    const bodyContainer = document.createElement('div');
+    bodyContainer.className = 'space-y-3';
+    bodyContainer.innerHTML = renderAcademyMarkdown(activeArticle.markdown);
+
+    const navEl = document.createElement('div');
+    navEl.id = 'academy-article-nav';
+    navEl.className = 'pt-4 border-t border-slate-800/80 flex items-center justify-between gap-3';
+
+    if (prevArticle) {
+        const prevBtn = document.createElement('button');
+        prevBtn.type = 'button';
+        prevBtn.className = 'px-3.5 py-2 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-800 text-xs font-semibold text-slate-200 transition';
+        prevBtn.textContent = `← ${prevArticle.title}`;
+        prevBtn.addEventListener('click', () => selectAcademyArticle(prevArticle.id));
+        navEl.appendChild(prevBtn);
+    } else {
+        navEl.appendChild(document.createElement('span'));
+    }
+
+    if (nextArticle) {
+        const nextBtn = document.createElement('button');
+        nextBtn.type = 'button';
+        nextBtn.className = 'px-3.5 py-2 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-800 text-xs font-semibold text-slate-200 transition';
+        nextBtn.textContent = `${nextArticle.title} →`;
+        nextBtn.addEventListener('click', () => selectAcademyArticle(nextArticle.id));
+        navEl.appendChild(nextBtn);
+    } else {
+        navEl.appendChild(document.createElement('span'));
+    }
+
+    readerFrag.append(header, bodyContainer, navEl);
+    readerEl.replaceChildren(readerFrag);
 
     if (scrollReader && window.innerWidth < 1024) {
         readerEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
