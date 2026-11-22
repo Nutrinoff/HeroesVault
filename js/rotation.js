@@ -93,55 +93,6 @@ function pickActiveScheduleEntry(list, now = new Date()) {
     return null;
 }
 
-function resolvePortraitUrl(rawPath) {
-    if (!rawPath) return '';
-    if (typeof getAssetUrl === 'function') {
-        const url = getAssetUrl(rawPath);
-        if (!url) return '';
-
-        const cleaned = String(rawPath).trim().replace(/^\.\//, '').replace(/^\/+/, '');
-        if (
-            !cleaned.includes('/') &&
-            url.includes('/heroesimages/abilitytalents/') &&
-            !cleaned.startsWith('storm_ui_talent') &&
-            !cleaned.startsWith('storm_ui_icon_')
-        ) {
-            return url.replace('/heroesimages/abilitytalents/', '/heroesimages/heroportraits/');
-        }
-        return url;
-    }
-
-    const trimmed = String(rawPath).trim();
-    if (/^(https?:\/\/|data:image\/)/i.test(trimmed)) return trimmed;
-    const cleaned = trimmed.replace(/^\.\//, '').replace(/^\/+/, '');
-    if (!cleaned) return '';
-    if (cleaned.startsWith('heroportraits/') || cleaned.includes('/')) {
-        return `https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/${cleaned}`;
-    }
-    return `https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/heroportraits/${cleaned}`;
-}
-
-function extractPortraitPath(heroObj) {
-    if (!heroObj) return '';
-    if (typeof getHeroPortrait === 'function') {
-        const fromHelper = getHeroPortrait(heroObj);
-        if (fromHelper) return fromHelper;
-    }
-    const p = heroObj.portraits || {};
-    return (
-        p.draftScreen ||
-        p.heroSelect ||
-        p.leaderboard ||
-        p.target ||
-        heroObj.portrait ||
-        heroObj.portraitUrl ||
-        heroObj.imageUrl ||
-        heroObj.ImageURL ||
-        heroObj.icon ||
-        ''
-    );
-}
-
 function buildHeroLookupIndex() {
     const index = new Map();
     const roster = Array.isArray(window.MASTER_HERO_LIST) ? window.MASTER_HERO_LIST : [];
@@ -187,6 +138,37 @@ function buildRawMasterLookupIndex() {
     return index;
 }
 
+function resolveRotationPortraitUrl(matched, rawMaster, item) {
+    const candidates = [matched, rawMaster, item];
+    if (typeof resolveAssetUrl === 'function') {
+        for (const candidate of candidates) {
+            if (!candidate) continue;
+            const resolved = resolveAssetUrl(candidate, '');
+            if (resolved) return resolved;
+        }
+        return FALLBACK_ROTATION_PORTRAIT;
+    }
+
+    for (const candidate of candidates) {
+        if (!candidate) continue;
+        const p = candidate.portraits || {};
+        const rawPath =
+            p.draftScreen ||
+            p.heroSelect ||
+            p.leaderboard ||
+            p.target ||
+            candidate.portrait ||
+            candidate.portraitUrl ||
+            candidate.imageUrl ||
+            candidate.ImageURL ||
+            candidate.icon ||
+            '';
+        if (rawPath) return String(rawPath).trim();
+    }
+
+    return FALLBACK_ROTATION_PORTRAIT;
+}
+
 function matchHeroWithIndex(entry, heroIndex, rawMasterIndex) {
     const item = typeof entry === 'string' ? { name: entry, id: entry } : (entry || {});
     const rawName = item.Name || item.name || '';
@@ -227,10 +209,6 @@ function matchHeroWithIndex(entry, heroIndex, rawMasterIndex) {
     }
 
     const fallbackName = rawName || rawId || 'Unknown Hero';
-    const rawPortrait =
-        extractPortraitPath(matched) ||
-        extractPortraitPath(rawMaster) ||
-        extractPortraitPath(item);
 
     return {
         id: resolvedId || normalizeSlugKey(fallbackName),
@@ -242,7 +220,7 @@ function matchHeroWithIndex(entry, heroIndex, rawMasterIndex) {
             (Array.isArray(rawMaster?.roles) && rawMaster.roles[0]) ||
             rawMaster?.expandedRole ||
             'Free Rotation',
-        portraitUrl: resolvePortraitUrl(rawPortrait) || FALLBACK_ROTATION_PORTRAIT,
+        portraitUrl: resolveRotationPortraitUrl(matched, rawMaster, item),
         reqLevel: item.ReqLevel ?? item.reqLevel ?? null
     };
 }
