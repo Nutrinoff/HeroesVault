@@ -5,17 +5,11 @@
 const VALID_PATCH_FILTERS = ['all', 'live', 'ptr'];
 
 const patchState = {
-    filter: typeof CURRENT_FILTER === 'string' && VALID_PATCH_FILTERS.includes(CURRENT_FILTER)
-        ? CURRENT_FILTER
-        : 'all',
-    items: Array.isArray(ACTIVE_PATCH_ITEMS) ? ACTIVE_PATCH_ITEMS : [],
+    filter: 'all',
+    items: [],
     selectedId: null,
-    homeLatest: typeof HOME_LATEST_PATCHES === 'object' && HOME_LATEST_PATCHES
-        ? HOME_LATEST_PATCHES
-        : { live: null, ptr: null },
-    pendingDeepLink: typeof PENDING_DEEP_LINK_PATCH !== 'undefined'
-        ? PENDING_DEEP_LINK_PATCH
-        : null,
+    homeLatest: { live: null, ptr: null },
+    pendingDeepLink: null,
     loadSequence: 0,
     detailSequence: 0,
     listenersBound: false
@@ -29,9 +23,6 @@ function normalizePatchFilter(filter) {
 function setPatchFilterState(nextFilter) {
     const normalized = normalizePatchFilter(nextFilter);
     patchState.filter = normalized;
-    if (typeof CURRENT_FILTER !== 'undefined') {
-        CURRENT_FILTER = normalized;
-    }
     if (typeof syncFilterButtonStates === 'function') {
         syncFilterButtonStates();
     }
@@ -41,9 +32,6 @@ function setPatchFilterState(nextFilter) {
 function setActivePatchItemsState(items) {
     const nextItems = Array.isArray(items) ? items : [];
     patchState.items = nextItems;
-    if (typeof ACTIVE_PATCH_ITEMS !== 'undefined') {
-        ACTIVE_PATCH_ITEMS = nextItems;
-    }
     return nextItems;
 }
 
@@ -161,10 +149,6 @@ window.openHomePatch = async function openHomePatch(feedType) {
         ? { patchId: targetPatch.id, feed: normalizedFeed, openView: true }
         : { patchId: null, feed: normalizedFeed, openView: true };
 
-    if (typeof PENDING_DEEP_LINK_PATCH !== 'undefined') {
-        PENDING_DEEP_LINK_PATCH = patchState.pendingDeepLink;
-    }
-
     if (typeof navigateTo === 'function') {
         navigateTo('patchnotes');
     }
@@ -244,9 +228,6 @@ async function loadLivePatchNotes() {
 
         setActivePatchItemsState(filtered);
         patchState.pendingDeepLink = null;
-        if (typeof PENDING_DEEP_LINK_PATCH !== 'undefined') {
-            PENDING_DEEP_LINK_PATCH = null;
-        }
 
         renderPatchSidebar(patchState.items);
         await selectPatchItem(targetId);
@@ -384,9 +365,6 @@ function initPatchNotes(initialState = {}) {
             feed: initialState.feed ? normalizePatchFilter(initialState.feed) : null,
             openView: Boolean(initialState.openView)
         };
-        if (typeof PENDING_DEEP_LINK_PATCH !== 'undefined') {
-            PENDING_DEEP_LINK_PATCH = patchState.pendingDeepLink;
-        }
         if (initialState.feed) {
             setPatchFilterState(initialState.feed);
         }
