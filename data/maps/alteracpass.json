@@ -3,6 +3,10 @@
   "name": "Alterac Pass",
   "theme": "Free your faction's prisoner and hold the Prison Camp to summon a Cavalry charge down all three lanes.",
   "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/storm_ui_homescreenbackground_wcav.png",
+  "firstObjective": "Warning at 2:30, spawns at 3:00 (3:30 cooldown after Cavalry ends)",
+  "spawnPattern": "Two Prison Camps spawn simultaneously every cycle (North & South)",
+  "lanes": "3 Lanes",
+  "bosses": "2 Ice Giants (Top & Bottom)",
   "mechanic": {
     "title": "Prison Camps & Cavalry Charge",
     "description": "Two Prison Camps activate simultaneously (first warning at 2:30, spawns at 3:00; 3:30 cooldown after a Cavalry charge ends). Teams must channel to free their captive faction leader (6-second channel, reduced to 1.5 seconds on subsequent captures) and defend the capture zone for 30 seconds (the timer pauses if an enemy steps onto the point and decays slowly if recaptured). Completing the capture spawns Cavalry down all three lanes that boost nearby allied heroes' movement speed and damage."
