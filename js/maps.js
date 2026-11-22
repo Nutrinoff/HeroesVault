@@ -1,74 +1,427 @@
-<!-- VIEW: MAP -->
-      <div id="view-map" class="space-y-6 hidden">
-        <!-- Unboxed Faded Battleground Header (Title Top-Left, Golden Hero Portraits Bottom-Right) -->
-        <div class="relative min-h-[15rem] md:min-h-[19rem] overflow-hidden">
-          <img
-            id="map-portrait"
-            src=""
-            alt="Battleground backdrop"
-            class="w-full h-64 md:h-80 object-cover object-center opacity-55 select-none pointer-events-none"
-          />
-          <div
-            aria-hidden="true"
-            class="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#070412]/35 via-[#070412]/55 to-[#070412]"
-          ></div>
-          <div
-            aria-hidden="true"
-            class="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#070412]/80 via-[#070412]/30 to-transparent"
-          ></div>
+// ==========================================
+// MAPS & BATTLEGROUNDS MODULE
+// ==========================================
 
-          <!-- Top-Left: Map Title & Theme -->
-          <div class="absolute inset-x-0 top-0 p-5 md:p-6 flex flex-col items-start justify-start z-10 pointer-events-none">
-            <span class="hots-label text-[#f5d89a]">Battleground</span>
-            <h2 id="map-name" class="hots-display text-3xl md:text-4xl font-bold uppercase tracking-wide mt-1"></h2>
-            <p id="map-theme" class="text-xs sm:text-sm text-[#9cb6ff]/90 mt-1 max-w-xl"></p>
-          </div>
+const MAP_DETAILS_CACHE = new Map();
+const PRELOADED_MAP_IMAGES = new Set();
+const MAP_FALLBACK_BANNER = 'https://via.placeholder.com/1200x500?text=Map';
+const MAP_HERO_FALLBACK_PORTRAIT = 'https://via.placeholder.com/48?text=H';
 
-          <!-- Bottom-Right: Compact Single-Row Golden Hero Portraits -->
-          <div
-            aria-label="Top 5 Golden Heroes"
-            class="absolute bottom-4 right-5 md:bottom-5 md:right-6 z-10 flex flex-col items-end gap-1.5"
-          >
-            <span class="hots-label text-[10px] text-[#f5d89a]/90">Golden Heroes</span>
-            <div id="map-heroes-list" class="flex items-center justify-end gap-2 flex-nowrap"></div>
-          </div>
-        </div>
+let activeMapSelectionSeq = 0;
 
-        <!-- Battleground Data-Sheet: Left Spec Table | Narrower Narrative Column | Mercenary Camps Rail -->
-        <div class="grid grid-cols-1 lg:grid-cols-[17.5rem_minmax(0,1fr)_18.5rem] gap-7 items-start px-1 md:px-2">
-          <!-- Left Data-Table (First Objective, Objective Locations / Pattern, Lanes, Bosses, etc.) -->
-          <aside aria-label="Battleground specifications" class="w-full min-w-0">
-            <div class="hots-label text-[#58baff] pb-2 border-b border-[#38247a]/80">Map Data</div>
-            <table class="w-full border-collapse text-left">
-              <tbody id="map-spec-table" class="divide-y divide-[#2b1a61]/80 text-xs"></tbody>
-            </table>
-          </aside>
+function resolveMapAssetUrl(assetSource, fallbackUrl) {
+    if (!assetSource) return fallbackUrl;
+    if (typeof resolveAssetUrl === 'function') {
+        return resolveAssetUrl(assetSource, fallbackUrl);
+    }
+    if (typeof getAssetUrl === 'function') {
+        return getAssetUrl(assetSource) || fallbackUrl;
+    }
+    return typeof assetSource === 'string' ? assetSource : fallbackUrl;
+}
 
-          <!-- Center Narrative Column: Narrowed (~1/3+ slimmer) & Taller -->
-          <div class="min-w-0 max-w-xl w-full divide-y divide-[#38247a]/70 border-t border-b border-[#38247a]/70">
-            <section class="py-4 space-y-1.5">
-              <h3 class="hots-label text-[#58baff]">Map Objective</h3>
-              <div id="map-mechanic" class="text-sm text-[#e6ecff]/90 leading-relaxed"></div>
-            </section>
+function preloadMapImage(portraitSource) {
+    if (!portraitSource) return;
+    const url = resolveMapAssetUrl(portraitSource, '');
+    if (!url || PRELOADED_MAP_IMAGES.has(url)) return;
 
-            <section class="py-4 space-y-1.5">
-              <h3 class="hots-label text-[#f5d89a]">Strategic Overview</h3>
-              <div id="map-strategy" class="text-sm text-[#e6ecff]/90 leading-relaxed"></div>
-            </section>
+    PRELOADED_MAP_IMAGES.add(url);
+    if (typeof preloadAllAssets === 'function') {
+        preloadAllAssets([url]);
+        return;
+    }
+    const img = new Image();
+    img.src = url;
+}
 
-            <section class="py-4 space-y-1.5">
-              <h3 class="hots-label text-[#58baff]">Good to Know &amp; Tips</h3>
-              <div id="map-notes" class="text-sm text-[#e6ecff]/90 leading-relaxed"></div>
-            </section>
-          </div>
+async function fetchMapDetails(id) {
+    if (!id) return {};
+    if (MAP_DETAILS_CACHE.has(id)) {
+        const cached = MAP_DETAILS_CACHE.get(id);
+        return typeof cached?.then === 'function' ? await cached : cached;
+    }
 
-          <!-- Right Rail (Moved Up): Mercenary Camps -->
-          <aside aria-label="Mercenary camps" class="w-full min-w-0 border-t border-b border-[#38247a]/70 py-4 space-y-2.5">
-            <div class="flex items-center justify-between gap-2">
-              <h3 class="hots-label text-[#f5d89a]">Mercenary Camps</h3>
-              <span class="text-[10px] font-mono uppercase tracking-wider text-[#8c83a2]">Timings</span>
-            </div>
-            <div id="map-camps-stack" class="divide-y divide-[#2b1a61]/80"></div>
-          </aside>
-        </div>
-      </div>
+    const request = fetch(`./data/maps/${encodeURIComponent(id)}.json`)
+        .then(async r => {
+            if (!r.ok) {
+                console.warn(`No map details for ${id}: HTTP ${r.status}`);
+                return {};
+            }
+            try {
+                const parsed = await r.json();
+                return parsed && typeof parsed === 'object' ? parsed : {};
+            } catch (parseErr) {
+                console.warn(`Malformed JSON in map details for ${id}`, parseErr);
+                return {};
+            }
+        })
+        .catch(e => {
+            console.warn(`Failed to load map details for ${id}`, e);
+            return {};
+        });
+
+    MAP_DETAILS_CACHE.set(id, request);
+    const resolved = await request;
+    MAP_DETAILS_CACHE.set(id, resolved);
+    return resolved;
+}
+
+function warmMapAssets(id) {
+    const summary = Array.isArray(MASTER_MAP_LIST)
+        ? MASTER_MAP_LIST.find(m => m.id === id)
+        : null;
+    if (summary?.portrait) {
+        preloadMapImage(summary.portrait);
+    }
+    fetchMapDetails(id).then(details => {
+        if (details?.portrait) {
+            preloadMapImage(details.portrait);
+        }
+    });
+}
+
+function syncMapsDropdownAria(isExpanded) {
+    const toggleBtn = document.getElementById('maps-dropdown-toggle');
+    const menu = document.getElementById('maps-dropdown-menu');
+    if (toggleBtn) {
+        toggleBtn.setAttribute('aria-expanded', String(Boolean(isExpanded)));
+        if (menu && menu.id && !toggleBtn.getAttribute('aria-controls')) {
+            toggleBtn.setAttribute('aria-controls', menu.id);
+        }
+    }
+}
+
+function closeMapsDropdown() {
+    document.getElementById('maps-dropdown-menu')?.classList.add('hidden');
+    syncMapsDropdownAria(false);
+}
+
+function toggleMapsDropdown(e) {
+    e.stopPropagation();
+    const menu = document.getElementById('maps-dropdown-menu');
+    if (!menu) return;
+
+    const opening = menu.classList.contains('hidden');
+    menu.classList.toggle('hidden');
+    syncMapsDropdownAria(opening);
+
+    if (opening && Array.isArray(MASTER_MAP_LIST)) {
+        MASTER_MAP_LIST.forEach(m => {
+            if (m?.portrait) preloadMapImage(m.portrait);
+        });
+    }
+}
+
+function bindMapsEvents() {
+    const toggleBtn = document.getElementById('maps-dropdown-toggle');
+    if (toggleBtn && toggleBtn.dataset.mapsBound !== 'true') {
+        toggleBtn.dataset.mapsBound = 'true';
+        syncMapsDropdownAria(false);
+        toggleBtn.addEventListener('click', toggleMapsDropdown);
+    }
+}
+
+function populateMapsDropdown() {
+    bindMapsEvents();
+
+    const menu = document.getElementById('maps-dropdown-menu');
+    if (!menu) return;
+
+    const mapList = Array.isArray(MASTER_MAP_LIST) ? MASTER_MAP_LIST : [];
+    const sortedMaps = mapList.slice().sort((a, b) => String(a.name || '').localeCompare(String(b.name || '')));
+    const frag = document.createDocumentFragment();
+
+    const header = document.createElement('div');
+    header.className = 'hots-label px-3 py-1 text-[#8c83a2] whitespace-nowrap';
+    header.textContent = 'Battlegrounds';
+    frag.appendChild(header);
+
+    sortedMaps.forEach(m => {
+        const link = document.createElement('a');
+        link.href = `#map?id=${encodeURIComponent(m.id)}`;
+        link.className = 'block px-4 py-1.5 text-sm text-[#e6ecff]/85 hover:bg-[#190e40] hover:text-[#cbe8ff] transition whitespace-nowrap';
+        link.textContent = m.name || m.id;
+
+        link.addEventListener('mouseenter', () => warmMapAssets(m.id), { passive: true });
+        link.addEventListener('click', e => {
+            e.preventDefault();
+            selectMapFromDropdown(m.id);
+        });
+
+        frag.appendChild(link);
+    });
+
+    menu.replaceChildren(frag);
+    syncMapsDropdownAria(!menu.classList.contains('hidden'));
+}
+
+function selectMapFromDropdown(id) {
+    closeMapsDropdown();
+    if (typeof navigateTo === 'function') {
+        navigateTo('map', { id });
+    }
+}
+
+function formatSpecFieldValue(value) {
+    if (!value) return '';
+    if (Array.isArray(value)) {
+        return value.map(item => String(item || '').trim()).filter(Boolean).join(' → ');
+    }
+    if (typeof value === 'object') {
+        const parts = [];
+        if (value.timing || value.time || value.first || value.initial) {
+            parts.push(value.timing || value.time || value.first || value.initial);
+        }
+        if (value.location || value.detail || value.rotation || value.cycle || value.rule) {
+            parts.push(value.location || value.detail || value.rotation || value.cycle || value.rule);
+        }
+        if (Array.isArray(value.locations) && value.locations.length) {
+            parts.push(value.locations.join(', '));
+        }
+        return parts.join(' — ');
+    }
+    return String(value).trim();
+}
+
+function renderMapSpecTable(mapData) {
+    const tbody = document.getElementById('map-spec-table');
+    if (!tbody) return;
+
+    const firstObjText = formatSpecFieldValue(
+        mapData.firstObjective || mapData.firstSpawn || mapData.objectiveStart || ''
+    );
+    const patternText = formatSpecFieldValue(
+        mapData.spawnPattern || mapData.objectivePattern || mapData.spawnLocations || mapData.rotationPattern || ''
+    );
+    const lanesText = formatSpecFieldValue(mapData.lanes || '');
+    const bossesText = formatSpecFieldValue(mapData.bosses || '');
+    const cadenceText = formatSpecFieldValue(mapData.objectiveDuration || mapData.respawnCooldown || '');
+
+    const rows = [
+        { label: 'First Obj.', value: firstObjText, accent: 'text-[#f5d89a]' },
+        { label: 'Obj. Pattern', value: patternText, accent: 'text-[#58baff]' },
+        { label: 'Lanes', value: lanesText, accent: 'text-[#e6ecff]' },
+        { label: 'Bosses', value: bossesText, accent: 'text-[#e6ecff]' },
+        { label: 'Cadence', value: cadenceText, accent: 'text-[#9cb6ff]' }
+    ].filter(row => Boolean(row.value));
+
+    if (!rows.length) {
+        const tr = document.createElement('tr');
+        const td = document.createElement('td');
+        td.colSpan = 2;
+        td.className = 'py-3 text-xs text-[#8c83a2] italic';
+        td.textContent = 'No special spawn/layout specs for this battleground.';
+        tr.appendChild(td);
+        tbody.replaceChildren(tr);
+        return;
+    }
+
+    const frag = document.createDocumentFragment();
+    rows.forEach(row => {
+        const tr = document.createElement('tr');
+        tr.className = 'align-top';
+
+        const th = document.createElement('th');
+        th.scope = 'row';
+        th.className = 'py-2.5 pr-3 w-24 font-mono text-[10px] uppercase tracking-wider text-[#9cb6ff]/80 font-semibold';
+        th.textContent = row.label;
+
+        const td = document.createElement('td');
+        td.className = `py-2.5 pl-1 leading-snug ${row.accent}`;
+        td.textContent = row.value;
+
+        tr.append(th, td);
+        frag.appendChild(tr);
+    });
+
+    tbody.replaceChildren(frag);
+}
+
+function renderMapMechanic(mechEl, mechanic) {
+    if (!mechEl) return;
+
+    if (mechanic && typeof mechanic === 'object') {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'space-y-1';
+
+        if (mechanic.title) {
+            const titleEl = document.createElement('div');
+            titleEl.className = 'font-semibold text-[#cbe8ff]';
+            titleEl.textContent = String(mechanic.title);
+            wrapper.appendChild(titleEl);
+        }
+
+        const descEl = document.createElement('p');
+        descEl.className = 'text-[#e6ecff]/90';
+        descEl.textContent = String(mechanic.description || '');
+        wrapper.appendChild(descEl);
+
+        mechEl.replaceChildren(wrapper);
+        return;
+    }
+
+    mechEl.textContent = mechanic ? String(mechanic) : 'Objective details coming soon.';
+}
+
+function renderMapCamps(campsEl, camps) {
+    if (!campsEl) return;
+
+    const list = Array.isArray(camps) ? camps : [];
+    if (!list.length) {
+        const empty = document.createElement('p');
+        empty.className = 'text-xs text-[#8c83a2]';
+        empty.textContent = 'No camp data configured.';
+        campsEl.replaceChildren(empty);
+        return;
+    }
+
+    const frag = document.createDocumentFragment();
+    list.forEach((c, idx) => {
+        const row = document.createElement('div');
+        row.className = idx === 0 ? 'pb-2.5 space-y-1' : 'py-2.5 space-y-1';
+
+        const topLine = document.createElement('div');
+        topLine.className = 'flex items-baseline justify-between gap-2';
+
+        const titleEl = document.createElement('span');
+        titleEl.className = 'text-xs font-bold text-[#e6ecff]';
+        titleEl.textContent = String(c?.name || 'Camp');
+
+        topLine.appendChild(titleEl);
+
+        if (c?.timing) {
+            const timingEl = document.createElement('span');
+            timingEl.className = 'text-[11px] font-mono text-[#f5d89a] shrink-0';
+            timingEl.textContent = String(c.timing);
+            topLine.appendChild(timingEl);
+        }
+
+        row.appendChild(topLine);
+
+        const noteText = String(c?.notes || c?.tip || '').trim();
+        if (noteText) {
+            const notesEl = document.createElement('p');
+            notesEl.className = 'text-xs text-[#9cb6ff]/75 leading-snug';
+            notesEl.textContent = noteText;
+            row.appendChild(notesEl);
+        }
+
+        frag.appendChild(row);
+    });
+
+    campsEl.replaceChildren(frag);
+}
+
+function renderGoldenHeroes(heroesEl, goldenHeroes) {
+    if (!heroesEl) return;
+
+    const frag = document.createDocumentFragment();
+    const golden = Array.isArray(goldenHeroes) ? goldenHeroes.slice(0, 5) : [];
+    const roster = Array.isArray(MASTER_HERO_LIST) ? MASTER_HERO_LIST : [];
+    const keyNormalizer = typeof normalizeHeroKey === 'function'
+        ? normalizeHeroKey
+        : val => String(val || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+
+    for (const heroId of golden) {
+        if (!heroId || typeof heroId !== 'string') continue;
+        const h = roster.find(x => keyNormalizer(x.id) === keyNormalizer(heroId));
+        if (!h) continue;
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.title = h.name;
+        btn.setAttribute('aria-label', `View ${h.name} builds`);
+        btn.className = 'w-11 h-11 md:w-12 md:h-12 rounded-[2px] border border-[#5c42b8]/85 bg-[#070412]/90 overflow-hidden hover:border-[#58baff] hover:shadow-[0_0_12px_rgba(0,156,255,0.45)] transition cursor-pointer shrink-0';
+        btn.addEventListener('click', () => {
+            if (typeof navigateTo === 'function') {
+                navigateTo('builds', { hero: h.id });
+            }
+        });
+
+        const img = document.createElement('img');
+        img.className = 'w-full h-full object-cover block';
+        img.alt = h.name;
+        img.loading = 'lazy';
+        img.onerror = () => {
+            img.onerror = null;
+            img.src = MAP_HERO_FALLBACK_PORTRAIT;
+        };
+        img.src = resolveMapAssetUrl(h.portrait, MAP_HERO_FALLBACK_PORTRAIT);
+
+        btn.appendChild(img);
+        frag.appendChild(btn);
+    }
+
+    if (frag.childNodes.length > 0) {
+        heroesEl.replaceChildren(frag);
+    } else {
+        const empty = document.createElement('span');
+        empty.className = 'text-[11px] text-[#8c83a2]';
+        empty.textContent = 'None listed';
+        heroesEl.replaceChildren(empty);
+    }
+}
+
+function renderMapView(m, fallbackId) {
+    const mapData = m && typeof m === 'object' ? m : {};
+    const nameEl = document.getElementById('map-name');
+    const themeEl = document.getElementById('map-theme');
+    const portraitEl = document.getElementById('map-portrait');
+    const mechEl = document.getElementById('map-mechanic');
+    const strategyEl = document.getElementById('map-strategy');
+    const notesEl = document.getElementById('map-notes');
+    const campsEl = document.getElementById('map-camps-stack');
+    const heroesEl = document.getElementById('map-heroes-list');
+
+    if (nameEl) nameEl.textContent = mapData.name || fallbackId;
+    if (themeEl) themeEl.textContent = mapData.theme || '';
+    if (portraitEl) {
+        portraitEl.alt = `${mapData.name || fallbackId} battleground backdrop`;
+        portraitEl.onerror = () => {
+            portraitEl.onerror = null;
+            portraitEl.src = MAP_FALLBACK_BANNER;
+        };
+        portraitEl.src = resolveMapAssetUrl(mapData.portrait, MAP_FALLBACK_BANNER);
+    }
+
+    renderMapSpecTable(mapData);
+    renderMapMechanic(mechEl, mapData.mechanic);
+
+    if (strategyEl) strategyEl.textContent = mapData.strategy || 'Strategy guide coming soon.';
+    if (notesEl) notesEl.textContent = mapData.notes || 'No special notes recorded for this map.';
+
+    renderMapCamps(campsEl, mapData.camps);
+    renderGoldenHeroes(heroesEl, mapData.goldenHeroes);
+}
+
+async function selectMap(id, update = true) {
+    if (!id) return;
+
+    if (update) {
+        if (typeof navigateTo === 'function') {
+            navigateTo('map', { id });
+        }
+        return;
+    }
+
+    const seq = ++activeMapSelectionSeq;
+    closeMapsDropdown();
+    if (typeof switchTabUI === 'function') {
+        switchTabUI('map');
+    }
+
+    const mapList = Array.isArray(MASTER_MAP_LIST) ? MASTER_MAP_LIST : [];
+    const summary = mapList.find(m => m.id === id) || { id, name: id };
+
+    renderMapView(summary, id);
+
+    const details = await fetchMapDetails(id);
+    if (seq !== activeMapSelectionSeq) return;
+
+    const merged = { ...summary, ...details };
+    if (merged.portrait) {
+        preloadMapImage(merged.portrait);
+    }
+
+    renderMapView(merged, id);
+}
