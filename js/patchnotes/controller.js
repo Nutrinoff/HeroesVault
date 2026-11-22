@@ -60,6 +60,8 @@ function writePatchUrl(item) {
 }
 
 async function hydrateHomeLatestPatchCards() {
+    bindHomePatchCards();
+
     const liveTitle = document.getElementById('home-live-patch-title');
     const liveMeta = document.getElementById('home-live-patch-meta');
     const liveTldr = document.getElementById('home-live-patch-tldr');
@@ -281,7 +283,24 @@ async function selectPatchItem(id) {
     schedulePatchSidebarSync();
 }
 
+function bindHomePatchCards() {
+    document.querySelectorAll('[data-home-patch]').forEach(card => {
+        if (card.dataset.homePatchBound === 'true') return;
+        card.dataset.homePatchBound = 'true';
+
+        const feed = card.getAttribute('data-home-patch');
+        card.addEventListener('click', () => window.openHomePatch(feed));
+        card.addEventListener('keydown', event => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                window.openHomePatch(feed);
+            }
+        });
+    });
+}
+
 function bindPatchGlobalListeners() {
+    bindHomePatchCards();
     if (patchNotesInitialized) return;
     patchNotesInitialized = true;
 
