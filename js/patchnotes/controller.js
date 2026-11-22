@@ -11,6 +11,7 @@ const patchState = {
     selectedId: null,
     homeLatest: { live: null, ptr: null },
     pendingDeepLink: null,
+    manualFilterLock: false,
     loadSequence: 0,
     detailSequence: 0,
     homeHydrateSequence: 0,
@@ -184,6 +185,7 @@ window.openHomePatch = async function openHomePatch(feedType) {
     const normalizedFeed = feedType === 'ptr' ? 'ptr' : 'live';
     const targetPatch = patchState.homeLatest[normalizedFeed];
 
+    patchState.manualFilterLock = false;
     setPatchFilterState(normalizedFeed);
     patchState.pendingDeepLink = targetPatch
         ? { patchId: targetPatch.id, feed: normalizedFeed, openView: true }
@@ -216,7 +218,10 @@ async function loadLivePatchNotes() {
     if (!listContainer) return;
 
     const seq = ++patchState.loadSequence;
-    const activeDeepLink = patchState.pendingDeepLink || readPatchDeepLinkFromUrl();
+    const honorDeepLink = !patchState.manualFilterLock;
+    const activeDeepLink = honorDeepLink
+        ? (patchState.pendingDeepLink || readPatchDeepLinkFromUrl())
+        : null;
 
     if (activeDeepLink?.feed && !patchState.pendingDeepLink) {
         setPatchFilterState(activeDeepLink.feed);
@@ -239,6 +244,7 @@ async function loadLivePatchNotes() {
 
         if (filtered.length === 0) {
             setActivePatchItemsState([]);
+            patchState.manualFilterLock = false;
             listContainer.innerHTML = `
                 <div class="flex items-center justify-between px-2 pb-2">
                     <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">${escapeHtml(patchState.filter)} Feed</h3>
@@ -273,11 +279,13 @@ async function loadLivePatchNotes() {
 
         setActivePatchItemsState(filtered);
         patchState.pendingDeepLink = null;
+        patchState.manualFilterLock = false;
 
         renderPatchSidebar(patchState.items);
         await selectPatchItem(targetId, { loadSeq: seq, syncUrl: false });
     } catch (err) {
         if (seq !== patchState.loadSequence) return;
+        patchState.manualFilterLock = false;
         console.warn('Failed to load patch notes:', err);
 
         const fallbackItems = [
@@ -412,6 +420,7 @@ function initPatchNotes(initialState = {}) {
     }
 
     if (initialState.patchId || initialState.feed) {
+        patchState.manualFilterLock = false;
         patchState.pendingDeepLink = {
             patchId: initialState.patchId || null,
             feed: initialState.feed ? normalizePatchFilter(initialState.feed) : null,
