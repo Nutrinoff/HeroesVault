@@ -1,0 +1,218 @@
+{
+  "Id": "npn-2017-07-31-2.27.0",
+  "Title": "2017-07-31 PTR Patch",
+  "Subtitle": "=== Heroes: Alarak ===",
+  "Date": "Jul 31, 2017",
+  "IsoDate": "2017-07-31",
+  "FeedType": "ptr",
+  "Era": "ptr",
+  "PatchVersion": "2.27.0",
+  "FullVersion": "2.27.0.55929",
+  "Build": "55929",
+  "Link": "https://news.blizzard.com/en-us/heroes-of-the-storm/20944067",
+  "Links": [
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/20944067"
+  ],
+  "Affected": [
+    "Alarak",
+    "Arthas",
+    "Auriel",
+    "Cassia",
+    "Chen",
+    "D.Va",
+    "Garrosh",
+    "Genji",
+    "Greymane",
+    "Kharazim",
+    "Lt. Morales",
+    "Probius",
+    "Ragnaros",
+    "Rexxar",
+    "Samuro",
+    "Sonya",
+    "Sylvanas",
+    "The Butcher",
+    "Thrall",
+    "Tracer",
+    "Tychus",
+    "Valeera",
+    "Valla",
+    "Zul\u0027jin"
+  ],
+  "Highlights": "=== Heroes: Alarak ===",
+  "CleanedNotes": "=== Heroes: Alarak ===\r\n[Bug Fixes]\r\n  \u2022 Marking The Lost Vikings with Rite of Rak\u0027Shir during their Longboat Raid Ability and then killing the Longboat will now correctly grant bonus Sadism and Rite of Rak\u0027shir cooldown reduction.\r\n\r\n=== Heroes: Arthas ===\r\n[Bug Fixes]\r\n  \u2022 After Arthas completing the Frost Presence Questing Talent the Shattered Armor Talent will now correctly apply Armor Reduction to Heroes who have been rooted by Howling Blast.\r\n\r\n=== Heroes: Auriel ===\r\n[Updates]\r\n  \u2022 Auriel\u0027s resource bar will now glow when at maximum Hope.\r\n\r\n=== Heroes: Cassia ===\r\n[Bug Fixes]\r\n  \u2022 Blinding Light will no longer reveal Stealthed enemy Heroes.\r\n\r\n=== Heroes: Chen ===\r\n[Bug Fixes]\r\n  \u2022 Medivh\u0027s Ley Line Seal can no longer cause Chen and his Storm, Earth, Fire Spirits to exist simultaneously.\r\n\r\n=== Heroes: D.Va ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 4\r\n    \u2022 Diverting Power (W)\r\n      \u2022 Instead of preventing D.Va from moving during Defense Matrix, this talent now adds an additional 50% slow.\r\n[Bug Fixes]\r\n  \u2022 Now properly contests Objective Capture Points while exiting her Mech.\r\n  \u2022 Now properly contests and pushes Hanamura Payloads while exiting her Mech.\r\n  \u2022 D.Va\u0027s Basic Attacks are now halted during her Taunt and Dance animations.\r\n  \u2022 The Call Mech status bar that appears under D.Va\u0027s party frame portrait no longer persists after she dies and respawns in Mech Mode.\r\n\r\n=== Heroes: Garrosh ===\r\n[Releases]\r\n  Garrosh, Son of Hellscream, has been added to the Nexus and is now available for play! Read on for a brief overview of his Abilities.:\r\n  Trait:\r\n  \u2022 Armor Up\r\n    \u2022 Garrosh gains 1 Armor for every 2% of maximum Health missing.\r\n  Basic Abilities:\r\n  \u2022 Groundbreaker (Q)\r\n    \u2022 Deal damage to enemies in an area. Heroes hit on the outer edge are pulled toward Garrosh.\r\n  \u2022 Bloodthirst (W)\r\n    \u2022 Deal damage to an enemy and Heal for 10% of Garrosh\u0027s missing Health. Healing is increased by 100% against Heroes.\r\n  \u2022 Wrecking Ball (E)\r\n    \u2022 Throw a nearby enemy Hero, Minion, or Mercenary to the target location, dealing damage enemies near the impact and slowing them by 30% for 2.5 seconds.\r\n  Heroic Abilities:\r\n  \u2022 Warlord\u0027s Challenge (R)\r\n    \u2022 Silence nearby Heroes and force them to attack Garrosh for 1.5 seconds.\r\n  \u2022 Decimate (R)\r\n    \u2022 Deal damage to nearby enemies and Slow them by 30% for 1.5 seconds. Deals 100% more damage to Heroes, and each Hero hit reduces the cooldown by 1 second.\r\n    \u2022 Stores up to 3 charges.\r\n\r\n=== Heroes: Genji ===\r\n[Bug Fixes]\r\n  \u2022 X-Strike can now be properly self-cast.\r\n  \u2022 Fixed an issue preventing the Shingan talent from playing quest tracking sounds if a target was hit with all 3 Shurikens.\r\n\r\n=== Heroes: Greymane ===\r\n[Bug Fixes]\r\n  \u2022 Can now correctly cast Go For the Throat a second time after using the Ability to kill D.Va\u0027s Mech.\r\n\r\n=== Heroes: Kharazim ===\r\n[Bug Fixes]\r\n  \u2022 Seven-Sided Strike will no longer target D.Va\u0027s Mech during Self-Destruct.\r\n\r\n=== Heroes: Lt. Morales ===\r\n[Bug Fixes]\r\n  \u2022 Entering a Medivac as it is destroyed will no longer cause the Medivac UI to persist on-screen.\r\n\r\n=== Heroes: Probius ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Worker Rush (Z)\r\n    \u2022 Worker Rush can no longer be activated while the Worker Rush buff is still active. This will prevent players from accidentally placing the ability on cooldown when leaving the Hall of Storms.\r\n[Bug Fixes]\r\n  \u2022 Pylons that are affected by a time stop, such as Zeratul\u0027s Void Prison, will no longer cause Warp Rift\u0027s cooldown to be paused for the duration of the effect.\r\n\r\n=== Heroes: Ragnaros ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Living Meteor (W)\r\n    \u2022 Damage reduced from 72 to 68\r\n  \u2022 Blast Wave (E)\r\n    \u2022 Cooldown reduced from 10 to 9 seconds\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Shifting Meteor (W)\r\n      \u2022 Additional Functionality:\r\n        \u2022 Each time an enemy is hit by Living Meteor, they take an additional 3% damage from subsequent hits by the same Meteor\r\n    \u2022 Engulfing Flame (E)\r\n      \u2022 Adjusted functionality:\r\n        \u2022 No longer grants cooldown reduction on Blast Wave\r\n        \u2022 Now also increases the damage of Blast Wave by 75%\r\n  \u2022 Level 7\r\n    \u2022 Superheated (E)\r\n      \u2022 Removed\r\n    \u2022 New Talent: Blistering Attacks (Passive)\r\n      \u2022 Every 10 seconds, your next Basic Attack deals 60% bonus damage. Enemies hit by your Basic Abilities reduces this cooldown by 1 second\r\n    \u2022 Molten Power (W)\r\n      \u2022 Damage bonus increased from 15 to 20% per enemy Hero hit\r\n  \u2022 Level 20\r\n    \u2022 Lava Surge (R)\r\n      \u2022 Cooldown reduction increased from 10 to 30 seconds\r\n[Bug Fixes]\r\n  \u2022 Lava Wave now correctly contributes to Ragnaros\u0027s Siege Damage.\r\n\r\n=== Heroes: Rexxar ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that could cause Misha to become briefly unresponsive after respawning if she was killed while Rexxar was affected by time stop effect.\r\n\r\n=== Heroes: Samuro ===\r\n[Bug Fixes]\r\n  \u2022 Selecting Mirror Images via control groups will no longer cancel their active movement commands.\r\n\r\n=== Heroes: Sonya ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Whirlwind (E)\r\n    \u2022 The time required after activation before the ability can be canceled has been increased from .5 to 1 seconds. This should help prevent accidental cancellations.\r\n[Bug Fixes]\r\n  \u2022 The Ancient Spear model will no longer visually persist when cast on an allied Gate prior to game start.\r\n\r\n=== Heroes: Sylvanas ===\r\n[Bug Fixes]\r\n  \u2022 Can cast Possession on units spawned by Bosses on Warhead Junction.\r\n\r\n=== Heroes: The Butcher ===\r\n[Updates]\r\n  Stats:\r\n  \u2022 Basic Attack damage lowered from 140 to 130\r\n  Abilities:\r\n  \u2022 Fresh Meat (Trait)\r\n    \u2022 Meat required to complete his quest increased from 125 to 200\r\n    \u2022 Damage bonus per Meat stack decreased from 1 to .5\r\n    \u2022 Meat dropped by enemy Heroes increased from 5 to 25\r\n    \u2022 Bonus damage on quest completion increased from 100 to 125\r\n    \u2022 Once the quest is completed, enemy Heroes continue to drop Meat, giving The Butcher 5 permanent Basic Attack damage per Meat collected\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Abattoir (Trait)\r\n      \u2022 Removed\r\n\r\n=== Heroes: Thrall ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue allowing Sundering to be seen and heard through fog of war.\r\n\r\n=== Heroes: Tracer ===\r\n[Bug Fixes]\r\n  \u2022 Ricochet will no longer cause Tracer\u0027s Basic Attacks to bounce to Stealthed Heroes.\r\n\r\n=== Heroes: Tychus ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue preventing Drakken Laser Drill from displaying a range indicator.\r\n\r\n=== Heroes: Valeera ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that caused Valeera to break Stealth if Sinister Strike was cast immediately before attempting to Vanish.\r\n\r\n=== Heroes: Valla ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that prevented the Death Dealer talent from refreshing the cooldown of Vault after killing a structure.\r\n\r\n=== Heroes: Zul\u0027jin ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue preventing Zul\u0027jin from self-casting Guillotine.",
+  "Sections": {
+    "Heroes: Alarak": [
+      "[Bug Fixes]",
+      "  \u2022 Marking The Lost Vikings with Rite of Rak\u0027Shir during their Longboat Raid Ability and then killing the Longboat will now correctly grant bonus Sadism and Rite of Rak\u0027shir cooldown reduction."
+    ],
+    "Heroes: Arthas": [
+      "[Bug Fixes]",
+      "  \u2022 After Arthas completing the Frost Presence Questing Talent the Shattered Armor Talent will now correctly apply Armor Reduction to Heroes who have been rooted by Howling Blast."
+    ],
+    "Heroes: Auriel": [
+      "[Updates]",
+      "  \u2022 Auriel\u0027s resource bar will now glow when at maximum Hope."
+    ],
+    "Heroes: Cassia": [
+      "[Bug Fixes]",
+      "  \u2022 Blinding Light will no longer reveal Stealthed enemy Heroes."
+    ],
+    "Heroes: Chen": [
+      "[Bug Fixes]",
+      "  \u2022 Medivh\u0027s Ley Line Seal can no longer cause Chen and his Storm, Earth, Fire Spirits to exist simultaneously."
+    ],
+    "Heroes: D.Va": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 4",
+      "    \u2022 Diverting Power (W)",
+      "      \u2022 Instead of preventing D.Va from moving during Defense Matrix, this talent now adds an additional 50% slow.",
+      "[Bug Fixes]",
+      "  \u2022 Now properly contests Objective Capture Points while exiting her Mech.",
+      "  \u2022 Now properly contests and pushes Hanamura Payloads while exiting her Mech.",
+      "  \u2022 D.Va\u0027s Basic Attacks are now halted during her Taunt and Dance animations.",
+      "  \u2022 The Call Mech status bar that appears under D.Va\u0027s party frame portrait no longer persists after she dies and respawns in Mech Mode."
+    ],
+    "Heroes: Garrosh": [
+      "[Releases]",
+      "  Garrosh, Son of Hellscream, has been added to the Nexus and is now available for play! Read on for a brief overview of his Abilities.:",
+      "  Trait:",
+      "  \u2022 Armor Up",
+      "    \u2022 Garrosh gains 1 Armor for every 2% of maximum Health missing.",
+      "  Basic Abilities:",
+      "  \u2022 Groundbreaker (Q)",
+      "    \u2022 Deal damage to enemies in an area. Heroes hit on the outer edge are pulled toward Garrosh.",
+      "  \u2022 Bloodthirst (W)",
+      "    \u2022 Deal damage to an enemy and Heal for 10% of Garrosh\u0027s missing Health. Healing is increased by 100% against Heroes.",
+      "  \u2022 Wrecking Ball (E)",
+      "    \u2022 Throw a nearby enemy Hero, Minion, or Mercenary to the target location, dealing damage enemies near the impact and slowing them by 30% for 2.5 seconds.",
+      "  Heroic Abilities:",
+      "  \u2022 Warlord\u0027s Challenge (R)",
+      "    \u2022 Silence nearby Heroes and force them to attack Garrosh for 1.5 seconds.",
+      "  \u2022 Decimate (R)",
+      "    \u2022 Deal damage to nearby enemies and Slow them by 30% for 1.5 seconds. Deals 100% more damage to Heroes, and each Hero hit reduces the cooldown by 1 second.",
+      "    \u2022 Stores up to 3 charges."
+    ],
+    "Heroes: Genji": [
+      "[Bug Fixes]",
+      "  \u2022 X-Strike can now be properly self-cast.",
+      "  \u2022 Fixed an issue preventing the Shingan talent from playing quest tracking sounds if a target was hit with all 3 Shurikens."
+    ],
+    "Heroes: Greymane": [
+      "[Bug Fixes]",
+      "  \u2022 Can now correctly cast Go For the Throat a second time after using the Ability to kill D.Va\u0027s Mech."
+    ],
+    "Heroes: Kharazim": [
+      "[Bug Fixes]",
+      "  \u2022 Seven-Sided Strike will no longer target D.Va\u0027s Mech during Self-Destruct."
+    ],
+    "Heroes: Lt. Morales": [
+      "[Bug Fixes]",
+      "  \u2022 Entering a Medivac as it is destroyed will no longer cause the Medivac UI to persist on-screen."
+    ],
+    "Heroes: Probius": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Worker Rush (Z)",
+      "    \u2022 Worker Rush can no longer be activated while the Worker Rush buff is still active. This will prevent players from accidentally placing the ability on cooldown when leaving the Hall of Storms.",
+      "[Bug Fixes]",
+      "  \u2022 Pylons that are affected by a time stop, such as Zeratul\u0027s Void Prison, will no longer cause Warp Rift\u0027s cooldown to be paused for the duration of the effect."
+    ],
+    "Heroes: Ragnaros": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Living Meteor (W)",
+      "    \u2022 Damage reduced from 72 to 68",
+      "  \u2022 Blast Wave (E)",
+      "    \u2022 Cooldown reduced from 10 to 9 seconds",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Shifting Meteor (W)",
+      "      \u2022 Additional Functionality:",
+      "        \u2022 Each time an enemy is hit by Living Meteor, they take an additional 3% damage from subsequent hits by the same Meteor",
+      "    \u2022 Engulfing Flame (E)",
+      "      \u2022 Adjusted functionality:",
+      "        \u2022 No longer grants cooldown reduction on Blast Wave",
+      "        \u2022 Now also increases the damage of Blast Wave by 75%",
+      "  \u2022 Level 7",
+      "    \u2022 Superheated (E)",
+      "      \u2022 Removed",
+      "    \u2022 New Talent: Blistering Attacks (Passive)",
+      "      \u2022 Every 10 seconds, your next Basic Attack deals 60% bonus damage. Enemies hit by your Basic Abilities reduces this cooldown by 1 second",
+      "    \u2022 Molten Power (W)",
+      "      \u2022 Damage bonus increased from 15 to 20% per enemy Hero hit",
+      "  \u2022 Level 20",
+      "    \u2022 Lava Surge (R)",
+      "      \u2022 Cooldown reduction increased from 10 to 30 seconds",
+      "[Bug Fixes]",
+      "  \u2022 Lava Wave now correctly contributes to Ragnaros\u0027s Siege Damage."
+    ],
+    "Heroes: Rexxar": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that could cause Misha to become briefly unresponsive after respawning if she was killed while Rexxar was affected by time stop effect."
+    ],
+    "Heroes: Samuro": [
+      "[Bug Fixes]",
+      "  \u2022 Selecting Mirror Images via control groups will no longer cancel their active movement commands."
+    ],
+    "Heroes: Sonya": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Whirlwind (E)",
+      "    \u2022 The time required after activation before the ability can be canceled has been increased from .5 to 1 seconds. This should help prevent accidental cancellations.",
+      "[Bug Fixes]",
+      "  \u2022 The Ancient Spear model will no longer visually persist when cast on an allied Gate prior to game start."
+    ],
+    "Heroes: Sylvanas": [
+      "[Bug Fixes]",
+      "  \u2022 Can cast Possession on units spawned by Bosses on Warhead Junction."
+    ],
+    "Heroes: The Butcher": [
+      "[Updates]",
+      "  Stats:",
+      "  \u2022 Basic Attack damage lowered from 140 to 130",
+      "  Abilities:",
+      "  \u2022 Fresh Meat (Trait)",
+      "    \u2022 Meat required to complete his quest increased from 125 to 200",
+      "    \u2022 Damage bonus per Meat stack decreased from 1 to .5",
+      "    \u2022 Meat dropped by enemy Heroes increased from 5 to 25",
+      "    \u2022 Bonus damage on quest completion increased from 100 to 125",
+      "    \u2022 Once the quest is completed, enemy Heroes continue to drop Meat, giving The Butcher 5 permanent Basic Attack damage per Meat collected",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Abattoir (Trait)",
+      "      \u2022 Removed"
+    ],
+    "Heroes: Thrall": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue allowing Sundering to be seen and heard through fog of war."
+    ],
+    "Heroes: Tracer": [
+      "[Bug Fixes]",
+      "  \u2022 Ricochet will no longer cause Tracer\u0027s Basic Attacks to bounce to Stealthed Heroes."
+    ],
+    "Heroes: Tychus": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue preventing Drakken Laser Drill from displaying a range indicator."
+    ],
+    "Heroes: Valeera": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that caused Valeera to break Stealth if Sinister Strike was cast immediately before attempting to Vanish."
+    ],
+    "Heroes: Valla": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that prevented the Death Dealer talent from refreshing the cooldown of Vault after killing a structure."
+    ],
+    "Heroes: Zul\u0027jin": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue preventing Zul\u0027jin from self-casting Guillotine."
+    ]
+  },
+  "PatchFile": "ptr/2017-07-31-2.27.0.json",
+  "Sources": [
+    "ptr-master.json",
+    "2017-07-31-ptr.html",
+    "2017-07-31-v2-27-0-55929-2017-07-31-ptr-patch-ptr.json"
+  ]
+}

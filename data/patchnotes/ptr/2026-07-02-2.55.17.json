@@ -1,0 +1,88 @@
+{
+  "Id": "npn-2026-07-02-2.55.17",
+  "Title": "2026-07-02 PTR Patch",
+  "Subtitle": "=== Heroes: Abathur ===",
+  "Date": "Jul 2, 2026",
+  "IsoDate": "2026-07-02",
+  "FeedType": "ptr",
+  "Era": "ptr",
+  "PatchVersion": "2.55.17",
+  "FullVersion": "2.55.17.97449",
+  "Build": "97449",
+  "Link": "",
+  "Links": [],
+  "Affected": [
+    "Abathur",
+    "Alexstrasza",
+    "Cho",
+    "Illidan",
+    "Thrall",
+    "Yrel"
+  ],
+  "Highlights": "=== Heroes: Abathur ===",
+  "CleanedNotes": "=== Heroes: Abathur ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 4\r\n    \u2022 Slapathur\r\n      \u2022 [Undocumented] The same Hero or Structure can only be Stunned or disabled once every 8 seconds.\r\n      \u2022 [Undocumented] Unstoppable Heroes can now be Stunned by it.\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Abathur\u0027s Slapathur to not have an animation for Stunned enemies and disabled Structures.\r\n  \u2022 [Undocumented] Fixed an issue causing Abathur\u0027s Slapathur to Stun Elite Mercenaries not flagged as Bosses.\r\n  \u2022 [Undocumented] Fixed an issue causing Abathur\u0027s Slapathur to disable Walls, Gates, and Cores.\r\n  \u2022 [Undocumented] Fixed an issue causing Abathur\u0027s Slapathur to Stun enemies while Blinded or if the target is Evading.\r\n  \u2022 [Undocumented] Fixed an issue causing Abathur\u0027s Slapathur to disable Structures while Blinded.\r\n\r\n=== Heroes: Alexstrasza ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Flames of Fury\r\n      \u2022 [Undocumented] Cooldown reduction increased from 5 to 6 seconds.\r\n\r\n=== Heroes: Cho ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Consuming Fire\r\n      \u2022 [Undocumented] Healing bonus when applying Ignite on Consuming Blaze\u0027s cast increased from 150% to 175%.\r\n    \u2022 Calloused Hide\r\n      \u2022 [Undocumented] Health threshold required to trigger increased from 40% to 50%.\r\n\r\n=== Heroes: Illidan ===\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Illidan\u0027s Sweeping Strike to give Attack Speed instead of Attack Damage.\r\n\r\n=== Heroes: Thrall ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Crash Lightning\r\n      \u2022 [Undocumented] Talent disabled in ARAM.\r\n\r\n=== Heroes: Yrel ===\r\n[Updates]\r\n  Base:\r\n  \u2022 Righteous Hammer [Q]\r\n    \u2022 [Undocumented] Mana cost reduced from 65 to 50.\r\n  \u2022 Righteous Hammer [W]\r\n    \u2022 [Undocumented] Mana cost reduced from 65 to 50.\r\n  \u2022 Avenging Wrath [E]\r\n    \u2022 [Undocumented] Mana cost reduced from 65 to 50.\r\n  \u2022 Divine Purpose [D]\r\n    \u2022 [Undocumented] Cooldown reduced from 16 to 12 seconds.\r\n    \u2022 [Undocumented] Cooldown reduction when interrupted reduced from 8 to 3 seconds.\r\n[Bug Fixes]\r\n  \u2022 [Undocumented] Fixed an issue causing Yrel\u0027s Avenging Wrath to be interrupted by Roots while being channeled.",
+  "Sections": {
+    "Heroes: Abathur": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 4",
+      "    \u2022 Slapathur",
+      "      \u2022 [Undocumented] The same Hero or Structure can only be Stunned or disabled once every 8 seconds.",
+      "      \u2022 [Undocumented] Unstoppable Heroes can now be Stunned by it.",
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Abathur\u0027s Slapathur to not have an animation for Stunned enemies and disabled Structures.",
+      "  \u2022 [Undocumented] Fixed an issue causing Abathur\u0027s Slapathur to Stun Elite Mercenaries not flagged as Bosses.",
+      "  \u2022 [Undocumented] Fixed an issue causing Abathur\u0027s Slapathur to disable Walls, Gates, and Cores.",
+      "  \u2022 [Undocumented] Fixed an issue causing Abathur\u0027s Slapathur to Stun enemies while Blinded or if the target is Evading.",
+      "  \u2022 [Undocumented] Fixed an issue causing Abathur\u0027s Slapathur to disable Structures while Blinded."
+    ],
+    "Heroes: Alexstrasza": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Flames of Fury",
+      "      \u2022 [Undocumented] Cooldown reduction increased from 5 to 6 seconds."
+    ],
+    "Heroes: Cho": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Consuming Fire",
+      "      \u2022 [Undocumented] Healing bonus when applying Ignite on Consuming Blaze\u0027s cast increased from 150% to 175%.",
+      "    \u2022 Calloused Hide",
+      "      \u2022 [Undocumented] Health threshold required to trigger increased from 40% to 50%."
+    ],
+    "Heroes: Illidan": [
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Illidan\u0027s Sweeping Strike to give Attack Speed instead of Attack Damage."
+    ],
+    "Heroes: Thrall": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Crash Lightning",
+      "      \u2022 [Undocumented] Talent disabled in ARAM."
+    ],
+    "Heroes: Yrel": [
+      "[Updates]",
+      "  Base:",
+      "  \u2022 Righteous Hammer [Q]",
+      "    \u2022 [Undocumented] Mana cost reduced from 65 to 50.",
+      "  \u2022 Righteous Hammer [W]",
+      "    \u2022 [Undocumented] Mana cost reduced from 65 to 50.",
+      "  \u2022 Avenging Wrath [E]",
+      "    \u2022 [Undocumented] Mana cost reduced from 65 to 50.",
+      "  \u2022 Divine Purpose [D]",
+      "    \u2022 [Undocumented] Cooldown reduced from 16 to 12 seconds.",
+      "    \u2022 [Undocumented] Cooldown reduction when interrupted reduced from 8 to 3 seconds.",
+      "[Bug Fixes]",
+      "  \u2022 [Undocumented] Fixed an issue causing Yrel\u0027s Avenging Wrath to be interrupted by Roots while being channeled."
+    ]
+  },
+  "PatchFile": "ptr/2026-07-02-2.55.17.json",
+  "Sources": [
+    "ptr-master.json",
+    "2026-07-02-ptr.html",
+    "2026-07-02-v2-55-17-97449-2026-07-02-ptr-patch-ptr.json"
+  ]
+}

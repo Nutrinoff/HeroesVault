@@ -1,0 +1,212 @@
+{
+  "Id": "npn-2017-07-03-2.26.3",
+  "Title": "2017-07-03 PTR Patch",
+  "Subtitle": "=== Heroes: Alarak ===",
+  "Date": "Jul 3, 2017",
+  "IsoDate": "2017-07-03",
+  "FeedType": "ptr",
+  "Era": "ptr",
+  "PatchVersion": "2.26.3",
+  "FullVersion": "2.26.3.55058",
+  "Build": "55058",
+  "Link": "https://news.blizzard.com/en-us/heroes-of-the-storm/20888397",
+  "Links": [
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/20888397"
+  ],
+  "Affected": [
+    "Alarak",
+    "Arthas",
+    "Auriel",
+    "Chen",
+    "D.Va",
+    "Genji",
+    "Greymane",
+    "Kharazim",
+    "Muradin",
+    "Murky",
+    "Nova",
+    "Probius",
+    "Ragnaros",
+    "Stukov",
+    "Tassadar",
+    "Tychus",
+    "Uther",
+    "Xul"
+  ],
+  "Highlights": "=== Heroes: Alarak ===",
+  "CleanedNotes": "=== Heroes: Alarak ===\r\n[Bug Fixes]\r\n  \u2022 Lightning Surge will now display its effect when cast on Forts and Keeps.\r\n  \u2022 Fixed an issue that prevented Rite of Rak\u0027Shir from going on a reduced cooldown if used on a Nova Holo Decoy that expired.\r\n\r\n=== Heroes: Arthas ===\r\n[Bug Fixes]\r\n  \u2022 The attack speed slow applied by Frozen Tempest is now consistent with what is stated in the ability\u0027s tooltip.\r\n\r\n=== Heroes: Auriel ===\r\n[Bug Fixes]\r\n  \u2022 Fixed a visual issue with Auriel\u0027s Bestow Hope crown when placed on a Tassadar in Archon form.\r\n\r\n=== Heroes: Chen ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue preventing the stun duration of Anub\u0027arak\u0027s Burrow Charge from being reduced by Purifying Brew.\r\n\r\n=== Heroes: D.Va ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue causing D.Va\u0027s Mech to ignore \u0027Hold Position\u0027 commands.\r\n  \u2022 Fixed a rare issue that caused D.Va to become unresponsive if Big Shot was fired into the enemy Hall of Storms immediately before calling down a Mech.\r\n  \u2022 Fixed that issue that allowed D.Va\u0027s Boosters to push enemies that were affected by Time Stop.\r\n  \u2022 Fixed an issue causing D.Va to destroy map mechanic pickups (such as Doubloons) when using Call Mech near them.\r\n  \u2022 Fixed an issue causing Defense Matrix to unintentionally reduce the effects of percentage damage abilities.\r\n  \u2022 Fixed an issue preventing pilot D.Va from immediately exiting her Mech after casting Self Destruct if there was not ample space available nearby.\r\n\r\n=== Heroes: Genji ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue causing Genji to take partial damage from abilities that ended Deflect early, such as stuns and silences.\r\n\r\n=== Heroes: Greymane ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that could occasionally grant additional Go for the Throat procs after casting the free charge.\r\n\r\n=== Heroes: Kharazim ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that Stitches\u0027s Vile Gas to deal damage to Kharazim while casting Seven-Sided Strike.\r\n\r\n=== Heroes: Muradin ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue causing a pop in Muradin\u0027s Avatar voice lines when playing in certain locales.\r\n\r\n=== Heroes: Murky ===\r\n[Bug Fixes]\r\n  \u2022 The Fish Eye talent will now properly reveal stealthed targets at the edge of its sight radius.\r\n  \u2022 Fixed an issue causing Murky\u0027s Fish Eye talent to permanently reduce his mounted movement speed.\r\n  \u2022 Fixed an issue preventing Murky from gaining stealth when spawning from his Egg after learning the Egg Hunt talent.\r\n\r\n=== Heroes: Nova ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue preventing Holo Decoy from being cast in several locations on Garden of Terror and Infernal Shrines.\r\n\r\n=== Heroes: Probius ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue preventing Probius from gathering minerals while inside the Garden Terror on Garden of Terror\r\n\r\n=== Heroes: Ragnaros ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Molten Core (D)\r\n    \u2022 When Molten Core expires, the camera will now snap back to Ragnaros if he is not on screen.\r\n\r\n=== Heroes: Stukov ===\r\n[Releases]\r\n  Stukov, Infested Admiral, has been added to the Nexus and is now available for play! Read on for a brief overview of his Abilities.:\r\n  Trait:\r\n  \u2022 Bio-Kill Switch (D)\r\n    \u2022 Activate to detonate all of Stukov\u0027s Viruses. Each Healing Pathogen heals its target, and each Weighted Pustule does damage and Slows its target by 70% for 2 seconds. Can be cast while Channeling Lurking Arm.\r\n  Basic Abilities:\r\n  \u2022 Healing Pathogen (Q)\r\n    \u2022 Infest an allied Hero with a Healing Pathogen that heals the target for 240 Health over 4.5 seconds. Healing Pathogens can spread to a nearby allied Hero every 0.75 seconds, and a single Healing Pathogen can spread to each allied Hero 1 time.\r\n  \u2022 Weighted Pustule (W)\r\n    \u2022 Hurl a pustule that impacts all enemy Heroes in its path, dealing damage and Slowing by 5%, increasing to 50% over 3 seconds. Deals additional damage upon expiring or being removed.\r\n  \u2022 Lurking Arm (E)\r\n    \u2022 Channel at a target location, creating an area that Silences enemies inside and deals 144 damage per second to them. Deals 50% reduced damage to non-Heroes.Does not cost Mana while Channeling, and lasts until canceled or interrupted.\r\n  Heroic Abilities:\r\n  \u2022 Flailing Swipe (R)\r\n    \u2022 Swipe 3 times in front of Stukov over 1.75 seconds, dealing damage to enemies hit and knocking them away. Each swipe is larger than the previous.\r\n  \u2022 Massive Shove (R)\r\n    \u2022 Extend Stukov\u0027s arm. If it hits an enemy Hero, they are rapidly shoved until they collide with terrain, taking damage. Stukov gains 50 Armor while shoving an enemy.\r\n\r\n=== Heroes: Tassadar ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue causing Tassadar to gain healing from the damage dealt by his Focused Beam talent.\r\n\r\n=== Heroes: Tychus ===\r\n[Bug Fixes]\r\n  \u2022 The primary target damage amount displayed in Overkill\u0027s tooltip is now consistent with the damage dealt by the Ability.\r\n\r\n=== Heroes: Uther ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue with the Beacon of Light talent causing it to display the wrong icon.\r\n\r\n=== Heroes: Xul ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Spectral Scythe (Q)\r\n    \u2022 Mana cost reduced from 65 to 55\r\n  \u2022 Cursed Strikes (W)\r\n    \u2022 Mana cost reduced from 65 to 60\r\n  \u2022 Bone Prison (E)\r\n    \u2022 Now causes all active Skeletons to fixate on the target.\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Shackler (Active)\r\n      \u2022 Added functionality:\r\n        \u2022 Basic Attacking a Hero that is slowed, rooted, or stunned reduces the cooldown of Bone Armor by 2 seconds.\r\n  \u2022 Level 4\r\n    \u2022 Reaper\u0027s Toll (Q)\r\n      \u2022 New functionality:\r\n        \u2022 !Quest: Hit enemy Heroes with Spectral Scythe.\r\n        \u2022 !Reward: After hitting 20 Heroes, reduce the cooldown by 3 seconds.\r\n    \u2022 Jailors (Trait)\r\n      \u2022 New functionality:\r\n        \u2022 Cause 2 Skeletons to spawn when you cast Bone Prison. These do not count toward the maximum limit of Skeletons you can own.\r\n        \u2022 !Quest: Spawn Skeletal Warriors.\r\n        \u2022 !Reward: After spawning 80 Skeletons, when Skeletal Warriors fixate on an enemy from Bone Prison they gain 50% Movement and Attack Speed.\r\n    \u2022 (New) Grim Scythe (W)\r\n      \u2022 Every time Cursed Strikes damages enemies, reduce its cooldown by .5 seconds, up to 10 seconds.\r\n  \u2022 Level 7\r\n    \u2022 Trag\u0027Oul\u0027s Essence (Trait)\r\n      \u2022 Moved from level 4 to level 7\r\n      \u2022 Redesigned:\r\n        \u2022 Skeleton Basic Attacks restore 1% Health and .4% Mana.\r\n    \u2022 Harvest Vitality (W)\r\n      \u2022 Redesigned:\r\n      \u2022 Cursed Strikes heals Xul for 60% of the damage it deals to Heroes.\r\n    \u2022 Weaken (W)\r\n      \u2022 Now also increases the duration of Cursed Strikes Attack Speed slow from 2 to 3 seconds.\r\n    \u2022 Rathma\u0027s Blessing (Trait)\r\n      \u2022 Removed\r\n  \u2022 Level 13\r\n    \u2022 Decrepify (Q)\r\n      \u2022 Removed\r\n    \u2022 Giant\u0027s Curse (W)\r\n      \u2022 Removed\r\n    \u2022 (New) Echoes of Death (Q)\r\n      \u2022 After an additional 1.5 seconds, 2 more Spectral Scythes appear next to the first and travel back to Xul dealing 75% damage.\r\n    \u2022 (New) Rapid Harvest (W)\r\n      \u2022 When Xul damages an enemy with Cursed Strikes, he gains 5% Attack Speed for 3 seconds, up to 75%.\r\n    \u2022 Executioner (Passive)\r\n      \u2022 Moved from 16 to 13.\r\n  \u2022 Level 16\r\n    \u2022 Skeleton Mastery (Trait)\r\n      \u2022 Removed\r\n    \u2022 Corpse Exposion (Trait)\r\n      \u2022 Moved from level 13 to level 16\r\n    \u2022 Bone Spear (Active)\r\n      \u2022 Moved from level 20 to level 16\r\n      \u2022 Cooldown increased from 10 to 12 seconds.\r\n  \u2022 Level 20\r\n    \u2022 Call of the Grave (R)\r\n      \u2022 Removed\r\n    \u2022 (New) Andariel\u0027s Visage (R)\r\n      \u2022 Xul is healed for 50% of the damage done by Poison Nova. Skeleton Warriors become Poison Skeletons, dealing 50% increased damage.\r\n    \u2022 Raised Mage (R)\r\n      \u2022 Renamed to Cold Hand of Death\r\n      \u2022 New functionality:\r\n        \u2022 No longer causes Skeletal Mages to spawn from dead Heroes.\r\n        \u2022 Now causes Skeletal Warriors to become Frost Skeletons, causing their Basic Attacks to slow enemies by 30%.\r\n    \u2022 (New) Kalan\u0027s Edict (Trait)\r\n      \u2022 Every time a Skeleton deals Basic Attack damage, reduce Xul\u0027s Heroic cooldown by 1%.\r\n  \u2022 (!) indicates a Questing Talent.\r\n  \u2022 Italic text indicates a NEW Talent.\r\n  \u2022 Underlined text indicates a MOVED Talent.",
+  "Sections": {
+    "Heroes: Alarak": [
+      "[Bug Fixes]",
+      "  \u2022 Lightning Surge will now display its effect when cast on Forts and Keeps.",
+      "  \u2022 Fixed an issue that prevented Rite of Rak\u0027Shir from going on a reduced cooldown if used on a Nova Holo Decoy that expired."
+    ],
+    "Heroes: Arthas": [
+      "[Bug Fixes]",
+      "  \u2022 The attack speed slow applied by Frozen Tempest is now consistent with what is stated in the ability\u0027s tooltip."
+    ],
+    "Heroes: Auriel": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed a visual issue with Auriel\u0027s Bestow Hope crown when placed on a Tassadar in Archon form."
+    ],
+    "Heroes: Chen": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue preventing the stun duration of Anub\u0027arak\u0027s Burrow Charge from being reduced by Purifying Brew."
+    ],
+    "Heroes: D.Va": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue causing D.Va\u0027s Mech to ignore \u0027Hold Position\u0027 commands.",
+      "  \u2022 Fixed a rare issue that caused D.Va to become unresponsive if Big Shot was fired into the enemy Hall of Storms immediately before calling down a Mech.",
+      "  \u2022 Fixed that issue that allowed D.Va\u0027s Boosters to push enemies that were affected by Time Stop.",
+      "  \u2022 Fixed an issue causing D.Va to destroy map mechanic pickups (such as Doubloons) when using Call Mech near them.",
+      "  \u2022 Fixed an issue causing Defense Matrix to unintentionally reduce the effects of percentage damage abilities.",
+      "  \u2022 Fixed an issue preventing pilot D.Va from immediately exiting her Mech after casting Self Destruct if there was not ample space available nearby."
+    ],
+    "Heroes: Genji": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue causing Genji to take partial damage from abilities that ended Deflect early, such as stuns and silences."
+    ],
+    "Heroes: Greymane": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that could occasionally grant additional Go for the Throat procs after casting the free charge."
+    ],
+    "Heroes: Kharazim": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that Stitches\u0027s Vile Gas to deal damage to Kharazim while casting Seven-Sided Strike."
+    ],
+    "Heroes: Muradin": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue causing a pop in Muradin\u0027s Avatar voice lines when playing in certain locales."
+    ],
+    "Heroes: Murky": [
+      "[Bug Fixes]",
+      "  \u2022 The Fish Eye talent will now properly reveal stealthed targets at the edge of its sight radius.",
+      "  \u2022 Fixed an issue causing Murky\u0027s Fish Eye talent to permanently reduce his mounted movement speed.",
+      "  \u2022 Fixed an issue preventing Murky from gaining stealth when spawning from his Egg after learning the Egg Hunt talent."
+    ],
+    "Heroes: Nova": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue preventing Holo Decoy from being cast in several locations on Garden of Terror and Infernal Shrines."
+    ],
+    "Heroes: Probius": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue preventing Probius from gathering minerals while inside the Garden Terror on Garden of Terror"
+    ],
+    "Heroes: Ragnaros": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Molten Core (D)",
+      "    \u2022 When Molten Core expires, the camera will now snap back to Ragnaros if he is not on screen."
+    ],
+    "Heroes: Stukov": [
+      "[Releases]",
+      "  Stukov, Infested Admiral, has been added to the Nexus and is now available for play! Read on for a brief overview of his Abilities.:",
+      "  Trait:",
+      "  \u2022 Bio-Kill Switch (D)",
+      "    \u2022 Activate to detonate all of Stukov\u0027s Viruses. Each Healing Pathogen heals its target, and each Weighted Pustule does damage and Slows its target by 70% for 2 seconds. Can be cast while Channeling Lurking Arm.",
+      "  Basic Abilities:",
+      "  \u2022 Healing Pathogen (Q)",
+      "    \u2022 Infest an allied Hero with a Healing Pathogen that heals the target for 240 Health over 4.5 seconds. Healing Pathogens can spread to a nearby allied Hero every 0.75 seconds, and a single Healing Pathogen can spread to each allied Hero 1 time.",
+      "  \u2022 Weighted Pustule (W)",
+      "    \u2022 Hurl a pustule that impacts all enemy Heroes in its path, dealing damage and Slowing by 5%, increasing to 50% over 3 seconds. Deals additional damage upon expiring or being removed.",
+      "  \u2022 Lurking Arm (E)",
+      "    \u2022 Channel at a target location, creating an area that Silences enemies inside and deals 144 damage per second to them. Deals 50% reduced damage to non-Heroes.Does not cost Mana while Channeling, and lasts until canceled or interrupted.",
+      "  Heroic Abilities:",
+      "  \u2022 Flailing Swipe (R)",
+      "    \u2022 Swipe 3 times in front of Stukov over 1.75 seconds, dealing damage to enemies hit and knocking them away. Each swipe is larger than the previous.",
+      "  \u2022 Massive Shove (R)",
+      "    \u2022 Extend Stukov\u0027s arm. If it hits an enemy Hero, they are rapidly shoved until they collide with terrain, taking damage. Stukov gains 50 Armor while shoving an enemy."
+    ],
+    "Heroes: Tassadar": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue causing Tassadar to gain healing from the damage dealt by his Focused Beam talent."
+    ],
+    "Heroes: Tychus": [
+      "[Bug Fixes]",
+      "  \u2022 The primary target damage amount displayed in Overkill\u0027s tooltip is now consistent with the damage dealt by the Ability."
+    ],
+    "Heroes: Uther": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue with the Beacon of Light talent causing it to display the wrong icon."
+    ],
+    "Heroes: Xul": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Spectral Scythe (Q)",
+      "    \u2022 Mana cost reduced from 65 to 55",
+      "  \u2022 Cursed Strikes (W)",
+      "    \u2022 Mana cost reduced from 65 to 60",
+      "  \u2022 Bone Prison (E)",
+      "    \u2022 Now causes all active Skeletons to fixate on the target.",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Shackler (Active)",
+      "      \u2022 Added functionality:",
+      "        \u2022 Basic Attacking a Hero that is slowed, rooted, or stunned reduces the cooldown of Bone Armor by 2 seconds.",
+      "  \u2022 Level 4",
+      "    \u2022 Reaper\u0027s Toll (Q)",
+      "      \u2022 New functionality:",
+      "        \u2022 !Quest: Hit enemy Heroes with Spectral Scythe.",
+      "        \u2022 !Reward: After hitting 20 Heroes, reduce the cooldown by 3 seconds.",
+      "    \u2022 Jailors (Trait)",
+      "      \u2022 New functionality:",
+      "        \u2022 Cause 2 Skeletons to spawn when you cast Bone Prison. These do not count toward the maximum limit of Skeletons you can own.",
+      "        \u2022 !Quest: Spawn Skeletal Warriors.",
+      "        \u2022 !Reward: After spawning 80 Skeletons, when Skeletal Warriors fixate on an enemy from Bone Prison they gain 50% Movement and Attack Speed.",
+      "    \u2022 (New) Grim Scythe (W)",
+      "      \u2022 Every time Cursed Strikes damages enemies, reduce its cooldown by .5 seconds, up to 10 seconds.",
+      "  \u2022 Level 7",
+      "    \u2022 Trag\u0027Oul\u0027s Essence (Trait)",
+      "      \u2022 Moved from level 4 to level 7",
+      "      \u2022 Redesigned:",
+      "        \u2022 Skeleton Basic Attacks restore 1% Health and .4% Mana.",
+      "    \u2022 Harvest Vitality (W)",
+      "      \u2022 Redesigned:",
+      "      \u2022 Cursed Strikes heals Xul for 60% of the damage it deals to Heroes.",
+      "    \u2022 Weaken (W)",
+      "      \u2022 Now also increases the duration of Cursed Strikes Attack Speed slow from 2 to 3 seconds.",
+      "    \u2022 Rathma\u0027s Blessing (Trait)",
+      "      \u2022 Removed",
+      "  \u2022 Level 13",
+      "    \u2022 Decrepify (Q)",
+      "      \u2022 Removed",
+      "    \u2022 Giant\u0027s Curse (W)",
+      "      \u2022 Removed",
+      "    \u2022 (New) Echoes of Death (Q)",
+      "      \u2022 After an additional 1.5 seconds, 2 more Spectral Scythes appear next to the first and travel back to Xul dealing 75% damage.",
+      "    \u2022 (New) Rapid Harvest (W)",
+      "      \u2022 When Xul damages an enemy with Cursed Strikes, he gains 5% Attack Speed for 3 seconds, up to 75%.",
+      "    \u2022 Executioner (Passive)",
+      "      \u2022 Moved from 16 to 13.",
+      "  \u2022 Level 16",
+      "    \u2022 Skeleton Mastery (Trait)",
+      "      \u2022 Removed",
+      "    \u2022 Corpse Exposion (Trait)",
+      "      \u2022 Moved from level 13 to level 16",
+      "    \u2022 Bone Spear (Active)",
+      "      \u2022 Moved from level 20 to level 16",
+      "      \u2022 Cooldown increased from 10 to 12 seconds.",
+      "  \u2022 Level 20",
+      "    \u2022 Call of the Grave (R)",
+      "      \u2022 Removed",
+      "    \u2022 (New) Andariel\u0027s Visage (R)",
+      "      \u2022 Xul is healed for 50% of the damage done by Poison Nova. Skeleton Warriors become Poison Skeletons, dealing 50% increased damage.",
+      "    \u2022 Raised Mage (R)",
+      "      \u2022 Renamed to Cold Hand of Death",
+      "      \u2022 New functionality:",
+      "        \u2022 No longer causes Skeletal Mages to spawn from dead Heroes.",
+      "        \u2022 Now causes Skeletal Warriors to become Frost Skeletons, causing their Basic Attacks to slow enemies by 30%.",
+      "    \u2022 (New) Kalan\u0027s Edict (Trait)",
+      "      \u2022 Every time a Skeleton deals Basic Attack damage, reduce Xul\u0027s Heroic cooldown by 1%.",
+      "  \u2022 (!) indicates a Questing Talent.",
+      "  \u2022 Italic text indicates a NEW Talent.",
+      "  \u2022 Underlined text indicates a MOVED Talent."
+    ]
+  },
+  "PatchFile": "ptr/2017-07-03-2.26.3.json",
+  "Sources": [
+    "ptr-master.json",
+    "2017-07-03-ptr.html",
+    "2017-07-03-v2-26-3-55058-2017-07-03-ptr-patch-ptr.json"
+  ]
+}

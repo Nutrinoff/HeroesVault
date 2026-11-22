@@ -1,0 +1,213 @@
+{
+  "Id": "npn-2016-08-01-1.19.4",
+  "Title": "2016-08-01 PTR Patch",
+  "Subtitle": "=== Heroes: Abathur ===",
+  "Date": "Aug 1, 2016",
+  "IsoDate": "2016-08-01",
+  "FeedType": "ptr",
+  "Era": "ptr",
+  "PatchVersion": "1.19.4",
+  "FullVersion": "1.19.4.45024",
+  "Build": "45024",
+  "Link": "https://news.blizzard.com/en-us/heroes-of-the-storm/20194781",
+  "Links": [
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/20194781"
+  ],
+  "Affected": [
+    "Abathur",
+    "Auriel",
+    "Brightwing",
+    "Chromie",
+    "Dehaka",
+    "Falstad",
+    "Gazlowe",
+    "Greymane",
+    "Gul\u0027dan",
+    "Kael\u0027thas",
+    "Kerrigan",
+    "Leoric",
+    "Lunara",
+    "Medivh",
+    "Nazeebo",
+    "Nova",
+    "Rehgar",
+    "Rexxar",
+    "Stitches",
+    "Sylvanas",
+    "Tracer",
+    "Zagara"
+  ],
+  "Highlights": "=== Heroes: Abathur ===",
+  "CleanedNotes": "=== Heroes: Abathur ===\r\n[Bug Fixes]\r\n  \u2022 AI that has taken over Abathur after the controlling players leaves the game will no longer use Hearthstone while Symbiote is active on another Hero.\r\n\r\n=== Heroes: Auriel ===\r\n[Releases]\r\n  Auriel, Archangel of Hope, has been added to the Nexus and is now available for play! Read on for a brief overview of her Abilities.:\r\n  Trait:\r\n  \u2022 Bestow Hope (D)\r\n    \u2022 Activate to bestow an allied Hero with Hope. Damage that Hero deals while they are nearby will cause you to store Energy. Bestow Hope can only be active on one Hero at a time.\r\n    \u2022 Passive: 40% of the damage you deal to Heroes and 8% of your damage dealt to non-Heroes is stored as Energy.\r\n  Basic Abilities:\r\n  \u2022 Sacred Sweep (Q)\r\n    \u2022 Damages enemies in a wide arc and deals bonus damage to enemies caught in the center.\r\n  \u2022 Ray of Hope (W)\r\n    \u2022 Consume all of your stored Energy to Heal allied Heroes in the target area. The amount of Healing done is based on the amount of Energy spent.\r\n  \u2022 Detainment Strike (E)\r\n    \u2022 Deals damage to the first enemy Hero struck and knocks them back. If the target collides with terrain, they are also Stunned for 1.25 seconds and take additional damage.\r\n  Heroic Abilities:\r\n  \u2022 Crystal Aegis (R)\r\n    \u2022 Place an allied Hero into Stasis for 2 seconds. Upon expiration, Crystal Aegis explodes, damaging nearby enemies.\r\n  \u2022 Resurrect (R)\r\n    \u2022 Allied Heroes leave behind a spirit on death. Channel on a spirit for 3 seconds to bring that ally back to life with 50% of their maximum Health at their death location.\r\n\r\n=== Heroes: Brightwing ===\r\n[Bug Fixes]\r\n  \u2022 Phase Shield now properly applies a Shield to targets under the effect of Abathur\u0027s Symbiote.\r\n\r\n=== Heroes: Chromie ===\r\n[Bug Fixes]\r\n  \u2022 Temporal Loop can no longer return its target to areas of terrain that are not walkable. The target will instead be placed as close as possible to their original location.\r\n\r\n=== Heroes: Dehaka ===\r\n[Bug Fixes]\r\n  \u2022 Polymorph will no longer remove the effects of Dark Swarm.\r\n\r\n=== Heroes: Falstad ===\r\n[Bug Fixes]\r\n  \u2022 The landing indicator for Falstad\u0027s Flight will no longer appear cut off when flying long distances.\r\n\r\n=== Heroes: Gazlowe ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 4\r\n    \u2022 Clockwerk Steam Fists (Q)\r\n      \u2022 New Functionality: Quest - Basic Attacks increase the duration of active Rock-It! Turrets by 2 seconds. Reward - After earning a total increase of 600 seconds, permanently reduce the charge cooldown of Rock-It! Turret by 3 seconds.\r\n[Bug Fixes]\r\n  \u2022 The Engine Gunk Talent now correctly causes Rock-It! Turret attacks to Slow enemy Movement Speed.\r\n\r\n=== Heroes: Greymane ===\r\n[Bug Fixes]\r\n  \u2022 Will no longer appear to slide at the end of Darkflight if the target moves out of maximum range as Greymane begins to leap.\r\n  \u2022 Go for the Throat Damage bonuses earned via the Unleashed Talent will now stack properly.\r\n\r\n=== Heroes: Gul\u0027dan ===\r\n[Bug Fixes]\r\n  \u2022 The tooltip for the Consume Soul Activated Talent now properly lists that it stores up to 2 charges.\r\n  \u2022 Bonus Ability Power granted through the Darkness Within Talent will now correctly apply to all ticks of Drain Life Healing.\r\n  \u2022 Horrify\u0027s Fear effect will now correctly be paused when enemies hit by the Ability enter Zeratul\u0027s Void Prison.\r\n  \u2022 Heroes affected by Horrify will now properly run directly from the center of the cast into nearby Gates and Towers, rather than attempt to path around them.\r\n\r\n=== Heroes: Kael\u0027thas ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 7\r\n    \u2022 Gravity Crush (E)\r\n      \u2022 Removed\r\n  \u2022 Level 16\r\n    \u2022 Sun King\u0027s Fury (W)\r\n      \u2022 Moved to level 7\r\n      \u2022 New Functionality: Now increases the damage of Living Bombs that spread to enemy Heroes by 30%\r\n    \u2022 NEW TALENT: Arcane Dynamo (Passive)\r\n      \u2022 Casting a Basic Ability causes you to gain 3% Ability Power for 5 seconds, stacking up to a total of 15% Ability Power\r\n  \u2022 Level 20\r\n    \u2022 Arcane Power (Active)\r\n      \u2022 Removed\r\n    \u2022 NEW TALENT: Flamethrower (Q)\r\n      \u2022 Increases the range of Flamestrike by 40%. When you hit two or more enemy Heroes, reduce the cooldown of Flamestrike by 4 seconds\r\n[Bug Fixes]\r\n  \u2022 The visual effects displayed upon completing the Mana Addict Talent Quest will now correctly appear after gathering 20 Regeneration Globes, rather than 25.\r\n\r\n=== Heroes: Kerrigan ===\r\n[Bug Fixes]\r\n  \u2022 Assimilation will now properly grant Shields for splash damage dealt by Kerrigan\u0027s Basic Attacks after learning Fury of the Swarm.\r\n\r\n=== Heroes: Leoric ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Hopelessness (W)\r\n      \u2022 Range increase changed from 20 to 25%\r\n  \u2022 Level 4\r\n    \u2022 Royal Focus (E)\r\n      \u2022 Now also increases the damage of the next Skeletal Swing by 50% in addition to its current functionality.\r\n[Bug Fixes]\r\n  \u2022 The tooltip for Drain Essence now correctly states that it Heals up to 12.5% of maximum Health, rather than 10%.\r\n  \u2022 The Drain Hope effect applied by the Death March Talent no longer deals less damage than intended.\r\n\r\n=== Heroes: Lunara ===\r\n[Bug Fixes]\r\n  \u2022 Abolish Magic will now correctly reduce the duration of Fear, Root, Silence, Slow, and Stun effects after it is self-cast.\r\n\r\n=== Heroes: Medivh ===\r\n[Bug Fixes]\r\n  \u2022 AI Medivh will no longer attempt to gank an enemy Hero who is in the opposing Hall of Storms.\r\n\r\n=== Heroes: Nazeebo ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Zombie Wall (W)\r\n    \u2022 Abilities that allow Heroes to move through units can no longer be used to escape Zombie Wall (Valla\u0027s Vault, E.T.C.\u0027s Powerslide, Sonya\u0027s Whirlwind, etc.)\r\n[Bug Fixes]\r\n  \u2022 Stomp will no longer be placed on cooldown while the Garagantuan is in Stasis.\r\n  \u2022 The player will no longer receive a Stasis overlay when Nazeebo\u0027s Gargantuan is affected by Zagara\u0027s Devouring Maw.\r\n\r\n=== Heroes: Nova ===\r\n[Bug Fixes]\r\n  \u2022 The Novazon skin will now properly throw a Javelin when casting Snipe.\r\n\r\n=== Heroes: Rehgar ===\r\n[Bug Fixes]\r\n  \u2022 The Stormcaller Talent\u0027s Mana restoration effect will now apply to all active Lightning Shields, rather than only the most recent cast.\r\n\r\n=== Heroes: Rexxar ===\r\n[Bug Fixes]\r\n  \u2022 Misha, Focus! Can now be cast when Rexxar, Misha, or both are Polymorphed. This should prevent situations in which Medivh\u0027s Polybomb could cause Rexxar and Misha to become polymorphed indefinitely.\r\n\r\n=== Heroes: Stitches ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Helping Hand (Active)\r\n    \u2022 Pressing the Helping Hand hotkey (Default: 1) will now cast a Helping Hand modified version of Hook, instead of causing the next Hook to have the Helping Hand modification. Casting the Hook hotkey (Default: Q) will cast a normal version of Hook. These abilities share a cooldown.\r\n\r\n=== Heroes: Sylvanas ===\r\n[Bug Fixes]\r\n  \u2022 Possession can no longer be cast on Doubloon Chests.\r\n  \u2022 Mind Control\u0027s visual effects will no longer stretch across the Battleground, and Sylvanas will no longer attempt to chase Gul\u0027dan if he uses Teleport to Demonic Circle during Mind Control\u0027s casting time.\r\n\r\n=== Heroes: Tracer ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Slipstream (E)\r\n      \u2022 No longer reduces the cooldown of Recall by 2 seconds\r\n  \u2022 Level 7\r\n    \u2022 Spatial Echo (Q)\r\n      \u2022 New Functionality: Hero Takedowns now grant two charges of Blink\r\n  \u2022 Level 10\r\n    \u2022 Sticky Bomb (R)\r\n      \u2022 Slow amount increased from 60 to 70%\r\n  \u2022 Level 13\r\n    \u2022 Bullet Spray (W)\r\n      \u2022 Melee radius increase reduced from 50 to 40%\r\n  \u2022 Level 20\r\n    \u2022 Total Recall (E)\r\n      \u2022 Now also increases the cooldown of Recall by 8 seconds\r\n\r\n=== Heroes: Zagara ===\r\n[Bug Fixes]\r\n  \u2022 The charge cooldown for Baneling Barrage will no longer be paused while inside of a Nydus Worm.\r\n  \u2022 Roaches, Hydralisks, and Mutalisks will no longer receive Healing while they are on Creep.\r\n  \u2022 Casting Cleanse on an allied Hero as they are being pulled into Devouring Maw will no longer allow them to escape.",
+  "Sections": {
+    "Heroes: Abathur": [
+      "[Bug Fixes]",
+      "  \u2022 AI that has taken over Abathur after the controlling players leaves the game will no longer use Hearthstone while Symbiote is active on another Hero."
+    ],
+    "Heroes: Auriel": [
+      "[Releases]",
+      "  Auriel, Archangel of Hope, has been added to the Nexus and is now available for play! Read on for a brief overview of her Abilities.:",
+      "  Trait:",
+      "  \u2022 Bestow Hope (D)",
+      "    \u2022 Activate to bestow an allied Hero with Hope. Damage that Hero deals while they are nearby will cause you to store Energy. Bestow Hope can only be active on one Hero at a time.",
+      "    \u2022 Passive: 40% of the damage you deal to Heroes and 8% of your damage dealt to non-Heroes is stored as Energy.",
+      "  Basic Abilities:",
+      "  \u2022 Sacred Sweep (Q)",
+      "    \u2022 Damages enemies in a wide arc and deals bonus damage to enemies caught in the center.",
+      "  \u2022 Ray of Hope (W)",
+      "    \u2022 Consume all of your stored Energy to Heal allied Heroes in the target area. The amount of Healing done is based on the amount of Energy spent.",
+      "  \u2022 Detainment Strike (E)",
+      "    \u2022 Deals damage to the first enemy Hero struck and knocks them back. If the target collides with terrain, they are also Stunned for 1.25 seconds and take additional damage.",
+      "  Heroic Abilities:",
+      "  \u2022 Crystal Aegis (R)",
+      "    \u2022 Place an allied Hero into Stasis for 2 seconds. Upon expiration, Crystal Aegis explodes, damaging nearby enemies.",
+      "  \u2022 Resurrect (R)",
+      "    \u2022 Allied Heroes leave behind a spirit on death. Channel on a spirit for 3 seconds to bring that ally back to life with 50% of their maximum Health at their death location."
+    ],
+    "Heroes: Brightwing": [
+      "[Bug Fixes]",
+      "  \u2022 Phase Shield now properly applies a Shield to targets under the effect of Abathur\u0027s Symbiote."
+    ],
+    "Heroes: Chromie": [
+      "[Bug Fixes]",
+      "  \u2022 Temporal Loop can no longer return its target to areas of terrain that are not walkable. The target will instead be placed as close as possible to their original location."
+    ],
+    "Heroes: Dehaka": [
+      "[Bug Fixes]",
+      "  \u2022 Polymorph will no longer remove the effects of Dark Swarm."
+    ],
+    "Heroes: Falstad": [
+      "[Bug Fixes]",
+      "  \u2022 The landing indicator for Falstad\u0027s Flight will no longer appear cut off when flying long distances."
+    ],
+    "Heroes: Gazlowe": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 4",
+      "    \u2022 Clockwerk Steam Fists (Q)",
+      "      \u2022 New Functionality: Quest - Basic Attacks increase the duration of active Rock-It! Turrets by 2 seconds. Reward - After earning a total increase of 600 seconds, permanently reduce the charge cooldown of Rock-It! Turret by 3 seconds.",
+      "[Bug Fixes]",
+      "  \u2022 The Engine Gunk Talent now correctly causes Rock-It! Turret attacks to Slow enemy Movement Speed."
+    ],
+    "Heroes: Greymane": [
+      "[Bug Fixes]",
+      "  \u2022 Will no longer appear to slide at the end of Darkflight if the target moves out of maximum range as Greymane begins to leap.",
+      "  \u2022 Go for the Throat Damage bonuses earned via the Unleashed Talent will now stack properly."
+    ],
+    "Heroes: Gul\u0027dan": [
+      "[Bug Fixes]",
+      "  \u2022 The tooltip for the Consume Soul Activated Talent now properly lists that it stores up to 2 charges.",
+      "  \u2022 Bonus Ability Power granted through the Darkness Within Talent will now correctly apply to all ticks of Drain Life Healing.",
+      "  \u2022 Horrify\u0027s Fear effect will now correctly be paused when enemies hit by the Ability enter Zeratul\u0027s Void Prison.",
+      "  \u2022 Heroes affected by Horrify will now properly run directly from the center of the cast into nearby Gates and Towers, rather than attempt to path around them."
+    ],
+    "Heroes: Kael\u0027thas": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 7",
+      "    \u2022 Gravity Crush (E)",
+      "      \u2022 Removed",
+      "  \u2022 Level 16",
+      "    \u2022 Sun King\u0027s Fury (W)",
+      "      \u2022 Moved to level 7",
+      "      \u2022 New Functionality: Now increases the damage of Living Bombs that spread to enemy Heroes by 30%",
+      "    \u2022 NEW TALENT: Arcane Dynamo (Passive)",
+      "      \u2022 Casting a Basic Ability causes you to gain 3% Ability Power for 5 seconds, stacking up to a total of 15% Ability Power",
+      "  \u2022 Level 20",
+      "    \u2022 Arcane Power (Active)",
+      "      \u2022 Removed",
+      "    \u2022 NEW TALENT: Flamethrower (Q)",
+      "      \u2022 Increases the range of Flamestrike by 40%. When you hit two or more enemy Heroes, reduce the cooldown of Flamestrike by 4 seconds",
+      "[Bug Fixes]",
+      "  \u2022 The visual effects displayed upon completing the Mana Addict Talent Quest will now correctly appear after gathering 20 Regeneration Globes, rather than 25."
+    ],
+    "Heroes: Kerrigan": [
+      "[Bug Fixes]",
+      "  \u2022 Assimilation will now properly grant Shields for splash damage dealt by Kerrigan\u0027s Basic Attacks after learning Fury of the Swarm."
+    ],
+    "Heroes: Leoric": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Hopelessness (W)",
+      "      \u2022 Range increase changed from 20 to 25%",
+      "  \u2022 Level 4",
+      "    \u2022 Royal Focus (E)",
+      "      \u2022 Now also increases the damage of the next Skeletal Swing by 50% in addition to its current functionality.",
+      "[Bug Fixes]",
+      "  \u2022 The tooltip for Drain Essence now correctly states that it Heals up to 12.5% of maximum Health, rather than 10%.",
+      "  \u2022 The Drain Hope effect applied by the Death March Talent no longer deals less damage than intended."
+    ],
+    "Heroes: Lunara": [
+      "[Bug Fixes]",
+      "  \u2022 Abolish Magic will now correctly reduce the duration of Fear, Root, Silence, Slow, and Stun effects after it is self-cast."
+    ],
+    "Heroes: Medivh": [
+      "[Bug Fixes]",
+      "  \u2022 AI Medivh will no longer attempt to gank an enemy Hero who is in the opposing Hall of Storms."
+    ],
+    "Heroes: Nazeebo": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Zombie Wall (W)",
+      "    \u2022 Abilities that allow Heroes to move through units can no longer be used to escape Zombie Wall (Valla\u0027s Vault, E.T.C.\u0027s Powerslide, Sonya\u0027s Whirlwind, etc.)",
+      "[Bug Fixes]",
+      "  \u2022 Stomp will no longer be placed on cooldown while the Garagantuan is in Stasis.",
+      "  \u2022 The player will no longer receive a Stasis overlay when Nazeebo\u0027s Gargantuan is affected by Zagara\u0027s Devouring Maw."
+    ],
+    "Heroes: Nova": [
+      "[Bug Fixes]",
+      "  \u2022 The Novazon skin will now properly throw a Javelin when casting Snipe."
+    ],
+    "Heroes: Rehgar": [
+      "[Bug Fixes]",
+      "  \u2022 The Stormcaller Talent\u0027s Mana restoration effect will now apply to all active Lightning Shields, rather than only the most recent cast."
+    ],
+    "Heroes: Rexxar": [
+      "[Bug Fixes]",
+      "  \u2022 Misha, Focus! Can now be cast when Rexxar, Misha, or both are Polymorphed. This should prevent situations in which Medivh\u0027s Polybomb could cause Rexxar and Misha to become polymorphed indefinitely."
+    ],
+    "Heroes: Stitches": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Helping Hand (Active)",
+      "    \u2022 Pressing the Helping Hand hotkey (Default: 1) will now cast a Helping Hand modified version of Hook, instead of causing the next Hook to have the Helping Hand modification. Casting the Hook hotkey (Default: Q) will cast a normal version of Hook. These abilities share a cooldown."
+    ],
+    "Heroes: Sylvanas": [
+      "[Bug Fixes]",
+      "  \u2022 Possession can no longer be cast on Doubloon Chests.",
+      "  \u2022 Mind Control\u0027s visual effects will no longer stretch across the Battleground, and Sylvanas will no longer attempt to chase Gul\u0027dan if he uses Teleport to Demonic Circle during Mind Control\u0027s casting time."
+    ],
+    "Heroes: Tracer": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Slipstream (E)",
+      "      \u2022 No longer reduces the cooldown of Recall by 2 seconds",
+      "  \u2022 Level 7",
+      "    \u2022 Spatial Echo (Q)",
+      "      \u2022 New Functionality: Hero Takedowns now grant two charges of Blink",
+      "  \u2022 Level 10",
+      "    \u2022 Sticky Bomb (R)",
+      "      \u2022 Slow amount increased from 60 to 70%",
+      "  \u2022 Level 13",
+      "    \u2022 Bullet Spray (W)",
+      "      \u2022 Melee radius increase reduced from 50 to 40%",
+      "  \u2022 Level 20",
+      "    \u2022 Total Recall (E)",
+      "      \u2022 Now also increases the cooldown of Recall by 8 seconds"
+    ],
+    "Heroes: Zagara": [
+      "[Bug Fixes]",
+      "  \u2022 The charge cooldown for Baneling Barrage will no longer be paused while inside of a Nydus Worm.",
+      "  \u2022 Roaches, Hydralisks, and Mutalisks will no longer receive Healing while they are on Creep.",
+      "  \u2022 Casting Cleanse on an allied Hero as they are being pulled into Devouring Maw will no longer allow them to escape."
+    ]
+  },
+  "PatchFile": "ptr/2016-08-01-1.19.4.json",
+  "Sources": [
+    "ptr-master.json",
+    "2016-08-01-ptr.html",
+    "2016-08-01-v1-19-4-45024-2016-08-01-ptr-patch-ptr.json"
+  ]
+}

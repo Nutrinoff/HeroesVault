@@ -1,0 +1,226 @@
+{
+  "Id": "npn-2019-07-29-2.47.0",
+  "Title": "2019-07-29 PTR Patch",
+  "Subtitle": "=== Battlegrounds: Braxis Holdout ===",
+  "Date": "Jul 29, 2019",
+  "IsoDate": "2019-07-29",
+  "FeedType": "ptr",
+  "Era": "ptr",
+  "PatchVersion": "2.47.0",
+  "FullVersion": "2.47.0.75484",
+  "Build": "75484",
+  "Link": "https://news.blizzard.com/en-us/heroes-of-the-storm/23066827",
+  "Links": [
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/23066827"
+  ],
+  "Affected": [
+    "Braxis Holdout",
+    "Blaze",
+    "Cassia",
+    "Chen",
+    "Jaina",
+    "Kel\u0027Thuzad",
+    "Kerrigan",
+    "Li Li",
+    "Mal\u0027Ganis",
+    "Qhira",
+    "Raynor",
+    "Samuro",
+    "Sgt. Hammer",
+    "Sylvanas",
+    "Uther",
+    "Varian",
+    "Yrel",
+    "Zarya",
+    "Zeratul"
+  ],
+  "Highlights": "=== Battlegrounds: Braxis Holdout ===",
+  "CleanedNotes": "=== Battlegrounds: Braxis Holdout ===\r\n[Updates]\r\n  Objective:\r\n  \u2022 Zergs\r\n    \u2022 Zerglings\r\n      \u2022 Health reduced from 750 to 450.\r\n      \u2022 [Undocumented] Health scaling for minutes 1-5 increased from 10 to 22.5.\r\n      \u2022 [Undocumented] Health scaling for minutes 6-10 increased from 15 to 33.75.\r\n      \u2022 [Undocumented] Health scaling for minutes 11-15 increased from 20 to 45.\r\n      \u2022 [Undocumented] Health scaling for minutes 16-20 increased from 25 to 45.\r\n      \u2022 [Undocumented] Health scaling for minutes 21-30 increased from 30 to 56.25.\r\n      \u2022 Damage increased from 5 to 10.\r\n      \u2022 [Undocumented] Damage scaling for minutes 1-5 reduced from 1 to 0.5.\r\n      \u2022 [Undocumented] Damage scaling for minutes 6-10 reduced from 1 to 0.75.\r\n      \u2022 [Undocumented] Damage scaling for minutes 11-15 reduced from 2 to 1.\r\n      \u2022 [Undocumented] Damage scaling for minutes 16-20 reduced from 2 to 1.\r\n      \u2022 [Undocumented] Damage scaling for minutes 21-30 reduced from 3 to 1.25.\r\n      \u2022 No longer have a 10% damage penalty to Structures.\r\n    \u2022 Banelings\r\n      \u2022 Health reduced from 500 to 450.\r\n      \u2022 [Undocumented] Health scaling for minutes 1-5 increased from 5 to 22.5.\r\n      \u2022 [Undocumented] Health scaling for minutes 6-10 increased from 5 to 33.75.\r\n      \u2022 [Undocumented] Health scaling for minutes 11-15 increased from 10 to 45.\r\n      \u2022 [Undocumented] Health scaling for minutes 16-20 increased from 10 to 45.\r\n      \u2022 [Undocumented] Health scaling for minutes 21-30 increased from 15 to 56.25.\r\n      \u2022 Damage increased from 55 to 150.\r\n      \u2022 [Undocumented] Damage scaling for minutes 1-5 reduced from 18 to 7.5.\r\n      \u2022 [Undocumented] Damage scaling for minutes 6-10 reduced from 23 to 11.25.\r\n      \u2022 [Undocumented] Damage scaling for minutes 11-15 reduced from 25 to 15.\r\n      \u2022 [Undocumented] Damage scaling for minutes 16-20 reduced from 30 to 15.\r\n      \u2022 [Undocumented] Damage scaling for minutes 21-30 reduced from 25 to 18.75.\r\n      \u2022 Now have a 50% damage bonus to Heroes.\r\n      \u2022 No longer have a 50% damage bonus to Structures.\r\n      \u2022 Explosion radius increased from 2.75 to 3.\r\n      \u2022 Now prefers attacking Structures.\r\n    \u2022 Hydralisks\r\n      \u2022 Health reduced from 1500 to 850.\r\n      \u2022 [Undocumented] Health scaling for minutes 1-5 increased from 20 to 42.5.\r\n      \u2022 [Undocumented] Health scaling for minutes 6-10 increased from 20 to 63.75.\r\n      \u2022 [Undocumented] Health scaling for minutes 11-15 increased from 30 to 85.\r\n      \u2022 [Undocumented] Health scaling for minutes 16-20 increased from 30 to 85.\r\n      \u2022 [Undocumented] Health scaling for minutes 21-30 increased from 40 to 106.25.\r\n      \u2022 Damage increased from 25 to 70.\r\n      \u2022 [Undocumented] Damage scaling for minutes 1-5 reduced from 7 to 3.5.\r\n      \u2022 [Undocumented] Damage scaling for minutes 6-10 reduced from 10 to 5.25.\r\n      \u2022 [Undocumented] Damage scaling for minutes 11-15 reduced from 15 to 7.\r\n      \u2022 [Undocumented] Damage scaling for minutes 16-20 reduced from 17 to 7.\r\n      \u2022 [Undocumented] Damage scaling for minutes 21-30 reduced from 20 to 8.75.\r\n      \u2022 No longer have a 10% damage penalty to Structures.\r\n    \u2022 Guardians\r\n      \u2022 Health reduced from 2250 to 1000.\r\n      \u2022 [Undocumented] Health scaling for minutes 1-5 increased from 40 to 50.\r\n      \u2022 [Undocumented] Health scaling for minutes 6-10 increased from 40 to 75.\r\n      \u2022 [Undocumented] Health scaling for minutes 11-15 increased from 60 to 100.\r\n      \u2022 [Undocumented] Health scaling for minutes 16-20 increased from 60 to 100.\r\n      \u2022 [Undocumented] Health scaling for minutes 21-30 increased from 80 to 125.\r\n      \u2022 Damage increased from 80 to 110.\r\n      \u2022 [Undocumented] Damage scaling for minutes 1-5 reduced from 8 to 5.5.\r\n      \u2022 [Undocumented] Damage scaling for minutes 6-10 reduced from 15 to 8.25.\r\n      \u2022 [Undocumented] Damage scaling for minutes 11-15 reduced from 15 to 11.\r\n      \u2022 [Undocumented] Damage scaling for minutes 16-20 reduced from 24 to 11.\r\n      \u2022 [Undocumented] Damage scaling for minutes 21-30 reduced from 24 to 13.75.\r\n      \u2022 No longer have a 25% damage penalty to Structures.\r\n    \u2022 Ultralisks\r\n      \u2022 Health reduced from 6000 to 4700.\r\n      \u2022 [Undocumented] Health scaling for minutes 1-5 increased from 100 to 235.\r\n      \u2022 [Undocumented] Health scaling for minutes 6-10 increased from 150 to 352.5.\r\n      \u2022 [Undocumented] Health scaling for minutes 11-15 increased from 150 to 470.\r\n      \u2022 [Undocumented] Health scaling for minute 16 increased from 200 to 470.\r\n      \u2022 [Undocumented] Health scaling for minutes 17-20 increased from 200 to 587.5.\r\n      \u2022 [Undocumented] Health scaling for minutes 21-30 increased from 250 to 587.5.\r\n      \u2022 Damage increased from 50 to 100.\r\n      \u2022 [Undocumented] Damage scaling for minutes 1-5 reduced from 10 to 5.\r\n      \u2022 [Undocumented] Damage scaling for minutes 6-10 reduced from 15 to 7.5.\r\n      \u2022 [Undocumented] Damage scaling for minutes 11-15 reduced from 17 to 10.\r\n      \u2022 [Undocumented] Damage scaling for minutes 16-20 reduced from 26 to 10.\r\n      \u2022 [Undocumented] Damage scaling for minutes 21-30 reduced from 30 to 12.5.\r\n      \u2022 No longer have a 10% damage penalty to Structures.\r\n    \u2022 While attacking, Guardians and Ultralisks now spawn Drop Pods with 3 Zerglings and 1 Hydralisk. This effect can occur once every 13 seconds.\r\n\r\n=== Heroes: Blaze ===\r\n[Bug Fixes]\r\n  \u2022 Oil Spill are now affected by cooldown reduction effects.\r\n\r\n=== Heroes: Cassia ===\r\n[Bug Fixes]\r\n  \u2022 Lightning Fury are now affected by cooldown reduction effects.\r\n\r\n=== Heroes: Chen ===\r\n[Bug Fixes]\r\n  \u2022 Keg Smash are now affected by cooldown reduction effects.\r\n\r\n=== Heroes: Jaina ===\r\n[Bug Fixes]\r\n  \u2022 Taking the Snowstorm talent on Jaina in the middle of a Blizzard cast no longer changes the damage value for the rest of the game.\r\n\r\n=== Heroes: Kel\u0027Thuzad ===\r\n[Bug Fixes]\r\n  \u2022 Frost Blast will no longer apply their effects to Heroes in Time Stop.\r\n\r\n=== Heroes: Kerrigan ===\r\n[Bug Fixes]\r\n  \u2022 Ravage are now affected by cooldown reduction effects.\r\n\r\n=== Heroes: Li Li ===\r\n[Bug Fixes]\r\n  \u2022 Blinding Wind will no longer apply their effects to Heroes in Time Stop.\r\n\r\n=== Heroes: Mal\u0027Ganis ===\r\n[Bug Fixes]\r\n  \u2022 Seeker Swarm will no longer apply their effects to Heroes in Time Stop.\r\n\r\n=== Heroes: Qhira ===\r\n[Releases]\r\n  Qhira, Realmless Bounty Hunter, has been added to the Nexus and is now available for play! Read on for a brief overview of her Abilities.:\r\n  \u2022 Grappling Hook [D]\r\n    \u2022 Qhira fires a Grappling Hook that pulls her to any terrain it contacts. If an enemy Hero is hit, they take 36 damage and Qhira launches at them, dealing an additional 112 damage on impact. Can be used while Revolving Sweep is active.\r\n      \u2022 Cooldown: 25 seconds\r\n  Basic Abilities:\r\n  \u2022 Carnage [Q]\r\n    \u2022 Unleash your sword in a targeted direction, continuously dealing 31 damage to enemies caught in its path.\r\n      \u2022 Cost: 40 Mana\r\n      \u2022 Cooldown: 6 seconds\r\n  \u2022 Blood Rage [W]\r\n    \u2022 Passive: Basic Attack and Ability damage cause enemies to bleed for 46 damage over 4 seconds. Stacks 5 times.\r\n    \u2022 Active: Qhira deals 33 damage and heals for 88 health per enemy Hero affected. Damage and healing is increased by 50% per each additional stack on that Hero.\r\n      \u2022 Cost: 35 Mana\r\n      \u2022 Cooldown: 8 seconds\r\n  \u2022 Revolving Sweep [E]\r\n    \u2022 Attach your sword to the first enemy Hero hit, Stunning them for .25 seconds. Once attached, Qhira becomes immune to all effects, swinging around the target for 2.75 seconds, and dealing 109 damage to any enemies between you and the target. Reactivate to send you to the target\u0027s location, knocking them back, dealing 112 damage and Stunning them for .75 seconds.\r\n      \u2022 Cost: 70 Mana\r\n      \u2022 Cooldown: 16 seconds\r\n  Heroic Abilities:\r\n  \u2022 Unrelenting Strikes [R1]\r\n    \u2022 Deal 46 damage to all nearby enemies every .5 seconds for 2.5 seconds as your sword grows outward. Upon expiring, deal 86 damage to all nearby enemy Heroes and Stun them for .75 seconds.\r\n      \u2022 Cost: 60 Mana\r\n      \u2022 Cooldown: 75 seconds\r\n  \u2022 Final Strike [R2]\r\n    \u2022 After 1 second, strike your sword in a line to deal 432 damage to all enemies in its path. This damage is increased by 25% to any enemy below 50% Health.\r\n      \u2022 Cost: 45 Mana\r\n      \u2022 Cooldown: 40 seconds\r\n\r\n=== Heroes: Raynor ===\r\n[Bug Fixes]\r\n  \u2022 Unstable Compound will no longer apply their effects to Heroes in Time Stop.\r\n  \u2022 Weak Spot Acquired will no longer apply their effects to Heroes in Time Stop.\r\n\r\n=== Heroes: Samuro ===\r\n[Bug Fixes]\r\n  \u2022 Critical Strike are now affected by cooldown reduction effects.\r\n\r\n=== Heroes: Sgt. Hammer ===\r\n[Bug Fixes]\r\n  \u2022 Sgt. Hammer\u0027s Siege Mode can no longer out-range kill credit for the Salvaging the Stables questline.\r\n\r\n=== Heroes: Sylvanas ===\r\n[Bug Fixes]\r\n  \u2022 Shadow Dagger will no longer apply their effects to Heroes in Time Stop.\r\n\r\n=== Heroes: Uther ===\r\n[Bug Fixes]\r\n  \u2022 Uther can now /dance and /taunt during Eternal Vanguard.\r\n\r\n=== Heroes: Varian ===\r\n[Bug Fixes]\r\n  \u2022 Varian\u0027s Banner of Ironforge now correctly displays the plus-Healing UI when augmented with Glory to the Alliance.\r\n\r\n=== Heroes: Yrel ===\r\n[Bug Fixes]\r\n  \u2022 Learning Yrel\u0027s Seraphim talent while channeling or disabled no longer leaves it permanently disabled.\r\n\r\n=== Heroes: Zarya ===\r\n[Bug Fixes]\r\n  \u2022 Particle Grenade are now affected by cooldown reduction effects.\r\n\r\n=== Heroes: Zeratul ===\r\n[Bug Fixes]\r\n  \u2022 Zeratul no longer auto-acquires targets that walk within range while Cloaked.",
+  "Sections": {
+    "Battlegrounds: Braxis Holdout": [
+      "[Updates]",
+      "  Objective:",
+      "  \u2022 Zergs",
+      "    \u2022 Zerglings",
+      "      \u2022 Health reduced from 750 to 450.",
+      "      \u2022 [Undocumented] Health scaling for minutes 1-5 increased from 10 to 22.5.",
+      "      \u2022 [Undocumented] Health scaling for minutes 6-10 increased from 15 to 33.75.",
+      "      \u2022 [Undocumented] Health scaling for minutes 11-15 increased from 20 to 45.",
+      "      \u2022 [Undocumented] Health scaling for minutes 16-20 increased from 25 to 45.",
+      "      \u2022 [Undocumented] Health scaling for minutes 21-30 increased from 30 to 56.25.",
+      "      \u2022 Damage increased from 5 to 10.",
+      "      \u2022 [Undocumented] Damage scaling for minutes 1-5 reduced from 1 to 0.5.",
+      "      \u2022 [Undocumented] Damage scaling for minutes 6-10 reduced from 1 to 0.75.",
+      "      \u2022 [Undocumented] Damage scaling for minutes 11-15 reduced from 2 to 1.",
+      "      \u2022 [Undocumented] Damage scaling for minutes 16-20 reduced from 2 to 1.",
+      "      \u2022 [Undocumented] Damage scaling for minutes 21-30 reduced from 3 to 1.25.",
+      "      \u2022 No longer have a 10% damage penalty to Structures.",
+      "    \u2022 Banelings",
+      "      \u2022 Health reduced from 500 to 450.",
+      "      \u2022 [Undocumented] Health scaling for minutes 1-5 increased from 5 to 22.5.",
+      "      \u2022 [Undocumented] Health scaling for minutes 6-10 increased from 5 to 33.75.",
+      "      \u2022 [Undocumented] Health scaling for minutes 11-15 increased from 10 to 45.",
+      "      \u2022 [Undocumented] Health scaling for minutes 16-20 increased from 10 to 45.",
+      "      \u2022 [Undocumented] Health scaling for minutes 21-30 increased from 15 to 56.25.",
+      "      \u2022 Damage increased from 55 to 150.",
+      "      \u2022 [Undocumented] Damage scaling for minutes 1-5 reduced from 18 to 7.5.",
+      "      \u2022 [Undocumented] Damage scaling for minutes 6-10 reduced from 23 to 11.25.",
+      "      \u2022 [Undocumented] Damage scaling for minutes 11-15 reduced from 25 to 15.",
+      "      \u2022 [Undocumented] Damage scaling for minutes 16-20 reduced from 30 to 15.",
+      "      \u2022 [Undocumented] Damage scaling for minutes 21-30 reduced from 25 to 18.75.",
+      "      \u2022 Now have a 50% damage bonus to Heroes.",
+      "      \u2022 No longer have a 50% damage bonus to Structures.",
+      "      \u2022 Explosion radius increased from 2.75 to 3.",
+      "      \u2022 Now prefers attacking Structures.",
+      "    \u2022 Hydralisks",
+      "      \u2022 Health reduced from 1500 to 850.",
+      "      \u2022 [Undocumented] Health scaling for minutes 1-5 increased from 20 to 42.5.",
+      "      \u2022 [Undocumented] Health scaling for minutes 6-10 increased from 20 to 63.75.",
+      "      \u2022 [Undocumented] Health scaling for minutes 11-15 increased from 30 to 85.",
+      "      \u2022 [Undocumented] Health scaling for minutes 16-20 increased from 30 to 85.",
+      "      \u2022 [Undocumented] Health scaling for minutes 21-30 increased from 40 to 106.25.",
+      "      \u2022 Damage increased from 25 to 70.",
+      "      \u2022 [Undocumented] Damage scaling for minutes 1-5 reduced from 7 to 3.5.",
+      "      \u2022 [Undocumented] Damage scaling for minutes 6-10 reduced from 10 to 5.25.",
+      "      \u2022 [Undocumented] Damage scaling for minutes 11-15 reduced from 15 to 7.",
+      "      \u2022 [Undocumented] Damage scaling for minutes 16-20 reduced from 17 to 7.",
+      "      \u2022 [Undocumented] Damage scaling for minutes 21-30 reduced from 20 to 8.75.",
+      "      \u2022 No longer have a 10% damage penalty to Structures.",
+      "    \u2022 Guardians",
+      "      \u2022 Health reduced from 2250 to 1000.",
+      "      \u2022 [Undocumented] Health scaling for minutes 1-5 increased from 40 to 50.",
+      "      \u2022 [Undocumented] Health scaling for minutes 6-10 increased from 40 to 75.",
+      "      \u2022 [Undocumented] Health scaling for minutes 11-15 increased from 60 to 100.",
+      "      \u2022 [Undocumented] Health scaling for minutes 16-20 increased from 60 to 100.",
+      "      \u2022 [Undocumented] Health scaling for minutes 21-30 increased from 80 to 125.",
+      "      \u2022 Damage increased from 80 to 110.",
+      "      \u2022 [Undocumented] Damage scaling for minutes 1-5 reduced from 8 to 5.5.",
+      "      \u2022 [Undocumented] Damage scaling for minutes 6-10 reduced from 15 to 8.25.",
+      "      \u2022 [Undocumented] Damage scaling for minutes 11-15 reduced from 15 to 11.",
+      "      \u2022 [Undocumented] Damage scaling for minutes 16-20 reduced from 24 to 11.",
+      "      \u2022 [Undocumented] Damage scaling for minutes 21-30 reduced from 24 to 13.75.",
+      "      \u2022 No longer have a 25% damage penalty to Structures.",
+      "    \u2022 Ultralisks",
+      "      \u2022 Health reduced from 6000 to 4700.",
+      "      \u2022 [Undocumented] Health scaling for minutes 1-5 increased from 100 to 235.",
+      "      \u2022 [Undocumented] Health scaling for minutes 6-10 increased from 150 to 352.5.",
+      "      \u2022 [Undocumented] Health scaling for minutes 11-15 increased from 150 to 470.",
+      "      \u2022 [Undocumented] Health scaling for minute 16 increased from 200 to 470.",
+      "      \u2022 [Undocumented] Health scaling for minutes 17-20 increased from 200 to 587.5.",
+      "      \u2022 [Undocumented] Health scaling for minutes 21-30 increased from 250 to 587.5.",
+      "      \u2022 Damage increased from 50 to 100.",
+      "      \u2022 [Undocumented] Damage scaling for minutes 1-5 reduced from 10 to 5.",
+      "      \u2022 [Undocumented] Damage scaling for minutes 6-10 reduced from 15 to 7.5.",
+      "      \u2022 [Undocumented] Damage scaling for minutes 11-15 reduced from 17 to 10.",
+      "      \u2022 [Undocumented] Damage scaling for minutes 16-20 reduced from 26 to 10.",
+      "      \u2022 [Undocumented] Damage scaling for minutes 21-30 reduced from 30 to 12.5.",
+      "      \u2022 No longer have a 10% damage penalty to Structures.",
+      "    \u2022 While attacking, Guardians and Ultralisks now spawn Drop Pods with 3 Zerglings and 1 Hydralisk. This effect can occur once every 13 seconds."
+    ],
+    "Heroes: Blaze": [
+      "[Bug Fixes]",
+      "  \u2022 Oil Spill are now affected by cooldown reduction effects."
+    ],
+    "Heroes: Cassia": [
+      "[Bug Fixes]",
+      "  \u2022 Lightning Fury are now affected by cooldown reduction effects."
+    ],
+    "Heroes: Chen": [
+      "[Bug Fixes]",
+      "  \u2022 Keg Smash are now affected by cooldown reduction effects."
+    ],
+    "Heroes: Jaina": [
+      "[Bug Fixes]",
+      "  \u2022 Taking the Snowstorm talent on Jaina in the middle of a Blizzard cast no longer changes the damage value for the rest of the game."
+    ],
+    "Heroes: Kel\u0027Thuzad": [
+      "[Bug Fixes]",
+      "  \u2022 Frost Blast will no longer apply their effects to Heroes in Time Stop."
+    ],
+    "Heroes: Kerrigan": [
+      "[Bug Fixes]",
+      "  \u2022 Ravage are now affected by cooldown reduction effects."
+    ],
+    "Heroes: Li Li": [
+      "[Bug Fixes]",
+      "  \u2022 Blinding Wind will no longer apply their effects to Heroes in Time Stop."
+    ],
+    "Heroes: Mal\u0027Ganis": [
+      "[Bug Fixes]",
+      "  \u2022 Seeker Swarm will no longer apply their effects to Heroes in Time Stop."
+    ],
+    "Heroes: Qhira": [
+      "[Releases]",
+      "  Qhira, Realmless Bounty Hunter, has been added to the Nexus and is now available for play! Read on for a brief overview of her Abilities.:",
+      "  \u2022 Grappling Hook [D]",
+      "    \u2022 Qhira fires a Grappling Hook that pulls her to any terrain it contacts. If an enemy Hero is hit, they take 36 damage and Qhira launches at them, dealing an additional 112 damage on impact. Can be used while Revolving Sweep is active.",
+      "      \u2022 Cooldown: 25 seconds",
+      "  Basic Abilities:",
+      "  \u2022 Carnage [Q]",
+      "    \u2022 Unleash your sword in a targeted direction, continuously dealing 31 damage to enemies caught in its path.",
+      "      \u2022 Cost: 40 Mana",
+      "      \u2022 Cooldown: 6 seconds",
+      "  \u2022 Blood Rage [W]",
+      "    \u2022 Passive: Basic Attack and Ability damage cause enemies to bleed for 46 damage over 4 seconds. Stacks 5 times.",
+      "    \u2022 Active: Qhira deals 33 damage and heals for 88 health per enemy Hero affected. Damage and healing is increased by 50% per each additional stack on that Hero.",
+      "      \u2022 Cost: 35 Mana",
+      "      \u2022 Cooldown: 8 seconds",
+      "  \u2022 Revolving Sweep [E]",
+      "    \u2022 Attach your sword to the first enemy Hero hit, Stunning them for .25 seconds. Once attached, Qhira becomes immune to all effects, swinging around the target for 2.75 seconds, and dealing 109 damage to any enemies between you and the target. Reactivate to send you to the target\u0027s location, knocking them back, dealing 112 damage and Stunning them for .75 seconds.",
+      "      \u2022 Cost: 70 Mana",
+      "      \u2022 Cooldown: 16 seconds",
+      "  Heroic Abilities:",
+      "  \u2022 Unrelenting Strikes [R1]",
+      "    \u2022 Deal 46 damage to all nearby enemies every .5 seconds for 2.5 seconds as your sword grows outward. Upon expiring, deal 86 damage to all nearby enemy Heroes and Stun them for .75 seconds.",
+      "      \u2022 Cost: 60 Mana",
+      "      \u2022 Cooldown: 75 seconds",
+      "  \u2022 Final Strike [R2]",
+      "    \u2022 After 1 second, strike your sword in a line to deal 432 damage to all enemies in its path. This damage is increased by 25% to any enemy below 50% Health.",
+      "      \u2022 Cost: 45 Mana",
+      "      \u2022 Cooldown: 40 seconds"
+    ],
+    "Heroes: Raynor": [
+      "[Bug Fixes]",
+      "  \u2022 Unstable Compound will no longer apply their effects to Heroes in Time Stop.",
+      "  \u2022 Weak Spot Acquired will no longer apply their effects to Heroes in Time Stop."
+    ],
+    "Heroes: Samuro": [
+      "[Bug Fixes]",
+      "  \u2022 Critical Strike are now affected by cooldown reduction effects."
+    ],
+    "Heroes: Sgt. Hammer": [
+      "[Bug Fixes]",
+      "  \u2022 Sgt. Hammer\u0027s Siege Mode can no longer out-range kill credit for the Salvaging the Stables questline."
+    ],
+    "Heroes: Sylvanas": [
+      "[Bug Fixes]",
+      "  \u2022 Shadow Dagger will no longer apply their effects to Heroes in Time Stop."
+    ],
+    "Heroes: Uther": [
+      "[Bug Fixes]",
+      "  \u2022 Uther can now /dance and /taunt during Eternal Vanguard."
+    ],
+    "Heroes: Varian": [
+      "[Bug Fixes]",
+      "  \u2022 Varian\u0027s Banner of Ironforge now correctly displays the plus-Healing UI when augmented with Glory to the Alliance."
+    ],
+    "Heroes: Yrel": [
+      "[Bug Fixes]",
+      "  \u2022 Learning Yrel\u0027s Seraphim talent while channeling or disabled no longer leaves it permanently disabled."
+    ],
+    "Heroes: Zarya": [
+      "[Bug Fixes]",
+      "  \u2022 Particle Grenade are now affected by cooldown reduction effects."
+    ],
+    "Heroes: Zeratul": [
+      "[Bug Fixes]",
+      "  \u2022 Zeratul no longer auto-acquires targets that walk within range while Cloaked."
+    ]
+  },
+  "PatchFile": "ptr/2019-07-29-2.47.0.json",
+  "Sources": [
+    "ptr-master.json",
+    "2019-07-29-ptr.html",
+    "2019-07-29-v2-47-0-75484-2019-07-29-ptr-patch-ptr.json"
+  ]
+}

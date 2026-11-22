@@ -1,0 +1,54 @@
+{
+  "Id": "npn-2017-12-04-2.29.3",
+  "Title": "2017-12-04 PTR Patch",
+  "Subtitle": "=== Heroes: Hanzo ===",
+  "Date": "Dec 4, 2017",
+  "IsoDate": "2017-12-04",
+  "FeedType": "ptr",
+  "Era": "ptr",
+  "PatchVersion": "2.29.3",
+  "FullVersion": "2.29.3.60228",
+  "Build": "60228",
+  "Link": "https://news.blizzard.com/en-us/heroes-of-the-storm/21307429",
+  "Links": [
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/21307429"
+  ],
+  "Affected": [
+    "Hanzo",
+    "Sgt. Hammer"
+  ],
+  "Highlights": "=== Heroes: Hanzo ===",
+  "CleanedNotes": "=== Heroes: Hanzo ===\r\n[Updates]\r\n  Stats:\r\n  \u2022 Basic Attack damage increased from 160 to 176\r\n  Abilities:\r\n  \u2022 Storm Bow (Q)\r\n    \u2022 Damage increased from 270 to 297\r\n  \u2022 Scatter Arrow (W)\r\n    \u2022 Damage increased from 85 to 93\r\n  \u2022 Sonic Arrow (E)\r\n    \u2022 Damage increased from 150 to 165\r\n  \u2022 Dragonstrike (R)\r\n    \u2022 Damage increased from 52 to 58\r\n  \u2022 Dragon\u0027s Arrow (R)\r\n    \u2022 Damage increased from 100/200/350 to 130/260/390\r\n  Talents:\r\n  \u2022 Level 20\r\n    \u2022 Play of the Game (R)\r\n      \u2022 Damage increased from 120 to 132\r\n\r\n=== Heroes: Sgt. Hammer ===\r\n[Bug Fixes]\r\n  \u2022 The Hyper-Cooling Engines talent will no longer grant cooldown reduction from basic attacks against non-Heroic targets while in Siege Mode.",
+  "Sections": {
+    "Heroes: Hanzo": [
+      "[Updates]",
+      "  Stats:",
+      "  \u2022 Basic Attack damage increased from 160 to 176",
+      "  Abilities:",
+      "  \u2022 Storm Bow (Q)",
+      "    \u2022 Damage increased from 270 to 297",
+      "  \u2022 Scatter Arrow (W)",
+      "    \u2022 Damage increased from 85 to 93",
+      "  \u2022 Sonic Arrow (E)",
+      "    \u2022 Damage increased from 150 to 165",
+      "  \u2022 Dragonstrike (R)",
+      "    \u2022 Damage increased from 52 to 58",
+      "  \u2022 Dragon\u0027s Arrow (R)",
+      "    \u2022 Damage increased from 100/200/350 to 130/260/390",
+      "  Talents:",
+      "  \u2022 Level 20",
+      "    \u2022 Play of the Game (R)",
+      "      \u2022 Damage increased from 120 to 132"
+    ],
+    "Heroes: Sgt. Hammer": [
+      "[Bug Fixes]",
+      "  \u2022 The Hyper-Cooling Engines talent will no longer grant cooldown reduction from basic attacks against non-Heroic targets while in Siege Mode."
+    ]
+  },
+  "PatchFile": "ptr/2017-12-04-2.29.3.json",
+  "Sources": [
+    "ptr-master.json",
+    "2017-12-04-ptr.html",
+    "2017-12-04-v2-29-3-60228-2017-12-04-ptr-patch-ptr.json"
+  ]
+}

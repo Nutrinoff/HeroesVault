@@ -1,0 +1,329 @@
+{
+  "Id": "756334",
+  "Title": "Heroes of the Storm PTR Patch Notes - January 6, 2025",
+  "Subtitle": "[Heroes of the Storm PTR Patch Notes - January 6, 2025] Our next Heroes of the Storm patch has just hit the Public Test Realm and will be available for playtesting. View Full Article",
+  "Date": "Jan 6, 2025",
+  "IsoDate": "2025-01-06",
+  "FeedType": "ptr",
+  "Era": "ptr",
+  "PatchVersion": "2.55.9",
+  "FullVersion": "2.55.9.93498",
+  "Build": "93498",
+  "Link": "https://us.forums.blizzard.com/en/heroes/t/heroes-of-the-storm-ptr-patch-notes-january-6-2025/63352/1",
+  "Links": [
+    "https://us.forums.blizzard.com/en/heroes/t/heroes-of-the-storm-ptr-patch-notes-january-6-2025/63352/1",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/24169794"
+  ],
+  "Affected": [
+    "Alexstrasza",
+    "Auriel",
+    "Azmodan",
+    "Brightwing",
+    "Chen",
+    "Cho",
+    "Chromie",
+    "Dehaka",
+    "ETC",
+    "Falstad",
+    "Fenix",
+    "Gall",
+    "Johanna",
+    "Kharazim",
+    "Lunara",
+    "L\u00FAcio",
+    "Maiev",
+    "Mei",
+    "Muradin",
+    "Probius",
+    "Rehgar",
+    "Samuro",
+    "Sgt. Hammer",
+    "Stukov",
+    "Sylvanas",
+    "The Butcher",
+    "The Lost Vikings",
+    "Tracer",
+    "Zagara",
+    "Zul\u0027jin"
+  ],
+  "Highlights": "[Heroes of the Storm PTR Patch Notes - January 6, 2025] Our next Heroes of the Storm patch has just hit the Public Test Realm and will be available for playtesting. View Full Article",
+  "CleanedNotes": "=== General ===\r\n[Updates]\r\n  Game Modes:\r\n  \u2022 Brawl has been added.\r\n[Bug Fixes]\r\n\r\n=== Heroes: Alexstrasza ===\r\n[Bug Fixes]\r\n  \u2022 Base\r\n    \u2022 Flame Buffet [E]\r\n      \u2022 Fixed an issue that caused Flame Buffet\u0027s Slow to be instantly removed on targets with reduced duration on being Slowed.\r\n\r\n=== Heroes: Auriel ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Searing Light\r\n      \u2022 Now only deals damage to enemy Heroes.\r\n  \u2022 Level 7\r\n    \u2022 Energized Cord\r\n      \u2022 Now increases Basic Attack range by 1.1.\r\n  \u2022 Level 16\r\n    \u2022 Reservoir of Hope\r\n      \u2022 Quest bonus reduced from 75 to 55.\r\n    \u2022 Wrath of Heaven\r\n      \u2022 Armor reduction increased from 10 to 20.\r\n      \u2022 Spell Power increased from 10% to 15%.\r\n\r\n=== Heroes: Azmodan ===\r\n[Bug Fixes]\r\n  \u2022 Level 13\r\n    \u2022 Chain of Command\r\n      \u2022 Fixed an issue that caused Chain of Command to not apply to Demonic Invasion\u0027s on-death explosion.\r\n\r\n=== Heroes: Brightwing ===\r\n[Bug Fixes]\r\n  \u2022 Base\r\n    \u2022 Phase Shift [Z]\r\n      \u2022 Fixed an issue with Phase Shift\u0027s Store Icon.\r\n\r\n=== Heroes: Chen ===\r\n[Bug Fixes]\r\n  \u2022 Level 10\r\n    \u2022 Storm, Earth, Fire\r\n      \u2022 Fixed an issue that caused Storm, Earth, Fire Spirits to not contest Capture Points.\r\n\r\n=== Heroes: Cho ===\r\n[Bug Fixes]\r\n  \u2022 General\r\n    \u2022 Fixed an issue that caused Cho\u0027Gall to contest Capture Points while Cho is in Stasis.\r\n\r\n=== Heroes: Chromie ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Timewalker\u0027s Pursuit\r\n      \u2022 Spell Power increased from 10% to 15%.\r\n  \u2022 Level 7\r\n    \u2022 Mobius Loop\r\n      \u2022 Slow reduced from 60% to 40%.\r\n  \u2022 Level 20\r\n    \u2022 Unravelling\r\n      \u2022 Lingering Slowing Sands no longer consume Energy.\r\n      \u2022 Now also increases Slowing Sands cast range by 50%.\r\n\r\n=== Heroes: Dehaka ===\r\n[Bug Fixes]\r\n  \u2022 Base\r\n    \u2022 Brushstalker [Z]\r\n      \u2022 Fixed an issue with Brushstalker\u0027s Store Icon.\r\n      \u2022 Will now clamp the minimum cast range to Dehaka\u0027s radius.\r\n\r\n=== Heroes: ETC ===\r\n[Bug Fixes]\r\n  \u2022 Level 7\r\n    \u2022 Pinball Wizard\r\n      \u2022 Bonus damage updated to be additive.\r\n  \u2022 Level 13\r\n    \u2022 Face Smelt\r\n      \u2022 Fixed an issue that caused Face Smelt\u0027s Slow to be instantly removed on targets with reduced duration on being Slowed.\r\n\r\n=== Heroes: Falstad ===\r\n[Bug Fixes]\r\n  \u2022 Base\r\n    \u2022 Flight [Z]\r\n      \u2022 Fixed an issue with Flight\u0027s Store Icon.\r\n  \u2022 Level 10\r\n    \u2022 Mighty Gust\r\n      \u2022 Fixed an issue that caused Mighty Gust\u0027s Slow to be instantly removed on targets with reduced duration on being Slowed.\r\n\r\n=== Heroes: Fenix ===\r\n[Bug Fixes]\r\n  \u2022 Level 1\r\n    \u2022 Arsenal Synergy\r\n      \u2022 Fixed an issue that caused Arsenal Synergy to not grant cooldown reduction for the primary target hit by Phase Bomb.\r\n  \u2022 Level 4\r\n    \u2022 Inhibiting Energy\r\n      \u2022 Fixed an issue that caused Inhibiting Energy to be instantly removed on targets with reduced duration on being Slowed.\r\n\r\n=== Heroes: Gall ===\r\n[Bug Fixes]\r\n  \u2022 General\r\n    \u2022 Fixed an issue that caused Cho\u0027Gall to contest Capture Points while Cho is in Stasis.\r\n\r\n=== Heroes: Johanna ===\r\n[Updates]\r\n  Base:\r\n  \u2022 Shield Glare [E]\r\n    \u2022 Mana cost increased from 45 to 55.\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Divine Fortress\r\n      \u2022 Health bonus starting value increased from 20% to 25%.\r\n    \u2022 Zealous Glare\r\n      \u2022 Damage bonus reduced from 75% to 70%.\r\n  \u2022 Level 7\r\n    \u2022 Steed Charge\r\n      \u2022 Duration increased from 3 to 4 seconds.\r\n  \u2022 Level 13\r\n    \u2022 Blessed Hammer\r\n      \u2022 Damage reduced from 74 to 65.\r\n  \u2022 Level 16\r\n    \u2022 Holy Renewal\r\n      \u2022 Cooldown reduction reduced from 1.5 seconds to 1 second.\r\n    \u2022 Shrinking Vacuum\r\n      \u2022 Damage reduction increased from 25% to 30%.\r\n      \u2022 Duration increased from 2 to 3 seconds.\r\n      \u2022 Slow increased from 25% to 30%.\r\n[Bug Fixes]\r\n  \u2022 Base\r\n    \u2022 Punish [Q]\r\n      \u2022 Fixed an issue that caused Punish to be instantly removed on targets with reduced duration on being Slowed.\r\n\r\n=== Heroes: Kharazim ===\r\n[Bug Fixes]\r\n  \u2022 Level 4\r\n    \u2022 Spirit Ally\r\n      \u2022 Fixed an issue that caused Spirit Ally\u0027s heal FX to be visible in Fog of War.\r\n\r\n=== Heroes: Lunara ===\r\n[Bug Fixes]\r\n  \u2022 Base\r\n    \u2022 Crippling Spores [W]\r\n      \u2022 Fixed an issue that caused Crippling Spores to be instantly removed on targets with reduced duration on being Slowed.\r\n\r\n=== Heroes: L\u00FAcio ===\r\n[Bug Fixes]\r\n  \u2022 Base\r\n    \u2022 Wall Ride [Z]\r\n      \u2022 Fixed an issue with Wall Ride\u0027s Store Icon.\r\n\r\n=== Heroes: Maiev ===\r\n[Bug Fixes]\r\n  \u2022 Level 16\r\n    \u2022 Armored Assault\r\n      \u2022 Fixed an issue that caused Armored Assault to not grant the full bonus to Umbral Bind\u0027s Cleave.\r\n\r\n=== Heroes: Mei ===\r\n[Bug Fixes]\r\n  \u2022 Base\r\n    \u2022 Icing [E]\r\n      \u2022 Fixed an issue that caused Icing\u0027s Slow to be instantly removed on targets with reduced duration on being Slowed.\r\n  \u2022 Level 10\r\n    \u2022 Ice Wall\r\n      \u2022 Fixed an issue that caused Ice Wall to not apply Stopped to D.Va\u0027s Self Destruct.\r\n\r\n=== Heroes: Muradin ===\r\n[Bug Fixes]\r\n  \u2022 Level 4\r\n    \u2022 Thunder Burn\r\n      \u2022 Tooltip has been updated to show Thunder Burn is a multiplicative reduction.\r\n  \u2022 Level 13\r\n    \u2022 Thunder Strike\r\n      \u2022 Damage increase is now additive.\r\n\r\n=== Heroes: Probius ===\r\n[Bug Fixes]\r\n  \u2022 Base\r\n    \u2022 Worker Rush [Z]\r\n      \u2022 Fixed an issue with Work Rush\u0027s Store Icon.\r\n\r\n=== Heroes: Rehgar ===\r\n[Bug Fixes]\r\n  \u2022 Base\r\n    \u2022 Purge [Trait]\r\n      \u2022 Fixed an issue that caused Purge to be instantly removed on targets with reduced duration on being Slowed.\r\n\r\n=== Heroes: Samuro ===\r\n[Bug Fixes]\r\n  \u2022 Base\r\n    \u2022 Critical Strike [W]\r\n      \u2022 Fixed an issue that caused Critical Strike FX to persist if Samuro is killed while he has maximum Critical Strike stacks.\r\n  \u2022 Level 13\r\n    \u2022 Kawarimi\r\n      \u2022 Fixed an issue that caused Kawarimi to create a Mirror Image with the incorrect starting Health.\r\n\r\n=== Heroes: Sgt. Hammer ===\r\n[Bug Fixes]\r\n  \u2022 Base\r\n    \u2022 Thrusters [Z]\r\n      \u2022 Fixed an issue with Thrusters\u0027 Store Icon.\r\n\r\n=== Heroes: Stukov ===\r\n[Bug Fixes]\r\n  \u2022 Base\r\n    \u2022 Weighted Pustule [W]\r\n      \u2022 Fixed an issue that caused Weighted Pustule\u0027s increasing Slow to be instantly removed on targets with reduced duration on being Slowed.\r\n\r\n=== Heroes: Sylvanas ===\r\n[Bug Fixes]\r\n  \u2022 Level 1\r\n    \u2022 Unfurling Shadows\r\n      \u2022 Fixed an issue that caused Unfurling Shadows to not grant quest progress for the impact damage of Shadow Dagger created by spread.\r\n\r\n=== Heroes: The Butcher ===\r\n[Bug Fixes]\r\n  \u2022 Base\r\n    \u2022 Hamstring [Q]\r\n      \u2022 Fixed an issue that caused Hamstring to be instantly removed on targets with reduced duration on being Slowed.\r\n\r\n=== Heroes: The Lost Vikings ===\r\n[Bug Fixes]\r\n  \u2022 Base\r\n    \u2022 Go Go Go! [Z]\r\n      \u2022 Fixed an issue with Go Go Go\u0027s Store Icon.\r\n\r\n=== Heroes: Tracer ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 4\r\n    \u2022 Is That a Health Pack?!\r\n      \u2022 Healing from Regeneration Globes increased from 10% to 15% of maximum Health.\r\n    \u2022 Pulse Generator\r\n      \u2022 Healing reduced from 18% to 12%.\r\n  \u2022 Level 13\r\n    \u2022 Jumper\r\n      \u2022 Cooldown refresh reduced from 150% to 100%.\r\n      \u2022 Shield reduced from 6.5% to 6%.\r\n\r\n=== Heroes: Zagara ===\r\n[Bug Fixes]\r\n  \u2022 Level 20\r\n    \u2022 Pack Instinct\r\n      \u2022 Fixed an issue that caused Devouring Maw to gain more bonuses than intended from Pack Instinct.\r\n\r\n=== Heroes: Zul\u0027jin ===\r\n[Updates]\r\n  Base:\r\n  \u2022 You Want Axe? [Trait]\r\n    \u2022 Basic Attack damage increased from 94 to 118.\r\n    \u2022 Bonus from quest completion reduced from 1 to .25.\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Recklessness\r\n      \u2022 Basic Attack damage bonus reduced from 15% to 10%.\r\n  \u2022 Level 10\r\n    \u2022 Guillotine\r\n      \u2022 Cooldown reduced from 40 seconds to 30 seconds.\r\n      \u2022 Mana cost reduced from 70 to 60.\r\n    \u2022 Taz\u0027dingo!\r\n      \u2022 Cooldown increased from 90 seconds to 100 seconds.\r\n      \u2022 Mana cost increased from 75 to 80.\r\n  \u2022 Level 16\r\n    \u2022 Let the Killing Begin\r\n      \u2022 Kill window reduced from 1.5 seconds to 0.5 seconds.\r\n  \u2022 Level 20\r\n    \u2022 Buzzsaw\r\n      \u2022 Kill window reduced from 1.5 seconds to 0.5 seconds.",
+  "Sections": {
+    "General": [
+      "[Updates]",
+      "  Game Modes:",
+      "  \u2022 Brawl has been added.",
+      "[Bug Fixes]"
+    ],
+    "Heroes: Alexstrasza": [
+      "[Bug Fixes]",
+      "  \u2022 Base",
+      "    \u2022 Flame Buffet [E]",
+      "      \u2022 Fixed an issue that caused Flame Buffet\u0027s Slow to be instantly removed on targets with reduced duration on being Slowed."
+    ],
+    "Heroes: Auriel": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Searing Light",
+      "      \u2022 Now only deals damage to enemy Heroes.",
+      "  \u2022 Level 7",
+      "    \u2022 Energized Cord",
+      "      \u2022 Now increases Basic Attack range by 1.1.",
+      "  \u2022 Level 16",
+      "    \u2022 Reservoir of Hope",
+      "      \u2022 Quest bonus reduced from 75 to 55.",
+      "    \u2022 Wrath of Heaven",
+      "      \u2022 Armor reduction increased from 10 to 20.",
+      "      \u2022 Spell Power increased from 10% to 15%."
+    ],
+    "Heroes: Azmodan": [
+      "[Bug Fixes]",
+      "  \u2022 Level 13",
+      "    \u2022 Chain of Command",
+      "      \u2022 Fixed an issue that caused Chain of Command to not apply to Demonic Invasion\u0027s on-death explosion."
+    ],
+    "Heroes: Brightwing": [
+      "[Bug Fixes]",
+      "  \u2022 Base",
+      "    \u2022 Phase Shift [Z]",
+      "      \u2022 Fixed an issue with Phase Shift\u0027s Store Icon."
+    ],
+    "Heroes: Chen": [
+      "[Bug Fixes]",
+      "  \u2022 Level 10",
+      "    \u2022 Storm, Earth, Fire",
+      "      \u2022 Fixed an issue that caused Storm, Earth, Fire Spirits to not contest Capture Points."
+    ],
+    "Heroes: Cho": [
+      "[Bug Fixes]",
+      "  \u2022 General",
+      "    \u2022 Fixed an issue that caused Cho\u0027Gall to contest Capture Points while Cho is in Stasis."
+    ],
+    "Heroes: Chromie": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Timewalker\u0027s Pursuit",
+      "      \u2022 Spell Power increased from 10% to 15%.",
+      "  \u2022 Level 7",
+      "    \u2022 Mobius Loop",
+      "      \u2022 Slow reduced from 60% to 40%.",
+      "  \u2022 Level 20",
+      "    \u2022 Unravelling",
+      "      \u2022 Lingering Slowing Sands no longer consume Energy.",
+      "      \u2022 Now also increases Slowing Sands cast range by 50%."
+    ],
+    "Heroes: Dehaka": [
+      "[Bug Fixes]",
+      "  \u2022 Base",
+      "    \u2022 Brushstalker [Z]",
+      "      \u2022 Fixed an issue with Brushstalker\u0027s Store Icon.",
+      "      \u2022 Will now clamp the minimum cast range to Dehaka\u0027s radius."
+    ],
+    "Heroes: ETC": [
+      "[Bug Fixes]",
+      "  \u2022 Level 7",
+      "    \u2022 Pinball Wizard",
+      "      \u2022 Bonus damage updated to be additive.",
+      "  \u2022 Level 13",
+      "    \u2022 Face Smelt",
+      "      \u2022 Fixed an issue that caused Face Smelt\u0027s Slow to be instantly removed on targets with reduced duration on being Slowed."
+    ],
+    "Heroes: Falstad": [
+      "[Bug Fixes]",
+      "  \u2022 Base",
+      "    \u2022 Flight [Z]",
+      "      \u2022 Fixed an issue with Flight\u0027s Store Icon.",
+      "  \u2022 Level 10",
+      "    \u2022 Mighty Gust",
+      "      \u2022 Fixed an issue that caused Mighty Gust\u0027s Slow to be instantly removed on targets with reduced duration on being Slowed."
+    ],
+    "Heroes: Fenix": [
+      "[Bug Fixes]",
+      "  \u2022 Level 1",
+      "    \u2022 Arsenal Synergy",
+      "      \u2022 Fixed an issue that caused Arsenal Synergy to not grant cooldown reduction for the primary target hit by Phase Bomb.",
+      "  \u2022 Level 4",
+      "    \u2022 Inhibiting Energy",
+      "      \u2022 Fixed an issue that caused Inhibiting Energy to be instantly removed on targets with reduced duration on being Slowed."
+    ],
+    "Heroes: Gall": [
+      "[Bug Fixes]",
+      "  \u2022 General",
+      "    \u2022 Fixed an issue that caused Cho\u0027Gall to contest Capture Points while Cho is in Stasis."
+    ],
+    "Heroes: Johanna": [
+      "[Updates]",
+      "  Base:",
+      "  \u2022 Shield Glare [E]",
+      "    \u2022 Mana cost increased from 45 to 55.",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Divine Fortress",
+      "      \u2022 Health bonus starting value increased from 20% to 25%.",
+      "    \u2022 Zealous Glare",
+      "      \u2022 Damage bonus reduced from 75% to 70%.",
+      "  \u2022 Level 7",
+      "    \u2022 Steed Charge",
+      "      \u2022 Duration increased from 3 to 4 seconds.",
+      "  \u2022 Level 13",
+      "    \u2022 Blessed Hammer",
+      "      \u2022 Damage reduced from 74 to 65.",
+      "  \u2022 Level 16",
+      "    \u2022 Holy Renewal",
+      "      \u2022 Cooldown reduction reduced from 1.5 seconds to 1 second.",
+      "    \u2022 Shrinking Vacuum",
+      "      \u2022 Damage reduction increased from 25% to 30%.",
+      "      \u2022 Duration increased from 2 to 3 seconds.",
+      "      \u2022 Slow increased from 25% to 30%.",
+      "[Bug Fixes]",
+      "  \u2022 Base",
+      "    \u2022 Punish [Q]",
+      "      \u2022 Fixed an issue that caused Punish to be instantly removed on targets with reduced duration on being Slowed."
+    ],
+    "Heroes: Kharazim": [
+      "[Bug Fixes]",
+      "  \u2022 Level 4",
+      "    \u2022 Spirit Ally",
+      "      \u2022 Fixed an issue that caused Spirit Ally\u0027s heal FX to be visible in Fog of War."
+    ],
+    "Heroes: Lunara": [
+      "[Bug Fixes]",
+      "  \u2022 Base",
+      "    \u2022 Crippling Spores [W]",
+      "      \u2022 Fixed an issue that caused Crippling Spores to be instantly removed on targets with reduced duration on being Slowed."
+    ],
+    "Heroes: L\u00FAcio": [
+      "[Bug Fixes]",
+      "  \u2022 Base",
+      "    \u2022 Wall Ride [Z]",
+      "      \u2022 Fixed an issue with Wall Ride\u0027s Store Icon."
+    ],
+    "Heroes: Maiev": [
+      "[Bug Fixes]",
+      "  \u2022 Level 16",
+      "    \u2022 Armored Assault",
+      "      \u2022 Fixed an issue that caused Armored Assault to not grant the full bonus to Umbral Bind\u0027s Cleave."
+    ],
+    "Heroes: Mei": [
+      "[Bug Fixes]",
+      "  \u2022 Base",
+      "    \u2022 Icing [E]",
+      "      \u2022 Fixed an issue that caused Icing\u0027s Slow to be instantly removed on targets with reduced duration on being Slowed.",
+      "  \u2022 Level 10",
+      "    \u2022 Ice Wall",
+      "      \u2022 Fixed an issue that caused Ice Wall to not apply Stopped to D.Va\u0027s Self Destruct."
+    ],
+    "Heroes: Muradin": [
+      "[Bug Fixes]",
+      "  \u2022 Level 4",
+      "    \u2022 Thunder Burn",
+      "      \u2022 Tooltip has been updated to show Thunder Burn is a multiplicative reduction.",
+      "  \u2022 Level 13",
+      "    \u2022 Thunder Strike",
+      "      \u2022 Damage increase is now additive."
+    ],
+    "Heroes: Probius": [
+      "[Bug Fixes]",
+      "  \u2022 Base",
+      "    \u2022 Worker Rush [Z]",
+      "      \u2022 Fixed an issue with Work Rush\u0027s Store Icon."
+    ],
+    "Heroes: Rehgar": [
+      "[Bug Fixes]",
+      "  \u2022 Base",
+      "    \u2022 Purge [Trait]",
+      "      \u2022 Fixed an issue that caused Purge to be instantly removed on targets with reduced duration on being Slowed."
+    ],
+    "Heroes: Samuro": [
+      "[Bug Fixes]",
+      "  \u2022 Base",
+      "    \u2022 Critical Strike [W]",
+      "      \u2022 Fixed an issue that caused Critical Strike FX to persist if Samuro is killed while he has maximum Critical Strike stacks.",
+      "  \u2022 Level 13",
+      "    \u2022 Kawarimi",
+      "      \u2022 Fixed an issue that caused Kawarimi to create a Mirror Image with the incorrect starting Health."
+    ],
+    "Heroes: Sgt. Hammer": [
+      "[Bug Fixes]",
+      "  \u2022 Base",
+      "    \u2022 Thrusters [Z]",
+      "      \u2022 Fixed an issue with Thrusters\u0027 Store Icon."
+    ],
+    "Heroes: Stukov": [
+      "[Bug Fixes]",
+      "  \u2022 Base",
+      "    \u2022 Weighted Pustule [W]",
+      "      \u2022 Fixed an issue that caused Weighted Pustule\u0027s increasing Slow to be instantly removed on targets with reduced duration on being Slowed."
+    ],
+    "Heroes: Sylvanas": [
+      "[Bug Fixes]",
+      "  \u2022 Level 1",
+      "    \u2022 Unfurling Shadows",
+      "      \u2022 Fixed an issue that caused Unfurling Shadows to not grant quest progress for the impact damage of Shadow Dagger created by spread."
+    ],
+    "Heroes: The Butcher": [
+      "[Bug Fixes]",
+      "  \u2022 Base",
+      "    \u2022 Hamstring [Q]",
+      "      \u2022 Fixed an issue that caused Hamstring to be instantly removed on targets with reduced duration on being Slowed."
+    ],
+    "Heroes: The Lost Vikings": [
+      "[Bug Fixes]",
+      "  \u2022 Base",
+      "    \u2022 Go Go Go! [Z]",
+      "      \u2022 Fixed an issue with Go Go Go\u0027s Store Icon."
+    ],
+    "Heroes: Tracer": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 4",
+      "    \u2022 Is That a Health Pack?!",
+      "      \u2022 Healing from Regeneration Globes increased from 10% to 15% of maximum Health.",
+      "    \u2022 Pulse Generator",
+      "      \u2022 Healing reduced from 18% to 12%.",
+      "  \u2022 Level 13",
+      "    \u2022 Jumper",
+      "      \u2022 Cooldown refresh reduced from 150% to 100%.",
+      "      \u2022 Shield reduced from 6.5% to 6%."
+    ],
+    "Heroes: Zagara": [
+      "[Bug Fixes]",
+      "  \u2022 Level 20",
+      "    \u2022 Pack Instinct",
+      "      \u2022 Fixed an issue that caused Devouring Maw to gain more bonuses than intended from Pack Instinct."
+    ],
+    "Heroes: Zul\u0027jin": [
+      "[Updates]",
+      "  Base:",
+      "  \u2022 You Want Axe? [Trait]",
+      "    \u2022 Basic Attack damage increased from 94 to 118.",
+      "    \u2022 Bonus from quest completion reduced from 1 to .25.",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Recklessness",
+      "      \u2022 Basic Attack damage bonus reduced from 15% to 10%.",
+      "  \u2022 Level 10",
+      "    \u2022 Guillotine",
+      "      \u2022 Cooldown reduced from 40 seconds to 30 seconds.",
+      "      \u2022 Mana cost reduced from 70 to 60.",
+      "    \u2022 Taz\u0027dingo!",
+      "      \u2022 Cooldown increased from 90 seconds to 100 seconds.",
+      "      \u2022 Mana cost increased from 75 to 80.",
+      "  \u2022 Level 16",
+      "    \u2022 Let the Killing Begin",
+      "      \u2022 Kill window reduced from 1.5 seconds to 0.5 seconds.",
+      "  \u2022 Level 20",
+      "    \u2022 Buzzsaw",
+      "      \u2022 Kill window reduced from 1.5 seconds to 0.5 seconds."
+    ]
+  },
+  "PatchFile": "ptr/2025-01-06-2.55.9.json",
+  "Sources": [
+    "ptr-master.json",
+    "ptr-patches.json",
+    "2025-01-06-ptr.html",
+    "2025-01-06-v2-55-9-93498-heroes-of-the-storm-ptr-patch-notes-january-6-2025-ptr.json"
+  ]
+}
