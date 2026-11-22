@@ -1,16 +1,33 @@
 :root {
-  --hots-bg: #080514;
+  /* Cosmic indigo / Nexus menu surfaces */
+  --hots-bg: #070412;
   --hots-surface: #120b2e;
-  --hots-surface-raised: #1c1145;
-  --hots-border: #3d2882;
-  --hots-border-bright: #5e43bd;
-  --hots-cyan: #38bdf8;
-  --hots-cyan-bright: #7dd3fc;
-  --hots-gold: #f0b429;
-  --hots-gold-bright: #fcd34d;
-  --hots-royal: #3b5bdb;
-  --hots-text: #f1efff;
-  --hots-text-muted: #a99cd6;
+  --hots-surface-raised: #1d1247;
+  --hots-subpanel-bg: #0c0621;
+
+  /* Borders & glows (modeled on TaskBarButton, GlowColorBlue, GlowColorPurple) */
+  --hots-border: #38247a;
+  --hots-border-bright: #5c42b8;
+  --hots-glow-blue: rgba(0, 99, 200, 0.45);
+  --hots-glow-cyan: rgba(0, 156, 255, 0.36);
+  --hots-glow-purple: rgba(138, 0, 255, 0.34);
+
+  /* Ice-cyan & electric blue primary accents (ColorLightCyanGradient / ColorCyan) */
+  --hots-cyan: #58baff;
+  --hots-cyan-bright: #cbe8ff;
+  --hots-cyan-vivid: #00f0ff;
+  --hots-royal: #0063c8;
+
+  /* Warm gold & amber reward/callout accents (ColorGold / ColorGoldGradient) */
+  --hots-gold: #e38b0d;
+  --hots-gold-bright: #ffeab6;
+  --hots-gold-vivid: #fed600;
+
+  /* Typography hierarchy (ColorPaleBlue / ColorStatusBlue / ColorLightPurple) */
+  --hots-text: #e6ecff;
+  --hots-text-soft: #9cb6ff;
+  --hots-text-muted: #8c83a2;
+  --hots-text-disabled: #5346a2;
 }
 
 /* Custom Nexus Scrollbars */
@@ -20,7 +37,7 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #080514;
+  background: var(--hots-bg);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -29,22 +46,27 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #4d34a3;
+  background: #5346a2;
 }
 
-/* Base Body & Deep In-Game Indigo Backdrop */
+/* Base Body & Deep Nexus Menu Backdrop */
 .hots-body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   background-color: var(--hots-bg);
   background-image:
-    radial-gradient(ellipse 85% 45% at 50% -10%, rgba(56, 36, 130, 0.34), transparent 72%),
-    radial-gradient(circle at 82% 22%, rgba(37, 62, 155, 0.14), transparent 48%),
-    radial-gradient(circle at 18% 78%, rgba(44, 25, 105, 0.18), transparent 52%);
+    radial-gradient(ellipse 88% 48% at 50% -10%, rgba(102, 27, 255, 0.24), transparent 72%),
+    radial-gradient(circle at 80% 18%, rgba(0, 99, 200, 0.18), transparent 48%),
+    radial-gradient(circle at 18% 82%, rgba(68, 42, 148, 0.22), transparent 54%);
   color: var(--hots-text);
 }
 
 .hots-display {
   font-family: 'Chakra Petch', 'Inter', sans-serif;
+  background: linear-gradient(180deg, #ffffff 0%, #cbe8ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 8px rgba(0, 99, 200, 0.55));
 }
 
 .font-mono {
@@ -53,11 +75,11 @@
 
 /* Top Client Chrome & Navigation Rail */
 .hots-topbar {
-  background: linear-gradient(180deg, #160d38 0%, #0d0724 70%, #09051a 100%);
-  border-bottom: 1px solid #352275;
+  background: linear-gradient(180deg, #190e40 0%, #0e0726 72%, #080416 100%);
+  border-bottom: 1px solid #38247a;
   box-shadow:
-    inset 0 -1px 0 rgba(125, 211, 252, 0.1),
-    0 6px 22px rgba(0, 0, 0, 0.78);
+    inset 0 -1px 0 rgba(203, 232, 255, 0.14),
+    0 6px 24px rgba(0, 0, 0, 0.82);
 }
 
 .hots-brand-emblem {
@@ -68,9 +90,11 @@
   width: 42px;
   height: 42px;
   border-radius: 5px;
-  background: linear-gradient(180deg, rgba(36, 56, 138, 0.32) 0%, rgba(16, 9, 43, 0.92) 100%);
-  border: 1px solid rgba(94, 67, 189, 0.55);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  background: linear-gradient(180deg, rgba(0, 99, 200, 0.28) 0%, rgba(15, 8, 40, 0.94) 100%);
+  border: 1px solid rgba(139, 129, 211, 0.55);
+  box-shadow:
+    inset 0 1px 0 rgba(203, 232, 255, 0.18),
+    0 0 12px rgba(0, 99, 200, 0.22);
 }
 
 .hots-nav-rail {
@@ -80,14 +104,14 @@
 }
 
 .hots-footer {
-  background: linear-gradient(180deg, #0e0826 0%, #070412 100%);
+  background: linear-gradient(180deg, #0d0724 0%, #060310 100%);
   border-top: 1px solid #32206e;
-  box-shadow: inset 0 1px 0 rgba(169, 156, 214, 0.1);
+  box-shadow: inset 0 1px 0 rgba(188, 179, 255, 0.12);
 }
 
 /* Keyboard Accessibility Focus Indicators */
 :where(a[href], button:not(:disabled), input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex]:not([tabindex="-1"])):focus-visible {
-  outline: 2px solid var(--hots-cyan);
+  outline: 2px solid var(--hots-cyan-vivid);
   outline-offset: 2px;
 }
 
@@ -95,7 +119,7 @@
 .hots-btn-gold:focus-visible {
   outline: 2px solid #ffffff;
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.45);
+  box-shadow: 0 0 0 4px rgba(0, 156, 255, 0.48);
 }
 
 .f2p-row-item:focus-visible {
@@ -104,70 +128,76 @@
   border-radius: 8px;
 }
 
-/* Deep In-Game Panels & Subpanels */
+/* Deep Menu Panels & Subpanels */
 .hots-panel {
   max-width: 100%;
-  background: linear-gradient(180deg, rgba(25, 15, 61, 0.92) 0%, rgba(15, 9, 38, 0.96) 60%, rgba(11, 6, 29, 0.98) 100%);
-  border: 1px solid #3c2780;
+  background: linear-gradient(180deg, rgba(28, 17, 69, 0.92) 0%, rgba(16, 9, 41, 0.96) 58%, rgba(10, 6, 27, 0.99) 100%);
+  border: 1px solid #3d2882;
   box-shadow:
-    inset 0 1px 0 rgba(169, 156, 214, 0.16),
-    inset 0 -1px 0 rgba(4, 2, 12, 0.94),
-    0 10px 26px rgba(0, 0, 0, 0.62);
+    inset 0 1px 0 rgba(228, 227, 255, 0.16),
+    inset 0 -1px 0 rgba(4, 2, 12, 0.95),
+    0 10px 28px rgba(0, 0, 0, 0.68);
 }
 
 .hots-banner-accent {
-  border-left: 4px solid var(--hots-gold);
+  border-left: 4px solid var(--hots-gold-vivid);
   box-shadow:
-    inset 0 1px 0 rgba(252, 211, 77, 0.16),
-    inset 0 -1px 0 rgba(4, 2, 12, 0.94),
-    0 12px 28px rgba(0, 0, 0, 0.65);
+    inset 0 1px 0 rgba(255, 234, 182, 0.2),
+    inset 0 -1px 0 rgba(4, 2, 12, 0.95),
+    0 12px 28px rgba(0, 0, 0, 0.7),
+    -4px 0 14px rgba(200, 104, 0, 0.22);
 }
 
 .hots-card-live:hover {
-  border-color: rgba(56, 189, 248, 0.72);
+  border-color: rgba(203, 232, 255, 0.72);
   box-shadow:
-    inset 0 1px 0 rgba(125, 211, 252, 0.22),
-    0 10px 26px rgba(0, 0, 0, 0.65),
-    0 0 16px rgba(56, 189, 248, 0.12);
+    inset 0 1px 0 rgba(255, 255, 255, 0.24),
+    0 10px 26px rgba(0, 0, 0, 0.68),
+    0 0 18px rgba(0, 156, 255, 0.26);
 }
 
 .hots-card-ptr:hover {
-  border-color: rgba(240, 180, 41, 0.72);
+  border-color: rgba(254, 214, 0, 0.75);
   box-shadow:
-    inset 0 1px 0 rgba(252, 211, 77, 0.22),
-    0 10px 26px rgba(0, 0, 0, 0.65),
-    0 0 16px rgba(240, 180, 41, 0.12);
+    inset 0 1px 0 rgba(255, 254, 232, 0.24),
+    0 10px 26px rgba(0, 0, 0, 0.68),
+    0 0 18px rgba(200, 104, 0, 0.26);
 }
 
 .hots-subpanel {
-  background: linear-gradient(180deg, rgba(12, 7, 31, 0.96) 0%, rgba(8, 4, 21, 0.99) 100%);
+  background: linear-gradient(180deg, rgba(13, 8, 34, 0.96) 0%, rgba(8, 4, 21, 0.99) 100%);
   border: 1px solid #2b1a61;
-  box-shadow: inset 0 1px 0 rgba(130, 112, 196, 0.12);
+  box-shadow: inset 0 1px 0 rgba(156, 182, 255, 0.12);
 }
 
 .hots-dropdown {
-  background: linear-gradient(180deg, #1b1042 0%, #0e0724 100%);
-  border: 1px solid #4c339e;
+  background: linear-gradient(180deg, #1d1147 0%, #0d0724 100%);
+  border: 1px solid #5346a2;
   box-shadow:
-    inset 0 1px 0 rgba(169, 156, 214, 0.18),
-    0 14px 32px rgba(0, 0, 0, 0.82);
+    inset 0 1px 0 rgba(228, 227, 255, 0.18),
+    0 14px 32px rgba(0, 0, 0, 0.85);
 }
 
 .hots-role-badge {
-  background: linear-gradient(180deg, rgba(38, 23, 89, 0.9) 0%, rgba(21, 12, 54, 0.96) 100%);
-  border: 1px solid rgba(240, 180, 41, 0.45);
-  box-shadow: inset 0 1px 0 rgba(252, 211, 77, 0.14);
+  background: linear-gradient(180deg, rgba(44, 25, 98, 0.92) 0%, rgba(20, 11, 51, 0.97) 100%);
+  border: 1px solid rgba(244, 225, 16, 0.45);
+  box-shadow: inset 0 1px 0 rgba(255, 234, 182, 0.16);
 }
 
 .hots-input {
-  background-color: #080415;
-  border: 1px solid #38237a;
+  background-color: #070414;
+  border: 1px solid #3a267d;
+  color: var(--hots-text);
   transition: border-color 0.14s ease, box-shadow 0.14s ease;
+}
+
+.hots-input::placeholder {
+  color: var(--hots-text-muted);
 }
 
 .hots-input:focus {
   border-color: var(--hots-cyan);
-  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.18);
+  box-shadow: 0 0 0 2px rgba(0, 156, 255, 0.24);
 }
 
 .hots-label {
@@ -176,44 +206,48 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.16em;
-  color: var(--hots-text-muted);
+  color: var(--hots-text-soft);
 }
 
 /* Chamfered HotS Action Buttons */
 .hots-btn-cyan {
-  background: linear-gradient(180deg, #38bdf8 0%, #0ea5e9 58%, #0284c7 100%);
-  color: #05111d;
-  border: 1px solid #bae6fd;
+  background: linear-gradient(180deg, #58baff 0%, #1682e8 56%, #0063c8 100%);
+  color: #04101d;
+  border: 1px solid #cbe8ff;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.48),
-    0 3px 12px rgba(2, 132, 199, 0.36);
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    0 3px 14px rgba(0, 99, 200, 0.45);
   clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
 }
 
 .hots-btn-cyan:hover {
-  background: linear-gradient(180deg, #7dd3fc 0%, #38bdf8 58%, #0369a1 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #cbe8ff 46%, #009cff 100%);
+  color: #030b14;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.65),
-    0 4px 16px rgba(56, 189, 248, 0.45);
+    inset 0 1px 0 rgba(255, 255, 255, 0.75),
+    0 4px 18px rgba(0, 156, 255, 0.55);
 }
 
 .hots-btn-gold {
-  background: linear-gradient(180deg, rgba(240, 180, 41, 0.24) 0%, rgba(133, 81, 14, 0.36) 100%);
-  color: #fde68a;
-  border: 1px solid rgba(240, 180, 41, 0.68);
+  background: linear-gradient(180deg, rgba(244, 225, 16, 0.26) 0%, rgba(227, 139, 13, 0.24) 55%, rgba(138, 72, 0, 0.42) 100%);
+  color: #ffeab6;
+  border: 1px solid rgba(254, 214, 0, 0.72);
   box-shadow:
-    inset 0 1px 0 rgba(253, 230, 138, 0.24),
-    0 3px 10px rgba(0, 0, 0, 0.42);
+    inset 0 1px 0 rgba(255, 254, 232, 0.28),
+    0 3px 12px rgba(200, 104, 0, 0.28);
   clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
 }
 
 .hots-btn-gold:hover {
-  background: linear-gradient(180deg, rgba(240, 180, 41, 0.34) 0%, rgba(161, 98, 16, 0.46) 100%);
+  background: linear-gradient(180deg, rgba(255, 254, 232, 0.34) 0%, rgba(244, 225, 16, 0.34) 52%, rgba(227, 139, 13, 0.42) 100%);
   color: #ffffff;
-  border-color: #fcd34d;
+  border-color: #fffee8;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    0 0 16px rgba(200, 104, 0, 0.42);
 }
 
-/* Top Client Nav Tabs (Modeled after StandardTemplates/Top_Navigation) */
+/* Top Client Nav Tabs (TaskBarSubNavigation -> TaskBarSubNavigationSelected) */
 .nav-button {
   font-family: 'Chakra Petch', 'Inter', sans-serif;
   padding: 0.35rem 0.85rem;
@@ -227,14 +261,14 @@
   display: inline-flex;
   align-items: center;
   gap: 0.42rem;
-  color: #8f82bd;
+  color: #9d90ff;
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
   position: relative;
 }
 
-/* Matches SeparatorImage (@UI/Storm_UI_MainNavigation_Separator_Sub) between nav items */
+/* Matches SeparatorImage between nav items */
 .nav-button + .nav-button::before,
 .nav-button + div::before {
   content: "|";
@@ -242,18 +276,18 @@
   left: -0.25rem;
   top: 50%;
   transform: translateY(-52%);
-  color: rgba(143, 130, 189, 0.38);
+  color: rgba(157, 144, 255, 0.36);
   font-size: 0.85rem;
   font-weight: 400;
   pointer-events: none;
 }
 
 .nav-button:hover {
-  color: #e9e2ff;
+  color: #c9c2ff;
   background: transparent !important;
 }
 
-/* Selected / Toggled state (TaskBarSubNavigationSelected) */
+/* Selected / Toggled state (cbe8ff-ffffff gradient + 0063c8 blue glow) */
 .nav-active {
   color: #ffffff !important;
   font-size: 0.96rem;
@@ -262,16 +296,16 @@
   border: none !important;
   box-shadow: none !important;
   text-shadow:
-    0 0 8px rgba(224, 212, 255, 0.85),
-    0 0 22px rgba(124, 92, 255, 0.58);
+    0 0 7px rgba(203, 232, 255, 0.85),
+    0 0 20px rgba(0, 99, 200, 0.72);
 }
 
 .nav-active i,
 .nav-active svg {
-  filter: drop-shadow(0 0 7px rgba(180, 156, 255, 0.85));
+  filter: drop-shadow(0 0 7px rgba(0, 156, 255, 0.82));
 }
 
-/* Combines UnderlineImage (bottom emission line) + GlowImage (additive upward/outward bloom) */
+/* Combines UnderlineImage (bottom emission line) + GlowImage (cyan/blue bloom) */
 .nav-active::after {
   content: "";
   position: absolute;
@@ -283,15 +317,15 @@
     linear-gradient(
       90deg,
       transparent 0%,
-      rgba(196, 181, 253, 0.5) 20%,
-      rgba(245, 243, 255, 0.98) 50%,
-      rgba(196, 181, 253, 0.5) 80%,
+      rgba(88, 186, 255, 0.55) 20%,
+      rgba(255, 255, 255, 0.98) 50%,
+      rgba(88, 186, 255, 0.55) 80%,
       transparent 100%
     ) 50% 76% / 100% 1.5px no-repeat,
     radial-gradient(
       ellipse 62% 72% at 52% 74%,
-      rgba(167, 139, 250, 0.75) 0%,
-      rgba(109, 74, 235, 0.35) 50%,
+      rgba(0, 156, 255, 0.68) 0%,
+      rgba(0, 99, 200, 0.34) 52%,
       transparent 82%
     );
   filter: blur(2.5px);
