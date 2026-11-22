@@ -1,9 +1,10 @@
 // ==========================================
-// NEXUS ROTATION MODULE (JSON SCHEDULE READER)
+// 1. CONFIGURATION & STATE
 // ==========================================
 
 const LOCAL_ROTATION_DATA_URL = './data/rotation.json';
 const ROTATION_FETCH_TIMEOUT_MS = 4000;
+const ROTATION_PORTRAIT_SIZE_PX = 39;
 
 const HERO_SLUG_ALIASES = {
     deckardcain: 'deckard',
@@ -22,6 +23,11 @@ const FALLBACK_ROTATION_PORTRAIT =
 
 let currentRotationData = null;
 let rawRotationCache = null;
+
+
+// ==========================================
+// 2. DATE & HERO LOOKUP HELPERS
+// ==========================================
 
 function normalizeSlugKey(val) {
     return String(val || '')
@@ -241,6 +247,11 @@ function matchHeroWithIndex(entry, heroIndex, rawMasterIndex) {
     };
 }
 
+
+// ==========================================
+// 3. SCHEDULE LOADING & PARSING
+// ==========================================
+
 function resolveHeroBlockFromJson(root, now = new Date()) {
     const scheduleList = Array.isArray(root.rotations)
         ? root.rotations
@@ -324,6 +335,11 @@ function sortRotationHeroesF2pFirst(heroes) {
     });
 }
 
+
+// ==========================================
+// 4. FREE ROTATION RENDERING
+// ==========================================
+
 function createFreeHeroRow(hero) {
     const isLvlSlot = String(hero.reqLevel || '').trim().toUpperCase() === 'LVL';
 
@@ -343,8 +359,8 @@ function createFreeHeroRow(hero) {
 
     const frame = document.createElement('div');
     frame.className = 'hex-sidebar-frame';
-    frame.style.width = '39px';
-    frame.style.height = '39px';
+    frame.style.width = `${ROTATION_PORTRAIT_SIZE_PX}px`;
+    frame.style.height = `${ROTATION_PORTRAIT_SIZE_PX}px`;
 
     const img = document.createElement('img');
     img.src = hero.portraitUrl || FALLBACK_ROTATION_PORTRAIT;
@@ -406,7 +422,7 @@ function renderFreeRotationHeroes(data) {
     const sortedHeroes = sortRotationHeroesF2pFirst((data.heroes || []).slice(0, 14));
     if (!sortedHeroes.length) {
         grid.innerHTML =
-            '<div class="col-span-2 text-xs text-violet-200/70 py-3">No free rotation heroes available right now.</div>';
+            '<div class="col-span-2 text-xs text-violet-200/70 py-2">No free rotation heroes available right now.</div>';
         return;
     }
 
@@ -432,28 +448,4 @@ async function loadAndRenderRotation() {
 
     currentRotationData = parseRotationPayload(rawPayload, new Date());
     renderFreeRotationHeroes(currentRotationData);
-}
-
-function scheduleRotationInit() {
-    loadAndRenderRotation();
-
-    // Re-render once if MASTER_HERO_LIST / HOTS_MASTER_DATA finishes loading shortly after
-    let attempts = 0;
-    const timer = window.setInterval(() => {
-        attempts += 1;
-        const hasRoster = Array.isArray(window.MASTER_HERO_LIST) && window.MASTER_HERO_LIST.length > 0;
-        if (hasRoster && rawRotationCache) {
-            currentRotationData = parseRotationPayload(rawRotationCache, new Date());
-            renderFreeRotationHeroes(currentRotationData);
-            window.clearInterval(timer);
-        } else if (attempts >= 15) {
-            window.clearInterval(timer);
-        }
-    }, 250);
-}
-
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', scheduleRotationInit, { once: true });
-} else {
-    scheduleRotationInit();
 }
