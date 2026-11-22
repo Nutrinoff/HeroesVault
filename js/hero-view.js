@@ -80,6 +80,7 @@ function renderBuilderHeader(heroData) {
     if (!heroData) return;
     const rawEntry = typeof getRawHeroEntry === 'function' ? getRawHeroEntry(heroData.id) : null;
     const portraitUrl = resolveHeroUiPortraitUrl(heroData.portrait || rawEntry);
+    const loadingBgUrl = getHeroLoadingPortrait(rawEntry || heroData);
 
     const portraitEl = document.getElementById('builder-portrait');
     const nameEl = document.getElementById('builder-name');
@@ -98,7 +99,15 @@ function renderBuilderHeader(heroData) {
     if (nameEl) nameEl.innerText = heroData.name;
     if (roleEl) roleEl.innerText = heroData.role;
     if (titleEl) titleEl.innerText = heroData.title;
-    if (bgModel) bgModel.src = portraitUrl;
+
+    if (bgModel) {
+        bgModel.style.display = '';
+        bgModel.onerror = () => {
+            bgModel.style.display = 'none';
+        };
+        bgModel.src = loadingBgUrl || portraitUrl;
+        bgModel.alt = `${heroData.name} loading screen artwork`;
+    }
 
     renderAbilityStrip(heroData.abilities, 'builder-abilities');
 }
