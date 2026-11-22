@@ -3,6 +3,7 @@
 // ==========================================
 
 let CACHED_MASTER_PATCHES = null;
+let MASTER_PATCHES_INFLIGHT = null;
 const PATCH_RAW_NOTES_CACHE = new Map();
 const PATCH_DETAIL_CACHE = new Map();
 
@@ -315,32 +316,51 @@ async function fetchAllMasterPatches() {
         return CACHED_MASTER_PATCHES;
     }
 
-    const responses = await Promise.all(
-        MASTER_SOURCES.map(src =>
-            fetch(`${PATCH_DATA_DIR}/${src.file}`).catch(() => ({ ok: false }))
-        )
-    );
-
-    const normalized = [];
-
-    for (let i = 0; i < MASTER_SOURCES.length; i++) {
-        const res = responses[i];
-        const meta = MASTER_SOURCES[i];
-        if (!res || !res.ok) continue;
-
-        const data = await res.json();
-        const rows = Array.isArray(data)
-            ? data
-            : (Array.isArray(data?.patches) ? data.patches : (Array.isArray(data?.items) ? data.items : []));
-
-        rows.forEach((row, idx) => {
-            const entry = normalizeMasterEntry(row, meta, idx);
-            if (entry) normalized.push(entry);
-        });
+    if (MASTER_PATCHES_INFLIGHT) {
+        return MASTER_PATCHES_INFLIGHT;
     }
 
-    CACHED_MASTER_PATCHES = deduplicateAndSortPatches(normalized);
-    return CACHED_MASTER_PATCHES;
+    MASTER_PATCHES_INFLIGHT = (async () => {
+        try {
+            const responses = await Promise.all(
+                MASTER_SOURCES.map(src =>
+                    fetch(`${PATCH_DATA_DIR}/${src.file}`).catch(() => null)
+                )
+            );
+
+            const normalized = [];
+
+            for (let i = 0; i < MASTER_SOURCES.length; i++) {
+                const res = responses[i];
+                const meta = MASTER_SOURCES[i];
+                if (!res || !res.ok) continue;
+
+                let data = null;
+                try {
+                    data = await res.json();
+                } catch (err) {
+                    console.warn(`Invalid JSON in patch feed ${meta.file}:`, err);
+                    continue;
+                }
+
+                const rows = Array.isArray(data)
+                    ? data
+                    : (Array.isArray(data?.patches) ? data.patches : (Array.isArray(data?.items) ? data.items : []));
+
+                rows.forEach((row, idx) => {
+                    const entry = normalizeMasterEntry(row, meta, idx);
+                    if (entry) normalized.push(entry);
+                });
+            }
+
+            CACHED_MASTER_PATCHES = deduplicateAndSortPatches(normalized);
+            return CACHED_MASTER_PATCHES;
+        } finally {
+            MASTER_PATCHES_INFLIGHT = null;
+        }
+    })();
+
+    return MASTER_PATCHES_INFLIGHT;
 }
 
 async function fetchPatchRawNotesText(item) {
@@ -352,20 +372,16 @@ async function fetchPatchRawNotesText(item) {
         return PATCH_RAW_NOTES_CACHE.get(cacheKey);
     }
 
+    let notesText = '';
     if (item.detailPath) {
         try {
             const res = await fetch(item.detailPath);
             if (res.ok) {
                 const rawBody = await res.text();
                 if (rawBody.trim()) {
-                    const notesText = item.detailPath.endsWith('.json')
+                    notesText = item.detailPath.endsWith('.json')
                         ? extractPatchNotesText(JSON.parse(rawBody))
                         : extractPatchNotesText(rawBody);
-
-                    if (notesText) {
-                        PATCH_RAW_NOTES_CACHE.set(cacheKey, notesText);
-                        return notesText;
-                    }
                 }
             }
         } catch (err) {
@@ -373,7 +389,8 @@ async function fetchPatchRawNotesText(item) {
         }
     }
 
-    return '';
+    PATCH_RAW_NOTES_CACHE.set(cacheKey, notesText);
+    return notesText;
 }
 
 async function fetchPatchDetailHtml(item) {
