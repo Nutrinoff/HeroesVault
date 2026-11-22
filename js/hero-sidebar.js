@@ -13,6 +13,7 @@ let heroSearchPreloadTimer = null;
 let heroListObserver = null;
 let heroScrollIdleTimer = null;
 let isHeroListScrolling = false;
+let sidebarHeightResizeObserver = null;
 
 function escapeSidebarHtml(value) {
     return String(value ?? '')
@@ -42,6 +43,64 @@ function sortHeroesByDisplayName(heroes) {
             numeric: true
         });
     });
+}
+
+function getSidebarTargetBottomEl() {
+    const builderView = document.getElementById('view-builder');
+    if (builderView && !builderView.classList.contains('hidden')) {
+        const sections = builderView.querySelectorAll('section');
+        return sections.length ? sections[sections.length - 1] : builderView;
+    }
+
+    const buildsView = document.getElementById('view-builds');
+    if (buildsView && !buildsView.classList.contains('hidden')) {
+        return buildsView;
+    }
+
+    return null;
+}
+
+function syncSidebarHeightToContent() {
+    const sidebar = document.getElementById('sidebar-container');
+    if (!sidebar) return;
+
+    const isDesktop = window.matchMedia('(min-width: 1024px)').matches;
+    if (!isDesktop || sidebar.classList.contains('hidden')) {
+        sidebar.style.height = '';
+        return;
+    }
+
+    const targetEl = getSidebarTargetBottomEl();
+    if (!targetEl) {
+        sidebar.style.height = '';
+        return;
+    }
+
+    const sidebarRect = sidebar.getBoundingClientRect();
+    const targetRect = targetEl.getBoundingClientRect();
+    const matchedHeight = Math.round(targetRect.bottom - sidebarRect.top);
+
+    sidebar.style.height = matchedHeight > 200 ? `${matchedHeight}px` : '';
+}
+
+function bindSidebarHeightSync() {
+    if (window._hotsSidebarHeightBound) return;
+    window._hotsSidebarHeightBound = true;
+
+    window.addEventListener('resize', () => {
+        requestAnimationFrame(syncSidebarHeightToContent);
+    }, { passive: true });
+
+    if (typeof ResizeObserver !== 'undefined') {
+        sidebarHeightResizeObserver = new ResizeObserver(() => {
+            requestAnimationFrame(syncSidebarHeightToContent);
+        });
+
+        ['view-builder', 'view-builds'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) sidebarHeightResizeObserver.observe(el);
+        });
+    }
 }
 
 function preloadHeroIds(ids) {
@@ -241,6 +300,9 @@ function renderHeroSidebar(heroes) {
     if (countEl) {
         countEl.innerText = `${sortedHeroes.length} Heroes`;
     }
+
+    bindSidebarHeightSync();
+    requestAnimationFrame(syncSidebarHeightToContent);
 }
 
 function filterHeroes() {
