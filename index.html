@@ -464,15 +464,16 @@
   </footer>
 
   <!-- TOOLTIP OVERLAY -->
-  <div id="talent-tooltip" class="fixed z-50 hidden pointer-events-none hots-panel border-[#58baff]/70 rounded p-3 shadow-2xl max-w-xs">
-    <div class="flex items-center gap-3">
-      <img id="tip-icon" src="" alt="" aria-hidden="true" class="w-8 h-8 rounded-sm border border-[#5c42b8] object-cover bg-[#080416]"/>
-      <div>
-        <h4 id="tip-name" class="text-xs font-extrabold text-[#e6ecff]"></h4>
-        <span id="tip-level" class="text-[10px] font-mono text-[#cbe8ff]"></span>
+  <div id="talent-tooltip" class="hots-talent-tooltip hidden" role="tooltip" aria-live="polite">
+    <div class="hots-tooltip-header">
+      <img id="tip-icon" src="" alt="" aria-hidden="true" class="hots-tooltip-icon" />
+      <div class="hots-tooltip-titles">
+        <div id="tip-name" class="hots-tooltip-name"></div>
+        <div id="tip-level" class="hots-tooltip-meta"></div>
       </div>
     </div>
-    <p id="tip-desc" class="text-[11px] text-[#e6ecff]/90 leading-relaxed mt-1"></p>
+    <div id="tip-cooldown" class="hots-tooltip-cooldown hidden"></div>
+    <div id="tip-desc" class="hots-tooltip-desc"></div>
   </div>
 
   <script src="./js/state.js"></script>
