@@ -264,44 +264,88 @@
         </section>
       </div>
 
-      <!-- VIEW: MAP -->
+    <!-- VIEW: MAP -->
       <div id="view-map" class="space-y-6 hidden">
-        <div class="relative overflow-hidden border border-[#5c42b8] rounded-[2px] shadow-[0_12px_32px_rgba(0,0,0,0.75)]">
-          <img id="map-portrait" src="" alt="Battleground banner" class="w-full h-64 md:h-80 object-cover"/>
-          <div class="absolute inset-0 bg-gradient-to-t from-[#070412] via-[#070412]/55 to-transparent flex items-end p-6">
-            <div>
-              <span class="hots-label text-[#f5d89a]">Battleground</span>
-              <h2 id="map-name" class="hots-display text-3xl font-bold uppercase tracking-wide mt-0.5"></h2>
-              <p id="map-theme" class="text-sm text-[#9cb6ff]/90 mt-1"></p>
-            </div>
+        <!-- Unboxed Faded Battleground Header (Title & Theme Top-Left) -->
+        <div class="relative min-h-[14rem] md:min-h-[17rem] overflow-hidden">
+          <img
+            id="map-portrait"
+            src=""
+            alt="Battleground backdrop"
+            class="w-full h-64 md:h-80 object-cover object-center opacity-55 select-none pointer-events-none"
+          />
+          <div
+            aria-hidden="true"
+            class="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#070412]/35 via-[#070412]/55 to-[#070412]"
+          ></div>
+          <div
+            aria-hidden="true"
+            class="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#070412]/80 via-[#070412]/35 to-transparent"
+          ></div>
+
+          <div class="absolute inset-x-0 top-0 p-5 md:p-6 flex flex-col items-start justify-start z-10">
+            <span class="hots-label text-[#f5d89a]">Battleground</span>
+            <h2 id="map-name" class="hots-display text-3xl md:text-4xl font-bold uppercase tracking-wide mt-1"></h2>
+            <p id="map-theme" class="text-xs sm:text-sm text-[#9cb6ff]/90 mt-1 max-w-2xl"></p>
           </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div class="lg:col-span-2 space-y-5">
-            <section class="hots-panel p-4 space-y-2">
-              <h3 class="hots-label text-[#58baff] border-b border-[#38247a] pb-2">Map Objective</h3>
-              <div id="map-mechanic" class="text-sm text-[#e6ecff]/90 leading-relaxed pt-1"></div>
+        <!-- Battleground Data-Sheet -->
+        <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_19rem] gap-8 items-start px-1 md:px-2">
+          <!-- Primary Data-Sheet Column -->
+          <div class="min-w-0 divide-y divide-[#38247a]/70 border-t border-b border-[#38247a]/70">
+            <!-- Dynamic First Objective & Spawn Pattern Row (hidden when N/A, e.g., Dragon Shire) -->
+            <div id="map-objective-cadence-row" class="py-4 grid grid-cols-1 sm:grid-cols-2 gap-4 hidden">
+              <div id="map-first-objective-block" class="space-y-1 hidden">
+                <div class="hots-label text-[#f5d89a]">First Objective</div>
+                <div id="map-first-objective" class="text-sm text-[#e6ecff]/95 font-medium"></div>
+              </div>
+              <div id="map-spawn-pattern-block" class="space-y-1 hidden">
+                <div class="hots-label text-[#58baff]">Spawn Locations &amp; Pattern</div>
+                <div id="map-spawn-pattern" class="text-sm text-[#e6ecff]/90 leading-relaxed"></div>
+              </div>
+            </div>
+
+            <!-- Optional Map Layout / Lanes / Bosses Strip (hidden when empty) -->
+            <div id="map-layout-meta" class="py-3.5 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-[#9cb6ff]/85 hidden"></div>
+
+            <!-- Core Objective Mechanic -->
+            <section class="py-4 space-y-1.5">
+              <h3 class="hots-label text-[#58baff]">Map Objective</h3>
+              <div id="map-mechanic" class="text-sm text-[#e6ecff]/90 leading-relaxed"></div>
             </section>
-            <section class="hots-panel p-4 space-y-2">
-              <h3 class="hots-label text-[#f5d89a] border-b border-[#38247a] pb-2">Strategic Overview</h3>
-              <div id="map-strategy" class="text-sm text-[#e6ecff]/90 leading-relaxed pt-1"></div>
+
+            <!-- Macro & Strategic Overview -->
+            <section class="py-4 space-y-1.5">
+              <h3 class="hots-label text-[#f5d89a]">Strategic Overview</h3>
+              <div id="map-strategy" class="text-sm text-[#e6ecff]/90 leading-relaxed"></div>
             </section>
-            <section class="hots-panel p-4 space-y-2">
-              <h3 class="hots-label text-[#58baff] border-b border-[#38247a] pb-2">Good to Know &amp; Tips</h3>
-              <div id="map-notes" class="text-sm text-[#e6ecff]/90 leading-relaxed pt-1"></div>
+
+            <!-- Good to Know & Tips -->
+            <section class="py-4 space-y-1.5">
+              <h3 class="hots-label text-[#58baff]">Good to Know &amp; Tips</h3>
+              <div id="map-notes" class="text-sm text-[#e6ecff]/90 leading-relaxed"></div>
             </section>
           </div>
-          <div class="space-y-5">
-            <section class="hots-panel p-4 space-y-3">
-              <h3 class="hots-label text-[#f5d89a] border-b border-[#38247a] pb-2">Top 5 Golden Heroes</h3>
-              <div id="map-heroes-list" class="grid grid-cols-1 gap-2"></div>
+
+          <!-- Right Data-Sheet Rail: Compact Top 5 Golden Heroes + Mercenary Camps -->
+          <aside aria-label="Battleground heroes and mercenary camps" class="w-full min-w-0 divide-y divide-[#38247a]/70 border-t border-b border-[#38247a]/70">
+            <section class="py-4 space-y-2.5">
+              <div class="flex items-center justify-between gap-2">
+                <h3 class="hots-label text-[#f5d89a]">Top 5 Golden Heroes</h3>
+                <span class="text-[10px] font-mono uppercase tracking-wider text-[#8c83a2]">Map Picks</span>
+              </div>
+              <div id="map-heroes-list" class="flex flex-wrap gap-1.5"></div>
             </section>
-            <section class="hots-panel p-4 space-y-3">
-              <h3 class="hots-label text-[#f5d89a] border-b border-[#38247a] pb-2">Mercenary Camps</h3>
-              <div id="map-camps-stack" class="space-y-3"></div>
+
+            <section class="py-4 space-y-2.5">
+              <div class="flex items-center justify-between gap-2">
+                <h3 class="hots-label text-[#58baff]">Mercenary Camps</h3>
+                <span class="text-[10px] font-mono uppercase tracking-wider text-[#8c83a2]">Timings</span>
+              </div>
+              <div id="map-camps-stack" class="divide-y divide-[#2b1a61]/80"></div>
             </section>
-          </div>
+          </aside>
         </div>
       </div>
 
