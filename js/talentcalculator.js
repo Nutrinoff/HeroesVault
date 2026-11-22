@@ -25,7 +25,7 @@ async function openBuilder(id = null, selections = null, update = true) {
     id = id || MASTER_HERO_LIST[0]?.id;
     if (!id) return;
 
-    builderHeroId = id;
+    resetBuilderState(id, selections);
     switchTabUI('builder');
 
     if (typeof filterHeroes === 'function') {
@@ -33,8 +33,6 @@ async function openBuilder(id = null, selections = null, update = true) {
     } else if (typeof renderHeroSidebar === 'function') {
         renderHeroSidebar(MASTER_HERO_LIST);
     }
-
-    builderSelectedTalents = normalizeTalentSelections(selections);
 
     const heroData = getNormalizedHeroData(id);
     if (!heroData) {
