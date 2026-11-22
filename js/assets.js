@@ -53,14 +53,9 @@ function getHeroLoadingPortrait(heroOrRaw) {
             : heroOrRaw);
 
     const loadingPath = raw?.portraits?.loading || raw?.loading || '';
-    if (loadingPath) {
-        return typeof getAssetUrl === 'function' ? getAssetUrl(loadingPath) : loadingPath;
-    }
+    if (!loadingPath) return '';
 
-    const fallbackPortrait = getHeroPortrait(raw) || raw?.portrait || '';
-    return fallbackPortrait && typeof getAssetUrl === 'function'
-        ? getAssetUrl(fallbackPortrait)
-        : fallbackPortrait;
+    return typeof getAssetUrl === 'function' ? getAssetUrl(loadingPath) : loadingPath;
 }
 
 function preloadAllAssets(rawHeroes) {
