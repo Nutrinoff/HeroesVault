@@ -1,28 +1,40 @@
 {
   "id": "warheadjunction",
   "name": "Warhead Junction",
-  "theme": "StarCraft Nuke Launchers",
+  "theme": "Collect Nuclear Warheads across the map and call down tactical strikes on enemy structures and Heroes.",
   "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/storm_ui_homescreenbackground_warhead.png",
+  "firstObjective": "Warning at 2:30, spawns at 3:00 (~2:30 cooldown after the final Warhead of a wave is collected)",
+  "spawnPattern": "Multiple Warheads spawn simultaneously across set map nodes (typically 2 to 4 per wave, scaling up over the match)",
+  "lanes": "3 Lanes (Top, Mid & Bottom)",
+  "bosses": "2 Swarm Host Bosses (Top & Bottom)",
   "mechanic": {
     "title": "Nuclear Warheads",
-    "description": "Nuclear Warheads spawn periodically across the battleground (first warning at 2:30, spawns at 3:00; 2 to 4 Warheads per phase, with a 2:30 cooldown after the last Warhead is collected). Heroes channel a Warhead for 2.5 seconds to pick it up (dropped upon death), granting a special ability to call down a tactical nuke anywhere on the map after a brief delay—dealing massive structure damage with bonus devastation in the direct center."
+    "description": "Channel an active Nuclear Warhead to claim it as an objective ability—Heroes can carry a Warhead and drop it on death, where it can be picked up by either team. Activating a Warhead calls down a delayed strike on a target area that deals heavy structure damage and high damage in the center blast radius, though enemies can walk out of the inner zone or interrupt/cancel launches if caught."
   },
   "camps": [
     {
       "name": "Hellbat / Bruiser Camps (2 Camps)",
-      "timing": "Spawns at 1:00 (4:00 respawn)",
-      "notes": "Located in the upper-mid and lower-mid areas. Hellbats breathe cone-shaped fire that shreds minion waves and reduces enemy armor."
+      "timing": "Spawns at 0:30 (4:00 respawn)",
+      "notes": "Located in the upper-mid and lower-mid areas. Hellbats breathe cone fire that shreds minion waves and reduces enemy Armor."
     },
     {
       "name": "Goliath / Raven Siege Camps (2 Camps)",
-      "timing": "Spawns at 1:00 (3:00 respawn)",
+      "timing": "Spawns at 0:30 (3:00 respawn)",
       "notes": "Located in the outer top and bottom jungle paths. Features ranged Goliaths paired with a Raven that launches seeker missiles at structures."
     },
     {
       "name": "Swarm Host Bosses (2 Camps)",
       "timing": "Spawns at 5:00 (5:00 respawn)",
-      "notes": "Located in the top-center and bottom-center pits. Spawns waves of Locusts and drops toxic pods; secures massive late-game lane pressure."
+      "notes": "Located in the top-center and bottom-center pits. Spawns Locusts and drops toxic pods; applies heavy lane pressure and can be captured to push lanes."
     }
   ],
-  "strategy": "Warhead Junction is the largest three-lane map in the game and includes underground sewer portals connecting top and bottom lanes for rapid cross-map flanks. Global heroes (Falstad, Dehaka, Brightwing, Stage Dive E.T.C.) and strong split-pushers or duelist bruisers dominate due to the vast distances between lanes and simultaneous Warhead spawns. Coordinate multiple Warheads on a single Keep or the Core to close out games rapidly, and keep an eye on the sewer tunnels to avoid surprise ambushes while rotating."
+  "strategy": "Warhead Junction is a large three-lane battleground where cross-map distance, split rotations, and Warhead coordination heavily shape macro play. Heroes with global mobility (such as Falstad, Dehaka, or Brightwing) and strong solo/offlaners shine across wide rotations; stack multiple Warheads onto a single Keep or Core push when possible rather than firing isolated nukes for low value.",
+  "notes": "Vents/tunnels allow quick cross-map movement between top and bottom areas—watch for rotations through them, and remember that carrying multiple Warheads puts high value on not dying carelessly before you can launch or coordinate them.",
+  "goldenHeroes": [
+    "falstad",
+    "dehaka",
+    "brightwing",
+    "johanna",
+    "valla"
+  ]
 }
