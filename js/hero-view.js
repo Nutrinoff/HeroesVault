@@ -85,6 +85,18 @@ function getSelectedTalentsForBuild(h, code) {
     }).filter(Boolean);
 }
 
+function getAbilitySortRank(ability) {
+    const keyUpper = String(ability?.key || ability?.abilityType || '').toUpperCase();
+    const catLower = String(ability?.category || '').toLowerCase();
+
+    if (keyUpper === 'Q') return 1;
+    if (keyUpper === 'W') return 2;
+    if (keyUpper === 'E') return 3;
+    if (keyUpper === 'TRAIT' || catLower === 'trait') return 5;
+    if (keyUpper === 'Z' || catLower === 'mount') return 6;
+    return 4;
+}
+
 function renderAbilityStrip(abilitiesList, containerId, options = {}) {
     const box = document.getElementById(containerId);
     if (!box) return;
@@ -139,7 +151,13 @@ function renderAbilityStrip(abilitiesList, containerId, options = {}) {
     });
 
     const grantedAbilities = isVikings ? getTalentGrantedAbilities(options.activeTalents) : [];
-    const list = [...baseList, ...grantedAbilities];
+    const list = [...baseList, ...grantedAbilities]
+        .map((item, index) => ({ item, index }))
+        .sort((a, b) => {
+            const rankDiff = getAbilitySortRank(a.item) - getAbilitySortRank(b.item);
+            return rankDiff !== 0 ? rankDiff : a.index - b.index;
+        })
+        .map(entry => entry.item);
 
     if (!list.length) {
         box.innerHTML = '<span class="text-xs text-violet-300/60">No abilities configured</span>';
