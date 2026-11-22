@@ -154,6 +154,23 @@
       pointer-events: none;
       overflow: visible;
     }
+
+    /* Frameless 2-column F2P rotation list */
+    .f2p-row-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.25rem 0.2rem;
+      cursor: pointer;
+      transition: opacity 0.14s ease, transform 0.14s ease;
+    }
+    .f2p-row-item:hover {
+      opacity: 0.9;
+      transform: translateX(2px);
+    }
+    .f2p-row-lvl {
+      order: 99;
+    }
   </style>
 </head>
 <body class="bg-[#080414] text-slate-100 font-sans min-h-screen flex flex-col selection:bg-cyan-400 selection:text-slate-950">
@@ -224,94 +241,93 @@
     <main class="flex-1 min-w-0 w-full flex flex-col">
 
       <!-- VIEW: HOME -->
-      <div id="view-home" class="space-y-4">
-        <div class="hots-panel border-l-4 border-l-amber-400 px-6 py-5 rounded flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div class="space-y-1">
-            <div class="hots-label text-amber-300">Nexus Command &amp; Loadout Hub</div>
-            <h2 class="text-2xl font-black uppercase tracking-wide text-white">HeroesVault</h2>
-            <p class="text-xs sm:text-sm text-violet-100/80 max-w-2xl">
-              Hero talent loadouts, build code calculator, battleground guides, patch feed, and personal tier rankings.
-            </p>
-          </div>
-          <div class="flex flex-wrap gap-2.5 shrink-0">
-            <button onclick="navigateTo('builds')" class="hots-btn-cyan font-extrabold uppercase tracking-wider px-5 py-2 text-xs sm:text-sm transition flex items-center gap-2 cursor-pointer">
-              <i data-lucide="shield" class="w-4 h-4"></i> Hero Builds
-            </button>
-            <button onclick="navigateTo('builder')" class="hots-btn-gold font-extrabold uppercase tracking-wider px-5 py-2 text-xs sm:text-sm transition flex items-center gap-2 cursor-pointer">
-              <i data-lucide="cpu" class="w-4 h-4"></i> Talent Builder
-            </button>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div onclick="navigateTo('builds')" class="hots-panel hover:border-cyan-400/70 p-4 rounded cursor-pointer transition flex flex-col justify-between gap-3">
-            <div class="space-y-1.5">
-              <div class="flex items-center justify-between border-b border-[#2e1866] pb-2">
-                <span class="hots-label text-cyan-300 flex items-center gap-2">
-                  <i data-lucide="shield" class="w-3.5 h-3.5"></i> Builds &amp; Matchups
-                </span>
-                <span id="home-hero-count" class="text-[11px] font-mono text-amber-300/90">Roster</span>
-              </div>
-              <p class="text-xs text-violet-100/75 leading-relaxed pt-1">Saved talent loadouts, ability strips, and matchup notes per hero.</p>
+      <div id="view-home" class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+        <!-- Left / Main Column (8 cols) -->
+        <div class="lg:col-span-8 space-y-5">
+          <!-- Header Banner -->
+          <div class="hots-panel border-l-4 border-l-amber-400 px-6 py-5 rounded flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="space-y-1">
+              <div class="hots-label text-amber-300">Nexus Command &amp; Loadout Hub</div>
+              <h2 class="text-2xl font-black uppercase tracking-wide text-white">HeroesVault</h2>
+              <p class="text-xs sm:text-sm text-violet-100/80 max-w-2xl">
+                Hero talent loadouts, build code calculator, battleground guides, patch feed, and personal tier rankings.
+              </p>
             </div>
-            <span class="text-[11px] font-bold uppercase tracking-wider text-cyan-300">Open Builds &rarr;</span>
+            <div class="flex flex-wrap gap-2.5 shrink-0">
+              <button onclick="navigateTo('builds')" class="hots-btn-cyan font-extrabold uppercase tracking-wider px-5 py-2 text-xs sm:text-sm transition flex items-center gap-2 cursor-pointer">
+                <i data-lucide="shield" class="w-4 h-4"></i> Hero Builds
+              </button>
+              <button onclick="navigateTo('builder')" class="hots-btn-gold font-extrabold uppercase tracking-wider px-5 py-2 text-xs sm:text-sm transition flex items-center gap-2 cursor-pointer">
+                <i data-lucide="cpu" class="w-4 h-4"></i> Talent Builder
+              </button>
+            </div>
           </div>
 
-          <div onclick="navigateTo('builder')" class="hots-panel hover:border-amber-400/70 p-4 rounded cursor-pointer transition flex flex-col justify-between gap-3">
-            <div class="space-y-1.5">
-              <div class="flex items-center justify-between border-b border-[#2e1866] pb-2">
-                <span class="hots-label text-amber-300 flex items-center gap-2">
-                  <i data-lucide="cpu" class="w-3.5 h-3.5"></i> Talent Calculator
-                </span>
-                <span id="home-build-count" class="text-[11px] font-mono text-cyan-300/90">Sandbox</span>
-              </div>
-              <p class="text-xs text-violet-100/75 leading-relaxed pt-1">Pick tiers 1–20, inspect talent tooltips, and copy build strings.</p>
-            </div>
-            <span class="text-[11px] font-bold uppercase tracking-wider text-amber-300">Open Calculator &rarr;</span>
-          </div>
-
-          <div onclick="navigateTo('academy')" class="hots-panel hover:border-violet-400/70 p-4 rounded cursor-pointer transition flex flex-col justify-between gap-3">
-            <div class="space-y-1.5">
-              <div class="flex items-center justify-between border-b border-[#2e1866] pb-2">
-                <span class="hots-label text-violet-200 flex items-center gap-2">
-                  <i data-lucide="graduation-cap" class="w-3.5 h-3.5"></i> Nexus Academy
-                </span>
-                <span id="home-guide-count" class="text-[11px] font-mono text-cyan-300/90">Guides</span>
-              </div>
-              <p class="text-xs text-violet-100/75 leading-relaxed pt-1">Basic and advanced notes on soaking, drafting, and mechanics.</p>
-            </div>
-            <span class="text-[11px] font-bold uppercase tracking-wider text-violet-200">Browse Guides &rarr;</span>
-          </div>
-        </div>
-
-        <!-- WEEKLY FREE HERO ROTATION & BATTLEGROUND ROTATION -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
-          <!-- Free-to-Play Hero Rotation (10 Heroes) -->
-          <section class="lg:col-span-8 hots-panel p-4 rounded space-y-3">
-            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#2e1866] pb-2">
-              <h3 class="hots-label text-cyan-300 flex items-center gap-2">
-                <i data-lucide="users" class="w-3.5 h-3.5"></i> Free-to-Play Hero Rotation
-              </h3>
-              <span id="home-f2p-timespan" class="text-[11px] font-mono text-amber-300/90">Weekly Rotation</span>
-            </div>
-            <div id="home-f2p-grid" class="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
-              <div class="col-span-full text-xs text-violet-200/70 py-3">Loading free rotation...</div>
-            </div>
-          </section>
-
-          <!-- Current Battleground Rotation -->
-          <section class="lg:col-span-4 hots-panel p-4 rounded space-y-3">
+          <!-- Latest Patch Snapshot -->
+          <section class="hots-panel p-5 rounded space-y-3">
             <div class="flex items-center justify-between border-b border-[#2e1866] pb-2">
-              <h3 class="hots-label text-amber-300 flex items-center gap-2">
-                <i data-lucide="map" class="w-3.5 h-3.5"></i> Battleground Rotation
+              <h3 class="hots-label text-cyan-300 flex items-center gap-2">
+                <i data-lucide="file-text" class="w-3.5 h-3.5"></i> Latest Patch Update
               </h3>
-              <span class="text-[10px] font-mono uppercase text-violet-300/70">Active Pools</span>
+              <button onclick="navigateTo('patchnotes')" class="text-[11px] font-bold uppercase tracking-wider text-cyan-300 hover:text-white cursor-pointer">
+                All Patches &rarr;
+              </button>
             </div>
-            <div id="home-bg-rotation" class="space-y-3">
-              <div class="text-xs text-violet-200/70 py-2">Loading battlegrounds...</div>
+            <div id="home-latest-patch" class="space-y-1.5">
+              <p class="text-sm font-bold text-white">Heroes of the Storm Patch Notes</p>
+              <p class="text-xs text-violet-200/75 leading-relaxed">
+                Check recent balance changes, new hero releases, bug fixes, and PTR updates in the Patch Notes tab.
+              </p>
             </div>
           </section>
+
+          <!-- Featured / Quick Spec & Academy Row -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <section class="hots-panel p-4 rounded space-y-2.5">
+              <div class="flex items-center justify-between border-b border-[#2e1866] pb-2">
+                <h3 class="hots-label text-amber-300 flex items-center gap-2">
+                  <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Featured Spec Pick
+                </h3>
+                <span id="home-roster-badge" class="text-[11px] font-mono text-cyan-300/90">Roster</span>
+              </div>
+              <div id="home-featured-spec" class="space-y-1">
+                <p class="text-sm font-bold text-white">Jump into Talent Builder</p>
+                <p class="text-xs text-violet-200/75 leading-relaxed">
+                  Test level 1–20 talent combinations, inspect tooltips, and copy build codes for matches.
+                </p>
+              </div>
+            </section>
+
+            <section class="hots-panel p-4 rounded space-y-2.5">
+              <div class="flex items-center justify-between border-b border-[#2e1866] pb-2">
+                <h3 class="hots-label text-violet-200 flex items-center gap-2">
+                  <i data-lucide="graduation-cap" class="w-3.5 h-3.5"></i> Nexus Academy Highlights
+                </h3>
+                <button onclick="navigateTo('academy')" class="text-[11px] font-bold uppercase tracking-wider text-violet-200 hover:text-white cursor-pointer">
+                  Guides &rarr;
+                </button>
+              </div>
+              <div id="home-academy-highlights" class="space-y-1.5 text-xs text-violet-100/80">
+                <p>&bull; Wave soaking, XP breakpoints, and objective timing</p>
+                <p>&bull; Draft synergy, counters, and teamfight roles</p>
+              </div>
+            </section>
+          </div>
         </div>
+
+        <!-- Tall Right Column: Free-to-Play Hero Rotation (4 cols, 2 columns, frameless rows, LVL at bottom) -->
+        <aside class="lg:col-span-4 hots-panel p-4 rounded flex flex-col gap-3 lg:min-h-[540px]">
+          <div class="flex items-center justify-between border-b border-[#2e1866] pb-2">
+            <h3 class="hots-label text-cyan-300 flex items-center gap-2">
+              <i data-lucide="users" class="w-3.5 h-3.5"></i> Free-to-Play Rotation
+            </h3>
+            <span id="home-f2p-timespan" class="text-[11px] font-mono text-amber-300/90">Weekly</span>
+          </div>
+
+          <div id="home-f2p-grid" class="grid grid-cols-2 gap-x-3 gap-y-1.5 content-start flex-1">
+            <div class="col-span-2 text-xs text-violet-200/70 py-3">Loading free rotation...</div>
+          </div>
+        </aside>
       </div>
 
       <!-- VIEW: BUILDS -->
