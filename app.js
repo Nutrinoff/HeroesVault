@@ -78,6 +78,25 @@ function syncHomeSummaryCounts() {
     }
 }
 
+function clearPatchQueryParamsFromUrl() {
+    if (typeof window.history?.replaceState !== 'function') return;
+    try {
+        const url = new URL(window.location.href);
+        let changed = false;
+        for (const key of ['view', 'patch', 'patchId', 'feed']) {
+            if (url.searchParams.has(key)) {
+                url.searchParams.delete(key);
+                changed = true;
+            }
+        }
+        if (changed) {
+            window.history.replaceState(window.history.state, '', url.toString());
+        }
+    } catch (_) {
+        // Ignore URL errors on restricted origins
+    }
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
     try {
         const [mr, br, mapr, tr] = await Promise.all([
@@ -152,7 +171,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 function navigateTo(tab, params = {}, push = true) {
-    let url = '#' + tab;
+    let hashTarget = '#' + tab;
     const q = new URLSearchParams();
 
     Object.entries(params).forEach(([k, v]) => {
@@ -162,12 +181,24 @@ function navigateTo(tab, params = {}, push = true) {
     });
 
     const queryString = q.toString();
-    if (queryString) url += '?' + queryString;
+    if (queryString) hashTarget += '?' + queryString;
+
+    let finalUrl = hashTarget;
+    try {
+        const currentUrl = new URL(window.location.href);
+        for (const key of ['view', 'patch', 'patchId', 'feed']) {
+            currentUrl.searchParams.delete(key);
+        }
+        currentUrl.hash = hashTarget;
+        finalUrl = currentUrl.toString();
+    } catch (_) {
+        finalUrl = hashTarget;
+    }
 
     if (push) {
-        history.pushState({ tab, params }, '', url);
+        history.pushState({ tab, params }, '', finalUrl);
     } else {
-        history.replaceState({ tab, params }, '', url);
+        history.replaceState({ tab, params }, '', finalUrl);
     }
 
     handleRoute();
@@ -177,6 +208,10 @@ function handleRoute() {
     const [tpart, query = ''] = location.hash.replace(/^#/, '').split('?');
     const tab = tpart || 'home';
     const q = new URLSearchParams(query);
+
+    if (tab !== 'patchnotes') {
+        clearPatchQueryParamsFromUrl();
+    }
 
     switchTabUI(tab);
 
@@ -197,6 +232,13 @@ function handleRoute() {
             renderAcademy();
         }
     } else if (tab === 'patchnotes') {
+        if (q.get('patch') && typeof PENDING_DEEP_LINK_PATCH !== 'undefined') {
+            PENDING_DEEP_LINK_PATCH = {
+                patchId: q.get('patch'),
+                feed: q.get('feed') || null,
+                openView: true
+            };
+        }
         if (typeof initPatchFilterControls === 'function') {
             initPatchFilterControls();
         }
