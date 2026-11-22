@@ -1,5 +1,32 @@
 // ==========================================
-// 1. INITIAL DATA LOADING
+// 1. REQUIRED GLOBALS GUARD
+// ==========================================
+
+function assertRequiredGlobals() {
+    const requiredFunctions = [
+        'normalizeTalentSelections',
+        'encodeTalentSelections',
+        'encodeBuildCode',
+        'decodeBuildCode',
+        'getRawHeroEntry',
+        'getNormalizedHeroData',
+        'renderHeroSidebar',
+        'filterHeroes',
+        'selectHero',
+        'renderBuilderHeader',
+        'initializeTooltips',
+        'initializeRouter'
+    ];
+
+    const missing = requiredFunctions.filter(fnName => typeof window[fnName] !== 'function');
+    if (missing.length > 0) {
+        console.error('[HeroesVault] Missing required module functions or bad script order:', missing);
+    }
+}
+
+
+// ==========================================
+// 2. INITIAL DATA LOADING
 // ==========================================
 
 function syncHomeSummaryCounts() {
@@ -41,9 +68,7 @@ async function loadInitialData() {
                 name: h.name || 'Unknown Hero',
                 title: h.title || 'Nexus Combatant',
                 role: (h.roles && h.roles[0]) || h.expandedRole || 'Nexus Combatant',
-                portrait: typeof resolvePortraitPath === 'function'
-                    ? resolvePortraitPath(h)
-                    : (h.portrait || ''),
+                portrait: typeof getHeroPortrait === 'function' ? getHeroPortrait(h) : (h.portrait || ''),
                 searchText: `${h.name || ''} ${id || ''}`.toLowerCase()
             };
         });
@@ -65,7 +90,7 @@ async function loadInitialData() {
 
 
 // ==========================================
-// 2. FEATURE INITIALIZATION
+// 3. FEATURE & ROUTER BOOTSTRAP
 // ==========================================
 
 function initializeFeatures() {
@@ -104,23 +129,13 @@ function initializeFeatures() {
     });
 }
 
-
-// ==========================================
-// 3. APP ENTRY POINT
-// ==========================================
-
 document.addEventListener('DOMContentLoaded', async () => {
     try {
+        assertRequiredGlobals();
         await loadInitialData();
         initializeFeatures();
-
-        if (typeof initializeRouter === 'function') {
-            initializeRouter();
-        } else if (typeof handleRoute === 'function') {
-            window.addEventListener('popstate', handleRoute);
-            handleRoute();
-        }
+        initializeRouter();
     } catch (e) {
-        console.error('Failed loading data files:', e);
+        console.error('[HeroesVault] Failed initializing app:', e);
     }
 });
