@@ -1,28 +1,40 @@
 {
   "id": "hanamuratemple",
   "name": "Hanamura Temple",
-  "theme": "Overwatch Payload Escort",
+  "theme": "Escort the central Payload to fire structure barrages while contesting Samurai, Turret, and Recon camps.",
   "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/ui_ingame_mapmechanic_loadscreen_hanamura_rework.png",
+  "firstObjective": "Spawns at 3:00 (3:00 respawn after the final barrage shot is fired)",
+  "spawnPattern": "Single Payload spawns at the center point and follows one of 3 predetermined paths toward the enemy base; each delivery upgrades the team's path tier",
+  "lanes": "2 Lanes (Top & Bottom)",
+  "bosses": "None",
   "mechanic": {
     "title": "Payload Escort",
-    "description": "A single neutral Payload spawns in the center of the map (first warning at 2:00, spawns at 2:30; 2:00 cooldown after delivery). Both teams contest control of the Payload to escort it along their respective winding track toward the enemy base—moving faster with up to 3 allied heroes nearby. Reaching the destination fires a barrage of high-damage shots at the enemy's outermost structures."
+    "description": "Stand near the central Payload to move it along your team's track while preventing enemies from contesting or escorting it back. Escort speed scales up to 3 allied Heroes nearby, stops when contested, and reverses only if enemy Heroes escort it. Delivery triggers 12 barrage shots over 15 seconds targeting the enemy lane with the least total structure damage taken (Cores take 20% reduced damage from shots) and grants a Regeneration Globe to nearby winning Heroes."
   },
   "camps": [
     {
-      "name": "Recon Camps / Vision Watchtowers (2 Camps)",
-      "timing": "Spawns at 1:00 (1:30 respawn)",
-      "notes": "Located in the top and bottom alcoves. Capturing grants wide vision over the surrounding jungle and yields substantial bonus XP rather than spawning lane mercenaries."
+      "name": "Recon Camps (2 Camps)",
+      "timing": "Spawns at 0:30 (1s delay after capture)",
+      "notes": "Located near the center of top and bottom lanes. Capturing converts it into a Watch Tower and grants XP that scales after 1:00—swapping back-and-forth gives similar XP, while invading/stealing late captures yields a net XP gain."
     },
     {
-      "name": "Turret Camps (2 Camps)",
-      "timing": "Spawns at 1:00 (2:30 respawn)",
-      "notes": "Located near top-mid and bot-mid. Drops a deployable Turret item that any allied hero can place on the ground or directly onto the Payload to provide sustained automated fire."
+      "name": "Fortification / Turret Camps (2 Camps)",
+      "timing": "Spawns at 0:30 (2:30 respawn)",
+      "notes": "Features a Mechanic and a Turret (kill the Mechanic first so it can't repair below 80% HP). Drops a collectible Turret that fires rapidly for 45 seconds when placed."
     },
     {
       "name": "Sentinel / Samurai Camps (2 Camps)",
-      "timing": "Spawns at 1:00 (4:00 respawn)",
-      "notes": "Located in the far top-left and bottom-right corners. Spawns a deadly sword-wielding Samurai mercenary that cleaves minion waves and shreds structures rapidly if left unchecked."
+      "timing": "Spawns at 0:30 (2:30 respawn)",
+      "notes": "Spawns a Samurai merc with an 8-second Horizontal Slash that pushes and cleaves lanes hard—push alongside it whenever possible."
     }
   ],
-  "strategy": "Hanamura Temple is a two-lane map with no Boss camp where the Samurai and Recon camps provide massive XP and map pressure—often outweighing early Payload skirmishes. Prioritize heroes with strong camp clear and macro mobility (such as Greymane, Rehgar, Sonya, or Falstad). Always contest the Samurai camps on cooldown, grab Recon camps for XP leads and vision control around the center track, and deploy captured Turrets onto the Payload during contested teamfights."
+  "strategy": "Hanamura Temple is a two-lane battleground with no Boss camp where a 1-4 split (offlaner top, four rotating bot) and camp control often carry as much weight as Payload escorts. Contested camps stay active even during Payload phases, so coordinate Samurai pushes, Turret pickups, and Recon XP/vision control around Payload timing.",
+  "notes": "Hanamura Cores cannot be attacked directly and fire periodic missile volleys around themselves that deal max-HP damage and heavy slows to nearby Heroes—use Payload barrages and lane/Samurai pressure to break defenses, and keep in mind the final delivery spot sits deep between enemy Keeps with limited fountain access.",
+  "goldenHeroes": [
+    "greymane",
+    "sonya",
+    "rehgar",
+    "falstad",
+    "johanna"
+  ]
 }
