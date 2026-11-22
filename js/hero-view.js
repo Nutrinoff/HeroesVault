@@ -180,7 +180,7 @@ function renderAbilityStrip(abilitiesList, containerId, options = {}) {
         iconImg.alt = a.name || a.key || 'Ability icon';
         setSafeImageSrc(
             iconImg,
-            resolveHeroUiPortraitUrl(a.icon),
+            typeof resolveAssetUrl === 'function' ? resolveAssetUrl(a.icon, HERO_VIEW_ICON_FALLBACK) : HERO_VIEW_ICON_FALLBACK,
             HERO_VIEW_ICON_FALLBACK
         );
 
@@ -207,7 +207,9 @@ function renderAbilityStrip(abilitiesList, containerId, options = {}) {
 function renderHeroHeader(heroData, activeTalents = []) {
     if (!heroData) return;
     const rawEntry = typeof getRawHeroEntry === 'function' ? getRawHeroEntry(heroData.id) : null;
-    const portraitUrl = resolveHeroUiPortraitUrl(heroData.portrait || rawEntry);
+    const portraitUrl = typeof resolveAssetUrl === 'function'
+        ? resolveAssetUrl(heroData.portrait || rawEntry, HERO_FALLBACK_PORTRAIT)
+        : HERO_FALLBACK_PORTRAIT;
 
     const portraitEl = document.getElementById('hero-portrait');
     const nameEl = document.getElementById('hero-name');
@@ -232,7 +234,9 @@ function renderBuilderHeader(heroData, activeTalents = []) {
     if (!heroData) return;
     const rawEntry = typeof getRawHeroEntry === 'function' ? getRawHeroEntry(heroData.id) : null;
     const heroSource = rawEntry || heroData;
-    const portraitUrl = resolveHeroUiPortraitUrl(heroData.portrait || rawEntry);
+    const portraitUrl = typeof resolveAssetUrl === 'function'
+        ? resolveAssetUrl(heroData.portrait || rawEntry, HERO_FALLBACK_PORTRAIT)
+        : HERO_FALLBACK_PORTRAIT;
     const loadingBgUrl = typeof getHeroLoadingPortrait === 'function'
         ? getHeroLoadingPortrait(heroSource)
         : '';
@@ -296,7 +300,7 @@ function renderBuildStrip(h, code) {
             talentImg.alt = t.name || `Level ${l} talent`;
             setSafeImageSrc(
                 talentImg,
-                resolveHeroUiPortraitUrl(t.icon),
+                typeof resolveAssetUrl === 'function' ? resolveAssetUrl(t.icon, HERO_VIEW_ICON_FALLBACK) : HERO_VIEW_ICON_FALLBACK,
                 HERO_VIEW_ICON_FALLBACK
             );
 
