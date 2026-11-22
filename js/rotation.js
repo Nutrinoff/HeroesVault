@@ -540,12 +540,15 @@ function sortRotationHeroesF2pFirst(heroes) {
 
 function createFreeHeroRow(hero) {
     var isLvlSlot = String(hero.reqLevel || '').trim().toUpperCase() === 'LVL';
+    var badgeText = isLvlSlot
+        ? 'LVL'
+        : (hero.reqLevel ? 'Lv ' + hero.reqLevel + '+' : 'F2P');
 
     var btn = document.createElement('button');
     btn.type = 'button';
     btn.className = isLvlSlot
-        ? 'f2p-row-item f2p-row-lvl group'
-        : 'f2p-row-item group';
+        ? 'f2p-row-item f2p-row-lvl group flex items-center gap-2 w-full min-w-0 text-left px-2 py-1.5 rounded border border-rose-500/25 bg-[#160926]/70 hover:bg-[#240d3a]/90 transition'
+        : 'f2p-row-item group flex items-center gap-2 w-full min-w-0 text-left px-2 py-1.5 rounded border border-[#2e1866]/70 bg-[#12082b]/70 hover:bg-[#1d0e44]/90 transition';
     btn.title = isLvlSlot
         ? hero.name + ' — Unlocked rotation slot (Account Level 5, 10, 15, or 20)'
         : 'View ' + hero.name + ' builds';
@@ -556,7 +559,7 @@ function createFreeHeroRow(hero) {
     });
 
     var frame = document.createElement('div');
-    frame.className = 'hex-sidebar-frame';
+    frame.className = 'hex-sidebar-frame shrink-0';
     frame.style.width = ROTATION_PORTRAIT_SIZE_PX + 'px';
     frame.style.height = ROTATION_PORTRAIT_SIZE_PX + 'px';
 
@@ -592,21 +595,24 @@ function createFreeHeroRow(hero) {
     frame.appendChild(img);
     frame.appendChild(ringSvg);
 
+    var textWrap = document.createElement('div');
+    textWrap.className = 'flex flex-col items-start min-w-0 flex-1 gap-0.5';
+
     var nameEl = document.createElement('span');
     nameEl.className = 'w-full text-[11px] font-semibold text-slate-100 group-hover:text-cyan-300 truncate leading-tight';
     nameEl.textContent = hero.name;
 
     var badgeEl = document.createElement('span');
     badgeEl.className = isLvlSlot
-        ? 'text-[9px] font-mono font-bold uppercase px-1.5 py-0.2 rounded-sm bg-rose-500/15 text-rose-400 border border-rose-500/35'
-        : 'text-[9px] font-mono font-bold uppercase px-1.5 py-0.2 rounded-sm bg-cyan-500/15 text-cyan-300 border border-cyan-400/35';
-    badgeEl.textContent = isLvlSlot
-        ? 'LVL'
-        : (hero.reqLevel ? 'Lv ' + hero.reqLevel + '+' : 'F2P');
+        ? 'inline-block text-[9px] font-mono font-bold uppercase px-1.5 py-0.2 rounded-sm bg-rose-500/15 text-rose-400 border border-rose-500/35 leading-tight'
+        : 'inline-block text-[9px] font-mono font-bold uppercase px-1.5 py-0.2 rounded-sm bg-cyan-500/15 text-cyan-300 border border-cyan-400/35 leading-tight';
+    badgeEl.textContent = badgeText;
+
+    textWrap.appendChild(nameEl);
+    textWrap.appendChild(badgeEl);
 
     btn.appendChild(frame);
-    btn.appendChild(nameEl);
-    btn.appendChild(badgeEl);
+    btn.appendChild(textWrap);
     return btn;
 }
 
