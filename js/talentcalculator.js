@@ -1,9 +1,25 @@
 // ==========================================
-// TALENT CALCULATOR / BUILDER MODULE
+// 1. BUILDER STATE & NAVIGATION
 // ==========================================
 
 const ACTIVE_TALENT_CLASSES = ['border-amber-400', 'shadow-lg', 'scale-105'];
 const INACTIVE_TALENT_CLASSES = ['border-slate-700', 'hover:border-slate-400', 'opacity-75', 'hover:opacity-100'];
+
+function syncBuilderUrl(push = false) {
+    if (!builderHeroId) return;
+    const buildStr = builderSelectedTalents.join('');
+    const url = `#builder?hero=${encodeURIComponent(builderHeroId)}&build=${buildStr}`;
+    const state = {
+        tab: 'builder',
+        params: { hero: builderHeroId, build: buildStr }
+    };
+
+    if (push) {
+        history.pushState(state, '', url);
+    } else {
+        history.replaceState(state, '', url);
+    }
+}
 
 async function openBuilder(id = null, selections = null, update = true) {
     id = id || MASTER_HERO_LIST[0]?.id;
@@ -14,7 +30,7 @@ async function openBuilder(id = null, selections = null, update = true) {
 
     if (typeof filterHeroes === 'function') {
         filterHeroes();
-    } else {
+    } else if (typeof renderHeroSidebar === 'function') {
         renderHeroSidebar(MASTER_HERO_LIST);
     }
 
@@ -27,24 +43,11 @@ async function openBuilder(id = null, selections = null, update = true) {
         : null;
 
     if (!heroData) {
-        const h = resolveHeroMasterData(id);
-        if (!h) {
-            console.error('Missing hero master entry', id);
-            return;
-        }
-        builderHeroData = {
-            id,
-            name: h.name || id,
-            title: h.title || 'Nexus Combatant',
-            role: (h.roles && h.roles[0]) || h.expandedRole || 'Nexus Combatant',
-            portrait: getHeroPortrait(h),
-            abilities: flattenHeroAbilities(h),
-            talents: normalizeTalentTree(h.talents || h.talentTree || {})
-        };
-    } else {
-        builderHeroData = heroData;
+        console.error('Missing normalized hero data for builder:', id);
+        return;
     }
 
+    builderHeroData = heroData;
     renderBuilderHeader(builderHeroData);
     renderBuilderMatrix();
     updateBuilderOutput(false);
@@ -54,20 +57,10 @@ async function openBuilder(id = null, selections = null, update = true) {
     }
 }
 
-function syncBuilderUrl(push = false) {
-    if (!builderHeroId) return;
-    const url = `#builder?hero=${encodeURIComponent(builderHeroId)}&build=${builderSelectedTalents.join('')}`;
-    const state = {
-        tab: 'builder',
-        params: { hero: builderHeroId, build: builderSelectedTalents.join('') }
-    };
 
-    if (push) {
-        history.pushState(state, '', url);
-    } else {
-        history.replaceState(state, '', url);
-    }
-}
+// ==========================================
+// 2. MATRIX & BUILD CODE OUTPUT
+// ==========================================
 
 function updateBuilderMatrixSelection() {
     const box = document.getElementById('builder-matrix');
@@ -162,6 +155,11 @@ function copyBuilderString() {
         prompt('Copy build link:', u);
     }
 }
+
+
+// ==========================================
+// 3. BUILD CODE DECODER
+// ==========================================
 
 function decodeBuildCode(s) {
     const m = s && s.match(/\[T(\d{7}),/);
