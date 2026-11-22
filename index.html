@@ -374,10 +374,10 @@
               <p class="text-xs text-[#8c83a2]">Structured guides across Basic &amp; Advanced tracks, laning, drafting, and mechanics</p>
             </div>
           </div>
-          <div id="academy-level-filters" class="flex items-center gap-1 hots-nav-rail rounded p-1 self-start sm:self-auto" role="group" aria-label="Skill level filter">
-            <button type="button" data-academy-level="all" aria-pressed="true" class="academy-level-btn hots-display px-3 py-1 rounded-sm text-xs font-bold uppercase tracking-wider bg-[#58baff] text-[#04101d] transition">All</button>
-            <button type="button" data-academy-level="Basic" aria-pressed="false" class="academy-level-btn hots-display px-3 py-1 rounded-sm text-xs font-bold uppercase tracking-wider text-[#9d90ff] hover:bg-[#1d1247] hover:text-white transition">Basic</button>
-            <button type="button" data-academy-level="Advanced" aria-pressed="false" class="academy-level-btn hots-display px-3 py-1 rounded-sm text-xs font-bold uppercase tracking-wider text-[#9d90ff] hover:bg-[#1d1247] hover:text-white transition">Advanced</button>
+          <div id="academy-level-filters" class="flex items-center gap-2 self-start sm:self-auto" role="group" aria-label="Skill level filter">
+            <button type="button" data-academy-level="all" aria-pressed="true" class="academy-level-btn is-active">All</button>
+            <button type="button" data-academy-level="Basic" aria-pressed="false" class="academy-level-btn">Basic</button>
+            <button type="button" data-academy-level="Advanced" aria-pressed="false" class="academy-level-btn">Advanced</button>
           </div>
         </div>
 
@@ -413,10 +413,10 @@
           <!-- Left Grid Cell (4 cols) -->
           <div id="patch-sidebar-column" class="w-full lg:col-span-4">
             <div id="patch-sidebar-sticky-box" class="flex flex-col gap-3 z-20 hots-panel rounded p-3">
-              <div id="patch-filter-controls" class="flex items-center gap-1.5 px-1 shrink-0" role="group" aria-label="Patch feed filters">
-                <button type="button" data-patch-filter="all" aria-pressed="true" class="patch-filter-btn hots-display px-3 py-1.5 rounded-sm text-xs font-bold uppercase tracking-wider transition border bg-[#58baff] text-[#04101d] border-[#cbe8ff]">All</button>
-                <button type="button" data-patch-filter="live" aria-pressed="false" class="patch-filter-btn hots-display px-3 py-1.5 rounded-sm text-xs font-bold uppercase tracking-wider transition border bg-[#0c0621] text-[#9d90ff] border-[#38247a] hover:bg-[#1d1247] hover:text-white">Live</button>
-                <button type="button" data-patch-filter="ptr" aria-pressed="false" class="patch-filter-btn hots-display px-3 py-1.5 rounded-sm text-xs font-bold uppercase tracking-wider transition border bg-[#0c0621] text-[#9d90ff] border-[#38247a] hover:bg-[#1d1247] hover:text-white">PTR</button>
+              <div id="patch-filter-controls" class="flex items-center gap-2 px-1 shrink-0" role="group" aria-label="Patch feed filters">
+                <button type="button" data-patch-filter="all" aria-pressed="true" class="patch-filter-btn is-active">All</button>
+                <button type="button" data-patch-filter="live" aria-pressed="false" class="patch-filter-btn">Live</button>
+                <button type="button" data-patch-filter="ptr" aria-pressed="false" class="patch-filter-btn">PTR</button>
               </div>
 
               <div class="hots-subpanel rounded p-2.5 space-y-2 flex-1 min-h-0 overflow-y-auto" id="patch-sidebar-list">
