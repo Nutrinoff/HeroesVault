@@ -213,10 +213,10 @@
   border-color: #fcd34d;
 }
 
-/* Top Client Nav Tabs (Frameless glowing labels with '|' dividers) */
+/* Top Client Nav Tabs (Modeled after StandardTemplates/Top_Navigation) */
 .nav-button {
   font-family: 'Chakra Petch', 'Inter', sans-serif;
-  padding: 0.35rem 0.75rem;
+  padding: 0.35rem 0.85rem;
   border-radius: 0;
   font-size: 0.85rem;
   font-weight: 600;
@@ -227,31 +227,33 @@
   display: inline-flex;
   align-items: center;
   gap: 0.42rem;
-  color: #8b7eb8;
+  color: #8f82bd;
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
   position: relative;
 }
 
+/* Matches SeparatorImage (@UI/Storm_UI_MainNavigation_Separator_Sub) between nav items */
 .nav-button + .nav-button::before,
 .nav-button + div::before {
   content: "|";
   position: absolute;
-  left: -0.22rem;
+  left: -0.25rem;
   top: 50%;
   transform: translateY(-52%);
-  color: rgba(139, 126, 184, 0.34);
+  color: rgba(143, 130, 189, 0.38);
   font-size: 0.85rem;
   font-weight: 400;
   pointer-events: none;
 }
 
 .nav-button:hover {
-  color: #e6deff;
+  color: #e9e2ff;
   background: transparent !important;
 }
 
+/* Selected / Toggled state (TaskBarSubNavigationSelected) */
 .nav-active {
   color: #ffffff !important;
   font-size: 0.96rem;
@@ -260,7 +262,7 @@
   border: none !important;
   box-shadow: none !important;
   text-shadow:
-    0 0 9px rgba(224, 212, 255, 0.85),
+    0 0 8px rgba(224, 212, 255, 0.85),
     0 0 22px rgba(124, 92, 255, 0.58);
 }
 
@@ -269,27 +271,28 @@
   filter: drop-shadow(0 0 7px rgba(180, 156, 255, 0.85));
 }
 
+/* Combines UnderlineImage (bottom emission line) + GlowImage (additive upward/outward bloom) */
 .nav-active::after {
   content: "";
   position: absolute;
-  left: -8%;
+  left: -10%;
   right: -8%;
   bottom: -5px;
-  height: 18px;
+  height: 20px;
   background:
     linear-gradient(
       90deg,
       transparent 0%,
-      rgba(196, 181, 253, 0.45) 22%,
-      rgba(237, 233, 254, 0.95) 50%,
-      rgba(196, 181, 253, 0.45) 78%,
+      rgba(196, 181, 253, 0.5) 20%,
+      rgba(245, 243, 255, 0.98) 50%,
+      rgba(196, 181, 253, 0.5) 80%,
       transparent 100%
-    ) 50% 72% / 100% 1.5px no-repeat,
+    ) 50% 76% / 100% 1.5px no-repeat,
     radial-gradient(
-      ellipse 58% 65% at 50% 72%,
-      rgba(167, 139, 250, 0.72) 0%,
-      rgba(109, 74, 235, 0.34) 48%,
-      transparent 78%
+      ellipse 62% 72% at 52% 74%,
+      rgba(167, 139, 250, 0.75) 0%,
+      rgba(109, 74, 235, 0.35) 50%,
+      transparent 82%
     );
   filter: blur(2.5px);
   pointer-events: none;
