@@ -3,26 +3,38 @@
   "name": "Cursed Hollow",
   "theme": "Collect Tributes to curse the enemy team's structures and minions.",
   "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/ui_ingame_mapmechanic_loadscreen_cursedhollow.png",
+  "firstObjective": "Warning at 2:30, spawns at 3:00 (respawns ~0:45–1:15 after a Tribute is claimed)",
+  "spawnPattern": "6 fixed locations: 1st Tribute always spawns in the center column; never repeats the exact previous spot or spawns 3 times in a row on the same half of the map",
+  "lanes": "3 Lanes (Top, Mid & Bottom)",
+  "bosses": "2 Grave Golems (Top-Right & Bottom-Left)",
   "mechanic": {
     "title": "The Tribute Curse",
-    "description": "Tributes spawn periodically across 6 set locations (first warning at 2:30, spawns at 3:00; 6-second channel). Collecting 3 Tributes curses the enemy team for 70 seconds: all enemy lane minions are reduced to 1 HP, and enemy Towers, Forts, and Keeps stop firing."
+    "description": "Channel a Tribute for 6 seconds to claim it. Collecting 3 Tributes curses the enemy team for 70 seconds: all enemy lane minions drop to 1 HP, and enemy Towers, Forts, and Keeps are disabled so they cannot fire."
   },
   "camps": [
     {
       "name": "Siege Giants (2 Camps)",
-      "timing": "Spawns at 1:00 (3:00 respawn)",
-      "notes": "Located top-left and bottom-right. Long-range siege damage; easy to solo or duo early."
+      "timing": "Spawns at 0:30 (3:00 respawn)",
+      "notes": "Located top-left and bottom-right. Long-range siege damage; easy to clear early with a duo or solo laner."
     },
     {
       "name": "Bruisers / Knights (2 Camps)",
-      "timing": "Spawns at 1:00 (4:00 respawn)",
-      "notes": "Located near top-mid and bot-mid. Pushes middle lane and provides spell armor aura."
+      "timing": "Spawns at 0:30 (4:00 respawn)",
+      "notes": "Located near top-mid and bot-mid. Pushes middle lane and provides a Spell Armor aura to nearby allies."
     },
     {
       "name": "Boss / Grave Golem (2 Camps)",
       "timing": "Spawns at 5:00 (5:00 respawn)",
-      "notes": "Located top-right and bottom-left. High-threat late-game win condition, especially during a Curse."
+      "notes": "Located top-right and bottom-left. High-threat late-game win condition, especially when paired with a Curse."
     }
   ],
-  "strategy": "Global mobility (Falstad, Brightwing, Dehaka) excels on Cursed Hollow due to its large three-lane layout. Remember the 3-Tribute set rule: the first Tribute always spawns in the middle column, never repeats the exact previous spot, and never spawns 3 times in a row on the same half of the map. If you are behind in talent tiers on the first or second Tribute, consider trading soak and camps instead of forcing a bad fight."
+  "strategy": "Global mobility (Falstad, Brightwing, Dehaka) shines on Cursed Hollow because of the wide three-lane layout and contested Tribute rotations. Use the Tribute spawn rules to anticipate rotations—especially the first spawn in the middle column—and trade soak or camps when down talent tiers on early Tributes rather than forcing disadvantageous fights.",
+  "notes": "During a Curse, pushing alongside Grave Golems, Bruisers, or Siege Giants maximizes structure value because enemy structures cannot fire back and lane minions fold immediately—just watch out for counter-engages if your team overextends deep without vision.",
+  "goldenHeroes": [
+    "falstad",
+    "brightwing",
+    "dehaka",
+    "johanna",
+    "valla"
+  ]
 }
