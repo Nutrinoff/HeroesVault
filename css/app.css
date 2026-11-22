@@ -461,9 +461,9 @@
 /* Diamond */
 .hots-tier-btn[data-tier="S"],
 .hots-tier-btn.tier-s {
-  --tier-color: #58baff;
-  --tier-active-color: #e6f4ff;
-  --tier-glow: rgba(0, 156, 255, 0.62);
+  --tier-color: #29a8ff;
+  --tier-active-color: #7cc9ff;
+  --tier-glow: rgba(0, 140, 255, 0.52);
 }
 
 /* Scale up ability strip items (boxes, icons, and text) by ~25% */
