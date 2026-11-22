@@ -2,6 +2,33 @@
 // 2. HERO HEADERS, ABILITIES & BUILDS VIEW
 // ==========================================
 
+const HERO_VIEW_ICON_FALLBACK = 'https://via.placeholder.com/44?text=?';
+
+function setSafeImageSrc(imgEl, primaryUrl, fallbackUrl = '', { hideOnFail = false } = {}) {
+    if (!imgEl) return;
+
+    imgEl.onerror = () => {
+        imgEl.onerror = null;
+        if (fallbackUrl && imgEl.src !== fallbackUrl) {
+            imgEl.src = fallbackUrl;
+        } else if (hideOnFail) {
+            imgEl.style.display = 'none';
+        }
+    };
+
+    if (hideOnFail) {
+        imgEl.style.display = '';
+    }
+
+    if (primaryUrl) {
+        imgEl.src = primaryUrl;
+    } else if (fallbackUrl) {
+        imgEl.src = fallbackUrl;
+    } else if (hideOnFail) {
+        imgEl.style.display = 'none';
+    }
+}
+
 function renderAbilityStrip(abilitiesList, containerId) {
     const box = document.getElementById(containerId);
     if (!box) return;
@@ -40,11 +67,30 @@ function renderAbilityStrip(abilitiesList, containerId) {
         if (typeof hideTooltip === 'function') {
             el.addEventListener('mouseleave', hideTooltip);
         }
-        el.innerHTML = `
-            <img src="${resolveHeroUiPortraitUrl(a.icon)}" onerror="this.onerror=null;this.src='https://via.placeholder.com/32?text=?'" class="w-8 h-8 rounded-sm border border-[#4a2b9c] object-cover">
-            <span class="text-[10px] font-mono font-bold text-cyan-300">${a.key || 'Z'}</span>
-            ${a.variant ? `<span class="text-[8px] text-violet-200/75 max-w-16 truncate" title="${a.variant}">${a.variant}</span>` : ''}
-        `;
+
+        const iconImg = document.createElement('img');
+        iconImg.className = 'w-8 h-8 rounded-sm border border-[#4a2b9c] object-cover';
+        iconImg.alt = a.name || a.key || 'Ability icon';
+        setSafeImageSrc(
+            iconImg,
+            resolveHeroUiPortraitUrl(a.icon),
+            HERO_VIEW_ICON_FALLBACK
+        );
+
+        const keySpan = document.createElement('span');
+        keySpan.className = 'text-[10px] font-mono font-bold text-cyan-300';
+        keySpan.textContent = a.key || 'Z';
+
+        el.append(iconImg, keySpan);
+
+        if (a.variant) {
+            const variantSpan = document.createElement('span');
+            variantSpan.className = 'text-[8px] text-violet-200/75 max-w-16 truncate';
+            variantSpan.title = a.variant;
+            variantSpan.textContent = a.variant;
+            el.appendChild(variantSpan);
+        }
+
         frag.appendChild(el);
     });
 
@@ -62,12 +108,8 @@ function renderHeroHeader(heroData) {
     const titleEl = document.getElementById('hero-title');
 
     if (portraitEl) {
-        portraitEl.onerror = () => {
-            portraitEl.onerror = null;
-            portraitEl.src = HERO_FALLBACK_PORTRAIT;
-        };
-        portraitEl.src = portraitUrl;
         portraitEl.alt = `${heroData.name} portrait`;
+        setSafeImageSrc(portraitEl, portraitUrl, HERO_FALLBACK_PORTRAIT);
     }
     if (nameEl) nameEl.innerText = heroData.name;
     if (roleEl) roleEl.innerText = heroData.role;
@@ -79,34 +121,34 @@ function renderHeroHeader(heroData) {
 function renderBuilderHeader(heroData) {
     if (!heroData) return;
     const rawEntry = typeof getRawHeroEntry === 'function' ? getRawHeroEntry(heroData.id) : null;
+    const heroSource = rawEntry || heroData;
     const portraitUrl = resolveHeroUiPortraitUrl(heroData.portrait || rawEntry);
-    const loadingBgUrl = getHeroLoadingPortrait(rawEntry || heroData);
+    const loadingArtUrl = typeof getHeroLoadingPortrait === 'function'
+        ? getHeroLoadingPortrait(heroSource)
+        : '';
 
     const portraitEl = document.getElementById('builder-portrait');
     const nameEl = document.getElementById('builder-name');
     const roleEl = document.getElementById('builder-role');
     const titleEl = document.getElementById('builder-title');
-    const bgModel = document.getElementById('builder-model-bg');
+    const loadingArtEl = document.getElementById('builder-loading-art');
 
     if (portraitEl) {
-        portraitEl.onerror = () => {
-            portraitEl.onerror = null;
-            portraitEl.src = HERO_FALLBACK_PORTRAIT;
-        };
-        portraitEl.src = portraitUrl;
         portraitEl.alt = `${heroData.name} portrait`;
+        setSafeImageSrc(portraitEl, portraitUrl, HERO_FALLBACK_PORTRAIT);
     }
     if (nameEl) nameEl.innerText = heroData.name;
     if (roleEl) roleEl.innerText = heroData.role;
     if (titleEl) titleEl.innerText = heroData.title;
 
-    if (bgModel) {
-        bgModel.style.display = '';
-        bgModel.onerror = () => {
-            bgModel.style.display = 'none';
-        };
-        bgModel.src = loadingBgUrl || portraitUrl;
-        bgModel.alt = `${heroData.name} loading screen artwork`;
+    if (loadingArtEl) {
+        loadingArtEl.alt = `${heroData.name} loading screen portrait`;
+        setSafeImageSrc(
+            loadingArtEl,
+            loadingArtUrl || portraitUrl,
+            loadingArtUrl && portraitUrl !== loadingArtUrl ? portraitUrl : '',
+            { hideOnFail: true }
+        );
     }
 
     renderAbilityStrip(heroData.abilities, 'builder-abilities');
@@ -136,11 +178,25 @@ function renderBuildStrip(h, code) {
                 el.addEventListener('mouseleave', hideTooltip);
             }
 
-            el.innerHTML = `
-                <img src="${resolveHeroUiPortraitUrl(t.icon)}" onerror="this.onerror=null;this.src='https://via.placeholder.com/44?text=?'" class="w-11 h-11 rounded-sm border border-[#4a2b9c] object-cover">
-                <span class="text-[10px] font-mono text-cyan-300">Lv ${l}</span>
-                <span class="text-[10px] text-center text-slate-100 truncate max-w-20" title="${t.name}">${t.name}</span>
-            `;
+            const talentImg = document.createElement('img');
+            talentImg.className = 'w-11 h-11 rounded-sm border border-[#4a2b9c] object-cover';
+            talentImg.alt = t.name || `Level ${l} talent`;
+            setSafeImageSrc(
+                talentImg,
+                resolveHeroUiPortraitUrl(t.icon),
+                HERO_VIEW_ICON_FALLBACK
+            );
+
+            const lvlSpan = document.createElement('span');
+            lvlSpan.className = 'text-[10px] font-mono text-cyan-300';
+            lvlSpan.textContent = `Lv ${l}`;
+
+            const nameSpan = document.createElement('span');
+            nameSpan.className = 'text-[10px] text-center text-slate-100 truncate max-w-20';
+            nameSpan.title = t.name || '';
+            nameSpan.textContent = t.name || '';
+
+            el.append(talentImg, lvlSpan, nameSpan);
         } else {
             el.innerHTML = `<span class="text-[10px] text-violet-300/60">Lv ${l} · none</span>`;
         }
