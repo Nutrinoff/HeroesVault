@@ -4,22 +4,16 @@
 
 let patchSidebarRafId = null;
 
-const ACTIVE_FILTER_CLASSES = [
+const LEGACY_FILTER_CLASSES = [
     'bg-sky-500',
     'text-slate-950',
     'border-sky-400',
-    'shadow-sm'
-];
-
-const INACTIVE_FILTER_CLASSES = [
+    'shadow-sm',
     'bg-slate-900/90',
     'text-slate-300',
     'border-slate-700/80',
     'hover:bg-slate-800',
-    'hover:text-white'
-];
-
-const LEGACY_FILTER_CLASSES = [
+    'hover:text-white',
     'bg-slate-950',
     'bg-cyan-400',
     'border-cyan-200',
@@ -29,12 +23,17 @@ const LEGACY_FILTER_CLASSES = [
     'hover:bg-[#1c0e40]'
 ];
 
-const SELECTED_CARD_CLASSES = ['bg-sky-500/15', 'border-sky-500/70'];
+const SELECTED_CARD_CLASSES = [
+    'bg-[#58baff]/15',
+    'border-[#58baff]/75',
+    'shadow-[0_0_14px_rgba(0,156,255,0.2)]'
+];
+
 const UNSELECTED_CARD_CLASSES = [
-    'border-slate-800/90',
-    'bg-slate-950/50',
-    'hover:bg-slate-800/70',
-    'hover:border-slate-700'
+    'border-[#38247a]/90',
+    'bg-[#0c0621]/70',
+    'hover:bg-[#1d1247]/80',
+    'hover:border-[#5c42b8]'
 ];
 
 function getCurrentPatchFilter() {
@@ -57,12 +56,8 @@ function syncFilterButtonStates() {
         const isActive = type === activeFilter;
 
         btn.setAttribute('aria-pressed', String(isActive));
-        btn.classList.remove(
-            ...LEGACY_FILTER_CLASSES,
-            ...ACTIVE_FILTER_CLASSES,
-            ...INACTIVE_FILTER_CLASSES
-        );
-        btn.classList.add(...(isActive ? ACTIVE_FILTER_CLASSES : INACTIVE_FILTER_CLASSES));
+        btn.classList.toggle('is-active', isActive);
+        btn.classList.remove(...LEGACY_FILTER_CLASSES);
     });
 }
 
@@ -181,8 +176,8 @@ function renderPatchSidebar(items) {
 
     listContainer.innerHTML = `
         <div class="flex items-center justify-between px-2 pb-2">
-            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">${escapeHtml(headerTitle)}</h3>
-            <span class="text-[11px] font-mono text-slate-500">${safeItems.length}</span>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-[#9cb6ff]">${escapeHtml(headerTitle)}</h3>
+            <span class="text-[11px] font-mono text-[#8c83a2]">${safeItems.length}</span>
         </div>
     `;
 
@@ -208,27 +203,27 @@ function renderPatchSidebar(items) {
         });
 
         const feedBadge = item.feedType === 'ptr'
-            ? `<span class="text-[10px] px-1.5 py-0.5 rounded font-mono font-semibold text-amber-300 bg-amber-500/15 border border-amber-500/30">PTR</span>`
-            : `<span class="text-[10px] px-1.5 py-0.5 rounded font-mono font-semibold text-sky-300 bg-sky-500/15 border border-sky-500/30">LIVE</span>`;
+            ? `<span class="text-[10px] px-1.5 py-0.5 rounded font-mono font-semibold text-[#ffeab6] bg-[#e38b0d]/20 border border-[#fed600]/40">PTR</span>`
+            : `<span class="text-[10px] px-1.5 py-0.5 rounded font-mono font-semibold text-[#cbe8ff] bg-[#0063c8]/25 border border-[#58baff]/40">LIVE</span>`;
 
         const eraPill = (item.era === 'alpha' || item.era === 'beta')
-            ? `<span class="text-[10px] px-1.5 py-0.5 rounded font-mono font-semibold text-purple-300 bg-purple-500/15 border border-purple-500/30 uppercase">${escapeHtml(item.era)}</span>`
+            ? `<span class="text-[10px] px-1.5 py-0.5 rounded font-mono font-semibold text-[#9d90ff] bg-[#1d1247] border border-[#5c42b8] uppercase">${escapeHtml(item.era)}</span>`
             : '';
 
         const versionPill = item.patchVersion
-            ? `<span class="text-[10px] px-1.5 py-0.5 rounded font-mono text-slate-300 bg-slate-900 border border-slate-700/80">${escapeHtml(item.patchVersion)}</span>`
+            ? `<span class="text-[10px] px-1.5 py-0.5 rounded font-mono text-[#9cb6ff] bg-[#0c0621] border border-[#38247a]">${escapeHtml(item.patchVersion)}</span>`
             : '';
 
         btn.innerHTML = `
             <div class="flex items-center justify-between gap-2">
-                <span class="text-xs text-slate-400">${escapeHtml(item.listDate || item.date)}</span>
+                <span class="text-xs text-[#8c83a2]">${escapeHtml(item.listDate || item.date)}</span>
                 <div class="flex items-center gap-1 shrink-0">
                     ${eraPill}
                     ${versionPill}
                     ${feedBadge}
                 </div>
             </div>
-            <h4 class="text-sm font-bold text-slate-100 group-hover:text-white leading-snug">${escapeHtml(item.title)}</h4>
+            <h4 class="text-sm font-bold text-[#e6ecff] group-hover:text-[#cbe8ff] leading-snug">${escapeHtml(item.title)}</h4>
         `;
         frag.appendChild(btn);
     });
