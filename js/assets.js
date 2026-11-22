@@ -43,6 +43,34 @@ function getHeroPortrait(hero) {
         || '';
 }
 
+function getHeroLoadingPortrait(heroOrRaw) {
+    const raw =
+        (typeof heroOrRaw === 'string' && typeof getRawHeroEntry === 'function'
+            ? getRawHeroEntry(heroOrRaw)
+            : heroOrRaw) || {};
+
+    const loadingAsset =
+        raw?.traits?.loading ||
+        raw?.portraits?.loading ||
+        raw?.loading ||
+        null;
+
+    if (loadingAsset) {
+        return typeof getAssetUrl === 'function' ? getAssetUrl(loadingAsset) : loadingAsset;
+    }
+
+    const fallbackPortrait =
+        (typeof getHeroPortrait === 'function' ? getHeroPortrait(raw) : null) ||
+        raw?.portrait ||
+        raw?.portraitUrl ||
+        raw?.icon ||
+        '';
+
+    return fallbackPortrait && typeof getAssetUrl === 'function'
+        ? getAssetUrl(fallbackPortrait)
+        : fallbackPortrait;
+}
+
 function preloadAllAssets(rawHeroes) {
     if (!Array.isArray(rawHeroes) || rawHeroes.length === 0) return;
 
