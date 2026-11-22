@@ -85,7 +85,7 @@ function getSelectedTalentsForBuild(h, code) {
     }).filter(Boolean);
 }
 
-function getAbilitySortRank(ability) {
+function getAbilityHotkeyRank(ability) {
     const keyUpper = String(ability?.key || ability?.abilityType || '').toUpperCase();
     const catLower = String(ability?.category || '').toLowerCase();
 
@@ -95,6 +95,31 @@ function getAbilitySortRank(ability) {
     if (keyUpper === 'TRAIT' || catLower === 'trait') return 5;
     if (keyUpper === 'Z' || catLower === 'mount') return 6;
     return 4;
+}
+
+function getAbilityGroupBucket(ability) {
+    const rank = getAbilityHotkeyRank(ability);
+    if (rank <= 4) return 0; // Core / stage abilities (Q, W, E, etc.)
+    if (rank === 5) return 1; // Trait
+    return 2; // Z / Mount
+}
+
+function buildStageRankMap(items) {
+    const stageRanks = new Map();
+    let nextVariantRank = 1;
+
+    items.forEach(item => {
+        const rawVariant = String(item?.variant || '').trim().toLowerCase();
+        if (!rawVariant || rawVariant === 'base' || rawVariant === 'basic' || rawVariant === 'default') {
+            if (!stageRanks.has(rawVariant)) {
+                stageRanks.set(rawVariant, 0);
+            }
+        } else if (!stageRanks.has(rawVariant)) {
+            stageRanks.set(rawVariant, nextVariantRank++);
+        }
+    });
+
+    return stageRanks;
 }
 
 function renderAbilityStrip(abilitiesList, containerId, options = {}) {
@@ -151,23 +176,35 @@ function renderAbilityStrip(abilitiesList, containerId, options = {}) {
     });
 
     const grantedAbilities = isVikings ? getTalentGrantedAbilities(options.activeTalents) : [];
-    const list = [...baseList, ...grantedAbilities]
+    const combined = [...baseList, ...grantedAbilities];
+    const stageRanks = buildStageRankMap(combined);
+
+    const list = combined
         .map((item, index) => ({ item, index }))
         .sort((a, b) => {
-            const rankDiff = getAbilitySortRank(a.item) - getAbilitySortRank(b.item);
-            return rankDiff !== 0 ? rankDiff : a.index - b.index;
+            const bucketDiff = getAbilityGroupBucket(a.item) - getAbilityGroupBucket(b.item);
+            if (bucketDiff !== 0) return bucketDiff;
+
+            const stageA = stageRanks.get(String(a.item?.variant || '').trim().toLowerCase()) ?? 0;
+            const stageB = stageRanks.get(String(b.item?.variant || '').trim().toLowerCase()) ?? 0;
+            if (stageA !== stageB) return stageA - stageB;
+
+            const hotkeyDiff = getAbilityHotkeyRank(a.item) - getAbilityHotkeyRank(b.item);
+            if (hotkeyDiff !== 0) return hotkeyDiff;
+
+            return a.index - b.index;
         })
         .map(entry => entry.item);
 
     if (!list.length) {
-        box.innerHTML = '<span class="text-xs text-violet-300/60">No abilities configured</span>';
+        box.innerHTML = '<span class="text-xs text-[#8c83a2]">No abilities configured</span>';
         return;
     }
 
     const frag = document.createDocumentFragment();
     list.forEach(a => {
         const el = document.createElement('div');
-        el.className = 'flex flex-col items-center gap-1 bg-[#090417]/80 border border-[#371e78] rounded p-1.5 min-w-12';
+        el.className = 'hots-subpanel flex flex-col items-center gap-1 p-1.5 min-w-12 rounded-[2px] border border-[#38247a]';
         if (typeof showAbilityTooltip === 'function') {
             el.addEventListener('mouseenter', e => showAbilityTooltip(e, a));
         }
@@ -176,7 +213,7 @@ function renderAbilityStrip(abilitiesList, containerId, options = {}) {
         }
 
         const iconImg = document.createElement('img');
-        iconImg.className = 'w-8 h-8 rounded-sm border border-[#4a2b9c] object-cover';
+        iconImg.className = 'w-8 h-8 rounded-[2px] border border-[#5c42b8]/75 object-cover bg-[#070412]';
         iconImg.alt = a.name || a.key || 'Ability icon';
         setSafeImageSrc(
             iconImg,
@@ -185,14 +222,14 @@ function renderAbilityStrip(abilitiesList, containerId, options = {}) {
         );
 
         const keySpan = document.createElement('span');
-        keySpan.className = 'text-[10px] font-mono font-bold text-cyan-300';
+        keySpan.className = 'text-[10px] font-mono font-bold text-[#58baff]';
         keySpan.textContent = a.key || a.abilityType || 'Z';
 
         el.append(iconImg, keySpan);
 
         if (a.variant) {
             const variantSpan = document.createElement('span');
-            variantSpan.className = 'text-[8px] text-violet-200/75 max-w-16 truncate';
+            variantSpan.className = 'text-[8px] text-[#9cb6ff]/80 max-w-16 truncate';
             variantSpan.title = a.variant;
             variantSpan.textContent = a.variant;
             el.appendChild(variantSpan);
@@ -285,7 +322,7 @@ function renderBuildStrip(h, code) {
         const t = h.talents?.[l]?.[p[i] - 1] || h.talents?.[l]?.[0];
         const el = document.createElement('div');
 
-        el.className = 'hots-subpanel rounded p-2 flex flex-col items-center gap-2 transition-all hover:border-cyan-400/60';
+        el.className = 'hots-subpanel rounded-[2px] p-2 flex flex-col items-center gap-2 transition-all hover:border-[#58baff]/65';
 
         if (t) {
             if (typeof showTalentTooltip === 'function') {
@@ -296,7 +333,7 @@ function renderBuildStrip(h, code) {
             }
 
             const talentImg = document.createElement('img');
-            talentImg.className = 'w-11 h-11 rounded-sm border border-[#4a2b9c] object-cover';
+            talentImg.className = 'w-11 h-11 rounded-[2px] border border-[#5c42b8]/75 object-cover bg-[#070412]';
             talentImg.alt = t.name || `Level ${l} talent`;
             setSafeImageSrc(
                 talentImg,
@@ -305,17 +342,17 @@ function renderBuildStrip(h, code) {
             );
 
             const lvlSpan = document.createElement('span');
-            lvlSpan.className = 'text-[10px] font-mono text-cyan-300';
+            lvlSpan.className = 'text-[10px] font-mono text-[#58baff]';
             lvlSpan.textContent = `Lv ${l}`;
 
             const nameSpan = document.createElement('span');
-            nameSpan.className = 'text-[10px] text-center text-slate-100 truncate max-w-20';
+            nameSpan.className = 'text-[10px] text-center text-[#e6ecff] truncate max-w-20';
             nameSpan.title = t.name || '';
             nameSpan.textContent = t.name || '';
 
             el.append(talentImg, lvlSpan, nameSpan);
         } else {
-            el.innerHTML = `<span class="text-[10px] text-violet-300/60">Lv ${l} · none</span>`;
+            el.innerHTML = `<span class="text-[10px] text-[#8c83a2]">Lv ${l} · none</span>`;
         }
 
         frag.appendChild(el);
@@ -349,10 +386,10 @@ function renderActiveBuild() {
     d.builds.forEach((v, i) => {
         const b = document.createElement('button');
         b.type = 'button';
-        b.className = `px-3.5 py-1.5 rounded-sm text-xs font-bold uppercase tracking-wider border cursor-pointer ${
+        b.className = `px-3.5 py-1.5 rounded-[2px] text-xs font-bold uppercase tracking-wider border cursor-pointer transition ${
             i === currentBuildIndex
-                ? 'bg-amber-500/20 text-amber-300 border-amber-400/55'
-                : 'bg-[#090417] text-violet-200/75 border-[#321a6e] hover:border-cyan-400/50'
+                ? 'bg-[#1a2956]/80 text-[#cbe8ff] border-[#58baff]/75 shadow-[0_0_12px_rgba(0,156,255,0.25)]'
+                : 'hots-subpanel text-[#9cb6ff]/80 border-[#38247a] hover:border-[#58baff]/55 hover:text-[#e6ecff]'
         }`;
         b.innerText = `Build ${i + 1}: ${v.buildName || 'Unnamed'}`;
         b.addEventListener('click', () => {
