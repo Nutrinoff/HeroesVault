@@ -1,33 +1,40 @@
 {
   "id": "volskafoundry",
   "name": "Volskaya Foundry",
-  "theme": "Giant Protector Mech Control",
+  "theme": "Capture Control Points to summon and pilot a two-seat Triglav Protector mech.",
   "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/storm_ui_homescreenbackground_volskaya.png",
+  "firstObjective": "Warning at 2:00, spawns at 2:30 (~2:00 cooldown after the Triglav Protector is destroyed or expires)",
+  "spawnPattern": "3 fixed Control Points (Top, Mid & Bottom); rotates across points in a set cycle",
+  "lanes": "3 Lanes (Top, Mid & Bottom)",
+  "bosses": "None",
   "mechanic": {
     "title": "Control Points & Triglav Protector",
-    "description": "One of three Control Points (Top, Mid, or Bot) activates periodically (first warning at 2:00, spawns at 2:30; 2:00 cooldown after a Protector is destroyed or expires). Teams capture the point by standing inside without enemies present until progress reaches 100%, triggering Overtime if contested at 99%. Winning spawns a two-player Triglav Protector mech—piloted by a Driver (melee/charge/shields) and a Gunner (long-range lasers/gatling/mortars)—that scales in power over the match."
+    "description": "Stand uncontested inside the active Control Point to charge capture progress to 100%, entering Overtime if contested near completion. The winning team summons a two-seat Triglav Protector mech—split between a Driver (handling movement, melee attacks, charges, and defensive shields) and a Gunner (operating long-range weapons and artillery)—that scales in strength over the match."
   },
   "camps": [
     {
-      "name": "Support Camp / Biotic Emitter (2 Camps)",
-      "timing": "Spawns at 1:00 (2:30 respawn)",
-      "notes": "Located near top-left and bottom-right. Drops a deployable Biotic Emitter item that creates a large AoE healing zone for allied heroes—invaluable during prolonged Control Point fights."
+      "name": "Support Camp / Healing Pulse (2 Camps)",
+      "timing": "Spawns at 0:30 (2:30 respawn)",
+      "notes": "Located in the upper and lower jungle areas. Drops a collectible Healing Pulse item that creates a large AoE healing zone for nearby allies during prolonged point contests."
     },
     {
       "name": "Fortification Camp / Turret (2 Camps)",
-      "timing": "Spawns at 1:00 (2:30 respawn)",
-      "notes": "Located in the top-mid and bottom-mid alcoves. Drops a deployable Turret item that fires automatically at nearby enemies and structures."
+      "timing": "Spawns at 0:30 (2:30 respawn)",
+      "notes": "Located in the side alcoves. Drops a collectible Turret item that fires automatically at nearby enemies and structures."
     },
     {
       "name": "Siege / Rocket Troopers (2 Camps)",
-      "timing": "Spawns at 1:00 (3:00 respawn)",
-      "notes": "Located in the upper and lower side paths. Fires long-range rockets down lanes; easy to clear right before Control Points activate."
-    },
-    {
-      "name": "Bruisers / Goliaths (1 Central Camp)",
-      "timing": "Spawns at 1:00 (4:00 respawn)",
-      "notes": "Located in the dead center below the Mid point. Heavy melee/ranged mercenaries that push mid lane aggressively."
+      "timing": "Spawns at 0:30 (3:00 respawn)",
+      "notes": "Located in the outer lanes. Fires long-range rockets down lanes; easy to clear ahead of Control Point activations."
     }
   ],
-  "strategy": "Volskaya Foundry has no Boss camp and revolves around sustained teamfights over conveyor-belt Control Points that frequently stretch into lengthy Overtimes. Heroes with strong zone control, poke, and sustain (such as Junkrat, Chromie, Blaze, and Lucio) excel here. Always grab the Support (Healing Pulse) and Turret camps right before an objective spawns so you can drop them directly onto the point during a contest, and put your tank or melee bruiser in the Triglav Driver seat while a ranged assassin or support mans the Gunner turret."
+  "strategy": "Volskaya Foundry has no Boss camp and revolves around sustained teamfights over Control Points and conveyor-belt rotations that often stretch into Overtime. Heroes with strong zone control, poke, and sustain (such as Junkrat, Chromie, Blaze, and Lucio) excel here; grab Healing Pulse and Turret camps right before objectives spawn to drop them on the point, and put a durable frontline hero in the Driver seat while a ranged damage dealer or support takes the Gunner seat.",
+  "notes": "Conveyor belts speed up movement along their direction and can catch unwary heroes during teamfights or escapes—use them to rotate faster between lanes and objectives, and coordinate Driver positioning with Gunner targeting so the Triglav Protector stays safe while sieging.",
+  "goldenHeroes": [
+    "junkrat",
+    "chromie",
+    "blaze",
+    "lucio",
+    "johanna"
+  ]
 }
