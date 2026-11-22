@@ -5,7 +5,7 @@
 
 const TOOLTIP_CURSOR_GAP = 16;
 const TOOLTIP_VIEWPORT_MARGIN = 8;
-const TOOLTIP_ICON_FALLBACK = 'https://via.placeholder.com/44?text=?';
+const TOOLTIP_ICON_FALLBACK = 'https://via.placeholder.com/48?text=?';
 
 function positionTooltip(clientX, clientY) {
     const tip = document.getElementById('talent-tooltip');
@@ -31,21 +31,44 @@ function positionTooltip(clientX, clientY) {
     tip.style.top = `${top}px`;
 }
 
+function formatTooltipDetailsLine(item) {
+    if (!item || typeof item !== 'object') return '';
+    const parts = [];
+    if (item.cooldown != null && String(item.cooldown).trim() !== '') {
+        parts.push(`Cooldown: ${String(item.cooldown).trim()}`);
+    }
+    if (item.mana != null && String(item.mana).trim() !== '') {
+        parts.push(`Mana: ${String(item.mana).trim()}`);
+    } else if (item.cost != null && String(item.cost).trim() !== '') {
+        parts.push(`Cost: ${String(item.cost).trim()}`);
+    }
+    return parts.join(' · ');
+}
+
 function showAbilityTooltip(e, a) {
-    showTooltip(e, a.name, `Ability [${a.key}]${a.variant ? ' · ' + a.variant : ''}`, a.desc, a.icon);
+    const meta = `Ability [${a.key}]${a.variant ? ' · ' + a.variant : ''}`;
+    showTooltip(e, a.name, meta, a.desc, a.icon, formatTooltipDetailsLine(a));
 }
 
 function showTalentTooltip(e, t, l) {
-    showTooltip(e, t.name, `Level ${l} Talent`, t.fullText || t.shortText || t.description || '', t.icon);
+    showTooltip(
+        e,
+        t.name,
+        `Level ${l} Talent`,
+        t.fullText || t.shortText || t.description || '',
+        t.icon,
+        formatTooltipDetailsLine(t)
+    );
 }
 
-function showTooltip(e, name, level, description, icon) {
+function showTooltip(e, name, level, description, icon, details = '') {
     const tip = document.getElementById('talent-tooltip');
     if (!tip) return;
 
     const tipIcon = document.getElementById('tip-icon');
     const tipName = document.getElementById('tip-name');
     const tipLevel = document.getElementById('tip-level');
+    const tipCooldown = document.getElementById('tip-cooldown');
     const tipDesc = document.getElementById('tip-desc');
 
     if (tipIcon) {
@@ -65,14 +88,31 @@ function showTooltip(e, name, level, description, icon) {
         tipIcon.src = resolvedIcon;
     }
 
-    if (tipName) tipName.innerText = name || '';
-    if (tipLevel) tipLevel.innerText = level;
-    if (tipDesc) tipDesc.innerHTML = typeof formatGameText === 'function'
-        ? (formatGameText(description) || 'No description available.')
-        : (description || 'No description available.');
+    if (tipName) {
+        tipName.innerText = name || '';
+        tipName.classList.toggle('hidden', !name);
+    }
+
+    if (tipLevel) {
+        tipLevel.innerText = level || '';
+        tipLevel.classList.toggle('hidden', !level);
+    }
+
+    if (tipCooldown) {
+        tipCooldown.innerText = details || '';
+        tipCooldown.classList.toggle('hidden', !details);
+    }
+
+    if (tipDesc) {
+        tipDesc.innerHTML = typeof formatGameText === 'function'
+            ? (formatGameText(description) || 'No description available.')
+            : (description || 'No description available.');
+    }
 
     tip.classList.remove('hidden');
-    positionTooltip(e.clientX, e.clientY);
+    if (e && typeof e.clientX === 'number' && typeof e.clientY === 'number') {
+        positionTooltip(e.clientX, e.clientY);
+    }
 }
 
 function hideTooltip() {
