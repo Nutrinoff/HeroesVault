@@ -3,21 +3,33 @@
   "name": "Braxis Holdout",
   "theme": "Capture and hold the beacons to power up the Zerg swarm and unleash a devastating wave against the enemy.",
   "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/storm_ui_homescreenbackground_braxisholdout.png",
+  "firstObjective": "Warning at 1:45, spawns at 2:15 (~1:45 cooldown after waves finish)",
+  "spawnPattern": "Two beacons always activate simultaneously (Top & Bottom lanes)",
+  "lanes": "2 Lanes (Top & Bottom)",
+  "bosses": "None",
   "mechanic": {
     "title": "Beacon Control & Zerg Swarm",
-    "description": "Two beacons (Top and Bottom) activate periodically (first warning at 1:45, spawns at 2:15). Controlling a beacon fills your team's Zerg wave meter up to 100%. Once captured to maximum or when time expires, a Zerg wave containing Zerglings, Banelings, Guardians, and Ultralisks marches down the lanes to crush enemy structures."
+    "description": "Capturing and holding the Top and Bottom beacons charges your team's Zerg wave meter up to 100%, with faster fill rates when holding both points. Once a team reaches 100% or the objective phase ends, a Zerg wave scaled to each team's charge—composed of Zerglings, Banelings, Guardians, and Ultralisks—launches down both lanes to siege enemy structures."
   },
   "camps": [
     {
       "name": "Goliath / Medic Camp (2 Camps)",
-      "timing": "Spawns at 1:00 (3:00 respawn)",
-      "notes": "Located in the safe side pathways. Features a ranged Goliath and a Healing Medic that keeps lane units alive."
+      "timing": "Spawns at 0:30 (3:00 respawn)",
+      "notes": "Located in the side lanes/alcoves. Pairs a ranged Goliath with a Healing Medic that keeps lane minions and mercs sustained during pushes."
     },
     {
       "name": "Razorgill / Bruiser Camp (2 Camps)",
-      "timing": "Spawns at 1:00 (4:00 respawn)",
-      "notes": "Heavy melee mercenaries with physical/spell armor traits that demand attention or shred structures."
+      "timing": "Spawns at 0:30 (4:00 respawn)",
+      "notes": "Heavy melee Razorgill bruisers with armor/damage traits that apply steady lane pressure and punish unguarded lanes."
     }
   ],
-  "strategy": "Braxis Holdout is a hyper-punitive two-lane map where solo lane control and 4-man rotation efficiency decide the entire game. Strong solo laners (like Rexxar, Malthael, or Sonya) are essential for holding top or bottom beacons independently. Always clear camps right before beacon phases so your lanes push passively while your team splits or groups to fight for control of the points."
+  "strategy": "Braxis Holdout is a two-lane map where solo-lane beacon control and 4-man rotation timing heavily swing Zerg wave percentages. Strong solo laners (such as Rexxar, Malthael, or Sonya) help hold or contest a beacon independently while the 4-man rotates, trades, or captures camps right before beacons activate so lane pressure supports your push.",
+  "notes": "Because there are only two lanes and no Boss camp, losing a beacon phase with a high Zerg percentage can snowball structures quickly—defending big Zerg waves efficiently with AoE waveclear and focusing Guardians/Ultralisks/Banelings is critical when behind on objective charge.",
+  "goldenHeroes": [
+    "rexxar",
+    "malthael",
+    "sonya",
+    "johanna",
+    "valla"
+  ]
 }
