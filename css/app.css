@@ -100,9 +100,28 @@
 }
 
 .hots-nav-rail {
+  position: relative;
   background: transparent;
   border: none;
   box-shadow: none;
+}
+
+.hots-nav-rail::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -10px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(138, 92, 246, 0.28) 15%,
+    rgba(157, 144, 255, 0.42) 50%,
+    rgba(138, 92, 246, 0.28) 85%,
+    transparent 100%
+  );
+  pointer-events: none;
 }
 
 .hots-footer {
@@ -309,40 +328,49 @@
   border: none !important;
   box-shadow: none !important;
   text-shadow:
-    0 0 7px rgba(203, 232, 255, 0.85),
-    0 0 20px rgba(0, 99, 200, 0.72);
+    0 0 8px rgba(203, 232, 255, 0.88),
+    0 0 22px rgba(0, 99, 200, 0.72);
 }
 
 .nav-active i,
 .nav-active svg {
-  filter: drop-shadow(0 0 7px rgba(0, 156, 255, 0.82));
+  filter: drop-shadow(0 0 7px rgba(0, 156, 255, 0.85));
 }
 
-/* Combines UnderlineImage (bottom emission line) + GlowImage (cyan/blue bloom) */
+/* Bright point on the bottom line + glow spilling up & slightly down */
 .nav-active::after {
   content: "";
   position: absolute;
-  left: -10%;
-  right: -8%;
-  bottom: -5px;
-  height: 20px;
+  left: -18%;
+  right: -18%;
+  bottom: -21px;
+  height: 22px;
+  pointer-events: none;
   background:
     linear-gradient(
       90deg,
-      transparent 0%,
-      rgba(88, 186, 255, 0.55) 20%,
-      rgba(255, 255, 255, 0.98) 50%,
-      rgba(88, 186, 255, 0.55) 80%,
-      transparent 100%
-    ) 50% 76% / 100% 1.5px no-repeat,
+      transparent 4%,
+      rgba(138, 92, 246, 0.35) 20%,
+      rgba(125, 211, 252, 0.85) 38%,
+      #ffffff 50%,
+      rgba(125, 211, 252, 0.85) 62%,
+      rgba(138, 92, 246, 0.35) 80%,
+      transparent 96%
+    ),
     radial-gradient(
-      ellipse 62% 72% at 52% 74%,
-      rgba(0, 156, 255, 0.68) 0%,
-      rgba(0, 99, 200, 0.34) 52%,
-      transparent 82%
+      ellipse 42% 85% at 50% 54%,
+      rgba(88, 186, 255, 0.58) 0%,
+      rgba(109, 40, 217, 0.36) 45%,
+      rgba(0, 99, 200, 0.14) 72%,
+      transparent 100%
     );
-  filter: blur(2.5px);
-  pointer-events: none;
+  background-repeat: no-repeat;
+  background-size:
+    100% 2px,
+    100% 100%;
+  background-position:
+    center 10px,
+    center center;
 }
 
 /* Frameless HotS Filter Tabs (ALL / BASIC / ADVANCED, All / Live / PTR & Academy Categories) */
