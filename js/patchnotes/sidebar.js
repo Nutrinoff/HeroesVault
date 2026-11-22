@@ -30,7 +30,12 @@ const LEGACY_FILTER_CLASSES = [
 ];
 
 const SELECTED_CARD_CLASSES = ['bg-sky-500/15', 'border-sky-500/70'];
-const UNSELECTED_CARD_CLASSES = ['border-slate-800/90', 'bg-slate-950/50', 'hover:bg-slate-800/70', 'hover:border-slate-700'];
+const UNSELECTED_CARD_CLASSES = [
+    'border-slate-800/90',
+    'bg-slate-950/50',
+    'hover:bg-slate-800/70',
+    'hover:border-slate-700'
+];
 
 function getCurrentPatchFilter() {
     if (typeof patchState !== 'undefined' && patchState?.filter) {
@@ -61,9 +66,56 @@ function syncFilterButtonStates() {
     });
 }
 
+function clearPatchDeepLinkFromLocation() {
+    if (typeof patchState !== 'undefined' && patchState) {
+        patchState.pendingDeepLink = null;
+        patchState.selectedId = null;
+    }
+
+    try {
+        const url = new URL(window.location.href);
+        let changed = false;
+
+        ['patch', 'patchId', 'id'].forEach(key => {
+            if (url.searchParams.has(key)) {
+                url.searchParams.delete(key);
+                changed = true;
+            }
+        });
+
+        if (url.hash && url.hash.startsWith('#patchnotes')) {
+            const qIndex = url.hash.indexOf('?');
+            if (qIndex !== -1) {
+                const hashParams = new URLSearchParams(url.hash.slice(qIndex + 1));
+                ['patch', 'patchId', 'id'].forEach(key => {
+                    if (hashParams.has(key)) {
+                        hashParams.delete(key);
+                        changed = true;
+                    }
+                });
+                const nextQuery = hashParams.toString();
+                url.hash = nextQuery ? `#patchnotes?${nextQuery}` : '#patchnotes';
+                changed = true;
+            }
+        }
+
+        if (changed && typeof window.history?.replaceState === 'function') {
+            window.history.replaceState(null, '', url.toString());
+        }
+    } catch (_) {
+        // Ignore URL manipulation errors in restricted contexts
+    }
+}
+
 function setPatchFilter(filterType) {
     const raw = String(filterType || '').toLowerCase();
     const normalized = ['all', 'live', 'ptr'].includes(raw) ? raw : 'all';
+
+    if (typeof patchState !== 'undefined' && patchState) {
+        patchState.manualFilterLock = true;
+    }
+
+    clearPatchDeepLinkFromLocation();
 
     if (typeof patchState !== 'undefined' && patchState) {
         patchState.filter = normalized;
