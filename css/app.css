@@ -27,7 +27,7 @@
   background: #5831bd;
 }
 
-/* Keyboard accessibility focus indicators */
+/* Keyboard accessibility focus indicators. */
 :where(a[href], button:not(:disabled), input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex]:not([tabindex="-1"])):focus-visible {
   outline: 2px solid var(--hots-cyan);
   outline-offset: 2px;
