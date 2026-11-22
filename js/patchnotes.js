@@ -284,6 +284,26 @@ function isLevelHeader(text) {
     return /^level\s+\d+$/i.test(String(text || '').trim());
 }
 
+function isHeroSubheading(text, nextText, currentMajor) {
+    const clean = String(text || '').trim();
+    if (!clean || clean.length > 35 || /[.!?:]/.test(clean)) return false;
+    if (/\b(increased|reduced|decreased|added|removed|fixed|updated)\b/i.test(clean)) return false;
+
+    const inHeroContext =
+        currentMajor === 'heroes' ||
+        currentMajor === 'balance update' ||
+        currentMajor === 'bug fixes';
+
+    if (!inHeroContext) return false;
+
+    const nextClean = String(nextText || '').trim().toLowerCase();
+    return (
+        SUB_CATEGORY_TITLES.has(nextClean) ||
+        isLevelHeader(nextClean) ||
+        /^(fixed an issue|updated|adjusted|increased|reduced|decreased|added|removed)\b/i.test(nextClean)
+    );
+}
+
 function isAbilityOrTalentHeader(text, nextText) {
     const clean = String(text || '').trim().replace(/:$/, '');
     if (!clean || clean.length > 65) return false;
@@ -294,17 +314,14 @@ function isAbilityOrTalentHeader(text, nextText) {
         return false;
     }
 
-    // Matches ability hotkeys like "Shadow Mark [Q]" or "Void Eruption [R]"
     if (/\[[QWERD1-6]\]\s*$/i.test(clean)) {
         return true;
     }
 
-    // Avoid treating change statements as item headings
     if (/\b(increased|reduced|decreased|added|removed|fixed|updated|now provides|cooldown|mana cost|damage|healing)\b/i.test(clean)) {
         return false;
     }
 
-    // Short title followed by non-empty note content
     return Boolean(nextText && !/^={2,}/.test(nextText) && !/^\[[^\]]+\]$/.test(nextText));
 }
 
@@ -314,6 +331,7 @@ function normalizeBlizzlikePatchText(rawText) {
     const rawLines = String(rawText).replace(/\r\n/g, '\n').split('\n');
     const normalized = [];
     let inQuickNav = false;
+    let currentMajor = '';
 
     for (let i = 0; i < rawLines.length; i++) {
         const line = rawLines[i];
@@ -336,22 +354,34 @@ function normalizeBlizzlikePatchText(rawText) {
 
         if (inQuickNav) continue;
 
-        // Already formatted major or bracket headers
-        if (/^={2,}\s*.+?\s*={2,}$/.test(trimmed) || /^\[[^\]]+\]$/.test(trimmed)) {
+        if (/^={2,}\s*.+?\s*={2,}$/.test(trimmed)) {
+            const inner = trimmed.replace(/^={2,}\s*|\s*={2,}$/g, '').trim();
+            if (/^heroes:\s*(.+)$/i.test(inner)) {
+                currentMajor = 'heroes';
+            } else if (/^new hero:\s*(.+)$/i.test(inner)) {
+                currentMajor = 'new hero';
+            } else {
+                currentMajor = inner.toLowerCase();
+            }
             normalized.push(trimmed);
             continue;
         }
 
-        // "New Hero: Xal'atath" -> "== New Hero: Xal'atath =="
+        if (/^\[[^\]]+\]$/.test(trimmed)) {
+            normalized.push(trimmed);
+            continue;
+        }
+
         const newHeroMatch = trimmed.match(/^new hero:\s*(.+)$/i);
         if (newHeroMatch) {
+            currentMajor = 'new hero';
             normalized.push(`== New Hero: ${newHeroMatch[1].trim()} ==`);
             continue;
         }
 
-        // "Battlegrounds: Garden of Terror" -> "== Map Updates ==" + "[Garden of Terror]"
         const battlegroundMatch = trimmed.match(/^battlegrounds:\s*(.+)$/i);
         if (battlegroundMatch) {
+            currentMajor = 'map updates';
             normalized.push('== Map Updates ==');
             normalized.push(`[${battlegroundMatch[1].trim()}]`);
             continue;
@@ -359,6 +389,7 @@ function normalizeBlizzlikePatchText(rawText) {
 
         const lower = trimmed.toLowerCase();
         if (MAJOR_SECTION_TITLES.has(lower)) {
+            currentMajor = lower;
             normalized.push(`== ${trimmed} ==`);
             continue;
         }
@@ -368,7 +399,6 @@ function normalizeBlizzlikePatchText(rawText) {
             continue;
         }
 
-        // Preserve existing bullet indentation
         const existingBullet = line.match(/^(\s*)(?:•|[-*])\s+(.*)$/);
         if (existingBullet) {
             const spaces = existingBullet[1].replace(/\t/g, '  ').length;
@@ -386,6 +416,11 @@ function normalizeBlizzlikePatchText(rawText) {
             }
         }
 
+        if (isHeroSubheading(trimmed, nextTrimmed, currentMajor)) {
+            normalized.push(`== Heroes: ${trimmed} ==`);
+            continue;
+        }
+
         if (isAbilityOrTalentHeader(trimmed, nextTrimmed)) {
             normalized.push(`- ${trimmed}`);
         } else {
@@ -399,25 +434,21 @@ function normalizeBlizzlikePatchText(rawText) {
 function formatBlizzLine(text) {
     let safe = escapeHtml(text);
 
-    // Highlight [Undocumented] markers cleanly
     safe = safe.replace(
         /\[Undocumented\]/gi,
         '<span class="inline-flex items-center px-1.5 py-0.5 mr-1 text-[10px] font-mono font-semibold uppercase tracking-wide rounded bg-amber-500/15 text-amber-300 border border-amber-500/30">Undocumented</span>'
     );
 
-    // Render ~~old value~~ strikethrough diffs
     safe = safe.replace(
         /~~(.+?)~~/g,
         '<del class="text-slate-500 line-through decoration-rose-400/70">$1</del>'
     );
 
-    // Highlight ability hotkey tags like [Q], [W], [E], [R], [D]
     safe = safe.replace(
         /\[([QWERD1-6])\]/g,
         '<span class="inline-block px-1 py-0.2 mx-0.5 text-[11px] font-mono font-bold rounded bg-sky-500/15 text-sky-300 border border-sky-500/30">[$1]</span>'
     );
 
-    // Bold leading labels such as "Quest:", "Reward (20 Stacks):", "Mythic Reward (100 Stacks):"
     safe = safe.replace(
         /^([A-Za-z0-9'’().\- /+\[\]]{2,55}):(\s|$)/,
         '<strong class="font-semibold text-white">$1:</strong>$2'
@@ -498,7 +529,6 @@ function formatBlizzlikePatchNotesHtml(rawText) {
             continue;
         }
 
-        // Major section headings: == General ==, == Balance Update ==, == New Hero: Xal'atath ==, == Heroes: Abathur ==
         const majorMatch = trimmed.match(/^={2,}\s*(.+?)\s*={2,}$/);
         if (majorMatch) {
             flushList();
@@ -529,24 +559,16 @@ function formatBlizzlikePatchNotesHtml(rawText) {
             continue;
         }
 
-        // Sub-category or Level headings: [Base], [Talents], [Level 1], [Garden of Terror]
         const bracketMatch = trimmed.match(/^\[([^\]]+)\]\s*$/);
         if (bracketMatch) {
             flushList();
             const label = bracketMatch[1].trim();
-            if (isLevelHeader(label)) {
-                htmlParts.push(
-                    `<h5 class="text-xs font-mono font-bold uppercase tracking-wider text-sky-300/90 pt-2.5 pb-0.5">${escapeHtml(label)}</h5>`
-                );
-            } else {
-                htmlParts.push(
-                    `<h4 class="text-base font-bold text-slate-100 pt-3.5 pb-0.5">${escapeHtml(label)}</h4>`
-                );
-            }
+            htmlParts.push(
+                `<h4 class="text-base font-bold text-slate-100 pt-3.5 pb-0.5">${escapeHtml(label)}</h4>`
+            );
             continue;
         }
 
-        // Bulleted items with depth support
         const bulletMatch = line.match(/^(\s*)(?:•|[-*])\s+(.*)$/);
         if (bulletMatch) {
             const spaces = bulletMatch[1].replace(/\t/g, '  ').length;
@@ -555,7 +577,6 @@ function formatBlizzlikePatchNotesHtml(rawText) {
             continue;
         }
 
-        // Standalone subheading fallback
         const cleanSubheading = trimmed.replace(/:$/, '');
         const isStandaloneSubheading =
             cleanSubheading.length <= 48 &&
