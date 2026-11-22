@@ -93,34 +93,54 @@ async function loadInitialData() {
 // 3. FEATURE & ROUTER BOOTSTRAP
 // ==========================================
 
+function runFeatureSafe(label, fn) {
+    try {
+        fn();
+    } catch (err) {
+        console.error(`[HeroesVault] ${label} failed:`, err);
+    }
+}
+
 function initializeFeatures() {
-    if (typeof initializeTooltips === 'function') {
-        initializeTooltips();
-    }
+    runFeatureSafe('initializeTooltips', () => {
+        if (typeof initializeTooltips === 'function') {
+            initializeTooltips();
+        }
+    });
 
-    if (typeof renderHeroSidebar === 'function') {
-        renderHeroSidebar(MASTER_HERO_LIST);
-    }
+    runFeatureSafe('renderHeroSidebar', () => {
+        if (typeof renderHeroSidebar === 'function') {
+            renderHeroSidebar(MASTER_HERO_LIST);
+        }
+    });
 
-    if (typeof renderTierList === 'function') {
-        renderTierList();
-    }
+    runFeatureSafe('renderTierList', () => {
+        if (typeof renderTierList === 'function') {
+            renderTierList();
+        }
+    });
 
-    syncHomeSummaryCounts();
+    runFeatureSafe('syncHomeSummaryCounts', syncHomeSummaryCounts);
 
-    if (typeof loadAndRenderRotation === 'function') {
-        loadAndRenderRotation();
-    }
+    runFeatureSafe('loadAndRenderRotation', () => {
+        if (typeof loadAndRenderRotation === 'function') {
+            loadAndRenderRotation();
+        }
+    });
 
-    if (typeof initPatchNotes === 'function') {
-        initPatchNotes({ hydrateHome: true });
-    } else if (typeof initPatchFilterControls === 'function') {
-        initPatchFilterControls();
-    }
+    runFeatureSafe('initPatchNotes', () => {
+        if (typeof initPatchNotes === 'function') {
+            initPatchNotes({ hydrateHome: true });
+        } else if (typeof initPatchFilterControls === 'function') {
+            initPatchFilterControls();
+        }
+    });
 
-    if (window.lucide) {
-        lucide.createIcons();
-    }
+    runFeatureSafe('lucide.createIcons', () => {
+        if (window.lucide) {
+            lucide.createIcons();
+        }
+    });
 
     document.addEventListener('click', e => {
         if (!e.target.closest('#maps-dropdown-menu') && !e.target.closest('#maps-dropdown-toggle')) {
