@@ -2,8 +2,19 @@
 // 1. BUILDER STATE & NAVIGATION
 // ==========================================
 
-const ACTIVE_TALENT_CLASSES = ['border-amber-400', 'shadow-lg', 'scale-105'];
-const INACTIVE_TALENT_CLASSES = ['border-slate-700', 'hover:border-slate-400', 'opacity-75', 'hover:opacity-100'];
+const ACTIVE_TALENT_CLASSES = [
+    'border-[#58baff]',
+    'ring-1',
+    'ring-[#cbe8ff]/55',
+    'shadow-[0_0_14px_rgba(0,156,255,0.42)]',
+    'opacity-100'
+];
+const INACTIVE_TALENT_CLASSES = [
+    'border-[#38247a]',
+    'hover:border-[#5c42b8]',
+    'opacity-70',
+    'hover:opacity-100'
+];
 const TALENT_ICON_FALLBACK = 'https://via.placeholder.com/48?text=?';
 
 function getBuilderSelectedTalentObjects() {
@@ -93,6 +104,7 @@ function updateBuilderMatrixSelection() {
 
         btn.classList.remove(...ACTIVE_TALENT_CLASSES, ...INACTIVE_TALENT_CLASSES);
         btn.classList.add(...(isSelected ? ACTIVE_TALENT_CLASSES : INACTIVE_TALENT_CLASSES));
+        btn.setAttribute('aria-pressed', String(isSelected));
     });
 }
 
@@ -120,7 +132,11 @@ function renderBuilderMatrix() {
     TALENT_TIERS.forEach((l, idx) => {
         const row = document.createElement('div');
         row.className = 'flex items-center gap-3';
-        row.innerHTML = `<div class="w-12 h-12 shrink-0 flex items-center justify-center rounded-2xl bg-gradient-to-b from-purple-600 to-indigo-900 border-2 border-purple-400/80 font-black">${l}</div>`;
+        row.innerHTML = `
+            <div class="hots-subpanel w-12 h-12 shrink-0 flex items-center justify-center rounded-[2px] border border-[#3d2882] font-mono text-sm font-bold text-[#9cb6ff] select-none">
+                ${l}
+            </div>
+        `;
 
         const choices = document.createElement('div');
         choices.className = 'flex flex-wrap gap-2.5 items-center';
@@ -133,7 +149,8 @@ function renderBuilderMatrix() {
             b.type = 'button';
             b.dataset.tierIdx = String(idx);
             b.dataset.choiceNum = String(n);
-            b.className = `w-12 h-12 rounded-xl border-2 overflow-hidden bg-slate-950 transition-all ${
+            b.setAttribute('aria-pressed', String(isSelected));
+            b.className = `hots-talent-slot w-12 h-12 rounded-[2px] border overflow-hidden bg-[#070412] transition-[border-color,box-shadow,opacity] duration-150 cursor-pointer ${
                 (isSelected ? ACTIVE_TALENT_CLASSES : INACTIVE_TALENT_CLASSES).join(' ')
             }`;
 
@@ -218,11 +235,11 @@ function flashCopyButtonState(btn, copiedText) {
 
     clearTimeout(btn._copyResetTimer);
     btn.textContent = copiedText;
-    btn.classList.add('ring-2', 'ring-cyan-300/70');
+    btn.classList.add('ring-2', 'ring-[#58baff]/75');
 
     btn._copyResetTimer = setTimeout(() => {
         btn.innerHTML = btn.dataset.originalHtml;
-        btn.classList.remove('ring-2', 'ring-cyan-300/70');
+        btn.classList.remove('ring-2', 'ring-[#58baff]/75');
     }, 1600);
 }
 
