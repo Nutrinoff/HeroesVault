@@ -17,13 +17,6 @@ let builderHeroData = null;
 let builderSelectedTalents = [1, 1, 1, 1, 1, 1, 1];
 
 const HERO_DATA_CACHE = new Map();
-const PRELOADED_HERO_KEYS = new Set();
-const pendingVisibleHeroIds = new Set();
-
-let heroSearchPreloadTimer = null;
-let heroListObserver = null;
-let heroScrollIdleTimer = null;
-let isHeroListScrolling = false;
 
 
 // ==========================================
@@ -33,13 +26,9 @@ let isHeroListScrolling = false;
 function resetBuilderState(heroId = null, selections = null) {
     builderHeroId = heroId;
     builderHeroData = null;
-    builderSelectedTalents = Array.isArray(selections) && selections.length === 7
-        ? selections.map(choice => Number(choice) || 1)
-        : [1, 1, 1, 1, 1, 1, 1];
+    builderSelectedTalents = normalizeTalentSelections(selections);
 }
 
-function clearHeroCaches() {
+function clearHeroDataCache() {
     HERO_DATA_CACHE.clear();
-    PRELOADED_HERO_KEYS.clear();
-    pendingVisibleHeroIds.clear();
 }
