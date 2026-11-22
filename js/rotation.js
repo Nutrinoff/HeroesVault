@@ -114,9 +114,19 @@ function pickActiveScheduleEntry(list, now) {
     return null;
 }
 
+function getDirectRosterAndMasterData() {
+    var roster = typeof MASTER_HERO_LIST !== 'undefined' ? MASTER_HERO_LIST : [];
+    var masterData = typeof HOTS_MASTER_DATA !== 'undefined' ? HOTS_MASTER_DATA : null;
+    return {
+        roster: Array.isArray(roster) ? roster : [],
+        masterData: masterData
+    };
+}
+
 function collectMasterHeroRecords() {
     var records = [];
     var seen = new Set();
+    var globals = getDirectRosterAndMasterData();
 
     function addRecord(record, explicitKey) {
         if (!record || typeof record !== 'object') return;
@@ -146,13 +156,11 @@ function collectMasterHeroRecords() {
         });
     }
 
-    if (Array.isArray(window.MASTER_HERO_LIST)) {
-        for (var i = 0; i < window.MASTER_HERO_LIST.length; i++) {
-            addRecord(window.MASTER_HERO_LIST[i], '');
-        }
+    for (var i = 0; i < globals.roster.length; i++) {
+        addRecord(globals.roster[i], '');
     }
 
-    var masterRoot = window.HOTS_MASTER_DATA;
+    var masterRoot = globals.masterData;
     var source = (masterRoot && typeof masterRoot === 'object' && masterRoot.items)
         ? masterRoot.items
         : masterRoot;
@@ -173,6 +181,7 @@ function collectMasterHeroRecords() {
 }
 
 function buildCanonicalHeroIndex() {
+    var globals = getDirectRosterAndMasterData();
     var byKey = new Map();
     var records = collectMasterHeroRecords();
 
@@ -202,7 +211,12 @@ function buildCanonicalHeroIndex() {
         }
     }
 
-    return { byKey: byKey, records: records };
+    return {
+        byKey: byKey,
+        records: records,
+        roster: globals.roster,
+        masterData: globals.masterData
+    };
 }
 
 function findCrossReferenceMatch(rawCandidates, normalizedCandidates, records) {
@@ -254,7 +268,6 @@ function findCrossReferenceMatch(rawCandidates, normalizedCandidates, records) {
 
         var score = 0;
 
-        // 1. Substring / prefix containment across normalized slugs
         for (var c = 0; c < normalizedCandidates.length; c++) {
             var candSlug = normalizedCandidates[c];
             if (!candSlug || candSlug.length < 3) continue;
@@ -277,7 +290,6 @@ function findCrossReferenceMatch(rawCandidates, normalizedCandidates, records) {
             }
         }
 
-        // 2. Token / word variation matching (e.g. "Deckard Cain" <-> "Deckard")
         for (var q = 0; q < queryTokens.length; q++) {
             var qTok = queryTokens[q];
 
