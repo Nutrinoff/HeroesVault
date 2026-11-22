@@ -1,28 +1,40 @@
 {
   "id": "skytemple",
   "name": "Sky Temple",
-  "theme": "Egyptian Shrine Lasers",
+  "theme": "Capture active Temples to fire laser barrages at enemy structures while defending against Temple Guardians.",
   "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/ui_ingame_mapmechanic_loadscreen_skytemple.png",
+  "firstObjective": "Warning at 2:30, spawns at 3:00 (~2:00 cooldown after a Temple phase ends)",
+  "spawnPattern": "3 fixed Temples (Top, Mid & Bottom): 1st phase activates Top & Mid together, 2nd phase activates Bottom alone, then cycles in set patterns",
+  "lanes": "3 Lanes (Top, Mid & Bottom)",
+  "bosses": "1 Sand Golem (Bottom-Mid)",
   "mechanic": {
     "title": "Temple Control & Laser Bombardment",
-    "description": "Ancient Temples (Top, Mid, and Bot) activate in phases (first warning at 2:30, spawns at 3:00; 2:00 cooldown after a phase ends). Standing on an active Temple pad activates its beam to fire automatic energy shots at enemy structures—prioritizing the closest outer lane—while spawning Temple Guardians that attack occupants. Each Temple fires up to 45 shots total (including a final 5-shot burst) before deactivating."
+    "description": "Stand inside an active Temple circle to charge its laser and fire beams at nearby enemy structures while periodically spawning Temple Guardians that attack Heroes standing on the pad. Each Temple can fire up to a fixed shot budget (including a final multi-shot burst) before deactivating or running out of shots."
   },
   "camps": [
     {
       "name": "Siege Giants (2 Camps)",
-      "timing": "Spawns at 1:00 (3:00 respawn)",
-      "notes": "Located in the mid-left and bottom-right areas. Long-range boulder throwers; easy to take early and ideal for pushing bottom lane while teams fight over the Top/Mid temples."
+      "timing": "Spawns at 0:30 (3:00 respawn)",
+      "notes": "Located in the mid-left and bottom-right areas. Ranged boulder throwers that apply steady lane siege pressure—great to push bottom lane while contesting Top/Mid Temples."
     },
     {
       "name": "Bruisers / Knights (2 Camps)",
-      "timing": "Spawns at 1:00 (4:00 respawn)",
-      "notes": "Located near top-left and top-right. High durability with a spell armor aura; captures top lane pressure right before Bottom Temple phases."
+      "timing": "Spawns at 0:30 (4:00 respawn)",
+      "notes": "Located near top-left and top-right. Durable melee mercenaries with a Spell Armor aura that create top-side pressure around Bottom Temple phases."
     },
     {
       "name": "Boss / Sand Golem (1 Camp)",
       "timing": "Spawns at 5:00 (5:00 respawn)",
-      "notes": "Located in the bottom-mid alcove. Uses sand-tornado knockbacks and heavy slams; pushes bottom lane as a potent late-game win condition."
+      "notes": "Located in the bottom-mid alcove. Uses sand-tornado knockbacks and heavy slams to push bottom lane as a potent late-game objective."
     }
   ],
-  "strategy": "Sky Temple is a three-lane macro battleground with predictable early objective spawns: the first phase always activates Top and Mid Temples simultaneously, and the second phase always activates Bot Temple alone. Global heroes (Falstad, Dehaka, Brightwing) and strong zone-control mages or bruisers excel at holding Temple pads against Guardians and enemy pokes. Time your Bruiser and Siege camps on the opposite side of the map right before Temple activations to force the enemy into losing structures regardless of the objective outcome."
+  "strategy": "Sky Temple is a three-lane macro battleground with predictable early objective rotations: Top and Mid activate first, followed by Bottom alone on the second wave. Heroes with global mobility (Falstad, Dehaka, Brightwing) or strong zone control excel at holding pads against Guardians and pokes, and capturing Siege/Bruiser camps opposite an active Temple forces enemies into split-map trade-offs.",
+  "notes": "Temple Guardians deal heavy damage to Heroes standing inside the pad and can easily catch low-HP or overextended defenders off guard—clear or kite Guardians cleanly while holding the circle, and watch for Boss/camp pushes during multi-Temple phases.",
+  "goldenHeroes": [
+    "falstad",
+    "dehaka",
+    "brightwing",
+    "johanna",
+    "valla"
+  ]
 }
