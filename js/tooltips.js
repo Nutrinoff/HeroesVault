@@ -5,6 +5,7 @@
 
 const TOOLTIP_CURSOR_GAP = 16;
 const TOOLTIP_VIEWPORT_MARGIN = 8;
+const TOOLTIP_ICON_FALLBACK = 'https://via.placeholder.com/44?text=?';
 
 function positionTooltip(clientX, clientY) {
     const tip = document.getElementById('talent-tooltip');
@@ -47,7 +48,23 @@ function showTooltip(e, name, level, description, icon) {
     const tipLevel = document.getElementById('tip-level');
     const tipDesc = document.getElementById('tip-desc');
 
-    if (tipIcon) tipIcon.src = resolvePortraitUrl(icon);
+    if (tipIcon) {
+        const fallback = typeof HERO_VIEW_ICON_FALLBACK === 'string'
+            ? HERO_VIEW_ICON_FALLBACK
+            : TOOLTIP_ICON_FALLBACK;
+        const resolvedIcon = typeof resolveAssetUrl === 'function'
+            ? resolveAssetUrl(icon, fallback)
+            : (icon || fallback);
+
+        tipIcon.onerror = () => {
+            tipIcon.onerror = null;
+            if (tipIcon.src !== fallback) {
+                tipIcon.src = fallback;
+            }
+        };
+        tipIcon.src = resolvedIcon;
+    }
+
     if (tipName) tipName.innerText = name || '';
     if (tipLevel) tipLevel.innerText = level;
     if (tipDesc) tipDesc.innerHTML = typeof formatGameText === 'function'
