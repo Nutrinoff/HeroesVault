@@ -26,6 +26,9 @@ function normalizePatchFilter(filter) {
 function setPatchFilterState(nextFilter) {
     const normalized = normalizePatchFilter(nextFilter);
     patchState.filter = normalized;
+    if (typeof CURRENT_FILTER !== 'undefined') {
+        CURRENT_FILTER = normalized;
+    }
     if (typeof syncFilterButtonStates === 'function') {
         syncFilterButtonStates();
     }
@@ -229,9 +232,9 @@ async function loadLivePatchNotes() {
 
     listContainer.innerHTML = `
         <div class="flex items-center justify-between px-2 pb-2">
-            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">${escapeHtml(patchState.filter)} Feed</h3>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-[#9cb6ff]">${escapeHtml(patchState.filter)} Feed</h3>
         </div>
-        <div class="text-xs text-slate-400 p-3">Loading patch notes...</div>
+        <div class="text-xs text-[#8c83a2] p-3">Loading patch notes...</div>
     `;
 
     schedulePatchSidebarSync();
@@ -247,14 +250,14 @@ async function loadLivePatchNotes() {
             patchState.manualFilterLock = false;
             listContainer.innerHTML = `
                 <div class="flex items-center justify-between px-2 pb-2">
-                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">${escapeHtml(patchState.filter)} Feed</h3>
-                    <span class="text-[10px] font-mono text-slate-500">0</span>
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-[#9cb6ff]">${escapeHtml(patchState.filter)} Feed</h3>
+                    <span class="text-[10px] font-mono text-[#8c83a2]">0</span>
                 </div>
-                <div class="text-xs text-slate-400 p-3">No patches found in this feed.</div>
+                <div class="text-xs text-[#8c83a2] p-3">No patches found in this feed.</div>
             `;
             const mainContent = document.getElementById('patch-main-content');
             if (mainContent) {
-                mainContent.innerHTML = `<div class="p-6 text-slate-400 text-sm">No patch notes available.</div>`;
+                mainContent.innerHTML = `<div class="p-6 text-[#8c83a2] text-sm">No patch notes available.</div>`;
             }
             schedulePatchSidebarSync();
             return;
@@ -331,30 +334,34 @@ async function selectPatchItem(id, options = {}) {
     const ctaLabel = 'View Full Article on Blizzard';
 
     const metaParts = [
-        item.era ? `Era <span class="text-slate-200 font-semibold uppercase">${escapeHtml(item.era)}</span>` : null,
-        item.patchVersion ? `Patch <span class="text-slate-200 font-semibold">${escapeHtml(item.patchVersion)}</span>` : null,
-        item.fullVersion ? `Version <span class="text-slate-200 font-semibold">${escapeHtml(item.fullVersion)}</span>` : null,
-        item.build ? `Build <span class="text-slate-200 font-semibold">${escapeHtml(item.build)}</span>` : null
+        item.era ? `Era <span class="text-[#e6ecff] font-semibold uppercase">${escapeHtml(item.era)}</span>` : null,
+        item.patchVersion ? `Patch <span class="text-[#e6ecff] font-semibold">${escapeHtml(item.patchVersion)}</span>` : null,
+        item.fullVersion ? `Version <span class="text-[#e6ecff] font-semibold">${escapeHtml(item.fullVersion)}</span>` : null,
+        item.build ? `Build <span class="text-[#e6ecff] font-semibold">${escapeHtml(item.build)}</span>` : null
     ].filter(Boolean);
+
+    const feedBadge = item.feedType === 'ptr'
+        ? `<span class="text-[10px] px-2 py-0.5 rounded font-mono uppercase text-[#ffeab6] bg-[#e38b0d]/20 border border-[#fed600]/40">${escapeHtml(item.feedType)}</span>`
+        : `<span class="text-[10px] px-2 py-0.5 rounded font-mono uppercase text-[#cbe8ff] bg-[#0063c8]/25 border border-[#58baff]/40">${escapeHtml(item.feedType)}</span>`;
 
     mainContent.innerHTML = `
         <article class="space-y-6">
-            <header class="border-b border-slate-800 pb-4 space-y-2">
+            <header class="border-b border-[#38247a] pb-4 space-y-2">
                 <div class="flex flex-wrap items-center gap-2">
-                    <span class="text-xs font-mono text-sky-400">${escapeHtml(item.date)}</span>
-                    <span class="text-[10px] px-2 py-0.5 rounded font-mono uppercase ${item.feedType === 'ptr' ? 'text-amber-300 bg-amber-500/15 border border-amber-500/30' : 'text-sky-300 bg-sky-500/15 border border-sky-500/30'}">${escapeHtml(item.feedType)}</span>
-                    ${item.isArchive ? `<span class="text-[10px] px-2 py-0.5 rounded font-mono uppercase text-slate-300 bg-slate-800 border border-slate-700">Archive</span>` : ''}
+                    <span class="text-xs font-mono text-[#58baff]">${escapeHtml(item.date)}</span>
+                    ${feedBadge}
+                    ${item.isArchive ? `<span class="text-[10px] px-2 py-0.5 rounded font-mono uppercase text-[#9cb6ff] bg-[#120b2e] border border-[#38247a]">Archive</span>` : ''}
                 </div>
-                <h2 class="text-3xl font-bold text-white tracking-tight">${escapeHtml(item.title)}</h2>
-                ${metaParts.length ? `<div class="text-xs font-mono text-slate-400 flex flex-wrap gap-x-4 gap-y-1">${metaParts.join('<span>·</span>')}</div>` : ''}
+                <h2 class="hots-display text-3xl font-bold tracking-tight">${escapeHtml(item.title)}</h2>
+                ${metaParts.length ? `<div class="text-xs font-mono text-[#8c83a2] flex flex-wrap gap-x-4 gap-y-1">${metaParts.join('<span>·</span>')}</div>` : ''}
             </header>
 
             <div id="patch-notes-body" class="space-y-2">
-                <div class="text-xs text-slate-400 py-2">Loading patch notes...</div>
+                <div class="text-xs text-[#8c83a2] py-2">Loading patch notes...</div>
             </div>
 
-            <footer class="pt-4 border-t border-slate-800 flex justify-end">
-                <a href="${escapeHtml(item.link)}" target="_blank" rel="noopener noreferrer" class="bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 px-4 py-2 rounded-xl border border-sky-500/40 text-xs font-bold inline-flex items-center gap-2 transition">
+            <footer class="pt-4 border-t border-[#38247a] flex justify-end">
+                <a href="${escapeHtml(item.link)}" target="_blank" rel="noopener noreferrer" class="hots-btn-cyan hots-display px-4 py-2 text-xs font-bold uppercase tracking-wider inline-flex items-center gap-2 transition">
                     ${escapeHtml(ctaLabel)} <i data-lucide="external-link" class="w-3.5 h-3.5" aria-hidden="true"></i>
                 </a>
             </footer>
