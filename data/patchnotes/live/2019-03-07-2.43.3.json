@@ -1,0 +1,32 @@
+{
+  "Id": "hotfix-patch-notes-march-7-2019",
+  "Title": "Imperius Hotfix Patch #3",
+  "Subtitle": "Hotfix",
+  "Date": "Mar 7, 2019",
+  "IsoDate": "2019-03-07",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "2.43.3",
+  "FullVersion": "2.43.3.72649",
+  "Build": "72649",
+  "Link": "https://news.blizzard.com/heroes-of-the-storm/22921912",
+  "Links": [
+    "https://news.blizzard.com/heroes-of-the-storm/22921912"
+  ],
+  "Affected": [],
+  "Highlights": "Hotfix",
+  "CleanedNotes": "=== General ===\r\n  \u2022 Verified: no official patch notes available for this hotfix build.",
+  "Sections": {
+    "General": [
+      "  \u2022 Verified: no official patch notes available for this hotfix build."
+    ]
+  },
+  "PatchFile": "live/2019-03-07-2.43.3.json",
+  "Sources": [
+    "live-master.json",
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "manual-edit",
+    "2019-03-07-v2-43-3-72649-imperius-hotfix-patch-3-live.json"
+  ]
+}

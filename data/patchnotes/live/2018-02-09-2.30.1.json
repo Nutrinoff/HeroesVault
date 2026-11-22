@@ -1,0 +1,54 @@
+{
+  "Id": "balance-update-notes-february-9-2018",
+  "Title": "Maiev Balance Patch #1",
+  "Subtitle": "Balance Update",
+  "Date": "Feb 9, 2018",
+  "IsoDate": "2018-02-09",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "2.30.1",
+  "FullVersion": "2.30.1.62119",
+  "Build": "62119",
+  "Link": "https://us.battle.net/heroes/en/blog/21508378",
+  "Links": [
+    "https://us.battle.net/heroes/en/blog/21508378",
+    "https://news.blizzard.com/heroes-of-the-storm/21508378",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/21508378"
+  ],
+  "Affected": [
+    "Heroes: Maiev",
+    "Maiev"
+  ],
+  "Highlights": "Balance Update",
+  "CleanedNotes": "=== Heroes: Maiev ===\r\n[Updates]\r\n  Stats:\r\n  \u2022 Basic Attack Damage reduced from 162 to 150\r\n  \u2022 Base Maximum Health increased from 2150 to 2236\r\n  \u2022 Health Regeneration increased from 4.48 to 4.66\r\n  Abilities:\r\n  \u2022 Fan of Knives (Q)\r\n    \u2022 Damage decreased from 180 to 170\r\n  \u2022 Vault of the Wardens (D)\r\n    \u2022 No longer grants passive Armor\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Naisha\u0027s Memento (Active)\r\n      \u2022 Bounces no longer deal bonus damage\r\n  \u2022 Level 16\r\n    \u2022 Armored Assault (Passive)\r\n      \u2022 Physical Damage bonus decreased from 35 to 25%\r\n      \u2022 Now activates if Maiev has any amount of bonus Armor",
+  "Sections": {
+    "Heroes: Maiev": [
+      "[Updates]",
+      "  Stats:",
+      "  \u2022 Basic Attack Damage reduced from 162 to 150",
+      "  \u2022 Base Maximum Health increased from 2150 to 2236",
+      "  \u2022 Health Regeneration increased from 4.48 to 4.66",
+      "  Abilities:",
+      "  \u2022 Fan of Knives (Q)",
+      "    \u2022 Damage decreased from 180 to 170",
+      "  \u2022 Vault of the Wardens (D)",
+      "    \u2022 No longer grants passive Armor",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Naisha\u0027s Memento (Active)",
+      "      \u2022 Bounces no longer deal bonus damage",
+      "  \u2022 Level 16",
+      "    \u2022 Armored Assault (Passive)",
+      "      \u2022 Physical Damage bonus decreased from 35 to 25%",
+      "      \u2022 Now activates if Maiev has any amount of bonus Armor"
+    ]
+  },
+  "PatchFile": "live/2018-02-09-2.30.1.json",
+  "Sources": [
+    "live-master.json",
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2018-02-09-live.html",
+    "2018-02-09-v2-30-1-62119-maiev-balance-patch-1-live.json"
+  ]
+}

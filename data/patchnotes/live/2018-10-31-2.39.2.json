@@ -1,0 +1,148 @@
+{
+  "Id": "balance-update-notes-october-31-2018",
+  "Title": "Mal\u0027Ganis Balance Patch",
+  "Subtitle": "Balance Update",
+  "Date": "Oct 31, 2018",
+  "IsoDate": "2018-10-31",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "2.39.2",
+  "FullVersion": "2.39.2.69823",
+  "Build": "69823",
+  "Link": "https://news.blizzard.com/heroes-of-the-storm/22636768",
+  "Links": [
+    "https://news.blizzard.com/heroes-of-the-storm/22636768",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/22636768"
+  ],
+  "Affected": [
+    "Heroes: Artanis",
+    "Blaze",
+    "Dehaka",
+    "Falstad",
+    "Kel\u0027thuzad",
+    "Li Li",
+    "Lucio",
+    "Lunara",
+    "Mal\u0027Ganis",
+    "Tyrande",
+    "Uther",
+    "Zagara",
+    "Ana",
+    "Artanis"
+  ],
+  "Highlights": "Balance Update",
+  "CleanedNotes": "=== Heroes: Ana ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that caused Ana\u0027s Level 13 Healing Dart talents to fail to apply to Heroes that were at full health.\r\n\r\n=== Heroes: Artanis ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Phase Prism (E)\r\n    \u2022 Cooldown reduced from 16 to 14 seconds\r\n    \u2022 Mana cost reduced from 70 to 60\r\n  Talents:\r\n  \u2022 Level 13\r\n    \u2022 Graviton Vortex (E)\r\n      \u2022 Mana cost reduction decreased from 35 to 30\r\n\r\n=== Heroes: Blaze ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Oil Spill (W)\r\n    \u2022 Slow amount increased from 40 to 50%\r\n    \u2022 Ignited Oil Spill damage reduced from 18 to 16\r\n  \u2022 Jet Propulsion (E)\r\n    \u2022 Cooldown reduced from 10 to 9 seconds\r\n    \u2022 Mana cost reduced from 50 to 45\r\n  \u2022 Pyromania (D)\r\n    \u2022 Armor amount increased from 25 to 35\r\n\r\n=== Heroes: Dehaka ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Brushstalker (Z)\r\n    \u2022 Cooldown increased from 60 to 75 seconds\r\n  Talents:\r\n  \u2022 Level 20\r\n    \u2022 Apex Predator (Z)\r\n      \u2022 Cooldown reduction increased from 25 to 35 seconds\r\n\r\n=== Heroes: Falstad ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Flight (Z)\r\n    \u2022 Cooldown increased from 60 to 75 seconds\r\n  Talents:\r\n  \u2022 Level 20\r\n    \u2022 Epic Mount (Z)\r\n      \u2022 Cooldown reduction increased from 30 to 40 seconds\r\n\r\n=== Heroes: Lunara ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 7\r\n    \u2022 Choking Pollen (Q)\r\n      \u2022 Damage bonus to enemies afflicted by Nature\u0027s Toxin increased from 75 to 85%\r\n      \u2022 Damage bonus to enemies afflicted by 3 stacks of Nature\u0027s Toxin increased from 125 to 135%\r\n\r\n=== Heroes: Mal\u0027Ganis ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Fel Claws (Q)\r\n    \u2022 Damage reduced from 72 to 69\r\n  \u2022 Vampiric Touch (Trait)\r\n    \u2022 Healing against non-Heroic targets reduced from 15 to 10%\r\n  \u2022 Carrion Swarm (R)\r\n    \u2022 Healing against Heroes reduced from 100 to 75%\r\n  Talents:\r\n  \u2022 Level 16\r\n    \u2022 Plague Bats (W)\r\n      \u2022 Damage reduced from 85 to 81\r\n    \u2022 Frenzied Assault (Passive)\r\n      \u2022 Bonus Physical Damage increased from 10 to 15%\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that could grant Mal\u0027Ganis vision from summoned units while the Blind as a Bat talent was active.\r\n\r\n=== Heroes: Tyrande ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Light of Elune (Q)\r\n    \u2022 Heal amount reduced from 265 to 255\r\n  \u2022 Lunar Flare (E)\r\n    \u2022 Cooldown increased from 12 to 13 seconds\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Kaldorei Resistance (Q)\r\n      \u2022 Spell Armor duration reduced from 3 to 2 seconds\r\n  \u2022 Level 4\r\n    \u2022 Ranger (R)\r\n      \u2022 Bonus maximum range damage increased from 150 to 250%\r\n  \u2022 Level 20\r\n    \u2022 Iceblade Arrows (Passive)\r\n      \u2022 Basic Attack Speed increase reduced from 25 to 20%\r\n\r\n=== Heroes: Uther ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Hammer of Justice (E)\r\n    \u2022 Stun duration increased from .75 to 1 second\r\n\r\n=== Heroes: Zagara ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Nydus Network (R)\r\n    \u2022 Maximum number of active Nydus Worms reduced from 10 to 4",
+  "Sections": {
+    "Heroes: Ana": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that caused Ana\u0027s Level 13 Healing Dart talents to fail to apply to Heroes that were at full health."
+    ],
+    "Heroes: Artanis": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Phase Prism (E)",
+      "    \u2022 Cooldown reduced from 16 to 14 seconds",
+      "    \u2022 Mana cost reduced from 70 to 60",
+      "  Talents:",
+      "  \u2022 Level 13",
+      "    \u2022 Graviton Vortex (E)",
+      "      \u2022 Mana cost reduction decreased from 35 to 30"
+    ],
+    "Heroes: Blaze": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Oil Spill (W)",
+      "    \u2022 Slow amount increased from 40 to 50%",
+      "    \u2022 Ignited Oil Spill damage reduced from 18 to 16",
+      "  \u2022 Jet Propulsion (E)",
+      "    \u2022 Cooldown reduced from 10 to 9 seconds",
+      "    \u2022 Mana cost reduced from 50 to 45",
+      "  \u2022 Pyromania (D)",
+      "    \u2022 Armor amount increased from 25 to 35"
+    ],
+    "Heroes: Dehaka": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Brushstalker (Z)",
+      "    \u2022 Cooldown increased from 60 to 75 seconds",
+      "  Talents:",
+      "  \u2022 Level 20",
+      "    \u2022 Apex Predator (Z)",
+      "      \u2022 Cooldown reduction increased from 25 to 35 seconds"
+    ],
+    "Heroes: Falstad": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Flight (Z)",
+      "    \u2022 Cooldown increased from 60 to 75 seconds",
+      "  Talents:",
+      "  \u2022 Level 20",
+      "    \u2022 Epic Mount (Z)",
+      "      \u2022 Cooldown reduction increased from 30 to 40 seconds"
+    ],
+    "Heroes: Lunara": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 7",
+      "    \u2022 Choking Pollen (Q)",
+      "      \u2022 Damage bonus to enemies afflicted by Nature\u0027s Toxin increased from 75 to 85%",
+      "      \u2022 Damage bonus to enemies afflicted by 3 stacks of Nature\u0027s Toxin increased from 125 to 135%"
+    ],
+    "Heroes: Mal\u0027Ganis": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Fel Claws (Q)",
+      "    \u2022 Damage reduced from 72 to 69",
+      "  \u2022 Vampiric Touch (Trait)",
+      "    \u2022 Healing against non-Heroic targets reduced from 15 to 10%",
+      "  \u2022 Carrion Swarm (R)",
+      "    \u2022 Healing against Heroes reduced from 100 to 75%",
+      "  Talents:",
+      "  \u2022 Level 16",
+      "    \u2022 Plague Bats (W)",
+      "      \u2022 Damage reduced from 85 to 81",
+      "    \u2022 Frenzied Assault (Passive)",
+      "      \u2022 Bonus Physical Damage increased from 10 to 15%",
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that could grant Mal\u0027Ganis vision from summoned units while the Blind as a Bat talent was active."
+    ],
+    "Heroes: Tyrande": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Light of Elune (Q)",
+      "    \u2022 Heal amount reduced from 265 to 255",
+      "  \u2022 Lunar Flare (E)",
+      "    \u2022 Cooldown increased from 12 to 13 seconds",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Kaldorei Resistance (Q)",
+      "      \u2022 Spell Armor duration reduced from 3 to 2 seconds",
+      "  \u2022 Level 4",
+      "    \u2022 Ranger (R)",
+      "      \u2022 Bonus maximum range damage increased from 150 to 250%",
+      "  \u2022 Level 20",
+      "    \u2022 Iceblade Arrows (Passive)",
+      "      \u2022 Basic Attack Speed increase reduced from 25 to 20%"
+    ],
+    "Heroes: Uther": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Hammer of Justice (E)",
+      "    \u2022 Stun duration increased from .75 to 1 second"
+    ],
+    "Heroes: Zagara": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Nydus Network (R)",
+      "    \u2022 Maximum number of active Nydus Worms reduced from 10 to 4"
+    ]
+  },
+  "PatchFile": "live/2018-10-31-2.39.2.json",
+  "Sources": [
+    "live-master.json",
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2018-10-31-live.html",
+    "2018-10-31-v2-39-2-69823-mal-ganis-balance-patch-live.json"
+  ]
+}

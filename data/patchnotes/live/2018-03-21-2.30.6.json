@@ -1,0 +1,220 @@
+{
+  "Id": "balance-update-notes-march-21-2018",
+  "Title": "Maiev Balance Patch #3",
+  "Subtitle": "Balance Update",
+  "Date": "Mar 21, 2018",
+  "IsoDate": "2018-03-21",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "2.30.6",
+  "FullVersion": "2.30.6.63402",
+  "Build": "63402",
+  "Link": "https://us.battle.net/heroes/en/blog/21637154",
+  "Links": [
+    "https://us.battle.net/heroes/en/blog/21637154",
+    "https://news.blizzard.com/heroes-of-the-storm/21637154",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/21637154"
+  ],
+  "Affected": [
+    "Heroes: Artanis",
+    "Auriel",
+    "Blaze",
+    "Greymane",
+    "Maiev",
+    "Malfurion",
+    "Medivh",
+    "Sonya",
+    "Thrall",
+    "Tyrael",
+    "Valla",
+    "Zul\u0027jin Battleground updates: Haunted Mines",
+    "Towers of Doom",
+    "Haunted Mines",
+    "Artanis",
+    "Johanna",
+    "Malthael",
+    "Samuro",
+    "Zul\u0027jin"
+  ],
+  "Highlights": "Balance Update",
+  "CleanedNotes": "=== Battlegrounds: Haunted Mines ===\r\n[Updates]\r\n  Mercenaries:\r\n  \u2022 Sapper Camp\r\n    \u2022 Respawn time increased by 30 seconds.\r\n\r\n=== Battlegrounds: Towers of Doom ===\r\n[Updates]\r\n  Mercenaries:\r\n  \u2022 Sapper Camp\r\n    \u2022 Respawn time increased by 30 seconds.\r\n\r\n=== Heroes: Artanis ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Blade Dash (Q)\r\n    \u2022 Mana cost reduced from 65 to 55\r\n  \u2022 Twin Blades (W)\r\n    \u2022 Mana cost reduced from 25 to 20\r\n  Talents:\r\n  \u2022 Level 13\r\n    \u2022 Templar\u0027s Zeal (Q)\r\n      \u2022 Faster cooldown rate increased from 200 to 300%\r\n\r\n=== Heroes: Auriel ===\r\n[Updates]\r\n  Stats:\r\n  \u2022 Basic Attack damage increased from 57 to 68\r\n  Abilities:\r\n  \u2022 Detainment Strike (E)\r\n    \u2022 Cooldown reduced from 14 to 12 seconds\r\n  \u2022 Resurrect (R)\r\n    \u2022 Range increased from 5 to 7\r\n    \u2022 Cooldown reduced from 100 to 80 seconds\r\n  Talents:\r\n  \u2022 Level 7\r\n    \u2022 Energized Cord (Passive)\r\n      \u2022 Energy stored from Basic Attacks against non-Heroic targets reduced from 50 to 40%\r\n  \u2022 Level 13\r\n    \u2022 Blinding Flash (Q)\r\n      \u2022 Blind duration reduced from 2.25 to 2 seconds\r\n  \u2022 Level 20\r\n    \u2022 Diamond Resolve (R)\r\n      \u2022 Armor increased from 50 to 60\r\n    \u2022 Angelic Flight (Active)\r\n      \u2022 Cooldown reduced from 45 to 30 seconds\r\n\r\n=== Heroes: Blaze ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Bunker Drop (R)\r\n    \u2022 Cooldown increased from 40 to 50 seconds\r\n    \u2022 Exit Bunker now has a 1 Second cooldown before it can be used\r\n\r\n=== Heroes: Greymane ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Razor Swipe (Q)\r\n    \u2022 Cooldown increased from 3 to 4 seconds\r\n  Talents:\r\n  \u2022 Level 13\r\n    \u2022 Visceral Attacks (Q)\r\n      \u2022 Cooldown reduction increased from 1 to 1.5 seconds per Basic Attack\r\n\r\n=== Heroes: Johanna ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue causing a placeholder sphere to appear when using Johanna\u0027s Shield Glare ability with an Enforcer skin equipped.\r\n\r\n=== Heroes: Maiev ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Vault of Wardens (D)\r\n    \u2022 Cooldown increased from 9 to 12 seconds\r\n  \u2022 Fan of Knives (Q)\r\n    \u2022 Damage reduced from 162 to 152\r\n  \u2022 Containment Disk (R)\r\n    \u2022 Cooldown reduced from 65 to 50 seconds\r\n  \u2022 Warden\u0027s Cage (R)\r\n    \u2022 Cooldown increased from 80 to 100 seconds\r\n  Talents:\r\n  \u2022 Level 7\r\n    \u2022 Blade Dance (Q)\r\n      \u2022 Damage reduced from 54 to 50\r\n  \u2022 Level 13\r\n    \u2022 Shadow Armor (E)\r\n      \u2022 Armor reduced from 25 to 20\r\n\r\n=== Heroes: Malfurion ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Nature\u0027s Swiftness (Q)\r\n      \u2022 Movement Speed reduced from 5 to 4% per Hero affected by Regrowth\r\n  \u2022 Level 16\r\n    \u2022 Nature\u0027s Balance (Q/W)\r\n      \u2022 Bonus Regrowth duration reduced from 5 to 3 seconds\r\n\r\n=== Heroes: Malthael ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue with the size of Death Shroud\u0027s area of effect.\r\n\r\n=== Heroes: Medivh ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 7\r\n    \u2022 Arcane Explosion (W)\r\n      \u2022 Additional damage from enemy damage absorbed reduced from 365 to 350\r\n    \u2022 Force of Magic (W)\r\n      \u2022 Bonus Spell Power duration increased from 12 to 15 seconds\r\n  \u2022 Level 13\r\n    \u2022 Reabsorption (W)\r\n      \u2022 Healing amount increased from 50 to 60%\r\n\r\n=== Heroes: Samuro ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue with the Three Blade Style talent that prevented Mirror Images from gaining bonus health.\r\n  \u2022 Fixed an issue causing the Quest Complete fanfare to play every time Mirror Images was cast after choosing the Way of Illusion talent.\r\n\r\n=== Heroes: Sonya ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Furious Blow (W)\r\n      \u2022 Damage bonus increased from 40 to 50%\r\n  \u2022 Level 4\r\n    \u2022 Battle Rage (Active)\r\n      \u2022 Max charges reduced from 3 to 2\r\n      \u2022 Charge use cooldown increased from 5 to 8 seconds\r\n  \u2022 Level 13\r\n    \u2022 Mystical Spear (Q)\r\n      \u2022 Cooldown reduction reduced from 3 to 2 seconds\r\n  \u2022 Level 16\r\n    \u2022 Rampage (Passive)\r\n      \u2022 Ancient Spear cooldown reduction decreased from .75 to .5 seconds\r\n\r\n=== Heroes: Thrall ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Crash Lightning (Q)\r\n      \u2022 Maximum damage bonus reduced from 480 to 360\r\n      \u2022 Quest completion reward requirement increased from 20 to 30 stacks\r\n\r\n=== Heroes: Tyrael ===\r\n[Updates]\r\n  Talents:\r\n  \u2022 Level 1\r\n    \u2022 Justice for All (W)\r\n      \u2022 Allied Shield bonus reduced from 100 to 75%\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue causing some Mecha Tyrael skins to appear untextured.\r\n\r\n=== Heroes: Valla ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Multishot (W)\r\n    \u2022 Damage increased from 165 to 172\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue causing the Punishment talent to deal less bonus damage than intended.\r\n\r\n=== Heroes: Zul\u0027jin ===\r\n[Updates]\r\n  Stats:\r\n  \u2022 Basic Attack damage increased from 90 to 94\r\n  Talents:\r\n  \u2022 Level 13\r\n    \u2022 Ensnare (Active)\r\n      \u2022 Cooldown reduced from 60 to 45 seconds",
+  "Sections": {
+    "Battlegrounds: Haunted Mines": [
+      "[Updates]",
+      "  Mercenaries:",
+      "  \u2022 Sapper Camp",
+      "    \u2022 Respawn time increased by 30 seconds."
+    ],
+    "Battlegrounds: Towers of Doom": [
+      "[Updates]",
+      "  Mercenaries:",
+      "  \u2022 Sapper Camp",
+      "    \u2022 Respawn time increased by 30 seconds."
+    ],
+    "Heroes: Artanis": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Blade Dash (Q)",
+      "    \u2022 Mana cost reduced from 65 to 55",
+      "  \u2022 Twin Blades (W)",
+      "    \u2022 Mana cost reduced from 25 to 20",
+      "  Talents:",
+      "  \u2022 Level 13",
+      "    \u2022 Templar\u0027s Zeal (Q)",
+      "      \u2022 Faster cooldown rate increased from 200 to 300%"
+    ],
+    "Heroes: Auriel": [
+      "[Updates]",
+      "  Stats:",
+      "  \u2022 Basic Attack damage increased from 57 to 68",
+      "  Abilities:",
+      "  \u2022 Detainment Strike (E)",
+      "    \u2022 Cooldown reduced from 14 to 12 seconds",
+      "  \u2022 Resurrect (R)",
+      "    \u2022 Range increased from 5 to 7",
+      "    \u2022 Cooldown reduced from 100 to 80 seconds",
+      "  Talents:",
+      "  \u2022 Level 7",
+      "    \u2022 Energized Cord (Passive)",
+      "      \u2022 Energy stored from Basic Attacks against non-Heroic targets reduced from 50 to 40%",
+      "  \u2022 Level 13",
+      "    \u2022 Blinding Flash (Q)",
+      "      \u2022 Blind duration reduced from 2.25 to 2 seconds",
+      "  \u2022 Level 20",
+      "    \u2022 Diamond Resolve (R)",
+      "      \u2022 Armor increased from 50 to 60",
+      "    \u2022 Angelic Flight (Active)",
+      "      \u2022 Cooldown reduced from 45 to 30 seconds"
+    ],
+    "Heroes: Blaze": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Bunker Drop (R)",
+      "    \u2022 Cooldown increased from 40 to 50 seconds",
+      "    \u2022 Exit Bunker now has a 1 Second cooldown before it can be used"
+    ],
+    "Heroes: Greymane": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Razor Swipe (Q)",
+      "    \u2022 Cooldown increased from 3 to 4 seconds",
+      "  Talents:",
+      "  \u2022 Level 13",
+      "    \u2022 Visceral Attacks (Q)",
+      "      \u2022 Cooldown reduction increased from 1 to 1.5 seconds per Basic Attack"
+    ],
+    "Heroes: Johanna": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue causing a placeholder sphere to appear when using Johanna\u0027s Shield Glare ability with an Enforcer skin equipped."
+    ],
+    "Heroes: Maiev": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Vault of Wardens (D)",
+      "    \u2022 Cooldown increased from 9 to 12 seconds",
+      "  \u2022 Fan of Knives (Q)",
+      "    \u2022 Damage reduced from 162 to 152",
+      "  \u2022 Containment Disk (R)",
+      "    \u2022 Cooldown reduced from 65 to 50 seconds",
+      "  \u2022 Warden\u0027s Cage (R)",
+      "    \u2022 Cooldown increased from 80 to 100 seconds",
+      "  Talents:",
+      "  \u2022 Level 7",
+      "    \u2022 Blade Dance (Q)",
+      "      \u2022 Damage reduced from 54 to 50",
+      "  \u2022 Level 13",
+      "    \u2022 Shadow Armor (E)",
+      "      \u2022 Armor reduced from 25 to 20"
+    ],
+    "Heroes: Malfurion": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Nature\u0027s Swiftness (Q)",
+      "      \u2022 Movement Speed reduced from 5 to 4% per Hero affected by Regrowth",
+      "  \u2022 Level 16",
+      "    \u2022 Nature\u0027s Balance (Q/W)",
+      "      \u2022 Bonus Regrowth duration reduced from 5 to 3 seconds"
+    ],
+    "Heroes: Malthael": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue with the size of Death Shroud\u0027s area of effect."
+    ],
+    "Heroes: Medivh": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 7",
+      "    \u2022 Arcane Explosion (W)",
+      "      \u2022 Additional damage from enemy damage absorbed reduced from 365 to 350",
+      "    \u2022 Force of Magic (W)",
+      "      \u2022 Bonus Spell Power duration increased from 12 to 15 seconds",
+      "  \u2022 Level 13",
+      "    \u2022 Reabsorption (W)",
+      "      \u2022 Healing amount increased from 50 to 60%"
+    ],
+    "Heroes: Samuro": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue with the Three Blade Style talent that prevented Mirror Images from gaining bonus health.",
+      "  \u2022 Fixed an issue causing the Quest Complete fanfare to play every time Mirror Images was cast after choosing the Way of Illusion talent."
+    ],
+    "Heroes: Sonya": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Furious Blow (W)",
+      "      \u2022 Damage bonus increased from 40 to 50%",
+      "  \u2022 Level 4",
+      "    \u2022 Battle Rage (Active)",
+      "      \u2022 Max charges reduced from 3 to 2",
+      "      \u2022 Charge use cooldown increased from 5 to 8 seconds",
+      "  \u2022 Level 13",
+      "    \u2022 Mystical Spear (Q)",
+      "      \u2022 Cooldown reduction reduced from 3 to 2 seconds",
+      "  \u2022 Level 16",
+      "    \u2022 Rampage (Passive)",
+      "      \u2022 Ancient Spear cooldown reduction decreased from .75 to .5 seconds"
+    ],
+    "Heroes: Thrall": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Crash Lightning (Q)",
+      "      \u2022 Maximum damage bonus reduced from 480 to 360",
+      "      \u2022 Quest completion reward requirement increased from 20 to 30 stacks"
+    ],
+    "Heroes: Tyrael": [
+      "[Updates]",
+      "  Talents:",
+      "  \u2022 Level 1",
+      "    \u2022 Justice for All (W)",
+      "      \u2022 Allied Shield bonus reduced from 100 to 75%",
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue causing some Mecha Tyrael skins to appear untextured."
+    ],
+    "Heroes: Valla": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Multishot (W)",
+      "    \u2022 Damage increased from 165 to 172",
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue causing the Punishment talent to deal less bonus damage than intended."
+    ],
+    "Heroes: Zul\u0027jin": [
+      "[Updates]",
+      "  Stats:",
+      "  \u2022 Basic Attack damage increased from 90 to 94",
+      "  Talents:",
+      "  \u2022 Level 13",
+      "    \u2022 Ensnare (Active)",
+      "      \u2022 Cooldown reduced from 60 to 45 seconds"
+    ]
+  },
+  "PatchFile": "live/2018-03-21-2.30.6.json",
+  "Sources": [
+    "live-master.json",
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2018-03-21-live.html",
+    "2018-03-21-v2-30-6-63402-maiev-balance-patch-3-live.json"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "Id": "hotfix-patch-notes-august-11-2017",
+  "Title": "Garrosh Hotfix Patch",
+  "Subtitle": "Hotfix patch following Garrosh\u0027s release (no official patch notes archived).",
+  "Date": "Aug 11, 2017",
+  "IsoDate": "2017-08-11",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "2.27.1",
+  "FullVersion": "2.27.1.56361",
+  "Build": "56361",
+  "Link": "",
+  "Links": [],
+  "Affected": [],
+  "Highlights": "Hotfix patch following Garrosh\u0027s release (no official patch notes archived).",
+  "CleanedNotes": "=== General ===\r\n  \u2022 - Verified: no official patch notes available for this hotfix build.",
+  "Sections": {
+    "General": [
+      "  \u2022 - Verified: no official patch notes available for this hotfix build."
+    ]
+  },
+  "PatchFile": "live/2017-08-11-2.27.1.json",
+  "Sources": [
+    "live-master.json",
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "manual-edit",
+    "2017-08-11-v2-27-1-56361-garrosh-hotfix-patch-live.json"
+  ]
+}

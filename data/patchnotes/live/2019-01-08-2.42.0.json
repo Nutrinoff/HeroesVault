@@ -1,0 +1,88 @@
+{
+  "Id": "patch-notes-january-8-2019",
+  "Title": "Imperius Patch",
+  "Subtitle": "New Hero: Imperius",
+  "Date": "Jan 8, 2019",
+  "IsoDate": "2019-01-08",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "2.42.0",
+  "FullVersion": "2.42.0.71449",
+  "Build": "71449",
+  "Link": "https://news.blizzard.com/heroes-of-the-storm/22856152",
+  "Links": [
+    "https://news.blizzard.com/heroes-of-the-storm/22856152",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/22856152"
+  ],
+  "Affected": [
+    "Heroes: Abathur",
+    "Arthas",
+    "Diablo",
+    "Abathur",
+    "Brightwing",
+    "Imperius",
+    "Malthael",
+    "Zul\u0027jin"
+  ],
+  "Highlights": "New Hero: Imperius",
+  "CleanedNotes": "=== Heroes: Abathur ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Evolve Monstrosity (R)\r\n    \u2022 Health increased from 1000 to 1350\r\n    \u2022 Basic Attack damage increased from 73 to 85\r\n    \u2022 Health bonus per minion killed reduced from 5 to 2%\r\n    \u2022 Damage bonus per minion killed reduced from 5 to 2%\r\n\r\n=== Heroes: Arthas ===\r\n[Updates]\r\n  Abilities:\r\n  \u2022 Summon Sindragosa (R)\r\n    \u2022 No longer disables enemy Summons\r\n    \u2022 Enemy Summons are now slowed by 60% for 4 seconds\r\n\r\n=== Heroes: Brightwing ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue preventing the Unstable Anomaly talent from increasing Polymorph\u0027s slow.\r\n\r\n=== Heroes: Diablo ===\r\n[Updates]\r\n  Talents:\r\n\r\n=== Heroes: Imperius ===\r\n[Releases]\r\n  Imperius, Archangel of Valor, has been added to the Nexus and is now available for play! Read on for a brief overview of his Abilities.:\r\n  Trait:\r\n  \u2022 Valorous Brand\r\n    \u2022 Each Basic Ability marks enemy Heroes hit for 10 seconds. Basic Attacks consume the target\u0027s marks, dealing 30% bonus damage per mark.\r\n  \u2022 Celestial Charge (Q)\r\n    \u2022 Lunge towards a targeted direction and stab, dealing 35 damage. If an enemy Hero is hit, Channel to Stun for 1 second and deal 70 additional damage when it fully finishes.\r\n  \u2022 Solarion\u0027s Flare (W)\r\n    \u2022 Release a fiery wave that deals 100 damage. Enemies hit by the center take 50 bonus damage and are Slowed by 40% for 3 seconds.\r\n  \u2022 Molten Armor (E)\r\n    \u2022 Shroud Imperius in flames for 3 seconds, striking a nearby enemy for 19 damage every 0.25 seconds. Imperius heals for 100% of the damage dealt, with healing doubled versus Heroes.\r\n  \u2022 Angelic Armaments (R)\r\n    \u2022 Summon a ring of blazing swords that grants 1000 Shield for 3 seconds.If the Shield lasts the full duration, this ability can be reactivated within 5 seconds to launch 6 swords toward an area, each dealing 140 damage to the first enemy hit.\r\n  \u2022 Wrath of the Angiris (R)\r\n    \u2022 After 0.75 seconds, charge in the target direction, lifting the first enemy Hero hit into the Heavens. While in the air, Imperius can steer the landing location by moving.After 2 seconds, slam the target into the ground, dealing 375 damage and Stunning them for 1 second.\r\n\r\n=== Heroes: Malthael ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that caused some of Malthael\u0027s spell effects to become visible in the fog of war.\r\n\r\n=== Heroes: Zul\u0027jin ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue that could cause the No Mercy! Talent to reduce damage dealt by Grievous Throw.",
+  "Sections": {
+    "Heroes: Abathur": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Evolve Monstrosity (R)",
+      "    \u2022 Health increased from 1000 to 1350",
+      "    \u2022 Basic Attack damage increased from 73 to 85",
+      "    \u2022 Health bonus per minion killed reduced from 5 to 2%",
+      "    \u2022 Damage bonus per minion killed reduced from 5 to 2%"
+    ],
+    "Heroes: Arthas": [
+      "[Updates]",
+      "  Abilities:",
+      "  \u2022 Summon Sindragosa (R)",
+      "    \u2022 No longer disables enemy Summons",
+      "    \u2022 Enemy Summons are now slowed by 60% for 4 seconds"
+    ],
+    "Heroes: Brightwing": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue preventing the Unstable Anomaly talent from increasing Polymorph\u0027s slow."
+    ],
+    "Heroes: Diablo": [
+      "[Updates]",
+      "  Talents:"
+    ],
+    "Heroes: Imperius": [
+      "[Releases]",
+      "  Imperius, Archangel of Valor, has been added to the Nexus and is now available for play! Read on for a brief overview of his Abilities.:",
+      "  Trait:",
+      "  \u2022 Valorous Brand",
+      "    \u2022 Each Basic Ability marks enemy Heroes hit for 10 seconds. Basic Attacks consume the target\u0027s marks, dealing 30% bonus damage per mark.",
+      "  \u2022 Celestial Charge (Q)",
+      "    \u2022 Lunge towards a targeted direction and stab, dealing 35 damage. If an enemy Hero is hit, Channel to Stun for 1 second and deal 70 additional damage when it fully finishes.",
+      "  \u2022 Solarion\u0027s Flare (W)",
+      "    \u2022 Release a fiery wave that deals 100 damage. Enemies hit by the center take 50 bonus damage and are Slowed by 40% for 3 seconds.",
+      "  \u2022 Molten Armor (E)",
+      "    \u2022 Shroud Imperius in flames for 3 seconds, striking a nearby enemy for 19 damage every 0.25 seconds. Imperius heals for 100% of the damage dealt, with healing doubled versus Heroes.",
+      "  \u2022 Angelic Armaments (R)",
+      "    \u2022 Summon a ring of blazing swords that grants 1000 Shield for 3 seconds.If the Shield lasts the full duration, this ability can be reactivated within 5 seconds to launch 6 swords toward an area, each dealing 140 damage to the first enemy hit.",
+      "  \u2022 Wrath of the Angiris (R)",
+      "    \u2022 After 0.75 seconds, charge in the target direction, lifting the first enemy Hero hit into the Heavens. While in the air, Imperius can steer the landing location by moving.After 2 seconds, slam the target into the ground, dealing 375 damage and Stunning them for 1 second."
+    ],
+    "Heroes: Malthael": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that caused some of Malthael\u0027s spell effects to become visible in the fog of war."
+    ],
+    "Heroes: Zul\u0027jin": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue that could cause the No Mercy! Talent to reduce damage dealt by Grievous Throw."
+    ]
+  },
+  "PatchFile": "live/2019-01-08-2.42.0.json",
+  "Sources": [
+    "alpha-master.json",
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2019-01-08-live.html",
+    "2019-01-08-v2-42-0-71449-imperius-patch-alpha.json"
+  ]
+}

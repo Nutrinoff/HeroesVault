@@ -1,0 +1,27 @@
+{
+  "Id": "hotfix-patch-notes-december-17-2019",
+  "Title": "Deathwing Hotfix Patch #2",
+  "Subtitle": "Hotfix",
+  "Date": "Dec 17, 2019",
+  "IsoDate": "2019-12-17",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "2.49.1",
+  "FullVersion": "2.49.1.77692",
+  "Build": "77692",
+  "Link": "https://us.forums.blizzard.com/en/heroes/t/hotfix-patch-notes-december-17-2019/31152",
+  "Links": [
+    "https://us.forums.blizzard.com/en/heroes/t/hotfix-patch-notes-december-17-2019/31152"
+  ],
+  "Affected": [],
+  "Highlights": "Hotfix",
+  "CleanedNotes": "Hotfix",
+  "Sections": {},
+  "PatchFile": "live/2019-12-17-2.49.1.json",
+  "Sources": [
+    "live-master.json",
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2019-12-17-v2-49-1-77692-deathwing-hotfix-patch-2-live.json"
+  ]
+}

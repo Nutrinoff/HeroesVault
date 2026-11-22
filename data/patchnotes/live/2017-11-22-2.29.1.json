@@ -1,0 +1,54 @@
+{
+  "Id": "hotfix-patch-notes-november-22-2017",
+  "Title": "Alexstrasza Hotfix Patch",
+  "Subtitle": "Hotfix",
+  "Date": "Nov 22, 2017",
+  "IsoDate": "2017-11-22",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "2.29.1",
+  "FullVersion": "2.29.1.59799",
+  "Build": "59799",
+  "Link": "http://us.battle.net/heroes/en/blog/21194322",
+  "Links": [
+    "http://us.battle.net/heroes/en/blog/21194322",
+    "https://news.blizzard.com/heroes-of-the-storm/21194322",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/21194322"
+  ],
+  "Affected": [
+    "Alexstrasza",
+    "Brightwing",
+    "Zul\u0027jin"
+  ],
+  "Highlights": "Hotfix",
+  "CleanedNotes": "=== Heroes: Alexstrasza ===\r\n[Bug Fixes]\r\n  \u2022 Canceling Dragonqueen after entering or exiting the Haunted Mines will no longer prevent Alexstrasza from casting her other Abilities.\r\n\r\n=== Heroes: Brightwing ===\r\n[Bug Fixes]\r\n  \u2022 Soothing Mist will no longer passively Heal nearby allies while Brightwing is piloting a Vehicle.\r\n\r\n=== Heroes: Zul\u0027jin ===\r\n[Bug Fixes]\r\n  \u2022 Completing the You Want Axe? Quest using the Wrong Place Wrong Time Talent will no longer cause Twin Cleave\u0027s visual effects to disappear during its second revolution.\r\n  \u2022 Fixed an issue causing the Movement Speed bonus granted by Eye of Zul\u0027jin to be lost on death.\r\n  \u2022 Eye of Zul\u0027jin\u0027s Talent description will no longer incorrectly append to the Grievous Throw tooltip.\r\n  \u2022 No Mercy\u0027s Talent description will now correctly append to the Grievous Throw tooltip.\r\n  \u2022 Recklessness is no longer incorrectly categorized as a passive Talent in the Talent Pane.\r\n  \u2022 Voodoo Shuffle\u0027s tooltip now correctly lists a 40% reduction in Regeneration\u0027s Mana cost and cooldown, rather than 33%.\r\n  \u2022 Voodoo Shuffle\u0027s Talent description will now correctly append to the Regeneration tooltip.\r\n  \u2022 Buff icons in Zul\u0027jin\u0027s Buff Bar will now match the order in which their associated Talents were selected.",
+  "Sections": {
+    "Heroes: Alexstrasza": [
+      "[Bug Fixes]",
+      "  \u2022 Canceling Dragonqueen after entering or exiting the Haunted Mines will no longer prevent Alexstrasza from casting her other Abilities."
+    ],
+    "Heroes: Brightwing": [
+      "[Bug Fixes]",
+      "  \u2022 Soothing Mist will no longer passively Heal nearby allies while Brightwing is piloting a Vehicle."
+    ],
+    "Heroes: Zul\u0027jin": [
+      "[Bug Fixes]",
+      "  \u2022 Completing the You Want Axe? Quest using the Wrong Place Wrong Time Talent will no longer cause Twin Cleave\u0027s visual effects to disappear during its second revolution.",
+      "  \u2022 Fixed an issue causing the Movement Speed bonus granted by Eye of Zul\u0027jin to be lost on death.",
+      "  \u2022 Eye of Zul\u0027jin\u0027s Talent description will no longer incorrectly append to the Grievous Throw tooltip.",
+      "  \u2022 No Mercy\u0027s Talent description will now correctly append to the Grievous Throw tooltip.",
+      "  \u2022 Recklessness is no longer incorrectly categorized as a passive Talent in the Talent Pane.",
+      "  \u2022 Voodoo Shuffle\u0027s tooltip now correctly lists a 40% reduction in Regeneration\u0027s Mana cost and cooldown, rather than 33%.",
+      "  \u2022 Voodoo Shuffle\u0027s Talent description will now correctly append to the Regeneration tooltip.",
+      "  \u2022 Buff icons in Zul\u0027jin\u0027s Buff Bar will now match the order in which their associated Talents were selected."
+    ]
+  },
+  "PatchFile": "live/2017-11-22-2.29.1.json",
+  "Sources": [
+    "live-master.json",
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2017-11-22-hotfix.html",
+    "2017-11-22-v2-29-1-59799-alexstrasza-hotfix-patch-live.json"
+  ]
+}

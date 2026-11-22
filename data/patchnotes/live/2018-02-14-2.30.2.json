@@ -1,0 +1,68 @@
+{
+  "Id": "hotfix-patch-notes-february-14-2018",
+  "Title": "Maiev Hotfix Patch #1",
+  "Subtitle": "Hotfix",
+  "Date": "Feb 14, 2018",
+  "IsoDate": "2018-02-14",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "2.30.2",
+  "FullVersion": "2.30.2.62212",
+  "Build": "62212",
+  "Link": "https://us.battle.net/heroes/en/blog/21514203",
+  "Links": [
+    "https://us.battle.net/heroes/en/blog/21514203",
+    "https://news.blizzard.com/heroes-of-the-storm/21514203",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/21514203"
+  ],
+  "Affected": [
+    "Genji",
+    "Jaina",
+    "Lunara",
+    "Maiev",
+    "Nova",
+    "Rehgar",
+    "Tyrael"
+  ],
+  "Highlights": "Hotfix",
+  "CleanedNotes": "=== Heroes: Genji ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue preventing certain cleave attacks, such as Malthael\u0027s Basic Attacks and Xul\u0027s Cursed Strikes, from removing stacks of Genji\u0027s Dodge.\r\n\r\n=== Heroes: Jaina ===\r\n[Bug Fixes]\r\n  \u2022 The Wintermute Talent now correctly causes Jaina\u0027s Water Elemental to mimic her Basic Abilities.\r\n\r\n=== Heroes: Lunara ===\r\n[Bug Fixes]\r\n  \u2022 The Galloping Gait Talent no longer grants a permanent Movement Speed bonus.\r\n\r\n=== Heroes: Maiev ===\r\n[Bug Fixes]\r\n  \u2022 Casting Spirit of Vengeance just as a Core is destroyed will no longer cause the Spirit to cease animating.\r\n  \u2022 Activating Naisha\u0027s Memento will now correctly display an icon indicating its duration in the buff bar.\r\n\r\n=== Heroes: Nova ===\r\n[Bug Fixes]\r\n  \u2022 Fixed an issue causing Holo Decoys to deal slightly more damage than intended after learning Lethal Decoy.\r\n\r\n=== Heroes: Rehgar ===\r\n[Bug Fixes]\r\n  \u2022 The Rising Storm Talent will no longer increase Lightning Shield\u0027s damage versus non-Heroic enemies.\r\n\r\n=== Heroes: Tyrael ===\r\n[Bug Fixes]\r\n  \u2022 The Stalwart Angel Talent\u0027s tooltip now displays the correct values for its duration and Armor bonus.",
+  "Sections": {
+    "Heroes: Genji": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue preventing certain cleave attacks, such as Malthael\u0027s Basic Attacks and Xul\u0027s Cursed Strikes, from removing stacks of Genji\u0027s Dodge."
+    ],
+    "Heroes: Jaina": [
+      "[Bug Fixes]",
+      "  \u2022 The Wintermute Talent now correctly causes Jaina\u0027s Water Elemental to mimic her Basic Abilities."
+    ],
+    "Heroes: Lunara": [
+      "[Bug Fixes]",
+      "  \u2022 The Galloping Gait Talent no longer grants a permanent Movement Speed bonus."
+    ],
+    "Heroes: Maiev": [
+      "[Bug Fixes]",
+      "  \u2022 Casting Spirit of Vengeance just as a Core is destroyed will no longer cause the Spirit to cease animating.",
+      "  \u2022 Activating Naisha\u0027s Memento will now correctly display an icon indicating its duration in the buff bar."
+    ],
+    "Heroes: Nova": [
+      "[Bug Fixes]",
+      "  \u2022 Fixed an issue causing Holo Decoys to deal slightly more damage than intended after learning Lethal Decoy."
+    ],
+    "Heroes: Rehgar": [
+      "[Bug Fixes]",
+      "  \u2022 The Rising Storm Talent will no longer increase Lightning Shield\u0027s damage versus non-Heroic enemies."
+    ],
+    "Heroes: Tyrael": [
+      "[Bug Fixes]",
+      "  \u2022 The Stalwart Angel Talent\u0027s tooltip now displays the correct values for its duration and Armor bonus."
+    ]
+  },
+  "PatchFile": "live/2018-02-14-2.30.2.json",
+  "Sources": [
+    "live-master.json",
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2018-02-14-hotfix.html",
+    "2018-02-14-v2-30-2-62212-maiev-hotfix-patch-1-live.json"
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "Id": "npn-2018-07-03-2.35.0",
+  "Title": "2018-07-03 Hotfix Patch",
+  "Subtitle": "=== Battlegrounds: Alterac Pass ===",
+  "Date": "Jul 3, 2018",
+  "IsoDate": "2018-07-03",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "2.35.0",
+  "FullVersion": "2.35.0.66292",
+  "Build": "66292",
+  "Link": "https://news.blizzard.com/en-us/heroes-of-the-storm/21936685",
+  "Links": [
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/21936685"
+  ],
+  "Affected": [
+    "Alterac Pass"
+  ],
+  "Highlights": "=== Battlegrounds: Alterac Pass ===",
+  "CleanedNotes": "=== Battlegrounds: Alterac Pass ===\r\n[Updates]\r\n  Objective:\r\n  \u2022 Cavalry\r\n    \u2022 No longer gain additional Armor for nearby Heroes.\r\n    \u2022 Health reduced from 10000 to 8000.\r\n    \u2022 Health scaling increased by 19%.\r\n    \u2022 Damage reduced from 85 to 65.\r\n    \u2022 Damage scaling increased by 22%.\r\n  Structures:\r\n  \u2022 Generals\r\n    \u2022 Health reduced from 24000 to 20000.\r\n    \u2022 Now gain 405 maximum Health every minute from 1:00 to 21:00 minutes.\r\n  Minions:\r\n  \u2022 Reavers\r\n    \u2022 Damage scaling increased by 50%.",
+  "Sections": {
+    "Battlegrounds: Alterac Pass": [
+      "[Updates]",
+      "  Objective:",
+      "  \u2022 Cavalry",
+      "    \u2022 No longer gain additional Armor for nearby Heroes.",
+      "    \u2022 Health reduced from 10000 to 8000.",
+      "    \u2022 Health scaling increased by 19%.",
+      "    \u2022 Damage reduced from 85 to 65.",
+      "    \u2022 Damage scaling increased by 22%.",
+      "  Structures:",
+      "  \u2022 Generals",
+      "    \u2022 Health reduced from 24000 to 20000.",
+      "    \u2022 Now gain 405 maximum Health every minute from 1:00 to 21:00 minutes.",
+      "  Minions:",
+      "  \u2022 Reavers",
+      "    \u2022 Damage scaling increased by 50%."
+    ]
+  },
+  "PatchFile": "live/2018-07-03-2.35.0.json",
+  "Sources": [
+    "alpha-master.json",
+    "2018-07-03-hotfix.html",
+    "2018-07-03-v2-35-0-66292-2018-07-03-hotfix-patch-alpha.json"
+  ]
+}

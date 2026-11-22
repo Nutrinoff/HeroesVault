@@ -1,0 +1,32 @@
+{
+  "Id": "hotfix-patch-notes-february-15-2019",
+  "Title": "Imperius Hotfix Patch #2",
+  "Subtitle": "Hotfix",
+  "Date": "Feb 15, 2019",
+  "IsoDate": "2019-02-15",
+  "FeedType": "live",
+  "Era": "live",
+  "PatchVersion": "2.43.1",
+  "FullVersion": "2.43.1.72307",
+  "Build": "72307",
+  "Link": "https://news.blizzard.com/heroes-of-the-storm/22887058",
+  "Links": [
+    "https://news.blizzard.com/heroes-of-the-storm/22887058"
+  ],
+  "Affected": [],
+  "Highlights": "Hotfix",
+  "CleanedNotes": "=== General ===\r\n  \u2022 Verified: no official patch notes available for this hotfix build.",
+  "Sections": {
+    "General": [
+      "  \u2022 Verified: no official patch notes available for this hotfix build."
+    ]
+  },
+  "PatchFile": "live/2019-02-15-2.43.1.json",
+  "Sources": [
+    "live-master.json",
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "manual-edit",
+    "2019-02-15-v2-43-1-72307-imperius-hotfix-patch-2-live.json"
+  ]
+}
