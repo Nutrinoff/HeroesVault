@@ -123,7 +123,7 @@ function renderBuilderHeader(heroData) {
     const rawEntry = typeof getRawHeroEntry === 'function' ? getRawHeroEntry(heroData.id) : null;
     const heroSource = rawEntry || heroData;
     const portraitUrl = resolveHeroUiPortraitUrl(heroData.portrait || rawEntry);
-    const loadingArtUrl = typeof getHeroLoadingPortrait === 'function'
+    const loadingBgUrl = typeof getHeroLoadingPortrait === 'function'
         ? getHeroLoadingPortrait(heroSource)
         : '';
 
@@ -131,7 +131,7 @@ function renderBuilderHeader(heroData) {
     const nameEl = document.getElementById('builder-name');
     const roleEl = document.getElementById('builder-role');
     const titleEl = document.getElementById('builder-title');
-    const loadingArtEl = document.getElementById('builder-loading-art');
+    const bgModel = document.getElementById('builder-model-bg');
 
     if (portraitEl) {
         portraitEl.alt = `${heroData.name} portrait`;
@@ -141,12 +141,12 @@ function renderBuilderHeader(heroData) {
     if (roleEl) roleEl.innerText = heroData.role;
     if (titleEl) titleEl.innerText = heroData.title;
 
-    if (loadingArtEl) {
-        loadingArtEl.alt = `${heroData.name} loading screen portrait`;
+    if (bgModel) {
+        bgModel.alt = `${heroData.name} loading screen background`;
         setSafeImageSrc(
-            loadingArtEl,
-            loadingArtUrl || portraitUrl,
-            loadingArtUrl && portraitUrl !== loadingArtUrl ? portraitUrl : '',
+            bgModel,
+            loadingBgUrl || portraitUrl,
+            loadingBgUrl && portraitUrl !== loadingBgUrl ? portraitUrl : '',
             { hideOnFail: true }
         );
     }
