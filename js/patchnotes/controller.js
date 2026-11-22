@@ -2,7 +2,50 @@
 // 4. DEEP LINKS, HOME PREVIEWS & PATCH VIEW CONTROLLER
 // ==========================================
 
-let patchNotesInitialized = false;
+const VALID_PATCH_FILTERS = ['all', 'live', 'ptr'];
+
+const patchState = {
+    filter: typeof CURRENT_FILTER === 'string' && VALID_PATCH_FILTERS.includes(CURRENT_FILTER)
+        ? CURRENT_FILTER
+        : 'all',
+    items: Array.isArray(ACTIVE_PATCH_ITEMS) ? ACTIVE_PATCH_ITEMS : [],
+    selectedId: null,
+    homeLatest: typeof HOME_LATEST_PATCHES === 'object' && HOME_LATEST_PATCHES
+        ? HOME_LATEST_PATCHES
+        : { live: null, ptr: null },
+    pendingDeepLink: typeof PENDING_DEEP_LINK_PATCH !== 'undefined'
+        ? PENDING_DEEP_LINK_PATCH
+        : null,
+    loadSequence: 0,
+    detailSequence: 0,
+    listenersBound: false
+};
+
+function normalizePatchFilter(filter) {
+    const val = String(filter || '').trim().toLowerCase();
+    return VALID_PATCH_FILTERS.includes(val) ? val : 'all';
+}
+
+function setPatchFilterState(nextFilter) {
+    const normalized = normalizePatchFilter(nextFilter);
+    patchState.filter = normalized;
+    if (typeof CURRENT_FILTER !== 'undefined') {
+        CURRENT_FILTER = normalized;
+    }
+    if (typeof syncFilterButtonStates === 'function') {
+        syncFilterButtonStates();
+    }
+    return normalized;
+}
+
+function setActivePatchItemsState(items) {
+    const nextItems = Array.isArray(items) ? items : [];
+    patchState.items = nextItems;
+    if (typeof ACTIVE_PATCH_ITEMS !== 'undefined') {
+        ACTIVE_PATCH_ITEMS = nextItems;
+    }
+    return nextItems;
+}
 
 function readPatchDeepLinkFromUrl() {
     const params = new URLSearchParams(window.location.search);
@@ -13,7 +56,7 @@ function readPatchDeepLinkFromUrl() {
     if (queryPatch) {
         return {
             patchId: String(queryPatch).trim(),
-            feed: queryFeed ? String(queryFeed).trim().toLowerCase() : null,
+            feed: queryFeed ? normalizePatchFilter(queryFeed) : null,
             openView: queryView === 'patchnotes' || !queryView
         };
     }
@@ -28,7 +71,7 @@ function readPatchDeepLinkFromUrl() {
             if (hPatch) {
                 return {
                     patchId: String(hPatch).trim(),
-                    feed: hFeed ? String(hFeed).trim().toLowerCase() : null,
+                    feed: hFeed ? normalizePatchFilter(hFeed) : null,
                     openView: true
                 };
             }
@@ -77,8 +120,8 @@ async function hydrateHomeLatestPatchCards() {
         const latestLive = allPatches.find(p => p.feedType === 'live') || null;
         const latestPtr = allPatches.find(p => p.feedType === 'ptr') || null;
 
-        HOME_LATEST_PATCHES.live = latestLive;
-        HOME_LATEST_PATCHES.ptr = latestPtr;
+        patchState.homeLatest.live = latestLive;
+        patchState.homeLatest.ptr = latestPtr;
 
         if (liveTitle) {
             if (latestLive) {
@@ -111,17 +154,15 @@ async function hydrateHomeLatestPatchCards() {
 
 window.openHomePatch = async function openHomePatch(feedType) {
     const normalizedFeed = feedType === 'ptr' ? 'ptr' : 'live';
-    const targetPatch = HOME_LATEST_PATCHES[normalizedFeed];
+    const targetPatch = patchState.homeLatest[normalizedFeed];
 
-    CURRENT_FILTER = normalizedFeed;
-    syncFilterButtonStates();
+    setPatchFilterState(normalizedFeed);
+    patchState.pendingDeepLink = targetPatch
+        ? { patchId: targetPatch.id, feed: normalizedFeed, openView: true }
+        : { patchId: null, feed: normalizedFeed, openView: true };
 
-    if (targetPatch) {
-        PENDING_DEEP_LINK_PATCH = {
-            patchId: targetPatch.id,
-            feed: normalizedFeed,
-            openView: true
-        };
+    if (typeof PENDING_DEEP_LINK_PATCH !== 'undefined') {
+        PENDING_DEEP_LINK_PATCH = patchState.pendingDeepLink;
     }
 
     if (typeof navigateTo === 'function') {
@@ -131,21 +172,32 @@ window.openHomePatch = async function openHomePatch(feedType) {
     await loadLivePatchNotes();
 };
 
+function filterPatchesByState(allPatches, filter) {
+    if (filter === 'live') {
+        return allPatches.filter(item => item.feedType === 'live');
+    }
+    if (filter === 'ptr') {
+        return allPatches.filter(item => item.feedType === 'ptr');
+    }
+    return allPatches;
+}
+
 async function loadLivePatchNotes() {
     initPatchFilterControls();
 
     const listContainer = document.getElementById('patch-sidebar-list');
     if (!listContainer) return;
 
-    const deepLink = PENDING_DEEP_LINK_PATCH || readPatchDeepLinkFromUrl();
-    if (deepLink?.feed && ['all', 'live', 'ptr'].includes(deepLink.feed) && !PENDING_DEEP_LINK_PATCH) {
-        CURRENT_FILTER = deepLink.feed;
-        syncFilterButtonStates();
+    const seq = ++patchState.loadSequence;
+    const activeDeepLink = patchState.pendingDeepLink || readPatchDeepLinkFromUrl();
+
+    if (activeDeepLink?.feed && !patchState.pendingDeepLink) {
+        setPatchFilterState(activeDeepLink.feed);
     }
 
     listContainer.innerHTML = `
         <div class="flex items-center justify-between px-2 pb-2">
-            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">${escapeHtml(CURRENT_FILTER)} Feed</h3>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">${escapeHtml(patchState.filter)} Feed</h3>
         </div>
         <div class="text-xs text-slate-400 p-3">Loading patch notes...</div>
     `;
@@ -154,19 +206,15 @@ async function loadLivePatchNotes() {
 
     try {
         const allPatches = await fetchAllMasterPatches();
+        if (seq !== patchState.loadSequence) return;
 
-        if (CURRENT_FILTER === 'live') {
-            ACTIVE_PATCH_ITEMS = allPatches.filter(item => item.feedType === 'live');
-        } else if (CURRENT_FILTER === 'ptr') {
-            ACTIVE_PATCH_ITEMS = allPatches.filter(item => item.feedType === 'ptr');
-        } else {
-            ACTIVE_PATCH_ITEMS = allPatches;
-        }
+        let filtered = filterPatchesByState(allPatches, patchState.filter);
 
-        if (ACTIVE_PATCH_ITEMS.length === 0) {
+        if (filtered.length === 0) {
+            setActivePatchItemsState([]);
             listContainer.innerHTML = `
                 <div class="flex items-center justify-between px-2 pb-2">
-                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">${escapeHtml(CURRENT_FILTER)} Feed</h3>
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">${escapeHtml(patchState.filter)} Feed</h3>
                     <span class="text-[10px] font-mono text-slate-500">0</span>
                 </div>
                 <div class="text-xs text-slate-400 p-3">No patches found in this feed.</div>
@@ -179,31 +227,34 @@ async function loadLivePatchNotes() {
             return;
         }
 
-        renderPatchSidebar(ACTIVE_PATCH_ITEMS);
-
-        let targetId = ACTIVE_PATCH_ITEMS[0].id;
-        if (deepLink?.patchId) {
-            const matchedInList = ACTIVE_PATCH_ITEMS.find(p => String(p.id) === String(deepLink.patchId));
+        let targetId = filtered[0].id;
+        if (activeDeepLink?.patchId) {
+            const matchedInList = filtered.find(p => String(p.id) === String(activeDeepLink.patchId));
             if (matchedInList) {
                 targetId = matchedInList.id;
             } else {
-                const matchedAnywhere = allPatches.find(p => String(p.id) === String(deepLink.patchId));
+                const matchedAnywhere = allPatches.find(p => String(p.id) === String(activeDeepLink.patchId));
                 if (matchedAnywhere) {
-                    CURRENT_FILTER = 'all';
-                    ACTIVE_PATCH_ITEMS = allPatches;
-                    syncFilterButtonStates();
-                    renderPatchSidebar(ACTIVE_PATCH_ITEMS);
+                    setPatchFilterState('all');
+                    filtered = allPatches;
                     targetId = matchedAnywhere.id;
                 }
             }
         }
 
-        PENDING_DEEP_LINK_PATCH = null;
-        await selectPatchItem(targetId);
+        setActivePatchItemsState(filtered);
+        patchState.pendingDeepLink = null;
+        if (typeof PENDING_DEEP_LINK_PATCH !== 'undefined') {
+            PENDING_DEEP_LINK_PATCH = null;
+        }
 
+        renderPatchSidebar(patchState.items);
+        await selectPatchItem(targetId);
     } catch (err) {
+        if (seq !== patchState.loadSequence) return;
         console.warn('Failed to load patch notes:', err);
-        ACTIVE_PATCH_ITEMS = [
+
+        const fallbackItems = [
             {
                 id: 'fallback-feed',
                 title: 'Heroes of the Storm Live Patch Notes',
@@ -216,15 +267,18 @@ async function loadLivePatchNotes() {
                 inlineNotes: 'Patch feeds are syncing. Please check back shortly.'
             }
         ];
-        renderPatchSidebar(ACTIVE_PATCH_ITEMS);
-        await selectPatchItem(ACTIVE_PATCH_ITEMS[0].id);
+        setActivePatchItemsState(fallbackItems);
+        renderPatchSidebar(patchState.items);
+        await selectPatchItem(fallbackItems[0].id);
     }
 }
 
 async function selectPatchItem(id) {
-    const item = ACTIVE_PATCH_ITEMS.find(x => x.id === id);
+    const item = patchState.items.find(x => x.id === id);
     if (!item) return;
 
+    const detailSeq = ++patchState.detailSequence;
+    patchState.selectedId = item.id;
     writePatchUrl(item);
 
     document.querySelectorAll('#patch-sidebar-list button[id^="btn-"]').forEach(b => {
@@ -275,8 +329,10 @@ async function selectPatchItem(id) {
     if (window.lucide) lucide.createIcons();
 
     const notesHtml = await fetchPatchDetailHtml(item);
+    if (detailSeq !== patchState.detailSequence || patchState.selectedId !== id) return;
+
     const bodyEl = document.getElementById('patch-notes-body');
-    if (bodyEl && ACTIVE_PATCH_ITEMS.some(x => x.id === id)) {
+    if (bodyEl && patchState.items.some(x => x.id === id)) {
         bodyEl.innerHTML = notesHtml;
     }
 
@@ -301,8 +357,8 @@ function bindHomePatchCards() {
 
 function bindPatchGlobalListeners() {
     bindHomePatchCards();
-    if (patchNotesInitialized) return;
-    patchNotesInitialized = true;
+    if (patchState.listenersBound) return;
+    patchState.listenersBound = true;
 
     window.addEventListener('scroll', schedulePatchSidebarSync, { passive: true });
     window.addEventListener('resize', schedulePatchSidebarSync, { passive: true });
@@ -323,14 +379,16 @@ function initPatchNotes(initialState = {}) {
     }
 
     if (initialState.patchId || initialState.feed) {
-        PENDING_DEEP_LINK_PATCH = {
+        patchState.pendingDeepLink = {
             patchId: initialState.patchId || null,
-            feed: initialState.feed || null,
+            feed: initialState.feed ? normalizePatchFilter(initialState.feed) : null,
             openView: Boolean(initialState.openView)
         };
-        if (initialState.feed && ['all', 'live', 'ptr'].includes(String(initialState.feed).toLowerCase())) {
-            CURRENT_FILTER = String(initialState.feed).toLowerCase();
-            syncFilterButtonStates();
+        if (typeof PENDING_DEEP_LINK_PATCH !== 'undefined') {
+            PENDING_DEEP_LINK_PATCH = patchState.pendingDeepLink;
+        }
+        if (initialState.feed) {
+            setPatchFilterState(initialState.feed);
         }
     }
 
