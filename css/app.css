@@ -566,6 +566,10 @@
   backdrop-filter: blur(8px);
 }
 
+.hots-talent-slot {
+  box-shadow: inset 0 1px 0 rgba(203, 232, 255, 0.14);
+}
+
 .hots-tooltip-header {
   display: flex;
   align-items: center;
