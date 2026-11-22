@@ -305,7 +305,7 @@ async function selectPatchItem(id, options = {}) {
 
     if (expectedLoadSeq !== patchState.loadSequence) return;
 
-    const item = patchState.items.find(x => x.id === id);
+    const item = patchState.items.find(x => String(x.id) === String(id));
     if (!item) return;
 
     const detailSeq = ++patchState.detailSequence;
@@ -315,14 +315,7 @@ async function selectPatchItem(id, options = {}) {
         writePatchUrl(item);
     }
 
-    document.querySelectorAll('#patch-sidebar-list button[id^="btn-"]').forEach(b => {
-        b.classList.remove('bg-sky-500/15', 'border-sky-500/70');
-    });
-
-    const activeBtn = document.getElementById(`btn-${CSS.escape(id)}`);
-    if (activeBtn) {
-        activeBtn.classList.add('bg-sky-500/15', 'border-sky-500/70');
-    }
+    syncSidebarActiveCardState(item.id);
 
     const mainContent = document.getElementById('patch-main-content');
     if (!mainContent) return;
@@ -354,7 +347,7 @@ async function selectPatchItem(id, options = {}) {
 
             <footer class="pt-4 border-t border-slate-800 flex justify-end">
                 <a href="${escapeHtml(item.link)}" target="_blank" rel="noopener noreferrer" class="bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 px-4 py-2 rounded-xl border border-sky-500/40 text-xs font-bold inline-flex items-center gap-2 transition">
-                    ${escapeHtml(ctaLabel)} <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                    ${escapeHtml(ctaLabel)} <i data-lucide="external-link" class="w-3.5 h-3.5" aria-hidden="true"></i>
                 </a>
             </footer>
         </article>
@@ -366,13 +359,13 @@ async function selectPatchItem(id, options = {}) {
     if (
         expectedLoadSeq !== patchState.loadSequence ||
         detailSeq !== patchState.detailSequence ||
-        patchState.selectedId !== id
+        String(patchState.selectedId) !== String(item.id)
     ) {
         return;
     }
 
     const bodyEl = document.getElementById('patch-notes-body');
-    if (bodyEl && patchState.items.some(x => x.id === id)) {
+    if (bodyEl && patchState.items.some(x => String(x.id) === String(item.id))) {
         bodyEl.innerHTML = notesHtml;
     }
 
