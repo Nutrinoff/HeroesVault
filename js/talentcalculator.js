@@ -4,6 +4,7 @@
 
 const ACTIVE_TALENT_CLASSES = ['border-amber-400', 'shadow-lg', 'scale-105'];
 const INACTIVE_TALENT_CLASSES = ['border-slate-700', 'hover:border-slate-400', 'opacity-75', 'hover:opacity-100'];
+const TALENT_ICON_FALLBACK = 'https://via.placeholder.com/48?text=?';
 
 function syncBuilderUrl(push = false) {
     if (!builderHeroId) return;
@@ -22,6 +23,8 @@ function syncBuilderUrl(push = false) {
 }
 
 async function openBuilder(id = null, selections = null, update = true) {
+    bindTalentBuilderEvents();
+
     id = id || MASTER_HERO_LIST[0]?.id;
     if (!id) return;
 
@@ -108,8 +111,18 @@ function renderBuilderMatrix() {
 
             b.addEventListener('mouseenter', e => showTalentTooltip(e, t, l));
             b.addEventListener('mouseleave', hideTooltip);
-            b.innerHTML = `<img src="${getAssetUrl(t.icon)}" onerror="this.src='https://via.placeholder.com/48?text=?'" class="w-full h-full object-cover">`;
 
+            const img = document.createElement('img');
+            img.className = 'w-full h-full object-cover';
+            img.alt = t.name || `Level ${l} talent`;
+            img.addEventListener('error', () => {
+                if (img.src !== TALENT_ICON_FALLBACK) {
+                    img.src = TALENT_ICON_FALLBACK;
+                }
+            });
+            img.src = getAssetUrl(t.icon);
+
+            b.appendChild(img);
             choices.appendChild(b);
         });
 
@@ -180,4 +193,30 @@ function copyIngameBuildCode(buttonEl = null) {
 
 function copyBuilderString(buttonEl = null) {
     copyBuilderUrl(buttonEl);
+}
+
+function bindTalentBuilderEvents() {
+    const resetBtn = document.getElementById('builder-reset-btn');
+    if (resetBtn && resetBtn.dataset.builderBound !== 'true') {
+        resetBtn.dataset.builderBound = 'true';
+        resetBtn.addEventListener('click', resetBuilder);
+    }
+
+    const copyUrlBtn = document.getElementById('builder-copy-url-btn');
+    if (copyUrlBtn && copyUrlBtn.dataset.builderBound !== 'true') {
+        copyUrlBtn.dataset.builderBound = 'true';
+        copyUrlBtn.addEventListener('click', () => copyBuilderUrl(copyUrlBtn));
+    }
+
+    const copyIngameBtn = document.getElementById('builder-copy-ingame-btn');
+    if (copyIngameBtn && copyIngameBtn.dataset.builderBound !== 'true') {
+        copyIngameBtn.dataset.builderBound = 'true';
+        copyIngameBtn.addEventListener('click', () => copyIngameBuildCode(copyIngameBtn));
+    }
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bindTalentBuilderEvents, { once: true });
+} else {
+    bindTalentBuilderEvents();
 }
