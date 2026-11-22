@@ -5,38 +5,9 @@
 const ACTIVE_TALENT_CLASSES = ['border-amber-400', 'shadow-lg', 'scale-105'];
 const INACTIVE_TALENT_CLASSES = ['border-slate-700', 'hover:border-slate-400', 'opacity-75', 'hover:opacity-100'];
 
-function getActiveTiers() {
-    return typeof TALENT_TIERS !== 'undefined' && Array.isArray(TALENT_TIERS)
-        ? TALENT_TIERS
-        : ['1', '4', '7', '10', '13', '16', '20'];
-}
-
-function getNormalizedSelections(selections) {
-    if (typeof normalizeTalentSelections === 'function') {
-        return normalizeTalentSelections(selections);
-    }
-    return Array.isArray(selections) && selections.length === 7
-        ? selections.map(x => Number(x) || 1)
-        : [1, 1, 1, 1, 1, 1, 1];
-}
-
-function getEncodedSelections(selections = builderSelectedTalents) {
-    if (typeof encodeTalentSelections === 'function') {
-        return encodeTalentSelections(selections);
-    }
-    return getNormalizedSelections(selections).join('');
-}
-
-function getFormattedBuildCode(selections = builderSelectedTalents, heroId = builderHeroId) {
-    if (typeof encodeBuildCode === 'function') {
-        return encodeBuildCode(selections, heroId);
-    }
-    return `[T${getEncodedSelections(selections)},${heroId || ''}]`;
-}
-
 function syncBuilderUrl(push = false) {
     if (!builderHeroId) return;
-    const buildStr = getEncodedSelections(builderSelectedTalents);
+    const buildStr = encodeTalentSelections(builderSelectedTalents);
     const url = `#builder?hero=${encodeURIComponent(builderHeroId)}&build=${buildStr}`;
     const state = {
         tab: 'builder',
@@ -63,12 +34,9 @@ async function openBuilder(id = null, selections = null, update = true) {
         renderHeroSidebar(MASTER_HERO_LIST);
     }
 
-    builderSelectedTalents = getNormalizedSelections(selections);
+    builderSelectedTalents = normalizeTalentSelections(selections);
 
-    const heroData = typeof getNormalizedHeroData === 'function'
-        ? getNormalizedHeroData(id)
-        : null;
-
+    const heroData = getNormalizedHeroData(id);
     if (!heroData) {
         console.error('Missing normalized hero data for builder:', id);
         return;
@@ -112,10 +80,9 @@ function renderBuilderMatrix() {
         return;
     }
 
-    const tiers = getActiveTiers();
     const frag = document.createDocumentFragment();
 
-    tiers.forEach((l, idx) => {
+    TALENT_TIERS.forEach((l, idx) => {
         const row = document.createElement('div');
         row.className = 'flex items-center gap-3';
         row.innerHTML = `<div class="w-12 h-12 shrink-0 flex items-center justify-center rounded-2xl bg-gradient-to-b from-purple-600 to-indigo-900 border-2 border-purple-400/80 font-black">${l}</div>`;
@@ -156,7 +123,7 @@ function renderBuilderMatrix() {
 }
 
 function resetBuilder() {
-    builderSelectedTalents = getNormalizedSelections(null);
+    resetBuilderState(builderHeroId, null);
     updateBuilderMatrixSelection();
     updateBuilderOutput(true);
 }
@@ -164,7 +131,7 @@ function resetBuilder() {
 function updateBuilderOutput(updateUrl = true) {
     const codeEl = document.getElementById('builder-string-code');
     if (codeEl) {
-        codeEl.innerText = getFormattedBuildCode(builderSelectedTalents, builderHeroId);
+        codeEl.innerText = encodeBuildCode(builderSelectedTalents, builderHeroId);
     }
     if (updateUrl) {
         syncBuilderUrl(false);
