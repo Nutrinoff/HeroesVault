@@ -91,10 +91,10 @@ function renderTierList() {
         r.className = 'hots-panel flex items-stretch overflow-hidden';
 
         const tierCell = document.createElement('div');
-        tierCell.className = 'hots-subpanel w-28 shrink-0 flex flex-col items-center justify-center border-r border-[#38247a] px-2 py-3 gap-0.5';
+        tierCell.className = 'hots-subpanel w-32 shrink-0 flex flex-col items-center justify-center border-r border-[#38247a] px-2.5 py-3 gap-1';
 
         const tierBadge = document.createElement('span');
-        tierBadge.className = 'hots-tier-btn is-active text-2xl font-black leading-none';
+        tierBadge.className = 'hots-tier-btn is-active text-lg font-black leading-none whitespace-nowrap';
         tierBadge.dataset.tier = t;
         tierBadge.textContent = `${t} Tier`;
 
