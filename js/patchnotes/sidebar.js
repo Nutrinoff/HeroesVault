@@ -76,20 +76,29 @@ function renderPatchSidebar(items) {
         ? 'ALL FEED'
         : `${activeFilter.toUpperCase()} FEED`;
 
+    const safeItems = Array.isArray(items) ? items : [];
+    const activeId = typeof patchState !== 'undefined' ? patchState.selectedId : null;
+
     listContainer.innerHTML = `
         <div class="flex items-center justify-between px-2 pb-2">
             <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">${escapeHtml(headerTitle)}</h3>
-            <span class="text-[11px] font-mono text-slate-500">${items.length}</span>
+            <span class="text-[11px] font-mono text-slate-500">${safeItems.length}</span>
         </div>
     `;
 
     const frag = document.createDocumentFragment();
 
-    items.forEach(item => {
+    safeItems.forEach((item, idx) => {
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.id = `btn-${CSS.escape(String(item.id))}`;
-        btn.className = 'w-full text-left p-3.5 rounded-xl border border-slate-800/90 bg-slate-950/50 hover:bg-slate-800/70 hover:border-slate-700 transition space-y-2 group';
+        btn.id = `btn-patch-${idx}`;
+        btn.dataset.patchId = String(item.id);
+        const isSelected = activeId !== null && String(activeId) === String(item.id);
+        btn.className = `w-full text-left p-3.5 rounded-xl border transition space-y-2 group ${
+            isSelected
+                ? 'bg-sky-500/15 border-sky-500/70'
+                : 'border-slate-800/90 bg-slate-950/50 hover:bg-slate-800/70 hover:border-slate-700'
+        }`;
         btn.addEventListener('click', () => selectPatchItem(item.id));
 
         const feedBadge = item.feedType === 'ptr'
