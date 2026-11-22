@@ -4,8 +4,33 @@
 
 let patchSidebarRafId = null;
 
-const ACTIVE_FILTER_CLASSES = ['bg-sky-500', 'text-slate-950', 'border-sky-400', 'shadow-sm'];
-const INACTIVE_FILTER_CLASSES = ['bg-slate-900/90', 'text-slate-300', 'border-slate-700/80', 'hover:bg-slate-800', 'hover:text-white'];
+const ACTIVE_FILTER_CLASSES = [
+    'bg-sky-500',
+    'text-slate-950',
+    'border-sky-400',
+    'shadow-sm'
+];
+
+const INACTIVE_FILTER_CLASSES = [
+    'bg-slate-900/90',
+    'text-slate-300',
+    'border-slate-700/80',
+    'hover:bg-slate-800',
+    'hover:text-white'
+];
+
+const LEGACY_FILTER_CLASSES = [
+    'bg-slate-950',
+    'bg-cyan-400',
+    'border-cyan-200',
+    'bg-[#090417]',
+    'text-violet-200',
+    'border-[#3d2185]',
+    'hover:bg-[#1c0e40]'
+];
+
+const SELECTED_CARD_CLASSES = ['bg-sky-500/15', 'border-sky-500/70'];
+const UNSELECTED_CARD_CLASSES = ['border-slate-800/90', 'bg-slate-950/50', 'hover:bg-slate-800/70', 'hover:border-slate-700'];
 
 function getCurrentPatchFilter() {
     if (typeof patchState !== 'undefined' && patchState?.filter) {
@@ -27,7 +52,11 @@ function syncFilterButtonStates() {
         const isActive = type === activeFilter;
 
         btn.setAttribute('aria-pressed', String(isActive));
-        btn.classList.remove('bg-slate-950', ...ACTIVE_FILTER_CLASSES, ...INACTIVE_FILTER_CLASSES);
+        btn.classList.remove(
+            ...LEGACY_FILTER_CLASSES,
+            ...ACTIVE_FILTER_CLASSES,
+            ...INACTIVE_FILTER_CLASSES
+        );
         btn.classList.add(...(isActive ? ACTIVE_FILTER_CLASSES : INACTIVE_FILTER_CLASSES));
     });
 }
@@ -58,12 +87,28 @@ function initPatchFilterControls() {
         btn.addEventListener('click', () => {
             const type = btn.getAttribute('data-patch-filter');
             setPatchFilter(type);
+            btn.blur();
         });
     });
     syncFilterButtonStates();
 }
 
 window.switchPatchFilter = setPatchFilter;
+
+function syncSidebarActiveCardState(selectedId) {
+    const listContainer = document.getElementById('patch-sidebar-list');
+    if (!listContainer) return;
+
+    const targetId = selectedId != null ? String(selectedId) : null;
+    const buttons = listContainer.querySelectorAll('button[data-patch-id]');
+
+    buttons.forEach(btn => {
+        const isSelected = targetId !== null && btn.dataset.patchId === targetId;
+        btn.setAttribute('aria-current', isSelected ? 'true' : 'false');
+        btn.classList.remove(...SELECTED_CARD_CLASSES, ...UNSELECTED_CARD_CLASSES);
+        btn.classList.add(...(isSelected ? SELECTED_CARD_CLASSES : UNSELECTED_CARD_CLASSES));
+    });
+}
 
 function renderPatchSidebar(items) {
     const listContainer = document.getElementById('patch-sidebar-list');
@@ -94,12 +139,18 @@ function renderPatchSidebar(items) {
         btn.id = `btn-patch-${idx}`;
         btn.dataset.patchId = String(item.id);
         const isSelected = activeId !== null && String(activeId) === String(item.id);
+        btn.setAttribute('aria-current', isSelected ? 'true' : 'false');
         btn.className = `w-full text-left p-3.5 rounded-xl border transition space-y-2 group ${
             isSelected
-                ? 'bg-sky-500/15 border-sky-500/70'
-                : 'border-slate-800/90 bg-slate-950/50 hover:bg-slate-800/70 hover:border-slate-700'
+                ? SELECTED_CARD_CLASSES.join(' ')
+                : UNSELECTED_CARD_CLASSES.join(' ')
         }`;
-        btn.addEventListener('click', () => selectPatchItem(item.id));
+        btn.addEventListener('click', event => {
+            selectPatchItem(item.id);
+            if (event.detail > 0) {
+                btn.blur();
+            }
+        });
 
         const feedBadge = item.feedType === 'ptr'
             ? `<span class="text-[10px] px-1.5 py-0.5 rounded font-mono font-semibold text-amber-300 bg-amber-500/15 border border-amber-500/30">PTR</span>`
