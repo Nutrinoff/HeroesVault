@@ -3,21 +3,33 @@
   "name": "Garden of Terror",
   "theme": "Gather Seeds from awakened Shamblers to summon Garden Terrors down all three lanes.",
   "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/ui_ingame_mapmechanic_loadscreen_gardenofterror.png",
+  "firstObjective": "Warning at 1:45, spawns at 2:15 (~2:00 cooldown after a Garden Terror push ends)",
+  "spawnPattern": "Spawns across 3 vertical lane/column zones; never spawns 3 times in a row on the same half of the map (verify exact column/half rule)",
+  "lanes": "3 Lanes (Top, Mid & Bottom)",
+  "bosses": "None",
   "mechanic": {
     "title": "Seed Gathering & Triple Garden Terrors",
-    "description": "Overgrown Shambler Seeds activate periodically across the map (first warning at 1:45, spawns at 2:15; 2:00 cooldown after a Terror push ends). Teams channel the Seed for 6 seconds, spawning waves of Shamblers that must be defeated to claim the Seed. Collecting 3 Seeds unleashes a Garden Terror down every lane simultaneously, disabling enemy buildings and casting Polymorph zones."
+    "description": "Channeling an active Seed awakens Shambler defenders that must be cleared to claim the Seed. Collecting 3 Seeds unleashes a Garden Terror down every lane simultaneously, disabling enemy buildings and casting Polymorph zones that turn nearby enemy units and Heroes into harmless treants/critters."
   },
   "camps": [
     {
       "name": "Siege Giants (2 Camps)",
-      "timing": "Spawns at 1:00 (3:00 respawn)",
-      "notes": "Located near top-left and bottom-right. Throws rocks from safe range; ideal to capture right before Seed spawns."
+      "timing": "Spawns at 0:30 (3:00 respawn)",
+      "notes": "Located near top-left and bottom-right. Long-range siege mercenaries; good to capture right before Seed phases."
     },
     {
       "name": "Bruisers / Knights (2 Camps)",
-      "timing": "Spawns at 1:00 (4:00 respawn)",
-      "notes": "Located in the upper-mid and lower-mid pathways. High durability with a spell armor aura; creates strong mid/side lane pressure."
+      "timing": "Spawns at 0:30 (4:00 respawn)",
+      "notes": "Located in the upper-mid and lower-mid pathways. Durable melee mercenaries with a Spell Armor aura that create strong side/mid pressure."
     }
   ],
-  "strategy": "Garden of Terror plays similarly to Cursed Hollow and Tomb of the Spider Queen in macro rhythm—there is no Boss camp, and teams build toward a 3-Seed power spike that pushes all three lanes at once. Prioritize strong waveclear and camp-clearing heroes (like Greymane, Sylvanas, or Jaina) so you can push alongside your strongest Garden Terror lane and dismantle Keeps rapidly while the enemy team struggles to defend all three fronts."
+  "strategy": "Garden of Terror revolves around soaking, camp control, and building toward a 3-Seed power spike that pushes all three lanes at once. Clear camps before Seed phases to force split rotations, and push alongside your strongest Garden Terror lane with high-clear/siege heroes to break structures while enemies scramble to defend multiple lanes.",
+  "notes": "Because Garden of Terror has no Boss camp, 3-Seed pushes and stacked mercenary waves carry extra structure value—watch out for counter-pushes if your team overcommits to a single Seed while losing waves elsewhere.",
+  "goldenHeroes": [
+    "greymane",
+    "sylvanas",
+    "jaina",
+    "johanna",
+    "dehaka"
+  ]
 }
