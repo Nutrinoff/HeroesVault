@@ -1,6 +1,6 @@
-// ==========================================
+// ===========================================
 // 4. DEEP LINKS, HOME PREVIEWS & PATCH VIEW CONTROLLER
-// ==========================================
+// ===========================================
 
 const VALID_PATCH_FILTERS = ['all', 'live', 'ptr'];
 const PATCH_QUERY_KEYS = ['view', 'patch', 'patchId', 'feed'];
