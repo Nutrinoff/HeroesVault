@@ -4,6 +4,7 @@
 
 var REPO_BASE = 'https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/';
 var KNOWN_ASSET_FOLDERS = ['abilitytalents/', 'heroportraits/', 'loadingscreens/'];
+var WARMED_ASSET_URLS = new Set();
 
 function extractPortraitPath(source) {
     if (!source) return '';
@@ -48,8 +49,7 @@ function getAssetUrl(path, fallback) {
         lower.indexOf('portrait') !== -1;
 
     var isLoadingScreen =
-        lower.indexOf('loadingscreen') !== -1 ||
-        lower.indexOf('loadingscreen') === 0;
+        lower.indexOf('loadingscreen') !== -1;
 
     var isAbilityOrTalentIcon =
         lower.indexOf('storm_ui_talent') === 0 ||
@@ -84,6 +84,14 @@ var resolvePortraitPath = resolveAssetUrl;
 var resolvePortraitUrl = resolveAssetUrl;
 var resolveHeroUiPortraitUrl = resolveAssetUrl;
 
+function warmSingleAssetUrl(url) {
+    if (!url || WARMED_ASSET_URLS.has(url)) return;
+    WARMED_ASSET_URLS.add(url);
+    var img = new Image();
+    img.decoding = 'async';
+    img.src = url;
+}
+
 function getHeroPortrait(hero) {
     if (!hero) return '';
     return extractPortraitPath(hero);
@@ -104,43 +112,51 @@ function getHeroLoadingPortrait(heroOrRaw) {
     return getAssetUrl(loadingPath);
 }
 
-function preloadAllAssets(rawHeroes) {
-    if (!Array.isArray(rawHeroes) || rawHeroes.length === 0) return;
+function preloadHeroTalentAndAbilityIcons(rawHero) {
+    if (!rawHero || typeof rawHero !== 'object') return;
 
-    rawHeroes.forEach(function (h) {
-        var portrait = getHeroPortrait(h);
+    var iconPaths = new Set();
+
+    if (typeof flattenHeroAbilities === 'function') {
+        flattenHeroAbilities(rawHero).forEach(function (a) {
+            if (a && a.icon) iconPaths.add(a.icon);
+        });
+    }
+
+    if (typeof normalizeTalentTree === 'function') {
+        var tree = normalizeTalentTree(rawHero.talents || rawHero.talentTree || {});
+        Object.values(tree).forEach(function (tierList) {
+            if (!Array.isArray(tierList)) return;
+            tierList.forEach(function (t) {
+                if (t && t.icon) iconPaths.add(t.icon);
+            });
+        });
+    }
+
+    iconPaths.forEach(function (icon) {
+        warmSingleAssetUrl(getAssetUrl(icon));
+    });
+}
+
+function preloadAllAssets(scopedHeroesOrUrls, options) {
+    var opts = options || {};
+    var maxItems = typeof opts.limit === 'number' ? opts.limit : 24;
+
+    if (!Array.isArray(scopedHeroesOrUrls) || scopedHeroesOrUrls.length === 0) return;
+
+    var targets = scopedHeroesOrUrls.slice(0, maxItems);
+    targets.forEach(function (entry) {
+        if (!entry) return;
+        if (typeof entry === 'string') {
+            warmSingleAssetUrl(getAssetUrl(entry));
+            return;
+        }
+        var portrait = getHeroPortrait(entry);
         if (portrait) {
-            var img = new Image();
-            img.src = getAssetUrl(portrait);
+            warmSingleAssetUrl(getAssetUrl(portrait));
+        }
+        if (opts.includeIcons) {
+            preloadHeroTalentAndAbilityIcons(entry);
         }
     });
-
-    setTimeout(function () {
-        rawHeroes.forEach(function (h, index) {
-            setTimeout(function () {
-                var iconPaths = new Set();
-
-                if (typeof flattenHeroAbilities === 'function') {
-                    flattenHeroAbilities(h).forEach(function (a) {
-                        if (a && a.icon) iconPaths.add(a.icon);
-                    });
-                }
-
-                if (typeof normalizeTalentTree === 'function') {
-                    var tree = normalizeTalentTree(h.talents || h.talentTree || {});
-                    Object.values(tree).forEach(function (tierList) {
-                        if (!Array.isArray(tierList)) return;
-                        tierList.forEach(function (t) {
-                            if (t && t.icon) iconPaths.add(t.icon);
-                        });
-                    });
-                }
-
-                iconPaths.forEach(function (icon) {
-                    var img = new Image();
-                    img.src = getAssetUrl(icon);
-                });
-            }, index * 30);
-        });
-    }, 500);
 }
