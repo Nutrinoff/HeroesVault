@@ -71,10 +71,11 @@ function clearPatchQueryParamsFromUrl() {
 }
 
 function navigateTo(tab, params = {}, push = true) {
-    let hashTarget = '#' + tab;
+    const normalizedTab = tab === 'heroes' ? 'builds' : (tab || 'home');
+    let hashTarget = '#' + normalizedTab;
     const q = new URLSearchParams();
 
-    Object.entries(params).forEach(([k, v]) => {
+    Object.entries(params || {}).forEach(([k, v]) => {
         if (v !== null && v !== undefined && v !== '') {
             q.set(k, v);
         }
@@ -95,13 +96,36 @@ function navigateTo(tab, params = {}, push = true) {
         finalUrl = hashTarget;
     }
 
-    if (push) {
-        history.pushState({ tab, params }, '', finalUrl);
+    if (typeof window.history?.pushState === 'function' && typeof window.history?.replaceState === 'function') {
+        if (push) {
+            history.pushState({ tab: normalizedTab, params }, '', finalUrl);
+        } else {
+            history.replaceState({ tab: normalizedTab, params }, '', finalUrl);
+        }
     } else {
-        history.replaceState({ tab, params }, '', finalUrl);
+        location.hash = hashTarget;
     }
 
     handleRoute();
+}
+
+function resolveBuilderRouteParams(query) {
+    if (typeof parseBuilderQuery === 'function') {
+        const parsed = parseBuilderQuery(`?${query}`);
+        return {
+            heroId: parsed.hero || MASTER_HERO_LIST[0]?.id,
+            selections: parsed.rawCode
+                ? (typeof decodeBuildCode === 'function' ? decodeBuildCode(parsed.rawCode) : parsed.selections)
+                : null
+        };
+    }
+
+    const q = new URLSearchParams(query);
+    const rawCode = q.get('build') || q.get('talents') || '';
+    return {
+        heroId: q.get('hero') || MASTER_HERO_LIST[0]?.id,
+        selections: rawCode && typeof decodeBuildCode === 'function' ? decodeBuildCode(rawCode) : null
+    };
 }
 
 function handleRoute() {
@@ -116,17 +140,18 @@ function handleRoute() {
     switchTabUI(tab);
 
     if (tab === 'builds' || tab === 'heroes') {
-        selectHero(q.get('hero') || MASTER_HERO_LIST[0]?.id, false);
+        if (typeof selectHero === 'function') {
+            selectHero(q.get('hero') || MASTER_HERO_LIST[0]?.id, false);
+        }
     } else if (tab === 'map') {
         if (typeof selectMap === 'function') {
             selectMap(q.get('id') || 'alteracpass', false);
         }
     } else if (tab === 'builder') {
-        openBuilder(
-            q.get('hero') || MASTER_HERO_LIST[0]?.id,
-            q.get('build') ? decodeBuildCode(q.get('build')) : null,
-            false
-        );
+        if (typeof openBuilder === 'function') {
+            const { heroId, selections } = resolveBuilderRouteParams(query);
+            openBuilder(heroId, selections, false);
+        }
     } else if (tab === 'academy') {
         if (typeof renderAcademy === 'function') {
             renderAcademy();
@@ -161,6 +186,9 @@ function bindNavigationEvents() {
 
 function initializeRouter() {
     bindNavigationEvents();
-    window.addEventListener('popstate', handleRoute);
+    if (!window.__heroesVaultPopstateBound) {
+        window.__heroesVaultPopstateBound = true;
+        window.addEventListener('popstate', handleRoute);
+    }
     handleRoute();
 }
