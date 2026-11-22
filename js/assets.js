@@ -52,9 +52,12 @@ function getAssetUrl(path, fallback) {
         lower.indexOf('loadingscreen') !== -1;
 
     var isAbilityOrTalentIcon =
-        lower.indexOf('storm_ui_talent') === 0 ||
-        lower.indexOf('storm_ui_icon_') === 0 ||
-        lower.indexOf('storm_ui_btn_') === 0;
+    lower.indexOf('storm_ui_talent') === 0 ||
+    lower.indexOf('storm_ui_icon_') === 0 ||
+    lower.indexOf('storm_ui_btn_') === 0 ||
+    lower.indexOf('storm_temp_') === 0 ||
+    lower.indexOf('storm_btn_') === 0 ||
+    lower.indexOf('btn-') === 0;
 
     if (isPortrait) {
         p = 'heroportraits/' + p;
