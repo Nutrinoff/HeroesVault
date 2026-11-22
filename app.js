@@ -1,5 +1,5 @@
 // ==========================================
-// 1. REQUIRED GLOBALS GUARD
+// 1. REQUIRED GLOBALS & RUNTIME VALIDATION
 // ==========================================
 
 function assertRequiredGlobals() {
@@ -21,6 +21,36 @@ function assertRequiredGlobals() {
     const missing = requiredFunctions.filter(fnName => typeof window[fnName] !== 'function');
     if (missing.length > 0) {
         console.error('[HeroesVault] Missing required module functions or bad script order:', missing);
+    }
+
+    const requiredDomIds = [
+        'view-home',
+        'view-builds',
+        'view-map',
+        'view-builder',
+        'view-academy',
+        'view-patchnotes',
+        'view-tierlist',
+        'maps-dropdown-toggle',
+        'maps-dropdown-menu',
+        'talent-tooltip'
+    ];
+
+    const missingIds = requiredDomIds.filter(id => !document.getElementById(id));
+    if (missingIds.length > 0) {
+        console.warn('[HeroesVault] Missing expected DOM elements:', missingIds);
+    }
+}
+
+function validateLoadedDataShapes() {
+    if (!Array.isArray(MASTER_HERO_LIST) || MASTER_HERO_LIST.length === 0) {
+        console.warn('[HeroesVault] MASTER_HERO_LIST is empty or invalid.');
+    }
+    if (!Array.isArray(PERSONAL_BUILDS)) {
+        console.warn('[HeroesVault] PERSONAL_BUILDS is not an array.');
+    }
+    if (!Array.isArray(MASTER_MAP_LIST)) {
+        console.warn('[HeroesVault] MASTER_MAP_LIST is not an array.');
     }
 }
 
@@ -105,6 +135,8 @@ async function loadInitialData() {
     if (tiersData && typeof tiersData === 'object') {
         MASTER_TIERS = tiersData;
     }
+
+    validateLoadedDataShapes();
 }
 
 
@@ -127,7 +159,11 @@ function bindGlobalDismissHandlers() {
 
     document.addEventListener('click', e => {
         if (!e.target.closest('#maps-dropdown-menu') && !e.target.closest('#maps-dropdown-toggle')) {
-            document.getElementById('maps-dropdown-menu')?.classList.add('hidden');
+            if (typeof closeMapsDropdown === 'function') {
+                closeMapsDropdown();
+            } else {
+                document.getElementById('maps-dropdown-menu')?.classList.add('hidden');
+            }
         }
     });
 }
