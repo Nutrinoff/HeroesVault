@@ -143,27 +143,43 @@ function getIngameBuildString() {
     return encodeBuildCode(builderSelectedTalents, heroLabel);
 }
 
-function copyTextWithFallback(text, label) {
+function flashCopyButtonState(btn, copiedText) {
+    if (!btn) return;
+    if (!btn.dataset.originalHtml) {
+        btn.dataset.originalHtml = btn.innerHTML;
+    }
+
+    clearTimeout(btn._copyResetTimer);
+    btn.textContent = copiedText;
+    btn.classList.add('ring-2', 'ring-cyan-300/70');
+
+    btn._copyResetTimer = setTimeout(() => {
+        btn.innerHTML = btn.dataset.originalHtml;
+        btn.classList.remove('ring-2', 'ring-cyan-300/70');
+    }, 1600);
+}
+
+function copyTextWithFallback(text, label, buttonEl = null, copiedLabel = 'Copied') {
     if (!text) return;
 
     if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
         navigator.clipboard.writeText(text)
-            .then(() => alert(`Copied ${label}:\n${text}`))
+            .then(() => flashCopyButtonState(buttonEl, copiedLabel))
             .catch(() => prompt(`Copy ${label}:`, text));
     } else {
         prompt(`Copy ${label}:`, text);
     }
 }
 
-function copyBuilderUrl() {
+function copyBuilderUrl(buttonEl = null) {
     syncBuilderUrl(false);
-    copyTextWithFallback(window.location.href, 'build URL');
+    copyTextWithFallback(window.location.href, 'build URL', buttonEl, 'Copied URL');
 }
 
-function copyIngameBuildCode() {
-    copyTextWithFallback(getIngameBuildString(), 'ingame build code');
+function copyIngameBuildCode(buttonEl = null) {
+    copyTextWithFallback(getIngameBuildString(), 'ingame build code', buttonEl, 'Copied Ingame');
 }
 
-function copyBuilderString() {
-    copyBuilderUrl();
+function copyBuilderString(buttonEl = null) {
+    copyBuilderUrl(buttonEl);
 }
