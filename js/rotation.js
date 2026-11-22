@@ -21,6 +21,7 @@ const FALLBACK_ROTATION_PORTRAIT =
     );
 
 let currentRotationData = null;
+let rawRotationCache = null;
 
 function normalizeSlugKey(val) {
     return String(val || '')
@@ -387,4 +388,70 @@ function createFreeHeroRow(hero) {
 
     btn.append(frame, nameEl, badgeEl);
     return btn;
+}
+
+function renderFreeRotationHeroes(data) {
+    const grid = document.getElementById('home-f2p-grid');
+    const spanEl = document.getElementById('home-f2p-timespan');
+    if (!grid) return;
+
+    if (spanEl) {
+        spanEl.textContent = data.allHeroesFree
+            ? `${data.timespan} · All Heroes Free`
+            : data.timespan;
+    }
+
+    const sortedHeroes = sortRotationHeroesF2pFirst((data.heroes || []).slice(0, 14));
+    if (!sortedHeroes.length) {
+        grid.innerHTML =
+            '<div class="col-span-2 text-xs text-violet-200/70 py-3">No free rotation heroes available right now.</div>';
+        return;
+    }
+
+    const frag = document.createDocumentFragment();
+    for (const hero of sortedHeroes) {
+        frag.appendChild(createFreeHeroRow(hero));
+    }
+    grid.replaceChildren(frag);
+}
+
+async function loadAndRenderRotation() {
+    let rawPayload = rawRotationCache;
+
+    if (!rawPayload) {
+        try {
+            rawPayload = await fetchLocalRotationJson(LOCAL_ROTATION_DATA_URL);
+            rawRotationCache = rawPayload;
+        } catch (err) {
+            console.warn('Failed to load rotation.json:', err);
+            rawPayload = {};
+        }
+    }
+
+    currentRotationData = parseRotationPayload(rawPayload, new Date());
+    renderFreeRotationHeroes(currentRotationData);
+}
+
+function scheduleRotationInit() {
+    loadAndRenderRotation();
+
+    // Re-render once if MASTER_HERO_LIST / HOTS_MASTER_DATA finishes loading shortly after
+    let attempts = 0;
+    const timer = window.setInterval(() => {
+        attempts += 1;
+        const hasRoster = Array.isArray(window.MASTER_HERO_LIST) && window.MASTER_HERO_LIST.length > 0;
+        if (hasRoster && rawRotationCache) {
+            currentRotationData = parseRotationPayload(rawRotationCache, new Date());
+            renderFreeRotationHeroes(currentRotationData);
+            window.clearInterval(timer);
+        } else if (attempts >= 15) {
+            window.clearInterval(timer);
+        }
+    }, 250);
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', scheduleRotationInit, { once: true });
+} else {
+    scheduleRotationInit();
 }
