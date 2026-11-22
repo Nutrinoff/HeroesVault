@@ -6,6 +6,8 @@ let CURRENT_FILTER = 'all'; // 'all', 'live', or 'ptr'
 let ACTIVE_PATCH_ITEMS = [];
 let CACHED_MASTER_PATCHES = null;
 const PATCH_DETAIL_CACHE = new Map();
+const HOME_LATEST_PATCHES = { live: null, ptr: null };
+let PENDING_DEEP_LINK_PATCH = null;
 
 const PATCH_DATA_DIR = './data/patchnotes';
 const DEFAULT_HOTS_URL = 'https://news.blizzard.com/en-us/heroes-of-the-storm';
@@ -711,17 +713,9 @@ async function fetchAllMasterPatches() {
     return CACHED_MASTER_PATCHES;
 }
 
-async function fetchPatchDetailHtml(item) {
-    const cacheKey = `${item.feedType || 'live'}:${item.id}`;
-    if (PATCH_DETAIL_CACHE.has(cacheKey)) {
-        return PATCH_DETAIL_CACHE.get(cacheKey);
-    }
-
-    if (item.inlineNotes) {
-        const html = formatBlizzlikePatchNotesHtml(item.inlineNotes);
-        PATCH_DETAIL_CACHE.set(cacheKey, html);
-        return html;
-    }
+async function fetchPatchRawNotesText(item) {
+    if (!item) return '';
+    if (item.inlineNotes) return item.inlineNotes;
 
     if (item.detailPath) {
         try {
@@ -734,9 +728,8 @@ async function fetchPatchDetailHtml(item) {
                         : extractPatchNotesText(rawBody);
 
                     if (notesText) {
-                        const html = formatBlizzlikePatchNotesHtml(notesText);
-                        PATCH_DETAIL_CACHE.set(cacheKey, html);
-                        return html;
+                        item.inlineNotes = notesText;
+                        return notesText;
                     }
                 }
             }
@@ -745,9 +738,78 @@ async function fetchPatchDetailHtml(item) {
         }
     }
 
+    return '';
+}
+
+async function fetchPatchDetailHtml(item) {
+    const cacheKey = `${item.feedType || 'live'}:${item.id}`;
+    if (PATCH_DETAIL_CACHE.has(cacheKey)) {
+        return PATCH_DETAIL_CACHE.get(cacheKey);
+    }
+
+    const notesText = await fetchPatchRawNotesText(item);
+    if (notesText) {
+        const html = formatBlizzlikePatchNotesHtml(notesText);
+        PATCH_DETAIL_CACHE.set(cacheKey, html);
+        return html;
+    }
+
     const fallbackHtml = `<p class="text-slate-400">No patch note details found for <span class="font-mono text-slate-300">${escapeHtml(item.detailPath || item.id)}</span>.</p>`;
     PATCH_DETAIL_CACHE.set(cacheKey, fallbackHtml);
     return fallbackHtml;
+}
+
+function readPatchDeepLinkFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const queryPatch = params.get('patch') || params.get('patchId') || params.get('id');
+    const queryFeed = params.get('feed');
+    const queryView = params.get('view');
+
+    if (queryPatch) {
+        return {
+            patchId: String(queryPatch).trim(),
+            feed: queryFeed ? String(queryFeed).trim().toLowerCase() : null,
+            openView: queryView === 'patchnotes' || !queryView
+        };
+    }
+
+    const hash = String(window.location.hash || '').replace(/^#/, '');
+    if (hash.startsWith('patchnotes')) {
+        const qIndex = hash.indexOf('?');
+        if (qIndex !== -1) {
+            const hashParams = new URLSearchParams(hash.slice(qIndex + 1));
+            const hPatch = hashParams.get('patch') || hashParams.get('id');
+            const hFeed = hashParams.get('feed');
+            if (hPatch) {
+                return {
+                    patchId: String(hPatch).trim(),
+                    feed: hFeed ? String(hFeed).trim().toLowerCase() : null,
+                    openView: true
+                };
+            }
+        }
+    }
+
+    return null;
+}
+
+function writePatchUrl(item) {
+    if (!item || typeof window.history?.replaceState !== 'function') return;
+    try {
+        const url = new URL(window.location.href);
+        url.searchParams.set('view', 'patchnotes');
+        url.searchParams.set('patch', item.id);
+        if (item.feedType) {
+            url.searchParams.set('feed', item.feedType);
+        }
+        window.history.replaceState(
+            { view: 'patchnotes', patchId: item.id, feedType: item.feedType },
+            '',
+            url.toString()
+        );
+    } catch (_) {
+        // Ignore history state errors on restricted origins
+    }
 }
 
 function getFilterButtons() {
@@ -797,6 +859,12 @@ async function loadLivePatchNotes() {
     const listContainer = document.getElementById('patch-sidebar-list');
     if (!listContainer) return;
 
+    const deepLink = PENDING_DEEP_LINK_PATCH || readPatchDeepLinkFromUrl();
+    if (deepLink?.feed && ['all', 'live', 'ptr'].includes(deepLink.feed) && !PENDING_DEEP_LINK_PATCH) {
+        CURRENT_FILTER = deepLink.feed;
+        syncFilterButtonStates();
+    }
+
     listContainer.innerHTML = `
         <div class="flex items-center justify-between px-2 pb-2">
             <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">${escapeHtml(CURRENT_FILTER)} Feed</h3>
@@ -834,7 +902,26 @@ async function loadLivePatchNotes() {
         }
 
         renderPatchSidebar(ACTIVE_PATCH_ITEMS);
-        await selectPatchItem(ACTIVE_PATCH_ITEMS[0].id);
+
+        let targetId = ACTIVE_PATCH_ITEMS[0].id;
+        if (deepLink?.patchId) {
+            const matchedInList = ACTIVE_PATCH_ITEMS.find(p => String(p.id) === String(deepLink.patchId));
+            if (matchedInList) {
+                targetId = matchedInList.id;
+            } else {
+                const matchedAnywhere = allPatches.find(p => String(p.id) === String(deepLink.patchId));
+                if (matchedAnywhere) {
+                    CURRENT_FILTER = 'all';
+                    ACTIVE_PATCH_ITEMS = allPatches;
+                    syncFilterButtonStates();
+                    renderPatchSidebar(ACTIVE_PATCH_ITEMS);
+                    targetId = matchedAnywhere.id;
+                }
+            }
+        }
+
+        PENDING_DEEP_LINK_PATCH = null;
+        await selectPatchItem(targetId);
 
     } catch (err) {
         console.warn('Failed to load patch notes:', err);
@@ -913,6 +1000,8 @@ async function selectPatchItem(id) {
     const item = ACTIVE_PATCH_ITEMS.find(x => x.id === id);
     if (!item) return;
 
+    writePatchUrl(item);
+
     document.querySelectorAll('#patch-sidebar-list button[id^="btn-"]').forEach(b => {
         b.classList.remove('bg-sky-500/15', 'border-sky-500/70');
     });
@@ -968,6 +1057,126 @@ async function selectPatchItem(id) {
 
     schedulePatchSidebarSync();
 }
+
+// ==========================================
+// HOMEPAGE PATCH PREVIEWS & DIRECT JUMP
+// ==========================================
+
+function buildPatchTldr(patch, rawNotesOverride = '') {
+    if (!patch) return 'No patch notes available yet.';
+    const raw = String(rawNotesOverride || patch.inlineNotes || '').replace(/\r\n/g, '\n');
+    const lines = raw
+        .split('\n')
+        .map(l => l.trim().replace(/^={2,}\s*|\s*={2,}$/g, '').replace(/^(?:•|[-*])\s+/, ''))
+        .filter(l => l && !/^quick navigation:?$/i.test(l) && !/^return to top$/i.test(l));
+
+    if (lines.length >= 2) {
+        return `${lines[0]} — ${lines[1]}`.slice(0, 150);
+    }
+    if (lines.length === 1) {
+        return lines[0].slice(0, 150);
+    }
+    return patch.patchVersion
+        ? `Build ${patch.build || patch.patchVersion} patch notes and balance updates.`
+        : 'Open patch notes for full details.';
+}
+
+async function hydrateHomeLatestPatchCards() {
+    const liveTitle = document.getElementById('home-live-patch-title');
+    const liveMeta = document.getElementById('home-live-patch-meta');
+    const liveTldr = document.getElementById('home-live-patch-tldr');
+
+    const ptrTitle = document.getElementById('home-ptr-patch-title');
+    const ptrMeta = document.getElementById('home-ptr-patch-meta');
+    const ptrTldr = document.getElementById('home-ptr-patch-tldr');
+
+    if (!liveTitle && !ptrTitle) return;
+
+    try {
+        const allPatches = await fetchAllMasterPatches();
+        const latestLive = allPatches.find(p => p.feedType === 'live') || null;
+        const latestPtr = allPatches.find(p => p.feedType === 'ptr') || null;
+
+        HOME_LATEST_PATCHES.live = latestLive;
+        HOME_LATEST_PATCHES.ptr = latestPtr;
+
+        if (liveTitle) {
+            if (latestLive) {
+                liveTitle.textContent = latestLive.title;
+                if (liveMeta) liveMeta.textContent = latestLive.listDate || latestLive.date || 'Live';
+                const liveNotes = await fetchPatchRawNotesText(latestLive);
+                if (liveTldr) liveTldr.textContent = buildPatchTldr(latestLive, liveNotes);
+            } else {
+                liveTitle.textContent = 'No live patch recorded';
+                if (liveTldr) liveTldr.textContent = 'Open Patch Notes to browse all feeds.';
+            }
+        }
+
+        if (ptrTitle) {
+            if (latestPtr) {
+                ptrTitle.textContent = latestPtr.title;
+                if (ptrMeta) ptrMeta.textContent = latestPtr.listDate || latestPtr.date || 'PTR';
+                const ptrNotes = await fetchPatchRawNotesText(latestPtr);
+                if (ptrTldr) ptrTldr.textContent = buildPatchTldr(latestPtr, ptrNotes);
+            } else {
+                ptrTitle.textContent = 'No active PTR patch';
+                if (ptrTldr) ptrTldr.textContent = 'Open Patch Notes to check PTR archive.';
+            }
+        }
+    } catch (_) {
+        if (liveTitle) liveTitle.textContent = 'Live Patch Notes';
+        if (ptrTitle) ptrTitle.textContent = 'PTR Patch Notes';
+    }
+}
+
+window.openHomePatch = async function openHomePatch(feedType) {
+    const normalizedFeed = feedType === 'ptr' ? 'ptr' : 'live';
+    const targetPatch = HOME_LATEST_PATCHES[normalizedFeed];
+
+    CURRENT_FILTER = normalizedFeed;
+    syncFilterButtonStates();
+
+    if (targetPatch) {
+        PENDING_DEEP_LINK_PATCH = {
+            patchId: targetPatch.id,
+            feed: normalizedFeed,
+            openView: true
+        };
+    }
+
+    if (typeof navigateTo === 'function') {
+        navigateTo('patchnotes');
+    }
+
+    await loadLivePatchNotes();
+};
+
+function handleInitialPatchDeepLink() {
+    const deepLink = readPatchDeepLinkFromUrl();
+    if (!deepLink) return;
+
+    PENDING_DEEP_LINK_PATCH = deepLink;
+    if (deepLink.feed && ['all', 'live', 'ptr'].includes(deepLink.feed)) {
+        CURRENT_FILTER = deepLink.feed;
+        syncFilterButtonStates();
+    }
+
+    if (deepLink.openView && typeof navigateTo === 'function') {
+        navigateTo('patchnotes');
+    }
+    loadLivePatchNotes();
+}
+
+window.addEventListener('popstate', () => {
+    const deepLink = readPatchDeepLinkFromUrl();
+    if (deepLink?.patchId) {
+        PENDING_DEEP_LINK_PATCH = deepLink;
+        if (typeof navigateTo === 'function') {
+            navigateTo('patchnotes');
+        }
+        loadLivePatchNotes();
+    }
+});
 
 // ==========================================
 // PATCH SIDEBAR BURGER-SQUISH CONTROLLER
@@ -1060,9 +1269,13 @@ if (patchViewEl && typeof MutationObserver !== 'undefined') {
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
         initPatchFilterControls();
+        hydrateHomeLatestPatchCards();
+        handleInitialPatchDeepLink();
         schedulePatchSidebarSync();
     }, { once: true });
 } else {
     initPatchFilterControls();
+    hydrateHomeLatestPatchCards();
+    handleInitialPatchDeepLink();
     schedulePatchSidebarSync();
 }
