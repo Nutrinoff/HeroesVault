@@ -3,9 +3,13 @@
   "name": "Battlefield of Eternity",
   "theme": "Defeat the enemy Immortal in the center arena while defending your own to empower a massive lane push.",
   "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/ui_ingame_mapmechanic_loadscreen_battlefieldofeternity.png",
+  "firstObjective": "Warning at 2:30, spawns at 3:00 (2:15 cooldown after a winning Immortal dies)",
+  "spawnPattern": "Always spawns in the central arena between Top and Bottom lanes",
+  "lanes": "2 Lanes (Top & Bottom)",
+  "bosses": "None",
   "mechanic": {
     "title": "The Duel of the Immortals",
-    "description": "Two Immortals spawn in the center arena (first warning at 2:30, spawns at 3:00; 2:15 cooldown after a winning Immortal dies). At 50% health, they swap positions and reset their AoE stun abilities. Once one Immortal is defeated, the surviving Immortal regenerates health, gains shields equal to its remaining HP percentage, and pushes the enemy's strongest lane—using ranged attacks until its shields are broken before switching to melee."
+    "description": "Two Immortals clash in the center arena while periodically casting dangerous AoE stuns and splash zones. At 50% health, they swap positions and reset their abilities. When one Immortal falls, the surviving Immortal regenerates health, gains shields scaled to its remaining HP percentage, and pushes the enemy's strongest lane—attacking at range until its shields break before switching to melee."
   },
   "camps": [
     {
@@ -19,5 +23,13 @@
       "notes": "Located near top-left/top-right and bottom-left/bottom-right. Ranged spear-throwers that provide steady siege damage; easy to clear right before Immortal phases."
     }
   ],
-  "strategy": "Battlefield of Eternity is a two-lane battleground with no Boss camp where single-target sustained DPS (such as Valla, Greymane, Artanis, or Hanzo) heavily dictates objective control. Time your Fallen Shaman camps right before the 3:00 Immortal spawn to force the enemy team into defending lane pressure or losing structures. If your team has superior Immortal burn speed, race down the enemy Immortal while using poke heroes to interrupt defenders; if you have stronger teamfight engage, defend your own Immortal and punish enemies caught in its AoE stun rings."
+  "strategy": "Because Battlefield of Eternity has only two lanes and no Boss camp, single-target sustained DPS and rotation timing heavily shape objective control. Capture Fallen Shaman camps right before Immortal spawns to force enemies between defending a pushing lane or losing the race. Race the enemy Immortal when your burn is faster, or peel and punish defenders caught in stun rings when defending your own.",
+  "notes": "Because there are only two lanes and a shared central objective arena, rotation speed and lane-clear balance matter a lot—single-lane/offlane pressure can punish overcommitted Immortal races, while strong single-target burn lets teams melt the enemy Immortal quickly.",
+  "goldenHeroes": [
+    "valla",
+    "greymane",
+    "artanis",
+    "hanzo",
+    "johanna"
+  ]
 }
