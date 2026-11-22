@@ -7,15 +7,24 @@ let patchSidebarRafId = null;
 const ACTIVE_FILTER_CLASSES = ['bg-sky-500', 'text-slate-950', 'border-sky-400', 'shadow-sm'];
 const INACTIVE_FILTER_CLASSES = ['bg-slate-900/90', 'text-slate-300', 'border-slate-700/80', 'hover:bg-slate-800', 'hover:text-white'];
 
+function getCurrentPatchFilter() {
+    if (typeof patchState !== 'undefined' && patchState?.filter) {
+        return patchState.filter;
+    }
+    return typeof CURRENT_FILTER === 'string' ? CURRENT_FILTER : 'all';
+}
+
 function getFilterButtons() {
     return Array.from(document.querySelectorAll('[data-patch-filter]'));
 }
 
 function syncFilterButtonStates() {
+    const activeFilter = getCurrentPatchFilter();
     const buttons = getFilterButtons();
+
     buttons.forEach(btn => {
         const type = String(btn.getAttribute('data-patch-filter') || '').toLowerCase();
-        const isActive = type === CURRENT_FILTER;
+        const isActive = type === activeFilter;
 
         btn.setAttribute('aria-pressed', String(isActive));
         btn.classList.remove('bg-slate-950', ...ACTIVE_FILTER_CLASSES, ...INACTIVE_FILTER_CLASSES);
@@ -24,13 +33,21 @@ function syncFilterButtonStates() {
 }
 
 function setPatchFilter(filterType) {
-    const normalized = ['all', 'live', 'ptr'].includes(String(filterType).toLowerCase())
-        ? String(filterType).toLowerCase()
-        : 'all';
+    const raw = String(filterType || '').toLowerCase();
+    const normalized = ['all', 'live', 'ptr'].includes(raw) ? raw : 'all';
 
-    CURRENT_FILTER = normalized;
-    syncFilterButtonStates();
-    loadLivePatchNotes();
+    if (typeof setPatchFilterState === 'function') {
+        setPatchFilterState(normalized);
+    } else {
+        if (typeof CURRENT_FILTER !== 'undefined') {
+            CURRENT_FILTER = normalized;
+        }
+        syncFilterButtonStates();
+    }
+
+    if (typeof loadLivePatchNotes === 'function') {
+        loadLivePatchNotes();
+    }
 }
 
 function initPatchFilterControls() {
@@ -54,9 +71,10 @@ function renderPatchSidebar(items) {
 
     syncFilterButtonStates();
 
-    const headerTitle = CURRENT_FILTER === 'all'
+    const activeFilter = getCurrentPatchFilter();
+    const headerTitle = activeFilter === 'all'
         ? 'ALL FEED'
-        : `${CURRENT_FILTER.toUpperCase()} FEED`;
+        : `${activeFilter.toUpperCase()} FEED`;
 
     listContainer.innerHTML = `
         <div class="flex items-center justify-between px-2 pb-2">
@@ -65,10 +83,12 @@ function renderPatchSidebar(items) {
         </div>
     `;
 
+    const frag = document.createDocumentFragment();
+
     items.forEach(item => {
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.id = `btn-${CSS.escape(item.id)}`;
+        btn.id = `btn-${CSS.escape(String(item.id))}`;
         btn.className = 'w-full text-left p-3.5 rounded-xl border border-slate-800/90 bg-slate-950/50 hover:bg-slate-800/70 hover:border-slate-700 transition space-y-2 group';
         btn.addEventListener('click', () => selectPatchItem(item.id));
 
@@ -95,9 +115,10 @@ function renderPatchSidebar(items) {
             </div>
             <h4 class="text-sm font-bold text-slate-100 group-hover:text-white leading-snug">${escapeHtml(item.title)}</h4>
         `;
-        listContainer.appendChild(btn);
+        frag.appendChild(btn);
     });
 
+    listContainer.appendChild(frag);
     schedulePatchSidebarSync();
 }
 
