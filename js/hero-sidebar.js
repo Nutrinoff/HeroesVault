@@ -142,15 +142,9 @@ function renderHeroSidebar(heroes) {
     const isBuilder = !document.getElementById('view-builder')?.classList.contains('hidden');
     const activeId = isBuilder ? builderHeroId : currentSelectedHeroId;
     const frag = document.createDocumentFragment();
-    const tierStylesMap = typeof TIER_STYLES !== 'undefined' ? TIER_STYLES : {};
 
     (heroes || []).forEach(h => {
-        const tier = typeof getHeroTier === 'function' ? getHeroTier(h.id) : 'D';
-        const s = tierStylesMap[tier] || tierStylesMap.D || {
-            bg: 'bg-slate-800/80',
-            text: 'text-slate-200',
-            border: 'border-slate-600'
-        };
+        const tier = String(typeof getHeroTier === 'function' ? getHeroTier(h.id) : 'D').toUpperCase();
         const rawEntry = typeof getRawHeroEntry === 'function' ? getRawHeroEntry(h.id) : null;
         const portraitUrl = typeof resolveAssetUrl === 'function'
             ? resolveAssetUrl(h.portrait || rawEntry, HERO_FALLBACK_PORTRAIT)
@@ -159,10 +153,10 @@ function renderHeroSidebar(heroes) {
 
         btn.type = 'button';
         btn.dataset.heroId = h.id;
-        btn.className = `w-full text-left p-2.5 rounded-xl border transition-all ${
+        btn.className = `w-full text-left p-2.5 rounded-[2px] border transition-all cursor-pointer ${
             activeId === h.id
-                ? 'bg-cyan-400/15 border-cyan-400/70'
-                : 'border-[#2e1866] bg-[#090417]/50 hover:bg-[#1c0e40]/80'
+                ? 'bg-[#1a2956]/75 border-[#58baff]/75 shadow-[inset_0_1px_0_rgba(203,232,255,0.2),0_0_14px_rgba(0,156,255,0.2)]'
+                : 'border-[#2e1866] bg-[#090417]/55 hover:bg-[#190d3b]/85 hover:border-[#5c42b8]/70'
         }`;
 
         btn.addEventListener('click', () => navigateFromSidebar(h.id, isBuilder));
@@ -175,17 +169,17 @@ function renderHeroSidebar(heroes) {
                         <polygon
                             points="50,-1.5 96.5,24.2 96.5,75.8 50,101.5 3.5,75.8 3.5,24.2"
                             fill="none"
-                            stroke="rgba(41, 197, 255, 0.85)"
+                            stroke="rgba(88, 186, 255, 0.85)"
                             stroke-width="4.5"
                             stroke-linejoin="round"
                         />
                     </svg>
                 </div>
                 <div class="min-w-0 flex-1">
-                    <h4 class="text-sm font-bold truncate text-white">${h.name}</h4>
-                    <p class="text-xs text-violet-200/75 truncate">${h.role || 'Nexus Combatant'}</p>
+                    <h4 class="text-sm font-bold truncate text-[#e6ecff]">${h.name}</h4>
+                    <p class="text-xs text-[#9cb6ff]/75 truncate">${h.role || 'Nexus Combatant'}</p>
                 </div>
-                <span class="text-[10px] font-mono font-bold px-2 py-1 rounded-sm border ${s.bg} ${s.text} ${s.border}">
+                <span class="hots-tier-btn is-active shrink-0" data-tier="${tier}">
                     ${tier} Tier
                 </span>
             </div>
