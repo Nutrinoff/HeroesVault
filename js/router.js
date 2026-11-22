@@ -142,7 +142,25 @@ function handleRoute() {
     }
 }
 
+function bindNavigationEvents() {
+    const brandTrigger = document.getElementById('brand-home-trigger');
+    if (brandTrigger && brandTrigger.dataset.navBound !== 'true') {
+        brandTrigger.dataset.navBound = 'true';
+        brandTrigger.addEventListener('click', () => navigateTo('home'));
+    }
+
+    document.querySelectorAll('[data-nav-tab]').forEach(btn => {
+        if (btn.dataset.navBound === 'true') return;
+        btn.dataset.navBound = 'true';
+        btn.addEventListener('click', () => {
+            const tab = btn.getAttribute('data-nav-tab');
+            if (tab) navigateTo(tab);
+        });
+    });
+}
+
 function initializeRouter() {
+    bindNavigationEvents();
     window.addEventListener('popstate', handleRoute);
     handleRoute();
 }
