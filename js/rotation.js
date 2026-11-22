@@ -6,13 +6,12 @@ var LOCAL_ROTATION_DATA_URL = './data/rotation.json';
 var ROTATION_FETCH_TIMEOUT_MS = 4000;
 var ROTATION_PORTRAIT_SIZE_PX = 39;
 
-// Explicit canonical mappings for display names / IDs that differ from master keys
-var EXPLICIT_ROTATION_OVERRIDES = {
-    deckardcain: 'deckard',
-    dva: 'dva',
-    sgthammer: 'sergeanthammer',
-    chogall: 'chogall',
-    thelostvikings: 'lostvikings'
+var ROTATION_TOKEN_STOP_WORDS = {
+    the: true,
+    of: true,
+    and: true,
+    sgt: true,
+    dr: true
 };
 
 var FALLBACK_ROTATION_PORTRAIT =
@@ -41,6 +40,27 @@ function normalizeSlugKey(val) {
         .toLowerCase()
         .replace(/^the\s+/i, '')
         .replace(/[^a-z0-9]/g, '');
+}
+
+function tokenizeHeroName(val) {
+    var cleaned = String(val || '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .replace(/[^a-z0-9\s]/g, ' ');
+
+    var parts = cleaned.split(/\s+/);
+    var tokens = [];
+
+    for (var i = 0; i < parts.length; i++) {
+        var tok = parts[i];
+        if (!tok || tok.length < 3 || ROTATION_TOKEN_STOP_WORDS[tok]) continue;
+        if (tokens.indexOf(tok) === -1) {
+            tokens.push(tok);
+        }
+    }
+
+    return tokens;
 }
 
 function stripUnitIdPrefix(unitId) {
@@ -185,37 +205,102 @@ function buildCanonicalHeroIndex() {
     return { byKey: byKey, records: records };
 }
 
-function findPrefixMasterMatch(normalizedCandidates, records) {
-    var bestMatch = null;
-    var bestLen = 0;
-
-    for (var i = 0; i < normalizedCandidates.length; i++) {
-        var candidate = normalizedCandidates[i];
-        if (!candidate || candidate.length < 3) continue;
-
-        for (var r = 0; r < records.length; r++) {
-            var rec = records[r];
-            var listHero = rec.listItem || {};
-            var rawHero = rec.rawEntry || {};
-
-            var canonicalKeys = [
-                normalizeSlugKey(rec.canonicalId),
-                normalizeSlugKey(listHero.name),
-                normalizeSlugKey(rawHero.name),
-                normalizeSlugKey(stripUnitIdPrefix(rawHero.unitId))
-            ].filter(Boolean);
-
-            for (var k = 0; k < canonicalKeys.length; k++) {
-                var cKey = canonicalKeys[k];
-                if (cKey.length >= 3 && candidate.indexOf(cKey) === 0 && cKey.length > bestLen) {
-                    bestMatch = rec;
-                    bestLen = cKey.length;
-                }
+function findCrossReferenceMatch(rawCandidates, normalizedCandidates, records) {
+    var queryTokens = [];
+    for (var i = 0; i < rawCandidates.length; i++) {
+        var toks = tokenizeHeroName(rawCandidates[i]);
+        for (var t = 0; t < toks.length; t++) {
+            if (queryTokens.indexOf(toks[t]) === -1) {
+                queryTokens.push(toks[t]);
             }
         }
     }
 
-    return bestMatch;
+    var bestMatch = null;
+    var bestScore = 0;
+
+    for (var r = 0; r < records.length; r++) {
+        var rec = records[r];
+        var listHero = rec.listItem || {};
+        var rawHero = rec.rawEntry || {};
+
+        var masterFields = [
+            rec.canonicalId,
+            listHero.id,
+            listHero.name,
+            rawHero.id,
+            rawHero.hyperlinkId,
+            rawHero.attributeId,
+            rawHero.name,
+            stripUnitIdPrefix(rawHero.unitId)
+        ].filter(Boolean);
+
+        var masterSlugs = [];
+        var masterTokens = [];
+
+        for (var f = 0; f < masterFields.length; f++) {
+            var slug = normalizeSlugKey(masterFields[f]);
+            if (slug && masterSlugs.indexOf(slug) === -1) {
+                masterSlugs.push(slug);
+            }
+
+            var fToks = tokenizeHeroName(masterFields[f]);
+            for (var k = 0; k < fToks.length; k++) {
+                if (masterTokens.indexOf(fToks[k]) === -1) {
+                    masterTokens.push(fToks[k]);
+                }
+            }
+        }
+
+        var score = 0;
+
+        // 1. Substring / prefix containment across normalized slugs
+        for (var c = 0; c < normalizedCandidates.length; c++) {
+            var candSlug = normalizedCandidates[c];
+            if (!candSlug || candSlug.length < 3) continue;
+
+            for (var s = 0; s < masterSlugs.length; s++) {
+                var mSlug = masterSlugs[s];
+                if (mSlug.length < 3) continue;
+
+                if (candSlug.indexOf(mSlug) === 0 || mSlug.indexOf(candSlug) === 0) {
+                    var overlapLen = Math.min(candSlug.length, mSlug.length);
+                    if (overlapLen * 2 > score) {
+                        score = overlapLen * 2;
+                    }
+                } else if (mSlug.indexOf(candSlug) !== -1 || candSlug.indexOf(mSlug) !== -1) {
+                    var partialLen = Math.min(candSlug.length, mSlug.length);
+                    if (partialLen > score) {
+                        score = partialLen;
+                    }
+                }
+            }
+        }
+
+        // 2. Token / word variation matching (e.g. "Deckard Cain" <-> "Deckard")
+        for (var q = 0; q < queryTokens.length; q++) {
+            var qTok = queryTokens[q];
+
+            if (masterTokens.indexOf(qTok) !== -1) {
+                score += qTok.length * 2;
+                continue;
+            }
+
+            for (var m = 0; m < masterSlugs.length; m++) {
+                if (masterSlugs[m].indexOf(qTok) !== -1) {
+                    score += qTok.length;
+                    break;
+                }
+            }
+        }
+
+        if (score > bestScore) {
+            bestScore = score;
+            bestMatch = rec;
+        }
+    }
+
+    return bestScore >= 3 ? bestMatch : null;
 }
 
 function resolveRotationPortraitUrl(record, item) {
@@ -268,15 +353,8 @@ function matchHeroWithIndex(entry, indexBundle) {
     var normalizedCandidates = [];
     for (var i = 0; i < rawCandidates.length; i++) {
         var norm = normalizeSlugKey(rawCandidates[i]);
-        if (!norm) continue;
-        if (normalizedCandidates.indexOf(norm) === -1) {
+        if (norm && normalizedCandidates.indexOf(norm) === -1) {
             normalizedCandidates.push(norm);
-        }
-
-        var override = EXPLICIT_ROTATION_OVERRIDES[norm];
-        var normOverride = normalizeSlugKey(override);
-        if (normOverride && normalizedCandidates.indexOf(normOverride) === -1) {
-            normalizedCandidates.push(normOverride);
         }
     }
 
@@ -290,7 +368,7 @@ function matchHeroWithIndex(entry, indexBundle) {
     }
 
     if (!matchedRecord) {
-        matchedRecord = findPrefixMasterMatch(normalizedCandidates, indexBundle.records);
+        matchedRecord = findCrossReferenceMatch(rawCandidates, normalizedCandidates, indexBundle.records);
     }
 
     var fallbackName = rawName || rawId || 'Unknown Hero';
