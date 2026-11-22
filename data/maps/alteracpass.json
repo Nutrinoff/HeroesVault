@@ -3,28 +3,28 @@
   "name": "Alterac Pass",
   "theme": "Free your faction's prisoner and hold the Prison Camp to summon a Cavalry charge down all three lanes.",
   "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/storm_ui_homescreenbackground_wcav.png",
-  "firstObjective": "Warning at 2:30, spawns at 3:00 (3:30 cooldown after Cavalry ends)",
-  "spawnPattern": "Two Prison Camps spawn simultaneously every cycle (North & South)",
+  "firstObjective": "3:00 (subsequent spawns ~1:50–2:30 after Cavalry ends, scaling shorter with match time)",
+  "spawnPattern": "Two Prison Camps spawn simultaneously between Top/Mid and Mid/Bottom; exact pair varies across cycles",
   "lanes": "3 Lanes",
-  "bosses": "2 Ice Giants (Top & Bottom)",
+  "bosses": "2 Ice Giants (Top & Bottom lanes)",
   "mechanic": {
     "title": "Prison Camps & Cavalry Charge",
-    "description": "Two Prison Camps activate simultaneously (first warning at 2:30, spawns at 3:00; 3:30 cooldown after a Cavalry charge ends). Teams must channel to free their captive faction leader (6-second channel, reduced to 1.5 seconds on subsequent captures) and defend the capture zone for 30 seconds (the timer pauses if an enemy steps onto the point and decays slowly if recaptured). Completing the capture spawns Cavalry down all three lanes that boost nearby allied heroes' movement speed and damage."
+    "description": "Channel to unlock the Prison Camp and hold the capture point until the timer completes while defending against enemy Heroes and Guards that pause or recapture it. Completing the capture summons Cavalry down all three lanes that buff nearby allied Heroes' movement speed and damage."
   },
   "camps": [
     {
       "name": "Gnoll Siege Camps (2 Camps)",
       "timing": "Spawns at 0:30 (1:30 respawn)",
-      "notes": "Features 3 Gnolls per camp (Near Keep Gate mid lane for both sides). High health pool and reduces the Armor of enemy Heroes and Structures—ideal to push alongside."
+      "notes": "Three Armored Gnolls per camp pushing mid lane; basic attacks apply stacking Armor reduction to enemy Heroes and structures."
     },
     {
       "name": "Boss / Ice Giants (2 Camps)",
       "timing": "Spawns at 5:00 (5:00 respawn)",
-      "notes": "Centered horizontally, sitting above top lane and below bottom lane. Uses Mega Smash (10s AoE stun) and Ice Shard (15s 50% slow). Immune to Bribe; pairing a Boss with Cavalry is a major win condition."
+      "notes": "One Ice Giant per top and bottom lane camp, immune to Bribe. Uses Mega Smash (AoE melee stun) and Ice Shard (ranged slow)."
     }
   ],
-  "strategy": "Because both Prison Camps spawn at the exact same time, split-map awareness and poke/zone control are vital to interrupt enemy channels and hold your capture point for the full 30 seconds. Push aggressively with your Cavalry aura to maximize structure damage.",
-  "notes": "Core Generals (Vanndar Stormpike and Drek'Thar) replace standard Cores—they regenerate health rapidly out of combat, use Whirlwind and Charge abilities, and gain +20 Armor for every Keep still standing. Never try to rush the General while all 3 Keeps are up.",
+  "strategy": "Because two Prison Camps activate at once, coordinate split rotations, long-range channel interrupts, and sustained skirmishing to hold your point without letting the enemy finish theirs. Pair Cavalry pushes with Gnoll or Ice Giant pressure to crack forts and keeps.",
+  "notes": "Standard Cores are replaced by Generals (Vanndar Stormpike and Drek'Thar) using Whirlwind and Charge. Each standing Keep grants the General +20 Armor, and they regenerate health out of combat—avoid forcing the General while all three Keeps remain up.",
   "goldenHeroes": [
     "chromie",
     "junkrat",
