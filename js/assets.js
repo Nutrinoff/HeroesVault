@@ -44,28 +44,20 @@ function getHeroPortrait(hero) {
 }
 
 function getHeroLoadingPortrait(heroOrRaw) {
-    const raw =
-        (typeof heroOrRaw === 'string' && typeof getRawHeroEntry === 'function'
-            ? getRawHeroEntry(heroOrRaw)
-            : heroOrRaw) || {};
+    if (!heroOrRaw) return '';
 
-    const loadingAsset =
-        raw?.traits?.loading ||
-        raw?.portraits?.loading ||
-        raw?.loading ||
-        null;
+    const raw = typeof heroOrRaw === 'string' && typeof getRawHeroEntry === 'function'
+        ? (getRawHeroEntry(heroOrRaw) || {})
+        : (heroOrRaw.id && typeof getRawHeroEntry === 'function'
+            ? (getRawHeroEntry(heroOrRaw.id) || heroOrRaw)
+            : heroOrRaw);
 
-    if (loadingAsset) {
-        return typeof getAssetUrl === 'function' ? getAssetUrl(loadingAsset) : loadingAsset;
+    const loadingPath = raw?.portraits?.loading || raw?.loading || '';
+    if (loadingPath) {
+        return typeof getAssetUrl === 'function' ? getAssetUrl(loadingPath) : loadingPath;
     }
 
-    const fallbackPortrait =
-        (typeof getHeroPortrait === 'function' ? getHeroPortrait(raw) : null) ||
-        raw?.portrait ||
-        raw?.portraitUrl ||
-        raw?.icon ||
-        '';
-
+    const fallbackPortrait = getHeroPortrait(raw) || raw?.portrait || '';
     return fallbackPortrait && typeof getAssetUrl === 'function'
         ? getAssetUrl(fallbackPortrait)
         : fallbackPortrait;
