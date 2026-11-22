@@ -260,30 +260,38 @@
   border: none !important;
   box-shadow: none !important;
   text-shadow:
-    0 0 10px rgba(196, 181, 253, 0.8),
-    0 0 24px rgba(110, 86, 235, 0.6);
+    0 0 9px rgba(224, 212, 255, 0.85),
+    0 0 22px rgba(124, 92, 255, 0.58);
 }
 
 .nav-active i,
 .nav-active svg {
-  filter: drop-shadow(0 0 8px rgba(167, 139, 250, 0.85));
+  filter: drop-shadow(0 0 7px rgba(180, 156, 255, 0.85));
 }
 
 .nav-active::after {
   content: "";
   position: absolute;
-  left: 6%;
-  right: 6%;
-  bottom: -7px;
-  height: 10px;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(216, 198, 255, 0.95) 0%,
-    rgba(130, 96, 255, 0.65) 42%,
-    rgba(76, 48, 196, 0.2) 72%,
-    transparent 100%
-  );
-  filter: blur(3px);
+  left: -8%;
+  right: -8%;
+  bottom: -5px;
+  height: 18px;
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(196, 181, 253, 0.45) 22%,
+      rgba(237, 233, 254, 0.95) 50%,
+      rgba(196, 181, 253, 0.45) 78%,
+      transparent 100%
+    ) 50% 72% / 100% 1.5px no-repeat,
+    radial-gradient(
+      ellipse 58% 65% at 50% 72%,
+      rgba(167, 139, 250, 0.72) 0%,
+      rgba(109, 74, 235, 0.34) 48%,
+      transparent 78%
+    );
+  filter: blur(2.5px);
   pointer-events: none;
 }
 
