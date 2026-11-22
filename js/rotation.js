@@ -342,7 +342,9 @@ function createFreeHeroRow(hero) {
     });
 
     const frame = document.createElement('div');
-    frame.className = 'hex-sidebar-frame !w-9 !h-9';
+    frame.className = 'hex-sidebar-frame';
+    frame.style.width = '39px';
+    frame.style.height = '39px';
 
     const img = document.createElement('img');
     img.src = hero.portraitUrl || FALLBACK_ROTATION_PORTRAIT;
