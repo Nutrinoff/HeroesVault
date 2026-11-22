@@ -386,6 +386,86 @@
     0 0 28px rgba(0, 99, 200, 0.45);
 }
 
+/* Frameless HotS League-Colored Tier Buttons (D=Bronze, C=Silver, B=Gold, A=Platinum, S=Diamond) */
+.hots-tier-btn {
+  --tier-color: rgba(156, 182, 255, 0.42);
+  --tier-active-color: #e6ecff;
+  --tier-glow: rgba(0, 99, 200, 0.35);
+
+  font-family: 'Chakra Petch', 'Inter', sans-serif;
+  padding: 0.2rem 0.45rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0;
+  cursor: pointer;
+  color: color-mix(in srgb, var(--tier-color) 48%, transparent) !important;
+  text-shadow: 0 0 10px color-mix(in srgb, var(--tier-glow) 35%, transparent);
+  transition: color 0.16s ease, text-shadow 0.16s ease, filter 0.16s ease;
+}
+
+.hots-tier-btn:hover {
+  color: var(--tier-color) !important;
+  text-shadow:
+    0 0 8px color-mix(in srgb, var(--tier-color) 45%, transparent),
+    0 0 16px var(--tier-glow);
+}
+
+.hots-tier-btn.is-active,
+.hots-tier-btn[aria-pressed="true"],
+.hots-tier-btn--selected {
+  color: var(--tier-active-color) !important;
+  text-shadow:
+    0 0 7px color-mix(in srgb, var(--tier-active-color) 72%, transparent),
+    0 0 16px color-mix(in srgb, var(--tier-color) 65%, transparent),
+    0 0 26px var(--tier-glow);
+}
+
+/* Bronze */
+.hots-tier-btn[data-tier="D"],
+.hots-tier-btn.tier-d {
+  --tier-color: #c87d55;
+  --tier-active-color: #f3c4a8;
+  --tier-glow: rgba(200, 125, 85, 0.48);
+}
+
+/* Silver */
+.hots-tier-btn[data-tier="C"],
+.hots-tier-btn.tier-c {
+  --tier-color: #b4c5dc;
+  --tier-active-color: #eef5ff;
+  --tier-glow: rgba(156, 182, 255, 0.42);
+}
+
+/* Gold */
+.hots-tier-btn[data-tier="B"],
+.hots-tier-btn.tier-b {
+  --tier-color: #e2b446;
+  --tier-active-color: #fff0bd;
+  --tier-glow: rgba(226, 180, 70, 0.48);
+}
+
+/* Platinum */
+.hots-tier-btn[data-tier="A"],
+.hots-tier-btn.tier-a {
+  --tier-color: #67ddd2;
+  --tier-active-color: #d6fffb;
+  --tier-glow: rgba(103, 221, 210, 0.48);
+}
+
+/* Diamond */
+.hots-tier-btn[data-tier="S"],
+.hots-tier-btn.tier-s {
+  --tier-color: #58baff;
+  --tier-active-color: #e6f4ff;
+  --tier-glow: rgba(0, 156, 255, 0.62);
+}
+
 /* Scale up ability strip items (boxes, icons, and text) by ~25% */
 #hero-abilities > div,
 #builder-abilities > div {
@@ -568,6 +648,7 @@
   .academy-level-btn,
   .patch-filter-btn,
   .academy-category-btn,
+  .hots-tier-btn,
   .f2p-row-item,
   .hots-input,
   .hots-brand-emblem svg {
