@@ -1,39 +1,11 @@
 // ==========================================
-// 1. GLOBAL STATE & CONFIGURATIONS
+// 1. APP CONSTANTS & PORTRAIT HELPERS
 // ==========================================
 
-let MASTER_HERO_LIST = [];
-let MASTER_MAP_LIST = [];
-let PERSONAL_BUILDS = [];
-let MASTER_TIERS = {};
-let HOTS_MASTER_DATA = {};
-
-let currentSelectedHeroId = null;
-let currentHeroData = null;
-let currentBuildIndex = 0;
-let builderHeroId = null;
-let builderHeroData = null;
-let builderSelectedTalents = [1, 1, 1, 1, 1, 1, 1];
-
-const HERO_DATA_CACHE = new Map();
-const PRELOADED_HERO_KEYS = new Set();
-const pendingVisibleHeroIds = new Set();
-
-let heroSearchPreloadTimer = null;
-let heroListObserver = null;
-let heroScrollIdleTimer = null;
-let isHeroListScrolling = false;
-
-const TALENT_TIERS = ['1', '4', '7', '10', '13', '16', '20'];
 const TOOLTIP_CURSOR_GAP = 16;
 const TOOLTIP_VIEWPORT_MARGIN = 8;
 const SCROLL_SETTLE_DELAY_MS = 180;
 const FALLBACK_HERO_PORTRAIT = 'https://via.placeholder.com/110?text=Hero';
-
-
-// ==========================================
-// 2. PORTRAIT & ASSET HELPERS
-// ==========================================
 
 function resolvePortraitPath(rawHero) {
     if (!rawHero) return '';
@@ -59,7 +31,7 @@ function resolvePortraitUrl(rawOrPath) {
 
 
 // ==========================================
-// 3. APP BOOTSTRAP & ROUTING
+// 2. APP BOOTSTRAP & ROUTING
 // ==========================================
 
 function syncHomeSummaryCounts() {
@@ -226,7 +198,7 @@ function handleRoute() {
     } else if (tab === 'builder') {
         openBuilder(
             q.get('hero') || MASTER_HERO_LIST[0]?.id,
-            q.get('build') ? q.get('build').split('').map(Number) : null,
+            q.get('build') ? decodeBuildCode(q.get('build')) : null,
             false
         );
     } else if (tab === 'academy') {
@@ -307,7 +279,7 @@ function switchTabUI(t) {
 
 
 // ==========================================
-// 4. HERO SIDEBAR & PRELOADING
+// 3. HERO SIDEBAR & PRELOADING
 // ==========================================
 
 function getRawHeroEntry(heroId) {
@@ -510,7 +482,7 @@ function filterHeroes() {
 
 
 // ==========================================
-// 5. HERO DATA, HEADERS & BUILDS VIEW
+// 4. HERO DATA, HEADERS & BUILDS VIEW
 // ==========================================
 
 function getNormalizedHeroData(id) {
@@ -727,7 +699,7 @@ function renderBuildStrip(h, code) {
 
 
 // ==========================================
-// 6. TOOLTIPS
+// 5. TOOLTIPS
 // ==========================================
 
 function positionTooltip(clientX, clientY) {
