@@ -1,0 +1,138 @@
+{
+  "Id": "npn-2014-03-13-0.2.5",
+  "Title": "2014-03-13 Alpha Patch",
+  "Subtitle": "=== Heroes: Abathur ===",
+  "Date": "Mar 13, 2014",
+  "IsoDate": "2014-03-13",
+  "FeedType": "live",
+  "Era": "alpha",
+  "PatchVersion": "2.5.29108",
+  "FullVersion": "0.2.5.29108",
+  "Build": "29108",
+  "Link": "https://news.blizzard.com/en-us/heroes-of-the-storm/13290651",
+  "Links": [
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/13290651"
+  ],
+  "Affected": [
+    "Abathur",
+    "Arthas",
+    "Diablo",
+    "ETC",
+    "Falstad",
+    "Gazlowe",
+    "Illidan",
+    "Kerrigan",
+    "Malfurion",
+    "Muradin",
+    "Nazeebo",
+    "Nova",
+    "Raynor",
+    "Sgt. Hammer",
+    "Sonya",
+    "Stitches",
+    "Tassadar",
+    "Tyrael",
+    "Tyrande",
+    "Uther",
+    "Valla",
+    "Zeratul"
+  ],
+  "Highlights": "=== Heroes: Abathur ===",
+  "CleanedNotes": "=== Heroes: Abathur ===\r\n[Releases]\r\n  Abathur, Evolution Master, is now available for play as the Technical Alpha begins!:\r\n\r\n=== Heroes: Arthas ===\r\n[Releases]\r\n  Arthas, The Lich King, is now available for play as the Technical Alpha begins!:\r\n\r\n=== Heroes: Diablo ===\r\n[Releases]\r\n  Diablo, Lord of Terror, is now available for play as the Technical Alpha begins!:\r\n\r\n=== Heroes: ETC ===\r\n[Releases]\r\n  E.T.C., Rock God, is now available for play as the Technical Alpha begins!:\r\n\r\n=== Heroes: Falstad ===\r\n[Releases]\r\n  Falstad, Wildhammer Thane, is now available for play as the Technical Alpha begins!:\r\n\r\n=== Heroes: Gazlowe ===\r\n[Releases]\r\n  Gazlowe, Boss of Ratchet, is now available for play as the Technical Alpha begins!:\r\n\r\n=== Heroes: Illidan ===\r\n[Releases]\r\n  Illidan, The Betrayer, is now available for play as the Technical Alpha begins!:\r\n\r\n=== Heroes: Kerrigan ===\r\n[Releases]\r\n  Kerrigan, Queen of Blades, is now available for play as the Technical Alpha begins!:\r\n\r\n=== Heroes: Malfurion ===\r\n[Releases]\r\n  Malfurion, Archdruid, is now available for play as the Technical Alpha begins!:\r\n\r\n=== Heroes: Muradin ===\r\n[Releases]\r\n  Muradin, Mountain King, is now available for play as the Technical Alpha begins!:\r\n\r\n=== Heroes: Nazeebo ===\r\n[Releases]\r\n  Nazeebo, Heretic Witch Doctor, is now available for play as the Technical Alpha begins!:\r\n\r\n=== Heroes: Nova ===\r\n[Releases]\r\n  Nova, Dominion Ghost, is now available for play as the Technical Alpha begins!:\r\n\r\n=== Heroes: Raynor ===\r\n[Releases]\r\n  Raynor, Renegade Commander, is now available for play as the Technical Alpha begins!:\r\n\r\n=== Heroes: Sgt. Hammer ===\r\n[Releases]\r\n  Sgt. Hammer, Siege Tank Operator, is now available for play as the Technical Alpha begins!:\r\n\r\n=== Heroes: Sonya ===\r\n[Releases]\r\n  Sonya, Wandering Barbarian, is now available for play as the Technical Alpha begins!:\r\n\r\n=== Heroes: Stitches ===\r\n[Releases]\r\n  Stitches, Terror of Darkshire, is now available for play as the Technical Alpha begins!:\r\n\r\n=== Heroes: Tassadar ===\r\n[Releases]\r\n  Tassadar, Savior of the Templar, is now available for play as the Technical Alpha begins!:\r\n\r\n=== Heroes: Tyrael ===\r\n[Releases]\r\n  Tyrael, Archangel of Justice, is now available for play as the Technical Alpha begins!:\r\n\r\n=== Heroes: Tyrande ===\r\n[Releases]\r\n  Tyrande, High Priestess of Elune, is now available for play as the Technical Alpha begins!:\r\n\r\n=== Heroes: Uther ===\r\n[Releases]\r\n  Uther, The Lightbringer, is now available for play as the Technical Alpha begins!:\r\n\r\n=== Heroes: Valla ===\r\n[Releases]\r\n  Valla, Demon Hunter, is now available for play as the Technical Alpha begins!:\r\n\r\n=== Heroes: Zeratul ===\r\n[Releases]\r\n  Zeratul, Dark Prelate, is now available for play as the Technical Alpha begins!:",
+  "Sections": {
+    "Heroes: Abathur": [
+      "[Releases]",
+      "  Abathur, Evolution Master, is now available for play as the Technical Alpha begins!:"
+    ],
+    "Heroes: Arthas": [
+      "[Releases]",
+      "  Arthas, The Lich King, is now available for play as the Technical Alpha begins!:"
+    ],
+    "Heroes: Diablo": [
+      "[Releases]",
+      "  Diablo, Lord of Terror, is now available for play as the Technical Alpha begins!:"
+    ],
+    "Heroes: ETC": [
+      "[Releases]",
+      "  E.T.C., Rock God, is now available for play as the Technical Alpha begins!:"
+    ],
+    "Heroes: Falstad": [
+      "[Releases]",
+      "  Falstad, Wildhammer Thane, is now available for play as the Technical Alpha begins!:"
+    ],
+    "Heroes: Gazlowe": [
+      "[Releases]",
+      "  Gazlowe, Boss of Ratchet, is now available for play as the Technical Alpha begins!:"
+    ],
+    "Heroes: Illidan": [
+      "[Releases]",
+      "  Illidan, The Betrayer, is now available for play as the Technical Alpha begins!:"
+    ],
+    "Heroes: Kerrigan": [
+      "[Releases]",
+      "  Kerrigan, Queen of Blades, is now available for play as the Technical Alpha begins!:"
+    ],
+    "Heroes: Malfurion": [
+      "[Releases]",
+      "  Malfurion, Archdruid, is now available for play as the Technical Alpha begins!:"
+    ],
+    "Heroes: Muradin": [
+      "[Releases]",
+      "  Muradin, Mountain King, is now available for play as the Technical Alpha begins!:"
+    ],
+    "Heroes: Nazeebo": [
+      "[Releases]",
+      "  Nazeebo, Heretic Witch Doctor, is now available for play as the Technical Alpha begins!:"
+    ],
+    "Heroes: Nova": [
+      "[Releases]",
+      "  Nova, Dominion Ghost, is now available for play as the Technical Alpha begins!:"
+    ],
+    "Heroes: Raynor": [
+      "[Releases]",
+      "  Raynor, Renegade Commander, is now available for play as the Technical Alpha begins!:"
+    ],
+    "Heroes: Sgt. Hammer": [
+      "[Releases]",
+      "  Sgt. Hammer, Siege Tank Operator, is now available for play as the Technical Alpha begins!:"
+    ],
+    "Heroes: Sonya": [
+      "[Releases]",
+      "  Sonya, Wandering Barbarian, is now available for play as the Technical Alpha begins!:"
+    ],
+    "Heroes: Stitches": [
+      "[Releases]",
+      "  Stitches, Terror of Darkshire, is now available for play as the Technical Alpha begins!:"
+    ],
+    "Heroes: Tassadar": [
+      "[Releases]",
+      "  Tassadar, Savior of the Templar, is now available for play as the Technical Alpha begins!:"
+    ],
+    "Heroes: Tyrael": [
+      "[Releases]",
+      "  Tyrael, Archangel of Justice, is now available for play as the Technical Alpha begins!:"
+    ],
+    "Heroes: Tyrande": [
+      "[Releases]",
+      "  Tyrande, High Priestess of Elune, is now available for play as the Technical Alpha begins!:"
+    ],
+    "Heroes: Uther": [
+      "[Releases]",
+      "  Uther, The Lightbringer, is now available for play as the Technical Alpha begins!:"
+    ],
+    "Heroes: Valla": [
+      "[Releases]",
+      "  Valla, Demon Hunter, is now available for play as the Technical Alpha begins!:"
+    ],
+    "Heroes: Zeratul": [
+      "[Releases]",
+      "  Zeratul, Dark Prelate, is now available for play as the Technical Alpha begins!:"
+    ]
+  },
+  "PatchFile": "alpha/2014-03-13-2.5.29108.json",
+  "Sources": [
+    "alpha-master.json",
+    "2014-03-13-alpha.html",
+    "2014-03-13-v0-2-5-29108-2014-03-13-alpha-patch-alpha.json"
+  ]
+}

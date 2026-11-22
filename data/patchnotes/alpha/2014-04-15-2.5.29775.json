@@ -1,0 +1,188 @@
+{
+  "Id": "patch-notes-april-15-2014",
+  "Title": "Brightwing and Li Li Patch",
+  "Subtitle": "Technical Alpha patch 0.2.5.29775 (April 15, 2014, article 13789932) introducing playable Heroes Brightwing and Li Li alongside the first account wipe, Custom Games (up to 10 slots, Observers disabled), UI and Shop updates, Haunted Mines Grave Golem scaling, hero balance changes, and bug fixes.",
+  "Date": "Apr 15, 2014",
+  "IsoDate": "2014-04-15",
+  "FeedType": "live",
+  "Era": "alpha",
+  "PatchVersion": "2.5.29775",
+  "FullVersion": "2.5.29775.29775",
+  "Build": "29775",
+  "Link": "http://us.battle.net/heroes/en/blog/13789932",
+  "Links": [
+    "http://us.battle.net/heroes/en/blog/13789932",
+    "https://news.blizzard.com/heroes-of-the-storm/13789932",
+    "https://news.blizzard.com/en-us/heroes-of-the-storm/13789932"
+  ],
+  "Affected": [
+    "Brightwing",
+    "Li Li",
+    "Haunted Mines",
+    "Arthas",
+    "Barbarian",
+    "Demon Hunter",
+    "Diablo",
+    "E.T.C.",
+    "Falstad",
+    "Gazlowe",
+    "Kerrigan",
+    "Muradin",
+    "Nova",
+    "Raynor",
+    "Sgt. Hammer",
+    "Stitches",
+    "Tassadar",
+    "Tychus",
+    "Tyrael",
+    "Tyrande",
+    "Zeratul"
+  ],
+  "Highlights": "Technical Alpha patch 0.2.5.29775 (April 15, 2014, article 13789932) introducing playable Heroes Brightwing and Li Li alongside the first account wipe, Custom Games (up to 10 slots, Observers disabled), UI and Shop updates, Haunted Mines Grave Golem scaling, hero balance changes, and bug fixes.",
+  "CleanedNotes": "=== General ===\r\n[Updates]\r\n  \u2022 Account Wipe \u0026 Rewards: Reset all Technical Alpha accounts to Level 1, wiping XP, leveling/Quest progress, Gold, and Gold purchases; real-money purchases were not reset/refunded in this wipe (planned for future wipes). All 25 heroes made free-to-play through Thursday, April 17 at 3:00 p.m. PDT, plus pre-wipe level Gold/rewards (Levels 1\u201319: 10,000 Gold; Levels 20\u201339: 30,000 Gold; Level 40: 30,000 Gold and a Heroes of the Storm lanyard).\r\n  \u2022 Custom Games: Added via the Play Screen with up to 10 human/AI lobby slots (Observers disabled); lobby host options (Swap Team, Kick from Lobby, Set A.I. difficulty, Promote to Host) accessed via the wrench icon under allied hero models or right-clicking enemy portraits.\r\n  \u2022 Quests \u0026 Performance: Reworked most Daily and Hero Quest requirements; added general performance improvements.\r\n  \u2022 User Interface: Capped combined daily XP at 1.2 million across Custom Games, Practice, and Co-op (no cap in Versus; Quests now completed only in Versus); moved Daily/Hero Quests from Home screen to Profile screen with a reworked Hero Quest Log; updated Hero Select screen (added Profile button top right, hero info/abilities/skin/mount buttons lower left, and Back button top left replacing Quit); added Uther UI and initial game mode unlock guidance after the Tutorial.\r\n  \u2022 Shop: Added Bundles tab; added Monarch Brightwing and Pajamathur Abathur skins and reworked Succubus Kerrigan; allowed purchasing skins directly from a Hero\u0027s Skins tab in the Shop in addition to the Skins tab.\r\n  \u2022 Gameplay \u0026 Talents: Increased Hero movement speed from 4.0 to 4.4; added anti-snowballing measures; made clicking friendly and enemy Heroes easier near Structures (especially Gates) and Minions; reduced Calldown: M.U.L.E. duration from 90 to 60 seconds.\r\n[Bug Fixes]\r\n  \u2022 Corrected a number of typos across several aspects of the game.\r\n  \u2022 Fixed issues where Daily and Hero Quests were not properly granting credit.\r\n  \u2022 Halo effects on the Hero Select screen now properly outline Ronin Zeratul and Witch Doctor character models.\r\n  \u2022 In-game target portraits for Muradin, Tyrande, and Zeratul now match their post-game Score Screen portraits.\r\n  \u2022 Camera now correctly follows the Dragon Knight in Windowed Mode after enabling Camera Follow while the Dragon Knight is being summoned.\r\n  \u2022 Home screen level indicator now more accurately reflects progress toward the next level.\r\n  \u2022 Calldown: MULE can now be cast when the casting hero is underground on Haunted Mines.\r\n  \u2022 Blood for Blood can no longer target summoned Grave Golems on Haunted Mines.\r\n  \u2022 Grave Golem on Haunted Mines is no longer distracted by Abathur\u0027s burrowing Toxic Nests.\r\n\r\n=== Battlegrounds: Haunted Mines ===\r\n[Updates]\r\n  \u2022 Underground Grave Golem scaling Health per minute increased from 625 to 750.\r\n\r\n=== Heroes: Arthas ===\r\n[Updates]\r\n  \u2022 Basic Attack damage increased from 55 (\u002B5 per level) to 59 (\u002B6 per level).\r\n  \u2022 Frost Strike damage increased from 60 (\u002B11 per level) to 80 (\u002B15 per level).\r\n  \u2022 Frostmourne Hungers: Basic Attack damage bonus increased from 20% to 40%; duration increased from 4 to 6 seconds.\r\n  \u2022 Rune Tap: Now requires 3 stacks for an 8% heal instead of 5 stacks for a 10% heal.\r\n\r\n=== Heroes: Barbarian ===\r\n[Updates]\r\n  \u2022 Fury (Trait): Removed life steal component; now grants a temporary 10% movement speed bonus on ability cast with additional casts refreshing the duration.\r\n  \u2022 Ancient Spear: Cooldown reduced from 15 to 13 seconds.\r\n  \u2022 Hammer of the Ancients: Now deals baseline splash damage equal to 25% of base damage (Seismic Slash Talent increases splash damage to 100% of base damage).\r\n  \u2022 Whirlwind: Duration reduced from 4 to 3 seconds; damage changed from 320 (\u002B16 per level) to 210 (\u002B21 per level) over its duration; added 20% life steal while active; Fury cost increased from 20 to 25.\r\n  \u2022 Leap: Cooldown increased from 40 to 50 seconds; Arreat Crater duration increased from 3 to 4 seconds and can now be cancelled.\r\n  \u2022 Wrath of the Berserker: Now generates 25 Fury on cast and costs 4 Fury per second to maintain; cooldown reduced from 100 to 20 seconds (starts after Wrath completes); removed previous movement speed and life steal gains; now grants a 30% bonus to all damage dealt.\r\n  \u2022 Talents: Tweaked many Talents to account for the above changes.\r\n[Bug Fixes]\r\n  \u2022 Ancient Spear now properly pulls the Barbarian when cast on Grave Golems.\r\n\r\n=== Heroes: Brightwing ===\r\n[Updates]\r\n  \u2022 New Hero Released \u2014 Brightwing, Faerie Dragon.\r\n\r\n=== Heroes: Demon Hunter ===\r\n[Updates]\r\n  \u2022 Hatred: Reworked so each Basic Attack grants a stack up to 10, granting 3% Attack Speed and 1% Movement Speed per stack; stacks fade at 1 per second rather than all at once; Rancor Talent now increases auto-attack damage at maximum stacks.\r\n  \u2022 Strafe: Damage per level increased from 4.5 to 5; search area increased from 7.5 to 10; cooldown increased from 45 to 50 seconds.\r\n  \u2022 Rain of Vengeance: Cooldown reduced from 100 to 90 seconds.\r\n  \u2022 Siphoning Arrow: Life leech increased from 25% to 50%.\r\n\r\n=== Heroes: Diablo ===\r\n[Updates]\r\n  \u2022 Apocalypse: Cooldown increased from 100 to 120 seconds; damage reduced from 160 (\u002B12 per level) to 100 (\u002B10 per level).\r\n  \u2022 Soulstone: Reworked so stacks cap at 100 and require 100 to resurrect; no longer loses all Soulstone stacks on death, instead losing 100 on resurrection; Endless Death increases max Soulstone stacks to 200 (previously 250).\r\n\r\n=== Heroes: E.T.C. ===\r\n[Updates]\r\n  \u2022 Mosh Pit: Cooldown increased from 100 to 120 seconds.\r\n  \u2022 Rock God!: Damage bonus increased from 40% to 50%.\r\n\r\n=== Heroes: Falstad ===\r\n[Updates]\r\n  \u2022 Aerial Blitzkrieg: Cooldown increased from 90 to 110 seconds.\r\n  \u2022 Flight: Cast time increased from 1.5 to 2 seconds.\r\n\r\n=== Heroes: Gazlowe ===\r\n[Updates]\r\n  \u2022 Grav-O-Bomb 3000: Cooldown increased from 90 to 110 seconds.\r\n\r\n=== Heroes: Kerrigan ===\r\n[Updates]\r\n  \u2022 Ultralisk: Movement speed increased from 4.5 to 5.\r\n\r\n=== Heroes: Li Li ===\r\n[Updates]\r\n  \u2022 New Hero Released \u2014 Li Li, World Wanderer.\r\n\r\n=== Heroes: Muradin ===\r\n[Updates]\r\n  \u2022 Haymaker: Cooldown reduced from 70 to 50 seconds.\r\n\r\n=== Heroes: Nova ===\r\n[Updates]\r\n  \u2022 Holo Decoy: Sight radius increased from 3 to 6.\r\n  \u2022 Wounding Shot: Damage amplification reduced from 30% to 25%.\r\n[Bug Fixes]\r\n  \u2022 Fast Reload Talent now correctly resets Triple Tap cooldown when an enemy with a post-death state is killed shortly after being struck by Triple Tap.\r\n  \u2022 Triple Tap can no longer be absorbed by Abathur\u0027s Toxic Nests.\r\n\r\n=== Heroes: Raynor ===\r\n[Updates]\r\n  \u2022 Base Attack damage changed from 63 (\u002B12 per level) to 63 (\u002B11 per level).\r\n[Bug Fixes]\r\n  \u2022 Lead from the Front Trait now properly reduces cooldowns when enemies with post-death states are killed.\r\n\r\n=== Heroes: Sgt. Hammer ===\r\n[Updates]\r\n  \u2022 Basic Attack starting damage increased from 50 to 55.\r\n  \u2022 Tank Mode: Cast time reduced from 1 to 0.5 seconds.\r\n\r\n=== Heroes: Stitches ===\r\n[Updates]\r\n  \u2022 Putrid Bile: Slow duration increased from 1.125 to 1.5 seconds; search radius increased from 2.5 to 3.\r\n\r\n=== Heroes: Tassadar ===\r\n[Updates]\r\n  \u2022 Protective Shield: Cooldown increased from 6 to 8 seconds.\r\n  \u2022 Health reduced from 850 (\u002B160 per level) to 800 (\u002B145 per level).\r\n\r\n=== Heroes: Tychus ===\r\n[Updates]\r\n  \u2022 Commandeer Odin: Annihilate starting damage increased from 20 to 70; Ragnarok Missiles starting damage increased from 20 to 70.\r\n\r\n=== Heroes: Tyrael ===\r\n[Updates]\r\n  \u2022 Righteousness: Shield amount changed from 250 (\u002B25 per level) to 200 (\u002B25 per level); explosion damage increased from 75 (\u002B9 per level) to 90 (\u002B12 per level); explosion radius increased from 2 to 3.\r\n  \u2022 Judgment: Cooldown reduced from 100 to 80 seconds.\r\n\r\n=== Heroes: Tyrande ===\r\n[Updates]\r\n  \u2022 Sentinel: Reveal duration reduced from 8 to 5 seconds.\r\n  \u2022 Lunar Flare: Stun duration reduced from 1.25 to 1 second.\r\n  \u2022 Shadowstalk: Cooldown reduced from 80 to 60 seconds.\r\n\r\n=== Heroes: Zeratul ===\r\n[Updates]\r\n  \u2022 Basic Attack damage scaling reduced from 15 to 12 per level.\r\n  \u2022 Singularity Bomb: Damage increased from 50 (\u002B12 per level) to 100 (\u002B20 per level).\r\n  \u2022 \u0060\u0060\u0060[cite: 2]\r\n  \u2022 Drop the next entry whenever you\u0027re ready!",
+  "Sections": {
+    "General": [
+      "[Updates]",
+      "  \u2022 Account Wipe \u0026 Rewards: Reset all Technical Alpha accounts to Level 1, wiping XP, leveling/Quest progress, Gold, and Gold purchases; real-money purchases were not reset/refunded in this wipe (planned for future wipes). All 25 heroes made free-to-play through Thursday, April 17 at 3:00 p.m. PDT, plus pre-wipe level Gold/rewards (Levels 1\u201319: 10,000 Gold; Levels 20\u201339: 30,000 Gold; Level 40: 30,000 Gold and a Heroes of the Storm lanyard).",
+      "  \u2022 Custom Games: Added via the Play Screen with up to 10 human/AI lobby slots (Observers disabled); lobby host options (Swap Team, Kick from Lobby, Set A.I. difficulty, Promote to Host) accessed via the wrench icon under allied hero models or right-clicking enemy portraits.",
+      "  \u2022 Quests \u0026 Performance: Reworked most Daily and Hero Quest requirements; added general performance improvements.",
+      "  \u2022 User Interface: Capped combined daily XP at 1.2 million across Custom Games, Practice, and Co-op (no cap in Versus; Quests now completed only in Versus); moved Daily/Hero Quests from Home screen to Profile screen with a reworked Hero Quest Log; updated Hero Select screen (added Profile button top right, hero info/abilities/skin/mount buttons lower left, and Back button top left replacing Quit); added Uther UI and initial game mode unlock guidance after the Tutorial.",
+      "  \u2022 Shop: Added Bundles tab; added Monarch Brightwing and Pajamathur Abathur skins and reworked Succubus Kerrigan; allowed purchasing skins directly from a Hero\u0027s Skins tab in the Shop in addition to the Skins tab.",
+      "  \u2022 Gameplay \u0026 Talents: Increased Hero movement speed from 4.0 to 4.4; added anti-snowballing measures; made clicking friendly and enemy Heroes easier near Structures (especially Gates) and Minions; reduced Calldown: M.U.L.E. duration from 90 to 60 seconds.",
+      "[Bug Fixes]",
+      "  \u2022 Corrected a number of typos across several aspects of the game.",
+      "  \u2022 Fixed issues where Daily and Hero Quests were not properly granting credit.",
+      "  \u2022 Halo effects on the Hero Select screen now properly outline Ronin Zeratul and Witch Doctor character models.",
+      "  \u2022 In-game target portraits for Muradin, Tyrande, and Zeratul now match their post-game Score Screen portraits.",
+      "  \u2022 Camera now correctly follows the Dragon Knight in Windowed Mode after enabling Camera Follow while the Dragon Knight is being summoned.",
+      "  \u2022 Home screen level indicator now more accurately reflects progress toward the next level.",
+      "  \u2022 Calldown: MULE can now be cast when the casting hero is underground on Haunted Mines.",
+      "  \u2022 Blood for Blood can no longer target summoned Grave Golems on Haunted Mines.",
+      "  \u2022 Grave Golem on Haunted Mines is no longer distracted by Abathur\u0027s burrowing Toxic Nests."
+    ],
+    "Battlegrounds: Haunted Mines": [
+      "[Updates]",
+      "  \u2022 Underground Grave Golem scaling Health per minute increased from 625 to 750."
+    ],
+    "Heroes: Arthas": [
+      "[Updates]",
+      "  \u2022 Basic Attack damage increased from 55 (\u002B5 per level) to 59 (\u002B6 per level).",
+      "  \u2022 Frost Strike damage increased from 60 (\u002B11 per level) to 80 (\u002B15 per level).",
+      "  \u2022 Frostmourne Hungers: Basic Attack damage bonus increased from 20% to 40%; duration increased from 4 to 6 seconds.",
+      "  \u2022 Rune Tap: Now requires 3 stacks for an 8% heal instead of 5 stacks for a 10% heal."
+    ],
+    "Heroes: Barbarian": [
+      "[Updates]",
+      "  \u2022 Fury (Trait): Removed life steal component; now grants a temporary 10% movement speed bonus on ability cast with additional casts refreshing the duration.",
+      "  \u2022 Ancient Spear: Cooldown reduced from 15 to 13 seconds.",
+      "  \u2022 Hammer of the Ancients: Now deals baseline splash damage equal to 25% of base damage (Seismic Slash Talent increases splash damage to 100% of base damage).",
+      "  \u2022 Whirlwind: Duration reduced from 4 to 3 seconds; damage changed from 320 (\u002B16 per level) to 210 (\u002B21 per level) over its duration; added 20% life steal while active; Fury cost increased from 20 to 25.",
+      "  \u2022 Leap: Cooldown increased from 40 to 50 seconds; Arreat Crater duration increased from 3 to 4 seconds and can now be cancelled.",
+      "  \u2022 Wrath of the Berserker: Now generates 25 Fury on cast and costs 4 Fury per second to maintain; cooldown reduced from 100 to 20 seconds (starts after Wrath completes); removed previous movement speed and life steal gains; now grants a 30% bonus to all damage dealt.",
+      "  \u2022 Talents: Tweaked many Talents to account for the above changes.",
+      "[Bug Fixes]",
+      "  \u2022 Ancient Spear now properly pulls the Barbarian when cast on Grave Golems."
+    ],
+    "Heroes: Brightwing": [
+      "[Updates]",
+      "  \u2022 New Hero Released \u2014 Brightwing, Faerie Dragon."
+    ],
+    "Heroes: Demon Hunter": [
+      "[Updates]",
+      "  \u2022 Hatred: Reworked so each Basic Attack grants a stack up to 10, granting 3% Attack Speed and 1% Movement Speed per stack; stacks fade at 1 per second rather than all at once; Rancor Talent now increases auto-attack damage at maximum stacks.",
+      "  \u2022 Strafe: Damage per level increased from 4.5 to 5; search area increased from 7.5 to 10; cooldown increased from 45 to 50 seconds.",
+      "  \u2022 Rain of Vengeance: Cooldown reduced from 100 to 90 seconds.",
+      "  \u2022 Siphoning Arrow: Life leech increased from 25% to 50%."
+    ],
+    "Heroes: Diablo": [
+      "[Updates]",
+      "  \u2022 Apocalypse: Cooldown increased from 100 to 120 seconds; damage reduced from 160 (\u002B12 per level) to 100 (\u002B10 per level).",
+      "  \u2022 Soulstone: Reworked so stacks cap at 100 and require 100 to resurrect; no longer loses all Soulstone stacks on death, instead losing 100 on resurrection; Endless Death increases max Soulstone stacks to 200 (previously 250)."
+    ],
+    "Heroes: E.T.C.": [
+      "[Updates]",
+      "  \u2022 Mosh Pit: Cooldown increased from 100 to 120 seconds.",
+      "  \u2022 Rock God!: Damage bonus increased from 40% to 50%."
+    ],
+    "Heroes: Falstad": [
+      "[Updates]",
+      "  \u2022 Aerial Blitzkrieg: Cooldown increased from 90 to 110 seconds.",
+      "  \u2022 Flight: Cast time increased from 1.5 to 2 seconds."
+    ],
+    "Heroes: Gazlowe": [
+      "[Updates]",
+      "  \u2022 Grav-O-Bomb 3000: Cooldown increased from 90 to 110 seconds."
+    ],
+    "Heroes: Kerrigan": [
+      "[Updates]",
+      "  \u2022 Ultralisk: Movement speed increased from 4.5 to 5."
+    ],
+    "Heroes: Li Li": [
+      "[Updates]",
+      "  \u2022 New Hero Released \u2014 Li Li, World Wanderer."
+    ],
+    "Heroes: Muradin": [
+      "[Updates]",
+      "  \u2022 Haymaker: Cooldown reduced from 70 to 50 seconds."
+    ],
+    "Heroes: Nova": [
+      "[Updates]",
+      "  \u2022 Holo Decoy: Sight radius increased from 3 to 6.",
+      "  \u2022 Wounding Shot: Damage amplification reduced from 30% to 25%.",
+      "[Bug Fixes]",
+      "  \u2022 Fast Reload Talent now correctly resets Triple Tap cooldown when an enemy with a post-death state is killed shortly after being struck by Triple Tap.",
+      "  \u2022 Triple Tap can no longer be absorbed by Abathur\u0027s Toxic Nests."
+    ],
+    "Heroes: Raynor": [
+      "[Updates]",
+      "  \u2022 Base Attack damage changed from 63 (\u002B12 per level) to 63 (\u002B11 per level).",
+      "[Bug Fixes]",
+      "  \u2022 Lead from the Front Trait now properly reduces cooldowns when enemies with post-death states are killed."
+    ],
+    "Heroes: Sgt. Hammer": [
+      "[Updates]",
+      "  \u2022 Basic Attack starting damage increased from 50 to 55.",
+      "  \u2022 Tank Mode: Cast time reduced from 1 to 0.5 seconds."
+    ],
+    "Heroes: Stitches": [
+      "[Updates]",
+      "  \u2022 Putrid Bile: Slow duration increased from 1.125 to 1.5 seconds; search radius increased from 2.5 to 3."
+    ],
+    "Heroes: Tassadar": [
+      "[Updates]",
+      "  \u2022 Protective Shield: Cooldown increased from 6 to 8 seconds.",
+      "  \u2022 Health reduced from 850 (\u002B160 per level) to 800 (\u002B145 per level)."
+    ],
+    "Heroes: Tychus": [
+      "[Updates]",
+      "  \u2022 Commandeer Odin: Annihilate starting damage increased from 20 to 70; Ragnarok Missiles starting damage increased from 20 to 70."
+    ],
+    "Heroes: Tyrael": [
+      "[Updates]",
+      "  \u2022 Righteousness: Shield amount changed from 250 (\u002B25 per level) to 200 (\u002B25 per level); explosion damage increased from 75 (\u002B9 per level) to 90 (\u002B12 per level); explosion radius increased from 2 to 3.",
+      "  \u2022 Judgment: Cooldown reduced from 100 to 80 seconds."
+    ],
+    "Heroes: Tyrande": [
+      "[Updates]",
+      "  \u2022 Sentinel: Reveal duration reduced from 8 to 5 seconds.",
+      "  \u2022 Lunar Flare: Stun duration reduced from 1.25 to 1 second.",
+      "  \u2022 Shadowstalk: Cooldown reduced from 80 to 60 seconds."
+    ],
+    "Heroes: Zeratul": [
+      "[Updates]",
+      "  \u2022 Basic Attack damage scaling reduced from 15 to 12 per level.",
+      "  \u2022 Singularity Bomb: Damage increased from 50 (\u002B12 per level) to 100 (\u002B20 per level).",
+      "  \u2022 \u0060\u0060\u0060[cite: 2]",
+      "  \u2022 Drop the next entry whenever you\u0027re ready!"
+    ]
+  },
+  "PatchFile": "alpha/2014-04-15-2.5.29775.json",
+  "Sources": [
+    "alpha-master.json",
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "2014-04-15-alpha.html",
+    "manual-edit",
+    "2014-04-15-v2-5-29775-29775-brightwing-and-li-li-patch-alpha.json"
+  ]
+}

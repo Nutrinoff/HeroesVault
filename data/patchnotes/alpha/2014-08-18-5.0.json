@@ -1,0 +1,31 @@
+{
+  "Id": "hotfix-patch-notes-august-18-2014",
+  "Title": "Rehgar Hotfix Patch #3",
+  "Subtitle": "Technical Alpha hotfix patch 0.5.0 (August 18, 2014), third Rehgar hotfix entry (no official patch notes verified here).",
+  "Date": "Aug 18, 2014",
+  "IsoDate": "2014-08-18",
+  "FeedType": "live",
+  "Era": "alpha",
+  "PatchVersion": "5.0",
+  "FullVersion": "",
+  "Build": "",
+  "Link": "http://us.battle.net/heroes/en/forum/topic/13841494521",
+  "Links": [
+    "http://us.battle.net/heroes/en/forum/topic/13841494521"
+  ],
+  "Affected": [],
+  "Highlights": "Technical Alpha hotfix patch 0.5.0 (August 18, 2014), third Rehgar hotfix entry (no official patch notes verified here).",
+  "CleanedNotes": "=== General ===\r\n  \u2022 - Verified: no official patch notes available for this hotfix build.",
+  "Sections": {
+    "General": [
+      "  \u2022 - Verified: no official patch notes available for this hotfix build."
+    ]
+  },
+  "PatchFile": "alpha/2014-08-18-5.0.json",
+  "Sources": [
+    "alpha-master.json",
+    "legacy-patches2014-2021.json",
+    "manual-edit",
+    "2014-08-18-v5-0-rehgar-hotfix-patch-3-alpha.json"
+  ]
+}

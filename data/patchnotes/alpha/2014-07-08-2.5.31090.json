@@ -1,0 +1,29 @@
+{
+  "Id": "hotfix-patch-notes-july-8-2014",
+  "Title": "Zagara Hotfix Patch",
+  "Subtitle": "Technical Alpha hotfix patch 0.2.5.31090 (July 8, 2014) associated with Zagara (no official patch notes verified here).",
+  "Date": "Jul 8, 2014",
+  "IsoDate": "2014-07-08",
+  "FeedType": "live",
+  "Era": "alpha",
+  "PatchVersion": "2.5.31090",
+  "FullVersion": "2.5.31090.31090",
+  "Build": "31090",
+  "Link": "",
+  "Links": [],
+  "Affected": [],
+  "Highlights": "Technical Alpha hotfix patch 0.2.5.31090 (July 8, 2014) associated with Zagara (no official patch notes verified here).",
+  "CleanedNotes": "=== General ===\r\n  \u2022 - Verified: no official patch notes available for this hotfix build.",
+  "Sections": {
+    "General": [
+      "  \u2022 - Verified: no official patch notes available for this hotfix build."
+    ]
+  },
+  "PatchFile": "alpha/2014-07-08-2.5.31090.json",
+  "Sources": [
+    "alpha-master.json",
+    "legacy-patches2014-2021.json",
+    "manual-edit",
+    "2014-07-08-v2-5-31090-31090-zagara-hotfix-patch-alpha.json"
+  ]
+}

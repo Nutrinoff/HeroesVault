@@ -1,0 +1,31 @@
+{
+  "Id": "hotfix-patch-notes-august-1-2014",
+  "Title": "Rehgar Hotfix Patch #1",
+  "Subtitle": "Technical Alpha hotfix patch 0.5.0.31566 (August 1, 2014, blog 15056492), first Rehgar hotfix entry (no official patch notes verified here).",
+  "Date": "Aug 1, 2014",
+  "IsoDate": "2014-08-01",
+  "FeedType": "live",
+  "Era": "alpha",
+  "PatchVersion": "5.0",
+  "FullVersion": "5.0.31566",
+  "Build": "31566",
+  "Link": "http://us.battle.net/heroes/en/blog/15056492",
+  "Links": [
+    "http://us.battle.net/heroes/en/blog/15056492"
+  ],
+  "Affected": [],
+  "Highlights": "Technical Alpha hotfix patch 0.5.0.31566 (August 1, 2014, blog 15056492), first Rehgar hotfix entry (no official patch notes verified here).",
+  "CleanedNotes": "=== General ===\r\n  \u2022 - Verified: no official patch notes available for this hotfix build.",
+  "Sections": {
+    "General": [
+      "  \u2022 - Verified: no official patch notes available for this hotfix build."
+    ]
+  },
+  "PatchFile": "alpha/2014-08-01-5.0.json",
+  "Sources": [
+    "alpha-master.json",
+    "legacy-patches2014-2021.json",
+    "manual-edit",
+    "2014-08-01-v5-0-31566-rehgar-hotfix-patch-1-alpha.json"
+  ]
+}

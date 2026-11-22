@@ -1,0 +1,30 @@
+{
+  "Id": "hotfix-patch-notes-august-27-2014",
+  "Title": "Rehgar Hotfix Patch #4",
+  "Subtitle": "Technical Alpha hotfix patch 0.5.0.31948 (August 27, 2014), fourth Rehgar hotfix entry (no official patch notes verified here).",
+  "Date": "Aug 27, 2014",
+  "IsoDate": "2014-08-27",
+  "FeedType": "live",
+  "Era": "alpha",
+  "PatchVersion": "5.0",
+  "FullVersion": "5.0.31948",
+  "Build": "31948",
+  "Link": "",
+  "Links": [],
+  "Affected": [],
+  "Highlights": "Technical Alpha hotfix patch 0.5.0.31948 (August 27, 2014), fourth Rehgar hotfix entry (no official patch notes verified here).",
+  "CleanedNotes": "=== General ===\r\n  \u2022 - Verified: no official patch notes available for this hotfix build.",
+  "Sections": {
+    "General": [
+      "  \u2022 - Verified: no official patch notes available for this hotfix build."
+    ]
+  },
+  "PatchFile": "alpha/2014-08-27-5.0.json",
+  "Sources": [
+    "alpha-master.json",
+    "legacy-patches2014-2021.json",
+    "wiki-patches.html",
+    "manual-edit",
+    "2014-08-27-v5-0-31948-rehgar-hotfix-patch-4-alpha.json"
+  ]
+}
