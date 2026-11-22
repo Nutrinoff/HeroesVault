@@ -25,14 +25,16 @@
         class="flex items-center gap-3 cursor-pointer group"
       >
         <div class="hots-brand-emblem">
-          <svg class="w-8 h-8 text-[#58baff] transition-transform duration-150 group-hover:scale-105" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <polygon points="12 2 22 7 22 17 12 22 2 17 2 7 12 2"/>
-            <circle cx="12" cy="12" r="3" class="text-[#fed600]" fill="currentColor"/>
+          <svg class="w-8 h-8 transition-transform duration-150 group-hover:scale-105" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+            <polygon points="14,2 25,14 14,26 3,14" stroke="#58baff" stroke-width="1.5" fill="rgba(0, 99, 200, 0.16)"/>
+            <polygon points="14,6 21,14 14,22 7,14" stroke="#cbe8ff" stroke-width="1.2" fill="rgba(88, 186, 255, 0.18)"/>
+            <path d="M14 4.5L16.4 11.6L23.5 14L16.4 16.4L14 23.5L11.6 16.4L4.5 14L11.6 11.6Z" fill="#e6f4ff" opacity="0.9"/>
+            <polygon points="14,10.2 17.8,14 14,17.8 10.2,14" fill="#58baff"/>
           </svg>
         </div>
         <div class="text-center md:text-left">
           <h1 class="hots-display text-2xl font-bold tracking-wider uppercase">
-            HEROES<span class="text-[#fed600]">VAULT</span>
+            HEROES<span class="text-[#9cb6ff]">VAULT</span>
           </h1>
           <p class="text-[10px] uppercase tracking-[0.26em] text-[#9d90ff] font-bold">Nexus Strategy &amp; Spec Database</p>
         </div>
@@ -102,7 +104,7 @@
           <!-- Header Banner -->
           <div class="hots-panel hots-banner-accent px-6 py-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div class="space-y-1 min-w-0">
-              <div class="hots-label text-[#fed600]">Nexus Command &amp; Loadout Hub</div>
+              <div class="hots-label text-[#58baff]">Nexus Command &amp; Loadout Hub</div>
               <h2 class="hots-display text-2xl font-bold uppercase tracking-wide">HeroesVault</h2>
               <p class="text-xs sm:text-sm text-[#9cb6ff]/90 max-w-2xl">
                 Hero talent loadouts, build code calculator, battleground guides, patch feed, and personal tier rankings.
@@ -153,12 +155,12 @@
               class="hots-panel hots-card-ptr p-4 cursor-pointer transition space-y-2 group min-w-0"
             >
               <div class="flex items-center justify-between gap-2 border-b border-[#38247a] pb-1.5 min-w-0">
-                <span class="hots-label text-[#e38b0d] flex items-center gap-1.5 shrink-0">
-                  <span class="w-2 h-2 rounded-[1px] bg-[#fed600] shadow-[0_0_8px_#e38b0d]" aria-hidden="true"></span> Latest PTR Patch
+                <span class="hots-label text-[#f5d89a] flex items-center gap-1.5 shrink-0">
+                  <span class="w-2 h-2 rounded-[1px] bg-[#e39a24] shadow-[0_0_8px_rgba(201,122,22,0.7)]" aria-hidden="true"></span> Latest PTR Patch
                 </span>
                 <span id="home-ptr-patch-meta" class="text-[10px] font-mono text-[#9d90ff] shrink-0">PTR</span>
               </div>
-              <div id="home-ptr-patch-title" class="text-sm font-bold text-[#e6ecff] group-hover:text-[#ffeab6] transition line-clamp-1">
+              <div id="home-ptr-patch-title" class="text-sm font-bold text-[#e6ecff] group-hover:text-[#f5d89a] transition line-clamp-1">
                 Loading PTR patch notes...
               </div>
               <p id="home-ptr-patch-tldr" class="text-xs text-[#8c83a2] leading-relaxed line-clamp-2">
@@ -171,8 +173,8 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <section class="hots-panel p-4 space-y-2 min-w-0">
               <div class="flex items-center justify-between border-b border-[#38247a] pb-2">
-                <h3 class="hots-label text-[#e38b0d] flex items-center gap-2">
-                  <i data-lucide="sparkles" class="w-3.5 h-3.5" aria-hidden="true"></i> Featured Spec Pick
+                <h3 class="hots-label text-[#f5d89a] flex items-center gap-2">
+                  <i data-lucide="sparkles" class="w-3.5 h-3.5 text-[#c97a16]" aria-hidden="true"></i> Featured Spec Pick
                 </h3>
                 <span id="home-roster-badge" class="text-[11px] font-mono text-[#58baff]">Roster</span>
               </div>
@@ -195,7 +197,7 @@
               </div>
               <div id="home-academy-highlights" class="space-y-1.5 text-xs text-[#9cb6ff]/90">
                 <p><span class="text-[#58baff]" aria-hidden="true">&bull;</span> Wave soaking, XP breakpoints, and objective timing</p>
-                <p><span class="text-[#e38b0d]" aria-hidden="true">&bull;</span> Draft synergy, counters, and teamfight roles</p>
+                <p><span class="text-[#c97a16]" aria-hidden="true">&bull;</span> Draft synergy, counters, and teamfight roles</p>
               </div>
             </section>
           </div>
@@ -207,7 +209,7 @@
             <h3 class="hots-label text-[#58baff] flex items-center justify-center gap-1.5">
               <i data-lucide="users" class="w-3.5 h-3.5 shrink-0" aria-hidden="true"></i> Free Rotation
             </h3>
-            <span id="home-f2p-timespan" class="text-[10px] font-mono text-[#e38b0d] leading-snug">Weekly</span>
+            <span id="home-f2p-timespan" class="text-[10px] font-mono text-[#f5d89a] leading-snug">Weekly</span>
           </div>
 
           <div id="home-f2p-grid" class="grid grid-cols-2 gap-x-1.5 gap-y-1 content-start items-start">
@@ -226,8 +228,8 @@
                 <polygon
                   points="50,-1.5 96.5,24.2 96.5,75.8 50,101.5 3.5,75.8 3.5,24.2"
                   fill="none"
-                  stroke="rgba(254, 214, 0, 0.9)"
-                  stroke-width="4.5"
+                  stroke="rgba(203, 232, 255, 0.85)"
+                  stroke-width="4"
                   stroke-linejoin="round"
                 />
               </svg>
@@ -235,7 +237,7 @@
             <div>
               <div class="flex items-center gap-3 flex-wrap">
                 <h2 id="hero-name" class="hots-display text-2xl font-bold uppercase tracking-wide">Select a Hero</h2>
-                <span id="hero-role" class="hots-role-badge px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider text-[#ffeab6]">Role</span>
+                <span id="hero-role" class="hots-role-badge px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider text-[#f5d89a]">Role</span>
               </div>
               <p id="hero-title" class="text-xs text-[#8c83a2] mt-1">Title</p>
             </div>
@@ -252,12 +254,12 @@
         </section>
 
         <section class="hots-panel p-4 space-y-3">
-          <h3 class="hots-label text-[#e38b0d] border-b border-[#38247a] pb-2">Selected Build Talents</h3>
+          <h3 class="hots-label text-[#f5d89a] border-b border-[#38247a] pb-2">Selected Build Talents</h3>
           <div id="build-strip" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3"></div>
         </section>
 
         <section class="hots-panel p-4 space-y-3">
-          <h3 class="hots-label text-[#e38b0d] border-b border-[#38247a] pb-2">Notes &amp; Matchup Guide</h3>
+          <h3 class="hots-label text-[#f5d89a] border-b border-[#38247a] pb-2">Notes &amp; Matchup Guide</h3>
           <div id="detail-notes" class="text-sm text-[#e6ecff]/90 hots-subpanel p-4 leading-relaxed"></div>
         </section>
       </div>
@@ -268,7 +270,7 @@
           <img id="map-portrait" src="" alt="Battleground banner" class="w-full h-64 md:h-80 object-cover"/>
           <div class="absolute inset-0 bg-gradient-to-t from-[#070412] via-[#070412]/55 to-transparent flex items-end p-6">
             <div>
-              <span class="hots-label text-[#fed600]">Battleground</span>
+              <span class="hots-label text-[#f5d89a]">Battleground</span>
               <h2 id="map-name" class="hots-display text-3xl font-bold uppercase tracking-wide mt-0.5"></h2>
               <p id="map-theme" class="text-sm text-[#9cb6ff]/90 mt-1"></p>
             </div>
@@ -282,7 +284,7 @@
               <div id="map-mechanic" class="text-sm text-[#e6ecff]/90 leading-relaxed pt-1"></div>
             </section>
             <section class="hots-panel p-4 space-y-2">
-              <h3 class="hots-label text-[#e38b0d] border-b border-[#38247a] pb-2">Strategic Overview</h3>
+              <h3 class="hots-label text-[#f5d89a] border-b border-[#38247a] pb-2">Strategic Overview</h3>
               <div id="map-strategy" class="text-sm text-[#e6ecff]/90 leading-relaxed pt-1"></div>
             </section>
             <section class="hots-panel p-4 space-y-2">
@@ -292,11 +294,11 @@
           </div>
           <div class="space-y-5">
             <section class="hots-panel p-4 space-y-3">
-              <h3 class="hots-label text-[#e38b0d] border-b border-[#38247a] pb-2">Top 5 Golden Heroes</h3>
+              <h3 class="hots-label text-[#f5d89a] border-b border-[#38247a] pb-2">Top 5 Golden Heroes</h3>
               <div id="map-heroes-list" class="grid grid-cols-1 gap-2"></div>
             </section>
             <section class="hots-panel p-4 space-y-3">
-              <h3 class="hots-label text-[#fed600] border-b border-[#38247a] pb-2">Mercenary Camps</h3>
+              <h3 class="hots-label text-[#f5d89a] border-b border-[#38247a] pb-2">Mercenary Camps</h3>
               <div id="map-camps-stack" class="space-y-3"></div>
             </section>
           </div>
@@ -313,8 +315,8 @@
                 <polygon
                   points="50,-1.5 96.5,24.2 96.5,75.8 50,101.5 3.5,75.8 3.5,24.2"
                   fill="none"
-                  stroke="rgba(254, 214, 0, 0.9)"
-                  stroke-width="4.5"
+                  stroke="rgba(203, 232, 255, 0.85)"
+                  stroke-width="4"
                   stroke-linejoin="round"
                 />
               </svg>
@@ -322,7 +324,7 @@
             <div>
               <div class="flex items-center gap-3 flex-wrap">
                 <h2 id="builder-name" class="hots-display text-2xl font-bold uppercase tracking-wide">Select a Hero</h2>
-                <span id="builder-role" class="hots-role-badge px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider text-[#ffeab6]">Role</span>
+                <span id="builder-role" class="hots-role-badge px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider text-[#f5d89a]">Role</span>
               </div>
               <p id="builder-title" class="text-xs text-[#8c83a2] mt-1">Title</p>
             </div>
@@ -366,7 +368,7 @@
       <div id="view-academy" class="space-y-6 hidden">
         <div class="hots-panel p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div class="flex items-center gap-3">
-            <div class="p-2.5 hots-role-badge text-[#fed600]">
+            <div class="p-2.5 hots-role-badge text-[#58baff]">
               <i data-lucide="graduation-cap" class="w-6 h-6" aria-hidden="true"></i>
             </div>
             <div>
@@ -450,9 +452,10 @@
   <footer class="hots-footer mt-6 py-6">
     <div class="max-w-[1600px] mx-auto px-6 flex flex-col items-center justify-center gap-3 text-center">
       <div class="flex items-center gap-3">
-        <svg class="w-6 h-6 text-[#58baff]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <polygon points="12 2 22 7 22 17 12 22 2 17 2 7 12 2"/>
-          <circle cx="12" cy="12" r="3" class="text-[#fed600]" fill="currentColor"/>
+        <svg class="w-6 h-6" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+          <polygon points="14,2 25,14 14,26 3,14" stroke="#58baff" stroke-width="1.5" fill="rgba(0, 99, 200, 0.16)"/>
+          <polygon points="14,6 21,14 14,22 7,14" stroke="#cbe8ff" stroke-width="1.2" fill="rgba(88, 186, 255, 0.18)"/>
+          <polygon points="14,10.2 17.8,14 14,17.8 10.2,14" fill="#58baff"/>
         </svg>
         <span class="hots-display text-sm font-bold uppercase tracking-wider text-[#e6ecff]">HeroesVault &copy; 2026</span>
       </div>
