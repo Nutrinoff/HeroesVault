@@ -1,5 +1,5 @@
 :root {
-  /* Cosmic indigo / Nexus menu surfaces. */
+  /* Cosmic indigo / Nexus menu surfaces */
   --hots-bg: #070412;
   --hots-surface: #120b2e;
   --hots-surface-raised: #1d1247;
@@ -41,12 +41,12 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #352275;
-  border-radius: 2px;
+  background: var(--hots-border);
+  border-radius: 1px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #5346a2;
+  background: var(--hots-text-disabled);
 }
 
 /* Base Body & Deep Nexus Menu Backdrop */
@@ -62,11 +62,11 @@
 
 .hots-display {
   font-family: 'Chakra Petch', 'Inter', sans-serif;
-  background: linear-gradient(180deg, #ffffff 0%, #cbe8ff 100%);
+  background: linear-gradient(180deg, #ffffff 0%, var(--hots-cyan-bright) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  filter: drop-shadow(0 0 8px rgba(0, 99, 200, 0.55));
+  filter: drop-shadow(0 0 8px var(--hots-glow-blue));
 }
 
 .font-mono {
@@ -76,10 +76,10 @@
 /* Top Client Chrome & Navigation Rail */
 .hots-topbar {
   background: linear-gradient(180deg, #190e40 0%, #0e0726 72%, #080416 100%);
-  border-bottom: 1px solid #38247a;
+  border-bottom: 1px solid var(--hots-border);
   box-shadow:
     inset 0 -1px 0 rgba(203, 232, 255, 0.14),
-    0 6px 24px rgba(0, 0, 0, 0.82);
+    0 6px 24px rgba(0, 0, 0, 0.85);
 }
 
 .hots-brand-emblem {
@@ -89,7 +89,7 @@
   justify-content: center;
   width: 42px;
   height: 42px;
-  border-radius: 5px;
+  border-radius: 3px;
   background: linear-gradient(180deg, rgba(0, 99, 200, 0.28) 0%, rgba(15, 8, 40, 0.94) 100%);
   border: 1px solid rgba(139, 129, 211, 0.55);
   box-shadow:
@@ -125,66 +125,71 @@
 .f2p-row-item:focus-visible {
   outline: 2px solid var(--hots-cyan);
   outline-offset: 3px;
-  border-radius: 8px;
+  border-radius: 3px;
 }
 
 /* Deep Menu Panels & Subpanels */
 .hots-panel {
   max-width: 100%;
+  border-radius: 2px;
   background: linear-gradient(180deg, rgba(28, 17, 69, 0.92) 0%, rgba(16, 9, 41, 0.96) 58%, rgba(10, 6, 27, 0.99) 100%);
   border: 1px solid #3d2882;
   box-shadow:
     inset 0 1px 0 rgba(228, 227, 255, 0.16),
     inset 0 -1px 0 rgba(4, 2, 12, 0.95),
-    0 10px 28px rgba(0, 0, 0, 0.68);
+    0 10px 28px rgba(0, 0, 0, 0.72);
 }
 
 .hots-banner-accent {
   border-left: 4px solid var(--hots-gold-vivid);
   box-shadow:
-    inset 0 1px 0 rgba(255, 234, 182, 0.2),
+    inset 0 1px 0 rgba(255, 234, 182, 0.22),
     inset 0 -1px 0 rgba(4, 2, 12, 0.95),
-    0 12px 28px rgba(0, 0, 0, 0.7),
-    -4px 0 14px rgba(200, 104, 0, 0.22);
+    0 12px 28px rgba(0, 0, 0, 0.75),
+    -4px 0 16px rgba(227, 139, 13, 0.25);
 }
 
 .hots-card-live:hover {
   border-color: rgba(203, 232, 255, 0.72);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.24),
-    0 10px 26px rgba(0, 0, 0, 0.68),
-    0 0 18px rgba(0, 156, 255, 0.26);
+    0 10px 26px rgba(0, 0, 0, 0.72),
+    0 0 18px var(--hots-glow-cyan);
 }
 
 .hots-card-ptr:hover {
   border-color: rgba(254, 214, 0, 0.75);
   box-shadow:
     inset 0 1px 0 rgba(255, 254, 232, 0.24),
-    0 10px 26px rgba(0, 0, 0, 0.68),
-    0 0 18px rgba(200, 104, 0, 0.26);
+    0 10px 26px rgba(0, 0, 0, 0.72),
+    0 0 18px rgba(227, 139, 13, 0.28);
 }
 
 .hots-subpanel {
+  border-radius: 2px;
   background: linear-gradient(180deg, rgba(13, 8, 34, 0.96) 0%, rgba(8, 4, 21, 0.99) 100%);
   border: 1px solid #2b1a61;
   box-shadow: inset 0 1px 0 rgba(156, 182, 255, 0.12);
 }
 
 .hots-dropdown {
+  border-radius: 2px;
   background: linear-gradient(180deg, #1d1147 0%, #0d0724 100%);
-  border: 1px solid #5346a2;
+  border: 1px solid var(--hots-text-disabled);
   box-shadow:
     inset 0 1px 0 rgba(228, 227, 255, 0.18),
-    0 14px 32px rgba(0, 0, 0, 0.85);
+    0 14px 32px rgba(0, 0, 0, 0.88);
 }
 
 .hots-role-badge {
+  border-radius: 2px;
   background: linear-gradient(180deg, rgba(44, 25, 98, 0.92) 0%, rgba(20, 11, 51, 0.97) 100%);
-  border: 1px solid rgba(244, 225, 16, 0.45);
+  border: 1px solid rgba(254, 214, 0, 0.48);
   box-shadow: inset 0 1px 0 rgba(255, 234, 182, 0.16);
 }
 
 .hots-input {
+  border-radius: 2px;
   background-color: #070414;
   border: 1px solid #3a267d;
   color: var(--hots-text);
@@ -211,17 +216,17 @@
 
 /* Chamfered HotS Action Buttons */
 .hots-btn-cyan {
-  background: linear-gradient(180deg, #58baff 0%, #1682e8 56%, #0063c8 100%);
+  background: linear-gradient(180deg, var(--hots-cyan) 0%, #1682e8 56%, var(--hots-royal) 100%);
   color: #04101d;
-  border: 1px solid #cbe8ff;
+  border: 1px solid var(--hots-cyan-bright);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.55),
-    0 3px 14px rgba(0, 99, 200, 0.45);
+    0 3px 14px var(--hots-glow-blue);
   clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
 }
 
 .hots-btn-cyan:hover {
-  background: linear-gradient(180deg, #ffffff 0%, #cbe8ff 46%, #009cff 100%);
+  background: linear-gradient(180deg, #ffffff 0%, var(--hots-cyan-bright) 46%, #009cff 100%);
   color: #030b14;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.75),
@@ -229,22 +234,22 @@
 }
 
 .hots-btn-gold {
-  background: linear-gradient(180deg, rgba(244, 225, 16, 0.26) 0%, rgba(227, 139, 13, 0.24) 55%, rgba(138, 72, 0, 0.42) 100%);
-  color: #ffeab6;
+  background: linear-gradient(180deg, rgba(254, 214, 0, 0.25) 0%, rgba(227, 139, 13, 0.25) 55%, rgba(138, 72, 0, 0.44) 100%);
+  color: var(--hots-gold-bright);
   border: 1px solid rgba(254, 214, 0, 0.72);
   box-shadow:
     inset 0 1px 0 rgba(255, 254, 232, 0.28),
-    0 3px 12px rgba(200, 104, 0, 0.28);
+    0 3px 12px rgba(227, 139, 13, 0.28);
   clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
 }
 
 .hots-btn-gold:hover {
-  background: linear-gradient(180deg, rgba(255, 254, 232, 0.34) 0%, rgba(244, 225, 16, 0.34) 52%, rgba(227, 139, 13, 0.42) 100%);
+  background: linear-gradient(180deg, rgba(255, 254, 232, 0.34) 0%, rgba(254, 214, 0, 0.34) 52%, rgba(227, 139, 13, 0.42) 100%);
   color: #ffffff;
   border-color: #fffee8;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.45),
-    0 0 16px rgba(200, 104, 0, 0.42);
+    0 0 16px rgba(227, 139, 13, 0.42);
 }
 
 /* Top Client Nav Tabs (TaskBarSubNavigation -> TaskBarSubNavigationSelected) */
@@ -465,7 +470,7 @@
     linear-gradient(180deg, rgba(88, 186, 255, 0.14) 0%, rgba(36, 25, 79, 0.94) 14%, rgba(12, 6, 33, 0.98) 100%);
   border: 1px solid var(--hots-border-bright);
   border-top-color: var(--hots-cyan);
-  border-radius: 6px;
+  border-radius: 3px;
   box-shadow:
     inset 0 1px 0 rgba(203, 232, 255, 0.24),
     0 14px 36px rgba(0, 0, 0, 0.86),
@@ -485,7 +490,7 @@
   height: 48px;
   flex-shrink: 0;
   object-fit: cover;
-  border-radius: 5px;
+  border-radius: 2px;
   border: 1px solid rgba(203, 232, 255, 0.45);
   background: var(--hots-subpanel-bg);
   box-shadow: 0 0 12px rgba(0, 99, 200, 0.32);
