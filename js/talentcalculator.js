@@ -5,9 +5,38 @@
 const ACTIVE_TALENT_CLASSES = ['border-amber-400', 'shadow-lg', 'scale-105'];
 const INACTIVE_TALENT_CLASSES = ['border-slate-700', 'hover:border-slate-400', 'opacity-75', 'hover:opacity-100'];
 
+function getActiveTiers() {
+    return typeof TALENT_TIERS !== 'undefined' && Array.isArray(TALENT_TIERS)
+        ? TALENT_TIERS
+        : ['1', '4', '7', '10', '13', '16', '20'];
+}
+
+function getNormalizedSelections(selections) {
+    if (typeof normalizeTalentSelections === 'function') {
+        return normalizeTalentSelections(selections);
+    }
+    return Array.isArray(selections) && selections.length === 7
+        ? selections.map(x => Number(x) || 1)
+        : [1, 1, 1, 1, 1, 1, 1];
+}
+
+function getEncodedSelections(selections = builderSelectedTalents) {
+    if (typeof encodeTalentSelections === 'function') {
+        return encodeTalentSelections(selections);
+    }
+    return getNormalizedSelections(selections).join('');
+}
+
+function getFormattedBuildCode(selections = builderSelectedTalents, heroId = builderHeroId) {
+    if (typeof encodeBuildCode === 'function') {
+        return encodeBuildCode(selections, heroId);
+    }
+    return `[T${getEncodedSelections(selections)},${heroId || ''}]`;
+}
+
 function syncBuilderUrl(push = false) {
     if (!builderHeroId) return;
-    const buildStr = builderSelectedTalents.join('');
+    const buildStr = getEncodedSelections(builderSelectedTalents);
     const url = `#builder?hero=${encodeURIComponent(builderHeroId)}&build=${buildStr}`;
     const state = {
         tab: 'builder',
@@ -34,9 +63,7 @@ async function openBuilder(id = null, selections = null, update = true) {
         renderHeroSidebar(MASTER_HERO_LIST);
     }
 
-    builderSelectedTalents = selections?.length === 7
-        ? selections.map(x => Number(x) || 1)
-        : [1, 1, 1, 1, 1, 1, 1];
+    builderSelectedTalents = getNormalizedSelections(selections);
 
     const heroData = typeof getNormalizedHeroData === 'function'
         ? getNormalizedHeroData(id)
@@ -85,10 +112,7 @@ function renderBuilderMatrix() {
         return;
     }
 
-    const tiers = typeof TALENT_TIERS !== 'undefined'
-        ? TALENT_TIERS
-        : ['1', '4', '7', '10', '13', '16', '20'];
-
+    const tiers = getActiveTiers();
     const frag = document.createDocumentFragment();
 
     tiers.forEach((l, idx) => {
@@ -132,7 +156,7 @@ function renderBuilderMatrix() {
 }
 
 function resetBuilder() {
-    builderSelectedTalents = [1, 1, 1, 1, 1, 1, 1];
+    builderSelectedTalents = getNormalizedSelections(null);
     updateBuilderMatrixSelection();
     updateBuilderOutput(true);
 }
@@ -140,7 +164,7 @@ function resetBuilder() {
 function updateBuilderOutput(updateUrl = true) {
     const codeEl = document.getElementById('builder-string-code');
     if (codeEl) {
-        codeEl.innerText = `[T${builderSelectedTalents.join('')},${builderHeroId}]`;
+        codeEl.innerText = getFormattedBuildCode(builderSelectedTalents, builderHeroId);
     }
     if (updateUrl) {
         syncBuilderUrl(false);
@@ -154,14 +178,4 @@ function copyBuilderString() {
     } else {
         prompt('Copy build link:', u);
     }
-}
-
-
-// ==========================================
-// 3. BUILD CODE DECODER
-// ==========================================
-
-function decodeBuildCode(s) {
-    const m = s && s.match(/\[T(\d{7}),/);
-    return m ? m[1].split('').map(Number) : [1, 1, 1, 1, 1, 1, 1];
 }
