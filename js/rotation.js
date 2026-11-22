@@ -92,8 +92,6 @@ function resolvePortraitUrl(rawPath) {
         const url = getAssetUrl(rawPath);
         if (!url) return '';
 
-        // assets.js defaults unrecognized bare names to /abilitytalents/;
-        // reroute to /heroportraits/ when resolving a hero portrait field.
         const cleaned = String(rawPath).trim().replace(/^\.\//, '').replace(/^\/+/, '');
         if (
             !cleaned.includes('/') &&
@@ -182,26 +180,6 @@ function buildRawMasterLookupIndex() {
     return index;
 }
 
-function buildMapLookupIndex() {
-    const index = new Map();
-    const maps = Array.isArray(window.MASTER_MAP_LIST) ? window.MASTER_MAP_LIST : [];
-
-    for (const mapItem of maps) {
-        if (!mapItem) continue;
-        const mapId = mapItem.id || mapItem.mapId;
-        const keys = [
-            normalizeSlugKey(mapId),
-            normalizeSlugKey(mapItem.name)
-        ].filter(Boolean);
-
-        for (const key of keys) {
-            if (!index.has(key)) index.set(key, mapItem);
-        }
-    }
-
-    return index;
-}
-
 function matchHeroWithIndex(entry, heroIndex, rawMasterIndex) {
     const item = typeof entry === 'string' ? { name: entry, id: entry } : (entry || {});
     const rawName = item.Name || item.name || '';
@@ -262,33 +240,6 @@ function matchHeroWithIndex(entry, heroIndex, rawMasterIndex) {
     };
 }
 
-function matchMapWithIndex(apiMap, mapIndex) {
-    const item = typeof apiMap === 'string' ? { name: apiMap, id: apiMap } : (apiMap || {});
-    const rawName = item.Name || item.name || '';
-    const rawId = item.ID || item.id || '';
-
-    const keys = [
-        normalizeSlugKey(rawId),
-        normalizeSlugKey(rawName)
-    ].filter(Boolean);
-
-    let matched = null;
-    for (const key of keys) {
-        if (mapIndex.has(key)) {
-            matched = mapIndex.get(key);
-            break;
-        }
-    }
-
-    const matchedId = matched ? (matched.id || matched.mapId) : null;
-
-    return {
-        id: matchedId || rawId || normalizeSlugKey(rawName),
-        name: matched?.name || rawName || rawId || 'Battleground',
-        inApp: Boolean(matched && matchedId)
-    };
-}
-
 function resolveHeroBlockFromJson(root, now = new Date()) {
     const scheduleList = Array.isArray(root.rotations)
         ? root.rotations
@@ -334,39 +285,15 @@ function resolveHeroBlockFromJson(root, now = new Date()) {
 
 function parseRotationPayload(raw, now = new Date()) {
     const root = raw && typeof raw === 'object' ? (raw.data && typeof raw.data === 'object' ? raw.data : raw) : {};
-    const bgBlock = root.RotationBattleground || root.rotationBattleground || root.battlegrounds || {};
-
     const heroIndex = buildHeroLookupIndex();
     const rawMasterIndex = buildRawMasterLookupIndex();
-    const mapIndex = buildMapLookupIndex();
-
     const heroBlock = resolveHeroBlockFromJson(root, now);
     const heroes = (heroBlock.heroes || []).map(h => matchHeroWithIndex(h, heroIndex, rawMasterIndex));
-
-    const extractModeList = modeKey => {
-        const bucket = bgBlock?.[modeKey] || bgBlock?.[modeKey.toLowerCase()];
-        const list = Array.isArray(bucket?.Battlegrounds)
-            ? bucket.Battlegrounds
-            : (Array.isArray(bucket?.battlegrounds) ? bucket.battlegrounds : (Array.isArray(bucket) ? bucket : []));
-        return list.map(m => matchMapWithIndex(m, mapIndex));
-    };
-
-    const modes = {
-        Ranked: extractModeList('Ranked'),
-        Unranked: extractModeList('Unranked'),
-        ARAM: extractModeList('ARAM')
-    };
-
-    const flatFallback = Array.isArray(bgBlock.Battlegrounds)
-        ? bgBlock.Battlegrounds.map(m => matchMapWithIndex(m, mapIndex))
-        : (Array.isArray(bgBlock.battlegrounds) ? bgBlock.battlegrounds.map(m => matchMapWithIndex(m, mapIndex)) : []);
 
     return {
         heroes,
         timespan: heroBlock.timespan,
-        allHeroesFree: heroBlock.allHeroesFree,
-        modes,
-        flatFallback
+        allHeroesFree: heroBlock.allHeroesFree
     };
 }
 
@@ -388,14 +315,22 @@ async function fetchLocalRotationJson(url = LOCAL_ROTATION_DATA_URL, timeoutMs =
     }
 }
 
-function createFreeHeroCard(hero) {
-    const isLvlSlot = hero.reqLevel === 'LVL';
+function sortRotationHeroesF2pFirst(heroes) {
+    return [...heroes].sort((a, b) => {
+        const aIsLvl = String(a?.reqLevel || '').trim().toUpperCase() === 'LVL' ? 1 : 0;
+        const bIsLvl = String(b?.reqLevel || '').trim().toUpperCase() === 'LVL' ? 1 : 0;
+        return aIsLvl - bIsLvl;
+    });
+}
+
+function createFreeHeroRow(hero) {
+    const isLvlSlot = String(hero.reqLevel || '').trim().toUpperCase() === 'LVL';
 
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = isLvlSlot
-        ? 'hots-subpanel border-rose-500/50 hover:border-cyan-400/70 p-2.5 rounded flex flex-col items-center text-center gap-2 transition cursor-pointer group'
-        : 'hots-subpanel hover:border-cyan-400/70 p-2.5 rounded flex flex-col items-center text-center gap-2 transition cursor-pointer group';
+        ? 'f2p-row-item f2p-row-lvl min-w-0 text-left group'
+        : 'f2p-row-item min-w-0 text-left group';
     btn.title = isLvlSlot
         ? `${hero.name} — Unlocked rotation slot (Account Level 5, 10, 15, or 20)`
         : `View ${hero.name} builds`;
@@ -406,7 +341,7 @@ function createFreeHeroCard(hero) {
     });
 
     const frame = document.createElement('div');
-    frame.className = 'hex-sidebar-frame';
+    frame.className = 'hex-sidebar-frame !w-8 !h-8';
 
     const img = document.createElement('img');
     img.src = hero.portraitUrl || FALLBACK_ROTATION_PORTRAIT;
@@ -438,23 +373,19 @@ function createFreeHeroCard(hero) {
 
     frame.append(img, ringSvg);
 
-    const textWrap = document.createElement('div');
-    textWrap.className = 'w-full min-w-0';
-
-    const nameEl = document.createElement('div');
-    nameEl.className = 'text-xs font-bold text-white group-hover:text-cyan-300 truncate';
+    const nameEl = document.createElement('span');
+    nameEl.className = 'text-xs font-semibold text-slate-100 group-hover:text-cyan-300 truncate flex-1';
     nameEl.textContent = hero.name;
 
-    const badgeEl = document.createElement('div');
+    const badgeEl = document.createElement('span');
     badgeEl.className = isLvlSlot
-        ? 'text-[10px] font-mono text-rose-400 font-semibold mt-0.5'
-        : 'text-[10px] font-mono text-amber-300/90 mt-0.5';
+        ? 'text-[9px] font-mono font-bold uppercase px-1.5 py-0.5 rounded-sm bg-rose-500/15 text-rose-400 border border-rose-500/35 shrink-0'
+        : 'text-[9px] font-mono font-bold uppercase px-1.5 py-0.5 rounded-sm bg-cyan-500/15 text-cyan-300 border border-cyan-400/35 shrink-0';
     badgeEl.textContent = isLvlSlot
         ? 'LVL'
         : (hero.reqLevel ? `Lv ${hero.reqLevel}+` : 'F2P');
 
-    textWrap.append(nameEl, badgeEl);
-    btn.append(frame, textWrap);
+    btn.append(frame, nameEl, badgeEl);
     return btn;
 }
 
@@ -469,90 +400,18 @@ function renderFreeRotationHeroes(data) {
             : data.timespan;
     }
 
-    const displayHeroes = (data.heroes || []).slice(0, 14);
-    if (!displayHeroes.length) {
+    const sortedHeroes = sortRotationHeroesF2pFirst((data.heroes || []).slice(0, 14));
+    if (!sortedHeroes.length) {
         grid.innerHTML =
-            '<div class="col-span-full text-xs text-violet-200/70 py-3">No free rotation heroes available right now.</div>';
+            '<div class="col-span-2 text-xs text-violet-200/70 py-3">No free rotation heroes available right now.</div>';
         return;
     }
 
     const frag = document.createDocumentFragment();
-    for (const hero of displayHeroes) {
-        frag.appendChild(createFreeHeroCard(hero));
+    for (const hero of sortedHeroes) {
+        frag.appendChild(createFreeHeroRow(hero));
     }
     grid.replaceChildren(frag);
-}
-
-function createMapChipButton(mapItem) {
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className =
-        'px-2.5 py-1 rounded-sm text-xs font-semibold bg-[#180c38] hover:bg-[#241254] text-violet-100 hover:text-cyan-200 border border-[#3a207d] hover:border-cyan-400/60 transition cursor-pointer';
-    btn.textContent = mapItem.name;
-    btn.addEventListener('click', () => {
-        if (typeof navigateTo !== 'function') return;
-        if (mapItem.inApp && mapItem.id) {
-            navigateTo('map', { id: mapItem.id });
-        } else {
-            navigateTo('map');
-        }
-    });
-    return btn;
-}
-
-function renderBattlegroundRotation(data) {
-    const container = document.getElementById('home-bg-rotation');
-    if (!container) return;
-
-    const modeEntries = Object.entries(data.modes || {})
-        .filter(([, list]) => Array.isArray(list) && list.length > 0);
-
-    if (modeEntries.length > 0) {
-        const frag = document.createDocumentFragment();
-
-        for (const [modeName, maps] of modeEntries) {
-            const section = document.createElement('div');
-            section.className = 'space-y-1.5';
-
-            const header = document.createElement('div');
-            header.className = 'flex items-center justify-between text-[11px]';
-
-            const title = document.createElement('span');
-            title.className = 'font-bold uppercase tracking-wider text-amber-300';
-            title.textContent = modeName;
-
-            const count = document.createElement('span');
-            count.className = 'font-mono text-violet-300/70';
-            count.textContent = `${maps.length} Maps`;
-
-            header.append(title, count);
-
-            const chipRow = document.createElement('div');
-            chipRow.className = 'flex flex-wrap gap-1.5';
-            for (const mapItem of maps) {
-                chipRow.appendChild(createMapChipButton(mapItem));
-            }
-
-            section.append(header, chipRow);
-            frag.appendChild(section);
-        }
-
-        container.replaceChildren(frag);
-        return;
-    }
-
-    if (Array.isArray(data.flatFallback) && data.flatFallback.length > 0) {
-        const chipRow = document.createElement('div');
-        chipRow.className = 'flex flex-wrap gap-1.5';
-        for (const mapItem of data.flatFallback) {
-            chipRow.appendChild(createMapChipButton(mapItem));
-        }
-        container.replaceChildren(chipRow);
-        return;
-    }
-
-    container.innerHTML =
-        '<div class="text-xs text-violet-200/70 py-2">Battleground rotation unavailable right now.</div>';
 }
 
 async function loadAndRenderRotation() {
@@ -566,5 +425,4 @@ async function loadAndRenderRotation() {
 
     currentRotationData = parseRotationPayload(rawPayload, new Date());
     renderFreeRotationHeroes(currentRotationData);
-    renderBattlegroundRotation(currentRotationData);
 }
