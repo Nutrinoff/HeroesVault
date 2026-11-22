@@ -3,21 +3,33 @@
   "name": "Tomb of the Spider Queen",
   "theme": "Collect and turn in Gems dropped by minions to summon Webweavers down every lane.",
   "portrait": "https://raw.githubusercontent.com/HeroesToolChest/heroes-images/main/heroesimages/loadingscreens/ui_ingame_mapmechanic_loadscreen_tombofthespiderqueen.png",
+  "firstObjective": "Gems drop from the start of the match (no scheduled objective timer; Webweavers spawn immediately when a team hits the Gem quota)",
+  "spawnPattern": "Two Gem turn-in altars sit in the center lane (Top and Bottom of mid); Gems drop from enemy lane minions and killed Heroes",
+  "lanes": "3 Lanes (Top, Mid & Bottom)",
+  "bosses": "None",
   "mechanic": {
     "title": "Gem Turn-In & Webweavers",
-    "description": "Minions and enemy heroes drop Gems upon death. Collect them and channel at the altars in the center lane to turn them in. Reaching the required gem threshold (which scales up slightly with each successful summon) spawns powerful Webweavers down all three lanes to siege structures and disable nearby towers."
+    "description": "Collect Gems dropped by slain enemy lane minions and enemy Heroes, then channel at either center-lane altar to deposit them. Reaching the required Gem threshold—which scales up with each Webweaver summon—summons a Webweaver in every lane that pushes structures, attacks nearby enemies, and disables enemy buildings."
   },
   "camps": [
     {
       "name": "Siege Giants (2 Camps)",
-      "timing": "Spawns at 1:00 (3:00 respawn)",
-      "notes": "Located safely in side alcoves. Excellent for creating passive lane pressure and forcing defenders out of position."
+      "timing": "Spawns at 0:30 (3:00 respawn)",
+      "notes": "Located in the side alcoves. Ranged siege mercenaries that provide steady lane pressure and force defenders out of position."
     },
     {
       "name": "Bruisers / Knights (2 Camps)",
-      "timing": "Spawns at 1:00 (4:00 respawn)",
-      "notes": "Located in the side areas. Heavy melee presence with a defensive armor aura; ideal to time right before a Webweaver push."
+      "timing": "Spawns at 0:30 (4:00 respawn)",
+      "notes": "Located in the side areas. Durable melee mercenaries with a defensive armor aura; strong to time right before a Webweaver push."
     }
   ],
-  "strategy": "Tomb of the Spider Queen is a fast-paced, brawling map centered around rapid lane clearing and control of the central turn-in zone (note that there are no Boss camps on this battleground). Prioritize heroes with strong waveclear and pick potential (like Xul, Jaina, or Kael'thas). Always deposit your gems safely rather than hoarding them, as dying with a large stack hands the enemy team a massive advantage."
+  "strategy": "Tomb of the Spider Queen is a tight, high-rotation three-lane battleground centered around fast waveclear, lane soak, and control of the central turn-in altars. Prioritize heroes with strong clear and pick potential (such as Xul, Jaina, or Kael'thas), and bank Gems regularly rather than carrying large stacks into risky skirmishes.",
+  "notes": "Because there are no Boss camps on Tomb of the Spider Queen and all three lanes sit close together, lane rotations happen quickly—watch for enemy ambushes around the mid turn-in altars, and push alongside Webweavers to capitalize on disabled enemy structures.",
+  "goldenHeroes": [
+    "xul",
+    "jaina",
+    "kaelthas",
+    "johanna",
+    "valla"
+  ]
 }
