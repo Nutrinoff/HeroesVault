@@ -2,12 +2,12 @@
 // TIER LIST MODULE
 // ==========================================
 
-const TIER_STYLES = {
-    S: { bg: 'bg-red-500/20', text: 'text-red-400', border: 'border-red-500/40' },
-    A: { bg: 'bg-orange-500/20', text: 'text-orange-400', border: 'border-orange-500/40' },
-    B: { bg: 'bg-yellow-500/20', text: 'text-yellow-400', border: 'border-yellow-500/40' },
-    C: { bg: 'bg-emerald-500/20', text: 'text-emerald-400', border: 'border-emerald-500/40' },
-    D: { bg: 'bg-cyan-500/20', text: 'text-cyan-400', border: 'border-cyan-500/40' }
+const TIER_LEAGUE_LABELS = {
+    S: 'Diamond',
+    A: 'Platinum',
+    B: 'Gold',
+    C: 'Silver',
+    D: 'Bronze'
 };
 
 function resolveTierListPortraitUrl(hero) {
@@ -36,7 +36,7 @@ function createTierHeroButton(hero) {
 
     const btn = document.createElement('button');
     btn.type = 'button';
-    btn.className = 'flex items-center gap-2 rounded-lg border border-slate-700 bg-slate-950/70 px-2 py-1.5 text-xs text-slate-200 hover:border-sky-400 transition cursor-pointer';
+    btn.className = 'flex items-center gap-2 rounded-[2px] border border-[#38247a] bg-[#0c0621]/90 px-2.5 py-1.5 text-xs font-medium text-[#e6ecff] hover:border-[#58baff]/75 hover:bg-[#190e40]/90 transition cursor-pointer';
     btn.addEventListener('click', () => {
         if (typeof navigateTo === 'function') {
             navigateTo('builds', { hero: hero.id });
@@ -48,7 +48,7 @@ function createTierHeroButton(hero) {
     const img = document.createElement('img');
     img.src = portraitUrl;
     img.alt = `${hero.name || hero.id} portrait`;
-    img.className = 'w-7 h-7 rounded object-cover';
+    img.className = 'w-7 h-7 rounded-[2px] border border-[#5c42b8]/70 object-cover bg-[#070412] shrink-0';
     img.loading = 'lazy';
     img.addEventListener('error', () => {
         if (img.src !== fallback) {
@@ -86,27 +86,37 @@ function renderTierList() {
     const frag = document.createDocumentFragment();
 
     Object.entries(groups).forEach(([t, heroes]) => {
-        const s = TIER_STYLES[t] || TIER_STYLES.D;
+        const leagueName = TIER_LEAGUE_LABELS[t] || '';
         const r = document.createElement('section');
-        r.className = 'flex items-stretch overflow-hidden rounded-xl border border-slate-800 bg-slate-900/70';
+        r.className = 'hots-panel flex items-stretch overflow-hidden';
 
-        const tierBadge = document.createElement('div');
-        tierBadge.className = `w-24 shrink-0 flex items-center justify-center border-r ${s.border} ${s.bg} ${s.text} text-2xl font-black`;
-        tierBadge.textContent = t;
+        const tierCell = document.createElement('div');
+        tierCell.className = 'hots-subpanel w-28 shrink-0 flex flex-col items-center justify-center border-r border-[#38247a] px-2 py-3 gap-0.5';
+
+        const tierBadge = document.createElement('span');
+        tierBadge.className = 'hots-tier-btn is-active text-2xl font-black leading-none';
+        tierBadge.dataset.tier = t;
+        tierBadge.textContent = `${t} Tier`;
+
+        const leagueLabel = document.createElement('span');
+        leagueLabel.className = 'text-[10px] font-mono uppercase tracking-[0.14em] text-[#8c83a2]';
+        leagueLabel.textContent = leagueName;
+
+        tierCell.append(tierBadge, leagueLabel);
 
         const heroesWrap = document.createElement('div');
-        heroesWrap.className = 'p-3 flex flex-wrap items-center gap-2 min-h-20';
+        heroesWrap.className = 'p-3 flex flex-wrap items-center gap-2 min-h-20 flex-1 min-w-0';
 
         if (heroes.length > 0) {
             heroes.forEach(h => heroesWrap.appendChild(createTierHeroButton(h)));
         } else {
             const empty = document.createElement('span');
-            empty.className = 'text-xs text-slate-500 italic';
+            empty.className = 'text-xs text-[#8c83a2] italic';
             empty.textContent = 'No heroes in this tier.';
             heroesWrap.appendChild(empty);
         }
 
-        r.append(tierBadge, heroesWrap);
+        r.append(tierCell, heroesWrap);
         frag.appendChild(r);
     });
 
