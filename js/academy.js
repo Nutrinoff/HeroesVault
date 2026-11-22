@@ -201,11 +201,7 @@ function renderAcademyCategories() {
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.setAttribute('aria-pressed', String(active));
-        btn.className = `px-2.5 py-1 rounded text-xs font-semibold border transition cursor-pointer ${
-            active
-                ? 'bg-[#58baff]/15 text-[#cbe8ff] border-[#58baff]/70 shadow-[0_0_12px_rgba(0,156,255,0.28)]'
-                : 'bg-[#0c0621]/75 text-[#8c83a2] border-[#38247a] hover:text-[#cbe8ff] hover:border-[#5c42b8]'
-        }`;
+        btn.className = `academy-category-btn${active ? ' is-active' : ''}`;
         btn.textContent = cat;
         btn.addEventListener('click', () => setAcademyCategory(cat));
         frag.appendChild(btn);
