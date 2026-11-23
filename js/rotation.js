@@ -40,6 +40,37 @@ function stripUnitIdPrefix(unitId) {
     return String(unitId || '').replace(/^hero/i, '');
 }
 
+function buildHeroLookupCandidates(rawId, rawName) {
+    var baseName = String(rawName || '').split(',')[0].trim();
+    var withoutCain = baseName.replace(/\s+cain\b/i, '').trim();
+    var firstToken = baseName.split(/\s+/)[0] || '';
+
+    var list = [
+        rawId,
+        stripUnitIdPrefix(rawId),
+        rawName,
+        baseName,
+        withoutCain,
+        firstToken,
+        baseName.replace(/\./g, ''),
+        baseName.replace(/['’]/g, ''),
+        withoutCain.replace(/\./g, ''),
+        withoutCain.replace(/['’]/g, '')
+    ];
+
+    var seen = new Set();
+    var out = [];
+    for (var i = 0; i < list.length; i++) {
+        var val = String(list[i] || '').trim();
+        if (!val) continue;
+        var norm = resolveRotationHeroKey(val);
+        if (!norm || seen.has(norm)) continue;
+        seen.add(norm);
+        out.push(val);
+    }
+    return out;
+}
+
 function parseDateBoundary(val, isEndOfDay) {
     if (!val) return null;
     if (val instanceof Date && !Number.isNaN(val.getTime())) {
@@ -103,7 +134,13 @@ function findRosterEntryByCandidates(candidates) {
             var idKey = resolveRotationHeroKey(hero.id);
             var nameKey = resolveRotationHeroKey(hero.name);
             var baseNameKey = resolveRotationHeroKey(String(hero.name || '').split(',')[0]);
-            return idKey === candKey || nameKey === candKey || baseNameKey === candKey;
+            var firstWordKey = resolveRotationHeroKey(String(hero.name || '').split(/[\s,]+/)[0]);
+            return (
+                idKey === candKey ||
+                nameKey === candKey ||
+                baseNameKey === candKey ||
+                firstWordKey === candKey
+            );
         });
 
         if (match) return match;
@@ -181,14 +218,7 @@ function matchHeroWithIndex(entry) {
         item.ID || item.id || item.hyperlinkId || item.attributeId || item.unitId || ''
     ).trim();
 
-    var candidates = [
-        rawId,
-        stripUnitIdPrefix(rawId),
-        rawName,
-        rawName.split(',')[0],
-        rawName.replace(/\./g, ''),
-        rawName.replace(/['’]/g, '')
-    ].filter(Boolean);
+    var candidates = buildHeroLookupCandidates(rawId, rawName);
 
     var matchedRecord = resolveMatchedHeroRecord(candidates);
     var fallbackName = rawName || rawId || 'Unknown Hero';
