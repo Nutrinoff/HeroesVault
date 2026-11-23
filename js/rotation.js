@@ -317,32 +317,12 @@ function findCrossReferenceMatch(rawCandidates, normalizedCandidates, records) {
 
 function resolveRotationPortraitUrl(record, item) {
     var sources = [record && record.listItem, record && record.rawEntry, item].filter(Boolean);
-
     if (typeof resolveAssetUrl === 'function') {
         for (var i = 0; i < sources.length; i++) {
             var resolved = resolveAssetUrl(sources[i], '');
             if (resolved) return resolved;
         }
-        return FALLBACK_ROTATION_PORTRAIT;
     }
-
-    for (var j = 0; j < sources.length; j++) {
-        var src = sources[j];
-        var p = src.portraits || {};
-        var rawPath =
-            p.draftScreen ||
-            p.heroSelect ||
-            p.leaderboard ||
-            p.target ||
-            src.portrait ||
-            src.portraitUrl ||
-            src.imageUrl ||
-            src.ImageURL ||
-            src.icon ||
-            '';
-        if (rawPath) return String(rawPath).trim();
-    }
-
     return FALLBACK_ROTATION_PORTRAIT;
 }
 
@@ -538,6 +518,23 @@ function sortRotationHeroesF2pFirst(heroes) {
 // 4. FREE ROTATION RENDERING
 // ==========================================
 
+function applyRotationPortraitFallback(imgEl, fallbackUrl) {
+    if (!imgEl || !fallbackUrl) return;
+    if (typeof attachImageFallback === 'function') {
+        attachImageFallback(imgEl, fallbackUrl);
+        return;
+    }
+    imgEl.addEventListener(
+        'error',
+        function onFallbackError() {
+            imgEl.removeEventListener('error', onFallbackError);
+            if (imgEl.getAttribute('src') !== fallbackUrl) {
+                imgEl.src = fallbackUrl;
+            }
+        }
+    );
+}
+
 function createFreeHeroRow(hero) {
     var isLvlSlot = String(hero.reqLevel || '').trim().toUpperCase() === 'LVL';
 
@@ -561,20 +558,12 @@ function createFreeHeroRow(hero) {
     frame.style.height = ROTATION_PORTRAIT_SIZE_PX + 'px';
 
     var img = document.createElement('img');
-    img.src = hero.portraitUrl || FALLBACK_ROTATION_PORTRAIT;
     img.alt = hero.name + ' portrait';
     img.className = 'hex-sidebar-img';
     img.loading = 'eager';
     img.decoding = 'async';
-    img.addEventListener(
-        'error',
-        function () {
-            if (img.src !== FALLBACK_ROTATION_PORTRAIT) {
-                img.src = FALLBACK_ROTATION_PORTRAIT;
-            }
-        },
-        { once: true }
-    );
+    applyRotationPortraitFallback(img, FALLBACK_ROTATION_PORTRAIT);
+    img.src = hero.portraitUrl || FALLBACK_ROTATION_PORTRAIT;
 
     var ringSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     ringSvg.setAttribute('class', 'hex-sidebar-ring');
