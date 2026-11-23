@@ -73,7 +73,7 @@
   font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
 }
 
-/* Top Client Chrome & Navigation Rail (borderless blend) */
+/* Top Client Chrome & Navigation Rail */
 .hots-topbar {
   position: relative;
   z-index: 20;
@@ -81,12 +81,10 @@
   background: linear-gradient(
     180deg,
     rgba(25, 14, 64, 0.96) 0%,
-    rgba(14, 7, 38, 0.88) 62%,
-    rgba(7, 4, 18, 0.36) 88%,
-    rgba(7, 4, 18, 0) 100%
+    rgba(14, 7, 38, 0.94) 100%
   );
-  border-bottom: none;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.48);
+  border-bottom: 1px solid rgba(118, 92, 214, 0.45);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55);
 }
 
 .hots-brand-emblem {
@@ -327,40 +325,30 @@
   filter: drop-shadow(0 0 7px rgba(0, 156, 255, 0.85));
 }
 
-/* Bright point flare + soft upward/downward glow at the bottom edge of the header */
+/* HotS-style point flare & upward/line glow seated cleanly on the bottom header divider */
 .nav-active::after {
   content: "";
   position: absolute;
-  left: -18%;
-  right: -18%;
-  bottom: -21px;
+  left: -45%;
+  right: -45%;
+  bottom: -11px;
   height: 22px;
   pointer-events: none;
   background:
-    linear-gradient(
-      90deg,
-      transparent 6%,
-      rgba(138, 92, 246, 0.28) 22%,
-      rgba(125, 211, 252, 0.82) 39%,
-      #ffffff 50%,
-      rgba(125, 211, 252, 0.82) 61%,
-      rgba(138, 92, 246, 0.28) 78%,
-      transparent 94%
+    radial-gradient(
+      ellipse 26% 24% at 50% 50%,
+      rgba(255, 255, 255, 0.95) 0%,
+      rgba(156, 224, 255, 0.72) 38%,
+      rgba(88, 186, 255, 0.22) 70%,
+      transparent 100%
     ),
     radial-gradient(
-      ellipse 44% 85% at 50% 54%,
-      rgba(88, 186, 255, 0.52) 0%,
-      rgba(109, 40, 217, 0.32) 46%,
-      rgba(0, 99, 200, 0.12) 72%,
+      ellipse 52% 90% at 50% 35%,
+      rgba(88, 186, 255, 0.42) 0%,
+      rgba(109, 40, 217, 0.26) 48%,
+      rgba(0, 99, 200, 0.08) 75%,
       transparent 100%
     );
-  background-repeat: no-repeat;
-  background-size:
-    100% 1.5px,
-    100% 100%;
-  background-position:
-    center 10px,
-    center center;
 }
 
 /* Unified flat row contract matched to the Hero Sidebar */
