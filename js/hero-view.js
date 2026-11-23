@@ -31,7 +31,7 @@ function toHeroViewKey(value) {
 function isSafeNotesUrl(rawUrl, { allowDataImage = false } = {}) {
     const trimmed = String(rawUrl || '').trim();
     if (!trimmed) return false;
-    if (allowDataImage && /^data:image\/(?:png|jpe?g|gif|webp|svg\+xml);/i.test(trimmed)) {
+    if (allowDataImage && /^data:image\/(?:png|jpe?g|gif|webp);/i.test(trimmed)) {
         return true;
     }
     try {
