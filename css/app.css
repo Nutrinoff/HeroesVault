@@ -316,7 +316,7 @@
   box-shadow: none !important;
   text-shadow:
     0 0 8px rgba(203, 232, 255, 0.88),
-    0 0 22px rgba(0, 99, 200, 0.68);
+    0 0 22px rgba(0, 156, 255, 0.68);
 }
 
 .nav-active i,
@@ -358,6 +358,79 @@
   background-position:
     center 10px,
     center center;
+}
+
+/* Shared Academy-inspired list row contract */
+.hots-list-item {
+  display: block;
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  text-align: left;
+  color: var(--hots-text);
+  background: transparent;
+  border: 0;
+  border-left: 2px solid transparent;
+  border-bottom: 1px solid rgba(56, 36, 122, 0.52);
+  border-radius: 0 2px 2px 0;
+  cursor: pointer;
+  transition:
+    background-color 0.14s ease,
+    border-color 0.14s ease,
+    color 0.14s ease,
+    box-shadow 0.14s ease;
+}
+
+.hots-list-item:last-child {
+  border-bottom-color: transparent;
+}
+
+.hots-list-item:hover {
+  background: rgba(29, 18, 71, 0.52);
+  border-left-color: rgba(88, 186, 255, 0.35);
+}
+
+.hots-list-item.is-selected,
+.hots-list-item[aria-current="true"],
+.hots-list-item[aria-selected="true"] {
+  background: linear-gradient(
+    90deg,
+    rgba(88, 186, 255, 0.14) 0%,
+    rgba(26, 41, 86, 0.48) 55%,
+    rgba(18, 11, 46, 0.25) 100%
+  );
+  border-left-color: var(--hots-cyan);
+  box-shadow: inset 2px 0 10px rgba(0, 156, 255, 0.22);
+}
+
+.hots-list-item__meta {
+  font-family: 'Chakra Petch', 'Inter', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--hots-text-soft);
+}
+
+.hots-list-item.is-selected .hots-list-item__meta,
+.hots-list-item[aria-current="true"] .hots-list-item__meta,
+.hots-list-item[aria-selected="true"] .hots-list-item__meta {
+  color: var(--hots-cyan);
+}
+
+.hots-list-item__title {
+  color: var(--hots-text);
+  transition: color 0.14s ease, text-shadow 0.14s ease;
+}
+
+.hots-list-item.is-selected .hots-list-item__title,
+.hots-list-item[aria-current="true"] .hots-list-item__title,
+.hots-list-item[aria-selected="true"] .hots-list-item__title {
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(88, 186, 255, 0.28);
+}
+
+.hots-list-item--hero {
+  padding: 0.55rem 0.7rem;
 }
 
 /* Frameless HotS Filter Tabs (ALL / BASIC / ADVANCED, All / Live / PTR & Academy Categories) */
@@ -678,7 +751,9 @@
   .hots-tier-btn,
   .f2p-row-item,
   .hots-input,
-  .hots-brand-emblem svg {
+  .hots-brand-emblem svg,
+  .hots-list-item,
+  .hots-list-item__title {
     transition: none;
   }
 
