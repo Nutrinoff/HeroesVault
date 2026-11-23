@@ -210,13 +210,6 @@ function renderAcademyCategories() {
     container.replaceChildren(frag);
 }
 
-function getLevelBadgeClasses(level) {
-    if (level === 'Advanced') {
-        return ['bg-[#e38b0d]/20', 'text-[#ffeab6]', 'border-[#fed600]/45'];
-    }
-    return ['bg-[#0063c8]/25', 'text-[#cbe8ff]', 'border-[#58baff]/45'];
-}
-
 function buildAcademyArticleCardButton(article, isSelected) {
     const btn = document.createElement('button');
     btn.type = 'button';
@@ -299,18 +292,18 @@ function renderAcademyListAndReader(scrollReader) {
     header.className = 'space-y-2 pb-4 border-b border-[#38247a]';
 
     const metaRow = document.createElement('div');
-    metaRow.className = 'flex flex-wrap items-center gap-2 text-xs';
+    metaRow.className = 'flex flex-wrap items-center gap-3 text-xs';
 
-    const catBadge = document.createElement('span');
-    catBadge.className = 'px-2.5 py-0.5 rounded-full font-semibold bg-[#1d1247] text-[#9d90ff] border border-[#5c42b8]';
-    catBadge.textContent = activeArticle.category || 'General';
+    const catLabel = document.createElement('span');
+    catLabel.className = 'hots-list-tag hots-list-tag--meta hots-list-tag--active';
+    catLabel.textContent = activeArticle.category || 'General';
 
-    const levelBadge = document.createElement('span');
-    levelBadge.className = 'px-2.5 py-0.5 rounded-full font-semibold border';
-    levelBadge.classList.add(...getLevelBadgeClasses(activeArticle.level));
-    levelBadge.textContent = activeArticle.level || 'Basic';
+    const isAdvanced = activeArticle.level === 'Advanced';
+    const levelLabel = document.createElement('span');
+    levelLabel.className = `hots-list-tag ${isAdvanced ? 'hots-list-tag--gold' : 'hots-list-tag--cyan'} hots-list-tag--active`;
+    levelLabel.textContent = activeArticle.level || 'Basic';
 
-    metaRow.append(catBadge, levelBadge);
+    metaRow.append(catLabel, levelLabel);
 
     if (activeArticle.readTime) {
         const readTimeEl = document.createElement('span');
