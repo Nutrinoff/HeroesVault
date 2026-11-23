@@ -107,11 +107,13 @@
 .hots-nav-rail {
   position: relative;
   overflow: visible;
+  align-self: stretch;
+  display: flex;
+  align-items: flex-end;
   background: transparent;
   border: none;
   box-shadow: none;
 }
-
 .hots-footer {
   background: linear-gradient(180deg, #0d0724 0%, #060310 100%);
   border-top: 1px solid #32206e;
@@ -270,7 +272,7 @@
 /* Top Client Nav Tabs (TaskBarSubNavigation -> TaskBarSubNavigationSelected) */
 .nav-button {
   font-family: 'Chakra Petch', 'Inter', sans-serif;
-  padding: 0.35rem 0.85rem;
+  padding: 0.55rem 0.85rem 0.7rem;
   border-radius: 0;
   font-size: 0.85rem;
   font-weight: 600;
@@ -329,26 +331,36 @@
 .nav-active::after {
   content: "";
   position: absolute;
-  left: -45%;
-  right: -45%;
+  left: -24%;
+  right: -24%;
   bottom: -11px;
   height: 22px;
   pointer-events: none;
   background:
-    radial-gradient(
-      ellipse 26% 24% at 50% 50%,
-      rgba(255, 255, 255, 0.95) 0%,
-      rgba(156, 224, 255, 0.72) 38%,
-      rgba(88, 186, 255, 0.22) 70%,
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(138, 92, 246, 0.24) 20%,
+      rgba(125, 211, 252, 0.82) 39%,
+      #ffffff 50%,
+      rgba(125, 211, 252, 0.82) 61%,
+      rgba(138, 92, 246, 0.24) 80%,
       transparent 100%
     ),
     radial-gradient(
-      ellipse 52% 90% at 50% 35%,
-      rgba(88, 186, 255, 0.42) 0%,
-      rgba(109, 40, 217, 0.26) 48%,
-      rgba(0, 99, 200, 0.08) 75%,
+      ellipse 46% 85% at 50% 48%,
+      rgba(88, 186, 255, 0.52) 0%,
+      rgba(109, 40, 217, 0.32) 46%,
+      rgba(0, 99, 200, 0.12) 72%,
       transparent 100%
     );
+  background-repeat: no-repeat;
+  background-size:
+    100% 1.5px,
+    100% 100%;
+  background-position:
+    center 10px,
+    center center;
 }
 
 /* Unified flat row contract matched to the Hero Sidebar */
