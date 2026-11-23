@@ -5,7 +5,9 @@
 let CACHED_MASTER_PATCHES = null;
 let MASTER_PATCHES_INFLIGHT = null;
 const PATCH_RAW_NOTES_CACHE = new Map();
+const PATCH_RAW_NOTES_INFLIGHT = new Map();
 const PATCH_DETAIL_CACHE = new Map();
+const PATCH_DETAIL_INFLIGHT = new Map();
 
 const PATCH_DATA_DIR = './data/patchnotes';
 const DEFAULT_HOTS_URL = 'https://news.blizzard.com/en-us/heroes-of-the-storm';
@@ -23,7 +25,12 @@ const MASTER_SOURCES = [
 ];
 
 function getPatchCacheKey(item) {
-    return `${String(item?.feedType || 'live').trim().toLowerCase()}:${String(item?.id || '').trim().toLowerCase()}`;
+    const feed = String(item?.feedType || 'live').trim().toLowerCase();
+    const id = String(item?.id || '').trim().toLowerCase();
+    const detailPath = String(item?.detailPath || '').trim().toLowerCase();
+    const isoDate = String(item?.isoDate || '').trim().toLowerCase();
+    const build = String(item?.build || '').trim().toLowerCase();
+    return `${feed}:${id}|${detailPath}|${isoDate}|${build}`;
 }
 
 function shouldRemovePatch(item) {
@@ -372,41 +379,69 @@ async function fetchPatchRawNotesText(item) {
         return PATCH_RAW_NOTES_CACHE.get(cacheKey);
     }
 
-    let notesText = '';
-    if (item.detailPath) {
-        try {
-            const res = await fetch(item.detailPath);
-            if (res.ok) {
-                const rawBody = await res.text();
-                if (rawBody.trim()) {
-                    notesText = item.detailPath.endsWith('.json')
-                        ? extractPatchNotesText(JSON.parse(rawBody))
-                        : extractPatchNotesText(rawBody);
-                }
-            }
-        } catch (err) {
-            console.warn(`Failed to load patch detail ${item.detailPath}:`, err);
-        }
+    if (PATCH_RAW_NOTES_INFLIGHT.has(cacheKey)) {
+        return PATCH_RAW_NOTES_INFLIGHT.get(cacheKey);
     }
 
-    PATCH_RAW_NOTES_CACHE.set(cacheKey, notesText);
-    return notesText;
+    const loadPromise = (async () => {
+        let notesText = '';
+        if (item.detailPath) {
+            try {
+                const res = await fetch(item.detailPath);
+                if (res.ok) {
+                    const rawBody = await res.text();
+                    if (rawBody.trim()) {
+                        notesText = item.detailPath.endsWith('.json')
+                            ? extractPatchNotesText(JSON.parse(rawBody))
+                            : extractPatchNotesText(rawBody);
+                    }
+                }
+            } catch (err) {
+                console.warn(`Failed to load patch detail ${item.detailPath}:`, err);
+            }
+        }
+
+        if (notesText) {
+            PATCH_RAW_NOTES_CACHE.set(cacheKey, notesText);
+        }
+        return notesText;
+    })().finally(() => {
+        if (PATCH_RAW_NOTES_INFLIGHT.get(cacheKey) === loadPromise) {
+            PATCH_RAW_NOTES_INFLIGHT.delete(cacheKey);
+        }
+    });
+
+    PATCH_RAW_NOTES_INFLIGHT.set(cacheKey, loadPromise);
+    return loadPromise;
 }
 
 async function fetchPatchDetailHtml(item) {
+    if (!item) return '';
+
     const cacheKey = getPatchCacheKey(item);
     if (PATCH_DETAIL_CACHE.has(cacheKey)) {
         return PATCH_DETAIL_CACHE.get(cacheKey);
     }
 
-    const notesText = await fetchPatchRawNotesText(item);
-    if (notesText) {
-        const html = formatBlizzlikePatchNotesHtml(notesText);
-        PATCH_DETAIL_CACHE.set(cacheKey, html);
-        return html;
+    if (PATCH_DETAIL_INFLIGHT.has(cacheKey)) {
+        return PATCH_DETAIL_INFLIGHT.get(cacheKey);
     }
 
-    const fallbackHtml = `<p class="text-slate-400">No patch note details found for <span class="font-mono text-slate-300">${escapeHtml(item.detailPath || item.id)}</span>.</p>`;
-    PATCH_DETAIL_CACHE.set(cacheKey, fallbackHtml);
-    return fallbackHtml;
+    const renderPromise = (async () => {
+        const notesText = await fetchPatchRawNotesText(item);
+        if (notesText) {
+            const html = formatBlizzlikePatchNotesHtml(notesText);
+            PATCH_DETAIL_CACHE.set(cacheKey, html);
+            return html;
+        }
+
+        return `<p class="text-slate-400">No patch note details found for <span class="font-mono text-slate-300">${escapeHtml(item.detailPath || item.id)}</span>.</p>`;
+    })().finally(() => {
+        if (PATCH_DETAIL_INFLIGHT.get(cacheKey) === renderPromise) {
+            PATCH_DETAIL_INFLIGHT.delete(cacheKey);
+        }
+    });
+
+    PATCH_DETAIL_INFLIGHT.set(cacheKey, renderPromise);
+    return renderPromise;
 }
