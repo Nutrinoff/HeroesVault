@@ -16,6 +16,7 @@ const INACTIVE_TALENT_CLASSES = [
     'hover:opacity-100'
 ];
 const TALENT_ICON_FALLBACK = 'https://via.placeholder.com/48?text=?';
+const BUILDER_LEGACY_QUERY_KEYS = ['view', 'hero', 'build', 'talents', 'code'];
 
 function getBuilderSelectedTalentObjects() {
     if (!builderHeroData?.talents || !Array.isArray(builderSelectedTalents)) return [];
@@ -38,22 +39,40 @@ function buildBuilderHashAndState(heroId, selections) {
     const buildStr = typeof encodeTalentSelections === 'function'
         ? encodeTalentSelections(selections)
         : normalizeTalentSelections(selections).join('');
-    const hashUrl = `#builder?hero=${encodeURIComponent(heroId)}&build=${encodeURIComponent(buildStr)}`;
+    const hashTarget = `#builder?hero=${encodeURIComponent(heroId)}&build=${encodeURIComponent(buildStr)}`;
     const state = {
         tab: 'builder',
         params: { hero: heroId, build: buildStr }
     };
-    return { buildStr, hashUrl, state };
+
+    let urlStr = hashTarget;
+    try {
+        const url = new URL(window.location.href);
+        for (const key of BUILDER_LEGACY_QUERY_KEYS) {
+            url.searchParams.delete(key);
+        }
+        url.hash = hashTarget;
+        urlStr = url.toString();
+    } catch (_) {
+        urlStr = hashTarget;
+    }
+
+    return { buildStr, hashUrl: urlStr, state };
 }
 
 function syncBuilderUrl(push = false) {
-    if (!builderHeroId) return;
+    if (!builderHeroId || typeof window.history?.replaceState !== 'function') return;
     const { hashUrl, state } = buildBuilderHashAndState(builderHeroId, builderSelectedTalents);
+    if (window.location.href === hashUrl) return;
 
-    if (push) {
-        history.pushState(state, '', hashUrl);
-    } else {
-        history.replaceState(state, '', hashUrl);
+    try {
+        if (push && typeof window.history?.pushState === 'function') {
+            window.history.pushState(state, '', hashUrl);
+        } else {
+            window.history.replaceState(state, '', hashUrl);
+        }
+    } catch (_) {
+        // Ignore history state errors on restricted origins
     }
 }
 
@@ -220,11 +239,8 @@ function getIngameBuildString() {
 function getShareableBuilderUrl() {
     if (!builderHeroId) return window.location.href;
     const { buildStr } = buildBuilderHashAndState(builderHeroId, builderSelectedTalents);
-    if (typeof buildBuilderShareUrl === 'function') {
-        const base = `${window.location.origin}${window.location.pathname}`;
-        return `${base}?view=builder&hero=${encodeURIComponent(builderHeroId)}&build=${encodeURIComponent(buildStr)}`;
-    }
-    return `${window.location.origin}${window.location.pathname}#builder?hero=${encodeURIComponent(builderHeroId)}&build=${encodeURIComponent(buildStr)}`;
+    const base = `${window.location.origin}${window.location.pathname}`;
+    return `${base}#builder?hero=${encodeURIComponent(builderHeroId)}&build=${encodeURIComponent(buildStr)}`;
 }
 
 function flashCopyButtonState(btn, copiedText) {
