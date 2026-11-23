@@ -15,6 +15,17 @@ let heroScrollIdleTimer = null;
 let isHeroListScrolling = false;
 let sidebarHeightResizeObserver = null;
 
+function toNormalizedHeroKey(value) {
+    if (typeof normalizeHeroKey === 'function') {
+        return normalizeHeroKey(value);
+    }
+    return String(value || '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, '');
+}
+
 function escapeSidebarHtml(value) {
     return String(value ?? '')
         .replace(/&/g, '&amp;')
@@ -109,17 +120,16 @@ function preloadHeroIds(ids) {
     const rawEntries = [];
     for (const id of ids) {
         if (!id) continue;
-        const key = String(id).toLowerCase();
-        if (PRELOADED_HERO_KEYS.has(key)) continue;
+        const normInfo = typeof getNormalizedHeroData === 'function' ? getNormalizedHeroData(id) : null;
+        const canonicalKey = toNormalizedHeroKey(normInfo?.id || id);
+        if (!canonicalKey || PRELOADED_HERO_KEYS.has(canonicalKey)) continue;
 
-        const raw = typeof getRawHeroEntry === 'function' ? getRawHeroEntry(id) : null;
-        if (!raw) continue;
+        const raw = typeof getRawHeroEntry === 'function' ? getRawHeroEntry(normInfo?.id || id) : null;
+        if (!raw && !normInfo) continue;
 
-        PRELOADED_HERO_KEYS.add(key);
-        rawEntries.push(raw);
-
-        if (typeof getNormalizedHeroData === 'function') {
-            getNormalizedHeroData(id);
+        PRELOADED_HERO_KEYS.add(canonicalKey);
+        if (raw) {
+            rawEntries.push(raw);
         }
     }
 
@@ -182,7 +192,7 @@ function observeVisibleHeroButtons(listEl) {
                     const heroId = entry.target?.dataset?.heroId;
                     if (!heroId) continue;
 
-                    const key = String(heroId).toLowerCase();
+                    const key = toNormalizedHeroKey(heroId);
                     if (entry.isIntersecting) {
                         if (!PRELOADED_HERO_KEYS.has(key)) {
                             PENDING_VISIBLE_HERO_IDS.add(heroId);
@@ -239,6 +249,7 @@ function renderHeroSidebar(heroes) {
     const sortedHeroes = sortHeroesByDisplayName(heroes);
     const isBuilder = !document.getElementById('view-builder')?.classList.contains('hidden');
     const activeId = isBuilder ? builderHeroId : currentSelectedHeroId;
+    const activeKey = toNormalizedHeroKey(activeId);
     const fallbackPortrait = typeof HERO_VIEW_ICON_FALLBACK === 'string'
         ? HERO_VIEW_ICON_FALLBACK
         : HERO_FALLBACK_PORTRAIT;
@@ -247,27 +258,32 @@ function renderHeroSidebar(heroes) {
     sortedHeroes.forEach(h => {
         if (!h || typeof h !== 'object') return;
 
-        const isSelected = activeId === h.id;
-        const tier = String(typeof getHeroTier === 'function' ? getHeroTier(h.id) : 'D').toUpperCase();
-        const rawEntry = typeof getRawHeroEntry === 'function' ? getRawHeroEntry(h.id) : null;
+        const normHero = typeof getNormalizedHeroData === 'function' ? getNormalizedHeroData(h.id) : null;
+        const resolvedId = normHero?.id || h.id;
+        const isSelected = Boolean(activeKey) && (
+            toNormalizedHeroKey(h.id) === activeKey ||
+            toNormalizedHeroKey(resolvedId) === activeKey
+        );
+        const tier = String(typeof getHeroTier === 'function' ? getHeroTier(resolvedId) : 'D').toUpperCase();
+        const rawEntry = typeof getRawHeroEntry === 'function' ? getRawHeroEntry(resolvedId) : null;
         const portraitUrl = typeof resolveAssetUrl === 'function'
-            ? resolveAssetUrl(h.portrait || rawEntry, fallbackPortrait)
+            ? resolveAssetUrl(normHero?.portrait || h.portrait || rawEntry, fallbackPortrait)
             : fallbackPortrait;
 
-        const displayName = getHeroDisplayName(h) || 'Hero';
+        const displayName = getHeroDisplayName(normHero || h) || 'Hero';
         const safeName = escapeSidebarHtml(displayName);
-        const safeRole = escapeSidebarHtml(h.role || 'Nexus Combatant');
+        const safeRole = escapeSidebarHtml(normHero?.role || h.role || 'Nexus Combatant');
         const safeTier = escapeSidebarHtml(tier);
 
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.dataset.heroId = h.id;
+        btn.dataset.heroId = resolvedId;
         btn.className = `hots-list-item hots-list-item--hero${isSelected ? ' is-selected' : ''}`;
         if (isSelected) {
             btn.setAttribute('aria-current', 'true');
         }
 
-        btn.addEventListener('click', () => navigateFromSidebar(h.id, isBuilder));
+        btn.addEventListener('click', () => navigateFromSidebar(resolvedId, isBuilder));
 
         btn.innerHTML = `
             <div class="flex items-center gap-3 min-w-0">
@@ -319,15 +335,31 @@ function filterHeroes() {
     clearTimeout(heroSearchPreloadTimer);
     heroSearchPreloadTimer = null;
 
-    const q = (document.getElementById('hero-search')?.value || '').trim().toLowerCase();
-    const matches = q
-        ? MASTER_HERO_LIST.filter(h => String(h.searchText || `${h.name || ''} ${h.id || ''}`).toLowerCase().includes(q))
-        : MASTER_HERO_LIST;
+    const rawQuery = (document.getElementById('hero-search')?.value || '').trim();
+    const qLower = rawQuery.toLowerCase();
+    const qNorm = toNormalizedHeroKey(rawQuery);
+    const roster = typeof MASTER_HERO_LIST !== 'undefined' && Array.isArray(MASTER_HERO_LIST)
+        ? MASTER_HERO_LIST
+        : [];
+
+    const matches = rawQuery
+        ? roster.filter(h => {
+            if (!h || typeof h !== 'object') return false;
+            const textHaystack = String(h.searchText || `${h.name || ''} ${h.id || ''}`).toLowerCase();
+            if (textHaystack.includes(qLower)) return true;
+            if (!qNorm) return false;
+            return (
+                toNormalizedHeroKey(h.id).includes(qNorm) ||
+                toNormalizedHeroKey(h.name).includes(qNorm) ||
+                toNormalizedHeroKey(h.searchText).includes(qNorm)
+            );
+        })
+        : roster;
 
     const sortedMatches = sortHeroesByDisplayName(matches);
     renderHeroSidebar(sortedMatches);
 
-    if (q) {
+    if (rawQuery) {
         heroSearchPreloadTimer = setTimeout(() => warmSearchMatches(sortedMatches), HERO_SEARCH_PRELOAD_DELAY_MS);
     }
 }
