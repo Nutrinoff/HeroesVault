@@ -20,12 +20,19 @@ function normalizeTalentSelections(selections, options = {}) {
         return fallback;
     }
 
-    return selections.map((val, idx) => {
-        const num = Number(val);
+    return fallback.map((fallbackVal, idx) => {
+        if (!Object.prototype.hasOwnProperty.call(selections, idx)) {
+            return fallbackVal;
+        }
+        const rawVal = selections[idx];
+        if (rawVal === undefined || rawVal === null || rawVal === '') {
+            return fallbackVal;
+        }
+        const num = Number(rawVal);
         if (Number.isInteger(num) && num >= minVal && num <= 6) {
             return num;
         }
-        return fallback[idx];
+        return fallbackVal;
     });
 }
 
