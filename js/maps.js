@@ -45,25 +45,33 @@ async function fetchMapDetails(id) {
         .then(async r => {
             if (!r.ok) {
                 console.warn(`No map details for ${id}: HTTP ${r.status}`);
-                return {};
+                return null;
             }
             try {
                 const parsed = await r.json();
-                return parsed && typeof parsed === 'object' ? parsed : {};
+                return parsed && typeof parsed === 'object' ? parsed : null;
             } catch (parseErr) {
                 console.warn(`Malformed JSON in map details for ${id}`, parseErr);
-                return {};
+                return null;
             }
         })
         .catch(e => {
             console.warn(`Failed to load map details for ${id}`, e);
-            return {};
+            return null;
         });
 
     MAP_DETAILS_CACHE.set(id, request);
     const resolved = await request;
-    MAP_DETAILS_CACHE.set(id, resolved);
-    return resolved;
+
+    if (resolved && typeof resolved === 'object') {
+        MAP_DETAILS_CACHE.set(id, resolved);
+        return resolved;
+    }
+
+    if (MAP_DETAILS_CACHE.get(id) === request) {
+        MAP_DETAILS_CACHE.delete(id);
+    }
+    return {};
 }
 
 function warmMapAssets(id) {
