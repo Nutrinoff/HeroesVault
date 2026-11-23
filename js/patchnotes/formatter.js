@@ -272,23 +272,21 @@ function formatBlizzlikePatchNotesHtml(rawText) {
             return;
         }
 
+        while (listStack.length > 1 && listStack[listStack.length - 1].indent > indentLevel) {
+            listStack.pop();
+        }
+
         const top = listStack[listStack.length - 1];
         if (indentLevel > top.indent) {
             const lastParent = top.items[top.items.length - 1];
             if (lastParent) {
                 lastParent.children.push(nextItem);
                 listStack.push({ indent: indentLevel, items: lastParent.children });
-            } else {
-                top.items.push(nextItem);
+                return;
             }
-            return;
         }
 
-        while (listStack.length > 1 && listStack[listStack.length - 1].indent > indentLevel) {
-            listStack.pop();
-        }
-
-        listStack[listStack.length - 1].items.push(nextItem);
+        top.items.push(nextItem);
     }
 
     for (const rawLine of lines) {
@@ -357,7 +355,7 @@ function formatBlizzlikePatchNotesHtml(rawText) {
         if (isStandaloneSubheading) {
             flushList();
             htmlParts.push(
-                `<h4 class="text-[15px] font-bold text-slate-100 pt-3 pb-0.5">${escapeHtml(cleanSubheading)}</h4>`
+                `<h4 class="text-[15px] font-bold text-slate-100 pt-3 pb-0.5">${formatBlizzLine(cleanSubheading)}</h4>`
             );
             continue;
         }
