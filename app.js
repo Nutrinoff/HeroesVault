@@ -2,6 +2,11 @@
 // 1. REQUIRED GLOBALS & RUNTIME VALIDATION
 // ==========================================
 
+let initialDataPromise = null;
+let initialDataLoaded = false;
+let featuresInitialized = false;
+let appBootstrapped = false;
+
 function assertRequiredGlobals() {
     const requiredFunctions = [
         'normalizeTalentSelections',
@@ -86,57 +91,73 @@ async function fetchJsonSafe(url) {
     }
 }
 
-async function loadInitialData() {
-    const [masterData, buildsData, mapsData, tiersData] = await Promise.all([
-        fetchJsonSafe('./data/heroes-master.json'),
-        fetchJsonSafe('./data/builds.json'),
-        fetchJsonSafe('./data/maps.json'),
-        fetchJsonSafe('./data/tiers.json')
-    ]);
-
-    if (masterData) {
-        const rawSource = masterData.items || masterData;
-        HOTS_MASTER_DATA = rawSource;
-
-        const rawHeroes = Array.isArray(rawSource)
-            ? rawSource
-            : (rawSource && typeof rawSource === 'object' ? Object.values(rawSource) : []);
-
-        MASTER_HERO_LIST = rawHeroes
-            .filter(Boolean)
-            .map(h => {
-                const id = h.id || h.hyperlinkId || h.attributeId;
-                const portraitPath = typeof getHeroPortrait === 'function'
-                    ? getHeroPortrait(h)
-                    : (typeof extractPortraitPath === 'function' ? extractPortraitPath(h) : (h.portrait || ''));
-
-                return {
-                    id,
-                    name: h.name || 'Unknown Hero',
-                    title: h.title || 'Nexus Combatant',
-                    role: (Array.isArray(h.roles) && h.roles[0]) || h.expandedRole || 'Nexus Combatant',
-                    portrait: portraitPath,
-                    searchText: `${h.name || ''} ${id || ''}`.toLowerCase()
-                };
-            });
+async function loadInitialData({ force = false } = {}) {
+    if (!force && initialDataLoaded) {
+        return;
+    }
+    if (!force && initialDataPromise) {
+        return initialDataPromise;
     }
 
-    if (Array.isArray(buildsData)) {
-        PERSONAL_BUILDS = buildsData;
-    }
+    initialDataPromise = (async () => {
+        try {
+            const [masterData, buildsData, mapsData, tiersData] = await Promise.all([
+                fetchJsonSafe('./data/heroes-master.json'),
+                fetchJsonSafe('./data/builds.json'),
+                fetchJsonSafe('./data/maps.json'),
+                fetchJsonSafe('./data/tiers.json')
+            ]);
 
-    if (Array.isArray(mapsData)) {
-        MASTER_MAP_LIST = mapsData;
-        if (typeof populateMapsDropdown === 'function') {
-            populateMapsDropdown();
+            if (masterData) {
+                const rawSource = masterData.items || masterData;
+                HOTS_MASTER_DATA = rawSource;
+
+                const rawHeroes = Array.isArray(rawSource)
+                    ? rawSource
+                    : (rawSource && typeof rawSource === 'object' ? Object.values(rawSource) : []);
+
+                MASTER_HERO_LIST = rawHeroes
+                    .filter(Boolean)
+                    .map(h => {
+                        const id = h.id || h.hyperlinkId || h.attributeId;
+                        const portraitPath = typeof getHeroPortrait === 'function'
+                            ? getHeroPortrait(h)
+                            : (typeof extractPortraitPath === 'function' ? extractPortraitPath(h) : (h.portrait || ''));
+
+                        return {
+                            id,
+                            name: h.name || 'Unknown Hero',
+                            title: h.title || 'Nexus Combatant',
+                            role: (Array.isArray(h.roles) && h.roles[0]) || h.expandedRole || 'Nexus Combatant',
+                            portrait: portraitPath,
+                            searchText: `${h.name || ''} ${id || ''}`.toLowerCase()
+                        };
+                    });
+            }
+
+            if (Array.isArray(buildsData)) {
+                PERSONAL_BUILDS = buildsData;
+            }
+
+            if (Array.isArray(mapsData)) {
+                MASTER_MAP_LIST = mapsData;
+                if (typeof populateMapsDropdown === 'function') {
+                    populateMapsDropdown();
+                }
+            }
+
+            if (tiersData && typeof tiersData === 'object') {
+                MASTER_TIERS = tiersData;
+            }
+
+            validateLoadedDataShapes();
+            initialDataLoaded = true;
+        } finally {
+            initialDataPromise = null;
         }
-    }
+    })();
 
-    if (tiersData && typeof tiersData === 'object') {
-        MASTER_TIERS = tiersData;
-    }
-
-    validateLoadedDataShapes();
+    return initialDataPromise;
 }
 
 
@@ -168,7 +189,12 @@ function bindGlobalDismissHandlers() {
     });
 }
 
-async function initializeFeatures() {
+async function initializeFeatures({ force = false } = {}) {
+    if (!force && featuresInitialized) {
+        return;
+    }
+    featuresInitialized = true;
+
     runFeatureSafe('initializeTooltips', () => {
         if (typeof initializeTooltips === 'function') {
             initializeTooltips();
@@ -214,7 +240,10 @@ async function initializeFeatures() {
     });
 }
 
-document.addEventListener('DOMContentLoaded', async () => {
+async function bootstrapApp() {
+    if (appBootstrapped) return;
+    appBootstrapped = true;
+
     try {
         assertRequiredGlobals();
         await loadInitialData();
@@ -225,4 +254,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (e) {
         console.error('[HeroesVault] Failed initializing app:', e);
     }
-});
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bootstrapApp, { once: true });
+} else {
+    bootstrapApp();
+}
