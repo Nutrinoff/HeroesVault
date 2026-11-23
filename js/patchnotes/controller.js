@@ -26,14 +26,22 @@ function normalizePatchFilter(filter) {
     return VALID_PATCH_FILTERS.includes(val) ? val : 'all';
 }
 
-function setPatchFilterState(nextFilter) {
+function setPatchFilterState(nextFilter, { syncUrl = false } = {}) {
     const normalized = normalizePatchFilter(nextFilter);
+    const filterChanged = patchState.filter !== normalized;
     patchState.filter = normalized;
+    if (filterChanged) {
+        patchState.selectedId = null;
+        patchState.pendingSelectionId = null;
+    }
     if (typeof CURRENT_FILTER !== 'undefined') {
         CURRENT_FILTER = normalized;
     }
     if (typeof syncFilterButtonStates === 'function') {
         syncFilterButtonStates();
+    }
+    if (syncUrl) {
+        writePatchUrl(null, { push: false });
     }
     return normalized;
 }
@@ -454,7 +462,15 @@ function initPatchNotes(initialState = {}) {
     }
 
     if (initialState.openView) {
-        loadLivePatchNotes({ force: Boolean(initialState.force) });
+        const alreadyLoadedSameView =
+            !initialState.force &&
+            patchState.items.length > 0 &&
+            patchState.lastRenderedFilter === patchState.filter &&
+            (!effectivePatchId || String(patchState.lastRenderedSelectionId) === String(effectivePatchId));
+
+        if (!alreadyLoadedSameView) {
+            loadLivePatchNotes({ force: Boolean(initialState.force) });
+        }
     }
 
     schedulePatchSidebarSync();
