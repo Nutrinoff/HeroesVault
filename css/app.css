@@ -75,16 +75,18 @@
 
 /* Top Client Chrome & Navigation Rail (borderless blend) */
 .hots-topbar {
+  position: relative;
+  z-index: 20;
+  overflow: visible;
   background: linear-gradient(
     180deg,
     rgba(25, 14, 64, 0.96) 0%,
-    rgba(14, 7, 38, 0.92) 68%,
-    rgba(7, 4, 18, 0.86) 100%
+    rgba(14, 7, 38, 0.9) 62%,
+    rgba(7, 4, 18, 0.45) 88%,
+    rgba(7, 4, 18, 0) 100%
   );
   border-bottom: none;
-  box-shadow:
-    0 10px 28px rgba(0, 0, 0, 0.72),
-    0 1px 14px rgba(88, 186, 255, 0.12);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.45);
 }
 
 .hots-brand-emblem {
@@ -106,6 +108,7 @@
 
 .hots-nav-rail {
   position: relative;
+  overflow: visible;
   background: transparent;
   border: none;
   box-shadow: none;
@@ -328,26 +331,28 @@
 .nav-active::after {
   content: "";
   position: absolute;
-  left: -18%;
-  right: -18%;
-  bottom: -21px;
-  height: 22px;
+  left: -34%;
+  right: -34%;
+  bottom: -25px;
+  height: 30px;
   pointer-events: none;
   background:
     linear-gradient(
       90deg,
-      transparent 6%,
-      rgba(138, 92, 246, 0.28) 22%,
-      rgba(125, 211, 252, 0.82) 39%,
+      transparent 0%,
+      rgba(109, 40, 217, 0.14) 18%,
+      rgba(138, 92, 246, 0.34) 30%,
+      rgba(125, 211, 252, 0.85) 42%,
       #ffffff 50%,
-      rgba(125, 211, 252, 0.82) 61%,
-      rgba(138, 92, 246, 0.28) 78%,
-      transparent 94%
+      rgba(125, 211, 252, 0.85) 58%,
+      rgba(138, 92, 246, 0.34) 70%,
+      rgba(109, 40, 217, 0.14) 82%,
+      transparent 100%
     ),
     radial-gradient(
-      ellipse 44% 85% at 50% 54%,
-      rgba(88, 186, 255, 0.52) 0%,
-      rgba(109, 40, 217, 0.32) 46%,
+      ellipse 48% 85% at 50% 48%,
+      rgba(88, 186, 255, 0.56) 0%,
+      rgba(109, 40, 217, 0.32) 48%,
       rgba(0, 99, 200, 0.12) 72%,
       transparent 100%
     );
@@ -356,7 +361,7 @@
     100% 1.5px,
     100% 100%;
   background-position:
-    center 10px,
+    center 11px,
     center center;
 }
 
