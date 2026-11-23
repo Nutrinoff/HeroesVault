@@ -12,6 +12,18 @@ let activeMapSelectionSeq = 0;
 let activeMapId = null;
 let dropdownWarmedCount = 0;
 
+function getMapCatalogApi() {
+    return window.HeroesVaultCatalog && typeof window.HeroesVaultCatalog === 'object'
+        ? window.HeroesVaultCatalog
+        : null;
+}
+
+function getMapDomApi() {
+    return window.HeroesVaultDom && typeof window.HeroesVaultDom === 'object'
+        ? window.HeroesVaultDom
+        : null;
+}
+
 function resolveMapAssetUrl(assetSource, fallbackUrl) {
     if (typeof resolveAssetUrl === 'function') {
         return resolveAssetUrl(assetSource, fallbackUrl || '');
@@ -38,6 +50,11 @@ function preloadMapImage(portraitSource) {
 
 function applyMapImageFallback(imgEl, fallbackUrl) {
     if (!imgEl || !fallbackUrl) return;
+    const dom = getMapDomApi();
+    if (dom && typeof dom.attachImageFallback === 'function') {
+        dom.attachImageFallback(imgEl, fallbackUrl);
+        return;
+    }
     if (typeof attachImageFallback === 'function') {
         attachImageFallback(imgEl, fallbackUrl);
         return;
@@ -51,14 +68,29 @@ function applyMapImageFallback(imgEl, fallbackUrl) {
 function resolveGoldenHeroEntry(heroId) {
     if (!heroId || typeof heroId !== 'string') return null;
 
+    const catalog = getMapCatalogApi();
+    const catalogHero = catalog && typeof catalog.getHero === 'function'
+        ? catalog.getHero(heroId)
+        : null;
+
+    if (catalogHero && (catalogHero.id || catalogHero.name)) {
+        return {
+            id: catalogHero.id || catalogHero.name,
+            name: catalogHero.name || catalogHero.id,
+            portrait: catalogHero.portrait || catalogHero.portraitMeta?.source || ''
+        };
+    }
+
     const normalized = typeof getNormalizedHeroData === 'function' ? getNormalizedHeroData(heroId) : null;
     const rawEntry = typeof getRawHeroEntry === 'function'
         ? getRawHeroEntry(normalized?.id || heroId)
         : null;
     const roster = Array.isArray(MASTER_HERO_LIST) ? MASTER_HERO_LIST : [];
-    const keyNormalizer = typeof normalizeHeroKey === 'function'
-        ? normalizeHeroKey
-        : val => String(val || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    const keyNormalizer = catalog && typeof catalog.normalizeKey === 'function'
+        ? catalog.normalizeKey
+        : (typeof normalizeHeroKey === 'function'
+            ? normalizeHeroKey
+            : val => String(val || '').toLowerCase().replace(/[^a-z0-9]/g, ''));
 
     const targetKeys = new Set(
         [heroId, normalized?.id, normalized?.name, rawEntry?.id, rawEntry?.name]
