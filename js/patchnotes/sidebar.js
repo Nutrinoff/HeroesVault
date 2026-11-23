@@ -1,6 +1,6 @@
 // ===========================================
 // 3. PATCH FILTER CONTROLS, SIDEBAR & STICKY LAYOUT
-// ============================================
+// ===========================================
 
 let patchSidebarRafId = null;
 
@@ -21,19 +21,6 @@ const LEGACY_FILTER_CLASSES = [
     'text-violet-200',
     'border-[#3d2185]',
     'hover:bg-[#1c0e40]'
-];
-
-const SELECTED_CARD_CLASSES = [
-    'bg-[#58baff]/15',
-    'border-[#58baff]/75',
-    'shadow-[0_0_14px_rgba(0,156,255,0.2)]'
-];
-
-const UNSELECTED_CARD_CLASSES = [
-    'border-[#38247a]/90',
-    'bg-[#0c0621]/70',
-    'hover:bg-[#1d1247]/80',
-    'hover:border-[#5c42b8]'
 ];
 
 function getCurrentPatchFilter() {
