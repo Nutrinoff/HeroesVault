@@ -12,6 +12,54 @@ const TIER_LEAGUE_LABELS = {
 
 const TIERLIST_PORTRAIT_FALLBACK = `data:image/svg+xml;utf8,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="110" height="110" viewBox="0 0 110 110"><rect width="110" height="110" fill="#0d0724"/><rect x="1" y="1" width="108" height="108" fill="none" stroke="#38247a" stroke-width="2"/><text x="55" y="64" fill="#9cb6ff" font-family="monospace" font-size="34" text-anchor="middle">?</text></svg>')}`;
 
+function toTierHeroKey(value) {
+    if (typeof normalizeHeroKey === 'function') {
+        return normalizeHeroKey(value);
+    }
+    return String(value || '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, '');
+}
+
+function resolveTierHeroEntry(rawEntry) {
+    const candidate = typeof rawEntry === 'string'
+        ? rawEntry
+        : (rawEntry && typeof rawEntry === 'object'
+            ? (rawEntry.id || rawEntry.hyperlinkId || rawEntry.attributeId || rawEntry.name || '')
+            : '');
+    if (!candidate) return null;
+
+    const normalized = typeof getNormalizedHeroData === 'function' ? getNormalizedHeroData(candidate) : null;
+    const rawHero = typeof getRawHeroEntry === 'function'
+        ? getRawHeroEntry(normalized?.id || candidate)
+        : null;
+    const roster = Array.isArray(MASTER_HERO_LIST) ? MASTER_HERO_LIST : [];
+    const targetKeys = new Set(
+        [candidate, normalized?.id, normalized?.name, rawHero?.id, rawHero?.name]
+            .map(toTierHeroKey)
+            .filter(Boolean)
+    );
+
+    const listHero = roster.find(x => {
+        if (!x || typeof x !== 'object') return false;
+        return targetKeys.has(toTierHeroKey(x.id)) || targetKeys.has(toTierHeroKey(x.name));
+    });
+
+    const resolvedId = normalized?.id || listHero?.id || rawHero?.id || '';
+    const resolvedName = normalized?.name || listHero?.name || rawHero?.name || '';
+    const resolvedPortrait = normalized?.portrait || listHero?.portrait || rawHero || '';
+
+    if (!resolvedId && !resolvedName) return null;
+
+    return {
+        id: resolvedId || resolvedName,
+        name: resolvedName || resolvedId,
+        portrait: resolvedPortrait
+    };
+}
+
 function getTierListFallbackPortrait() {
     if (typeof HERO_FALLBACK_PORTRAIT === 'string' && HERO_FALLBACK_PORTRAIT) {
         return HERO_FALLBACK_PORTRAIT;
@@ -86,16 +134,15 @@ function renderTierList() {
     if (!box) return;
 
     const groups = { S: [], A: [], B: [], C: [], D: [] };
-    const keyFn = typeof normalizeHeroKey === 'function'
-        ? normalizeHeroKey
-        : v => String(v || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    const seenKeys = new Set();
 
     Object.entries(MASTER_TIERS || {}).forEach(([k, ids]) => {
         (ids || []).forEach(id => {
-            const rawId = typeof id === 'string' ? id : (id && id.id);
-            const h = (MASTER_HERO_LIST || []).find(x => keyFn(x.id) === keyFn(rawId));
+            const h = resolveTierHeroEntry(id);
             const t = typeof tierLetter === 'function' ? tierLetter(k) : String(k || 'D').toUpperCase();
-            if (h && groups[t] && !groups[t].some(x => x.id === h.id)) {
+            const heroKey = toTierHeroKey(h?.id);
+            if (h && heroKey && groups[t] && !seenKeys.has(heroKey)) {
+                seenKeys.add(heroKey);
                 groups[t].push(h);
             }
         });
