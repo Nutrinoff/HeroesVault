@@ -4,7 +4,7 @@
 
 const HERO_SCROLL_SETTLE_DELAY_MS = 180;
 const HERO_SEARCH_PRELOAD_DELAY_MS = 75;
-const HERO_FALLBACK_PORTRAIT = 'https://via.placeholder.com/110?text=Hero';
+const HERO_FALLBACK_PORTRAIT = `data:image/svg+xml;utf8,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="110" height="110" viewBox="0 0 110 110"><rect width="110" height="110" fill="#0d0724"/><rect x="1" y="1" width="108" height="108" fill="none" stroke="#38247a" stroke-width="2"/><text x="55" y="64" fill="#9cb6ff" font-family="monospace" font-size="34" text-anchor="middle">?</text></svg>')}`;
 
 const PRELOADED_HERO_KEYS = new Set();
 const PENDING_VISIBLE_HERO_IDS = new Set();
@@ -217,6 +217,19 @@ function navigateFromSidebar(heroId, isBuilderView) {
     navigateTo(isBuilderView ? 'builder' : 'builds', { hero: heroId });
 }
 
+function applyHeroSidebarPortraitFallback(imgEl, fallbackUrl) {
+    if (!imgEl || !fallbackUrl) return;
+    if (typeof attachImageFallback === 'function') {
+        attachImageFallback(imgEl, fallbackUrl);
+        return;
+    }
+    imgEl.addEventListener('error', () => {
+        if (imgEl.src !== fallbackUrl) {
+            imgEl.src = fallbackUrl;
+        }
+    }, { once: true });
+}
+
 function renderHeroSidebar(heroes) {
     bindHeroSidebarEvents();
 
@@ -282,11 +295,7 @@ function renderHeroSidebar(heroes) {
 
         const img = btn.querySelector('img');
         if (img) {
-            img.addEventListener('error', () => {
-                if (img.src !== fallbackPortrait) {
-                    img.src = fallbackPortrait;
-                }
-            }, { once: true });
+            applyHeroSidebarPortraitFallback(img, fallbackPortrait);
             img.src = portraitUrl;
         }
 
