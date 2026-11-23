@@ -232,9 +232,9 @@ function buildAcademyArticleCardButton(article, isSelected) {
     catEl.className = 'hots-list-item__meta';
     catEl.textContent = article.category || 'General';
 
+    const isAdvanced = article.level === 'Advanced';
     const levelEl = document.createElement('span');
-    levelEl.className = 'text-[10px] font-semibold px-1.5 py-0.5 rounded border shrink-0';
-    levelEl.classList.add(...getLevelBadgeClasses(article.level));
+    levelEl.className = `hots-list-tag ${isAdvanced ? 'hots-list-tag--gold' : 'hots-list-tag--cyan'} shrink-0`;
     levelEl.textContent = article.level || 'Basic';
 
     topRow.append(catEl, levelEl);
