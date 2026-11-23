@@ -484,10 +484,8 @@ function renderPreparedHeroSidebar(entries, byKey = heroIndexCache.byKey) {
         lastRenderedOrderKey === orderKey;
 
     if (hasSameStructure) {
-        if (lastRenderedActiveKey !== activeKey) {
-            syncSidebarSelectionInDom(list, activeKey, isBuilder);
-            lastRenderedActiveKey = activeKey;
-        }
+        syncSidebarSelectionInDom(list, activeKey, isBuilder);
+        lastRenderedActiveKey = activeKey;
         syncHeroListObserverTargets(list, { resetAll: false });
         bindSidebarHeightSync();
         requestAnimationFrame(syncSidebarHeightToContent);
