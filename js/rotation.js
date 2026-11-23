@@ -43,7 +43,6 @@ function stripUnitIdPrefix(unitId) {
 function buildHeroLookupCandidates(rawId, rawName) {
     var baseName = String(rawName || '').split(',')[0].trim();
     var withoutCain = baseName.replace(/\s+cain\b/i, '').trim();
-    var firstToken = baseName.split(/\s+/)[0] || '';
 
     var list = [
         rawId,
@@ -51,7 +50,6 @@ function buildHeroLookupCandidates(rawId, rawName) {
         rawName,
         baseName,
         withoutCain,
-        firstToken,
         baseName.replace(/\./g, ''),
         baseName.replace(/['’]/g, ''),
         withoutCain.replace(/\./g, ''),
@@ -124,26 +122,27 @@ function findRosterEntryByCandidates(candidates) {
         : [];
     if (!roster.length) return null;
 
+    var candidateKeys = [];
     for (var i = 0; i < candidates.length; i++) {
-        var cand = candidates[i];
-        var candKey = resolveRotationHeroKey(cand);
-        if (!candKey) continue;
+        var k = resolveRotationHeroKey(candidates[i]);
+        if (k && candidateKeys.indexOf(k) === -1) {
+            candidateKeys.push(k);
+        }
+    }
+    if (!candidateKeys.length) return null;
 
-        var match = roster.find(function (hero) {
-            if (!hero || typeof hero !== 'object') return false;
+    for (var c = 0; c < candidateKeys.length; c++) {
+        var targetKey = candidateKeys[c];
+        for (var r = 0; r < roster.length; r++) {
+            var hero = roster[r];
+            if (!hero || typeof hero !== 'object') continue;
             var idKey = resolveRotationHeroKey(hero.id);
             var nameKey = resolveRotationHeroKey(hero.name);
             var baseNameKey = resolveRotationHeroKey(String(hero.name || '').split(',')[0]);
-            var firstWordKey = resolveRotationHeroKey(String(hero.name || '').split(/[\s,]+/)[0]);
-            return (
-                idKey === candKey ||
-                nameKey === candKey ||
-                baseNameKey === candKey ||
-                firstWordKey === candKey
-            );
-        });
-
-        if (match) return match;
+            if (idKey === targetKey || nameKey === targetKey || baseNameKey === targetKey) {
+                return hero;
+            }
+        }
     }
 
     return null;
@@ -232,7 +231,8 @@ function matchHeroWithIndex(entry) {
     var listHero = (matchedRecord && matchedRecord.listItem) || {};
     var rawHero = (matchedRecord && matchedRecord.rawEntry) || {};
 
-    var canonicalId = (matchedRecord && matchedRecord.canonicalId) || fallbackId;
+    var isMatched = Boolean(matchedRecord && matchedRecord.canonicalId);
+    var canonicalId = isMatched ? matchedRecord.canonicalId : '';
     var canonicalName = normHero.name || listHero.name || rawHero.name || fallbackName;
     var canonicalRole =
         normHero.role ||
@@ -247,6 +247,8 @@ function matchHeroWithIndex(entry) {
 
     return {
         id: canonicalId,
+        rawId: fallbackId,
+        matched: isMatched,
         name: canonicalName,
         role: canonicalRole,
         portraitUrl: resolveRotationPortraitUrl(matchedRecord, item),
@@ -402,12 +404,18 @@ function createFreeHeroRow(hero) {
     btn.className = isLvlSlot
         ? 'f2p-row-item f2p-row-lvl group'
         : 'f2p-row-item group';
-    btn.title = isLvlSlot
-        ? hero.name + ' — Unlocked rotation slot (Account Level 5, 10, 15, or 20)'
-        : 'View ' + hero.name + ' builds';
+    btn.title = !hero.matched
+        ? hero.name + ' (roster match unavailable)'
+        : (isLvlSlot
+            ? hero.name + ' — Unlocked rotation slot (Account Level 5, 10, 15, or 20)'
+            : 'View ' + hero.name + ' builds');
     btn.addEventListener('click', function () {
         if (typeof navigateTo === 'function') {
-            navigateTo('builds', { hero: hero.id });
+            if (hero.matched && hero.id) {
+                navigateTo('builds', { hero: hero.id });
+            } else {
+                navigateTo('builds');
+            }
         }
     });
 
