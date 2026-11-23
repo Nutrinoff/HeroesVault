@@ -220,33 +220,27 @@ function getLevelBadgeClasses(level) {
 function buildAcademyArticleCardButton(article, isSelected) {
     const btn = document.createElement('button');
     btn.type = 'button';
-    btn.setAttribute('aria-current', isSelected ? 'true' : 'false');
-    btn.className = `w-full text-left px-3 py-2.5 transition cursor-pointer border-b border-[#38247a]/60 last:border-b-0 ${
-        isSelected
-            ? 'bg-transparent border-l-2 border-l-[#58baff] pl-3.5 text-[#e6ecff]'
-            : 'bg-transparent border-l-2 border-l-transparent text-[#8c83a2] hover:text-[#cbe8ff]'
-    }`;
+    btn.className = `hots-list-item${isSelected ? ' is-selected' : ''}`;
+    if (isSelected) {
+        btn.setAttribute('aria-current', 'true');
+    }
 
     const topRow = document.createElement('div');
-    topRow.className = 'flex items-center justify-between gap-2 mb-1';
+    topRow.className = 'flex items-center justify-between gap-2 mb-1.5';
 
     const catEl = document.createElement('span');
-    catEl.className = isSelected
-        ? 'text-[10px] font-bold uppercase tracking-wider text-[#58baff]'
-        : 'text-[10px] font-bold uppercase tracking-wider text-[#9d90ff]/75';
+    catEl.className = 'hots-list-item__meta';
     catEl.textContent = article.category || 'General';
 
     const levelEl = document.createElement('span');
-    levelEl.className = 'text-[10px] font-semibold px-1.5 py-0.5 rounded border';
+    levelEl.className = 'text-[10px] font-semibold px-1.5 py-0.5 rounded border shrink-0';
     levelEl.classList.add(...getLevelBadgeClasses(article.level));
     levelEl.textContent = article.level || 'Basic';
 
     topRow.append(catEl, levelEl);
 
     const titleEl = document.createElement('div');
-    titleEl.className = isSelected
-        ? 'text-xs font-bold leading-snug text-[#ffffff] [text-shadow:0_0_12px_rgba(0,156,255,0.55)]'
-        : 'text-xs font-semibold leading-snug text-[#9cb6ff]/80 [text-shadow:0_0_10px_rgba(0,99,200,0.2)]';
+    titleEl.className = 'hots-list-item__title text-xs font-bold leading-snug';
     titleEl.textContent = article.title || 'Untitled Guide';
 
     btn.append(topRow, titleEl);
