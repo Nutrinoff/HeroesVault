@@ -73,13 +73,18 @@
   font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
 }
 
-/* Top Client Chrome & Navigation Rail */
+/* Top Client Chrome & Navigation Rail (borderless blend) */
 .hots-topbar {
-  background: linear-gradient(180deg, #190e40 0%, #0e0726 72%, #080416 100%);
-  border-bottom: 1px solid var(--hots-border);
+  background: linear-gradient(
+    180deg,
+    rgba(25, 14, 64, 0.96) 0%,
+    rgba(14, 7, 38, 0.92) 68%,
+    rgba(7, 4, 18, 0.86) 100%
+  );
+  border-bottom: none;
   box-shadow:
-    inset 0 -1px 0 rgba(203, 232, 255, 0.14),
-    0 6px 24px rgba(0, 0, 0, 0.85);
+    0 10px 28px rgba(0, 0, 0, 0.72),
+    0 1px 14px rgba(88, 186, 255, 0.12);
 }
 
 .hots-brand-emblem {
@@ -104,24 +109,6 @@
   background: transparent;
   border: none;
   box-shadow: none;
-}
-
-.hots-nav-rail::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -10px;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(138, 92, 246, 0.28) 15%,
-    rgba(157, 144, 255, 0.42) 50%,
-    rgba(138, 92, 246, 0.28) 85%,
-    transparent 100%
-  );
-  pointer-events: none;
 }
 
 .hots-footer {
@@ -308,7 +295,7 @@
   left: -0.25rem;
   top: 50%;
   transform: translateY(-52%);
-  color: rgba(157, 144, 255, 0.36);
+  color: rgba(157, 144, 255, 0.32);
   font-size: 0.85rem;
   font-weight: 400;
   pointer-events: none;
@@ -329,7 +316,7 @@
   box-shadow: none !important;
   text-shadow:
     0 0 8px rgba(203, 232, 255, 0.88),
-    0 0 22px rgba(0, 99, 200, 0.72);
+    0 0 22px rgba(0, 99, 200, 0.68);
 }
 
 .nav-active i,
@@ -337,7 +324,7 @@
   filter: drop-shadow(0 0 7px rgba(0, 156, 255, 0.85));
 }
 
-/* Bright point on the bottom line + glow spilling up & slightly down */
+/* Bright point flare + soft upward/downward glow at the bottom edge of the header */
 .nav-active::after {
   content: "";
   position: absolute;
@@ -349,24 +336,24 @@
   background:
     linear-gradient(
       90deg,
-      transparent 4%,
-      rgba(138, 92, 246, 0.35) 20%,
-      rgba(125, 211, 252, 0.85) 38%,
+      transparent 6%,
+      rgba(138, 92, 246, 0.28) 22%,
+      rgba(125, 211, 252, 0.82) 39%,
       #ffffff 50%,
-      rgba(125, 211, 252, 0.85) 62%,
-      rgba(138, 92, 246, 0.35) 80%,
-      transparent 96%
+      rgba(125, 211, 252, 0.82) 61%,
+      rgba(138, 92, 246, 0.28) 78%,
+      transparent 94%
     ),
     radial-gradient(
-      ellipse 42% 85% at 50% 54%,
-      rgba(88, 186, 255, 0.58) 0%,
-      rgba(109, 40, 217, 0.36) 45%,
-      rgba(0, 99, 200, 0.14) 72%,
+      ellipse 44% 85% at 50% 54%,
+      rgba(88, 186, 255, 0.52) 0%,
+      rgba(109, 40, 217, 0.32) 46%,
+      rgba(0, 99, 200, 0.12) 72%,
       transparent 100%
     );
   background-repeat: no-repeat;
   background-size:
-    100% 2px,
+    100% 1.5px,
     100% 100%;
   background-position:
     center 10px,
