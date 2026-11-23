@@ -6,8 +6,20 @@ let lastActiveTab = null;
 let lastHandledRouteSignature = null;
 let isHandlingRoute = false;
 
+function normalizeRouterTab(tab) {
+    if (window.HeroesVaultRouterState && typeof window.HeroesVaultRouterState.normalizeTab === 'function') {
+        return window.HeroesVaultRouterState.normalizeTab(tab);
+    }
+    const clean = String(tab || '').trim().toLowerCase().replace(/^#/, '').replace(/^view-/, '');
+    if (!clean || clean === 'index' || clean === 'index.html') return 'home';
+    if (clean === 'heroes') return 'builds';
+    if (clean === 'patch' || clean === 'patches') return 'patchnotes';
+    if (clean === 'tier' || clean === 'tiers' || clean === 'tier-list') return 'tierlist';
+    return clean;
+}
+
 function switchTabUI(t, { force = false } = {}) {
-    const activeTab = t === 'heroes' ? 'builds' : (t || 'home');
+    const activeTab = normalizeRouterTab(t);
 
     if (!force && lastActiveTab === activeTab) {
         if (activeTab === 'patchnotes' && typeof schedulePatchSidebarSync === 'function') {
@@ -61,6 +73,12 @@ function switchTabUI(t, { force = false } = {}) {
 // ==========================================
 
 function getFallbackRosterHeroId() {
+    if (window.HeroesVaultCatalog && typeof window.HeroesVaultCatalog.getAllHeroes === 'function') {
+        const indexed = window.HeroesVaultCatalog.getAllHeroes();
+        if (Array.isArray(indexed) && indexed[0]?.id) {
+            return indexed[0].id;
+        }
+    }
     if (typeof MASTER_HERO_LIST === 'undefined' || !Array.isArray(MASTER_HERO_LIST)) {
         return null;
     }
@@ -70,6 +88,11 @@ function getFallbackRosterHeroId() {
 function resolveRouteHeroId(candidateId) {
     const fallbackId = getFallbackRosterHeroId();
     if (!candidateId) return fallbackId;
+
+    if (window.HeroesVaultCatalog && typeof window.HeroesVaultCatalog.getHero === 'function') {
+        const catalogHero = window.HeroesVaultCatalog.getHero(candidateId);
+        if (catalogHero?.id) return catalogHero.id;
+    }
 
     if (typeof getNormalizedHeroData === 'function') {
         const normalized = getNormalizedHeroData(candidateId);
@@ -110,51 +133,96 @@ function clearPatchQueryParamsFromUrl() {
     }
 }
 
-function navigateTo(tab, params = {}, push = true) {
-    const normalizedTab = tab === 'heroes' ? 'builds' : (tab || 'home');
-    let hashTarget = '#' + normalizedTab;
-    const q = new URLSearchParams();
+function buildTargetUrl(tab, params = {}) {
+    if (window.HeroesVaultRouterState && typeof window.HeroesVaultRouterState.serializeRouteUrl === 'function') {
+        return window.HeroesVaultRouterState.serializeRouteUrl(tab, params, window.location);
+    }
 
+    let hashTarget = '#' + tab;
+    const q = new URLSearchParams();
     Object.entries(params || {}).forEach(([k, v]) => {
         if (v !== null && v !== undefined && v !== '') {
             q.set(k, v);
         }
     });
-
     const queryString = q.toString();
     if (queryString) hashTarget += '?' + queryString;
 
-    let finalUrl = hashTarget;
     try {
         const currentUrl = new URL(window.location.href);
         for (const key of ['view', 'patch', 'patchId', 'feed']) {
             currentUrl.searchParams.delete(key);
         }
         currentUrl.hash = hashTarget;
-        finalUrl = currentUrl.toString();
+        return currentUrl.toString();
     } catch (_) {
-        finalUrl = hashTarget;
+        return hashTarget;
     }
+}
 
-    if (typeof window.history?.pushState === 'function' && typeof window.history?.replaceState === 'function') {
-        if (push) {
-            history.pushState({ tab: normalizedTab, params }, '', finalUrl);
-        } else {
-            history.replaceState({ tab: normalizedTab, params }, '', finalUrl);
+function navigateTo(tab, params = {}, push = true) {
+    const normalizedTab = normalizeRouterTab(tab);
+    const cleanParams = params && typeof params === 'object' ? params : {};
+
+    if (window.HeroesVaultRouterState && typeof window.HeroesVaultRouterState.writeHistoryRoute === 'function') {
+        const wrote = window.HeroesVaultRouterState.writeHistoryRoute(normalizedTab, cleanParams, { replace: !push });
+        if (!wrote) {
+            location.hash = '#' + normalizedTab;
         }
     } else {
-        location.hash = hashTarget;
+        const finalUrl = buildTargetUrl(normalizedTab, cleanParams);
+        if (typeof window.history?.pushState === 'function' && typeof window.history?.replaceState === 'function') {
+            if (push) {
+                history.pushState({ tab: normalizedTab, params: cleanParams }, '', finalUrl);
+            } else {
+                history.replaceState({ tab: normalizedTab, params: cleanParams }, '', finalUrl);
+            }
+        } else {
+            location.hash = finalUrl.startsWith('#') ? finalUrl : '#' + normalizedTab;
+        }
     }
 
     handleRoute({ force: true });
 }
 
-function resolveBuilderRouteParams(query) {
+function parseCurrentRouteLocation() {
+    if (window.HeroesVaultRouterState && typeof window.HeroesVaultRouterState.parseUrlRoute === 'function') {
+        return window.HeroesVaultRouterState.parseUrlRoute(window.location);
+    }
+
+    const [tpart, query = ''] = location.hash.replace(/^#/, '').split('?');
+    const tab = normalizeRouterTab(tpart || 'home');
+    const q = new URLSearchParams(query);
+    const params = {};
+    for (const [k, v] of q.entries()) {
+        if (v !== '') params[k] = v;
+    }
+    return { tab, params };
+}
+
+function resolveBuilderRouteParams(paramsOrQuery) {
     const fallbackHeroId = getFallbackRosterHeroId();
     const decodeOpts = { allowZero: true };
 
+    const rawHero = typeof paramsOrQuery === 'string'
+        ? new URLSearchParams(paramsOrQuery).get('hero')
+        : paramsOrQuery?.hero;
+
+    const rawCode = typeof paramsOrQuery === 'string'
+        ? (new URLSearchParams(paramsOrQuery).get('build') ||
+            new URLSearchParams(paramsOrQuery).get('talents') ||
+            new URLSearchParams(paramsOrQuery).get('code') ||
+            '')
+        : (paramsOrQuery?.build || paramsOrQuery?.talents || paramsOrQuery?.code || '');
+
     if (typeof parseBuilderQuery === 'function') {
-        const parsed = parseBuilderQuery(`?${query}`, decodeOpts);
+        const searchStr = typeof paramsOrQuery === 'string'
+            ? `?${paramsOrQuery}`
+            : `?${new URLSearchParams({
+                ...(rawHero ? { hero: rawHero } : {}),
+                ...(rawCode ? { build: rawCode } : {})
+            }).toString()}`;
+        const parsed = parseBuilderQuery(searchStr, decodeOpts);
         return {
             heroId: resolveRouteHeroId(parsed.hero) || fallbackHeroId,
             selections: parsed.rawCode
@@ -165,10 +233,8 @@ function resolveBuilderRouteParams(query) {
         };
     }
 
-    const q = new URLSearchParams(query);
-    const rawCode = q.get('build') || q.get('talents') || q.get('code') || '';
     return {
-        heroId: resolveRouteHeroId(q.get('hero')) || fallbackHeroId,
+        heroId: resolveRouteHeroId(rawHero) || fallbackHeroId,
         selections: rawCode && typeof decodeBuildCode === 'function'
             ? decodeBuildCode(rawCode, decodeOpts)
             : null
@@ -179,10 +245,13 @@ function handleRoute(options = {}) {
     const force = Boolean(options && options.force);
     if (isHandlingRoute && !force) return;
 
-    const [tpart, query = ''] = location.hash.replace(/^#/, '').split('?');
-    const rawTab = tpart || 'home';
-    const tab = rawTab === 'heroes' ? 'builds' : rawTab;
-    const q = new URLSearchParams(query);
+    const { tab, params } = parseCurrentRouteLocation();
+    const q = new URLSearchParams();
+    Object.entries(params || {}).forEach(([k, v]) => {
+        if (v !== null && v !== undefined && String(v) !== '') {
+            q.set(k, String(v));
+        }
+    });
 
     const routeSig = `${tab}?${q.toString()}::active=${lastActiveTab || ''}`;
     if (!force && lastActiveTab === tab && lastHandledRouteSignature === routeSig) {
@@ -207,7 +276,7 @@ function handleRoute(options = {}) {
             }
         } else if (tab === 'builder') {
             if (typeof openBuilder === 'function') {
-                const { heroId, selections } = resolveBuilderRouteParams(query);
+                const { heroId, selections } = resolveBuilderRouteParams(params);
                 openBuilder(heroId, selections, false);
             }
         } else if (tab === 'academy') {
