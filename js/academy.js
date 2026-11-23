@@ -15,6 +15,19 @@ let academyState = {
     activeId: null
 };
 
+let lastRenderedAcademySignature = null;
+
+function getAcademyRenderSignature() {
+    const articles = getAcademyArticlesList();
+    return [
+        academyState.level,
+        academyState.category,
+        academyState.search,
+        String(academyState.activeId ?? ''),
+        String(articles.length)
+    ].join('||');
+}
+
 function getAcademyCategories() {
     const articles = getAcademyArticlesList();
     const set = new Set(['All']);
@@ -34,14 +47,33 @@ function escapeAcademyHtml(str) {
 }
 
 function formatAcademyInline(text) {
-    let out = escapeAcademyHtml(text);
-    // Inline code: `code`
-    out = out.replace(/`([^`]+)`/g, '<code class="px-1.5 py-0.5 rounded bg-[#070414] border border-[#38247a] text-[#cbe8ff] font-mono text-xs">$1</code>');
-    // Bold: **text**
-    out = out.replace(/\*\*([^*]+)\*\*/g, '<strong class="font-bold text-[#e6ecff]">$1</strong>');
-    // Italic: *text*
-    out = out.replace(/\*([^*]+)\*/g, '<em class="italic text-[#9cb6ff]">$1</em>');
-    return out;
+    const raw = String(text ?? '');
+    if (!raw) return '';
+
+    const codeTokens = [];
+    const withPlaceholders = raw.replace(/`([^`\r\n]+)`/g, (_, codeContent) => {
+        const token = `\u0000ACADEMYCODE${codeTokens.length}\u0000`;
+        codeTokens.push(
+            `<code class="px-1.5 py-0.5 rounded bg-[#070414] border border-[#38247a] text-[#cbe8ff] font-mono text-xs">${escapeAcademyHtml(codeContent)}</code>`
+        );
+        return token;
+    });
+
+    let out = escapeAcademyHtml(withPlaceholders);
+
+    // Bold: **text** (avoid matching across whitespace-padded stray asterisks)
+    out = out.replace(
+        /\*\*([^\s*](?:[^*]*[^\s*])?)\*\*/g,
+        '<strong class="font-bold text-[#e6ecff]">$1</strong>'
+    );
+
+    // Italic: *text* (single asterisks not adjacent to another asterisk or space boundary)
+    out = out.replace(
+        /(^|[^*])\*([^\s*](?:[^*\r\n]*[^\s*])?)\*(?!\*)/g,
+        '$1<em class="italic text-[#9cb6ff]">$2</em>'
+    );
+
+    return out.replace(/\u0000ACADEMYCODE(\d+)\u0000/g, (_, idx) => codeTokens[Number(idx)] ?? '');
 }
 
 function renderAcademyMarkdown(markdown) {
@@ -49,6 +81,8 @@ function renderAcademyMarkdown(markdown) {
     const html = [];
     let listType = null; // 'ul' | 'ol' | null
     let quoteLines = [];
+    let inCodeBlock = false;
+    let codeLines = [];
 
     const flushList = () => {
         if (!listType) return;
@@ -58,12 +92,41 @@ function renderAcademyMarkdown(markdown) {
 
     const flushQuote = () => {
         if (quoteLines.length === 0) return;
-        const inner = quoteLines.map(l => `<p class="text-xs text-[#cbe8ff]/95 leading-relaxed">${formatAcademyInline(l)}</p>`).join('');
+        const inner = quoteLines
+            .map(l => `<p class="text-xs text-[#cbe8ff]/95 leading-relaxed">${formatAcademyInline(l)}</p>`)
+            .join('');
         html.push(`<blockquote class="border-l-4 border-[#58baff] bg-[#0063c8]/15 rounded-r-xl px-4 py-3 space-y-1">${inner}</blockquote>`);
         quoteLines = [];
     };
 
+    const flushCodeBlock = () => {
+        if (!inCodeBlock) return;
+        const escapedCode = escapeAcademyHtml(codeLines.join('\n'));
+        html.push(`<pre class="p-3 rounded bg-[#070414] border border-[#38247a] text-xs font-mono text-[#cbe8ff] overflow-x-auto"><code>${escapedCode}</code></pre>`);
+        codeLines = [];
+        inCodeBlock = false;
+    };
+
     for (const rawLine of lines) {
+        const trimmedStart = rawLine.trimStart();
+
+        if (trimmedStart.startsWith('```')) {
+            flushList();
+            flushQuote();
+            if (inCodeBlock) {
+                flushCodeBlock();
+            } else {
+                inCodeBlock = true;
+                codeLines = [];
+            }
+            continue;
+        }
+
+        if (inCodeBlock) {
+            codeLines.push(rawLine);
+            continue;
+        }
+
         const line = rawLine.trim();
 
         if (!line) {
@@ -102,7 +165,7 @@ function renderAcademyMarkdown(markdown) {
             continue;
         }
 
-        if (line.startsWith('- ') || line.startsWith('* ')) {
+        if (line.startsWith('- ') || (line.startsWith('* ') && !line.startsWith('**'))) {
             if (listType !== 'ul') {
                 flushList();
                 html.push('<ul class="list-disc list-inside space-y-1.5 text-sm text-[#e6ecff]/90 pl-1">');
@@ -116,6 +179,7 @@ function renderAcademyMarkdown(markdown) {
         html.push(`<p class="text-sm text-[#e6ecff]/90 leading-relaxed">${formatAcademyInline(line)}</p>`);
     }
 
+    flushCodeBlock();
     flushList();
     flushQuote();
     return html.join('\n');
@@ -153,24 +217,33 @@ function syncAcademyLevelButtons() {
 }
 
 function setAcademyLevel(level) {
+    if (academyState.level === level) return;
     academyState.level = level;
+    lastRenderedAcademySignature = null;
     syncAcademyLevelButtons();
     renderAcademy();
 }
 
 function setAcademyCategory(category) {
+    if (academyState.category === category) return;
     academyState.category = category;
+    lastRenderedAcademySignature = null;
     renderAcademy();
 }
 
 function filterAcademyArticles() {
     const input = document.getElementById('academy-search');
-    academyState.search = input ? input.value : '';
+    const nextSearch = input ? input.value : '';
+    if (academyState.search === nextSearch) return;
+    academyState.search = nextSearch;
+    lastRenderedAcademySignature = null;
     renderAcademyListAndReader(false);
 }
 
 function selectAcademyArticle(id) {
+    if (academyState.activeId === id) return;
     academyState.activeId = id;
+    lastRenderedAcademySignature = null;
     renderAcademyListAndReader(true);
 }
 
@@ -370,6 +443,13 @@ function renderAcademy() {
     if (!academyState.activeId) {
         academyState.activeId = getAcademyArticlesList()[0]?.id || null;
     }
+
+    const sig = getAcademyRenderSignature();
+    if (sig === lastRenderedAcademySignature) {
+        return;
+    }
+    lastRenderedAcademySignature = sig;
+
     renderAcademyCategories();
     renderAcademyListAndReader(false);
     if (window.lucide && typeof window.lucide.createIcons === 'function') {
