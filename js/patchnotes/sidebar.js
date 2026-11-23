@@ -225,31 +225,24 @@ function syncPatchSidebarBurger() {
         ? Math.round(header.getBoundingClientRect().bottom) + TOP_GAP
         : 76 + TOP_GAP;
 
+    const topOffset = Math.max(TOP_GAP, headerBottom);
     const footerTop = footer
         ? Math.round(footer.getBoundingClientRect().top)
         : window.innerHeight;
 
-    const colRect = col.getBoundingClientRect();
-    const naturalTop = Math.round(colRect.top);
-    const naturalLeft = Math.round(colRect.left);
-    const naturalWidth = Math.round(colRect.width);
+    const availableBottom = footerTop < window.innerHeight
+        ? Math.max(topOffset + 180, footerTop - BOTTOM_FOOTER_GAP)
+        : window.innerHeight - TOP_GAP;
 
-    const lockedTop = Math.max(naturalTop, headerBottom);
+    const maxStickyHeight = Math.max(180, availableBottom - topOffset);
 
-    const defaultBottom = window.innerHeight - TOP_GAP;
-    const footerClampedBottom = footerTop - BOTTOM_FOOTER_GAP;
-    const bottomEdge = footerTop < window.innerHeight
-        ? Math.min(defaultBottom, footerClampedBottom)
-        : defaultBottom;
-
-    const nextHeight = Math.max(180, bottomEdge - lockedTop);
-
-    box.style.position = 'fixed';
-    box.style.top = `${lockedTop}px`;
-    box.style.left = `${naturalLeft}px`;
-    box.style.width = `${naturalWidth}px`;
-    box.style.height = `${nextHeight}px`;
-    box.style.maxHeight = `${nextHeight}px`;
+    col.style.minHeight = '';
+    box.style.position = 'sticky';
+    box.style.left = '';
+    box.style.width = '';
+    box.style.height = '';
+    box.style.top = `${topOffset}px`;
+    box.style.maxHeight = `${maxStickyHeight}px`;
 }
 
 function schedulePatchSidebarSync() {
