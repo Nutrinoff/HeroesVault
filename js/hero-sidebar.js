@@ -28,7 +28,23 @@ let heroIndexCache = {
     byKey: new Map()
 };
 
+function getCatalogApi() {
+    return window.HeroesVaultCatalog && typeof window.HeroesVaultCatalog === 'object'
+        ? window.HeroesVaultCatalog
+        : null;
+}
+
+function getDomApi() {
+    return window.HeroesVaultDom && typeof window.HeroesVaultDom === 'object'
+        ? window.HeroesVaultDom
+        : null;
+}
+
 function toNormalizedHeroKey(value) {
+    const catalog = getCatalogApi();
+    if (catalog && typeof catalog.normalizeKey === 'function') {
+        return catalog.normalizeKey(value);
+    }
     if (typeof normalizeHeroKey === 'function') {
         return normalizeHeroKey(value);
     }
@@ -40,6 +56,13 @@ function toNormalizedHeroKey(value) {
 }
 
 function escapeSidebarHtml(value) {
+    const dom = getDomApi();
+    if (dom && typeof dom.escapeHtml === 'function') {
+        return dom.escapeHtml(value);
+    }
+    if (typeof escapeHtml === 'function') {
+        return escapeHtml(value);
+    }
     return String(value ?? '')
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
@@ -58,22 +81,35 @@ function getSidebarFallbackPortrait() {
         : HERO_FALLBACK_PORTRAIT;
 }
 
+function resolveCatalogHeroRecord(hero) {
+    const catalog = getCatalogApi();
+    if (!catalog || typeof catalog.getHero !== 'function' || !hero) return null;
+    return catalog.getHero(hero.id) || catalog.getHero(hero.name) || null;
+}
+
 function buildHeroRosterSnapshotSignature(list) {
     if (!Array.isArray(list) || list.length === 0) return '';
 
+    const catalog = getCatalogApi();
     return list
         .map(hero => {
             if (!hero || typeof hero !== 'object') return '';
-            const normHero = typeof getNormalizedHeroData === 'function' ? getNormalizedHeroData(hero.id) : null;
-            const resolvedId = String(normHero?.id || hero.id || '').trim();
-            const tier = String(typeof getHeroTier === 'function' ? getHeroTier(resolvedId) : '').toUpperCase();
+            const catalogHero = resolveCatalogHeroRecord(hero);
+            const normHero = catalogHero?.normHero
+                || (typeof getNormalizedHeroData === 'function' ? getNormalizedHeroData(hero.id) : null);
+            const resolvedId = String(catalogHero?.id || normHero?.id || hero.id || '').trim();
+            const tier = String(
+                catalogHero?.tier
+                || (catalog && typeof catalog.getTier === 'function' ? catalog.getTier(resolvedId) : '')
+                || (typeof getHeroTier === 'function' ? getHeroTier(resolvedId) : '')
+            ).toUpperCase();
             return [
                 resolvedId,
                 hero.id || '',
                 hero.name || '',
-                normHero?.name || '',
-                normHero?.role || hero.role || '',
-                normHero?.portrait || hero.portrait || '',
+                catalogHero?.name || normHero?.name || '',
+                catalogHero?.role || normHero?.role || hero.role || '',
+                catalogHero?.portrait || normHero?.portrait || hero.portrait || '',
                 tier
             ].join('~');
         })
@@ -81,24 +117,41 @@ function buildHeroRosterSnapshotSignature(list) {
 }
 
 function buildHeroSidebarEntry(hero, fallbackPortrait) {
-    const normHero = typeof getNormalizedHeroData === 'function' ? getNormalizedHeroData(hero.id) : null;
-    const resolvedId = String(normHero?.id || hero.id || '').trim();
+    const catalog = getCatalogApi();
+    const catalogHero = resolveCatalogHeroRecord(hero);
+    const normHero = catalogHero?.normHero
+        || (typeof getNormalizedHeroData === 'function' ? getNormalizedHeroData(hero.id) : null);
+    const resolvedId = String(catalogHero?.id || normHero?.id || hero.id || '').trim();
     const primaryKey = toNormalizedHeroKey(resolvedId || hero.id);
+
+    const aliasSource = Array.isArray(catalogHero?.aliases) && catalogHero.aliases.length > 0
+        ? [...catalogHero.aliases, hero.id, hero.name, resolvedId, normHero?.name]
+        : [hero.id, hero.name, resolvedId, normHero?.name];
+
     const aliasKeys = new Set(
-        [hero.id, hero.name, resolvedId, normHero?.name]
+        aliasSource
             .map(toNormalizedHeroKey)
             .filter(Boolean)
     );
 
-    const displayName = getHeroDisplayName(normHero || hero) || 'Hero';
-    const role = normHero?.role || hero.role || 'Nexus Combatant';
-    const tier = String(typeof getHeroTier === 'function' ? getHeroTier(resolvedId) : 'D').toUpperCase();
-    const rawEntry = typeof getRawHeroEntry === 'function' ? getRawHeroEntry(resolvedId) : null;
-    const portraitUrl = typeof resolveAssetUrl === 'function'
-        ? resolveAssetUrl(normHero?.portrait || hero.portrait || rawEntry, fallbackPortrait)
-        : fallbackPortrait;
+    const displayName = getHeroDisplayName(catalogHero || normHero || hero) || 'Hero';
+    const role = catalogHero?.role || normHero?.role || hero.role || 'Nexus Combatant';
+    const tier = String(
+        catalogHero?.tier
+        || (catalog && typeof catalog.getTier === 'function' ? catalog.getTier(resolvedId) : '')
+        || (typeof getHeroTier === 'function' ? getHeroTier(resolvedId) : 'D')
+    ).toUpperCase();
 
-    const searchLower = [
+    const catalogAsset = catalog && typeof catalog.getAssetMeta === 'function'
+        ? catalog.getAssetMeta(resolvedId || hero.id)
+        : null;
+    const rawEntry = typeof getRawHeroEntry === 'function' ? getRawHeroEntry(resolvedId) : null;
+    const portraitUrl = catalogAsset?.url
+        || (typeof resolveAssetUrl === 'function'
+            ? resolveAssetUrl(catalogAsset?.source || normHero?.portrait || hero.portrait || rawEntry, fallbackPortrait)
+            : fallbackPortrait);
+
+    const searchLower = catalogHero?.searchLower || [
         hero.searchText,
         hero.name,
         hero.id,
@@ -110,7 +163,7 @@ function buildHeroSidebarEntry(hero, fallbackPortrait) {
         .join(' ')
         .toLowerCase();
 
-    const searchNorm = toNormalizedHeroKey(searchLower);
+    const searchNorm = catalogHero?.searchNorm || toNormalizedHeroKey(searchLower);
 
     return {
         hero,
@@ -250,15 +303,19 @@ function bindSidebarHeightSync() {
 function preloadHeroIds(ids) {
     if (!Array.isArray(ids) || ids.length === 0) return;
 
+    const catalog = getCatalogApi();
     const rawEntries = [];
     for (const id of ids) {
         if (!id) continue;
-        const normInfo = typeof getNormalizedHeroData === 'function' ? getNormalizedHeroData(id) : null;
-        const canonicalKey = toNormalizedHeroKey(normInfo?.id || id);
+        const catalogHero = catalog && typeof catalog.getHero === 'function' ? catalog.getHero(id) : null;
+        const normInfo = catalogHero?.normHero
+            || (typeof getNormalizedHeroData === 'function' ? getNormalizedHeroData(id) : null);
+        const resolvedId = catalogHero?.id || normInfo?.id || id;
+        const canonicalKey = toNormalizedHeroKey(resolvedId);
         if (!canonicalKey || PRELOADED_HERO_KEYS.has(canonicalKey)) continue;
 
-        const raw = typeof getRawHeroEntry === 'function' ? getRawHeroEntry(normInfo?.id || id) : null;
-        if (!raw && !normInfo) continue;
+        const raw = typeof getRawHeroEntry === 'function' ? getRawHeroEntry(resolvedId) : null;
+        if (!raw && !normInfo && !catalogHero) continue;
 
         PRELOADED_HERO_KEYS.add(canonicalKey);
         if (raw) {
@@ -375,6 +432,11 @@ function navigateFromSidebar(heroId, isBuilderView) {
 
 function applyHeroSidebarPortraitFallback(imgEl, fallbackUrl) {
     if (!imgEl || !fallbackUrl) return;
+    const dom = getDomApi();
+    if (dom && typeof dom.attachImageFallback === 'function') {
+        dom.attachImageFallback(imgEl, fallbackUrl);
+        return;
+    }
     if (typeof attachImageFallback === 'function') {
         attachImageFallback(imgEl, fallbackUrl);
         return;
@@ -523,14 +585,32 @@ function filterHeroes() {
         : [];
 
     const { sortedEntries, byKey } = getPreparedHeroRoster(roster);
+    const catalog = getCatalogApi();
 
-    const matchedEntries = rawQuery
-        ? sortedEntries.filter(entry => {
-            if (entry.searchLower.includes(qLower)) return true;
-            if (!qNorm) return false;
-            return entry.searchNorm.includes(qNorm) || entry.primaryKey.includes(qNorm);
-        })
-        : sortedEntries;
+    let matchedEntries = sortedEntries;
+    if (rawQuery) {
+        if (catalog && typeof catalog.searchHeroes === 'function' && heroIndexCache.sourceRef === roster) {
+            const searchHits = catalog.searchHeroes({ query: rawQuery });
+            const allowedKeys = new Set(
+                searchHits.flatMap(hit => [
+                    toNormalizedHeroKey(hit.id),
+                    toNormalizedHeroKey(hit.name),
+                    ...(Array.isArray(hit.aliases) ? hit.aliases.map(toNormalizedHeroKey) : [])
+                ]).filter(Boolean)
+            );
+            matchedEntries = sortedEntries.filter(
+                entry => entry.aliasKeys.has(toNormalizedHeroKey(rawQuery))
+                    || Array.from(entry.aliasKeys).some(k => allowedKeys.has(k))
+                    || entry.searchLower.includes(qLower)
+            );
+        } else {
+            matchedEntries = sortedEntries.filter(entry => {
+                if (entry.searchLower.includes(qLower)) return true;
+                if (!qNorm) return false;
+                return entry.searchNorm.includes(qNorm) || entry.primaryKey.includes(qNorm);
+            });
+        }
+    }
 
     renderPreparedHeroSidebar(matchedEntries, byKey);
 
