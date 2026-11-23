@@ -23,6 +23,7 @@ let lastRenderedActiveKey = null;
 let heroIndexCache = {
     sourceRef: null,
     sourceLen: -1,
+    snapshotSignature: '',
     sortedEntries: [],
     byKey: new Map()
 };
@@ -55,6 +56,28 @@ function getSidebarFallbackPortrait() {
     return typeof HERO_VIEW_ICON_FALLBACK === 'string'
         ? HERO_VIEW_ICON_FALLBACK
         : HERO_FALLBACK_PORTRAIT;
+}
+
+function buildHeroRosterSnapshotSignature(list) {
+    if (!Array.isArray(list) || list.length === 0) return '';
+
+    return list
+        .map(hero => {
+            if (!hero || typeof hero !== 'object') return '';
+            const normHero = typeof getNormalizedHeroData === 'function' ? getNormalizedHeroData(hero.id) : null;
+            const resolvedId = String(normHero?.id || hero.id || '').trim();
+            const tier = String(typeof getHeroTier === 'function' ? getHeroTier(resolvedId) : '').toUpperCase();
+            return [
+                resolvedId,
+                hero.id || '',
+                hero.name || '',
+                normHero?.name || '',
+                normHero?.role || hero.role || '',
+                normHero?.portrait || hero.portrait || '',
+                tier
+            ].join('~');
+        })
+        .join('||');
 }
 
 function buildHeroSidebarEntry(hero, fallbackPortrait) {
@@ -109,10 +132,12 @@ function buildHeroSidebarEntry(hero, fallbackPortrait) {
 function getPreparedHeroRoster(heroes) {
     const list = Array.isArray(heroes) ? heroes : [];
     const fallbackPortrait = getSidebarFallbackPortrait();
+    const snapshotSignature = buildHeroRosterSnapshotSignature(list);
 
     if (
         heroIndexCache.sourceRef === list &&
         heroIndexCache.sourceLen === list.length &&
+        heroIndexCache.snapshotSignature === snapshotSignature &&
         heroIndexCache.sortedEntries.length > 0
     ) {
         return heroIndexCache;
@@ -145,9 +170,14 @@ function getPreparedHeroRoster(heroes) {
         });
     });
 
+    if (heroIndexCache.snapshotSignature && heroIndexCache.snapshotSignature !== snapshotSignature) {
+        lastRenderedOrderKey = null;
+    }
+
     heroIndexCache = {
         sourceRef: list,
         sourceLen: list.length,
+        snapshotSignature,
         sortedEntries: entries,
         byKey
     };
