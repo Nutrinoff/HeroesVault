@@ -18,7 +18,23 @@ let tierRosterIndexCache = {
     byKey: new Map()
 };
 
+function getTierCatalogApi() {
+    return window.HeroesVaultCatalog && typeof window.HeroesVaultCatalog === 'object'
+        ? window.HeroesVaultCatalog
+        : null;
+}
+
+function getTierDomApi() {
+    return window.HeroesVaultDom && typeof window.HeroesVaultDom === 'object'
+        ? window.HeroesVaultDom
+        : null;
+}
+
 function toTierHeroKey(value) {
+    const catalog = getTierCatalogApi();
+    if (catalog && typeof catalog.normalizeKey === 'function') {
+        return catalog.normalizeKey(value);
+    }
     if (typeof normalizeHeroKey === 'function') {
         return normalizeHeroKey(value);
     }
@@ -72,6 +88,19 @@ function resolveTierHeroEntry(rawEntry) {
             ? (rawEntry.id || rawEntry.hyperlinkId || rawEntry.attributeId || rawEntry.name || '')
             : '');
     if (!candidate) return null;
+
+    const catalog = getTierCatalogApi();
+    const catalogHero = catalog && typeof catalog.getHero === 'function'
+        ? (catalog.getHero(candidate) || catalog.getHero(String(candidate).split(',')[0]))
+        : null;
+
+    if (catalogHero && (catalogHero.id || catalogHero.name)) {
+        return {
+            id: catalogHero.id || catalogHero.name,
+            name: catalogHero.name || catalogHero.id,
+            portrait: catalogHero.portrait || catalogHero.portraitMeta?.source || ''
+        };
+    }
 
     const rosterIndex = getTierRosterIndex();
     const candidateKey = toTierHeroKey(candidate);
@@ -130,6 +159,19 @@ function resolveTierListPortraitUrl(hero) {
     const fallback = getTierListFallbackPortrait();
     if (!hero) return fallback;
 
+    if (typeof hero.portrait === 'string' && /^(https?:\/\/|data:|\.{0,2}\/)/.test(hero.portrait)) {
+        return hero.portrait;
+    }
+
+    const catalog = getTierCatalogApi();
+    if (catalog && typeof catalog.getAssetMeta === 'function') {
+        const meta = catalog.getAssetMeta(hero.id || hero.name);
+        if (meta?.url) return meta.url;
+        if (meta?.source && typeof resolveAssetUrl === 'function') {
+            return resolveAssetUrl(meta.source, fallback);
+        }
+    }
+
     const rawEntry = typeof getRawHeroEntry === 'function' ? getRawHeroEntry(hero.id) : null;
     const source = hero.portrait || rawEntry || hero;
 
@@ -144,6 +186,11 @@ function resolveTierListPortraitUrl(hero) {
 
 function applyTierPortraitFallback(imgEl, fallbackUrl) {
     if (!imgEl || !fallbackUrl) return;
+    const dom = getTierDomApi();
+    if (dom && typeof dom.attachImageFallback === 'function') {
+        dom.attachImageFallback(imgEl, fallbackUrl);
+        return;
+    }
     if (typeof attachImageFallback === 'function') {
         attachImageFallback(imgEl, fallbackUrl);
         return;
