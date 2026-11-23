@@ -185,17 +185,10 @@ function renderPatchSidebar(items) {
 }
 
 function resetPatchSidebarLayout() {
-    const col = document.getElementById('patch-sidebar-column');
     const box = document.getElementById('patch-sidebar-sticky-box');
-    if (col) {
-        col.style.minHeight = '';
-    }
     if (box) {
         box.style.position = '';
         box.style.top = '';
-        box.style.left = '';
-        box.style.width = '';
-        box.style.height = '';
         box.style.maxHeight = '';
     }
 }
@@ -204,9 +197,8 @@ function syncPatchSidebarBurger() {
     patchSidebarRafId = null;
 
     const view = document.getElementById('view-patchnotes');
-    const col = document.getElementById('patch-sidebar-column');
     const box = document.getElementById('patch-sidebar-sticky-box');
-    if (!view || !col || !box) return;
+    if (!view || !box) return;
 
     const isVisible = !view.classList.contains('hidden') && view.offsetParent !== null;
     const isDesktop = window.innerWidth >= 1024;
@@ -218,31 +210,23 @@ function syncPatchSidebarBurger() {
 
     const header = document.querySelector('header');
     const footer = document.querySelector('body > footer');
-    const TOP_GAP = 20;
-    const BOTTOM_FOOTER_GAP = TOP_GAP;
+    const gap = 20;
 
-    const headerBottom = header
-        ? Math.round(header.getBoundingClientRect().bottom) + TOP_GAP
-        : 76 + TOP_GAP;
+    const topOffset = header
+        ? Math.max(gap, Math.round(header.getBoundingClientRect().bottom) + gap)
+        : 96;
 
-    const topOffset = Math.max(TOP_GAP, headerBottom);
     const footerTop = footer
         ? Math.round(footer.getBoundingClientRect().top)
         : window.innerHeight;
 
-    const availableBottom = footerTop < window.innerHeight
-        ? Math.max(topOffset + 180, footerTop - BOTTOM_FOOTER_GAP)
-        : window.innerHeight - TOP_GAP;
+    const bottomLimit = footerTop < window.innerHeight
+        ? Math.max(topOffset + 180, footerTop - gap)
+        : window.innerHeight - gap;
 
-    const maxStickyHeight = Math.max(180, availableBottom - topOffset);
-
-    col.style.minHeight = '';
     box.style.position = 'sticky';
-    box.style.left = '';
-    box.style.width = '';
-    box.style.height = '';
     box.style.top = `${topOffset}px`;
-    box.style.maxHeight = `${maxStickyHeight}px`;
+    box.style.maxHeight = `${Math.max(180, bottomLimit - topOffset)}px`;
 }
 
 function schedulePatchSidebarSync() {
