@@ -18,15 +18,15 @@
 </head>
 <body class="hots-body text-[#e6ecff] min-h-screen flex flex-col selection:bg-[#58baff] selection:text-[#04101d]">
 
-  <!---- HEADER ---->
+ <!--- HEADER --->
   <header class="hots-topbar sticky top-0 z-50">
-    <div class="max-w-[1600px] mx-auto px-6 py-2.5 flex flex-col items-center justify-between gap-3 md:flex-row">
+    <div class="max-w-[1600px] mx-auto px-6 pt-2.5 pb-0 flex flex-col items-center justify-between gap-2 md:flex-row md:items-stretch">
       <div
         id="brand-home-trigger"
         role="button"
         tabindex="0"
         aria-label="HeroesVault Home"
-        class="flex items-center gap-3 cursor-pointer group"
+        class="flex items-center gap-3 pb-2.5 cursor-pointer group"
       >
         <div class="hots-brand-emblem">
           <svg class="w-8 h-8 transition-transform duration-150 group-hover:scale-105" viewBox="0 0 28 28" fill="none" aria-hidden="true">
@@ -44,38 +44,38 @@
         </div>
       </div>
 
-<nav aria-label="Primary navigation" class="hots-nav-rail flex items-center flex-wrap justify-center relative">
-  <button id="nav-home" type="button" data-nav-tab="home" class="nav-button">
-    <i data-lucide="home" class="w-4 h-4 text-current" aria-hidden="true"></i> Home
-  </button>
-  <button id="nav-builds" type="button" data-nav-tab="builds" class="nav-button">
-    <i data-lucide="shield" class="w-4 h-4 text-current" aria-hidden="true"></i> Builds
-  </button>
-  <div class="relative inline-flex items-center">
-    <button
-      id="maps-dropdown-toggle"
-      type="button"
-      aria-expanded="false"
-      aria-controls="maps-dropdown-menu"
-      class="nav-button"
-    >
-      <i data-lucide="map" class="w-4 h-4 text-current" aria-hidden="true"></i> Maps <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-current opacity-80" aria-hidden="true"></i>
-    </button>
-    <div id="maps-dropdown-menu" class="absolute left-0 top-full mt-2 w-max min-w-[14rem] whitespace-nowrap hots-dropdown py-2 hidden z-50"></div>
-  </div>
-  <button id="nav-builder" type="button" data-nav-tab="builder" class="nav-button">
-    <i data-lucide="cpu" class="w-4 h-4 text-current" aria-hidden="true"></i> Talent Builder
-  </button>
-  <button id="nav-academy" type="button" data-nav-tab="academy" class="nav-button">
-    <i data-lucide="graduation-cap" class="w-4 h-4 text-current" aria-hidden="true"></i> Nexus Academy
-  </button>
-  <button id="nav-patchnotes" type="button" data-nav-tab="patchnotes" class="nav-button">
-    <i data-lucide="file-text" class="w-4 h-4 text-current" aria-hidden="true"></i> Patch Notes
-  </button>
-  <button id="nav-tierlist" type="button" data-nav-tab="tierlist" class="nav-button">
-    <i data-lucide="layers" class="w-4 h-4 text-current" aria-hidden="true"></i> Tier List
-  </button>
-</nav>
+      <nav aria-label="Primary navigation" class="hots-nav-rail flex items-end flex-wrap justify-center relative">
+        <button id="nav-home" type="button" data-nav-tab="home" class="nav-button">
+          <i data-lucide="home" class="w-4 h-4 text-current" aria-hidden="true"></i> Home
+        </button>
+        <button id="nav-builds" type="button" data-nav-tab="builds" class="nav-button">
+          <i data-lucide="shield" class="w-4 h-4 text-current" aria-hidden="true"></i> Builds
+        </button>
+        <div class="relative inline-flex items-end">
+          <button
+            id="maps-dropdown-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="maps-dropdown-menu"
+            class="nav-button"
+          >
+            <i data-lucide="map" class="w-4 h-4 text-current" aria-hidden="true"></i> Maps <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-current opacity-80" aria-hidden="true"></i>
+          </button>
+          <div id="maps-dropdown-menu" class="absolute left-0 top-full mt-2 w-max min-w-[14rem] whitespace-nowrap hots-dropdown py-2 hidden z-50"></div>
+        </div>
+        <button id="nav-builder" type="button" data-nav-tab="builder" class="nav-button">
+          <i data-lucide="cpu" class="w-4 h-4 text-current" aria-hidden="true"></i> Talent Builder
+        </button>
+        <button id="nav-academy" type="button" data-nav-tab="academy" class="nav-button">
+          <i data-lucide="graduation-cap" class="w-4 h-4 text-current" aria-hidden="true"></i> Nexus Academy
+        </button>
+        <button id="nav-patchnotes" type="button" data-nav-tab="patchnotes" class="nav-button">
+          <i data-lucide="file-text" class="w-4 h-4 text-current" aria-hidden="true"></i> Patch Notes
+        </button>
+        <button id="nav-tierlist" type="button" data-nav-tab="tierlist" class="nav-button">
+          <i data-lucide="layers" class="w-4 h-4 text-current" aria-hidden="true"></i> Tier List
+        </button>
+      </nav>
     </div>
   </header>
 
