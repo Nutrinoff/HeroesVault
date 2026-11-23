@@ -243,7 +243,7 @@ function preloadHeroIds(ids) {
 
 function warmSearchMatches(matches) {
     if (!Array.isArray(matches) || matches.length === 0) return;
-    preloadHeroIds(matches.slice(0, 3).map(m => m.id));
+    preloadHeroIds(matches.slice(0, 3).map(m => m.resolvedId || m.id));
 }
 
 function cancelPendingVisibleHeroPreload() {
@@ -371,16 +371,18 @@ function syncSidebarSelectionInDom(listEl, activeKey, isBuilder) {
     });
 }
 
-function renderHeroSidebar(heroes) {
+function renderPreparedHeroSidebar(entries, byKey = heroIndexCache.byKey) {
     bindHeroSidebarEvents();
 
     const list = document.getElementById('hero-list');
     if (!list) return;
 
-    const { sortedEntries, byKey } = getPreparedHeroRoster(heroes);
+    const sortedEntries = Array.isArray(entries) ? entries : [];
     const isBuilder = !document.getElementById('view-builder')?.classList.contains('hidden');
     const activeId = isBuilder ? builderHeroId : currentSelectedHeroId;
-    const activeEntry = activeId ? byKey.get(toNormalizedHeroKey(activeId)) : null;
+    const activeEntry = activeId && byKey instanceof Map
+        ? byKey.get(toNormalizedHeroKey(activeId))
+        : null;
     const activeKey = activeEntry?.primaryKey || toNormalizedHeroKey(activeId);
 
     const orderKey = sortedEntries.map(e => e.resolvedId).join('|');
@@ -471,6 +473,11 @@ function renderHeroSidebar(heroes) {
     requestAnimationFrame(syncSidebarHeightToContent);
 }
 
+function renderHeroSidebar(heroes) {
+    const { sortedEntries, byKey } = getPreparedHeroRoster(heroes);
+    renderPreparedHeroSidebar(sortedEntries, byKey);
+}
+
 function filterHeroes() {
     bindHeroSidebarEvents();
     clearTimeout(heroSearchDebounceTimer);
@@ -485,7 +492,7 @@ function filterHeroes() {
         ? MASTER_HERO_LIST
         : [];
 
-    const { sortedEntries } = getPreparedHeroRoster(roster);
+    const { sortedEntries, byKey } = getPreparedHeroRoster(roster);
 
     const matchedEntries = rawQuery
         ? sortedEntries.filter(entry => {
@@ -495,11 +502,10 @@ function filterHeroes() {
         })
         : sortedEntries;
 
-    const sortedMatches = matchedEntries.map(entry => entry.hero);
-    renderHeroSidebar(sortedMatches);
+    renderPreparedHeroSidebar(matchedEntries, byKey);
 
     if (rawQuery) {
-        heroSearchPreloadTimer = setTimeout(() => warmSearchMatches(sortedMatches), HERO_SEARCH_PRELOAD_DELAY_MS);
+        heroSearchPreloadTimer = setTimeout(() => warmSearchMatches(matchedEntries), HERO_SEARCH_PRELOAD_DELAY_MS);
     }
 }
 
