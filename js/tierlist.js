@@ -10,12 +10,22 @@ const TIER_LEAGUE_LABELS = {
     D: 'Bronze'
 };
 
-function resolveTierListPortraitUrl(hero) {
-    const fallback = typeof HERO_FALLBACK_PORTRAIT === 'string'
-        ? HERO_FALLBACK_PORTRAIT
-        : 'https://via.placeholder.com/110?text=Hero';
+const TIERLIST_PORTRAIT_FALLBACK = `data:image/svg+xml;utf8,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="110" height="110" viewBox="0 0 110 110"><rect width="110" height="110" fill="#0d0724"/><rect x="1" y="1" width="108" height="108" fill="none" stroke="#38247a" stroke-width="2"/><text x="55" y="64" fill="#9cb6ff" font-family="monospace" font-size="34" text-anchor="middle">?</text></svg>')}`;
 
+function getTierListFallbackPortrait() {
+    if (typeof HERO_FALLBACK_PORTRAIT === 'string' && HERO_FALLBACK_PORTRAIT) {
+        return HERO_FALLBACK_PORTRAIT;
+    }
+    if (typeof HERO_VIEW_ICON_FALLBACK === 'string' && HERO_VIEW_ICON_FALLBACK) {
+        return HERO_VIEW_ICON_FALLBACK;
+    }
+    return TIERLIST_PORTRAIT_FALLBACK;
+}
+
+function resolveTierListPortraitUrl(hero) {
+    const fallback = getTierListFallbackPortrait();
     if (!hero) return fallback;
+
     const rawEntry = typeof getRawHeroEntry === 'function' ? getRawHeroEntry(hero.id) : null;
     const source = hero.portrait || rawEntry || hero;
 
@@ -28,10 +38,22 @@ function resolveTierListPortraitUrl(hero) {
     return fallback;
 }
 
+function applyTierPortraitFallback(imgEl, fallbackUrl) {
+    if (!imgEl || !fallbackUrl) return;
+    if (typeof attachImageFallback === 'function') {
+        attachImageFallback(imgEl, fallbackUrl);
+        return;
+    }
+    imgEl.addEventListener('error', function onFallbackError() {
+        imgEl.removeEventListener('error', onFallbackError);
+        if (imgEl.getAttribute('src') !== fallbackUrl) {
+            imgEl.src = fallbackUrl;
+        }
+    });
+}
+
 function createTierHeroButton(hero) {
-    const fallback = typeof HERO_FALLBACK_PORTRAIT === 'string'
-        ? HERO_FALLBACK_PORTRAIT
-        : 'https://via.placeholder.com/110?text=Hero';
+    const fallback = getTierListFallbackPortrait();
     const portraitUrl = resolveTierListPortraitUrl(hero);
 
     const btn = document.createElement('button');
@@ -46,15 +68,11 @@ function createTierHeroButton(hero) {
     });
 
     const img = document.createElement('img');
-    img.src = portraitUrl;
     img.alt = `${hero.name || hero.id} portrait`;
     img.className = 'w-7 h-7 rounded-[2px] border border-[#5c42b8]/70 object-cover bg-[#070412] shrink-0';
     img.loading = 'lazy';
-    img.addEventListener('error', () => {
-        if (img.src !== fallback) {
-            img.src = fallback;
-        }
-    }, { once: true });
+    applyTierPortraitFallback(img, fallback);
+    img.src = portraitUrl;
 
     const label = document.createElement('span');
     label.textContent = hero.name || hero.id;
