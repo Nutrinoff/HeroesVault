@@ -54,28 +54,62 @@ function encodeIngameBuildCode(selections, heroId = '', options = {}) {
 
 
 // ==========================================
-// 3. BUILD CODE DECODING
+// 3. BUILD CODE DECODING & PARSE STATUS
 // ==========================================
 
-function decodeTalentSelections(codeOrString, options = {}) {
+function parseTalentSelectionsWithStatus(codeOrString, options = {}) {
     const allowZero = Boolean(options && options.allowZero);
-    const pattern = allowZero
-        ? /^\[?T([0-6]{7})(?:,[^\]]*)?\]?$/i
-        : /^\[?T([1-6]{7})(?:,[^\]]*)?\]?$/i;
-    const barePattern = allowZero ? /^([0-6]{7})$/ : /^([1-6]{7})$/;
     const fallback = allowZero ? [...EMPTY_TALENT_SELECTIONS] : [...DEFAULT_TALENT_SELECTIONS];
-
     const trimmed = String(codeOrString || '').trim();
+
     if (!trimmed) {
-        return fallback;
+        return {
+            selections: fallback,
+            valid: false,
+            hadZero: false,
+            normalized: true,
+            reason: 'empty'
+        };
     }
 
-    const match = trimmed.match(pattern) || trimmed.match(barePattern);
+    const zeroCapablePattern = /^\[?T([0-6]{7})(?:,[^\]]*)?\]?$/i;
+    const zeroCapableBarePattern = /^([0-6]{7})$/;
+    const match = trimmed.match(zeroCapablePattern) || trimmed.match(zeroCapableBarePattern);
+
     if (!match) {
-        return fallback;
+        return {
+            selections: fallback,
+            valid: false,
+            hadZero: false,
+            normalized: true,
+            reason: 'invalid-format'
+        };
     }
 
-    return match[1].split('').map(digit => Number(digit));
+    const digits = match[1].split('').map(digit => Number(digit));
+    const hadZero = digits.includes(0);
+
+    if (!allowZero && hadZero) {
+        return {
+            selections: [...DEFAULT_TALENT_SELECTIONS],
+            valid: false,
+            hadZero: true,
+            normalized: true,
+            reason: 'contains-zero'
+        };
+    }
+
+    return {
+        selections: digits,
+        valid: true,
+        hadZero,
+        normalized: false,
+        reason: 'ok'
+    };
+}
+
+function decodeTalentSelections(codeOrString, options = {}) {
+    return parseTalentSelectionsWithStatus(codeOrString, options).selections;
 }
 
 function decodeBuildCode(codeOrString, options = {}) {
@@ -118,11 +152,15 @@ function parseBuilderQuery(searchOrUrl = '') {
     const params = new URLSearchParams(rawSearch);
     const hero = (params.get('hero') || '').trim();
     const rawCode = (params.get('build') || params.get('talents') || params.get('code') || '').trim();
+    const parsedMeta = rawCode ? parseTalentSelectionsWithStatus(rawCode, { allowZero: true }) : null;
 
     return {
         hero,
         rawCode,
-        selections: rawCode ? decodeTalentSelections(rawCode, { allowZero: true }) : null
+        selections: parsedMeta ? parsedMeta.selections : null,
+        valid: parsedMeta ? parsedMeta.valid : !rawCode,
+        hadZero: parsedMeta ? parsedMeta.hadZero : false,
+        parseStatus: parsedMeta
     };
 }
 
