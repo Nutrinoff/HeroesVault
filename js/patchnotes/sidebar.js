@@ -154,9 +154,13 @@ function syncSidebarActiveCardState(selectedId) {
 
     buttons.forEach(btn => {
         const isSelected = targetId !== null && btn.dataset.patchId === targetId;
-        btn.setAttribute('aria-current', isSelected ? 'true' : 'false');
-        btn.classList.remove(...SELECTED_CARD_CLASSES, ...UNSELECTED_CARD_CLASSES);
-        btn.classList.add(...(isSelected ? SELECTED_CARD_CLASSES : UNSELECTED_CARD_CLASSES));
+        btn.classList.add('hots-list-item');
+        btn.classList.toggle('is-selected', isSelected);
+        if (isSelected) {
+            btn.setAttribute('aria-current', 'true');
+        } else {
+            btn.removeAttribute('aria-current');
+        }
     });
 }
 
@@ -189,12 +193,10 @@ function renderPatchSidebar(items) {
         btn.id = `btn-patch-${idx}`;
         btn.dataset.patchId = String(item.id);
         const isSelected = activeId !== null && String(activeId) === String(item.id);
-        btn.setAttribute('aria-current', isSelected ? 'true' : 'false');
-        btn.className = `w-full text-left p-3.5 rounded-xl border transition space-y-2 group ${
-            isSelected
-                ? SELECTED_CARD_CLASSES.join(' ')
-                : UNSELECTED_CARD_CLASSES.join(' ')
-        }`;
+        btn.className = `hots-list-item${isSelected ? ' is-selected' : ''}`;
+        if (isSelected) {
+            btn.setAttribute('aria-current', 'true');
+        }
         btn.addEventListener('click', event => {
             selectPatchItem(item.id);
             if (event.detail > 0) {
@@ -216,14 +218,14 @@ function renderPatchSidebar(items) {
 
         btn.innerHTML = `
             <div class="flex items-center justify-between gap-2">
-                <span class="text-xs text-[#8c83a2]">${escapeHtml(item.listDate || item.date)}</span>
+                <span class="hots-list-item__meta">${escapeHtml(item.listDate || item.date)}</span>
                 <div class="flex items-center gap-1 shrink-0">
                     ${eraPill}
                     ${versionPill}
                     ${feedBadge}
                 </div>
             </div>
-            <h4 class="text-sm font-bold text-[#e6ecff] group-hover:text-[#cbe8ff] leading-snug">${escapeHtml(item.title)}</h4>
+            <h4 class="hots-list-item__title text-sm font-bold leading-snug mt-1.5">${escapeHtml(item.title)}</h4>
         `;
         frag.appendChild(btn);
     });
