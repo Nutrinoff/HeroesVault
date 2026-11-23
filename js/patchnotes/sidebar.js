@@ -30,7 +30,7 @@ function syncFilterButtonStates() {
 
 function clearPatchDeepLinkFromLocation() {
     if (typeof patchState !== 'undefined' && patchState) {
-        patchState.pendingDeepLink = null;
+        patchState.pendingSelectionId = null;
         patchState.selectedId = null;
     }
 
@@ -73,23 +73,19 @@ function setPatchFilter(filterType) {
     const raw = String(filterType || '').toLowerCase();
     const normalized = ['all', 'live', 'ptr'].includes(raw) ? raw : 'all';
 
-    if (typeof patchState !== 'undefined' && patchState) {
-        patchState.manualFilterLock = true;
-    }
-
     clearPatchDeepLinkFromLocation();
 
-    if (typeof patchState !== 'undefined' && patchState) {
-        patchState.filter = normalized;
-    }
-    if (typeof CURRENT_FILTER !== 'undefined') {
-        CURRENT_FILTER = normalized;
-    }
     if (typeof setPatchFilterState === 'function') {
         setPatchFilterState(normalized);
+    } else {
+        if (typeof patchState !== 'undefined' && patchState) {
+            patchState.filter = normalized;
+        }
+        if (typeof CURRENT_FILTER !== 'undefined') {
+            CURRENT_FILTER = normalized;
+        }
+        syncFilterButtonStates();
     }
-
-    syncFilterButtonStates();
 
     if (typeof loadLivePatchNotes === 'function') {
         loadLivePatchNotes();
