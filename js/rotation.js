@@ -25,7 +25,23 @@ var rotationFetchInflight = null;
 // 2. DATE & CANONICAL HERO LOOKUP HELPERS
 // ==========================================
 
+function getRotationCatalogApi() {
+    return window.HeroesVaultCatalog && typeof window.HeroesVaultCatalog === 'object'
+        ? window.HeroesVaultCatalog
+        : null;
+}
+
+function getRotationDomApi() {
+    return window.HeroesVaultDom && typeof window.HeroesVaultDom === 'object'
+        ? window.HeroesVaultDom
+        : null;
+}
+
 function resolveRotationHeroKey(val) {
+    var catalog = getRotationCatalogApi();
+    if (catalog && typeof catalog.normalizeKey === 'function') {
+        return catalog.normalizeKey(val);
+    }
     if (typeof normalizeHeroKey === 'function') {
         return normalizeHeroKey(val);
     }
@@ -117,14 +133,24 @@ function pickActiveScheduleEntry(list, now) {
 }
 
 function findRosterEntryByCandidates(candidates) {
+    var catalog = getRotationCatalogApi();
+    if (catalog && typeof catalog.getHero === 'function') {
+        for (var i = 0; i < candidates.length; i++) {
+            var hit = catalog.getHero(candidates[i]);
+            if (hit && hit.rawHero) {
+                return hit.rawHero;
+            }
+        }
+    }
+
     var roster = typeof MASTER_HERO_LIST !== 'undefined' && Array.isArray(MASTER_HERO_LIST)
         ? MASTER_HERO_LIST
         : [];
     if (!roster.length) return null;
 
     var candidateKeys = [];
-    for (var i = 0; i < candidates.length; i++) {
-        var k = resolveRotationHeroKey(candidates[i]);
+    for (var kIdx = 0; kIdx < candidates.length; kIdx++) {
+        var k = resolveRotationHeroKey(candidates[kIdx]);
         if (k && candidateKeys.indexOf(k) === -1) {
             candidateKeys.push(k);
         }
@@ -149,6 +175,8 @@ function findRosterEntryByCandidates(candidates) {
 }
 
 function resolveMatchedHeroRecord(candidates) {
+    var catalog = getRotationCatalogApi();
+    var matchedCatalogHero = null;
     var matchedRaw = null;
     var matchedNormalized = null;
 
@@ -156,23 +184,34 @@ function resolveMatchedHeroRecord(candidates) {
         var candidate = candidates[i];
         if (!candidate) continue;
 
+        if (!matchedCatalogHero && catalog && typeof catalog.getHero === 'function') {
+            matchedCatalogHero = catalog.getHero(candidate);
+        }
         if (!matchedRaw && typeof getRawHeroEntry === 'function') {
             matchedRaw = getRawHeroEntry(candidate);
         }
         if (!matchedNormalized && typeof getNormalizedHeroData === 'function') {
             matchedNormalized = getNormalizedHeroData(candidate);
         }
-        if (matchedRaw && matchedNormalized) break;
+        if ((matchedCatalogHero || (matchedRaw && matchedNormalized))) break;
     }
 
-    var rosterMatch = findRosterEntryByCandidates(candidates);
+    if (matchedCatalogHero) {
+        matchedNormalized = matchedNormalized || matchedCatalogHero.normHero || null;
+    }
+
+    var rosterMatch = (matchedCatalogHero && matchedCatalogHero.rawHero) || findRosterEntryByCandidates(candidates);
     var canonicalId =
+        (matchedCatalogHero && matchedCatalogHero.id) ||
         (matchedNormalized && matchedNormalized.id) ||
         (matchedRaw && (matchedRaw.id || matchedRaw.hyperlinkId || matchedRaw.attributeId)) ||
         (rosterMatch && rosterMatch.id) ||
         '';
 
     if (canonicalId) {
+        if (!matchedCatalogHero && catalog && typeof catalog.getHero === 'function') {
+            matchedCatalogHero = catalog.getHero(canonicalId);
+        }
         if (!matchedRaw && typeof getRawHeroEntry === 'function') {
             matchedRaw = getRawHeroEntry(canonicalId);
         }
@@ -181,12 +220,13 @@ function resolveMatchedHeroRecord(candidates) {
         }
     }
 
-    if (!matchedRaw && !matchedNormalized && !rosterMatch) {
+    if (!matchedCatalogHero && !matchedRaw && !matchedNormalized && !rosterMatch) {
         return null;
     }
 
     return {
         canonicalId: canonicalId || (rosterMatch && rosterMatch.id) || '',
+        catalogHero: matchedCatalogHero || null,
         listItem: rosterMatch || null,
         rawEntry: matchedRaw || null,
         normalized: matchedNormalized || null
@@ -194,6 +234,16 @@ function resolveMatchedHeroRecord(candidates) {
 }
 
 function resolveRotationPortraitUrl(record, item) {
+    if (record && record.catalogHero && record.catalogHero.portrait) {
+        return record.catalogHero.portrait;
+    }
+
+    var catalog = getRotationCatalogApi();
+    if (catalog && typeof catalog.getAssetMeta === 'function' && record && record.canonicalId) {
+        var meta = catalog.getAssetMeta(record.canonicalId);
+        if (meta && meta.url) return meta.url;
+    }
+
     var sources = [
         record && record.normalized,
         record && record.listItem,
@@ -227,14 +277,16 @@ function matchHeroWithIndex(entry) {
         console.warn('[Rotation] Unmatched hero in rotation data: "' + fallbackName + '" (id: "' + (rawId || 'none') + '")');
     }
 
+    var catHero = (matchedRecord && matchedRecord.catalogHero) || {};
     var normHero = (matchedRecord && matchedRecord.normalized) || {};
     var listHero = (matchedRecord && matchedRecord.listItem) || {};
     var rawHero = (matchedRecord && matchedRecord.rawEntry) || {};
 
     var isMatched = Boolean(matchedRecord && matchedRecord.canonicalId);
     var canonicalId = isMatched ? matchedRecord.canonicalId : '';
-    var canonicalName = normHero.name || listHero.name || rawHero.name || fallbackName;
+    var canonicalName = catHero.name || normHero.name || listHero.name || rawHero.name || fallbackName;
     var canonicalRole =
+        catHero.role ||
         normHero.role ||
         listHero.role ||
         (Array.isArray(listHero.roles) && listHero.roles[0]) ||
@@ -381,6 +433,11 @@ function sortRotationHeroesF2pFirst(heroes) {
 
 function applyRotationPortraitFallback(imgEl, fallbackUrl) {
     if (!imgEl || !fallbackUrl) return;
+    var dom = getRotationDomApi();
+    if (dom && typeof dom.attachImageFallback === 'function') {
+        dom.attachImageFallback(imgEl, fallbackUrl);
+        return;
+    }
     if (typeof attachImageFallback === 'function') {
         attachImageFallback(imgEl, fallbackUrl);
         return;
