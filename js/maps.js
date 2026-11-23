@@ -3,10 +3,14 @@
 // =========================================
 
 const MAP_DETAILS_CACHE = new Map();
+const WARMED_MAP_IDS = new Set();
+const MAP_DROPDOWN_WARM_LIMIT = 2;
 const MAP_FALLBACK_BANNER = `data:image/svg+xml;utf8,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="500" viewBox="0 0 1200 500"><rect width="1200" height="500" fill="#0d0724"/><rect x="1" y="1" width="1198" height="498" fill="none" stroke="#38247a" stroke-width="2"/><text x="600" y="258" fill="#8c83a2" font-family="monospace" font-size="28" text-anchor="middle">BATTLEGROUND ART UNAVAILABLE</text></svg>')}`;
 const MAP_HERO_FALLBACK_PORTRAIT = `data:image/svg+xml;utf8,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><rect width="64" height="64" fill="#0d0724"/><rect x="1" y="1" width="62" height="62" fill="none" stroke="#38247a" stroke-width="2"/><text x="32" y="39" fill="#9cb6ff" font-family="monospace" font-size="22" text-anchor="middle">?</text></svg>')}`;
 
 let activeMapSelectionSeq = 0;
+let activeMapId = null;
+let dropdownWarmedCount = 0;
 
 function resolveMapAssetUrl(assetSource, fallbackUrl) {
     if (typeof resolveAssetUrl === 'function') {
@@ -28,7 +32,7 @@ function preloadMapImage(portraitSource) {
     const url = resolveMapAssetUrl(portraitSource, '');
     if (!url) return;
     if (typeof preloadAllAssets === 'function') {
-        preloadAllAssets([url]);
+        preloadAllAssets([url], { limit: 1 });
     }
 }
 
@@ -120,18 +124,29 @@ async function fetchMapDetails(id) {
     return {};
 }
 
-function warmMapAssets(id) {
+function warmMapAssets(id, { includeDetails = false, fromDropdown = false } = {}) {
+    if (!id || WARMED_MAP_IDS.has(id)) return;
+    if (fromDropdown && dropdownWarmedCount >= MAP_DROPDOWN_WARM_LIMIT) return;
+
+    WARMED_MAP_IDS.add(id);
+    if (fromDropdown) {
+        dropdownWarmedCount += 1;
+    }
+
     const summary = Array.isArray(MASTER_MAP_LIST)
         ? MASTER_MAP_LIST.find(m => m.id === id)
         : null;
     if (summary?.portrait) {
         preloadMapImage(summary.portrait);
     }
-    fetchMapDetails(id).then(details => {
-        if (details?.portrait) {
-            preloadMapImage(details.portrait);
-        }
-    });
+
+    if (includeDetails) {
+        fetchMapDetails(id).then(details => {
+            if (details?.portrait) {
+                preloadMapImage(details.portrait);
+            }
+        });
+    }
 }
 
 function syncMapsDropdownAria(isExpanded) {
@@ -159,13 +174,10 @@ function toggleMapsDropdown(e) {
     menu.classList.toggle('hidden');
     syncMapsDropdownAria(opening);
 
-    if (opening && Array.isArray(MASTER_MAP_LIST)) {
-        if (typeof preloadAllAssets === 'function') {
-            preloadAllAssets(MASTER_MAP_LIST.map(m => m?.portrait).filter(Boolean), { limit: MASTER_MAP_LIST.length });
-        } else {
-            MASTER_MAP_LIST.forEach(m => {
-                if (m?.portrait) preloadMapImage(m.portrait);
-            });
+    if (opening) {
+        dropdownWarmedCount = 0;
+        if (activeMapId) {
+            warmMapAssets(activeMapId, { includeDetails: false, fromDropdown: true });
         }
     }
 }
@@ -200,7 +212,9 @@ function populateMapsDropdown() {
         link.className = 'block px-4 py-1.5 text-sm text-[#e6ecff]/85 hover:bg-[#190e40] hover:text-[#cbe8ff] transition whitespace-nowrap';
         link.textContent = m.name || m.id;
 
-        link.addEventListener('mouseenter', () => warmMapAssets(m.id), { passive: true });
+        const warmHoveredMap = () => warmMapAssets(m.id, { includeDetails: false, fromDropdown: true });
+        link.addEventListener('mouseenter', warmHoveredMap, { passive: true });
+        link.addEventListener('focus', warmHoveredMap, { passive: true });
         link.addEventListener('click', e => {
             e.preventDefault();
             selectMapFromDropdown(m.id);
@@ -444,6 +458,9 @@ async function selectMap(id, update = true) {
         }
         return;
     }
+
+    activeMapId = id;
+    WARMED_MAP_IDS.add(id);
 
     const seq = ++activeMapSelectionSeq;
     closeMapsDropdown();
