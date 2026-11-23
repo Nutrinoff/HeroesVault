@@ -3,35 +3,45 @@
 // ==========================================
 
 const MAP_DETAILS_CACHE = new Map();
-const PRELOADED_MAP_IMAGES = new Set();
-const MAP_FALLBACK_BANNER = 'https://via.placeholder.com/1200x500?text=Map';
-const MAP_HERO_FALLBACK_PORTRAIT = 'https://via.placeholder.com/48?text=H';
+const MAP_FALLBACK_BANNER = `data:image/svg+xml;utf8,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="500" viewBox="0 0 1200 500"><rect width="1200" height="500" fill="#0d0724"/><rect x="1" y="1" width="1198" height="498" fill="none" stroke="#38247a" stroke-width="2"/><text x="600" y="258" fill="#8c83a2" font-family="monospace" font-size="28" text-anchor="middle">BATTLEGROUND ART UNAVAILABLE</text></svg>')}`;
+const MAP_HERO_FALLBACK_PORTRAIT = `data:image/svg+xml;utf8,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><rect width="64" height="64" fill="#0d0724"/><rect x="1" y="1" width="62" height="62" fill="none" stroke="#38247a" stroke-width="2"/><text x="32" y="39" fill="#9cb6ff" font-family="monospace" font-size="22" text-anchor="middle">?</text></svg>')}`;
 
 let activeMapSelectionSeq = 0;
 
 function resolveMapAssetUrl(assetSource, fallbackUrl) {
-    if (!assetSource) return fallbackUrl;
     if (typeof resolveAssetUrl === 'function') {
-        return resolveAssetUrl(assetSource, fallbackUrl);
+        return resolveAssetUrl(assetSource, fallbackUrl || '');
     }
     if (typeof getAssetUrl === 'function') {
-        return getAssetUrl(assetSource) || fallbackUrl;
+        return getAssetUrl(assetSource, fallbackUrl || '');
     }
-    return typeof assetSource === 'string' ? assetSource : fallbackUrl;
+    if (!assetSource) return fallbackUrl || '';
+    return typeof assetSource === 'string' ? assetSource : (fallbackUrl || '');
 }
 
 function preloadMapImage(portraitSource) {
     if (!portraitSource) return;
-    const url = resolveMapAssetUrl(portraitSource, '');
-    if (!url || PRELOADED_MAP_IMAGES.has(url)) return;
-
-    PRELOADED_MAP_IMAGES.add(url);
-    if (typeof preloadAllAssets === 'function') {
-        preloadAllAssets([url]);
+    if (typeof warmAsset === 'function') {
+        warmAsset(portraitSource);
         return;
     }
-    const img = new Image();
-    img.src = url;
+    const url = resolveMapAssetUrl(portraitSource, '');
+    if (!url) return;
+    if (typeof preloadAllAssets === 'function') {
+        preloadAllAssets([url]);
+    }
+}
+
+function applyMapImageFallback(imgEl, fallbackUrl) {
+    if (!imgEl || !fallbackUrl) return;
+    if (typeof attachImageFallback === 'function') {
+        attachImageFallback(imgEl, fallbackUrl);
+        return;
+    }
+    imgEl.onerror = () => {
+        imgEl.onerror = null;
+        imgEl.src = fallbackUrl;
+    };
 }
 
 async function fetchMapDetails(id) {
@@ -114,9 +124,13 @@ function toggleMapsDropdown(e) {
     syncMapsDropdownAria(opening);
 
     if (opening && Array.isArray(MASTER_MAP_LIST)) {
-        MASTER_MAP_LIST.forEach(m => {
-            if (m?.portrait) preloadMapImage(m.portrait);
-        });
+        if (typeof preloadAllAssets === 'function') {
+            preloadAllAssets(MASTER_MAP_LIST.map(m => m?.portrait).filter(Boolean), { limit: MASTER_MAP_LIST.length });
+        } else {
+            MASTER_MAP_LIST.forEach(m => {
+                if (m?.portrait) preloadMapImage(m.portrait);
+            });
+        }
     }
 }
 
@@ -344,10 +358,7 @@ function renderGoldenHeroes(heroesEl, goldenHeroes) {
         img.className = 'w-full h-full object-cover block';
         img.alt = h.name;
         img.loading = 'lazy';
-        img.onerror = () => {
-            img.onerror = null;
-            img.src = MAP_HERO_FALLBACK_PORTRAIT;
-        };
+        applyMapImageFallback(img, MAP_HERO_FALLBACK_PORTRAIT);
         img.src = resolveMapAssetUrl(h.portrait, MAP_HERO_FALLBACK_PORTRAIT);
 
         btn.appendChild(img);
@@ -379,10 +390,7 @@ function renderMapView(m, fallbackId) {
     if (themeEl) themeEl.textContent = mapData.theme || '';
     if (portraitEl) {
         portraitEl.alt = `${mapData.name || fallbackId} battleground backdrop`;
-        portraitEl.onerror = () => {
-            portraitEl.onerror = null;
-            portraitEl.src = MAP_FALLBACK_BANNER;
-        };
+        applyMapImageFallback(portraitEl, MAP_FALLBACK_BANNER);
         portraitEl.src = resolveMapAssetUrl(mapData.portrait, MAP_FALLBACK_BANNER);
     }
 
