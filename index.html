@@ -112,12 +112,17 @@
         <div class="min-w-0 space-y-4">
           <!-- Header Banner -->
           <div class="hots-panel hots-banner-accent px-6 py-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div class="space-y-1 min-w-0">
+            <div class="space-y-2 min-w-0">
               <div class="hots-label text-[#58baff]">Nexus Command &amp; Loadout Hub</div>
               <h2 class="hots-display text-2xl font-bold uppercase tracking-wide">HeroesVault</h2>
               <p class="text-xs sm:text-sm text-[#9cb6ff]/90 max-w-2xl">
                 Hero talent loadouts, build code calculator, battleground guides, patch feed, and personal tier rankings.
               </p>
+              <div class="flex flex-wrap items-center gap-2 pt-0.5 text-[11px] font-mono">
+                <span id="home-hero-count" class="hots-subpanel px-2.5 py-0.5 text-[#58baff]">0 Heroes</span>
+                <span id="home-build-count" class="hots-subpanel px-2.5 py-0.5 text-[#f5d89a]">0 Sets</span>
+                <span id="home-guide-count" class="hots-subpanel px-2.5 py-0.5 text-[#9d90ff]">0 Guides</span>
+              </div>
             </div>
             <div class="flex flex-wrap gap-2.5 shrink-0">
               <button type="button" data-nav-tab="builds" class="hots-btn-cyan hots-display font-bold uppercase tracking-wider px-5 py-2 text-xs sm:text-sm transition flex items-center gap-2 cursor-pointer">
