@@ -4,7 +4,9 @@
 
 let initialDataPromise = null;
 let initialDataLoaded = false;
+let featuresInitPromise = null;
 let featuresInitialized = false;
+let appBootstrapPromise = null;
 let appBootstrapped = false;
 
 function assertRequiredGlobals() {
@@ -193,67 +195,86 @@ async function initializeFeatures({ force = false } = {}) {
     if (!force && featuresInitialized) {
         return;
     }
-    featuresInitialized = true;
+    if (!force && featuresInitPromise) {
+        return featuresInitPromise;
+    }
 
-    runFeatureSafe('initializeTooltips', () => {
-        if (typeof initializeTooltips === 'function') {
-            initializeTooltips();
+    featuresInitPromise = (async () => {
+        try {
+            runFeatureSafe('initializeTooltips', () => {
+                if (typeof initializeTooltips === 'function') {
+                    initializeTooltips();
+                }
+            });
+
+            runFeatureSafe('initializeHeroSidebar', () => {
+                if (typeof initializeHeroSidebar === 'function') {
+                    initializeHeroSidebar(MASTER_HERO_LIST);
+                } else if (typeof renderHeroSidebar === 'function') {
+                    renderHeroSidebar(MASTER_HERO_LIST);
+                }
+            });
+
+            runFeatureSafe('renderTierList', () => {
+                if (typeof renderTierList === 'function') {
+                    renderTierList();
+                }
+            });
+
+            runFeatureSafe('syncHomeSummaryCounts', syncHomeSummaryCounts);
+
+            await runFeatureSafe('loadAndRenderRotation', async () => {
+                if (typeof loadAndRenderRotation === 'function') {
+                    await loadAndRenderRotation();
+                }
+            });
+
+            runFeatureSafe('initPatchNotes', () => {
+                if (typeof initPatchNotes === 'function') {
+                    initPatchNotes({ hydrateHome: true });
+                } else if (typeof initPatchFilterControls === 'function') {
+                    initPatchFilterControls();
+                }
+            });
+
+            runFeatureSafe('bindGlobalDismissHandlers', bindGlobalDismissHandlers);
+
+            runFeatureSafe('lucide.createIcons', () => {
+                if (window.lucide) {
+                    lucide.createIcons();
+                }
+            });
+
+            featuresInitialized = true;
+        } finally {
+            featuresInitPromise = null;
         }
-    });
+    })();
 
-    runFeatureSafe('initializeHeroSidebar', () => {
-        if (typeof initializeHeroSidebar === 'function') {
-            initializeHeroSidebar(MASTER_HERO_LIST);
-        } else if (typeof renderHeroSidebar === 'function') {
-            renderHeroSidebar(MASTER_HERO_LIST);
-        }
-    });
-
-    runFeatureSafe('renderTierList', () => {
-        if (typeof renderTierList === 'function') {
-            renderTierList();
-        }
-    });
-
-    runFeatureSafe('syncHomeSummaryCounts', syncHomeSummaryCounts);
-
-    await runFeatureSafe('loadAndRenderRotation', async () => {
-        if (typeof loadAndRenderRotation === 'function') {
-            await loadAndRenderRotation();
-        }
-    });
-
-    runFeatureSafe('initPatchNotes', () => {
-        if (typeof initPatchNotes === 'function') {
-            initPatchNotes({ hydrateHome: true });
-        } else if (typeof initPatchFilterControls === 'function') {
-            initPatchFilterControls();
-        }
-    });
-
-    runFeatureSafe('bindGlobalDismissHandlers', bindGlobalDismissHandlers);
-
-    runFeatureSafe('lucide.createIcons', () => {
-        if (window.lucide) {
-            lucide.createIcons();
-        }
-    });
+    return featuresInitPromise;
 }
 
 async function bootstrapApp() {
     if (appBootstrapped) return;
-    appBootstrapped = true;
+    if (appBootstrapPromise) return appBootstrapPromise;
 
-    try {
-        assertRequiredGlobals();
-        await loadInitialData();
-        await initializeFeatures();
-        if (typeof initializeRouter === 'function') {
-            initializeRouter();
+    appBootstrapPromise = (async () => {
+        try {
+            assertRequiredGlobals();
+            await loadInitialData();
+            await initializeFeatures();
+            if (typeof initializeRouter === 'function') {
+                initializeRouter();
+            }
+            appBootstrapped = true;
+        } catch (e) {
+            console.error('[HeroesVault] Failed initializing app:', e);
+        } finally {
+            appBootstrapPromise = null;
         }
-    } catch (e) {
-        console.error('[HeroesVault] Failed initializing app:', e);
-    }
+    })();
+
+    return appBootstrapPromise;
 }
 
 if (document.readyState === 'loading') {
