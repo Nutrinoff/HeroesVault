@@ -2,8 +2,21 @@
 // 1. TAB & VIEW SWITCHING
 // =======================================
 
-function switchTabUI(t) {
-    const activeTab = t === 'heroes' ? 'builds' : t;
+let lastActiveTab = null;
+let lastHandledRouteSignature = null;
+let isHandlingRoute = false;
+
+function switchTabUI(t, { force = false } = {}) {
+    const activeTab = t === 'heroes' ? 'builds' : (t || 'home');
+
+    if (!force && lastActiveTab === activeTab) {
+        if (activeTab === 'patchnotes' && typeof schedulePatchSidebarSync === 'function') {
+            schedulePatchSidebarSync();
+        }
+        return;
+    }
+
+    lastActiveTab = activeTab;
 
     const viewStates = {
         'view-home': activeTab === 'home',
@@ -133,7 +146,7 @@ function navigateTo(tab, params = {}, push = true) {
         location.hash = hashTarget;
     }
 
-    handleRoute();
+    handleRoute({ force: true });
 }
 
 function resolveBuilderRouteParams(query) {
@@ -157,47 +170,62 @@ function resolveBuilderRouteParams(query) {
     };
 }
 
-function handleRoute() {
+function handleRoute(options = {}) {
+    const force = Boolean(options && options.force);
+    if (isHandlingRoute && !force) return;
+
     const [tpart, query = ''] = location.hash.replace(/^#/, '').split('?');
     const rawTab = tpart || 'home';
     const tab = rawTab === 'heroes' ? 'builds' : rawTab;
     const q = new URLSearchParams(query);
 
-    if (tab !== 'patchnotes') {
-        clearPatchQueryParamsFromUrl();
+    const routeSig = `${tab}?${q.toString()}::active=${lastActiveTab || ''}`;
+    if (!force && lastActiveTab === tab && lastHandledRouteSignature === routeSig) {
+        return;
     }
 
-    switchTabUI(tab);
+    isHandlingRoute = true;
+    try {
+        if (tab !== 'patchnotes') {
+            clearPatchQueryParamsFromUrl();
+        }
 
-    if (tab === 'builds') {
-        if (typeof selectHero === 'function') {
-            selectHero(resolveRouteHeroId(q.get('hero')), false);
+        switchTabUI(tab, { force });
+
+        if (tab === 'builds') {
+            if (typeof selectHero === 'function') {
+                selectHero(resolveRouteHeroId(q.get('hero')), false);
+            }
+        } else if (tab === 'map') {
+            if (typeof selectMap === 'function') {
+                selectMap(q.get('id') || 'alteracpass', false);
+            }
+        } else if (tab === 'builder') {
+            if (typeof openBuilder === 'function') {
+                const { heroId, selections } = resolveBuilderRouteParams(query);
+                openBuilder(heroId, selections, false);
+            }
+        } else if (tab === 'academy') {
+            if (typeof renderAcademy === 'function') {
+                renderAcademy();
+            }
+        } else if (tab === 'patchnotes') {
+            if (typeof initPatchNotes === 'function') {
+                initPatchNotes({
+                    patchId: q.get('patch') || null,
+                    feed: q.get('feed') || null,
+                    openView: true
+                });
+            }
+        } else if (tab === 'tierlist') {
+            if (typeof renderTierList === 'function') {
+                renderTierList();
+            }
         }
-    } else if (tab === 'map') {
-        if (typeof selectMap === 'function') {
-            selectMap(q.get('id') || 'alteracpass', false);
-        }
-    } else if (tab === 'builder') {
-        if (typeof openBuilder === 'function') {
-            const { heroId, selections } = resolveBuilderRouteParams(query);
-            openBuilder(heroId, selections, false);
-        }
-    } else if (tab === 'academy') {
-        if (typeof renderAcademy === 'function') {
-            renderAcademy();
-        }
-    } else if (tab === 'patchnotes') {
-        if (typeof initPatchNotes === 'function') {
-            initPatchNotes({
-                patchId: q.get('patch') || null,
-                feed: q.get('feed') || null,
-                openView: true
-            });
-        }
-    } else if (tab === 'tierlist') {
-        if (typeof renderTierList === 'function') {
-            renderTierList();
-        }
+
+        lastHandledRouteSignature = `${tab}?${q.toString()}::active=${tab}`;
+    } finally {
+        isHandlingRoute = false;
     }
 }
 
@@ -222,7 +250,7 @@ function initializeRouter() {
     bindNavigationEvents();
     if (!window.__heroesVaultPopstateBound) {
         window.__heroesVaultPopstateBound = true;
-        window.addEventListener('popstate', handleRoute);
+        window.addEventListener('popstate', () => handleRoute({ force: true }));
     }
-    handleRoute();
+    handleRoute({ force: true });
 }
