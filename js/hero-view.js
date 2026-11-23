@@ -17,6 +17,12 @@ const BLOCKED_NOTES_TAGS = new Set([
     'BASE', 'FORM', 'INPUT', 'BUTTON', 'TEXTAREA', 'SELECT', 'NOSCRIPT'
 ]);
 
+function getHeroViewDomApi() {
+    return window.HeroesVaultDom && typeof window.HeroesVaultDom === 'object'
+        ? window.HeroesVaultDom
+        : null;
+}
+
 function toHeroViewKey(value) {
     if (typeof normalizeHeroKey === 'function') {
         return normalizeHeroKey(value);
@@ -29,6 +35,17 @@ function toHeroViewKey(value) {
 }
 
 function isSafeNotesUrl(rawUrl, { allowDataImage = false } = {}) {
+    const dom = getHeroViewDomApi();
+    if (dom && typeof dom.isSafeUrl === 'function') {
+        if (allowDataImage) {
+            const trimmed = String(rawUrl || '').trim();
+            if (/^data:image\/(?:png|jpe?g|gif|webp);/i.test(trimmed)) {
+                return true;
+            }
+        }
+        return dom.isSafeUrl(rawUrl, { allowDataImage: false });
+    }
+
     const trimmed = String(rawUrl || '').trim();
     if (!trimmed) return false;
     if (allowDataImage && /^data:image\/(?:png|jpe?g|gif|webp);/i.test(trimmed)) {
@@ -40,6 +57,30 @@ function isSafeNotesUrl(rawUrl, { allowDataImage = false } = {}) {
     } catch (_) {
         return false;
     }
+}
+
+function decorateNotesMediaAttributes(container) {
+    if (!container || typeof container.querySelectorAll !== 'function') return;
+
+    container.querySelectorAll('a').forEach(anchor => {
+        const href = anchor.getAttribute('href');
+        if (isSafeNotesUrl(href, { allowDataImage: false })) {
+            anchor.setAttribute('target', '_blank');
+            anchor.setAttribute('rel', 'noopener noreferrer');
+        } else {
+            anchor.removeAttribute('href');
+        }
+    });
+
+    container.querySelectorAll('img').forEach(img => {
+        const src = img.getAttribute('src');
+        if (!isSafeNotesUrl(src, { allowDataImage: true })) {
+            img.remove();
+            return;
+        }
+        img.setAttribute('alt', img.getAttribute('alt') || '');
+        img.setAttribute('loading', 'lazy');
+    });
 }
 
 function sanitizeNodeForNotes(node, doc) {
@@ -93,7 +134,19 @@ function sanitizeBuildNotesHtml(rawHtml) {
     const source = String(rawHtml);
     if (!source.trim()) return '';
 
+    const dom = getHeroViewDomApi();
+    if (dom && typeof dom.sanitizeHtml === 'function' && typeof DOMParser !== 'undefined') {
+        const sanitized = dom.sanitizeHtml(source, { allowedTags: ALLOWED_NOTES_TAGS });
+        const wrapper = document.createElement('div');
+        wrapper.innerHTML = sanitized;
+        decorateNotesMediaAttributes(wrapper);
+        return wrapper.innerHTML;
+    }
+
     if (typeof DOMParser === 'undefined') {
+        if (dom && typeof dom.escapeHtml === 'function') {
+            return dom.escapeHtml(source);
+        }
         return source
             .replace(/&/g, '&amp;')
             .replace(/</g, '&lt;')
@@ -124,7 +177,10 @@ function setSafeImageSrc(imgEl, primaryUrl, fallbackUrl = '', { hideOnFail = fal
 
     imgEl.onerror = null;
     if (fallbackUrl) {
-        if (typeof attachImageFallback === 'function') {
+        const dom = getHeroViewDomApi();
+        if (dom && typeof dom.attachImageFallback === 'function') {
+            dom.attachImageFallback(imgEl, fallbackUrl);
+        } else if (typeof attachImageFallback === 'function') {
             attachImageFallback(imgEl, fallbackUrl);
         } else {
             imgEl.addEventListener('error', function onFallbackError() {
