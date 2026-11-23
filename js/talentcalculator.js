@@ -42,12 +42,21 @@ function buildBuilderHashAndState(heroId, selections) {
     const buildStr = typeof encodeTalentSelections === 'function'
         ? encodeTalentSelections(selections, BUILDER_ZERO_OPTS)
         : normalizeTalentSelections(selections, BUILDER_ZERO_OPTS).join('');
-    const hashTarget = `#builder?hero=${encodeURIComponent(heroId)}&build=${encodeURIComponent(buildStr)}`;
+    const routeParams = { hero: heroId, build: buildStr };
     const state = {
         tab: 'builder',
-        params: { hero: heroId, build: buildStr }
+        params: routeParams
     };
 
+    if (window.HeroesVaultRouterState && typeof window.HeroesVaultRouterState.serializeRouteUrl === 'function') {
+        return {
+            buildStr,
+            hashUrl: window.HeroesVaultRouterState.serializeRouteUrl('builder', routeParams, window.location),
+            state
+        };
+    }
+
+    const hashTarget = `#builder?hero=${encodeURIComponent(heroId)}&build=${encodeURIComponent(buildStr)}`;
     let urlStr = hashTarget;
     try {
         const url = new URL(window.location.href);
@@ -64,8 +73,15 @@ function buildBuilderHashAndState(heroId, selections) {
 }
 
 function syncBuilderUrl(push = false) {
-    if (!builderHeroId || typeof window.history?.replaceState !== 'function') return;
-    const { hashUrl, state } = buildBuilderHashAndState(builderHeroId, builderSelectedTalents);
+    if (!builderHeroId) return;
+    const { buildStr, hashUrl, state } = buildBuilderHashAndState(builderHeroId, builderSelectedTalents);
+
+    if (window.HeroesVaultRouterState && typeof window.HeroesVaultRouterState.writeHistoryRoute === 'function') {
+        window.HeroesVaultRouterState.writeHistoryRoute('builder', { hero: builderHeroId, build: buildStr }, { replace: !push });
+        return;
+    }
+
+    if (typeof window.history?.replaceState !== 'function') return;
     if (window.location.href === hashUrl) return;
 
     try {
@@ -179,6 +195,10 @@ function resolveBuilderTalentIcon(iconPath) {
 
 function applyTalentIconFallback(imgEl) {
     if (!imgEl) return;
+    if (window.HeroesVaultDom && typeof window.HeroesVaultDom.attachImageFallback === 'function') {
+        window.HeroesVaultDom.attachImageFallback(imgEl, TALENT_ICON_FALLBACK);
+        return;
+    }
     if (typeof attachImageFallback === 'function') {
         attachImageFallback(imgEl, TALENT_ICON_FALLBACK);
         return;
@@ -346,12 +366,20 @@ function fallbackCopyText(text) {
     return Boolean(copied);
 }
 
-function copyTextWithFallback(text, buttonEl = null, copiedLabel = 'Copied') {
+async function copyTextWithFallback(text, buttonEl = null, copiedLabel = 'Copied') {
     if (!text) return;
 
     const completeCopy = () => {
         flashCopyButtonState(buttonEl, copiedLabel);
     };
+
+    if (window.HeroesVaultDom && typeof window.HeroesVaultDom.copyTextWithFallback === 'function') {
+        const ok = await window.HeroesVaultDom.copyTextWithFallback(text);
+        if (ok) {
+            completeCopy();
+        }
+        return;
+    }
 
     if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
         navigator.clipboard.writeText(text)
