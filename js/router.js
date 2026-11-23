@@ -151,13 +151,16 @@ function navigateTo(tab, params = {}, push = true) {
 
 function resolveBuilderRouteParams(query) {
     const fallbackHeroId = getFallbackRosterHeroId();
+    const decodeOpts = { allowZero: true };
 
     if (typeof parseBuilderQuery === 'function') {
-        const parsed = parseBuilderQuery(`?${query}`);
+        const parsed = parseBuilderQuery(`?${query}`, decodeOpts);
         return {
             heroId: resolveRouteHeroId(parsed.hero) || fallbackHeroId,
             selections: parsed.rawCode
-                ? (typeof decodeBuildCode === 'function' ? decodeBuildCode(parsed.rawCode) : parsed.selections)
+                ? (typeof decodeBuildCode === 'function'
+                    ? decodeBuildCode(parsed.rawCode, decodeOpts)
+                    : parsed.selections)
                 : null
         };
     }
@@ -166,7 +169,9 @@ function resolveBuilderRouteParams(query) {
     const rawCode = q.get('build') || q.get('talents') || q.get('code') || '';
     return {
         heroId: resolveRouteHeroId(q.get('hero')) || fallbackHeroId,
-        selections: rawCode && typeof decodeBuildCode === 'function' ? decodeBuildCode(rawCode) : null
+        selections: rawCode && typeof decodeBuildCode === 'function'
+            ? decodeBuildCode(rawCode, decodeOpts)
+            : null
     };
 }
 
