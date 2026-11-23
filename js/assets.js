@@ -16,6 +16,8 @@ function extractPortraitPath(source) {
         p.heroSelect ||
         p.leaderboard ||
         p.target ||
+        p.loading ||
+        source.loading ||
         source.portrait ||
         source.portraitUrl ||
         source.imageUrl ||
@@ -26,11 +28,14 @@ function extractPortraitPath(source) {
 }
 
 function getAssetUrl(path, fallback) {
-    var safeFallback = fallback || '';
+    var safeFallback = typeof fallback === 'string' ? fallback : '';
     if (!path) return safeFallback;
-    if (/^(https?:\/\/|data:image\/)/i.test(path)) return path;
 
-    var p = String(path).trim().replace(/^\.\//, '').replace(/^\/+/, '');
+    var trimmed = String(path).trim();
+    if (!trimmed) return safeFallback;
+    if (/^(https?:\/\/|data:image\/)/i.test(trimmed)) return trimmed;
+
+    var p = trimmed.replace(/^\.\//, '').replace(/^\/+/, '');
     if (!p) return safeFallback;
 
     if (p.indexOf('/') !== -1 && KNOWN_ASSET_FOLDERS.some(function (folder) {
@@ -52,12 +57,12 @@ function getAssetUrl(path, fallback) {
         lower.indexOf('loadingscreen') !== -1;
 
     var isAbilityOrTalentIcon =
-    lower.indexOf('storm_ui_talent') === 0 ||
-    lower.indexOf('storm_ui_icon_') === 0 ||
-    lower.indexOf('storm_ui_btn_') === 0 ||
-    lower.indexOf('storm_temp_') === 0 ||
-    lower.indexOf('storm_btn_') === 0 ||
-    lower.indexOf('btn-') === 0;
+        lower.indexOf('storm_ui_talent') === 0 ||
+        lower.indexOf('storm_ui_icon_') === 0 ||
+        lower.indexOf('storm_ui_btn_') === 0 ||
+        lower.indexOf('storm_temp_') === 0 ||
+        lower.indexOf('storm_btn_') === 0 ||
+        lower.indexOf('btn-') === 0;
 
     if (isPortrait) {
         p = 'heroportraits/' + p;
@@ -73,7 +78,7 @@ function getAssetUrl(path, fallback) {
 }
 
 function resolveAssetUrl(sourceOrPath, fallback) {
-    var safeFallback = fallback || '';
+    var safeFallback = typeof fallback === 'string' ? fallback : '';
     if (!sourceOrPath) return safeFallback;
 
     var rawPath = extractPortraitPath(sourceOrPath);
@@ -93,6 +98,24 @@ function warmSingleAssetUrl(url) {
     var img = new Image();
     img.decoding = 'async';
     img.src = url;
+}
+
+function warmAsset(sourceOrPath, fallback) {
+    var resolved = resolveAssetUrl(sourceOrPath, fallback || '');
+    if (resolved) {
+        warmSingleAssetUrl(resolved);
+    }
+    return resolved;
+}
+
+function attachImageFallback(imgEl, fallbackUrl) {
+    if (!imgEl || !fallbackUrl) return;
+    imgEl.addEventListener('error', function onError() {
+        imgEl.removeEventListener('error', onError);
+        if (imgEl.getAttribute('src') !== fallbackUrl) {
+            imgEl.src = fallbackUrl;
+        }
+    });
 }
 
 function getHeroPortrait(hero) {
