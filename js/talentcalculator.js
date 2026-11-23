@@ -18,6 +18,8 @@ const INACTIVE_TALENT_CLASSES = [
 const TALENT_ICON_FALLBACK = `data:image/svg+xml;utf8,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><rect width="48" height="48" fill="#0d0724"/><rect x="1" y="1" width="46" height="46" fill="none" stroke="#38247a" stroke-width="2"/><text x="24" y="30" fill="#9cb6ff" font-family="monospace" font-size="18" text-anchor="middle">?</text></svg>')}`;
 const BUILDER_LEGACY_QUERY_KEYS = ['view', 'hero', 'build', 'talents', 'code'];
 
+let lastAppliedBuilderSignature = null;
+
 function getBuilderSelectedTalentObjects() {
     if (!builderHeroData?.talents || !Array.isArray(builderSelectedTalents)) return [];
     const tiers = typeof TALENT_TIERS !== 'undefined' ? TALENT_TIERS : ['1', '4', '7', '10', '13', '16', '20'];
@@ -93,6 +95,15 @@ function resolveBuilderHero(id) {
     return null;
 }
 
+function getBuilderSessionSignature(canonicalId, selections) {
+    const encoded = Array.isArray(selections)
+        ? (typeof encodeTalentSelections === 'function'
+            ? encodeTalentSelections(selections, { allowZero: true })
+            : selections.join(''))
+        : 'default';
+    return `${canonicalId}::${encoded}`;
+}
+
 async function openBuilder(id = null, selections = null, update = true) {
     bindTalentBuilderEvents();
 
@@ -107,7 +118,14 @@ async function openBuilder(id = null, selections = null, update = true) {
     }
 
     const canonicalId = heroData.id || id;
-    resetBuilderState(canonicalId, selections);
+    const sessionSig = getBuilderSessionSignature(canonicalId, selections);
+    const alreadyRendered = builderHeroData?.id === canonicalId && lastAppliedBuilderSignature === sessionSig;
+
+    if (!alreadyRendered) {
+        resetBuilderState(canonicalId, selections);
+        lastAppliedBuilderSignature = sessionSig;
+    }
+
     switchTabUI('builder');
 
     if (typeof filterHeroes === 'function') {
@@ -116,10 +134,12 @@ async function openBuilder(id = null, selections = null, update = true) {
         renderHeroSidebar(MASTER_HERO_LIST);
     }
 
-    builderHeroData = heroData;
-    syncBuilderAbilityStrip();
-    renderBuilderMatrix();
-    updateBuilderOutput(false);
+    if (!alreadyRendered || !builderHeroData) {
+        builderHeroData = heroData;
+        syncBuilderAbilityStrip();
+        renderBuilderMatrix();
+        updateBuilderOutput(false);
+    }
 
     if (update) {
         syncBuilderUrl(true);
@@ -208,6 +228,7 @@ function renderBuilderMatrix() {
 
             b.addEventListener('click', () => {
                 builderSelectedTalents[idx] = n;
+                lastAppliedBuilderSignature = getBuilderSessionSignature(builderHeroId, builderSelectedTalents);
                 updateBuilderMatrixSelection();
                 syncBuilderAbilityStrip();
                 updateBuilderOutput(true);
@@ -235,6 +256,7 @@ function renderBuilderMatrix() {
 
 function resetBuilder() {
     resetBuilderState(builderHeroId, null);
+    lastAppliedBuilderSignature = getBuilderSessionSignature(builderHeroId, null);
     updateBuilderMatrixSelection();
     syncBuilderAbilityStrip();
     updateBuilderOutput(true);
@@ -258,11 +280,11 @@ function updateBuilderOutput(updateUrl = true) {
 }
 
 function getIngameBuildString() {
-    const heroLabel = builderHeroData?.name || builderHeroId || '';
+    const canonicalHeroId = builderHeroData?.id || builderHeroId || '';
     if (typeof encodeIngameBuildCode === 'function') {
-        return encodeIngameBuildCode(builderSelectedTalents, heroLabel);
+        return encodeIngameBuildCode(builderSelectedTalents, canonicalHeroId);
     }
-    return encodeBuildCode(builderSelectedTalents, heroLabel);
+    return encodeBuildCode(builderSelectedTalents, canonicalHeroId);
 }
 
 function getShareableBuilderUrl() {
