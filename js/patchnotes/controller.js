@@ -230,12 +230,7 @@ async function loadLivePatchNotes() {
         setPatchFilterState(activeDeepLink.feed);
     }
 
-    listContainer.innerHTML = `
-        <div class="flex items-center justify-between px-2 pb-2">
-            <h3 class="text-xs font-bold uppercase tracking-wider text-[#9cb6ff]">${escapeHtml(patchState.filter)} Feed</h3>
-        </div>
-        <div class="text-xs text-[#8c83a2] p-3">Loading patch notes...</div>
-    `;
+    listContainer.innerHTML = `<div class="text-xs text-[#8c83a2] p-3">Loading patch notes...</div>`;
 
     schedulePatchSidebarSync();
 
@@ -248,13 +243,7 @@ async function loadLivePatchNotes() {
         if (filtered.length === 0) {
             setActivePatchItemsState([]);
             patchState.manualFilterLock = false;
-            listContainer.innerHTML = `
-                <div class="flex items-center justify-between px-2 pb-2">
-                    <h3 class="text-xs font-bold uppercase tracking-wider text-[#9cb6ff]">${escapeHtml(patchState.filter)} Feed</h3>
-                    <span class="text-[10px] font-mono text-[#8c83a2]">0</span>
-                </div>
-                <div class="text-xs text-[#8c83a2] p-3">No patches found in this feed.</div>
-            `;
+            listContainer.innerHTML = `<div class="text-xs text-[#8c83a2] p-3">No patches found in this feed.</div>`;
             const mainContent = document.getElementById('patch-main-content');
             if (mainContent) {
                 mainContent.innerHTML = `<div class="p-6 text-[#8c83a2] text-sm">No patch notes available.</div>`;
@@ -340,17 +329,21 @@ async function selectPatchItem(id, options = {}) {
         item.build ? `Build <span class="text-[#e6ecff] font-semibold">${escapeHtml(item.build)}</span>` : null
     ].filter(Boolean);
 
-    const feedBadge = item.feedType === 'ptr'
-        ? `<span class="text-[10px] px-2 py-0.5 rounded font-mono uppercase text-[#ffeab6] bg-[#e38b0d]/20 border border-[#fed600]/40">${escapeHtml(item.feedType)}</span>`
-        : `<span class="text-[10px] px-2 py-0.5 rounded font-mono uppercase text-[#cbe8ff] bg-[#0063c8]/25 border border-[#58baff]/40">${escapeHtml(item.feedType)}</span>`;
+    const feedLabel = item.feedType === 'ptr'
+        ? `<span class="hots-list-tag hots-list-tag--gold hots-list-tag--active">${escapeHtml(item.feedType)}</span>`
+        : `<span class="hots-list-tag hots-list-tag--cyan hots-list-tag--active">${escapeHtml(item.feedType)}</span>`;
+
+    const archiveLabel = item.isArchive
+        ? `<span class="hots-list-tag hots-list-tag--meta hots-list-tag--active">Archive</span>`
+        : '';
 
     mainContent.innerHTML = `
         <article class="space-y-6">
             <header class="border-b border-[#38247a] pb-4 space-y-2">
-                <div class="flex flex-wrap items-center gap-2">
+                <div class="flex flex-wrap items-center gap-3">
                     <span class="text-xs font-mono text-[#58baff]">${escapeHtml(item.date)}</span>
-                    ${feedBadge}
-                    ${item.isArchive ? `<span class="text-[10px] px-2 py-0.5 rounded font-mono uppercase text-[#9cb6ff] bg-[#120b2e] border border-[#38247a]">Archive</span>` : ''}
+                    ${feedLabel}
+                    ${archiveLabel}
                 </div>
                 <h2 class="hots-display text-3xl font-bold tracking-tight">${escapeHtml(item.title)}</h2>
                 ${metaParts.length ? `<div class="text-xs font-mono text-[#8c83a2] flex flex-wrap gap-x-4 gap-y-1">${metaParts.join('<span>·</span>')}</div>` : ''}
