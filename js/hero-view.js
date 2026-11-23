@@ -7,6 +7,17 @@ const HERO_VIEW_PORTRAIT_FALLBACK = typeof HERO_FALLBACK_PORTRAIT === 'string'
     ? HERO_FALLBACK_PORTRAIT
     : HERO_VIEW_ICON_FALLBACK;
 
+function toHeroViewKey(value) {
+    if (typeof normalizeHeroKey === 'function') {
+        return normalizeHeroKey(value);
+    }
+    return String(value || '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, '');
+}
+
 function setSafeImageSrc(imgEl, primaryUrl, fallbackUrl = '', { hideOnFail = false } = {}) {
     if (!imgEl) return;
 
@@ -44,11 +55,8 @@ function setSafeImageSrc(imgEl, primaryUrl, fallbackUrl = '', { hideOnFail = fal
 
 function isLostVikingsHero(hero) {
     if (!hero) return false;
-    const norm = typeof normalizeHeroKey === 'function'
-        ? normalizeHeroKey
-        : v => String(v || '').toLowerCase().replace(/[^a-z0-9]/g, '');
-    const idKey = norm(hero.id || hero.heroId || '');
-    const nameKey = norm(hero.name || '');
+    const idKey = toHeroViewKey(hero.id || hero.heroId || '');
+    const nameKey = toHeroViewKey(hero.name || '');
     return idKey.includes('lostviking') || nameKey.includes('lostviking');
 }
 
@@ -374,15 +382,32 @@ function renderBuildStrip(h, code) {
     box.replaceChildren(frag);
 }
 
+function findPersonalBuildEntry(hero) {
+    const builds = typeof PERSONAL_BUILDS !== 'undefined' && Array.isArray(PERSONAL_BUILDS)
+        ? PERSONAL_BUILDS
+        : [];
+    if (!builds.length || !hero) return null;
+
+    const candidateKeys = new Set(
+        [hero.id, hero.name]
+            .map(toHeroViewKey)
+            .filter(Boolean)
+    );
+
+    return builds.find(entry => {
+        if (!entry || typeof entry !== 'object') return false;
+        const entryKeys = [entry.heroId, entry.id, entry.heroName, entry.name]
+            .map(toHeroViewKey)
+            .filter(Boolean);
+        return entryKeys.some(k => candidateKeys.has(k));
+    }) || null;
+}
+
 function renderActiveBuild() {
     const h = currentHeroData;
     if (!h) return;
 
-    const keyFn = typeof normalizeHeroKey === 'function'
-        ? normalizeHeroKey
-        : v => String(v || '').toLowerCase();
-
-    const d = (PERSONAL_BUILDS || []).find(x => keyFn(x.heroId) === keyFn(h.id));
+    const d = findPersonalBuildEntry(h);
     const tabs = document.getElementById('build-tabs');
     const notes = document.getElementById('detail-notes');
     if (!tabs || !notes) return;
@@ -423,7 +448,13 @@ function renderActiveBuild() {
 async function selectHero(id, update = true) {
     if (!id) return;
 
-    currentSelectedHeroId = id;
+    const heroData = typeof getNormalizedHeroData === 'function' ? getNormalizedHeroData(id) : null;
+    if (!heroData) {
+        console.error('Missing hero master entry', id);
+        return;
+    }
+
+    currentSelectedHeroId = heroData.id || id;
     currentBuildIndex = 0;
 
     if (typeof switchTabUI === 'function') {
@@ -431,16 +462,10 @@ async function selectHero(id, update = true) {
     }
 
     if (update && typeof navigateTo === 'function') {
-        navigateTo('builds', { hero: id });
+        navigateTo('builds', { hero: currentSelectedHeroId });
     }
 
     filterHeroes();
-
-    const heroData = typeof getNormalizedHeroData === 'function' ? getNormalizedHeroData(id) : null;
-    if (!heroData) {
-        console.error('Missing hero master entry', id);
-        return;
-    }
 
     currentHeroData = heroData;
     renderHeroHeader(currentHeroData, []);
