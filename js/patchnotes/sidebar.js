@@ -4,39 +4,6 @@
 
 let patchSidebarRafId = null;
 
-const LEGACY_FILTER_CLASSES = [
-    'bg-sky-500',
-    'text-slate-950',
-    'border-sky-400',
-    'shadow-sm',
-    'bg-slate-900/90',
-    'text-slate-300',
-    'border-slate-700/80',
-    'hover:bg-slate-800',
-    'hover:text-white',
-    'bg-slate-950',
-    'bg-cyan-400',
-    'border-cyan-200',
-    'bg-[#090417]',
-    'text-violet-200',
-    'border-[#3d2185]',
-    'hover:bg-[#1c0e40]'
-];
-
-const UNBOXED_LIST_CLASSES = [
-    'hots-subpanel',
-    'bg-[#0c0621]',
-    'bg-[#0c0621]/90',
-    'bg-[#0c0621]/70',
-    'border',
-    'border-[#2b1a61]',
-    'border-[#38247a]',
-    'rounded-[2px]',
-    'rounded-xl',
-    'p-2',
-    'p-3'
-];
-
 function getCurrentPatchFilter() {
     if (typeof patchState !== 'undefined' && patchState?.filter) {
         return patchState.filter;
@@ -58,7 +25,6 @@ function syncFilterButtonStates() {
 
         btn.setAttribute('aria-pressed', String(isActive));
         btn.classList.toggle('is-active', isActive);
-        btn.classList.remove(...LEGACY_FILTER_CLASSES);
     });
 }
 
@@ -169,7 +135,6 @@ function renderPatchSidebar(items) {
     const listContainer = document.getElementById('patch-sidebar-list');
     if (!listContainer) return;
 
-    listContainer.classList.remove(...UNBOXED_LIST_CLASSES);
     syncFilterButtonStates();
 
     const safeItems = Array.isArray(items) ? items : [];
