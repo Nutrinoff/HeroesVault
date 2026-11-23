@@ -2,22 +2,35 @@
 // 2. HERO HEADERS, ABILITIES & BUILDS VIEW
 // ==========================================
 
-const HERO_VIEW_ICON_FALLBACK = 'https://via.placeholder.com/44?text=?';
+const HERO_VIEW_ICON_FALLBACK = `data:image/svg+xml;utf8,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" fill="#0d0724"/><rect x="1" y="1" width="42" height="42" fill="none" stroke="#38247a" stroke-width="2"/><text x="22" y="28" fill="#9cb6ff" font-family="monospace" font-size="16" text-anchor="middle">?</text></svg>')}`;
+const HERO_VIEW_PORTRAIT_FALLBACK = typeof HERO_FALLBACK_PORTRAIT === 'string'
+    ? HERO_FALLBACK_PORTRAIT
+    : HERO_VIEW_ICON_FALLBACK;
 
 function setSafeImageSrc(imgEl, primaryUrl, fallbackUrl = '', { hideOnFail = false } = {}) {
     if (!imgEl) return;
 
-    imgEl.onerror = () => {
-        imgEl.onerror = null;
-        if (fallbackUrl && imgEl.src !== fallbackUrl) {
-            imgEl.src = fallbackUrl;
-        } else if (hideOnFail) {
-            imgEl.style.display = 'none';
-        }
-    };
-
     if (hideOnFail) {
         imgEl.style.display = '';
+    }
+
+    imgEl.onerror = null;
+    if (fallbackUrl) {
+        if (typeof attachImageFallback === 'function') {
+            attachImageFallback(imgEl, fallbackUrl);
+        } else {
+            imgEl.addEventListener('error', function onFallbackError() {
+                imgEl.removeEventListener('error', onFallbackError);
+                if (imgEl.getAttribute('src') !== fallbackUrl) {
+                    imgEl.src = fallbackUrl;
+                }
+            });
+        }
+    } else if (hideOnFail) {
+        imgEl.addEventListener('error', function onHideError() {
+            imgEl.removeEventListener('error', onHideError);
+            imgEl.style.display = 'none';
+        });
     }
 
     if (primaryUrl) {
@@ -245,8 +258,8 @@ function renderHeroHeader(heroData, activeTalents = []) {
     if (!heroData) return;
     const rawEntry = typeof getRawHeroEntry === 'function' ? getRawHeroEntry(heroData.id) : null;
     const portraitUrl = typeof resolveAssetUrl === 'function'
-        ? resolveAssetUrl(heroData.portrait || rawEntry, HERO_FALLBACK_PORTRAIT)
-        : HERO_FALLBACK_PORTRAIT;
+        ? resolveAssetUrl(heroData.portrait || rawEntry, HERO_VIEW_PORTRAIT_FALLBACK)
+        : HERO_VIEW_PORTRAIT_FALLBACK;
 
     const portraitEl = document.getElementById('hero-portrait');
     const nameEl = document.getElementById('hero-name');
@@ -255,7 +268,7 @@ function renderHeroHeader(heroData, activeTalents = []) {
 
     if (portraitEl) {
         portraitEl.alt = `${heroData.name} portrait`;
-        setSafeImageSrc(portraitEl, portraitUrl, HERO_FALLBACK_PORTRAIT);
+        setSafeImageSrc(portraitEl, portraitUrl, HERO_VIEW_PORTRAIT_FALLBACK);
     }
     if (nameEl) nameEl.innerText = heroData.name;
     if (roleEl) roleEl.innerText = heroData.role;
@@ -272,8 +285,8 @@ function renderBuilderHeader(heroData, activeTalents = []) {
     const rawEntry = typeof getRawHeroEntry === 'function' ? getRawHeroEntry(heroData.id) : null;
     const heroSource = rawEntry || heroData;
     const portraitUrl = typeof resolveAssetUrl === 'function'
-        ? resolveAssetUrl(heroData.portrait || rawEntry, HERO_FALLBACK_PORTRAIT)
-        : HERO_FALLBACK_PORTRAIT;
+        ? resolveAssetUrl(heroData.portrait || rawEntry, HERO_VIEW_PORTRAIT_FALLBACK)
+        : HERO_VIEW_PORTRAIT_FALLBACK;
     const loadingBgUrl = typeof getHeroLoadingPortrait === 'function'
         ? getHeroLoadingPortrait(heroSource)
         : '';
@@ -286,7 +299,7 @@ function renderBuilderHeader(heroData, activeTalents = []) {
 
     if (portraitEl) {
         portraitEl.alt = `${heroData.name} portrait`;
-        setSafeImageSrc(portraitEl, portraitUrl, HERO_FALLBACK_PORTRAIT);
+        setSafeImageSrc(portraitEl, portraitUrl, HERO_VIEW_PORTRAIT_FALLBACK);
     }
     if (nameEl) nameEl.innerText = heroData.name;
     if (roleEl) roleEl.innerText = heroData.role;
