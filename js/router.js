@@ -37,10 +37,6 @@ function switchTabUI(t) {
         document.getElementById(id)?.classList.toggle('nav-active', on);
     });
 
-    if (activeTab === 'academy' && typeof renderAcademy === 'function') {
-        renderAcademy();
-    }
-
     if (activeTab === 'patchnotes' && typeof schedulePatchSidebarSync === 'function') {
         schedulePatchSidebarSync();
     }
@@ -110,10 +106,12 @@ function navigateTo(tab, params = {}, push = true) {
 }
 
 function resolveBuilderRouteParams(query) {
+    const fallbackHeroId = Array.isArray(MASTER_HERO_LIST) ? MASTER_HERO_LIST[0]?.id : null;
+
     if (typeof parseBuilderQuery === 'function') {
         const parsed = parseBuilderQuery(`?${query}`);
         return {
-            heroId: parsed.hero || MASTER_HERO_LIST[0]?.id,
+            heroId: parsed.hero || fallbackHeroId,
             selections: parsed.rawCode
                 ? (typeof decodeBuildCode === 'function' ? decodeBuildCode(parsed.rawCode) : parsed.selections)
                 : null
@@ -121,9 +119,9 @@ function resolveBuilderRouteParams(query) {
     }
 
     const q = new URLSearchParams(query);
-    const rawCode = q.get('build') || q.get('talents') || '';
+    const rawCode = q.get('build') || q.get('talents') || q.get('code') || '';
     return {
-        heroId: q.get('hero') || MASTER_HERO_LIST[0]?.id,
+        heroId: q.get('hero') || fallbackHeroId,
         selections: rawCode && typeof decodeBuildCode === 'function' ? decodeBuildCode(rawCode) : null
     };
 }
