@@ -44,6 +44,42 @@ function applyMapImageFallback(imgEl, fallbackUrl) {
     };
 }
 
+function resolveGoldenHeroEntry(heroId) {
+    if (!heroId || typeof heroId !== 'string') return null;
+
+    const normalized = typeof getNormalizedHeroData === 'function' ? getNormalizedHeroData(heroId) : null;
+    const rawEntry = typeof getRawHeroEntry === 'function'
+        ? getRawHeroEntry(normalized?.id || heroId)
+        : null;
+    const roster = Array.isArray(MASTER_HERO_LIST) ? MASTER_HERO_LIST : [];
+    const keyNormalizer = typeof normalizeHeroKey === 'function'
+        ? normalizeHeroKey
+        : val => String(val || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+
+    const targetKeys = new Set(
+        [heroId, normalized?.id, normalized?.name, rawEntry?.id, rawEntry?.name]
+            .map(keyNormalizer)
+            .filter(Boolean)
+    );
+
+    const listHero = roster.find(x => {
+        if (!x || typeof x !== 'object') return false;
+        return targetKeys.has(keyNormalizer(x.id)) || targetKeys.has(keyNormalizer(x.name));
+    });
+
+    const resolvedId = normalized?.id || listHero?.id || rawEntry?.id || '';
+    const resolvedName = normalized?.name || listHero?.name || rawEntry?.name || '';
+    const resolvedPortrait = normalized?.portrait || listHero?.portrait || rawEntry || '';
+
+    if (!resolvedId && !resolvedName) return null;
+
+    return {
+        id: resolvedId || resolvedName,
+        name: resolvedName || resolvedId,
+        portrait: resolvedPortrait
+    };
+}
+
 async function fetchMapDetails(id) {
     if (!id) return {};
     if (MAP_DETAILS_CACHE.has(id)) {
@@ -333,14 +369,9 @@ function renderGoldenHeroes(heroesEl, goldenHeroes) {
 
     const frag = document.createDocumentFragment();
     const golden = Array.isArray(goldenHeroes) ? goldenHeroes.slice(0, 5) : [];
-    const roster = Array.isArray(MASTER_HERO_LIST) ? MASTER_HERO_LIST : [];
-    const keyNormalizer = typeof normalizeHeroKey === 'function'
-        ? normalizeHeroKey
-        : val => String(val || '').toLowerCase().replace(/[^a-z0-9]/g, '');
 
     for (const heroId of golden) {
-        if (!heroId || typeof heroId !== 'string') continue;
-        const h = roster.find(x => keyNormalizer(x.id) === keyNormalizer(heroId));
+        const h = resolveGoldenHeroEntry(heroId);
         if (!h) continue;
 
         const btn = document.createElement('button');
