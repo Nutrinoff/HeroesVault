@@ -7,6 +7,16 @@ const HERO_VIEW_PORTRAIT_FALLBACK = typeof HERO_FALLBACK_PORTRAIT === 'string'
     ? HERO_FALLBACK_PORTRAIT
     : HERO_VIEW_ICON_FALLBACK;
 
+const ALLOWED_NOTES_TAGS = new Set([
+    'P', 'BR', 'HR', 'B', 'STRONG', 'I', 'EM', 'U', 'S', 'DEL', 'SMALL',
+    'CODE', 'PRE', 'BLOCKQUOTE', 'UL', 'OL', 'LI', 'H3', 'H4', 'H5', 'H6',
+    'SPAN', 'DIV', 'A', 'IMG'
+]);
+const BLOCKED_NOTES_TAGS = new Set([
+    'SCRIPT', 'STYLE', 'IFRAME', 'OBJECT', 'EMBED', 'LINK', 'META',
+    'BASE', 'FORM', 'INPUT', 'BUTTON', 'TEXTAREA', 'SELECT', 'NOSCRIPT'
+]);
+
 function toHeroViewKey(value) {
     if (typeof normalizeHeroKey === 'function') {
         return normalizeHeroKey(value);
@@ -16,6 +26,93 @@ function toHeroViewKey(value) {
         .replace(/[\u0300-\u036f]/g, '')
         .toLowerCase()
         .replace(/[^a-z0-9]/g, '');
+}
+
+function isSafeNotesUrl(rawUrl, { allowDataImage = false } = {}) {
+    const trimmed = String(rawUrl || '').trim();
+    if (!trimmed) return false;
+    if (allowDataImage && /^data:image\/(?:png|jpe?g|gif|webp|svg\+xml);/i.test(trimmed)) {
+        return true;
+    }
+    try {
+        const parsed = new URL(trimmed, window.location.origin);
+        return parsed.protocol === 'http:' || parsed.protocol === 'https:';
+    } catch (_) {
+        return false;
+    }
+}
+
+function sanitizeNodeForNotes(node, doc) {
+    if (node.nodeType === Node.TEXT_NODE) {
+        return doc.createTextNode(node.textContent || '');
+    }
+
+    if (node.nodeType !== Node.ELEMENT_NODE) {
+        return null;
+    }
+
+    const tagName = node.tagName.toUpperCase();
+    if (BLOCKED_NOTES_TAGS.has(tagName)) {
+        return null;
+    }
+
+    const frag = doc.createDocumentFragment();
+    Array.from(node.childNodes).forEach(child => {
+        const cleanChild = sanitizeNodeForNotes(child, doc);
+        if (cleanChild) frag.appendChild(cleanChild);
+    });
+
+    if (!ALLOWED_NOTES_TAGS.has(tagName)) {
+        return frag;
+    }
+
+    const cleanEl = doc.createElement(tagName.toLowerCase());
+    if (tagName === 'A') {
+        const href = node.getAttribute('href');
+        if (isSafeNotesUrl(href)) {
+            cleanEl.setAttribute('href', href.trim());
+            cleanEl.setAttribute('target', '_blank');
+            cleanEl.setAttribute('rel', 'noopener noreferrer');
+        }
+    } else if (tagName === 'IMG') {
+        const src = node.getAttribute('src');
+        if (!isSafeNotesUrl(src, { allowDataImage: true })) {
+            return null;
+        }
+        cleanEl.setAttribute('src', src.trim());
+        cleanEl.setAttribute('alt', node.getAttribute('alt') || '');
+        cleanEl.setAttribute('loading', 'lazy');
+    }
+
+    cleanEl.appendChild(frag);
+    return cleanEl;
+}
+
+function sanitizeBuildNotesHtml(rawHtml) {
+    if (rawHtml == null) return '';
+    const source = String(rawHtml);
+    if (!source.trim()) return '';
+
+    if (typeof DOMParser === 'undefined') {
+        return source
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+
+    const parser = new DOMParser();
+    const parsedDoc = parser.parseFromString(source, 'text/html');
+    const outDoc = document.implementation.createHTMLDocument('');
+    const container = outDoc.createElement('div');
+
+    Array.from(parsedDoc.body.childNodes).forEach(child => {
+        const cleanNode = sanitizeNodeForNotes(child, outDoc);
+        if (cleanNode) container.appendChild(cleanNode);
+    });
+
+    return container.innerHTML;
 }
 
 function setSafeImageSrc(imgEl, primaryUrl, fallbackUrl = '', { hideOnFail = false } = {}) {
@@ -440,7 +537,9 @@ function renderActiveBuild() {
     tabs.replaceChildren(frag);
 
     const v = d.builds[currentBuildIndex] || d.builds[0];
-    notes.innerHTML = v.notes || 'No notes added yet.';
+    notes.innerHTML = v.notes
+        ? sanitizeBuildNotesHtml(v.notes)
+        : 'No notes added yet.';
     renderHeroHeader(h, getSelectedTalentsForBuild(h, v.buildCode));
     renderBuildStrip(h, v.buildCode);
 }
