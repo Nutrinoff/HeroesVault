@@ -15,20 +15,6 @@ let academyState = {
     activeId: null
 };
 
-const LEGACY_ACADEMY_LEVEL_CLASSES = [
-    'px-3',
-    'py-1',
-    'rounded-lg',
-    'text-xs',
-    'font-bold',
-    'transition',
-    'bg-sky-500',
-    'text-slate-950',
-    'text-slate-300',
-    'hover:bg-slate-800',
-    'hover:text-white'
-];
-
 function getAcademyCategories() {
     const articles = getAcademyArticlesList();
     const set = new Set(['All']);
@@ -163,7 +149,6 @@ function syncAcademyLevelButtons() {
         const active = btn.dataset.academyLevel === academyState.level;
         btn.setAttribute('aria-pressed', String(active));
         btn.classList.toggle('is-active', active);
-        btn.classList.remove(...LEGACY_ACADEMY_LEVEL_CLASSES);
     });
 }
 
