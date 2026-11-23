@@ -76,25 +76,44 @@ function syncBuilderUrl(push = false) {
     }
 }
 
+function resolveBuilderHero(id) {
+    if (!id) return null;
+
+    if (typeof getNormalizedHeroData === 'function') {
+        const normalized = getNormalizedHeroData(id);
+        if (normalized) return normalized;
+    }
+
+    if (typeof normalizeHero === 'function' && typeof getRawHeroEntry === 'function') {
+        const raw = getRawHeroEntry(id);
+        const fallbackNormalized = normalizeHero(raw, id);
+        if (fallbackNormalized) return fallbackNormalized;
+    }
+
+    return null;
+}
+
 async function openBuilder(id = null, selections = null, update = true) {
     bindTalentBuilderEvents();
 
-    id = id || MASTER_HERO_LIST[0]?.id;
+    const defaultHeroId = Array.isArray(MASTER_HERO_LIST) ? MASTER_HERO_LIST[0]?.id : null;
+    id = id || defaultHeroId;
     if (!id) return;
 
-    resetBuilderState(id, selections);
+    const heroData = resolveBuilderHero(id);
+    if (!heroData) {
+        console.error('Missing normalized hero data for builder:', id);
+        return;
+    }
+
+    const canonicalId = heroData.id || id;
+    resetBuilderState(canonicalId, selections);
     switchTabUI('builder');
 
     if (typeof filterHeroes === 'function') {
         filterHeroes();
     } else if (typeof renderHeroSidebar === 'function') {
         renderHeroSidebar(MASTER_HERO_LIST);
-    }
-
-    const heroData = getNormalizedHeroData(id);
-    if (!heroData) {
-        console.error('Missing normalized hero data for builder:', id);
-        return;
     }
 
     builderHeroData = heroData;
