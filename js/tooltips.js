@@ -7,6 +7,28 @@ const TOOLTIP_CURSOR_GAP = 16;
 const TOOLTIP_VIEWPORT_MARGIN = 8;
 const TOOLTIP_ICON_FALLBACK = `data:image/svg+xml;utf8,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><rect width="48" height="48" fill="#0d0724"/><rect x="1" y="1" width="46" height="46" fill="none" stroke="#38247a" stroke-width="2"/><text x="24" y="30" fill="#9cb6ff" font-family="monospace" font-size="18" text-anchor="middle">?</text></svg>')}`;
 
+function getTooltipDomApi() {
+    return window.HeroesVaultDom && typeof window.HeroesVaultDom === 'object'
+        ? window.HeroesVaultDom
+        : null;
+}
+
+function escapeTooltipPlainText(value) {
+    const dom = getTooltipDomApi();
+    if (dom && typeof dom.escapeHtml === 'function') {
+        return dom.escapeHtml(value);
+    }
+    if (typeof escapeHtml === 'function') {
+        return escapeHtml(value);
+    }
+    return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
 function cleanTooltipInlineText(raw) {
     if (raw == null) return '';
     return String(raw)
@@ -108,6 +130,11 @@ function showTalentTooltip(e, t, l) {
 
 function applyTooltipIconFallback(imgEl, fallbackUrl) {
     if (!imgEl || !fallbackUrl) return;
+    const dom = getTooltipDomApi();
+    if (dom && typeof dom.attachImageFallback === 'function') {
+        dom.attachImageFallback(imgEl, fallbackUrl);
+        return;
+    }
     if (typeof attachImageFallback === 'function') {
         attachImageFallback(imgEl, fallbackUrl);
         return;
@@ -159,7 +186,7 @@ function showTooltip(e, name, level, description, icon, details = '') {
     if (tipCooldown) {
         if (detailLines.length > 0) {
             tipCooldown.innerHTML = detailLines
-                .map(line => `<div class="hots-tooltip-stat-line">${cleanTooltipInlineText(line)}</div>`)
+                .map(line => `<div class="hots-tooltip-stat-line">${escapeTooltipPlainText(cleanTooltipInlineText(line))}</div>`)
                 .join('');
             tipCooldown.classList.remove('hidden');
         } else {
@@ -169,9 +196,12 @@ function showTooltip(e, name, level, description, icon, details = '') {
     }
 
     if (tipDesc) {
-        tipDesc.innerHTML = typeof formatGameText === 'function'
-            ? (formatGameText(description) || 'No description available.')
-            : (description || 'No description available.');
+        if (typeof formatGameText === 'function') {
+            tipDesc.innerHTML = formatGameText(description) || 'No description available.';
+        } else {
+            const plain = String(description || '').trim();
+            tipDesc.innerHTML = plain ? escapeTooltipPlainText(plain) : 'No description available.';
+        }
     }
 
     tip.classList.remove('hidden');
