@@ -1,6 +1,6 @@
-// ==========================================
+// ===========================================
 // 3. PATCH FILTER CONTROLS, SIDEBAR & STICKY LAYOUT
-// ==========================================
+// ===========================================
 
 let patchSidebarRafId = null;
 
@@ -21,6 +21,20 @@ const LEGACY_FILTER_CLASSES = [
     'text-violet-200',
     'border-[#3d2185]',
     'hover:bg-[#1c0e40]'
+];
+
+const UNBOXED_LIST_CLASSES = [
+    'hots-subpanel',
+    'bg-[#0c0621]',
+    'bg-[#0c0621]/90',
+    'bg-[#0c0621]/70',
+    'border',
+    'border-[#2b1a61]',
+    'border-[#38247a]',
+    'rounded-[2px]',
+    'rounded-xl',
+    'p-2',
+    'p-3'
 ];
 
 function getCurrentPatchFilter() {
@@ -155,23 +169,11 @@ function renderPatchSidebar(items) {
     const listContainer = document.getElementById('patch-sidebar-list');
     if (!listContainer) return;
 
+    listContainer.classList.remove(...UNBOXED_LIST_CLASSES);
     syncFilterButtonStates();
-
-    const activeFilter = getCurrentPatchFilter();
-    const headerTitle = activeFilter === 'all'
-        ? 'ALL FEED'
-        : `${activeFilter.toUpperCase()} FEED`;
 
     const safeItems = Array.isArray(items) ? items : [];
     const activeId = typeof patchState !== 'undefined' ? patchState.selectedId : null;
-
-    listContainer.innerHTML = `
-        <div class="flex items-center justify-between px-2 pb-2">
-            <h3 class="text-xs font-bold uppercase tracking-wider text-[#9cb6ff]">${escapeHtml(headerTitle)}</h3>
-            <span class="text-[11px] font-mono text-[#8c83a2]">${safeItems.length}</span>
-        </div>
-    `;
-
     const frag = document.createDocumentFragment();
 
     safeItems.forEach((item, idx) => {
@@ -217,7 +219,7 @@ function renderPatchSidebar(items) {
         frag.appendChild(btn);
     });
 
-    listContainer.appendChild(frag);
+    listContainer.replaceChildren(frag);
     schedulePatchSidebarSync();
 }
 
