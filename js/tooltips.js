@@ -5,7 +5,7 @@
 
 const TOOLTIP_CURSOR_GAP = 16;
 const TOOLTIP_VIEWPORT_MARGIN = 8;
-const TOOLTIP_ICON_FALLBACK = 'https://via.placeholder.com/48?text=?';
+const TOOLTIP_ICON_FALLBACK = `data:image/svg+xml;utf8,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><rect width="48" height="48" fill="#0d0724"/><rect x="1" y="1" width="46" height="46" fill="none" stroke="#38247a" stroke-width="2"/><text x="24" y="30" fill="#9cb6ff" font-family="monospace" font-size="18" text-anchor="middle">?</text></svg>')}`;
 
 function cleanTooltipInlineText(raw) {
     if (raw == null) return '';
@@ -106,6 +106,20 @@ function showTalentTooltip(e, t, l) {
     );
 }
 
+function applyTooltipIconFallback(imgEl, fallbackUrl) {
+    if (!imgEl || !fallbackUrl) return;
+    if (typeof attachImageFallback === 'function') {
+        attachImageFallback(imgEl, fallbackUrl);
+        return;
+    }
+    imgEl.onerror = () => {
+        imgEl.onerror = null;
+        if (imgEl.getAttribute('src') !== fallbackUrl) {
+            imgEl.src = fallbackUrl;
+        }
+    };
+}
+
 function showTooltip(e, name, level, description, icon, details = '') {
     const tip = document.getElementById('talent-tooltip');
     if (!tip) return;
@@ -117,19 +131,14 @@ function showTooltip(e, name, level, description, icon, details = '') {
     const tipDesc = document.getElementById('tip-desc');
 
     if (tipIcon) {
-        const fallback = typeof HERO_VIEW_ICON_FALLBACK === 'string'
+        const fallback = typeof HERO_VIEW_ICON_FALLBACK === 'string' && HERO_VIEW_ICON_FALLBACK
             ? HERO_VIEW_ICON_FALLBACK
             : TOOLTIP_ICON_FALLBACK;
         const resolvedIcon = typeof resolveAssetUrl === 'function'
             ? resolveAssetUrl(icon, fallback)
             : (icon || fallback);
 
-        tipIcon.onerror = () => {
-            tipIcon.onerror = null;
-            if (tipIcon.src !== fallback) {
-                tipIcon.src = fallback;
-            }
-        };
+        applyTooltipIconFallback(tipIcon, fallback);
         tipIcon.src = resolvedIcon;
     }
 
