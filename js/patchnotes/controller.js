@@ -169,12 +169,19 @@ async function hydrateHomeLatestPatchCards(options = {}) {
             patchState.homeLatest.live = latestLive;
             patchState.homeLatest.ptr = latestPtr;
 
+            const shouldFetchLiveNotes = Boolean(liveTitle && latestLive);
+            const shouldFetchPtrNotes = Boolean(ptrTitle && latestPtr);
+
+            const [liveNotes, ptrNotes] = await Promise.all([
+                shouldFetchLiveNotes ? fetchPatchRawNotesText(latestLive) : Promise.resolve(null),
+                shouldFetchPtrNotes ? fetchPatchRawNotesText(latestPtr) : Promise.resolve(null)
+            ]);
+            if (hydrateSeq !== patchState.homeHydrateSequence) return;
+
             if (liveTitle) {
                 if (latestLive) {
                     liveTitle.textContent = latestLive.title;
                     if (liveMeta) liveMeta.textContent = latestLive.listDate || latestLive.date || 'Live';
-                    const liveNotes = await fetchPatchRawNotesText(latestLive);
-                    if (hydrateSeq !== patchState.homeHydrateSequence) return;
                     if (liveTldr) liveTldr.textContent = buildPatchTldr(latestLive, liveNotes);
                 } else {
                     liveTitle.textContent = 'No live patch recorded';
@@ -186,8 +193,6 @@ async function hydrateHomeLatestPatchCards(options = {}) {
                 if (latestPtr) {
                     ptrTitle.textContent = latestPtr.title;
                     if (ptrMeta) ptrMeta.textContent = latestPtr.listDate || latestPtr.date || 'PTR';
-                    const ptrNotes = await fetchPatchRawNotesText(latestPtr);
-                    if (hydrateSeq !== patchState.homeHydrateSequence) return;
                     if (ptrTldr) ptrTldr.textContent = buildPatchTldr(latestPtr, ptrNotes);
                 } else {
                     ptrTitle.textContent = 'No active PTR patch';
