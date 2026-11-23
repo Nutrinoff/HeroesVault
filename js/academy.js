@@ -307,6 +307,9 @@ function renderAcademyListAndReader(scrollReader) {
     const filtered = getFilteredAcademyArticles();
 
     if (filtered.length === 0) {
+        academyState.activeId = null;
+        lastRenderedAcademySignature = null;
+
         const emptyListMsg = document.createElement('div');
         emptyListMsg.className = 'text-xs text-[#8c83a2] p-3 text-center';
         emptyListMsg.textContent = 'No guides match your current filter.';
