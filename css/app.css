@@ -435,6 +435,60 @@
   padding: 0.55rem 0.7rem;
 }
 
+/* Frameless glowing row labels for Patch Notes & Academy */
+.hots-list-tag {
+  font-family: 'Chakra Petch', 'Inter', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  transition: color 0.14s ease, text-shadow 0.14s ease;
+}
+
+.hots-list-tag--cyan {
+  color: rgba(156, 182, 255, 0.72);
+  text-shadow: 0 0 10px rgba(0, 156, 255, 0.28);
+}
+
+.hots-list-tag--gold {
+  color: rgba(245, 216, 154, 0.76);
+  text-shadow: 0 0 10px rgba(201, 122, 22, 0.28);
+}
+
+.hots-list-tag--meta {
+  color: rgba(157, 144, 255, 0.65);
+  text-shadow: 0 0 10px rgba(138, 0, 255, 0.22);
+}
+
+.hots-list-item:hover .hots-list-tag--cyan,
+.hots-list-item.is-selected .hots-list-tag--cyan,
+.hots-list-item[aria-current="true"] .hots-list-tag--cyan {
+  color: var(--hots-cyan-bright);
+  text-shadow:
+    0 0 8px rgba(203, 232, 255, 0.65),
+    0 0 16px rgba(0, 156, 255, 0.55);
+}
+
+.hots-list-item:hover .hots-list-tag--gold,
+.hots-list-item.is-selected .hots-list-tag--gold,
+.hots-list-item[aria-current="true"] .hots-list-tag--gold {
+  color: var(--hots-gold-bright);
+  text-shadow:
+    0 0 8px rgba(245, 216, 154, 0.65),
+    0 0 16px rgba(227, 154, 36, 0.5);
+}
+
+.hots-list-item:hover .hots-list-tag--meta,
+.hots-list-item.is-selected .hots-list-tag--meta,
+.hots-list-item[aria-current="true"] .hots-list-tag--meta {
+  color: #c9c2ff;
+  text-shadow: 0 0 12px rgba(138, 0, 255, 0.36);
+}
+
 /* Frameless HotS Filter Tabs (ALL / BASIC / ADVANCED, All / Live / PTR & Academy Categories) */
 .academy-level-btn,
 .patch-filter-btn,
@@ -755,7 +809,8 @@
   .hots-input,
   .hots-brand-emblem svg,
   .hots-list-item,
-  .hots-list-item__title {
+  .hots-list-item__title,
+  .hots-list-tag {
     transition: none;
   }
 
