@@ -47,6 +47,37 @@ function switchTabUI(t) {
 // 2. HASH / QUERY NAVIGATION & CLEANUP
 // ==========================================
 
+function getFallbackRosterHeroId() {
+    if (typeof MASTER_HERO_LIST === 'undefined' || !Array.isArray(MASTER_HERO_LIST)) {
+        return null;
+    }
+    return MASTER_HERO_LIST[0]?.id || null;
+}
+
+function resolveRouteHeroId(candidateId) {
+    const fallbackId = getFallbackRosterHeroId();
+    if (!candidateId) return fallbackId;
+
+    if (typeof getNormalizedHeroData === 'function') {
+        const normalized = getNormalizedHeroData(candidateId);
+        if (normalized?.id) return normalized.id;
+    }
+
+    if (typeof MASTER_HERO_LIST !== 'undefined' && Array.isArray(MASTER_HERO_LIST)) {
+        const normKey = typeof normalizeHeroKey === 'function'
+            ? normalizeHeroKey
+            : v => String(v || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        const target = normKey(candidateId);
+        const match = MASTER_HERO_LIST.find(h => {
+            if (!h || typeof h !== 'object') return false;
+            return normKey(h.id) === target || normKey(h.name) === target;
+        });
+        if (match?.id) return match.id;
+    }
+
+    return candidateId || fallbackId;
+}
+
 function clearPatchQueryParamsFromUrl() {
     if (typeof window.history?.replaceState !== 'function') return;
     try {
@@ -106,12 +137,12 @@ function navigateTo(tab, params = {}, push = true) {
 }
 
 function resolveBuilderRouteParams(query) {
-    const fallbackHeroId = Array.isArray(MASTER_HERO_LIST) ? MASTER_HERO_LIST[0]?.id : null;
+    const fallbackHeroId = getFallbackRosterHeroId();
 
     if (typeof parseBuilderQuery === 'function') {
         const parsed = parseBuilderQuery(`?${query}`);
         return {
-            heroId: parsed.hero || fallbackHeroId,
+            heroId: resolveRouteHeroId(parsed.hero) || fallbackHeroId,
             selections: parsed.rawCode
                 ? (typeof decodeBuildCode === 'function' ? decodeBuildCode(parsed.rawCode) : parsed.selections)
                 : null
@@ -121,14 +152,15 @@ function resolveBuilderRouteParams(query) {
     const q = new URLSearchParams(query);
     const rawCode = q.get('build') || q.get('talents') || q.get('code') || '';
     return {
-        heroId: q.get('hero') || fallbackHeroId,
+        heroId: resolveRouteHeroId(q.get('hero')) || fallbackHeroId,
         selections: rawCode && typeof decodeBuildCode === 'function' ? decodeBuildCode(rawCode) : null
     };
 }
 
 function handleRoute() {
     const [tpart, query = ''] = location.hash.replace(/^#/, '').split('?');
-    const tab = tpart || 'home';
+    const rawTab = tpart || 'home';
+    const tab = rawTab === 'heroes' ? 'builds' : rawTab;
     const q = new URLSearchParams(query);
 
     if (tab !== 'patchnotes') {
@@ -137,9 +169,9 @@ function handleRoute() {
 
     switchTabUI(tab);
 
-    if (tab === 'builds' || tab === 'heroes') {
+    if (tab === 'builds') {
         if (typeof selectHero === 'function') {
-            selectHero(q.get('hero') || MASTER_HERO_LIST[0]?.id, false);
+            selectHero(resolveRouteHeroId(q.get('hero')), false);
         }
     } else if (tab === 'map') {
         if (typeof selectMap === 'function') {
@@ -161,6 +193,10 @@ function handleRoute() {
                 feed: q.get('feed') || null,
                 openView: true
             });
+        }
+    } else if (tab === 'tierlist') {
+        if (typeof renderTierList === 'function') {
+            renderTierList();
         }
     }
 }
