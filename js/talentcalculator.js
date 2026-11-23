@@ -15,7 +15,7 @@ const INACTIVE_TALENT_CLASSES = [
     'opacity-70',
     'hover:opacity-100'
 ];
-const TALENT_ICON_FALLBACK = 'https://via.placeholder.com/48?text=?';
+const TALENT_ICON_FALLBACK = `data:image/svg+xml;utf8,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><rect width="48" height="48" fill="#0d0724"/><rect x="1" y="1" width="46" height="46" fill="none" stroke="#38247a" stroke-width="2"/><text x="24" y="30" fill="#9cb6ff" font-family="monospace" font-size="18" text-anchor="middle">?</text></svg>')}`;
 const BUILDER_LEGACY_QUERY_KEYS = ['view', 'hero', 'build', 'talents', 'code'];
 
 function getBuilderSelectedTalentObjects() {
@@ -137,6 +137,20 @@ function resolveBuilderTalentIcon(iconPath) {
     return TALENT_ICON_FALLBACK;
 }
 
+function applyTalentIconFallback(imgEl) {
+    if (!imgEl) return;
+    if (typeof attachImageFallback === 'function') {
+        attachImageFallback(imgEl, TALENT_ICON_FALLBACK);
+        return;
+    }
+    imgEl.addEventListener('error', function onError() {
+        imgEl.removeEventListener('error', onError);
+        if (imgEl.getAttribute('src') !== TALENT_ICON_FALLBACK) {
+            imgEl.src = TALENT_ICON_FALLBACK;
+        }
+    });
+}
+
 function renderBuilderMatrix() {
     const box = document.getElementById('builder-matrix');
     if (!box) return;
@@ -186,11 +200,7 @@ function renderBuilderMatrix() {
             const img = document.createElement('img');
             img.className = 'w-full h-full object-cover';
             img.alt = t.name || `Level ${l} talent`;
-            img.addEventListener('error', () => {
-                if (img.src !== TALENT_ICON_FALLBACK) {
-                    img.src = TALENT_ICON_FALLBACK;
-                }
-            });
+            applyTalentIconFallback(img);
             img.src = resolveBuilderTalentIcon(t.icon);
 
             b.appendChild(img);
