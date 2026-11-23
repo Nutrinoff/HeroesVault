@@ -9,6 +9,9 @@ let featuresInitialized = false;
 let appBootstrapPromise = null;
 let appBootstrapped = false;
 
+const featureInitDiagnostics = new Map();
+window.__HEROESVAULT_FEATURE_HEALTH__ = featureInitDiagnostics;
+
 function assertRequiredGlobals() {
     const requiredFunctions = [
         'normalizeTalentSelections',
@@ -167,12 +170,35 @@ async function loadInitialData({ force = false } = {}) {
 // 3. FEATURE & ROUTER BOOTSTRAP
 // ==========================================
 
-function runFeatureSafe(label, fn) {
+async function runFeatureSafe(label, fn) {
+    const startedAt = Date.now();
     try {
-        return fn();
+        const result = await fn();
+        featureInitDiagnostics.set(label, {
+            status: 'ok',
+            durationMs: Date.now() - startedAt,
+            error: null
+        });
+        return result;
     } catch (err) {
+        featureInitDiagnostics.set(label, {
+            status: 'error',
+            durationMs: Date.now() - startedAt,
+            error: err instanceof Error ? err.message : String(err)
+        });
         console.error(`[HeroesVault] ${label} failed:`, err);
         return undefined;
+    }
+}
+
+function logFeatureInitializationSummary() {
+    const entries = Array.from(featureInitDiagnostics.entries());
+    const failed = entries.filter(([, info]) => info.status === 'error');
+    if (failed.length > 0) {
+        console.warn(
+            `[HeroesVault] Feature initialization completed with ${failed.length} failure(s):`,
+            Object.fromEntries(failed)
+        );
     }
 }
 
@@ -201,27 +227,30 @@ async function initializeFeatures({ force = false } = {}) {
 
     featuresInitPromise = (async () => {
         try {
-            runFeatureSafe('initializeTooltips', () => {
+            featureInitDiagnostics.clear();
+
+            await runFeatureSafe('initializeTooltips', () => {
                 if (typeof initializeTooltips === 'function') {
-                    initializeTooltips();
+                    return initializeTooltips();
                 }
             });
 
-            runFeatureSafe('initializeHeroSidebar', () => {
+            await runFeatureSafe('initializeHeroSidebar', () => {
                 if (typeof initializeHeroSidebar === 'function') {
-                    initializeHeroSidebar(MASTER_HERO_LIST);
-                } else if (typeof renderHeroSidebar === 'function') {
-                    renderHeroSidebar(MASTER_HERO_LIST);
+                    return initializeHeroSidebar(MASTER_HERO_LIST);
+                }
+                if (typeof renderHeroSidebar === 'function') {
+                    return renderHeroSidebar(MASTER_HERO_LIST);
                 }
             });
 
-            runFeatureSafe('renderTierList', () => {
+            await runFeatureSafe('renderTierList', () => {
                 if (typeof renderTierList === 'function') {
-                    renderTierList();
+                    return renderTierList();
                 }
             });
 
-            runFeatureSafe('syncHomeSummaryCounts', syncHomeSummaryCounts);
+            await runFeatureSafe('syncHomeSummaryCounts', syncHomeSummaryCounts);
 
             await runFeatureSafe('loadAndRenderRotation', async () => {
                 if (typeof loadAndRenderRotation === 'function') {
@@ -229,22 +258,24 @@ async function initializeFeatures({ force = false } = {}) {
                 }
             });
 
-            runFeatureSafe('initPatchNotes', () => {
+            await runFeatureSafe('initPatchNotes', () => {
                 if (typeof initPatchNotes === 'function') {
-                    initPatchNotes({ hydrateHome: true });
-                } else if (typeof initPatchFilterControls === 'function') {
-                    initPatchFilterControls();
+                    return initPatchNotes({ hydrateHome: true });
+                }
+                if (typeof initPatchFilterControls === 'function') {
+                    return initPatchFilterControls();
                 }
             });
 
-            runFeatureSafe('bindGlobalDismissHandlers', bindGlobalDismissHandlers);
+            await runFeatureSafe('bindGlobalDismissHandlers', bindGlobalDismissHandlers);
 
-            runFeatureSafe('lucide.createIcons', () => {
-                if (window.lucide) {
-                    lucide.createIcons();
+            await runFeatureSafe('lucide.createIcons', () => {
+                if (window.lucide && typeof window.lucide.createIcons === 'function') {
+                    return window.lucide.createIcons();
                 }
             });
 
+            logFeatureInitializationSummary();
             featuresInitialized = true;
         } finally {
             featuresInitPromise = null;
