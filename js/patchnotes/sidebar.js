@@ -87,6 +87,10 @@ function setPatchFilter(filterType) {
         syncFilterButtonStates();
     }
 
+    if (typeof writePatchUrl === 'function') {
+        writePatchUrl(null, { push: false });
+    }
+
     if (typeof loadLivePatchNotes === 'function') {
         loadLivePatchNotes();
     }
