@@ -17,6 +17,7 @@ const INACTIVE_TALENT_CLASSES = [
 ];
 const TALENT_ICON_FALLBACK = `data:image/svg+xml;utf8,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><rect width="48" height="48" fill="#0d0724"/><rect x="1" y="1" width="46" height="46" fill="none" stroke="#38247a" stroke-width="2"/><text x="24" y="30" fill="#9cb6ff" font-family="monospace" font-size="18" text-anchor="middle">?</text></svg>')}`;
 const BUILDER_LEGACY_QUERY_KEYS = ['view', 'hero', 'build', 'talents', 'code'];
+const BUILDER_ZERO_OPTS = { allowZero: true };
 
 let lastAppliedBuilderSignature = null;
 
@@ -39,8 +40,8 @@ function syncBuilderAbilityStrip() {
 
 function buildBuilderHashAndState(heroId, selections) {
     const buildStr = typeof encodeTalentSelections === 'function'
-        ? encodeTalentSelections(selections)
-        : normalizeTalentSelections(selections).join('');
+        ? encodeTalentSelections(selections, BUILDER_ZERO_OPTS)
+        : normalizeTalentSelections(selections, BUILDER_ZERO_OPTS).join('');
     const hashTarget = `#builder?hero=${encodeURIComponent(heroId)}&build=${encodeURIComponent(buildStr)}`;
     const state = {
         tab: 'builder',
@@ -98,7 +99,7 @@ function resolveBuilderHero(id) {
 function getBuilderSessionSignature(canonicalId, selections) {
     const encoded = Array.isArray(selections)
         ? (typeof encodeTalentSelections === 'function'
-            ? encodeTalentSelections(selections, { allowZero: true })
+            ? encodeTalentSelections(selections, BUILDER_ZERO_OPTS)
             : selections.join(''))
         : 'default';
     return `${canonicalId}::${encoded}`;
@@ -264,9 +265,9 @@ function resetBuilder() {
 
 function getBuilderDisplayCode() {
     if (typeof encodeBuildCode === 'function') {
-        return encodeBuildCode(builderSelectedTalents, builderHeroId);
+        return encodeBuildCode(builderSelectedTalents, builderHeroId, BUILDER_ZERO_OPTS);
     }
-    return `[T${normalizeTalentSelections(builderSelectedTalents).join('')},${builderHeroId || ''}]`;
+    return `[T${normalizeTalentSelections(builderSelectedTalents, BUILDER_ZERO_OPTS).join('')},${builderHeroId || ''}]`;
 }
 
 function updateBuilderOutput(updateUrl = true) {
@@ -282,9 +283,9 @@ function updateBuilderOutput(updateUrl = true) {
 function getIngameBuildString() {
     const canonicalHeroId = builderHeroData?.id || builderHeroId || '';
     if (typeof encodeIngameBuildCode === 'function') {
-        return encodeIngameBuildCode(builderSelectedTalents, canonicalHeroId);
+        return encodeIngameBuildCode(builderSelectedTalents, canonicalHeroId, BUILDER_ZERO_OPTS);
     }
-    return encodeBuildCode(builderSelectedTalents, canonicalHeroId);
+    return encodeBuildCode(builderSelectedTalents, canonicalHeroId, BUILDER_ZERO_OPTS);
 }
 
 function getShareableBuilderUrl() {
