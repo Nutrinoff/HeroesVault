@@ -4,6 +4,16 @@
 
 const VALID_PATCH_FILTERS = ['all', 'live', 'ptr'];
 const PATCH_QUERY_KEYS = ['view', 'patch', 'patchId', 'feed'];
+const ALLOWED_PATCH_DETAIL_TAGS = new Set([
+    'DIV', 'P', 'SPAN', 'STRONG', 'B', 'EM', 'I', 'BR',
+    'H1', 'H2', 'H3', 'H4', 'H5', 'H6',
+    'UL', 'OL', 'LI', 'BLOCKQUOTE', 'PRE', 'CODE',
+    'TABLE', 'THEAD', 'TBODY', 'TR', 'TH', 'TD',
+    'HR', 'SECTION', 'ARTICLE', 'HEADER', 'FOOTER', 'A', 'IMG'
+]);
+const DANGEROUS_PATCH_TAGS = new Set([
+    'SCRIPT', 'STYLE', 'IFRAME', 'OBJECT', 'EMBED', 'LINK', 'META', 'BASE', 'FORM', 'INPUT', 'BUTTON'
+]);
 
 const patchState = {
     filter: 'all',
@@ -13,6 +23,7 @@ const patchState = {
     homeLatest: { live: null, ptr: null },
     homeHydrated: false,
     homeHydratePromise: null,
+    inFlightLoads: new Map(),
     lastRenderedFilter: null,
     lastRenderedSelectionId: null,
     loadSequence: 0,
@@ -20,6 +31,102 @@ const patchState = {
     homeHydrateSequence: 0,
     listenersBound: false
 };
+
+function sanitizeSafeUrl(rawUrl, { allowDataImage = false } = {}) {
+    const val = String(rawUrl || '').trim();
+    if (!val) return '';
+    if (allowDataImage && /^data:image\/(?:png|jpe?g|gif|webp);base64,/i.test(val)) {
+        return val;
+    }
+    try {
+        const parsed = new URL(val, window.location.origin);
+        if (parsed.protocol === 'http:' || parsed.protocol === 'https:') {
+            return parsed.href;
+        }
+    } catch (_) {
+        // Reject invalid or unsafe URLs
+    }
+    return '';
+}
+
+function sanitizePatchDetailHtml(rawHtml) {
+    const htmlStr = String(rawHtml || '');
+    if (!htmlStr.trim()) return '';
+
+    if (typeof DOMParser === 'undefined') {
+        return escapeHtml(htmlStr);
+    }
+
+    const doc = new DOMParser().parseFromString(htmlStr, 'text/html');
+    const body = doc.body;
+    if (!body) return '';
+
+    const walk = node => {
+        const children = Array.from(node.childNodes);
+        for (const child of children) {
+            if (child.nodeType === Node.COMMENT_NODE) {
+                child.remove();
+                continue;
+            }
+            if (child.nodeType !== Node.ELEMENT_NODE) {
+                continue;
+            }
+
+            const tag = child.tagName.toUpperCase();
+            if (DANGEROUS_PATCH_TAGS.has(tag)) {
+                child.remove();
+                continue;
+            }
+
+            if (!ALLOWED_PATCH_DETAIL_TAGS.has(tag)) {
+                const parent = child.parentNode;
+                if (parent) {
+                    walk(child);
+                    while (child.firstChild) {
+                        parent.insertBefore(child.firstChild, child);
+                    }
+                    child.remove();
+                }
+                continue;
+            }
+
+            for (const attr of Array.from(child.attributes)) {
+                const attrName = attr.name.toLowerCase();
+                if (attrName.startsWith('on') || attrName === 'srcdoc') {
+                    child.removeAttribute(attr.name);
+                    continue;
+                }
+
+                if (attrName === 'href') {
+                    const safeHref = sanitizeSafeUrl(attr.value, { allowDataImage: false });
+                    if (safeHref) {
+                        child.setAttribute('href', safeHref);
+                        if (tag === 'A') {
+                            child.setAttribute('rel', 'noopener noreferrer');
+                        }
+                    } else {
+                        child.removeAttribute('href');
+                    }
+                    continue;
+                }
+
+                if (attrName === 'src') {
+                    const safeSrc = sanitizeSafeUrl(attr.value, { allowDataImage: true });
+                    if (safeSrc) {
+                        child.setAttribute('src', safeSrc);
+                    } else {
+                        child.removeAttribute('src');
+                    }
+                }
+            }
+
+            walk(child);
+        }
+    };
+
+    walk(body);
+    return body.innerHTML;
+}
 
 function normalizePatchFilter(filter) {
     const val = String(filter || '').trim().toLowerCase();
@@ -251,11 +358,13 @@ async function loadLivePatchNotes(options = {}) {
     const listContainer = document.getElementById('patch-sidebar-list');
     if (!listContainer) return;
 
+    const activeFilter = normalizePatchFilter(patchState.filter);
     const desiredId = patchState.pendingSelectionId ?? patchState.selectedId;
+
     if (
         !options.force &&
         patchState.items.length > 0 &&
-        patchState.lastRenderedFilter === patchState.filter &&
+        patchState.lastRenderedFilter === activeFilter &&
         desiredId != null &&
         String(patchState.lastRenderedSelectionId) === String(desiredId) &&
         listContainer.children.length > 0
@@ -265,71 +374,87 @@ async function loadLivePatchNotes(options = {}) {
         return;
     }
 
+    const flightKey = `${activeFilter}::${desiredId != null ? String(desiredId) : ''}`;
+    if (!options.force && patchState.inFlightLoads.has(flightKey)) {
+        if (desiredId != null) {
+            patchState.pendingSelectionId = desiredId;
+        }
+        return patchState.inFlightLoads.get(flightKey);
+    }
+
     const seq = ++patchState.loadSequence;
 
-    listContainer.innerHTML = `<div class="text-xs text-[#8c83a2] p-3">Loading patch notes...</div>`;
+    const runLoad = (async () => {
+        listContainer.innerHTML = `<div class="text-xs text-[#8c83a2] p-3">Loading patch notes...</div>`;
+        schedulePatchSidebarSync();
 
-    schedulePatchSidebarSync();
+        try {
+            const allPatches = await fetchAllMasterPatches();
+            if (seq !== patchState.loadSequence) return;
 
-    try {
-        const allPatches = await fetchAllMasterPatches();
-        if (seq !== patchState.loadSequence) return;
+            const filtered = filterPatchesByState(allPatches, activeFilter);
 
-        const filtered = filterPatchesByState(allPatches, patchState.filter);
+            if (filtered.length === 0) {
+                setActivePatchItemsState([]);
+                patchState.selectedId = null;
+                patchState.pendingSelectionId = null;
+                patchState.lastRenderedFilter = activeFilter;
+                patchState.lastRenderedSelectionId = null;
+                listContainer.innerHTML = `<div class="text-xs text-[#8c83a2] p-3">No patches found in this feed.</div>`;
+                const mainContent = document.getElementById('patch-main-content');
+                if (mainContent) {
+                    mainContent.innerHTML = `<div class="p-6 text-[#8c83a2] text-sm">No patch notes available.</div>`;
+                }
+                schedulePatchSidebarSync();
+                return;
+            }
 
-        if (filtered.length === 0) {
-            setActivePatchItemsState([]);
-            patchState.selectedId = null;
+            const resolvedDesiredId = patchState.pendingSelectionId ?? patchState.selectedId;
             patchState.pendingSelectionId = null;
-            patchState.lastRenderedFilter = patchState.filter;
-            patchState.lastRenderedSelectionId = null;
-            listContainer.innerHTML = `<div class="text-xs text-[#8c83a2] p-3">No patches found in this feed.</div>`;
-            const mainContent = document.getElementById('patch-main-content');
-            if (mainContent) {
-                mainContent.innerHTML = `<div class="p-6 text-[#8c83a2] text-sm">No patch notes available.</div>`;
+
+            const matchedItem = resolvedDesiredId != null
+                ? filtered.find(p => String(p.id) === String(resolvedDesiredId))
+                : null;
+            const targetId = matchedItem ? matchedItem.id : filtered[0].id;
+
+            setActivePatchItemsState(filtered);
+            patchState.lastRenderedFilter = activeFilter;
+            patchState.lastRenderedSelectionId = targetId;
+
+            renderPatchSidebar(patchState.items);
+            await selectPatchItem(targetId, { loadSeq: seq, syncUrl: false });
+        } catch (err) {
+            if (seq !== patchState.loadSequence) return;
+            patchState.pendingSelectionId = null;
+            console.warn('Failed to load patch notes:', err);
+
+            const fallbackItems = [
+                {
+                    id: 'fallback-feed',
+                    title: 'Heroes of the Storm Live Patch Notes',
+                    date: 'Recent',
+                    listDate: 'Recent',
+                    feedType: 'live',
+                    era: 'live',
+                    isArchive: false,
+                    link: DEFAULT_HOTS_URL,
+                    inlineNotes: 'Patch feeds are syncing. Please check back shortly.'
+                }
+            ];
+            setActivePatchItemsState(fallbackItems);
+            patchState.lastRenderedFilter = activeFilter;
+            patchState.lastRenderedSelectionId = fallbackItems[0].id;
+            renderPatchSidebar(patchState.items);
+            await selectPatchItem(fallbackItems[0].id, { loadSeq: seq, syncUrl: false });
+        } finally {
+            if (patchState.inFlightLoads.get(flightKey) === runLoad) {
+                patchState.inFlightLoads.delete(flightKey);
             }
-            schedulePatchSidebarSync();
-            return;
         }
+    })();
 
-        const resolvedDesiredId = patchState.pendingSelectionId ?? patchState.selectedId;
-        patchState.pendingSelectionId = null;
-
-        const matchedItem = resolvedDesiredId != null
-            ? filtered.find(p => String(p.id) === String(resolvedDesiredId))
-            : null;
-        const targetId = matchedItem ? matchedItem.id : filtered[0].id;
-
-        setActivePatchItemsState(filtered);
-        patchState.lastRenderedFilter = patchState.filter;
-        patchState.lastRenderedSelectionId = targetId;
-
-        renderPatchSidebar(patchState.items);
-        await selectPatchItem(targetId, { loadSeq: seq, syncUrl: false });
-    } catch (err) {
-        if (seq !== patchState.loadSequence) return;
-        patchState.pendingSelectionId = null;
-        console.warn('Failed to load patch notes:', err);
-
-        const fallbackItems = [
-            {
-                id: 'fallback-feed',
-                title: 'Heroes of the Storm Live Patch Notes',
-                date: 'Recent',
-                listDate: 'Recent',
-                feedType: 'live',
-                era: 'live',
-                isArchive: false,
-                link: DEFAULT_HOTS_URL,
-                inlineNotes: 'Patch feeds are syncing. Please check back shortly.'
-            }
-        ];
-        setActivePatchItemsState(fallbackItems);
-        patchState.lastRenderedFilter = patchState.filter;
-        patchState.lastRenderedSelectionId = fallbackItems[0].id;
-        renderPatchSidebar(patchState.items);
-        await selectPatchItem(fallbackItems[0].id, { loadSeq: seq, syncUrl: false });
-    }
+    patchState.inFlightLoads.set(flightKey, runLoad);
+    return runLoad;
 }
 
 async function selectPatchItem(id, options = {}) {
@@ -355,6 +480,7 @@ async function selectPatchItem(id, options = {}) {
     if (!mainContent) return;
 
     const ctaLabel = 'View Full Article on Blizzard';
+    const safeCtaHref = sanitizeSafeUrl(item.link, { allowDataImage: false }) || sanitizeSafeUrl(DEFAULT_HOTS_URL, { allowDataImage: false }) || '#';
 
     const metaParts = [
         item.era ? `Era <span class="text-[#e6ecff] font-semibold uppercase">${escapeHtml(item.era)}</span>` : null,
@@ -388,7 +514,7 @@ async function selectPatchItem(id, options = {}) {
             </div>
 
             <footer class="pt-4 border-t border-[#38247a] flex justify-end">
-                <a href="${escapeHtml(item.link)}" target="_blank" rel="noopener noreferrer" class="hots-btn-cyan hots-display px-4 py-2 text-xs font-bold uppercase tracking-wider inline-flex items-center gap-2 transition">
+                <a href="${escapeHtml(safeCtaHref)}" target="_blank" rel="noopener noreferrer" class="hots-btn-cyan hots-display px-4 py-2 text-xs font-bold uppercase tracking-wider inline-flex items-center gap-2 transition">
                     ${escapeHtml(ctaLabel)} <i data-lucide="external-link" class="w-3.5 h-3.5" aria-hidden="true"></i>
                 </a>
             </footer>
@@ -408,7 +534,7 @@ async function selectPatchItem(id, options = {}) {
 
     const bodyEl = document.getElementById('patch-notes-body');
     if (bodyEl && patchState.items.some(x => String(x.id) === String(item.id))) {
-        bodyEl.innerHTML = notesHtml;
+        bodyEl.innerHTML = sanitizePatchDetailHtml(notesHtml);
     }
 
     schedulePatchSidebarSync();
