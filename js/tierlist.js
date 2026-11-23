@@ -12,6 +12,12 @@ const TIER_LEAGUE_LABELS = {
 
 const TIERLIST_PORTRAIT_FALLBACK = `data:image/svg+xml;utf8,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="110" height="110" viewBox="0 0 110 110"><rect width="110" height="110" fill="#0d0724"/><rect x="1" y="1" width="108" height="108" fill="none" stroke="#38247a" stroke-width="2"/><text x="55" y="64" fill="#9cb6ff" font-family="monospace" font-size="34" text-anchor="middle">?</text></svg>')}`;
 
+let tierRosterIndexCache = {
+    sourceRef: null,
+    sourceLen: -1,
+    byKey: new Map()
+};
+
 function toTierHeroKey(value) {
     if (typeof normalizeHeroKey === 'function') {
         return normalizeHeroKey(value);
@@ -23,6 +29,42 @@ function toTierHeroKey(value) {
         .replace(/[^a-z0-9]/g, '');
 }
 
+function getTierRosterIndex() {
+    const roster = Array.isArray(MASTER_HERO_LIST) ? MASTER_HERO_LIST : [];
+    if (
+        tierRosterIndexCache.sourceRef === roster &&
+        tierRosterIndexCache.sourceLen === roster.length
+    ) {
+        return tierRosterIndexCache.byKey;
+    }
+
+    const byKey = new Map();
+    for (let i = 0; i < roster.length; i++) {
+        const hero = roster[i];
+        if (!hero || typeof hero !== 'object') continue;
+
+        const keys = [
+            toTierHeroKey(hero.id),
+            toTierHeroKey(hero.name),
+            toTierHeroKey(String(hero.name || '').split(',')[0])
+        ];
+        for (let k = 0; k < keys.length; k++) {
+            const key = keys[k];
+            if (key && !byKey.has(key)) {
+                byKey.set(key, hero);
+            }
+        }
+    }
+
+    tierRosterIndexCache = {
+        sourceRef: roster,
+        sourceLen: roster.length,
+        byKey
+    };
+
+    return byKey;
+}
+
 function resolveTierHeroEntry(rawEntry) {
     const candidate = typeof rawEntry === 'string'
         ? rawEntry
@@ -31,21 +73,35 @@ function resolveTierHeroEntry(rawEntry) {
             : '');
     if (!candidate) return null;
 
-    const normalized = typeof getNormalizedHeroData === 'function' ? getNormalizedHeroData(candidate) : null;
-    const rawHero = typeof getRawHeroEntry === 'function'
-        ? getRawHeroEntry(normalized?.id || candidate)
-        : null;
-    const roster = Array.isArray(MASTER_HERO_LIST) ? MASTER_HERO_LIST : [];
-    const targetKeys = new Set(
-        [candidate, normalized?.id, normalized?.name, rawHero?.id, rawHero?.name]
-            .map(toTierHeroKey)
-            .filter(Boolean)
-    );
+    const rosterIndex = getTierRosterIndex();
+    const candidateKey = toTierHeroKey(candidate);
+    const indexedHero = candidateKey ? (rosterIndex.get(candidateKey) || null) : null;
 
-    const listHero = roster.find(x => {
-        if (!x || typeof x !== 'object') return false;
-        return targetKeys.has(toTierHeroKey(x.id)) || targetKeys.has(toTierHeroKey(x.name));
-    });
+    const normalized = typeof getNormalizedHeroData === 'function'
+        ? getNormalizedHeroData(indexedHero?.id || candidate)
+        : null;
+    const rawHero = typeof getRawHeroEntry === 'function'
+        ? getRawHeroEntry(normalized?.id || indexedHero?.id || candidate)
+        : null;
+
+    const lookupKeys = [
+        candidateKey,
+        toTierHeroKey(normalized?.id),
+        toTierHeroKey(normalized?.name),
+        toTierHeroKey(rawHero?.id),
+        toTierHeroKey(rawHero?.name)
+    ];
+
+    let listHero = indexedHero;
+    if (!listHero) {
+        for (let i = 0; i < lookupKeys.length; i++) {
+            const key = lookupKeys[i];
+            if (key && rosterIndex.has(key)) {
+                listHero = rosterIndex.get(key);
+                break;
+            }
+        }
+    }
 
     const resolvedId = normalized?.id || listHero?.id || rawHero?.id || '';
     const resolvedName = normalized?.name || listHero?.name || rawHero?.name || '';
@@ -132,6 +188,8 @@ function createTierHeroButton(hero) {
 function renderTierList() {
     const box = document.getElementById('tierlist-rows-container');
     if (!box) return;
+
+    getTierRosterIndex();
 
     const groups = { S: [], A: [], B: [], C: [], D: [] };
     const seenKeys = new Set();
