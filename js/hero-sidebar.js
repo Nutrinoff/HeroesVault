@@ -234,6 +234,7 @@ function renderHeroSidebar(heroes) {
     sortedHeroes.forEach(h => {
         if (!h || typeof h !== 'object') return;
 
+        const isSelected = activeId === h.id;
         const tier = String(typeof getHeroTier === 'function' ? getHeroTier(h.id) : 'D').toUpperCase();
         const rawEntry = typeof getRawHeroEntry === 'function' ? getRawHeroEntry(h.id) : null;
         const portraitUrl = typeof resolveAssetUrl === 'function'
@@ -248,11 +249,10 @@ function renderHeroSidebar(heroes) {
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.dataset.heroId = h.id;
-        btn.className = `w-full text-left p-2.5 rounded-[2px] border transition-all cursor-pointer ${
-            activeId === h.id
-                ? 'bg-[#1a2956]/75 border-[#58baff]/75 shadow-[inset_0_1px_0_rgba(203,232,255,0.2),0_0_14px_rgba(0,156,255,0.2)]'
-                : 'border-[#2e1866] bg-[#090417]/55 hover:bg-[#190d3b]/85 hover:border-[#5c42b8]/70'
-        }`;
+        btn.className = `hots-list-item hots-list-item--hero${isSelected ? ' is-selected' : ''}`;
+        if (isSelected) {
+            btn.setAttribute('aria-current', 'true');
+        }
 
         btn.addEventListener('click', () => navigateFromSidebar(h.id, isBuilder));
 
@@ -271,8 +271,8 @@ function renderHeroSidebar(heroes) {
                     </svg>
                 </div>
                 <div class="min-w-0 flex-1">
-                    <h4 class="text-sm font-bold truncate text-[#e6ecff]">${safeName}</h4>
-                    <p class="text-xs text-[#9cb6ff]/75 truncate">${safeRole}</p>
+                    <h4 class="hots-list-item__title text-sm font-bold truncate">${safeName}</h4>
+                    <p class="hots-list-item__meta truncate mt-0.5">${safeRole}</p>
                 </div>
                 <span class="hots-tier-btn is-active shrink-0" data-tier="${safeTier}">
                     ${safeTier} Tier
