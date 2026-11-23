@@ -9,9 +9,8 @@ const patchState = {
     filter: 'all',
     items: [],
     selectedId: null,
+    pendingSelectionId: null,
     homeLatest: { live: null, ptr: null },
-    pendingDeepLink: null,
-    manualFilterLock: false,
     loadSequence: 0,
     detailSequence: 0,
     homeHydrateSequence: 0,
@@ -62,9 +61,9 @@ function readPatchDeepLinkFromUrl() {
             const hashParams = new URLSearchParams(hash.slice(qIndex + 1));
             const hPatch = hashParams.get('patch') || hashParams.get('id');
             const hFeed = hashParams.get('feed');
-            if (hPatch) {
+            if (hPatch || hFeed) {
                 return {
-                    patchId: String(hPatch).trim(),
+                    patchId: hPatch ? String(hPatch).trim() : null,
                     feed: hFeed ? normalizePatchFilter(hFeed) : null,
                     openView: true
                 };
@@ -87,9 +86,7 @@ function serializePatchUrl(item = null, filter = patchState.filter) {
         if (item && item.id) {
             hashParams.set('patch', String(item.id));
         }
-        const normalizedFeed = item?.feedType
-            ? normalizePatchFilter(item.feedType)
-            : normalizePatchFilter(filter);
+        const normalizedFeed = normalizePatchFilter(filter);
         if (normalizedFeed && normalizedFeed !== 'all') {
             hashParams.set('feed', normalizedFeed);
         }
@@ -102,17 +99,17 @@ function serializePatchUrl(item = null, filter = patchState.filter) {
     }
 }
 
-function writePatchUrl(item, { push = false } = {}) {
-    if (!item || !item.id || typeof window.history?.replaceState !== 'function') return;
+function writePatchUrl(item = null, { push = false } = {}) {
+    if (typeof window.history?.replaceState !== 'function') return;
 
-    const nextUrl = serializePatchUrl(item);
+    const nextUrl = serializePatchUrl(item, patchState.filter);
     if (window.location.href === nextUrl) return;
 
     const stateObj = {
         tab: 'patchnotes',
         params: {
-            patch: item.id,
-            feed: item.feedType || null
+            patch: item?.id || null,
+            feed: patchState.filter !== 'all' ? patchState.filter : null
         }
     };
 
@@ -188,11 +185,8 @@ window.openHomePatch = async function openHomePatch(feedType) {
     const normalizedFeed = feedType === 'ptr' ? 'ptr' : 'live';
     const targetPatch = patchState.homeLatest[normalizedFeed];
 
-    patchState.manualFilterLock = false;
     setPatchFilterState(normalizedFeed);
-    patchState.pendingDeepLink = targetPatch
-        ? { patchId: targetPatch.id, feed: normalizedFeed, openView: true }
-        : { patchId: null, feed: normalizedFeed, openView: true };
+    patchState.pendingSelectionId = targetPatch?.id || null;
 
     if (typeof navigateTo === 'function') {
         navigateTo('patchnotes', {
@@ -221,14 +215,6 @@ async function loadLivePatchNotes() {
     if (!listContainer) return;
 
     const seq = ++patchState.loadSequence;
-    const honorDeepLink = !patchState.manualFilterLock;
-    const activeDeepLink = honorDeepLink
-        ? (patchState.pendingDeepLink || readPatchDeepLinkFromUrl())
-        : null;
-
-    if (activeDeepLink?.feed && !patchState.pendingDeepLink) {
-        setPatchFilterState(activeDeepLink.feed);
-    }
 
     listContainer.innerHTML = `<div class="text-xs text-[#8c83a2] p-3">Loading patch notes...</div>`;
 
@@ -238,11 +224,12 @@ async function loadLivePatchNotes() {
         const allPatches = await fetchAllMasterPatches();
         if (seq !== patchState.loadSequence) return;
 
-        let filtered = filterPatchesByState(allPatches, patchState.filter);
+        const filtered = filterPatchesByState(allPatches, patchState.filter);
 
         if (filtered.length === 0) {
             setActivePatchItemsState([]);
-            patchState.manualFilterLock = false;
+            patchState.selectedId = null;
+            patchState.pendingSelectionId = null;
             listContainer.innerHTML = `<div class="text-xs text-[#8c83a2] p-3">No patches found in this feed.</div>`;
             const mainContent = document.getElementById('patch-main-content');
             if (mainContent) {
@@ -252,32 +239,21 @@ async function loadLivePatchNotes() {
             return;
         }
 
-        let targetId = filtered[0].id;
-        if (activeDeepLink?.patchId) {
-            const matchedInList = filtered.find(p => String(p.id) === String(activeDeepLink.patchId));
-            if (matchedInList) {
-                targetId = matchedInList.id;
-            } else {
-                const matchedAnywhere = allPatches.find(p => String(p.id) === String(activeDeepLink.patchId));
-                if (matchedAnywhere) {
-                    setPatchFilterState('all');
-                    filtered = allPatches;
-                    targetId = matchedAnywhere.id;
-                }
-            }
-        }
+        const desiredId = patchState.pendingSelectionId ?? patchState.selectedId;
+        patchState.pendingSelectionId = null;
 
-        if (seq !== patchState.loadSequence) return;
+        const matchedItem = desiredId != null
+            ? filtered.find(p => String(p.id) === String(desiredId))
+            : null;
+        const targetId = matchedItem ? matchedItem.id : filtered[0].id;
 
         setActivePatchItemsState(filtered);
-        patchState.pendingDeepLink = null;
-        patchState.manualFilterLock = false;
 
         renderPatchSidebar(patchState.items);
         await selectPatchItem(targetId, { loadSeq: seq, syncUrl: false });
     } catch (err) {
         if (seq !== patchState.loadSequence) return;
-        patchState.manualFilterLock = false;
+        patchState.pendingSelectionId = null;
         console.warn('Failed to load patch notes:', err);
 
         const fallbackItems = [
@@ -419,16 +395,18 @@ function initPatchNotes(initialState = {}) {
         hydrateHomeLatestPatchCards();
     }
 
-    if (initialState.patchId || initialState.feed) {
-        patchState.manualFilterLock = false;
-        patchState.pendingDeepLink = {
-            patchId: initialState.patchId || null,
-            feed: initialState.feed ? normalizePatchFilter(initialState.feed) : null,
-            openView: Boolean(initialState.openView)
-        };
-        if (initialState.feed) {
-            setPatchFilterState(initialState.feed);
-        }
+    const urlLink = initialState.openView && !initialState.patchId && !initialState.feed
+        ? readPatchDeepLinkFromUrl()
+        : null;
+
+    const effectiveFeed = initialState.feed || urlLink?.feed || null;
+    const effectivePatchId = initialState.patchId || urlLink?.patchId || null;
+
+    if (effectiveFeed) {
+        setPatchFilterState(effectiveFeed);
+    }
+    if (effectivePatchId) {
+        patchState.pendingSelectionId = effectivePatchId;
     }
 
     if (initialState.openView) {
