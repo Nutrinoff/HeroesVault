@@ -45,8 +45,9 @@ function getAssetUrl(path, fallback) {
     }
 
     var lower = p.toLowerCase();
+    var isHeroLoadingPortrait = lower.indexOf('storm_ui_ingame_hero_loadingscreen') === 0;
     var isPortrait =
-        lower.indexOf('storm_ui_ingame_hero_loadingscreen') === 0 ||
+        isHeroLoadingPortrait ||
         lower.indexOf('storm_ui_ingame_hero_select') === 0 ||
         lower.indexOf('storm_ui_ingame_heroselect') === 0 ||
         lower.indexOf('storm_ui_ingame_target') === 0 ||
@@ -54,7 +55,7 @@ function getAssetUrl(path, fallback) {
         lower.indexOf('portrait') !== -1;
 
     var isLoadingScreen =
-        lower.indexOf('loadingscreen') !== -1;
+        !isHeroLoadingPortrait && lower.indexOf('loadingscreen') !== -1;
 
     var isAbilityOrTalentIcon =
         lower.indexOf('storm_ui_talent') === 0 ||
