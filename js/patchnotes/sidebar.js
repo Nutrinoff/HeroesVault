@@ -193,25 +193,25 @@ function renderPatchSidebar(items) {
             }
         });
 
-        const feedBadge = item.feedType === 'ptr'
-            ? `<span class="text-[10px] px-1.5 py-0.5 rounded font-mono font-semibold text-[#ffeab6] bg-[#e38b0d]/20 border border-[#fed600]/40">PTR</span>`
-            : `<span class="text-[10px] px-1.5 py-0.5 rounded font-mono font-semibold text-[#cbe8ff] bg-[#0063c8]/25 border border-[#58baff]/40">LIVE</span>`;
+        const feedLabel = item.feedType === 'ptr'
+            ? `<span class="hots-list-tag hots-list-tag--gold">PTR</span>`
+            : `<span class="hots-list-tag hots-list-tag--cyan">LIVE</span>`;
 
-        const eraPill = (item.era === 'alpha' || item.era === 'beta')
-            ? `<span class="text-[10px] px-1.5 py-0.5 rounded font-mono font-semibold text-[#9d90ff] bg-[#1d1247] border border-[#5c42b8] uppercase">${escapeHtml(item.era)}</span>`
+        const eraLabel = (item.era === 'alpha' || item.era === 'beta')
+            ? `<span class="hots-list-tag hots-list-tag--meta">${escapeHtml(item.era)}</span>`
             : '';
 
-        const versionPill = item.patchVersion
-            ? `<span class="text-[10px] px-1.5 py-0.5 rounded font-mono text-[#9cb6ff] bg-[#0c0621] border border-[#38247a]">${escapeHtml(item.patchVersion)}</span>`
+        const versionLabel = item.patchVersion
+            ? `<span class="hots-list-tag hots-list-tag--meta">${escapeHtml(item.patchVersion)}</span>`
             : '';
 
         btn.innerHTML = `
             <div class="flex items-center justify-between gap-2">
                 <span class="hots-list-item__meta">${escapeHtml(item.listDate || item.date)}</span>
-                <div class="flex items-center gap-1 shrink-0">
-                    ${eraPill}
-                    ${versionPill}
-                    ${feedBadge}
+                <div class="flex items-center gap-2 shrink-0">
+                    ${eraLabel}
+                    ${versionLabel}
+                    ${feedLabel}
                 </div>
             </div>
             <h4 class="hots-list-item__title text-sm font-bold leading-snug mt-1.5">${escapeHtml(item.title)}</h4>
