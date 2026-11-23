@@ -229,8 +229,8 @@ function getShareableBuilderUrl() {
 
 function flashCopyButtonState(btn, copiedText) {
     if (!btn) return;
-    if (!btn.dataset.originalHtml) {
-        btn.dataset.originalHtml = btn.innerHTML;
+    if (btn.dataset.originalLabel === undefined) {
+        btn.dataset.originalLabel = btn.textContent.trim();
     }
 
     clearTimeout(btn._copyResetTimer);
@@ -238,30 +238,73 @@ function flashCopyButtonState(btn, copiedText) {
     btn.classList.add('ring-2', 'ring-[#58baff]/75');
 
     btn._copyResetTimer = setTimeout(() => {
-        btn.innerHTML = btn.dataset.originalHtml;
+        btn.textContent = btn.dataset.originalLabel;
         btn.classList.remove('ring-2', 'ring-[#58baff]/75');
     }, 1600);
 }
 
-function copyTextWithFallback(text, label, buttonEl = null, copiedLabel = 'Copied') {
+function fallbackCopyText(text) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'fixed';
+    textarea.style.top = '-9999px';
+    textarea.style.left = '-9999px';
+    textarea.style.opacity = '0';
+
+    document.body.appendChild(textarea);
+
+    const selection = document.getSelection();
+    const savedRange = selection && selection.rangeCount > 0 ? selection.getRangeAt(0) : null;
+
+    textarea.focus();
+    textarea.select();
+    textarea.setSelectionRange(0, textarea.value.length);
+
+    let copied = false;
+    try {
+        copied = typeof document.execCommand === 'function' && document.execCommand('copy');
+    } catch (_) {
+        copied = false;
+    }
+
+    document.body.removeChild(textarea);
+
+    if (savedRange && selection) {
+        selection.removeAllRanges();
+        selection.addRange(savedRange);
+    }
+
+    return Boolean(copied);
+}
+
+function copyTextWithFallback(text, buttonEl = null, copiedLabel = 'Copied') {
     if (!text) return;
+
+    const completeCopy = () => {
+        flashCopyButtonState(buttonEl, copiedLabel);
+    };
 
     if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
         navigator.clipboard.writeText(text)
-            .then(() => flashCopyButtonState(buttonEl, copiedLabel))
-            .catch(() => prompt(`Copy ${label}:`, text));
-    } else {
-        prompt(`Copy ${label}:`, text);
+            .then(completeCopy)
+            .catch(() => {
+                if (fallbackCopyText(text)) {
+                    completeCopy();
+                }
+            });
+    } else if (fallbackCopyText(text)) {
+        completeCopy();
     }
 }
 
 function copyBuilderUrl(buttonEl = null) {
     syncBuilderUrl(false);
-    copyTextWithFallback(getShareableBuilderUrl(), 'build URL', buttonEl, 'Copied URL');
+    copyTextWithFallback(getShareableBuilderUrl(), buttonEl, 'Copied URL');
 }
 
 function copyIngameBuildCode(buttonEl = null) {
-    copyTextWithFallback(getIngameBuildString(), 'ingame build code', buttonEl, 'Copied Ingame');
+    copyTextWithFallback(getIngameBuildString(), buttonEl, 'Copied Ingame');
 }
 
 function copyBuilderString(buttonEl = null) {
