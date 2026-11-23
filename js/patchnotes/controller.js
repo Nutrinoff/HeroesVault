@@ -11,6 +11,10 @@ const patchState = {
     selectedId: null,
     pendingSelectionId: null,
     homeLatest: { live: null, ptr: null },
+    homeHydrated: false,
+    homeHydratePromise: null,
+    lastRenderedFilter: null,
+    lastRenderedSelectionId: null,
     loadSequence: 0,
     detailSequence: 0,
     homeHydrateSequence: 0,
@@ -124,7 +128,7 @@ function writePatchUrl(item = null, { push = false } = {}) {
     }
 }
 
-async function hydrateHomeLatestPatchCards() {
+async function hydrateHomeLatestPatchCards(options = {}) {
     bindHomePatchCards();
 
     const liveTitle = document.getElementById('home-live-patch-title');
@@ -137,48 +141,68 @@ async function hydrateHomeLatestPatchCards() {
 
     if (!liveTitle && !ptrTitle) return;
 
+    if (!options.force && patchState.homeHydrated) {
+        return;
+    }
+    if (!options.force && patchState.homeHydratePromise) {
+        return patchState.homeHydratePromise;
+    }
+
     const hydrateSeq = ++patchState.homeHydrateSequence;
 
-    try {
-        const allPatches = await fetchAllMasterPatches();
-        if (hydrateSeq !== patchState.homeHydrateSequence) return;
+    const runHydration = (async () => {
+        try {
+            const allPatches = await fetchAllMasterPatches();
+            if (hydrateSeq !== patchState.homeHydrateSequence) return;
 
-        const latestLive = allPatches.find(p => p.feedType === 'live') || null;
-        const latestPtr = allPatches.find(p => p.feedType === 'ptr') || null;
+            const latestLive = allPatches.find(p => p.feedType === 'live') || null;
+            const latestPtr = allPatches.find(p => p.feedType === 'ptr') || null;
 
-        patchState.homeLatest.live = latestLive;
-        patchState.homeLatest.ptr = latestPtr;
+            patchState.homeLatest.live = latestLive;
+            patchState.homeLatest.ptr = latestPtr;
 
-        if (liveTitle) {
-            if (latestLive) {
-                liveTitle.textContent = latestLive.title;
-                if (liveMeta) liveMeta.textContent = latestLive.listDate || latestLive.date || 'Live';
-                const liveNotes = await fetchPatchRawNotesText(latestLive);
-                if (hydrateSeq !== patchState.homeHydrateSequence) return;
-                if (liveTldr) liveTldr.textContent = buildPatchTldr(latestLive, liveNotes);
-            } else {
-                liveTitle.textContent = 'No live patch recorded';
-                if (liveTldr) liveTldr.textContent = 'Open Patch Notes to browse all feeds.';
+            if (liveTitle) {
+                if (latestLive) {
+                    liveTitle.textContent = latestLive.title;
+                    if (liveMeta) liveMeta.textContent = latestLive.listDate || latestLive.date || 'Live';
+                    const liveNotes = await fetchPatchRawNotesText(latestLive);
+                    if (hydrateSeq !== patchState.homeHydrateSequence) return;
+                    if (liveTldr) liveTldr.textContent = buildPatchTldr(latestLive, liveNotes);
+                } else {
+                    liveTitle.textContent = 'No live patch recorded';
+                    if (liveTldr) liveTldr.textContent = 'Open Patch Notes to browse all feeds.';
+                }
+            }
+
+            if (ptrTitle) {
+                if (latestPtr) {
+                    ptrTitle.textContent = latestPtr.title;
+                    if (ptrMeta) ptrMeta.textContent = latestPtr.listDate || latestPtr.date || 'PTR';
+                    const ptrNotes = await fetchPatchRawNotesText(latestPtr);
+                    if (hydrateSeq !== patchState.homeHydrateSequence) return;
+                    if (ptrTldr) ptrTldr.textContent = buildPatchTldr(latestPtr, ptrNotes);
+                } else {
+                    ptrTitle.textContent = 'No active PTR patch';
+                    if (ptrTldr) ptrTldr.textContent = 'Open Patch Notes to check PTR archive.';
+                }
+            }
+
+            if (hydrateSeq === patchState.homeHydrateSequence) {
+                patchState.homeHydrated = true;
+            }
+        } catch (_) {
+            if (hydrateSeq !== patchState.homeHydrateSequence) return;
+            if (liveTitle) liveTitle.textContent = 'Live Patch Notes';
+            if (ptrTitle) ptrTitle.textContent = 'PTR Patch Notes';
+        } finally {
+            if (patchState.homeHydratePromise === runHydration) {
+                patchState.homeHydratePromise = null;
             }
         }
+    })();
 
-        if (ptrTitle) {
-            if (latestPtr) {
-                ptrTitle.textContent = latestPtr.title;
-                if (ptrMeta) ptrMeta.textContent = latestPtr.listDate || latestPtr.date || 'PTR';
-                const ptrNotes = await fetchPatchRawNotesText(latestPtr);
-                if (hydrateSeq !== patchState.homeHydrateSequence) return;
-                if (ptrTldr) ptrTldr.textContent = buildPatchTldr(latestPtr, ptrNotes);
-            } else {
-                ptrTitle.textContent = 'No active PTR patch';
-                if (ptrTldr) ptrTldr.textContent = 'Open Patch Notes to check PTR archive.';
-            }
-        }
-    } catch (_) {
-        if (hydrateSeq !== patchState.homeHydrateSequence) return;
-        if (liveTitle) liveTitle.textContent = 'Live Patch Notes';
-        if (ptrTitle) ptrTitle.textContent = 'PTR Patch Notes';
-    }
+    patchState.homeHydratePromise = runHydration;
+    return runHydration;
 }
 
 window.openHomePatch = async function openHomePatch(feedType) {
@@ -208,11 +232,25 @@ function filterPatchesByState(allPatches, filter) {
     return allPatches;
 }
 
-async function loadLivePatchNotes() {
+async function loadLivePatchNotes(options = {}) {
     initPatchFilterControls();
 
     const listContainer = document.getElementById('patch-sidebar-list');
     if (!listContainer) return;
+
+    const desiredId = patchState.pendingSelectionId ?? patchState.selectedId;
+    if (
+        !options.force &&
+        patchState.items.length > 0 &&
+        patchState.lastRenderedFilter === patchState.filter &&
+        desiredId != null &&
+        String(patchState.lastRenderedSelectionId) === String(desiredId) &&
+        listContainer.children.length > 0
+    ) {
+        patchState.pendingSelectionId = null;
+        schedulePatchSidebarSync();
+        return;
+    }
 
     const seq = ++patchState.loadSequence;
 
@@ -230,6 +268,8 @@ async function loadLivePatchNotes() {
             setActivePatchItemsState([]);
             patchState.selectedId = null;
             patchState.pendingSelectionId = null;
+            patchState.lastRenderedFilter = patchState.filter;
+            patchState.lastRenderedSelectionId = null;
             listContainer.innerHTML = `<div class="text-xs text-[#8c83a2] p-3">No patches found in this feed.</div>`;
             const mainContent = document.getElementById('patch-main-content');
             if (mainContent) {
@@ -239,15 +279,17 @@ async function loadLivePatchNotes() {
             return;
         }
 
-        const desiredId = patchState.pendingSelectionId ?? patchState.selectedId;
+        const resolvedDesiredId = patchState.pendingSelectionId ?? patchState.selectedId;
         patchState.pendingSelectionId = null;
 
-        const matchedItem = desiredId != null
-            ? filtered.find(p => String(p.id) === String(desiredId))
+        const matchedItem = resolvedDesiredId != null
+            ? filtered.find(p => String(p.id) === String(resolvedDesiredId))
             : null;
         const targetId = matchedItem ? matchedItem.id : filtered[0].id;
 
         setActivePatchItemsState(filtered);
+        patchState.lastRenderedFilter = patchState.filter;
+        patchState.lastRenderedSelectionId = targetId;
 
         renderPatchSidebar(patchState.items);
         await selectPatchItem(targetId, { loadSeq: seq, syncUrl: false });
@@ -270,6 +312,8 @@ async function loadLivePatchNotes() {
             }
         ];
         setActivePatchItemsState(fallbackItems);
+        patchState.lastRenderedFilter = patchState.filter;
+        patchState.lastRenderedSelectionId = fallbackItems[0].id;
         renderPatchSidebar(patchState.items);
         await selectPatchItem(fallbackItems[0].id, { loadSeq: seq, syncUrl: false });
     }
@@ -286,6 +330,7 @@ async function selectPatchItem(id, options = {}) {
 
     const detailSeq = ++patchState.detailSequence;
     patchState.selectedId = item.id;
+    patchState.lastRenderedSelectionId = item.id;
 
     if (shouldSyncUrl) {
         writePatchUrl(item);
@@ -377,7 +422,6 @@ function bindPatchGlobalListeners() {
     if (patchState.listenersBound) return;
     patchState.listenersBound = true;
 
-    window.addEventListener('scroll', schedulePatchSidebarSync, { passive: true });
     window.addEventListener('resize', schedulePatchSidebarSync, { passive: true });
 
     const patchViewEl = document.getElementById('view-patchnotes');
@@ -392,7 +436,7 @@ function initPatchNotes(initialState = {}) {
     initPatchFilterControls();
 
     if (initialState.hydrateHome) {
-        hydrateHomeLatestPatchCards();
+        hydrateHomeLatestPatchCards({ force: Boolean(initialState.force) });
     }
 
     const urlLink = initialState.openView && !initialState.patchId && !initialState.feed
@@ -410,7 +454,7 @@ function initPatchNotes(initialState = {}) {
     }
 
     if (initialState.openView) {
-        loadLivePatchNotes();
+        loadLivePatchNotes({ force: Boolean(initialState.force) });
     }
 
     schedulePatchSidebarSync();
