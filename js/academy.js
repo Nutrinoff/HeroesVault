@@ -11,8 +11,24 @@ let academyState = {
 
 let lastRenderedAcademySignature = null;
 
+function getAcademyArticlesSafe() {
+  if (typeof getAcademyArticlesList === 'function') {
+    const list = getAcademyArticlesList();
+    if (Array.isArray(list)) return list;
+  }
+  return [];
+}
+
+function getAcademyIndexLoaderSafe() {
+  return typeof ensureAcademyIndexLoaded === 'function' ? ensureAcademyIndexLoaded : null;
+}
+
+function getAcademyArticleDetailFetcherSafe() {
+  return typeof fetchAcademyArticleDetail === 'function' ? fetchAcademyArticleDetail : null;
+}
+
 function getAcademyRenderSignature() {
-  const articles = getAcademyArticlesList();
+  const articles = getAcademyArticlesSafe();
   const activeArticle = articles.find((a) => a.id === academyState.activeId);
   const activeMarkdownLen = typeof activeArticle?.markdown === 'string'
     ? activeArticle.markdown.length
@@ -29,7 +45,7 @@ function getAcademyRenderSignature() {
 }
 
 function getAcademyCategories() {
-  const articles = getAcademyArticlesList();
+  const articles = getAcademyArticlesSafe();
   const set = new Set(['All']);
   articles.forEach((a) => {
     if (a?.category) set.add(a.category);
@@ -184,7 +200,7 @@ function renderAcademyMarkdown(markdown) {
 }
 
 function getFilteredAcademyArticles() {
-  const articles = getAcademyArticlesList();
+  const articles = getAcademyArticlesSafe();
   const q = academyState.search.trim().toLowerCase();
 
   return articles.filter((article) => {
@@ -344,9 +360,10 @@ function renderAcademyListAndReader(scrollReader) {
   });
   listEl.replaceChildren(listFrag);
 
-  if (typeof activeArticle.markdown !== 'string') {
+  const detailFetcher = getAcademyArticleDetailFetcherSafe();
+  if (typeof activeArticle.markdown !== 'string' && detailFetcher) {
     const targetId = activeArticle.id;
-    fetchAcademyArticleDetail(targetId).then((fullArticle) => {
+    Promise.resolve(detailFetcher(targetId)).then((fullArticle) => {
       if (!fullArticle || typeof fullArticle.markdown !== 'string') return;
       if (academyState.activeId !== targetId) return;
       lastRenderedAcademySignature = null;
@@ -457,10 +474,14 @@ function bindAcademyEvents() {
 function renderAcademy() {
   bindAcademyEvents();
 
-  if (academyIndexCache === null && !academyIndexInflight) {
-    ensureAcademyIndexLoaded().then(() => {
+  const indexCache = typeof academyIndexCache !== 'undefined' ? academyIndexCache : null;
+  const indexInflight = typeof academyIndexInflight !== 'undefined' ? academyIndexInflight : null;
+  const loadIndex = getAcademyIndexLoaderSafe();
+
+  if (indexCache === null && !indexInflight && loadIndex) {
+    Promise.resolve(loadIndex()).then(() => {
       if (!academyState.activeId) {
-        academyState.activeId = getAcademyArticlesList()[0]?.id || null;
+        academyState.activeId = getAcademyArticlesSafe()[0]?.id || null;
       }
       lastRenderedAcademySignature = null;
       renderAcademyCategories();
@@ -472,7 +493,7 @@ function renderAcademy() {
   }
 
   if (!academyState.activeId) {
-    academyState.activeId = getAcademyArticlesList()[0]?.id || null;
+    academyState.activeId = getAcademyArticlesSafe()[0]?.id || null;
   }
 
   const sig = getAcademyRenderSignature();
@@ -488,16 +509,16 @@ function renderAcademy() {
   }
 }
 
-if (document.readyState === 'loading') {
-  document.addEventListener(
-    'DOMContentLoaded',
-    () => {
-      bindAcademyEvents();
-      ensureAcademyIndexLoaded();
-    },
-    { once: true }
-  );
-} else {
+const initAcademyModule = () => {
   bindAcademyEvents();
-  ensureAcademyIndexLoaded();
+  const loadIndex = getAcademyIndexLoaderSafe();
+  if (loadIndex) {
+    loadIndex();
+  }
+};
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initAcademyModule, { once: true });
+} else {
+  initAcademyModule();
 }
