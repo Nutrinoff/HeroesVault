@@ -3,6 +3,14 @@
 // ==========================================
 
 var LOCAL_ROTATION_DATA_URL = './data/rotation.json';
+var ROTATION_API_PATH = '/api/rotation';
+var ROTATION_API_BASE = (
+    typeof window !== 'undefined' && typeof window.HEROESVAULT_API_BASE === 'string'
+        ? window.HEROESVAULT_API_BASE
+        : (typeof HEROESVAULT_API_BASE === 'string'
+            ? HEROESVAULT_API_BASE
+            : 'https://thesaurus-sage-headphones-meets.trycloudflare.com')
+).trim().replace(/\/+$/, '');
 var ROTATION_FETCH_TIMEOUT_MS = 4000;
 var ROTATION_PORTRAIT_SIZE_PX = 45;
 
@@ -389,18 +397,11 @@ function parseRotationPayload(raw, now) {
     };
 }
 
-function fetchLocalRotationJson(url, timeoutMs) {
-    var targetUrl = url || LOCAL_ROTATION_DATA_URL;
-    var limitMs = typeof timeoutMs === 'number' ? timeoutMs : ROTATION_FETCH_TIMEOUT_MS;
-
-    if (rotationFetchInflight) {
-        return rotationFetchInflight;
-    }
-
+function fetchSingleRotationUrl(url, timeoutMs) {
     var controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
-    var timer = controller ? setTimeout(function () { controller.abort(); }, limitMs) : null;
+    var timer = controller ? setTimeout(function () { controller.abort(); }, timeoutMs) : null;
 
-    rotationFetchInflight = fetch(targetUrl, {
+    return fetch(url, {
         cache: 'no-store',
         signal: controller ? controller.signal : undefined
     })
@@ -412,8 +413,31 @@ function fetchLocalRotationJson(url, timeoutMs) {
         })
         .finally(function () {
             if (timer) clearTimeout(timer);
-            rotationFetchInflight = null;
         });
+}
+
+function fetchLocalRotationJson(url, timeoutMs) {
+    var localUrl = url || LOCAL_ROTATION_DATA_URL;
+    var limitMs = typeof timeoutMs === 'number' ? timeoutMs : ROTATION_FETCH_TIMEOUT_MS;
+
+    if (rotationFetchInflight) {
+        return rotationFetchInflight;
+    }
+
+    var remoteUrl = ROTATION_API_BASE ? (ROTATION_API_BASE + ROTATION_API_PATH) : '';
+
+    rotationFetchInflight = (async function () {
+        if (remoteUrl) {
+            try {
+                return await fetchSingleRotationUrl(remoteUrl, limitMs);
+            } catch (err) {
+                console.warn('[Rotation] Remote rotation fetch failed, falling back to local:', err);
+            }
+        }
+        return await fetchSingleRotationUrl(localUrl, limitMs);
+    })().finally(function () {
+        rotationFetchInflight = null;
+    });
 
     return rotationFetchInflight;
 }
