@@ -5,6 +5,8 @@
 const DEFAULT_API_BASE = 'https://s-st-01.anteater-bushmaster.ts.net';
 const PATCH_DATA_DIR = './data/patchnotes';
 const MAP_DATA_DIR = './data/maps';
+const ROTATION_DATA_DIR = './data';
+const DEFAULT_ROTATION_TIMEOUT_MS = 4000;
 
 const MASTER_PATCH_FILES = [
   'alpha-master.json',
@@ -56,7 +58,11 @@ export async function apiFetch(pathOrUrl, options = {}) {
   });
 }
 
-async function fetchJsonWithFallback(remotePath, localPath, { cacheKey = '', force = false } = {}) {
+async function fetchJsonWithFallback(
+  remotePath,
+  localPath,
+  { cacheKey = '', force = false, fetchOptions = {} } = {}
+) {
   if (!force && cacheKey && JSON_CACHE.has(cacheKey)) {
     return JSON_CACHE.get(cacheKey);
   }
@@ -69,7 +75,7 @@ async function fetchJsonWithFallback(remotePath, localPath, { cacheKey = '', for
 
     if (resolveApiBase() && remotePath) {
       try {
-        const res = await apiFetch(remotePath);
+        const res = await apiFetch(remotePath, fetchOptions);
         if (res.ok) {
           data = await res.json();
         }
@@ -80,7 +86,7 @@ async function fetchJsonWithFallback(remotePath, localPath, { cacheKey = '', for
 
     if (data === null && localPath) {
       try {
-        const localRes = await fetch(localPath);
+        const localRes = await fetch(localPath, fetchOptions);
         if (localRes.ok) {
           data = await localRes.json();
         }
@@ -105,7 +111,11 @@ async function fetchJsonWithFallback(remotePath, localPath, { cacheKey = '', for
   return task;
 }
 
-async function fetchTextWithFallback(remotePath, localPath, { cacheKey = '', force = false } = {}) {
+async function fetchTextWithFallback(
+  remotePath,
+  localPath,
+  { cacheKey = '', force = false, fetchOptions = {} } = {}
+) {
   if (!force && cacheKey && TEXT_CACHE.has(cacheKey)) {
     return TEXT_CACHE.get(cacheKey);
   }
@@ -118,7 +128,7 @@ async function fetchTextWithFallback(remotePath, localPath, { cacheKey = '', for
 
     if (resolveApiBase() && remotePath) {
       try {
-        const res = await apiFetch(remotePath);
+        const res = await apiFetch(remotePath, fetchOptions);
         if (res.ok) {
           text = await res.text();
         }
@@ -129,7 +139,7 @@ async function fetchTextWithFallback(remotePath, localPath, { cacheKey = '', for
 
     if (!text && localPath) {
       try {
-        const localRes = await fetch(localPath);
+        const localRes = await fetch(localPath, fetchOptions);
         if (localRes.ok) {
           text = await localRes.text();
         }
@@ -229,6 +239,36 @@ export async function fetchMapDetails(id, { force = false } = {}) {
   return data && typeof data === 'object' ? data : {};
 }
 
+// --- Rotation endpoints ---
+
+export async function fetchRotationData(
+  { force = false, timeoutMs = DEFAULT_ROTATION_TIMEOUT_MS } = {}
+) {
+  const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+  const timer = controller
+    ? setTimeout(() => controller.abort(), timeoutMs)
+    : null;
+
+  try {
+    const data = await fetchJsonWithFallback(
+      '/api/rotation',
+      `${ROTATION_DATA_DIR}/rotation.json`,
+      {
+        cacheKey: 'rotation:current',
+        force,
+        fetchOptions: {
+          cache: 'no-store',
+          signal: controller ? controller.signal : undefined,
+        },
+      }
+    );
+
+    return data && typeof data === 'object' ? data : {};
+  } finally {
+    if (timer) clearTimeout(timer);
+  }
+}
+
 // --- Academy endpoints ---
 
 export function fetchAcademyList({ force = false } = {}) {
@@ -265,6 +305,7 @@ export function getApiController() {
     fetchAllPatchMasterFeeds,
     fetchPatchDetailRaw,
     fetchMapDetails,
+    fetchRotationData,
     fetchAcademyList,
     fetchAcademyArticleById,
     fetchHeroesMasterCatalog,
