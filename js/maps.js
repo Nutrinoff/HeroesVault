@@ -2,8 +2,6 @@
 // MAPS & BATTLEGROUNDS MODULE
 // =========================================
 
-import { fetchMapDetails } from './api.js';
-
 const WARMED_MAP_IDS = new Set();
 const MAP_DROPDOWN_WARM_LIMIT = 2;
 const MAP_FALLBACK_BANNER = `data:image/svg+xml;utf8,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="500" viewBox="0 0 1200 500"><rect width="1200" height="500" fill="#0d0724"/><rect x="1" y="1" width="1198" height="498" fill="none" stroke="#38247a" stroke-width="2"/><text x="600" y="258" fill="#8c83a2" font-family="monospace" font-size="28" text-anchor="middle">BATTLEGROUND ART UNAVAILABLE</text></svg>')}`;
@@ -12,6 +10,12 @@ const MAP_HERO_FALLBACK_PORTRAIT = `data:image/svg+xml;utf8,${encodeURIComponent
 let activeMapSelectionSeq = 0;
 let activeMapId = null;
 let dropdownWarmedCount = 0;
+
+function getMapApi() {
+    return typeof window !== 'undefined' && window.HeroesVaultApi && typeof window.HeroesVaultApi === 'object'
+        ? window.HeroesVaultApi
+        : null;
+}
 
 function getMapCatalogApi() {
     return window.HeroesVaultCatalog && typeof window.HeroesVaultCatalog === 'object'
@@ -133,8 +137,9 @@ function warmMapAssets(id, { includeDetails = false, fromDropdown = false } = {}
         preloadMapImage(summary.portrait);
     }
 
-    if (includeDetails) {
-        fetchMapDetails(id).then(details => {
+    const api = getMapApi();
+    if (includeDetails && typeof api?.fetchMapDetails === 'function') {
+        api.fetchMapDetails(id).then(details => {
             if (details?.portrait) {
                 preloadMapImage(details.portrait);
             }
@@ -466,7 +471,10 @@ async function selectMap(id, update = true) {
 
     renderMapView(summary, id);
 
-    const details = await fetchMapDetails(id);
+    const api = getMapApi();
+    const details = typeof api?.fetchMapDetails === 'function'
+        ? await api.fetchMapDetails(id)
+        : {};
     if (seq !== activeMapSelectionSeq) return;
 
     const merged = { ...summary, ...details };
