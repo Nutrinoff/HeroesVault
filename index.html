@@ -25,7 +25,7 @@
 
  <!-- HEADER -->
   <header class="hots-topbar sticky top-0 z-50">
-    <div class="max-w-[1600px] mx-auto px-6 pt-2.5 pb-0 flex flex-col items-center justify-between gap-2 md:flex-row md:items-stretch">
+    <div class="max-w-[1840px] mx-auto px-6 pt-2.5 pb-0 flex flex-col items-center justify-between gap-2 md:flex-row md:items-stretch">
       <div
         id="brand-home-trigger"
         role="button"
@@ -42,10 +42,10 @@
           </svg>
         </div>
         <div class="text-center md:text-left">
-          <h1 class="hots-display text-2xl font-bold tracking-wider uppercase">
+          <h1 class="hots-display text-2xl sm:text-[1.65rem] font-bold tracking-wider uppercase">
             HEROES<span class="text-[#9cb6ff]">VAULT</span>
           </h1>
-          <p class="text-[10px] uppercase tracking-[0.26em] text-[#9d90ff] font-bold">Nexus Strategy &amp; Spec Database</p>
+          <p class="text-[11px] uppercase tracking-[0.24em] text-[#9d90ff] font-bold">Nexus Strategy &amp; Spec Database</p>
         </div>
       </div>
 
@@ -85,10 +85,10 @@
   </header>
 
  <!-- CONTENT CONTAINER -->
-  <div class="flex-1 max-w-[1600px] w-full mx-auto px-6 py-5 flex flex-col lg:flex-row gap-6 items-start">
+  <div class="flex-1 max-w-[1840px] w-full mx-auto px-6 py-5 flex flex-col lg:flex-row gap-6 items-start">
 
     <!-- SIDEBAR (Shown on Builds & Talent Builder views) -->
-    <aside id="sidebar-container" aria-label="Hero roster" class="hidden w-full lg:w-72 flex-shrink-0 hots-panel flex flex-col overflow-hidden">
+    <aside id="sidebar-container" aria-label="Hero roster" class="hidden w-full lg:w-80 flex-shrink-0 hots-panel flex flex-col overflow-hidden">
       <div class="p-3 border-b border-[#38247a] bg-[#120b2e]/90 flex flex-col gap-2">
         <div class="relative">
           <i data-lucide="search" class="w-4 h-4 absolute left-3 top-2.5 text-[#8c83a2]" aria-hidden="true"></i>
@@ -107,28 +107,28 @@
     <main class="flex-1 min-w-0 w-full flex flex-col">
 
       <!-- VIEW: HOME -->
-      <div id="view-home" class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_16.5rem] gap-5 items-start">
+      <div id="view-home" class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_18.5rem] gap-5 items-start">
         <!-- Left / Main Column -->
         <div class="min-w-0 space-y-4">
           <!-- Header Banner -->
           <div class="hots-panel hots-banner-accent px-6 py-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div class="space-y-2 min-w-0">
               <div class="hots-label text-[#58baff]">Nexus Command &amp; Loadout Hub</div>
-              <h2 class="hots-display text-2xl font-bold uppercase tracking-wide">HeroesVault</h2>
-              <p class="text-xs sm:text-sm text-[#9cb6ff]/90 max-w-2xl">
+              <h2 class="hots-display text-2xl sm:text-[1.75rem] font-bold uppercase tracking-wide">HeroesVault</h2>
+              <p class="text-sm text-[#9cb6ff]/90 max-w-3xl">
                 Hero talent loadouts, build code calculator, battleground guides, patch feed, and personal tier rankings.
               </p>
-              <div class="flex flex-wrap items-center gap-2 pt-0.5 text-[11px] font-mono">
+              <div class="flex flex-wrap items-center gap-2 pt-0.5 text-xs font-mono">
                 <span id="home-hero-count" class="hots-subpanel px-2.5 py-0.5 text-[#58baff]">0 Heroes</span>
                 <span id="home-build-count" class="hots-subpanel px-2.5 py-0.5 text-[#f5d89a]">0 Sets</span>
                 <span id="home-guide-count" class="hots-subpanel px-2.5 py-0.5 text-[#9d90ff]">0 Guides</span>
               </div>
             </div>
             <div class="flex flex-wrap gap-2.5 shrink-0">
-              <button type="button" data-nav-tab="builds" class="hots-btn-cyan hots-display font-bold uppercase tracking-wider px-5 py-2 text-xs sm:text-sm transition flex items-center gap-2 cursor-pointer">
+              <button type="button" data-nav-tab="builds" class="hots-btn-cyan hots-display font-bold uppercase tracking-wider px-5 py-2.5 text-xs sm:text-sm transition flex items-center gap-2 cursor-pointer">
                 <i data-lucide="shield" class="w-4 h-4" aria-hidden="true"></i> Hero Builds
               </button>
-              <button type="button" data-nav-tab="builder" class="hots-btn-gold hots-display font-bold uppercase tracking-wider px-5 py-2 text-xs sm:text-sm transition flex items-center gap-2 cursor-pointer">
+              <button type="button" data-nav-tab="builder" class="hots-btn-gold hots-display font-bold uppercase tracking-wider px-5 py-2.5 text-xs sm:text-sm transition flex items-center gap-2 cursor-pointer">
                 <i data-lucide="cpu" class="w-4 h-4" aria-hidden="true"></i> Talent Builder
               </button>
             </div>
@@ -149,12 +149,12 @@
                 <span class="hots-label text-[#58baff] flex items-center gap-1.5 shrink-0">
                   <span class="w-2 h-2 rounded-[1px] bg-[#58baff] shadow-[0_0_8px_#009cff]" aria-hidden="true"></span> Latest Live Patch
                 </span>
-                <span id="home-live-patch-meta" class="text-[10px] font-mono text-[#9d90ff] shrink-0">Live</span>
+                <span id="home-live-patch-meta" class="text-xs font-mono text-[#9d90ff] shrink-0">Live</span>
               </div>
-              <div id="home-live-patch-title" class="text-sm font-bold text-[#e6ecff] group-hover:text-[#cbe8ff] transition line-clamp-1">
+              <div id="home-live-patch-title" class="text-sm sm:text-base font-bold text-[#e6ecff] group-hover:text-[#cbe8ff] transition line-clamp-1">
                 Loading live patch notes...
               </div>
-              <p id="home-live-patch-tldr" class="text-xs text-[#8c83a2] leading-relaxed line-clamp-2">
+              <p id="home-live-patch-tldr" class="text-xs sm:text-sm text-[#8c83a2] leading-relaxed line-clamp-2">
                 Click to jump straight to the latest live patch notes.
               </p>
             </div>
@@ -172,12 +172,12 @@
                 <span class="hots-label text-[#f5d89a] flex items-center gap-1.5 shrink-0">
                   <span class="w-2 h-2 rounded-[1px] bg-[#e39a24] shadow-[0_0_8px_rgba(201,122,22,0.7)]" aria-hidden="true"></span> Latest PTR Patch
                 </span>
-                <span id="home-ptr-patch-meta" class="text-[10px] font-mono text-[#9d90ff] shrink-0">PTR</span>
+                <span id="home-ptr-patch-meta" class="text-xs font-mono text-[#9d90ff] shrink-0">PTR</span>
               </div>
-              <div id="home-ptr-patch-title" class="text-sm font-bold text-[#e6ecff] group-hover:text-[#f5d89a] transition line-clamp-1">
+              <div id="home-ptr-patch-title" class="text-sm sm:text-base font-bold text-[#e6ecff] group-hover:text-[#f5d89a] transition line-clamp-1">
                 Loading PTR patch notes...
               </div>
-              <p id="home-ptr-patch-tldr" class="text-xs text-[#8c83a2] leading-relaxed line-clamp-2">
+              <p id="home-ptr-patch-tldr" class="text-xs sm:text-sm text-[#8c83a2] leading-relaxed line-clamp-2">
                 Click to jump straight to the latest PTR patch notes.
               </p>
             </div>
@@ -190,11 +190,11 @@
                 <h3 class="hots-label text-[#f5d89a] flex items-center gap-2">
                   <i data-lucide="sparkles" class="w-3.5 h-3.5 text-[#c97a16]" aria-hidden="true"></i> Featured Spec Pick
                 </h3>
-                <span id="home-roster-badge" class="text-[11px] font-mono text-[#58baff]">Roster</span>
+                <span id="home-roster-badge" class="text-xs font-mono text-[#58baff]">Roster</span>
               </div>
               <div id="home-featured-spec" class="space-y-1">
-                <p class="text-sm font-bold text-[#e6ecff]">Jump into Talent Builder</p>
-                <p class="text-xs text-[#8c83a2] leading-relaxed">
+                <p class="text-sm sm:text-base font-bold text-[#e6ecff]">Jump into Talent Builder</p>
+                <p class="text-xs sm:text-sm text-[#8c83a2] leading-relaxed">
                   Test level 1–20 talent combinations, inspect tooltips, and copy build codes for matches.
                 </p>
               </div>
@@ -205,11 +205,11 @@
                 <h3 class="hots-label text-[#9d90ff] flex items-center gap-2">
                   <i data-lucide="graduation-cap" class="w-3.5 h-3.5 text-[#58baff]" aria-hidden="true"></i> Nexus Academy Highlights
                 </h3>
-                <button type="button" data-nav-tab="academy" class="text-[11px] font-bold uppercase tracking-wider text-[#58baff] hover:text-[#cbe8ff] cursor-pointer transition">
+                <button type="button" data-nav-tab="academy" class="text-xs font-bold uppercase tracking-wider text-[#58baff] hover:text-[#cbe8ff] cursor-pointer transition">
                   Guides <span aria-hidden="true">&rarr;</span>
                 </button>
               </div>
-              <div id="home-academy-highlights" class="space-y-1.5 text-xs text-[#9cb6ff]/90">
+              <div id="home-academy-highlights" class="space-y-1.5 text-xs sm:text-sm text-[#9cb6ff]/90">
                 <p><span class="text-[#58baff]" aria-hidden="true">&bull;</span> Wave soaking, XP breakpoints, and objective timing</p>
                 <p><span class="text-[#c97a16]" aria-hidden="true">&bull;</span> Draft synergy, counters, and teamfight roles</p>
               </div>
@@ -217,16 +217,16 @@
           </div>
         </div>
 
-        <!-- Narrow Right Column: Compact 2-Column F2P Rotation -->
-        <aside aria-label="Weekly free rotation" class="w-full min-w-0 hots-panel p-3 flex flex-col gap-2">
+        <!-- Right Column: Compact 2-Column F2P Rotation -->
+        <aside aria-label="Weekly free rotation" class="w-full min-w-0 hots-panel p-3.5 flex flex-col gap-2">
           <div class="flex flex-col items-center text-center gap-0.5 border-b border-[#38247a] pb-2">
             <h3 class="hots-label text-[#58baff] flex items-center justify-center gap-1.5">
               <i data-lucide="users" class="w-3.5 h-3.5 shrink-0" aria-hidden="true"></i> Free Rotation
             </h3>
-            <span id="home-f2p-timespan" class="text-[10px] font-mono text-[#f5d89a] leading-snug">Weekly</span>
+            <span id="home-f2p-timespan" class="text-xs font-mono text-[#f5d89a] leading-snug">Weekly</span>
           </div>
 
-          <div id="home-f2p-grid" class="grid grid-cols-2 gap-x-1.5 gap-y-1 content-start items-start">
+          <div id="home-f2p-grid" class="grid grid-cols-2 gap-x-2 gap-y-1.5 content-start items-start">
             <div class="col-span-2 text-xs text-[#8c83a2] py-2 text-center">Loading free rotation...</div>
           </div>
         </aside>
@@ -250,17 +250,17 @@
             </div>
             <div>
               <div class="flex items-center gap-3 flex-wrap">
-                <h2 id="hero-name" class="hots-display text-2xl font-bold uppercase tracking-wide">Select a Hero</h2>
-                <span id="hero-role" class="hots-role-badge px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider text-[#f5d89a]">Role</span>
+                <h2 id="hero-name" class="hots-display text-2xl sm:text-[1.75rem] font-bold uppercase tracking-wide">Select a Hero</h2>
+                <span id="hero-role" class="hots-role-badge px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider text-[#f5d89a]">Role</span>
               </div>
-              <p id="hero-title" class="text-xs text-[#8c83a2] mt-1">Title</p>
+              <p id="hero-title" class="text-xs sm:text-sm text-[#8c83a2] mt-1">Title</p>
             </div>
           </div>
           <div id="hero-abilities" class="flex items-center justify-center gap-2 flex-wrap py-1"></div>
         </div>
 
         <section class="hots-panel p-4 space-y-3">
-          <div class="flex justify-between items-center border-b border-[#38247a] pb-2">
+          <div class="flex justify-between items-center border-b border-[#38247a] pb-2 gap-2 flex-wrap">
             <h3 class="hots-label text-[#58baff]">Spec Loadouts</h3>
             <span class="text-xs text-[#8c83a2]">Select build variations configured for this hero</span>
           </div>
@@ -281,7 +281,7 @@
       <!-- VIEW: MAP -->
       <div id="view-map" class="space-y-6 hidden">
         <!-- Unboxed Faded Battleground Backdrop (Title Top-Left, Golden Hero Portraits Bottom-Right) -->
-        <div class="relative min-h-[15rem] md:min-h-[19rem] overflow-hidden border-b border-[#38247a]">
+        <div class="relative min-h-[16rem] md:min-h-[20rem] overflow-hidden border-b border-[#38247a]">
           <img
             id="map-portrait"
             src=""
@@ -301,7 +301,7 @@
           <div class="absolute inset-x-0 top-0 p-5 md:p-6 flex flex-col items-start justify-start z-10 pointer-events-none">
             <span class="hots-label text-[#f5d89a]">Battleground</span>
             <h2 id="map-name" class="hots-display text-3xl md:text-4xl font-bold uppercase tracking-wide mt-1"></h2>
-            <p id="map-theme" class="text-xs sm:text-sm text-[#9cb6ff]/90 mt-1 max-w-xl"></p>
+            <p id="map-theme" class="text-xs sm:text-sm text-[#9cb6ff]/90 mt-1 max-w-2xl"></p>
           </div>
 
           <!-- Bottom-Right: Single-Row Golden Hero Portraits -->
@@ -309,13 +309,13 @@
             aria-label="Top 5 Golden Heroes"
             class="absolute bottom-4 right-5 md:bottom-5 md:right-6 z-10 flex flex-col items-end gap-1.5"
           >
-            <span class="hots-label text-[10px] text-[#f5d89a]">Golden Heroes</span>
+            <span class="hots-label text-xs text-[#f5d89a]">Golden Heroes</span>
             <div id="map-heroes-list" class="flex items-center justify-end gap-2 flex-nowrap"></div>
           </div>
         </div>
 
-        <!-- Battleground Data-Sheet: Left Spec Table | Narrower Narrative Column | Mercenary Camps Rail -->
-        <div class="grid grid-cols-1 lg:grid-cols-[17rem_minmax(0,1fr)_18rem] gap-6 items-start">
+        <!-- Battleground Data-Sheet: Left Spec Table | Center Narrative Column | Mercenary Camps Rail -->
+        <div class="grid grid-cols-1 lg:grid-cols-[18rem_minmax(0,1fr)_19rem] gap-6 items-start">
           <!-- Left Data-Table -->
           <aside aria-label="Battleground specifications" class="hots-panel p-4 min-w-0">
             <div class="flex items-center justify-between pb-2.5 mb-1 border-b border-[#38247a]">
@@ -323,12 +323,12 @@
               <span class="w-1.5 h-1.5 rounded-[1px] bg-[#58baff]" aria-hidden="true"></span>
             </div>
             <table class="w-full border-collapse text-left">
-              <tbody id="map-spec-table" class="divide-y divide-[#2b1a61] text-xs"></tbody>
+              <tbody id="map-spec-table" class="divide-y divide-[#2b1a61] text-xs sm:text-sm"></tbody>
             </table>
           </aside>
 
-          <!-- Center Narrative Column: Narrowed (~1/3+ slimmer) & Taller -->
-          <div class="hots-panel p-4 md:p-5 min-w-0 max-w-xl w-full divide-y divide-[#38247a]">
+          <!-- Center Narrative Column -->
+          <div class="hots-panel p-4 md:p-5 min-w-0 max-w-2xl w-full divide-y divide-[#38247a]">
             <section class="pb-4 space-y-1.5">
               <h3 class="hots-label text-[#58baff]">Map Objective</h3>
               <div id="map-mechanic" class="text-sm text-[#e6ecff]/90 leading-relaxed"></div>
@@ -349,7 +349,7 @@
           <aside aria-label="Mercenary camps" class="hots-panel p-4 min-w-0 space-y-3">
             <div class="flex items-center justify-between gap-2 pb-2.5 border-b border-[#38247a]">
               <h3 class="hots-label text-[#f5d89a]">Mercenary Camps</h3>
-              <span class="text-[10px] font-mono uppercase tracking-wider text-[#9d90ff]">Timings</span>
+              <span class="text-xs font-mono uppercase tracking-wider text-[#9d90ff]">Timings</span>
             </div>
             <div id="map-camps-stack" class="divide-y divide-[#2b1a61]"></div>
           </aside>
@@ -374,10 +374,10 @@
             </div>
             <div>
               <div class="flex items-center gap-3 flex-wrap">
-                <h2 id="builder-name" class="hots-display text-2xl font-bold uppercase tracking-wide">Select a Hero</h2>
-                <span id="builder-role" class="hots-role-badge px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider text-[#f5d89a]">Role</span>
+                <h2 id="builder-name" class="hots-display text-2xl sm:text-[1.75rem] font-bold uppercase tracking-wide">Select a Hero</h2>
+                <span id="builder-role" class="hots-role-badge px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider text-[#f5d89a]">Role</span>
               </div>
-              <p id="builder-title" class="text-xs text-[#8c83a2] mt-1">Title</p>
+              <p id="builder-title" class="text-xs sm:text-sm text-[#8c83a2] mt-1">Title</p>
             </div>
           </div>
           <div id="builder-abilities" class="flex items-center justify-center gap-2 flex-wrap py-1"></div>
@@ -423,8 +423,8 @@
               <i data-lucide="graduation-cap" class="w-6 h-6" aria-hidden="true"></i>
             </div>
             <div>
-              <h2 class="hots-display text-2xl font-bold uppercase tracking-wide">Nexus Academy</h2>
-              <p class="text-xs text-[#8c83a2]">Structured guides across Basic &amp; Advanced tracks, laning, drafting, and mechanics</p>
+              <h2 class="hots-display text-2xl sm:text-[1.75rem] font-bold uppercase tracking-wide">Nexus Academy</h2>
+              <p class="text-xs sm:text-sm text-[#8c83a2]">Structured guides across Basic &amp; Advanced tracks, laning, drafting, and mechanics</p>
             </div>
           </div>
           <div id="academy-level-filters" class="flex items-center gap-2 self-start sm:self-auto" role="group" aria-label="Skill level filter">
@@ -480,8 +480,8 @@
 
           <!-- Right Grid Cell (8 cols) -->
           <div class="w-full lg:col-span-8 space-y-4 pt-1 min-w-0" id="patch-main-content">
-            <h2 class="hots-display text-2xl font-bold uppercase tracking-wide">Select a patch update</h2>
-            <p class="text-xs text-[#8c83a2]">Choose an update from the left list to review details.</p>
+            <h2 class="hots-display text-2xl sm:text-[1.75rem] font-bold uppercase tracking-wide">Select a patch update</h2>
+            <p class="text-xs sm:text-sm text-[#8c83a2]">Choose an update from the left list to review details.</p>
           </div>
         </div>
       </div>
@@ -489,8 +489,8 @@
       <!-- VIEW: TIER LIST -->
       <div id="view-tierlist" class="space-y-5 hidden">
         <div class="hots-panel hots-banner-accent p-4">
-          <h2 class="hots-display text-2xl font-bold uppercase tracking-wide">Personal Ranked Tier List</h2>
-          <p class="text-xs text-[#8c83a2] mt-1">Your roster grouped by tier</p>
+          <h2 class="hots-display text-2xl sm:text-[1.75rem] font-bold uppercase tracking-wide">Personal Ranked Tier List</h2>
+          <p class="text-xs sm:text-sm text-[#8c83a2] mt-1">Your roster grouped by tier</p>
         </div>
         <div id="tierlist-rows-container" class="space-y-3"></div>
       </div>
@@ -500,17 +500,17 @@
 
   <!-- FOOTER -->
   <footer class="hots-footer mt-6 py-6">
-    <div class="max-w-[1600px] mx-auto px-6 flex flex-col items-center justify-center gap-3 text-center">
+    <div class="max-w-[1840px] mx-auto px-6 flex flex-col items-center justify-center gap-3 text-center">
       <div class="flex items-center gap-3">
         <svg class="w-6 h-6" viewBox="0 0 28 28" fill="none" aria-hidden="true">
           <polygon points="14,2 25,14 14,26 3,14" stroke="#58baff" stroke-width="1.5" fill="rgba(0, 99, 200, 0.16)"/>
           <polygon points="14,6 21,14 14,22 7,14" stroke="#cbe8ff" stroke-width="1.2" fill="rgba(88, 186, 255, 0.18)"/>
           <polygon points="14,10.2 17.8,14 14,17.8 10.2,14" fill="#58baff"/>
         </svg>
-        <span class="hots-display text-sm font-bold uppercase tracking-wider text-[#e6ecff]">HeroesVault &copy; 2026</span>
+        <span class="hots-display text-sm sm:text-base font-bold uppercase tracking-wider text-[#e6ecff]">HeroesVault &copy; 2026</span>
       </div>
 
-      <p class="text-[11px] text-[#8c83a2] leading-relaxed max-w-4xl">
+      <p class="text-xs text-[#8c83a2] leading-relaxed max-w-4xl">
         HeroesVault is a zero-backend community fan project and is not affiliated with, endorsed by, or connected to Blizzard Entertainment. Heroes of the Storm and all associated game assets, icons, and hero portraits are trademarks or registered trademarks of Blizzard Entertainment, Inc.
       </p>
     </div>
