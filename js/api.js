@@ -296,6 +296,27 @@ export function fetchHeroesMasterCatalog({ force = false } = {}) {
   });
 }
 
+export function fetchBuildsCatalog({ force = false } = {}) {
+  return fetchJsonWithFallback('/api/builds', '', {
+    cacheKey: 'catalog:builds',
+    force,
+  });
+}
+
+export function fetchMapsCatalog({ force = false } = {}) {
+  return fetchJsonWithFallback('/api/maps', '', {
+    cacheKey: 'catalog:maps',
+    force,
+  });
+}
+
+export function fetchTierListCatalog({ force = false } = {}) {
+  return fetchJsonWithFallback('/api/tierlist', '', {
+    cacheKey: 'catalog:tierlist',
+    force,
+  });
+}
+
 export function getApiController() {
   return {
     resolveApiBase,
@@ -309,6 +330,9 @@ export function getApiController() {
     fetchAcademyList,
     fetchAcademyArticleById,
     fetchHeroesMasterCatalog,
+    fetchBuildsCatalog,
+    fetchMapsCatalog,
+    fetchTierListCatalog,
   };
 }
 
