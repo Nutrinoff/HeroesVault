@@ -2,13 +2,6 @@
 // 0. BACKEND / TUNNEL CONFIGURATION
 // ==========================================
 
-import {
-    fetchHeroesMasterCatalog,
-    fetchBuildsCatalog,
-    fetchMapsCatalog,
-    fetchTierListCatalog
-} from './api.js';
-
 const HEROESVAULT_API_BASE = 'https://s-st-01.anteater-bushmaster.ts.net';
 window.HEROESVAULT_API_BASE = HEROESVAULT_API_BASE;
 
@@ -26,6 +19,12 @@ let appBootstrapped = false;
 
 const featureInitDiagnostics = new Map();
 window.__HEROESVAULT_FEATURE_HEALTH__ = featureInitDiagnostics;
+
+function getAppApi() {
+    return typeof window !== 'undefined' && window.HeroesVaultApi && typeof window.HeroesVaultApi === 'object'
+        ? window.HeroesVaultApi
+        : null;
+}
 
 function assertRequiredGlobals() {
     const requiredFunctions = [
@@ -162,11 +161,20 @@ async function loadInitialData({ force = false } = {}) {
 
     initialDataPromise = (async () => {
         try {
+            const api = getAppApi();
             const [masterData, buildsRaw, mapsData, tiersRaw] = await Promise.all([
-                fetchHeroesMasterCatalog({ force }),
-                fetchBuildsCatalog({ force }),
-                fetchMapsCatalog({ force }),
-                fetchTierListCatalog({ force })
+                typeof api?.fetchHeroesMasterCatalog === 'function'
+                    ? api.fetchHeroesMasterCatalog({ force })
+                    : Promise.resolve(null),
+                typeof api?.fetchBuildsCatalog === 'function'
+                    ? api.fetchBuildsCatalog({ force })
+                    : Promise.resolve(null),
+                typeof api?.fetchMapsCatalog === 'function'
+                    ? api.fetchMapsCatalog({ force })
+                    : Promise.resolve(null),
+                typeof api?.fetchTierListCatalog === 'function'
+                    ? api.fetchTierListCatalog({ force })
+                    : Promise.resolve(null)
             ]);
 
             if (masterData) {
