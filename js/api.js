@@ -1,29 +1,21 @@
 // ============================================
-// CENTRALIZED FRONTEND API CLIENT & PATCH REPO
+// HEROESVAULT FRONTEND API CONTROLLER (FUNNEL)
 // ============================================
 
 const DEFAULT_API_BASE = 'https://s-st-01.anteater-bushmaster.ts.net';
 const PATCH_DATA_DIR = './data/patchnotes';
-const DEFAULT_HOTS_URL = 'https://news.blizzard.com/en-us/heroes-of-the-storm';
 
-// Technical Alpha ended Jan 12, 2015; Closed/Open Beta ran Jan 13 – Jun 1, 2015; Live started Jun 2, 2015
-const ALPHA_CUTOFF_TS = Date.parse('2015-01-13T00:00:00Z');
-const BETA_CUTOFF_TS = Date.parse('2015-06-02T00:00:00Z');
-const ARCHIVE_CUTOFF_TS = Date.parse('2022-01-01T00:00:00Z');
-
-const MASTER_SOURCES = [
-  { file: 'alpha-master.json', defaultFeed: 'live', sourceEra: 'alpha' },
-  { file: 'beta-master.json',  defaultFeed: 'live', sourceEra: 'beta' },
-  { file: 'live-master.json',  defaultFeed: 'live', sourceEra: 'live' },
-  { file: 'ptr-master.json',   defaultFeed: 'ptr',  sourceEra: 'ptr' },
+const MASTER_PATCH_FILES = [
+  'alpha-master.json',
+  'beta-master.json',
+  'live-master.json',
+  'ptr-master.json',
 ];
 
-let CACHED_MASTER_PATCHES = null;
-let MASTER_PATCHES_INFLIGHT = null;
-const PATCH_RAW_NOTES_CACHE = new Map();
-const PATCH_RAW_NOTES_INFLIGHT = new Map();
-const PATCH_DETAIL_CACHE = new Map();
-const PATCH_DETAIL_INFLIGHT = new Map();
+const JSON_CACHE = new Map();
+const INFLIGHT_JSON = new Map();
+const TEXT_CACHE = new Map();
+const INFLIGHT_TEXT = new Map();
 
 export function resolveApiBase() {
   const base =
@@ -37,544 +29,230 @@ export function resolveApiBase() {
   return String(base || '').trim().replace(/\/+$/, '');
 }
 
+function buildApiUrl(pathOrUrl) {
+  const raw = String(pathOrUrl || '').trim();
+  if (!raw) return '';
+  if (/^https?:\/\//i.test(raw)) return raw;
+  const base = resolveApiBase();
+  const cleanPath = raw.startsWith('/') ? raw : `/${raw}`;
+  return base ? `${base}${cleanPath}` : cleanPath;
+}
+
 /**
- * Frontend fetch wrapper that always marks requests with X-Client: frontend
- * so backend telemetry can distinguish frontend fetches from backend/studio calls.
+ * Single fetch funnel for frontend API calls.
+ * Always stamps X-Client: frontend so telemetry filters internal/non-frontend traffic.
  */
 export async function apiFetch(pathOrUrl, options = {}) {
-  const base = resolveApiBase();
-  const isFullUrl = /^https?:\/\//i.test(String(pathOrUrl || ''));
-  const cleanPath = String(pathOrUrl || '').startsWith('/')
-    ? String(pathOrUrl)
-    : `/${String(pathOrUrl || '')}`;
-  const targetUrl = isFullUrl ? String(pathOrUrl) : `${base}${cleanPath}`;
-
+  const url = buildApiUrl(pathOrUrl);
   const headers = new Headers(options.headers || {});
   if (!headers.has('X-Client')) {
     headers.set('X-Client', 'frontend');
   }
 
-  return fetch(targetUrl, {
+  return fetch(url, {
     ...options,
     headers,
   });
 }
 
-export async function fetchJson(pathOrUrl, options = {}) {
-  const res = await apiFetch(pathOrUrl, options);
-  if (!res.ok) {
-    throw new Error(`HTTP ${res.status} for ${pathOrUrl}`);
+async function fetchJsonWithFallback(remotePath, localPath, { cacheKey = '', force = false } = {}) {
+  if (!force && cacheKey && JSON_CACHE.has(cacheKey)) {
+    return JSON_CACHE.get(cacheKey);
   }
-  return res.json();
-}
-
-// ============================================
-// PATCH REPOSITORY, CACHING & NORMALIZATION
-// ============================================
-
-function getPatchCacheKey(item) {
-  const feed = String(item?.feedType || 'live').trim().toLowerCase();
-  const id = String(item?.id || '').trim().toLowerCase();
-  const detailPath = String(item?.detailPath || '').trim().toLowerCase();
-  const isoDate = String(item?.isoDate || '').trim().toLowerCase();
-  const build = String(item?.build || '').trim().toLowerCase();
-  return `${feed}:${id}|${detailPath}|${isoDate}|${build}`;
-}
-
-function shouldRemovePatch(item) {
-  if (!item || typeof item !== 'object') return true;
-  const subtitle = String(item.Subtitle ?? item.subtitle ?? '').trim().toUpperCase();
-  return subtitle === 'REMOVE' || item._remove === true;
-}
-
-function parsePatchTimestamp(item) {
-  const candidates = [item?.isoDate, item?.IsoDate, item?.liveDate, item?.date, item?.Date];
-  for (const raw of candidates) {
-    if (!raw) continue;
-    const ts = Date.parse(raw);
-    if (!Number.isNaN(ts)) return ts;
+  if (!force && cacheKey && INFLIGHT_JSON.has(cacheKey)) {
+    return INFLIGHT_JSON.get(cacheKey);
   }
-  return 0;
-}
 
-export function formatPatchDisplayDate(rawDate, fallback = 'Unknown Date') {
-  if (!rawDate) return fallback;
-  const ts = Date.parse(rawDate);
-  if (Number.isNaN(ts)) return String(rawDate);
-  return new Date(ts).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    timeZone: 'UTC',
-  });
-}
+  const task = (async () => {
+    let data = null;
 
-export function formatSidebarDate(rawDate, fallback = 'Unknown') {
-  if (!rawDate) return fallback;
-  const ts = Date.parse(rawDate);
-  if (Number.isNaN(ts)) return String(rawDate);
-  return new Date(ts).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-    timeZone: 'UTC',
-  });
-}
-
-function formatBlizzDisplayTitle(rawTitle, displayDate, feedType, era) {
-  const cleanTitle = String(rawTitle || '').trim();
-  const datePart = displayDate && displayDate !== 'Unknown Date' ? displayDate : '';
-
-  if (/^Heroes of the Storm\b.*\bPatch Notes\b/i.test(cleanTitle)) {
-    if (datePart && !cleanTitle.includes(datePart)) {
-      return `${cleanTitle.replace(/\s*-\s*[^-]+$/, '')} - ${datePart}`;
+    if (resolveApiBase() && remotePath) {
+      try {
+        const res = await apiFetch(remotePath);
+        if (res.ok) {
+          data = await res.json();
+        }
+      } catch (err) {
+        console.warn(`[api] Remote JSON failed for ${remotePath}, trying fallback:`, err);
+      }
     }
-    return cleanTitle;
-  }
 
-  let channelLabel = 'Live';
-  if (feedType === 'ptr') {
-    channelLabel = 'PTR';
-  } else if (era === 'alpha') {
-    channelLabel = 'Alpha';
-  } else if (era === 'beta') {
-    channelLabel = 'Beta';
-  }
-
-  return datePart
-    ? `Heroes of the Storm ${channelLabel} Patch Notes - ${datePart}`
-    : `Heroes of the Storm ${channelLabel} Patch Notes`;
-}
-
-function inferTrueEra(item, validIso, sourceEra, title, id) {
-  const explicitEra = String(item?.Era ?? item?.era ?? '').trim().toLowerCase();
-  const combined = `${title} ${id}`.toLowerCase();
-  const ts = validIso ? Date.parse(validIso) : NaN;
-
-  if (['alpha', 'beta', 'live', 'ptr'].includes(explicitEra)) {
-    if (explicitEra === 'ptr') return 'ptr';
-    if (!Number.isNaN(ts)) {
-      if (ts < ALPHA_CUTOFF_TS) return 'alpha';
-      if (ts < BETA_CUTOFF_TS) return 'beta';
-      return 'live';
+    if (data === null && localPath) {
+      try {
+        const localRes = await fetch(localPath);
+        if (localRes.ok) {
+          data = await localRes.json();
+        }
+      } catch (err) {
+        console.warn(`[api] Local JSON failed for ${localPath}:`, err);
+      }
     }
-    return explicitEra;
-  }
 
-  if (!Number.isNaN(ts)) {
-    if (ts < ALPHA_CUTOFF_TS) return 'alpha';
-    if (ts < BETA_CUTOFF_TS) return 'beta';
-    if (sourceEra === 'ptr' || /\bptr\b/.test(combined)) return 'ptr';
-    return 'live';
-  }
+    if (data !== null && cacheKey) {
+      JSON_CACHE.set(cacheKey, data);
+    }
+    return data;
+  })().finally(() => {
+    if (cacheKey && INFLIGHT_JSON.get(cacheKey) === task) {
+      INFLIGHT_JSON.delete(cacheKey);
+    }
+  });
 
-  if (sourceEra === 'ptr' || /\bptr\b/.test(combined)) return 'ptr';
-  return sourceEra || 'live';
+  if (cacheKey) {
+    INFLIGHT_JSON.set(cacheKey, task);
+  }
+  return task;
 }
 
-function inferFeedType(item, sourceMeta, title) {
-  const rawFeed = String(item.FeedType ?? item.feedType ?? '').trim().toLowerCase();
-  const combined = `${item.patchType || ''} ${title}`.toLowerCase();
+async function fetchTextWithFallback(remotePath, localPath, { cacheKey = '', force = false } = {}) {
+  if (!force && cacheKey && TEXT_CACHE.has(cacheKey)) {
+    return TEXT_CACHE.get(cacheKey);
+  }
+  if (!force && cacheKey && INFLIGHT_TEXT.has(cacheKey)) {
+    return INFLIGHT_TEXT.get(cacheKey);
+  }
 
-  if (rawFeed === 'ptr' || /\bptr\b/.test(combined) || combined.includes('public test')) return 'ptr';
-  if (rawFeed === 'live') return 'live';
-  return sourceMeta.defaultFeed || 'live';
+  const task = (async () => {
+    let text = '';
+
+    if (resolveApiBase() && remotePath) {
+      try {
+        const res = await apiFetch(remotePath);
+        if (res.ok) {
+          text = await res.text();
+        }
+      } catch (err) {
+        console.warn(`[api] Remote text failed for ${remotePath}, trying fallback:`, err);
+      }
+    }
+
+    if (!text && localPath) {
+      try {
+        const localRes = await fetch(localPath);
+        if (localRes.ok) {
+          text = await localRes.text();
+        }
+      } catch (err) {
+        console.warn(`[api] Local text failed for ${localPath}:`, err);
+      }
+    }
+
+    if (text && cacheKey) {
+      TEXT_CACHE.set(cacheKey, text);
+    }
+    return text;
+  })().finally(() => {
+    if (cacheKey && INFLIGHT_TEXT.get(cacheKey) === task) {
+      INFLIGHT_TEXT.delete(cacheKey);
+    }
+  });
+
+  if (cacheKey) {
+    INFLIGHT_TEXT.set(cacheKey, task);
+  }
+  return task;
 }
 
-function resolveDetailPath(item, era) {
-  const explicit =
-    item.PatchFile ||
-    item.patchFile ||
-    item.detailFile ||
-    item.DetailFile ||
-    item.notesFile ||
-    item.NotesFile ||
-    item.file ||
-    item.File ||
-    item.path ||
-    item.Path ||
-    '';
-
-  const clean = String(explicit || '').trim().replace(/^\/+/, '');
-  if (!clean) return null;
-
-  if (clean.startsWith('data/patchnotes/')) {
-    return `./${clean}`;
+export function clearApiCache(prefix = '') {
+  if (!prefix) {
+    JSON_CACHE.clear();
+    TEXT_CACHE.clear();
+    return;
   }
-  if (clean.startsWith('./data/patchnotes/')) {
-    return clean;
+  for (const key of JSON_CACHE.keys()) {
+    if (key.startsWith(prefix)) JSON_CACHE.delete(key);
   }
-  if (clean.includes('/')) {
-    return `${PATCH_DATA_DIR}/${clean}`;
+  for (const key of TEXT_CACHE.keys()) {
+    if (key.startsWith(prefix)) TEXT_CACHE.delete(key);
   }
-
-  const safeFolder = ['alpha', 'beta', 'live', 'ptr'].includes(era) ? era : 'live';
-  return `${PATCH_DATA_DIR}/${safeFolder}/${clean}`;
 }
 
-function toDetailApiSubpath(detailPath) {
-  if (!detailPath) return null;
-  const cleaned = String(detailPath)
+// --- Patchnotes endpoints ---
+
+export function fetchPatchMasterFeed(file, { force = false } = {}) {
+  const safeFile = String(file || '').trim();
+  return fetchJsonWithFallback(
+    `/api/patchnotes/${encodeURIComponent(safeFile)}`,
+    `${PATCH_DATA_DIR}/${safeFile}`,
+    { cacheKey: `patch-master:${safeFile}`, force }
+  );
+}
+
+export function fetchAllPatchMasterFeeds({ force = false } = {}) {
+  return Promise.all(
+    MASTER_PATCH_FILES.map(async (file) => ({
+      file,
+      data: await fetchPatchMasterFeed(file, { force }),
+    }))
+  );
+}
+
+export function fetchPatchDetailRaw(detailPath, { force = false } = {}) {
+  const raw = String(detailPath || '').trim();
+  if (!raw) return Promise.resolve('');
+
+  const cleaned = raw
     .replace(/^\.\/+/, '')
     .replace(/^\/+/, '')
     .replace(/^data\/patchnotes\//, '')
     .replace(/^patchnotes\//, '');
-  if (!cleaned) return null;
-  return cleaned.split('/').map(encodeURIComponent).join('/');
+
+  const encodedSubpath = cleaned
+    ? cleaned.split('/').filter(Boolean).map(encodeURIComponent).join('/')
+    : '';
+
+  const localPath = raw.startsWith('./') || raw.startsWith('data/')
+    ? raw
+    : `${PATCH_DATA_DIR}/${cleaned}`;
+
+  return fetchTextWithFallback(
+    encodedSubpath ? `/api/patchnotes/detail/${encodedSubpath}` : '',
+    localPath,
+    { cacheKey: `patch-detail:${cleaned || raw}`, force }
+  );
 }
 
-function extractPatchNotesText(payload) {
-  if (!payload) return '';
+// --- Academy endpoints ---
 
-  if (typeof payload === 'string') {
-    const trimmed = payload.trim();
-    if (trimmed.startsWith('{') || trimmed.startsWith('[')) {
-      try {
-        return extractPatchNotesText(JSON.parse(trimmed));
-      } catch {
-        return '';
-      }
-    }
-    return trimmed;
-  }
-
-  if (typeof payload !== 'object') return '';
-
-  const keys = [
-    'CleanedNotes',
-    'cleanedNotes',
-    'PatchNotes',
-    'patchNotes',
-    'CleanedPatchNotes',
-    'cleanedPatchNotes',
-    'RawPatchNotes',
-    'rawPatchNotes',
-    'Notes',
-    'notes',
-    'Body',
-    'body',
-    'Content',
-    'content',
-    'Text',
-    'text',
-  ];
-
-  for (const key of keys) {
-    const val = payload[key];
-    if (typeof val === 'string' && val.trim()) {
-      return val.trim();
-    }
-    if (Array.isArray(val) && val.length) {
-      return val.map((v) => (typeof v === 'string' ? v : JSON.stringify(v))).join('\n');
-    }
-  }
-
-  const sections = payload.Sections ?? payload.sections;
-  if (sections && typeof sections === 'object') {
-    if (Array.isArray(sections)) {
-      return sections
-        .map((sec) => {
-          if (typeof sec === 'string') return sec;
-          const secTitle = sec.Title ?? sec.title ?? sec.Name ?? sec.name ?? '';
-          const lines = Array.isArray(sec.Entries ?? sec.entries ?? sec.Items ?? sec.items ?? sec.Lines ?? sec.lines)
-            ? sec.Entries ?? sec.entries ?? sec.Items ?? sec.items ?? sec.Lines ?? sec.lines
-            : [];
-          const header = secTitle ? `== ${secTitle} ==` : '';
-          const body = lines
-            .map((l) => (typeof l === 'string' ? l : l.Text ?? l.text ?? ''))
-            .filter(Boolean)
-            .join('\n');
-          return [header, body].filter(Boolean).join('\n');
-        })
-        .filter(Boolean)
-        .join('\n\n');
-    }
-
-    const dictChunks = Object.entries(sections).map(([secTitle, lines]) => {
-      const header = `== ${secTitle} ==`;
-      const body = Array.isArray(lines) ? lines.map((l) => String(l)).join('\n') : String(lines ?? '');
-      return [header, body].filter(Boolean).join('\n');
-    });
-    if (dictChunks.length) {
-      return dictChunks.join('\n\n');
-    }
-  }
-
-  return '';
-}
-
-function normalizeMasterEntry(item, sourceMeta, index) {
-  if (!item || typeof item !== 'object' || shouldRemovePatch(item)) return null;
-
-  const rawDate = item.IsoDate || item.isoDate || item.Date || item.date || item.liveDate || null;
-  const ts = rawDate ? Date.parse(rawDate) : NaN;
-  const validIso = !Number.isNaN(ts) ? new Date(ts).toISOString() : null;
-
-  const id = String(
-    item.Id ?? item.id ?? item.internalId ?? `${sourceMeta.sourceEra}-${index + 1}`
-  ).trim();
-
-  const rawTitle = String(item.Title ?? item.title ?? item.patchName ?? id).trim();
-
-  const feedType = inferFeedType(item, sourceMeta, rawTitle);
-  const era = inferTrueEra(item, validIso, sourceMeta.sourceEra, rawTitle, id);
-  const isArchive = !Number.isNaN(ts) && ts < ARCHIVE_CUTOFF_TS;
-
-  const displayDate = validIso
-    ? formatPatchDisplayDate(validIso)
-    : item.Date || item.date || 'Unknown Date';
-
-  const displayTitle = formatBlizzDisplayTitle(rawTitle, displayDate, feedType, era);
-
-  const rawLink = item.Link ?? item.link ?? item.officialLink ?? item.alternateLink ?? '';
-  const link = typeof isSafeUrl === 'function' && isSafeUrl(rawLink)
-    ? String(rawLink).trim()
-    : /^https?:\/\//i.test(String(rawLink || '').trim())
-      ? String(rawLink).trim()
-      : DEFAULT_HOTS_URL;
-
-  const patchVersion = String(item.PatchVersion ?? item.patchVersion ?? item.gameVersion ?? '').trim() || null;
-  const fullVersion = String(item.FullVersion ?? item.fullVersion ?? '').trim() || null;
-  const build = String(item.Build ?? item.build ?? item.liveBuild ?? '').trim() || null;
-  const inlineNotes = extractPatchNotesText(item);
-  const detailPath = resolveDetailPath(item, era);
-
-  return {
-    id,
-    rawTitle,
-    title: displayTitle,
-    date: displayDate,
-    listDate: validIso ? formatSidebarDate(validIso) : formatSidebarDate(rawDate),
-    isoDate: validIso,
-    feedType,
-    era,
-    isArchive,
-    patchVersion,
-    fullVersion,
-    build,
-    link,
-    inlineNotes,
-    detailPath,
-  };
-}
-
-function deduplicateAndSortPatches(items) {
-  const seen = new Map();
-
-  for (const item of items) {
-    if (!item) continue;
-    const key = getPatchCacheKey(item);
-    if (!seen.has(key)) {
-      seen.set(key, item);
-    }
-  }
-
-  return Array.from(seen.values()).sort((a, b) => {
-    const diff = parsePatchTimestamp(b) - parsePatchTimestamp(a);
-    if (diff !== 0) return diff;
-    return String(b.id).localeCompare(String(a.id));
+export function fetchAcademyList({ force = false } = {}) {
+  return fetchJsonWithFallback('/api/academy', '', {
+    cacheKey: 'academy:list',
+    force,
   });
 }
 
-async function fetchMasterFeedJson(file) {
-  const apiBase = resolveApiBase();
-  if (apiBase) {
-    try {
-      const remoteRes = await apiFetch(`${apiBase}/api/patchnotes/${encodeURIComponent(file)}`);
-      if (remoteRes.ok) {
-        return await remoteRes.json();
-      }
-    } catch (err) {
-      console.warn(`Remote patch feed failed for ${file}, falling back to local:`, err);
-    }
-  }
-
-  try {
-    const localRes = await fetch(`${PATCH_DATA_DIR}/${file}`);
-    if (!localRes.ok) return null;
-    return await localRes.json();
-  } catch (err) {
-    console.warn(`Invalid or missing patch feed ${file}:`, err);
-    return null;
-  }
+export function fetchAcademyArticleById(id, { force = false } = {}) {
+  const cleanId = String(id || '').trim();
+  if (!cleanId) return Promise.resolve(null);
+  return fetchJsonWithFallback(`/api/academy/${encodeURIComponent(cleanId)}`, '', {
+    cacheKey: `academy:item:${cleanId}`,
+    force,
+  });
 }
 
-export async function fetchAllMasterPatches(forceRefresh = false) {
-  if (!forceRefresh && Array.isArray(CACHED_MASTER_PATCHES)) {
-    return CACHED_MASTER_PATCHES;
-  }
+// --- Catalog / other endpoints ---
 
-  if (!forceRefresh && MASTER_PATCHES_INFLIGHT) {
-    return MASTER_PATCHES_INFLIGHT;
-  }
-
-  MASTER_PATCHES_INFLIGHT = (async () => {
-    try {
-      const payloads = await Promise.all(
-        MASTER_SOURCES.map((src) => fetchMasterFeedJson(src.file))
-      );
-
-      const normalized = [];
-
-      for (let i = 0; i < MASTER_SOURCES.length; i++) {
-        const data = payloads[i];
-        const meta = MASTER_SOURCES[i];
-        if (!data) continue;
-
-        const rows = Array.isArray(data)
-          ? data
-          : Array.isArray(data?.patches)
-            ? data.patches
-            : Array.isArray(data?.items)
-              ? data.items
-              : [];
-
-        rows.forEach((row, idx) => {
-          const entry = normalizeMasterEntry(row, meta, idx);
-          if (entry) normalized.push(entry);
-        });
-      }
-
-      CACHED_MASTER_PATCHES = deduplicateAndSortPatches(normalized);
-      return CACHED_MASTER_PATCHES;
-    } finally {
-      MASTER_PATCHES_INFLIGHT = null;
-    }
-  })();
-
-  return MASTER_PATCHES_INFLIGHT;
+export function fetchHeroesMasterCatalog({ force = false } = {}) {
+  return fetchJsonWithFallback('/api/catalog/heroes-master', '', {
+    cacheKey: 'catalog:heroes-master',
+    force,
+  });
 }
 
-export async function fetchPatchRawNotesText(item) {
-  if (!item) return '';
-  if (item.inlineNotes) return item.inlineNotes;
-
-  const cacheKey = getPatchCacheKey(item);
-  if (PATCH_RAW_NOTES_CACHE.has(cacheKey)) {
-    return PATCH_RAW_NOTES_CACHE.get(cacheKey);
-  }
-
-  if (PATCH_RAW_NOTES_INFLIGHT.has(cacheKey)) {
-    return PATCH_RAW_NOTES_INFLIGHT.get(cacheKey);
-  }
-
-  const loadPromise = (async () => {
-    let notesText = '';
-    const subPath = toDetailApiSubpath(item.detailPath);
-    const apiBase = resolveApiBase();
-
-    if (apiBase && subPath) {
-      try {
-        const apiRes = await apiFetch(`${apiBase}/api/patchnotes/detail/${subPath}`);
-        if (apiRes.ok) {
-          const rawBody = await apiRes.text();
-          if (rawBody.trim()) {
-            notesText = extractPatchNotesText(rawBody);
-          }
-        }
-      } catch (err) {
-        console.warn(`Remote patch detail failed for ${subPath}, falling back to local:`, err);
-      }
-    }
-
-    if (!notesText && item.detailPath) {
-      try {
-        const res = await fetch(item.detailPath);
-        if (res.ok) {
-          const rawBody = await res.text();
-          if (rawBody.trim()) {
-            notesText = item.detailPath.endsWith('.json')
-              ? extractPatchNotesText(JSON.parse(rawBody))
-              : extractPatchNotesText(rawBody);
-          }
-        }
-      } catch (err) {
-        console.warn(`Failed to load patch detail ${item.detailPath}:`, err);
-      }
-    }
-
-    if (notesText) {
-      PATCH_RAW_NOTES_CACHE.set(cacheKey, notesText);
-    }
-    return notesText;
-  })()
-    .finally(() => {
-      if (PATCH_RAW_NOTES_INFLIGHT.get(cacheKey) === loadPromise) {
-        PATCH_RAW_NOTES_INFLIGHT.delete(cacheKey);
-      }
-    });
-
-  PATCH_RAW_NOTES_INFLIGHT.set(cacheKey, loadPromise);
-  return loadPromise;
+export function getApiController() {
+  return {
+    resolveApiBase,
+    apiFetch,
+    clearApiCache,
+    fetchPatchMasterFeed,
+    fetchAllPatchMasterFeeds,
+    fetchPatchDetailRaw,
+    fetchAcademyList,
+    fetchAcademyArticleById,
+    fetchHeroesMasterCatalog,
+  };
 }
 
-export async function fetchPatchDetailHtml(item, formatHtmlFn) {
-  if (!item) return '';
-
-  const cacheKey = getPatchCacheKey(item);
-  if (PATCH_DETAIL_CACHE.has(cacheKey)) {
-    return PATCH_DETAIL_CACHE.get(cacheKey);
-  }
-
-  if (PATCH_DETAIL_INFLIGHT.has(cacheKey)) {
-    return PATCH_DETAIL_INFLIGHT.get(cacheKey);
-  }
-
-  const renderPromise = (async () => {
-    const notesText = await fetchPatchRawNotesText(item);
-    const formatter = typeof formatHtmlFn === 'function'
-      ? formatHtmlFn
-      : typeof formatBlizzlikePatchNotesHtml === 'function'
-        ? formatBlizzlikePatchNotesHtml
-        : null;
-
-    if (notesText && formatter) {
-      const html = formatter(notesText);
-      PATCH_DETAIL_CACHE.set(cacheKey, html);
-      return html;
-    }
-
-    const safeLabel = String(item.detailPath || item.id || '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    return `<p class="text-slate-400">No patch note details found for <span class="font-mono text-slate-300">${safeLabel}</span>.</p>`;
-  })()
-    .finally(() => {
-      if (PATCH_DETAIL_INFLIGHT.get(cacheKey) === renderPromise) {
-        PATCH_DETAIL_INFLIGHT.delete(cacheKey);
-      }
-    });
-
-  PATCH_DETAIL_INFLIGHT.set(cacheKey, renderPromise);
-  return renderPromise;
-}
-
-// ============================================
-// OTHER FRONTEND API ENDPOINTS
-// ============================================
-
-export function fetchHeroesCatalog() {
-  return fetchJson('/api/catalog/heroes-master');
-}
-
-export function fetchBuildsData() {
-  return fetchJson('/api/builds');
-}
-
-export function fetchMapsIndex() {
-  return fetchJson('/api/maps');
-}
-
-export function fetchMapDetail(slug) {
-  return fetchJson(`/api/maps/${encodeURIComponent(slug)}`);
-}
-
-export function fetchAcademyIndex() {
-  return fetchJson('/api/academy');
-}
-
-export function fetchAcademyArticle(slug) {
-  return fetchJson(`/api/academy/${encodeURIComponent(slug)}`);
-}
-
-export function fetchTierlistData() {
-  return fetchJson('/api/tierlist');
+if (typeof window !== 'undefined') {
+  window.HeroesVaultApi = Object.assign(window.HeroesVaultApi || {}, getApiController());
 }
