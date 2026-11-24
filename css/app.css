@@ -30,10 +30,23 @@
   --hots-text-disabled: #5346a2;
 }
 
+/* Gentle viewport scaling for 1440p / 27" and 4K displays */
+@media (min-width: 1440px) {
+  html {
+    font-size: 17.5px;
+  }
+}
+
+@media (min-width: 2200px) {
+  html {
+    font-size: 20px;
+  }
+}
+
 /* Custom Nexus Scrollbars */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
 }
 
 ::-webkit-scrollbar-track {
@@ -92,8 +105,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   border-radius: 3px;
   background:
     radial-gradient(circle at 50% 45%, rgba(88, 186, 255, 0.22), rgba(14, 7, 38, 0.96) 72%);
@@ -114,6 +127,7 @@
   border: none;
   box-shadow: none;
 }
+
 .hots-footer {
   background: linear-gradient(180deg, #0d0724 0%, #060310 100%);
   border-top: 1px solid #32206e;
@@ -186,8 +200,8 @@
 @media (min-width: 1024px) {
   #patch-sidebar-sticky-box {
     position: sticky;
-    top: 5.5rem;
-    max-height: calc(100vh - 6.75rem);
+    top: 5.75rem;
+    max-height: calc(100vh - 7rem);
     overflow-y: auto;
   }
 }
@@ -227,10 +241,10 @@
 
 .hots-label {
   font-family: 'Chakra Petch', 'Inter', sans-serif;
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   color: var(--hots-text-soft);
 }
 
@@ -281,9 +295,9 @@
 /* Top Client Nav Tabs (TaskBarSubNavigation -> TaskBarSubNavigationSelected) */
 .nav-button {
   font-family: 'Chakra Petch', 'Inter', sans-serif;
-  padding: 0.55rem 0.85rem 0.7rem;
+  padding: 0.6rem 0.9rem 0.75rem;
   border-radius: 0;
-  font-size: 0.85rem;
+  font-size: 0.92rem;
   font-weight: 600;
   line-height: 1.2;
   letter-spacing: 0.04em;
@@ -291,7 +305,7 @@
   transition: color 0.16s ease, font-size 0.16s ease, text-shadow 0.16s ease, filter 0.16s ease;
   display: inline-flex;
   align-items: center;
-  gap: 0.42rem;
+  gap: 0.45rem;
   color: #9d90ff;
   background: transparent !important;
   border: none !important;
@@ -308,7 +322,7 @@
   top: 50%;
   transform: translateY(-52%);
   color: rgba(157, 144, 255, 0.32);
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   font-weight: 400;
   pointer-events: none;
 }
@@ -321,7 +335,7 @@
 /* Selected / Toggled state (cbe8ff-ffffff gradient + 0063c8 blue glow) */
 .nav-active {
   color: #ffffff !important;
-  font-size: 0.96rem;
+  font-size: 1.02rem;
   font-weight: 700;
   background: transparent !important;
   border: none !important;
@@ -376,7 +390,7 @@
 .hots-list-item {
   display: block;
   width: 100%;
-  padding: 0.65rem 0.75rem;
+  padding: 0.7rem 0.8rem;
   text-align: left;
   color: var(--hots-text);
   background: transparent;
@@ -418,9 +432,9 @@
 
 .hots-list-item__meta {
   font-family: 'Chakra Petch', 'Inter', sans-serif;
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.11em;
   text-transform: uppercase;
   color: var(--hots-text-soft);
 }
@@ -444,16 +458,16 @@
 }
 
 .hots-list-item--hero {
-  padding: 0.55rem 0.7rem;
+  padding: 0.62rem 0.75rem;
 }
 
 /* Frameless glowing row labels for Patch Notes & Academy */
 .hots-list-tag {
   font-family: 'Chakra Petch', 'Inter', sans-serif;
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: 0.1em;
+  line-height: 1.15;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
   background: transparent;
   border: 0;
@@ -462,17 +476,17 @@
 }
 
 .hots-list-tag--cyan {
-  color: rgba(156, 182, 255, 0.72);
+  color: rgba(156, 182, 255, 0.76);
   text-shadow: 0 0 10px rgba(0, 156, 255, 0.28);
 }
 
 .hots-list-tag--gold {
-  color: rgba(245, 216, 154, 0.76);
+  color: rgba(245, 216, 154, 0.8);
   text-shadow: 0 0 10px rgba(201, 122, 22, 0.28);
 }
 
 .hots-list-tag--meta {
-  color: rgba(157, 144, 255, 0.65);
+  color: rgba(157, 144, 255, 0.7);
   text-shadow: 0 0 10px rgba(138, 0, 255, 0.22);
 }
 
@@ -525,8 +539,8 @@
 .patch-filter-btn,
 .academy-category-btn {
   font-family: 'Chakra Petch', 'Inter', sans-serif;
-  padding: 0.25rem 0.65rem;
-  font-size: 0.78rem;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.84rem;
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: 0.08em;
@@ -536,7 +550,7 @@
   box-shadow: none !important;
   border-radius: 0;
   cursor: pointer;
-  color: rgba(156, 182, 255, 0.34) !important;
+  color: rgba(156, 182, 255, 0.38) !important;
   text-shadow: 0 0 12px rgba(0, 99, 200, 0.28);
   transition: color 0.16s ease, text-shadow 0.16s ease, filter 0.16s ease;
 }
@@ -544,7 +558,7 @@
 .academy-level-btn:hover,
 .patch-filter-btn:hover,
 .academy-category-btn:hover {
-  color: rgba(203, 232, 255, 0.72) !important;
+  color: rgba(203, 232, 255, 0.76) !important;
   text-shadow: 0 0 14px rgba(0, 156, 255, 0.42);
 }
 
@@ -563,13 +577,13 @@
 
 /* Frameless HotS League-Colored Tier Buttons (D=Bronze, C=Silver, B=Gold, A=Platinum, S=Diamond) */
 .hots-tier-btn {
-  --tier-color: rgba(156, 182, 255, 0.42);
+  --tier-color: rgba(156, 182, 255, 0.45);
   --tier-active-color: #e6ecff;
   --tier-glow: rgba(0, 99, 200, 0.35);
 
   font-family: 'Chakra Petch', 'Inter', sans-serif;
-  padding: 0.2rem 0.45rem;
-  font-size: 0.75rem;
+  padding: 0.24rem 0.5rem;
+  font-size: 0.8rem;
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: 0.08em;
@@ -579,7 +593,7 @@
   box-shadow: none !important;
   border-radius: 0;
   cursor: pointer;
-  color: color-mix(in srgb, var(--tier-color) 48%, transparent) !important;
+  color: color-mix(in srgb, var(--tier-color) 52%, transparent) !important;
   text-shadow: 0 0 10px color-mix(in srgb, var(--tier-glow) 35%, transparent);
   transition: color 0.16s ease, text-shadow 0.16s ease, filter 0.16s ease;
 }
@@ -657,6 +671,13 @@
   flex-shrink: 0;
 }
 
+@media (min-width: 1440px) {
+  .hex-portrait-frame {
+    width: 124px;
+    height: 124px;
+  }
+}
+
 .hex-portrait-img {
   width: 100%;
   height: 100%;
@@ -682,6 +703,13 @@
   flex-shrink: 0;
 }
 
+@media (min-width: 1440px) {
+  .hex-sidebar-frame {
+    width: 64px;
+    height: 64px;
+  }
+}
+
 .hex-sidebar-img {
   width: 100%;
   height: 100%;
@@ -705,8 +733,8 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 0.125rem;
-  padding: 0.1rem 0.05rem;
+  gap: 0.15rem;
+  padding: 0.12rem 0.08rem;
   min-width: 0;
   cursor: pointer;
   transition: opacity 0.14s ease, transform 0.14s ease;
@@ -725,9 +753,9 @@
 .hots-talent-tooltip {
   position: fixed;
   z-index: 90;
-  width: 450px;
+  width: 480px;
   max-width: calc(100vw - 16px);
-  padding: 16px 20px;
+  padding: 18px 22px;
   pointer-events: none;
   background:
     linear-gradient(
@@ -757,8 +785,8 @@
 }
 
 .hots-tooltip-icon {
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   flex-shrink: 0;
   object-fit: cover;
   border-radius: 2px;
@@ -774,7 +802,7 @@
 
 .hots-tooltip-name {
   font-family: 'Chakra Petch', 'Inter', sans-serif;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   font-weight: 700;
   line-height: 1.25;
   letter-spacing: 0.03em;
@@ -788,7 +816,7 @@
 .hots-tooltip-meta {
   margin-top: 4px;
   font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 600;
   line-height: 1.3;
   letter-spacing: 0.04em;
@@ -804,7 +832,7 @@
   flex-direction: column;
   gap: 2px;
   font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
-  font-size: 0.74rem;
+  font-size: 0.8rem;
   font-weight: 600;
   line-height: 1.35;
   color: var(--hots-gold-bright);
@@ -813,8 +841,8 @@
 .hots-tooltip-desc {
   margin-top: 8px;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  font-size: 0.84rem;
-  line-height: 1.5;
+  font-size: 0.9rem;
+  line-height: 1.55;
   color: var(--hots-text);
   overflow-wrap: anywhere;
 }
