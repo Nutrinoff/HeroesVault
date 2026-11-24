@@ -2,7 +2,7 @@
 // 0. BACKEND / TUNNEL CONFIGURATION
 // ==========================================
 
-const HEROESVAULT_API_BASE = 'https://thesaurus-sage-headphones-meets.trycloudflare.com';
+const HEROESVAULT_API_BASE = 'https://s-st-01.anteater-bushmaster.ts.net';
 window.HEROESVAULT_API_BASE = HEROESVAULT_API_BASE;
 
 
