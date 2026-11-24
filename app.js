@@ -1,4 +1,11 @@
 // ==========================================
+// 0. BACKEND / TUNNEL CONFIGURATION
+// ==========================================
+
+const HEROESVAULT_API_BASE = 'https://thesaurus-sage-headphones-meets.trycloudflare.com';
+
+
+// ==========================================
 // 1. REQUIRED GLOBALS & RUNTIME VALIDATION
 // ==========================================
 
@@ -96,6 +103,22 @@ async function fetchJsonSafe(url) {
     }
 }
 
+async function fetchHeroesMasterWithFallback() {
+    const cleanBase = typeof HEROESVAULT_API_BASE === 'string'
+        ? HEROESVAULT_API_BASE.trim().replace(/\/+$/, '')
+        : '';
+
+    if (cleanBase) {
+        const remoteData = await fetchJsonSafe(`${cleanBase}/api/catalog/heroes-master`);
+        if (remoteData) {
+            return remoteData;
+        }
+        console.warn('[HeroesVault] Remote heroes-master unavailable, falling back to ./data/heroes-master.json');
+    }
+
+    return await fetchJsonSafe('./data/heroes-master.json');
+}
+
 async function loadInitialData({ force = false } = {}) {
     if (!force && initialDataLoaded) {
         return;
@@ -107,7 +130,7 @@ async function loadInitialData({ force = false } = {}) {
     initialDataPromise = (async () => {
         try {
             const [masterData, buildsData, mapsData, tiersData] = await Promise.all([
-                fetchJsonSafe('./data/heroes-master.json'),
+                fetchHeroesMasterWithFallback(),
                 fetchJsonSafe('./data/builds.json'),
                 fetchJsonSafe('./data/maps.json'),
                 fetchJsonSafe('./data/tiers.json')
