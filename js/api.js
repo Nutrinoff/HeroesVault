@@ -271,7 +271,7 @@
   // --- Academy endpoints ---
 
   function fetchAcademyList({ force = false } = {}) {
-    return fetchJsonWithFallback('/api/academy', '', {
+    return fetchJsonWithFallback('/api/academy', './data/academy.json', {
       cacheKey: 'academy:list',
       force,
     });
