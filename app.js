@@ -93,10 +93,19 @@ function syncHomeSummaryCounts() {
     }
 }
 
+function getApiBaseUrl() {
+    return typeof HEROESVAULT_API_BASE === 'string'
+        ? HEROESVAULT_API_BASE.trim().replace(/\/+$/, '')
+        : '';
+}
+
 async function fetchJsonSafe(url) {
     try {
         const res = await fetch(url);
-        if (!res.ok) return null;
+        if (!res.ok) {
+            console.warn(`[HeroesVault] HTTP ${res.status} fetching ${url}`);
+            return null;
+        }
         return await res.json();
     } catch (err) {
         console.warn(`[HeroesVault] Failed fetching ${url}:`, err);
@@ -104,20 +113,38 @@ async function fetchJsonSafe(url) {
     }
 }
 
-async function fetchWithApiFallback(apiPath, localPath) {
-    const cleanBase = typeof HEROESVAULT_API_BASE === 'string'
-        ? HEROESVAULT_API_BASE.trim().replace(/\/+$/, '')
-        : '';
-
-    if (cleanBase && apiPath) {
-        const remoteData = await fetchJsonSafe(`${cleanBase}${apiPath}`);
-        if (remoteData) {
-            return remoteData;
-        }
-        console.warn(`[HeroesVault] Remote ${apiPath} unavailable, falling back to ${localPath}`);
+async function fetchApiEndpoint(apiPath) {
+    const base = getApiBaseUrl();
+    if (!base || !apiPath) {
+        console.warn(`[HeroesVault] Missing API base or path for ${apiPath}`);
+        return null;
     }
+    const cleanPath = apiPath.startsWith('/') ? apiPath : `/${apiPath}`;
+    return await fetchJsonSafe(`${base}${cleanPath}`);
+}
 
-    return await fetchJsonSafe(localPath);
+function normalizeBuildsPayload(raw) {
+    if (Array.isArray(raw)) return raw;
+    if (raw && typeof raw === 'object') {
+        if (Array.isArray(raw.builds)) return raw.builds;
+        if (Array.isArray(raw.items)) return raw.items;
+        if (Array.isArray(raw.data)) return raw.data;
+    }
+    return null;
+}
+
+function normalizeTiersPayload(raw) {
+    if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return null;
+    if (raw.tiers && typeof raw.tiers === 'object' && !Array.isArray(raw.tiers)) {
+        return raw.tiers;
+    }
+    if (raw.tierlist && typeof raw.tierlist === 'object' && !Array.isArray(raw.tierlist)) {
+        return raw.tierlist;
+    }
+    if (raw.data && typeof raw.data === 'object' && !Array.isArray(raw.data)) {
+        return raw.data;
+    }
+    return raw;
 }
 
 async function loadInitialData({ force = false } = {}) {
@@ -130,11 +157,11 @@ async function loadInitialData({ force = false } = {}) {
 
     initialDataPromise = (async () => {
         try {
-            const [masterData, buildsData, mapsData, tiersData] = await Promise.all([
-                fetchWithApiFallback('/api/catalog/heroes-master', './data/heroes-master.json'),
-                fetchJsonSafe('./data/builds.json'),
-                fetchWithApiFallback('/api/maps', './data/maps.json'),
-                fetchJsonSafe('./data/tiers.json')
+            const [masterData, buildsRaw, mapsData, tiersRaw] = await Promise.all([
+                fetchApiEndpoint('/api/catalog/heroes-master'),
+                fetchApiEndpoint('/api/builds'),
+                fetchApiEndpoint('/api/maps'),
+                fetchApiEndpoint('/api/tiers')
             ]);
 
             if (masterData) {
@@ -164,6 +191,7 @@ async function loadInitialData({ force = false } = {}) {
                     });
             }
 
+            const buildsData = normalizeBuildsPayload(buildsRaw);
             if (Array.isArray(buildsData)) {
                 PERSONAL_BUILDS = buildsData;
             }
@@ -175,6 +203,7 @@ async function loadInitialData({ force = false } = {}) {
                 }
             }
 
+            const tiersData = normalizeTiersPayload(tiersRaw);
             if (tiersData && typeof tiersData === 'object') {
                 MASTER_TIERS = tiersData;
             }
