@@ -2,16 +2,10 @@
 // MAPS & BATTLEGROUNDS MODULE
 // =========================================
 
-const MAP_DETAILS_CACHE = new Map();
+import { fetchMapDetails } from './api.js';
+
 const WARMED_MAP_IDS = new Set();
 const MAP_DROPDOWN_WARM_LIMIT = 2;
-const MAP_API_BASE = (
-    typeof window !== 'undefined' && typeof window.HEROESVAULT_API_BASE === 'string'
-        ? window.HEROESVAULT_API_BASE
-        : (typeof HEROESVAULT_API_BASE === 'string'
-            ? HEROESVAULT_API_BASE
-            : 'https://s-st-01.anteater-bushmaster.ts.net')
-).trim().replace(/\/+$/, '');
 const MAP_FALLBACK_BANNER = `data:image/svg+xml;utf8,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="500" viewBox="0 0 1200 500"><rect width="1200" height="500" fill="#0d0724"/><rect x="1" y="1" width="1198" height="498" fill="none" stroke="#38247a" stroke-width="2"/><text x="600" y="258" fill="#8c83a2" font-family="monospace" font-size="28" text-anchor="middle">BATTLEGROUND ART UNAVAILABLE</text></svg>')}`;
 const MAP_HERO_FALLBACK_PORTRAIT = `data:image/svg+xml;utf8,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><rect width="64" height="64" fill="#0d0724"/><rect x="1" y="1" width="62" height="62" fill="none" stroke="#38247a" stroke-width="2"/><text x="32" y="39" fill="#9cb6ff" font-family="monospace" font-size="22" text-anchor="middle">?</text></svg>')}`;
 
@@ -121,48 +115,6 @@ function resolveGoldenHeroEntry(heroId) {
         name: resolvedName || resolvedId,
         portrait: resolvedPortrait
     };
-}
-
-async function fetchMapJsonSafe(url) {
-    try {
-        const res = await fetch(url);
-        if (!res.ok) return null;
-        const parsed = await res.json();
-        return parsed && typeof parsed === 'object' ? parsed : null;
-    } catch (err) {
-        console.warn(`Failed to load map JSON from ${url}:`, err);
-        return null;
-    }
-}
-
-async function fetchMapDetails(id) {
-    if (!id) return {};
-    if (MAP_DETAILS_CACHE.has(id)) {
-        const cached = MAP_DETAILS_CACHE.get(id);
-        return typeof cached?.then === 'function' ? await cached : cached;
-    }
-
-    const encodedId = encodeURIComponent(id);
-    const request = (async () => {
-        if (MAP_API_BASE) {
-            const remote = await fetchMapJsonSafe(`${MAP_API_BASE}/api/maps/${encodedId}`);
-            if (remote) return remote;
-        }
-        return await fetchMapJsonSafe(`./data/maps/${encodedId}.json`);
-    })();
-
-    MAP_DETAILS_CACHE.set(id, request);
-    const resolved = await request;
-
-    if (resolved && typeof resolved === 'object') {
-        MAP_DETAILS_CACHE.set(id, resolved);
-        return resolved;
-    }
-
-    if (MAP_DETAILS_CACHE.get(id) === request) {
-        MAP_DETAILS_CACHE.delete(id);
-    }
-    return {};
 }
 
 function warmMapAssets(id, { includeDetails = false, fromDropdown = false } = {}) {
