@@ -4,13 +4,18 @@
 
 var LOCAL_ROTATION_DATA_URL = './data/rotation.json';
 var ROTATION_API_PATH = '/api/rotation';
-var ROTATION_API_BASE = (
-    typeof window !== 'undefined' && typeof window.HEROESVAULT_API_BASE === 'string'
+var DEFAULT_ROTATION_API_BASE = 'https://s-st-01.anteater-bushmaster.ts.net';
+
+function resolveRotationApiBase() {
+    var base = (typeof window !== 'undefined' && typeof window.HEROESVAULT_API_BASE === 'string' && window.HEROESVAULT_API_BASE.trim())
         ? window.HEROESVAULT_API_BASE
-        : (typeof HEROESVAULT_API_BASE === 'string'
+        : ((typeof HEROESVAULT_API_BASE === 'string' && HEROESVAULT_API_BASE.trim())
             ? HEROESVAULT_API_BASE
-            : 'https://thesaurus-sage-headphones-meets.trycloudflare.com')
-).trim().replace(/\/+$/, '');
+            : DEFAULT_ROTATION_API_BASE);
+    return String(base || '').trim().replace(/\/+$/, '');
+}
+
+var ROTATION_API_BASE = resolveRotationApiBase();
 var ROTATION_FETCH_TIMEOUT_MS = 4000;
 var ROTATION_PORTRAIT_SIZE_PX = 45;
 
@@ -424,7 +429,8 @@ function fetchLocalRotationJson(url, timeoutMs) {
         return rotationFetchInflight;
     }
 
-    var remoteUrl = ROTATION_API_BASE ? (ROTATION_API_BASE + ROTATION_API_PATH) : '';
+    var apiBase = resolveRotationApiBase();
+    var remoteUrl = apiBase ? (apiBase + ROTATION_API_PATH) : '';
 
     rotationFetchInflight = (async function () {
         if (remoteUrl) {
