@@ -133,18 +133,46 @@ function normalizeBuildsPayload(raw) {
     return null;
 }
 
+function normalizeTierKey(rawKey) {
+    const clean = String(rawKey || '').trim().toUpperCase();
+    if (clean === 'STIER' || clean === 'S') return 'S';
+    if (clean === 'ATIER' || clean === 'A') return 'A';
+    if (clean === 'BTIER' || clean === 'B') return 'B';
+    if (clean === 'CTIER' || clean === 'C') return 'C';
+    if (clean === 'DTIER' || clean === 'D') return 'D';
+
+    if (typeof tierLetter === 'function') {
+        const mapped = String(tierLetter(rawKey) || '').trim().toUpperCase();
+        if (['S', 'A', 'B', 'C', 'D'].includes(mapped)) {
+            return mapped;
+        }
+    }
+
+    return null;
+}
+
 function normalizeTiersPayload(raw) {
     if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return null;
-    if (raw.tiers && typeof raw.tiers === 'object' && !Array.isArray(raw.tiers)) {
-        return raw.tiers;
+    const src =
+        raw.tierlist && typeof raw.tierlist === 'object' && !Array.isArray(raw.tierlist)
+            ? raw.tierlist
+            : raw.tiers && typeof raw.tiers === 'object' && !Array.isArray(raw.tiers)
+                ? raw.tiers
+                : raw.data && typeof raw.data === 'object' && !Array.isArray(raw.data)
+                    ? raw.data
+                    : raw;
+
+    const normalized = { S: [], A: [], B: [], C: [], D: [] };
+    let matchedAnyTierKey = false;
+
+    for (const [key, val] of Object.entries(src)) {
+        const tier = normalizeTierKey(key);
+        if (!tier || !Array.isArray(val)) continue;
+        matchedAnyTierKey = true;
+        normalized[tier] = val.slice();
     }
-    if (raw.tierlist && typeof raw.tierlist === 'object' && !Array.isArray(raw.tierlist)) {
-        return raw.tierlist;
-    }
-    if (raw.data && typeof raw.data === 'object' && !Array.isArray(raw.data)) {
-        return raw.data;
-    }
-    return raw;
+
+    return matchedAnyTierKey ? normalized : null;
 }
 
 async function loadInitialData({ force = false } = {}) {
@@ -161,7 +189,7 @@ async function loadInitialData({ force = false } = {}) {
                 fetchApiEndpoint('/api/catalog/heroes-master'),
                 fetchApiEndpoint('/api/builds'),
                 fetchApiEndpoint('/api/maps'),
-                fetchApiEndpoint('/api/tiers')
+                fetchApiEndpoint('/api/tierlist')
             ]);
 
             if (masterData) {
