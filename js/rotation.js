@@ -113,35 +113,39 @@ function parseDateBoundary(val, isEndOfDay) {
     return parsed;
 }
 
-function formatRotationEndDate(val) {
-    var end = parseDateBoundary(val, true);
-    if (!end) return '';
-    return end.toLocaleDateString('en-US', {
+function formatShortRotationDate(val, isEndOfDay) {
+    var date = parseDateBoundary(val, Boolean(isEndOfDay));
+    if (!date) return '';
+    return date.toLocaleDateString('en-US', {
         month: 'short',
         day: 'numeric',
     });
 }
 
+function extractWeekTag(rawLabel) {
+    var match = /\(([^)]*week[^)]*)\)/i.exec(String(rawLabel || ''));
+    return match ? ' (' + match[1].trim() + ')' : '';
+}
+
 function resolveRotationTimespan(entry) {
     if (!entry || typeof entry !== 'object') return 'Weekly Rotation';
 
-    var rawLabel = String(
-        entry.timespan || entry.Timespan || entry.label || ''
-    ).trim();
-    var endStr = formatRotationEndDate(entry.endDate || entry.EndDate);
+    var startStr = formatShortRotationDate(entry.startDate || entry.StartDate, false);
+    var endStr = formatShortRotationDate(entry.endDate || entry.EndDate, true);
+    var weekTag = extractWeekTag(entry.timespan || entry.Timespan || entry.label);
 
-    if (rawLabel && endStr) {
-        return rawLabel + ' – ' + endStr;
-    }
-    if (rawLabel) {
-        return rawLabel;
-    }
-
-    var startStr = formatRotationEndDate(entry.startDate || entry.StartDate);
     if (startStr && endStr) {
-        return startStr + ' – ' + endStr;
+        return startStr + ' – ' + endStr + weekTag;
     }
-    return startStr || endStr || 'Weekly Rotation';
+    if (startStr) {
+        return startStr + weekTag;
+    }
+    if (endStr) {
+        return 'Ends ' + endStr + weekTag;
+    }
+
+    var fallbackLabel = String(entry.timespan || entry.Timespan || entry.label || '').trim();
+    return fallbackLabel || 'Weekly Rotation';
 }
 
 function pickActiveScheduleEntry(list, now) {
