@@ -2,20 +2,8 @@
 // 1. CONFIGURATION & STATE
 // ==========================================
 
-var LOCAL_ROTATION_DATA_URL = './data/rotation.json';
-var ROTATION_API_PATH = '/api/rotation';
-var DEFAULT_ROTATION_API_BASE = 'https://s-st-01.anteater-bushmaster.ts.net';
+import { fetchRotationData } from './api.js';
 
-function resolveRotationApiBase() {
-    var base = (typeof window !== 'undefined' && typeof window.HEROESVAULT_API_BASE === 'string' && window.HEROESVAULT_API_BASE.trim())
-        ? window.HEROESVAULT_API_BASE
-        : ((typeof HEROESVAULT_API_BASE === 'string' && HEROESVAULT_API_BASE.trim())
-            ? HEROESVAULT_API_BASE
-            : DEFAULT_ROTATION_API_BASE);
-    return String(base || '').trim().replace(/\/+$/, '');
-}
-
-var ROTATION_API_BASE = resolveRotationApiBase();
 var ROTATION_FETCH_TIMEOUT_MS = 4000;
 var ROTATION_PORTRAIT_SIZE_PX = 45;
 
@@ -30,8 +18,6 @@ var FALLBACK_ROTATION_PORTRAIT =
     );
 
 var currentRotationData = null;
-var rawRotationCache = null;
-var rotationFetchInflight = null;
 
 
 // ==========================================
@@ -402,52 +388,6 @@ function parseRotationPayload(raw, now) {
     };
 }
 
-function fetchSingleRotationUrl(url, timeoutMs) {
-    var controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
-    var timer = controller ? setTimeout(function () { controller.abort(); }, timeoutMs) : null;
-
-    return fetch(url, {
-        cache: 'no-store',
-        signal: controller ? controller.signal : undefined
-    })
-        .then(function (res) {
-            if (!res.ok) {
-                throw new Error('HTTP ' + res.status);
-            }
-            return res.json();
-        })
-        .finally(function () {
-            if (timer) clearTimeout(timer);
-        });
-}
-
-function fetchLocalRotationJson(url, timeoutMs) {
-    var localUrl = url || LOCAL_ROTATION_DATA_URL;
-    var limitMs = typeof timeoutMs === 'number' ? timeoutMs : ROTATION_FETCH_TIMEOUT_MS;
-
-    if (rotationFetchInflight) {
-        return rotationFetchInflight;
-    }
-
-    var apiBase = resolveRotationApiBase();
-    var remoteUrl = apiBase ? (apiBase + ROTATION_API_PATH) : '';
-
-    rotationFetchInflight = (async function () {
-        if (remoteUrl) {
-            try {
-                return await fetchSingleRotationUrl(remoteUrl, limitMs);
-            } catch (err) {
-                console.warn('[Rotation] Remote rotation fetch failed, falling back to local:', err);
-            }
-        }
-        return await fetchSingleRotationUrl(localUrl, limitMs);
-    })().finally(function () {
-        rotationFetchInflight = null;
-    });
-
-    return rotationFetchInflight;
-}
-
 function sortRotationHeroesF2pFirst(heroes) {
     return heroes.slice().sort(function (a, b) {
         var aIsLvl = String((a && a.reqLevel) || '').trim().toUpperCase() === 'LVL' ? 1 : 0;
@@ -578,22 +518,18 @@ function renderFreeRotationHeroes(data) {
     grid.replaceChildren(frag);
 }
 
-function loadAndRenderRotation() {
-    var payloadPromise = rawRotationCache
-        ? Promise.resolve(rawRotationCache)
-        : fetchLocalRotationJson(LOCAL_ROTATION_DATA_URL, ROTATION_FETCH_TIMEOUT_MS)
-            .then(function (payload) {
-                rawRotationCache = payload;
-                return payload;
-            })
-            .catch(function (err) {
-                console.warn('Failed to load rotation.json:', err);
-                return {};
-            });
-
-    return payloadPromise.then(function (rawPayload) {
-        currentRotationData = parseRotationPayload(rawPayload, new Date());
-        renderFreeRotationHeroes(currentRotationData);
-        return currentRotationData;
-    });
+function loadAndRenderRotation(options = {}) {
+    return fetchRotationData({
+        force: Boolean(options.force),
+        timeoutMs: typeof options.timeoutMs === 'number' ? options.timeoutMs : ROTATION_FETCH_TIMEOUT_MS,
+    })
+        .catch(function (err) {
+            console.warn('Failed to load rotation.json:', err);
+            return {};
+        })
+        .then(function (rawPayload) {
+            currentRotationData = parseRotationPayload(rawPayload, new Date());
+            renderFreeRotationHeroes(currentRotationData);
+            return currentRotationData;
+        });
 }
