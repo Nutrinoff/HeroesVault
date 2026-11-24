@@ -2,13 +2,18 @@
 // NEXUS ACADEMY MODULE (FUNCTION CODE)
 // ==========================================
 
-const ACADEMY_API_BASE = (
-    typeof window !== 'undefined' && typeof window.HEROESVAULT_API_BASE === 'string'
+const DEFAULT_ACADEMY_API_BASE = 'https://s-st-01.anteater-bushmaster.ts.net';
+
+function resolveAcademyApiBase() {
+    const base = (typeof window !== 'undefined' && typeof window.HEROESVAULT_API_BASE === 'string' && window.HEROESVAULT_API_BASE.trim())
         ? window.HEROESVAULT_API_BASE
-        : (typeof HEROESVAULT_API_BASE === 'string'
+        : ((typeof HEROESVAULT_API_BASE === 'string' && HEROESVAULT_API_BASE.trim())
             ? HEROESVAULT_API_BASE
-            : 'https://thesaurus-sage-headphones-meets.trycloudflare.com')
-).trim().replace(/\/+$/, '');
+            : DEFAULT_ACADEMY_API_BASE);
+    return String(base || '').trim().replace(/\/+$/, '');
+}
+
+const ACADEMY_API_BASE = resolveAcademyApiBase();
 
 let academyIndexCache = null;
 let academyIndexInflight = null;
@@ -61,7 +66,7 @@ async function fetchAcademyJsonSafe(url) {
         if (!res.ok) return null;
         return await res.json();
     } catch (err) {
-        console.warn(`[Academy] Failed fetching ${url}:`, err); return null; } }  async function ensureAcademyIndexLoaded({ force = false } = {}) { if (!force && Array.isArray(academyIndexCache)) { return academyIndexCache; } if (!force && academyIndexInflight) { return academyIndexInflight; }  academyIndexInflight = (async () => { try { if (ACADEMY_API_BASE) { const remoteList = await fetchAcademyJsonSafe(`${ACADEMY_API_BASE}/api/academy`);
+        console.warn(`[Academy] Failed fetching ${url}:`, err); return null; } }  async function ensureAcademyIndexLoaded({ force = false } = {}) { if (!force && Array.isArray(academyIndexCache)) { return academyIndexCache; } if (!force && academyIndexInflight) { return academyIndexInflight; }  academyIndexInflight = (async () => { try { const apiBase = resolveAcademyApiBase(); if (apiBase) { const remoteList = await fetchAcademyJsonSafe(`${apiBase}/api/academy`);
                 if (Array.isArray(remoteList)) {
                     const normalized = remoteList
                         .map(item => {
@@ -116,9 +121,10 @@ async function fetchAcademyArticleDetail(id) {
                 return baseItem;
             }
 
-            if (ACADEMY_API_BASE) {
+            const apiBase = resolveAcademyApiBase();
+            if (apiBase) {
                 const remoteDetail = await fetchAcademyJsonSafe(
-                    `${ACADEMY_API_BASE}/api/academy/${encodeURIComponent(cleanId)}`
+                    `${apiBase}/api/academy/${encodeURIComponent(cleanId)}`
                 );
                 if (remoteDetail && typeof remoteDetail === 'object') {
                     const merged = normalizeClientAcademyArticle(
