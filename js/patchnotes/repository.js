@@ -10,13 +10,18 @@ const PATCH_DETAIL_CACHE = new Map();
 const PATCH_DETAIL_INFLIGHT = new Map();
 
 const PATCH_DATA_DIR = './data/patchnotes';
-const PATCH_API_BASE = (
-    typeof window !== 'undefined' && typeof window.HEROESVAULT_API_BASE === 'string'
+const DEFAULT_PATCH_API_BASE = 'https://s-st-01.anteater-bushmaster.ts.net';
+
+function resolvePatchApiBase() {
+    const base = (typeof window !== 'undefined' && typeof window.HEROESVAULT_API_BASE === 'string' && window.HEROESVAULT_API_BASE.trim())
         ? window.HEROESVAULT_API_BASE
-        : (typeof HEROESVAULT_API_BASE === 'string'
+        : ((typeof HEROESVAULT_API_BASE === 'string' && HEROESVAULT_API_BASE.trim())
             ? HEROESVAULT_API_BASE
-            : 'https://thesaurus-sage-headphones-meets.trycloudflare.com')
-).trim().replace(/\/+$/, '');
+            : DEFAULT_PATCH_API_BASE);
+    return String(base || '').trim().replace(/\/+$/, '');
+}
+
+const PATCH_API_BASE = resolvePatchApiBase();
 const DEFAULT_HOTS_URL = 'https://news.blizzard.com/en-us/heroes-of-the-storm';
 
 // Technical Alpha ended Jan 12, 2015; Closed/Open Beta ran Jan 13 – Jun 1, 2015; Live started Jun 2, 2015
@@ -337,9 +342,10 @@ function deduplicateAndSortPatches(items) {
 }
 
 async function fetchMasterFeedJson(file) {
-    if (PATCH_API_BASE) {
+    const apiBase = resolvePatchApiBase();
+    if (apiBase) {
         try {
-            const remoteRes = await fetch(`${PATCH_API_BASE}/api/patchnotes/${encodeURIComponent(file)}`);
+            const remoteRes = await fetch(`${apiBase}/api/patchnotes/${encodeURIComponent(file)}`);
             if (remoteRes.ok) {
                 return await remoteRes.json();
             }
@@ -416,10 +422,11 @@ async function fetchPatchRawNotesText(item) {
     const loadPromise = (async () => {
         let notesText = '';
         const subPath = toDetailApiSubpath(item.detailPath);
+        const apiBase = resolvePatchApiBase();
 
-        if (PATCH_API_BASE && subPath) {
+        if (apiBase && subPath) {
             try {
-                const apiRes = await fetch(`${PATCH_API_BASE}/api/patchnotes/detail/${subPath}`);
+                const apiRes = await fetch(`${apiBase}/api/patchnotes/detail/${subPath}`);
                 if (apiRes.ok) {
                     const rawBody = await apiRes.text();
                     if (rawBody.trim()) {
