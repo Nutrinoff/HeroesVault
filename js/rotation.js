@@ -113,6 +113,37 @@ function parseDateBoundary(val, isEndOfDay) {
     return parsed;
 }
 
+function formatRotationEndDate(val) {
+    var end = parseDateBoundary(val, true);
+    if (!end) return '';
+    return end.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+    });
+}
+
+function resolveRotationTimespan(entry) {
+    if (!entry || typeof entry !== 'object') return 'Weekly Rotation';
+
+    var rawLabel = String(
+        entry.timespan || entry.Timespan || entry.label || ''
+    ).trim();
+    var endStr = formatRotationEndDate(entry.endDate || entry.EndDate);
+
+    if (rawLabel && endStr) {
+        return rawLabel + ' – ' + endStr;
+    }
+    if (rawLabel) {
+        return rawLabel;
+    }
+
+    var startStr = formatRotationEndDate(entry.startDate || entry.StartDate);
+    if (startStr && endStr) {
+        return startStr + ' – ' + endStr;
+    }
+    return startStr || endStr || 'Weekly Rotation';
+}
+
 function pickActiveScheduleEntry(list, now) {
     var refDate = now instanceof Date && !Number.isNaN(now.getTime()) ? now : new Date();
     if (!Array.isArray(list) || list.length === 0) return null;
@@ -331,14 +362,7 @@ function resolveHeroBlockFromJson(root, now) {
             ? activeSlot.heroes
             : (Array.isArray(activeSlot.Heroes) ? activeSlot.Heroes : []);
 
-        var slotTimespan =
-            activeSlot.timespan ||
-            activeSlot.Timespan ||
-            activeSlot.label ||
-            [activeSlot.startDate || activeSlot.StartDate, activeSlot.endDate || activeSlot.EndDate]
-                .filter(Boolean)
-                .join(' – ') ||
-            'Current Rotation';
+        var slotTimespan = resolveRotationTimespan(activeSlot);
 
         var slotAllFree = Boolean(
             activeSlot.allHeroesFree !== undefined ? activeSlot.allHeroesFree : activeSlot.AllHeroesFree
@@ -356,11 +380,7 @@ function resolveHeroBlockFromJson(root, now) {
         ? fallbackBlock.Heroes
         : (Array.isArray(fallbackBlock.heroes) ? fallbackBlock.heroes : []);
 
-    var fallbackTimespan =
-        fallbackBlock.Timespan ||
-        fallbackBlock.timespan ||
-        [fallbackBlock.StartDate, fallbackBlock.EndDate].filter(Boolean).join(' – ') ||
-        'Weekly Rotation';
+    var fallbackTimespan = resolveRotationTimespan(fallbackBlock);
 
     var fallbackAllFree = Boolean(
         fallbackBlock.AllHeroesFree !== undefined ? fallbackBlock.AllHeroesFree : fallbackBlock.allHeroesFree
