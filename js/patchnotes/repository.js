@@ -10,6 +10,13 @@ const PATCH_DETAIL_CACHE = new Map();
 const PATCH_DETAIL_INFLIGHT = new Map();
 
 const PATCH_DATA_DIR = './data/patchnotes';
+const PATCH_API_BASE = (
+    typeof window !== 'undefined' && typeof window.HEROESVAULT_API_BASE === 'string'
+        ? window.HEROESVAULT_API_BASE
+        : (typeof HEROESVAULT_API_BASE === 'string'
+            ? HEROESVAULT_API_BASE
+            : 'https://thesaurus-sage-headphones-meets.trycloudflare.com')
+).trim().replace(/\/+$/, '');
 const DEFAULT_HOTS_URL = 'https://news.blizzard.com/en-us/heroes-of-the-storm';
 
 // Technical Alpha ended Jan 12, 2015; Closed/Open Beta ran Jan 13 – Jun 1, 2015; Live started Jun 2, 2015
@@ -162,6 +169,17 @@ function resolveDetailPath(item, era) {
 
     const safeFolder = ['alpha', 'beta', 'live', 'ptr'].includes(era) ? era : 'live';
     return `${PATCH_DATA_DIR}/${safeFolder}/${clean}`;
+}
+
+function toDetailApiSubpath(detailPath) {
+    if (!detailPath) return null;
+    const cleaned = String(detailPath)
+        .replace(/^\.\/+/, '')
+        .replace(/^\/+/, '')
+        .replace(/^data\/patchnotes\//, '')
+        .replace(/^patchnotes\//, '');
+    if (!cleaned) return null;
+    return cleaned.split('/').map(encodeURIComponent).join('/');
 }
 
 function extractPatchNotesText(payload) {
@@ -318,6 +336,28 @@ function deduplicateAndSortPatches(items) {
     });
 }
 
+async function fetchMasterFeedJson(file) {
+    if (PATCH_API_BASE) {
+        try {
+            const remoteRes = await fetch(`${PATCH_API_BASE}/api/patchnotes/${encodeURIComponent(file)}`);
+            if (remoteRes.ok) {
+                return await remoteRes.json();
+            }
+        } catch (err) {
+            console.warn(`Remote patch feed failed for ${file}, falling back to local:`, err);
+        }
+    }
+
+    try {
+        const localRes = await fetch(`${PATCH_DATA_DIR}/${file}`);
+        if (!localRes.ok) return null;
+        return await localRes.json();
+    } catch (err) {
+        console.warn(`Invalid or missing patch feed ${file}:`, err);
+        return null;
+    }
+}
+
 async function fetchAllMasterPatches() {
     if (Array.isArray(CACHED_MASTER_PATCHES)) {
         return CACHED_MASTER_PATCHES;
@@ -329,26 +369,16 @@ async function fetchAllMasterPatches() {
 
     MASTER_PATCHES_INFLIGHT = (async () => {
         try {
-            const responses = await Promise.all(
-                MASTER_SOURCES.map(src =>
-                    fetch(`${PATCH_DATA_DIR}/${src.file}`).catch(() => null)
-                )
+            const payloads = await Promise.all(
+                MASTER_SOURCES.map(src => fetchMasterFeedJson(src.file))
             );
 
             const normalized = [];
 
             for (let i = 0; i < MASTER_SOURCES.length; i++) {
-                const res = responses[i];
+                const data = payloads[i];
                 const meta = MASTER_SOURCES[i];
-                if (!res || !res.ok) continue;
-
-                let data = null;
-                try {
-                    data = await res.json();
-                } catch (err) {
-                    console.warn(`Invalid JSON in patch feed ${meta.file}:`, err);
-                    continue;
-                }
+                if (!data) continue;
 
                 const rows = Array.isArray(data)
                     ? data
@@ -385,7 +415,23 @@ async function fetchPatchRawNotesText(item) {
 
     const loadPromise = (async () => {
         let notesText = '';
-        if (item.detailPath) {
+        const subPath = toDetailApiSubpath(item.detailPath);
+
+        if (PATCH_API_BASE && subPath) {
+            try {
+                const apiRes = await fetch(`${PATCH_API_BASE}/api/patchnotes/detail/${subPath}`);
+                if (apiRes.ok) {
+                    const rawBody = await apiRes.text();
+                    if (rawBody.trim()) {
+                        notesText = extractPatchNotesText(rawBody);
+                    }
+                }
+            } catch (err) {
+                console.warn(`Remote patch detail failed for ${subPath}, falling back to local:`, err);
+            }
+        }
+
+        if (!notesText && item.detailPath) {
             try {
                 const res = await fetch(item.detailPath);
                 if (res.ok) {
