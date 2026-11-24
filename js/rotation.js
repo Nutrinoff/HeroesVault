@@ -2,8 +2,6 @@
 // 1. CONFIGURATION & STATE
 // ==========================================
 
-import { fetchRotationData } from './api.js';
-
 var ROTATION_FETCH_TIMEOUT_MS = 4000;
 var ROTATION_PORTRAIT_SIZE_PX = 45;
 
@@ -23,6 +21,12 @@ var currentRotationData = null;
 // ==========================================
 // 2. DATE & CANONICAL HERO LOOKUP HELPERS
 // ==========================================
+
+function getRotationApi() {
+    return typeof window !== 'undefined' && window.HeroesVaultApi && typeof window.HeroesVaultApi === 'object'
+        ? window.HeroesVaultApi
+        : null;
+}
 
 function getRotationCatalogApi() {
     return window.HeroesVaultCatalog && typeof window.HeroesVaultCatalog === 'object'
@@ -519,10 +523,15 @@ function renderFreeRotationHeroes(data) {
 }
 
 function loadAndRenderRotation(options = {}) {
-    return fetchRotationData({
-        force: Boolean(options.force),
-        timeoutMs: typeof options.timeoutMs === 'number' ? options.timeoutMs : ROTATION_FETCH_TIMEOUT_MS,
-    })
+    var api = getRotationApi();
+    var requestPromise = typeof api?.fetchRotationData === 'function'
+        ? api.fetchRotationData({
+            force: Boolean(options.force),
+            timeoutMs: typeof options.timeoutMs === 'number' ? options.timeoutMs : ROTATION_FETCH_TIMEOUT_MS,
+        })
+        : Promise.resolve({});
+
+    return requestPromise
         .catch(function (err) {
             console.warn('Failed to load rotation.json:', err);
             return {};
