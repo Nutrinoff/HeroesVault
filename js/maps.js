@@ -5,6 +5,13 @@
 const MAP_DETAILS_CACHE = new Map();
 const WARMED_MAP_IDS = new Set();
 const MAP_DROPDOWN_WARM_LIMIT = 2;
+const MAP_API_BASE = (
+    typeof window !== 'undefined' && typeof window.HEROESVAULT_API_BASE === 'string'
+        ? window.HEROESVAULT_API_BASE
+        : (typeof HEROESVAULT_API_BASE === 'string'
+            ? HEROESVAULT_API_BASE
+            : 'https://thesaurus-sage-headphones-meets.trycloudflare.com')
+).trim().replace(/\/+$/, '');
 const MAP_FALLBACK_BANNER = `data:image/svg+xml;utf8,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="500" viewBox="0 0 1200 500"><rect width="1200" height="500" fill="#0d0724"/><rect x="1" y="1" width="1198" height="498" fill="none" stroke="#38247a" stroke-width="2"/><text x="600" y="258" fill="#8c83a2" font-family="monospace" font-size="28" text-anchor="middle">BATTLEGROUND ART UNAVAILABLE</text></svg>')}`;
 const MAP_HERO_FALLBACK_PORTRAIT = `data:image/svg+xml;utf8,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><rect width="64" height="64" fill="#0d0724"/><rect x="1" y="1" width="62" height="62" fill="none" stroke="#38247a" stroke-width="2"/><text x="32" y="39" fill="#9cb6ff" font-family="monospace" font-size="22" text-anchor="middle">?</text></svg>')}`;
 
@@ -116,6 +123,18 @@ function resolveGoldenHeroEntry(heroId) {
     };
 }
 
+async function fetchMapJsonSafe(url) {
+    try {
+        const res = await fetch(url);
+        if (!res.ok) return null;
+        const parsed = await res.json();
+        return parsed && typeof parsed === 'object' ? parsed : null;
+    } catch (err) {
+        console.warn(`Failed to load map JSON from ${url}:`, err);
+        return null;
+    }
+}
+
 async function fetchMapDetails(id) {
     if (!id) return {};
     if (MAP_DETAILS_CACHE.has(id)) {
@@ -123,24 +142,14 @@ async function fetchMapDetails(id) {
         return typeof cached?.then === 'function' ? await cached : cached;
     }
 
-    const request = fetch(`./data/maps/${encodeURIComponent(id)}.json`)
-        .then(async r => {
-            if (!r.ok) {
-                console.warn(`No map details for ${id}: HTTP ${r.status}`);
-                return null;
-            }
-            try {
-                const parsed = await r.json();
-                return parsed && typeof parsed === 'object' ? parsed : null;
-            } catch (parseErr) {
-                console.warn(`Malformed JSON in map details for ${id}`, parseErr);
-                return null;
-            }
-        })
-        .catch(e => {
-            console.warn(`Failed to load map details for ${id}`, e);
-            return null;
-        });
+    const encodedId = encodeURIComponent(id);
+    const request = (async () => {
+        if (MAP_API_BASE) {
+            const remote = await fetchMapJsonSafe(`${MAP_API_BASE}/api/maps/${encodedId}`);
+            if (remote) return remote;
+        }
+        return await fetchMapJsonSafe(`./data/maps/${encodedId}.json`);
+    })();
 
     MAP_DETAILS_CACHE.set(id, request);
     const resolved = await request;
