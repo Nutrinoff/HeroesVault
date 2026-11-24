@@ -2,10 +2,153 @@
 // NEXUS ACADEMY MODULE (FUNCTION CODE)
 // ==========================================
 
+const ACADEMY_API_BASE = (
+    typeof window !== 'undefined' && typeof window.HEROESVAULT_API_BASE === 'string'
+        ? window.HEROESVAULT_API_BASE
+        : (typeof HEROESVAULT_API_BASE === 'string'
+            ? HEROESVAULT_API_BASE
+            : 'https://thesaurus-sage-headphones-meets.trycloudflare.com')
+).trim().replace(/\/+$/, '');
+
+let academyIndexCache = null;
+let academyIndexInflight = null;
+const ACADEMY_DETAIL_CACHE = new Map();
+const ACADEMY_DETAIL_INFLIGHT = new Map();
+
+function getFallbackAcademyArticlesList() {
+    if (typeof window !== 'undefined' && Array.isArray(window.ACADEMY_ARTICLES)) {
+        return window.ACADEMY_ARTICLES;
+    }
+    if (typeof ACADEMY_ARTICLES !== 'undefined' && Array.isArray(ACADEMY_ARTICLES)) {
+        return ACADEMY_ARTICLES;
+    }
+    return [];
+}
+
 function getAcademyArticlesList() {
-    return Array.isArray(window.ACADEMY_ARTICLES)
-        ? window.ACADEMY_ARTICLES
-        : (typeof ACADEMY_ARTICLES !== 'undefined' && Array.isArray(ACADEMY_ARTICLES) ? ACADEMY_ARTICLES : []);
+    if (Array.isArray(academyIndexCache)) {
+        return academyIndexCache;
+    }
+    return getFallbackAcademyArticlesList();
+}
+
+function normalizeClientAcademyArticle(raw, fallbackId = '') {
+    if (!raw || typeof raw !== 'object') return null;
+    const id = String(raw.id || fallbackId || '').trim();
+    if (!id) return null;
+
+    const tags = Array.isArray(raw.tags)
+        ? raw.tags.map(t => String(t || '').trim()).filter(Boolean)
+        : (typeof raw.tags === 'string'
+            ? raw.tags.split(',').map(t => t.trim()).filter(Boolean)
+            : []);
+
+    return {
+        id,
+        title: String(raw.title || id).trim(),
+        category: String(raw.category || 'Mechanics').trim() || 'Mechanics',
+        level: raw.level === 'Advanced' ? 'Advanced' : 'Basic',
+        readTime: String(raw.readTime || '').trim(),
+        tags,
+        summary: String(raw.summary || '').trim(),
+        markdown: typeof raw.markdown === 'string' ? raw.markdown : null
+    };
+}
+
+async function fetchAcademyJsonSafe(url) {
+    try {
+        const res = await fetch(url);
+        if (!res.ok) return null;
+        return await res.json();
+    } catch (err) {
+        console.warn(`[Academy] Failed fetching ${url}:`, err); return null; } }  async function ensureAcademyIndexLoaded({ force = false } = {}) { if (!force && Array.isArray(academyIndexCache)) { return academyIndexCache; } if (!force && academyIndexInflight) { return academyIndexInflight; }  academyIndexInflight = (async () => { try { if (ACADEMY_API_BASE) { const remoteList = await fetchAcademyJsonSafe(`${ACADEMY_API_BASE}/api/academy`);
+                if (Array.isArray(remoteList)) {
+                    const normalized = remoteList
+                        .map(item => {
+                            const norm = normalizeClientAcademyArticle(item);
+                            if (!norm) return null;
+                            const cachedDetail = ACADEMY_DETAIL_CACHE.get(norm.id);
+                            if (cachedDetail && typeof cachedDetail.markdown === 'string') {
+                                return { ...norm, markdown: cachedDetail.markdown };
+                            }
+                            return norm;
+                        })
+                        .filter(Boolean);
+
+                    academyIndexCache = normalized;
+                    lastRenderedAcademySignature = null;
+                    if (typeof syncHomeSummaryCounts === 'function') {
+                        syncHomeSummaryCounts();
+                    }
+                    return academyIndexCache;
+                }
+            }
+
+            const fallback = getFallbackAcademyArticlesList()
+                .map(item => normalizeClientAcademyArticle(item))
+                .filter(Boolean);
+            academyIndexCache = fallback;
+            return academyIndexCache;
+        } finally {
+            academyIndexInflight = null;
+        }
+    })();
+
+    return academyIndexInflight;
+}
+
+async function fetchAcademyArticleDetail(id) {
+    const cleanId = String(id || '').trim();
+    if (!cleanId) return null;
+
+    if (ACADEMY_DETAIL_CACHE.has(cleanId)) {
+        return ACADEMY_DETAIL_CACHE.get(cleanId);
+    }
+    if (ACADEMY_DETAIL_INFLIGHT.has(cleanId)) {
+        return ACADEMY_DETAIL_INFLIGHT.get(cleanId);
+    }
+
+    const loadPromise = (async () => {
+        try {
+            const baseItem = getAcademyArticlesList().find(a => a.id === cleanId) || null;
+            if (typeof baseItem?.markdown === 'string') {
+                ACADEMY_DETAIL_CACHE.set(cleanId, baseItem);
+                return baseItem;
+            }
+
+            if (ACADEMY_API_BASE) {
+                const remoteDetail = await fetchAcademyJsonSafe(
+                    `${ACADEMY_API_BASE}/api/academy/${encodeURIComponent(cleanId)}`
+                );
+                if (remoteDetail && typeof remoteDetail === 'object') {
+                    const merged = normalizeClientAcademyArticle(
+                        { ...(baseItem || {}), ...remoteDetail, id: cleanId },
+                        cleanId
+                    );
+                    if (merged) {
+                        ACADEMY_DETAIL_CACHE.set(cleanId, merged);
+                        if (Array.isArray(academyIndexCache)) {
+                            academyIndexCache = academyIndexCache.map(entry =>
+                                entry.id === cleanId
+                                    ? { ...entry, ...merged, markdown: merged.markdown }
+                                    : entry
+                            );
+                        }
+                        return merged;
+                    }
+                }
+            }
+
+            return baseItem;
+        } finally {
+            if (ACADEMY_DETAIL_INFLIGHT.get(cleanId) === loadPromise) {
+                ACADEMY_DETAIL_INFLIGHT.delete(cleanId);
+            }
+        }
+    })();
+
+    ACADEMY_DETAIL_INFLIGHT.set(cleanId, loadPromise);
+    return loadPromise;
 }
 
 let academyState = {
@@ -19,12 +162,18 @@ let lastRenderedAcademySignature = null;
 
 function getAcademyRenderSignature() {
     const articles = getAcademyArticlesList();
+    const activeArticle = articles.find(a => a.id === academyState.activeId);
+    const activeMarkdownLen = typeof activeArticle?.markdown === 'string'
+        ? activeArticle.markdown.length
+        : -1;
+
     return [
         academyState.level,
         academyState.category,
         academyState.search,
         String(academyState.activeId ?? ''),
-        String(articles.length)
+        String(articles.length),
+        String(activeMarkdownLen)
     ].join('||');
 }
 
@@ -201,7 +350,7 @@ function getFilteredAcademyArticles() {
             article.level,
             article.summary,
             ...(article.tags || []),
-            article.markdown
+            article.markdown || ''
         ].join(' ').toLowerCase();
 
         return haystack.includes(q);
@@ -344,6 +493,16 @@ function renderAcademyListAndReader(scrollReader) {
     });
     listEl.replaceChildren(listFrag);
 
+    if (typeof activeArticle.markdown !== 'string') {
+        const targetId = activeArticle.id;
+        fetchAcademyArticleDetail(targetId).then(fullArticle => {
+            if (!fullArticle || typeof fullArticle.markdown !== 'string') return;
+            if (academyState.activeId !== targetId) return;
+            lastRenderedAcademySignature = null;
+            renderAcademyListAndReader(false);
+        });
+    }
+
     const prevArticle = activeIndex > 0 ? filtered[activeIndex - 1] : null;
     const nextArticle = activeIndex < filtered.length - 1 ? filtered[activeIndex + 1] : null;
 
@@ -388,7 +547,9 @@ function renderAcademyListAndReader(scrollReader) {
 
     const bodyContainer = document.createElement('div');
     bodyContainer.className = 'space-y-3';
-    bodyContainer.innerHTML = renderAcademyMarkdown(activeArticle.markdown);
+    bodyContainer.innerHTML = typeof activeArticle.markdown === 'string'
+        ? renderAcademyMarkdown(activeArticle.markdown)
+        : '<p class="text-xs text-[#8c83a2]">Loading guide content...</p>';
 
     const navEl = document.createElement('div');
     navEl.id = 'academy-article-nav';
@@ -443,6 +604,21 @@ function bindAcademyEvents() {
 
 function renderAcademy() {
     bindAcademyEvents();
+
+    if (academyIndexCache === null && !academyIndexInflight) {
+        ensureAcademyIndexLoaded().then(() => {
+            if (!academyState.activeId) {
+                academyState.activeId = getAcademyArticlesList()[0]?.id || null;
+            }
+            lastRenderedAcademySignature = null;
+            renderAcademyCategories();
+            renderAcademyListAndReader(false);
+            if (window.lucide && typeof window.lucide.createIcons === 'function') {
+                window.lucide.createIcons();
+            }
+        });
+    }
+
     if (!academyState.activeId) {
         academyState.activeId = getAcademyArticlesList()[0]?.id || null;
     }
@@ -461,7 +637,11 @@ function renderAcademy() {
 }
 
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', bindAcademyEvents, { once: true });
+    document.addEventListener('DOMContentLoaded', () => {
+        bindAcademyEvents();
+        ensureAcademyIndexLoaded();
+    }, { once: true });
 } else {
     bindAcademyEvents();
+    ensureAcademyIndexLoaded();
 }
