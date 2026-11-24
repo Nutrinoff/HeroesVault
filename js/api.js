@@ -2,340 +2,340 @@
 // HEROESVAULT FRONTEND API CONTROLLER (FUNNEL)
 // ============================================
 
-const DEFAULT_API_BASE = 'https://s-st-01.anteater-bushmaster.ts.net';
-const PATCH_DATA_DIR = './data/patchnotes';
-const MAP_DATA_DIR = './data/maps';
-const ROTATION_DATA_DIR = './data';
-const DEFAULT_ROTATION_TIMEOUT_MS = 4000;
+(function () {
+  const DEFAULT_API_BASE = 'https://s-st-01.anteater-bushmaster.ts.net';
+  const PATCH_DATA_DIR = './data/patchnotes';
+  const MAP_DATA_DIR = './data/maps';
+  const ROTATION_DATA_DIR = './data';
+  const DEFAULT_ROTATION_TIMEOUT_MS = 4000;
 
-const MASTER_PATCH_FILES = [
-  'alpha-master.json',
-  'beta-master.json',
-  'live-master.json',
-  'ptr-master.json',
-];
+  const MASTER_PATCH_FILES = [
+    'alpha-master.json',
+    'beta-master.json',
+    'live-master.json',
+    'ptr-master.json',
+  ];
 
-const JSON_CACHE = new Map();
-const INFLIGHT_JSON = new Map();
-const TEXT_CACHE = new Map();
-const INFLIGHT_TEXT = new Map();
+  const JSON_CACHE = new Map();
+  const INFLIGHT_JSON = new Map();
+  const TEXT_CACHE = new Map();
+  const INFLIGHT_TEXT = new Map();
 
-export function resolveApiBase() {
-  const base =
-    typeof window !== 'undefined' &&
-    typeof window.HEROESVAULT_API_BASE === 'string' &&
-    window.HEROESVAULT_API_BASE.trim()
-      ? window.HEROESVAULT_API_BASE
-      : typeof HEROESVAULT_API_BASE === 'string' && HEROESVAULT_API_BASE.trim()
-        ? HEROESVAULT_API_BASE
-        : DEFAULT_API_BASE;
-  return String(base || '').trim().replace(/\/+$/, '');
-}
-
-function buildApiUrl(pathOrUrl) {
-  const raw = String(pathOrUrl || '').trim();
-  if (!raw) return '';
-  if (/^https?:\/\//i.test(raw)) return raw;
-  const base = resolveApiBase();
-  const cleanPath = raw.startsWith('/') ? raw : `/${raw}`;
-  return base ? `${base}${cleanPath}` : cleanPath;
-}
-
-/**
- * Single fetch funnel for frontend API calls.
- * Always stamps X-Client: frontend so telemetry filters internal/non-frontend traffic.
- */
-export async function apiFetch(pathOrUrl, options = {}) {
-  const url = buildApiUrl(pathOrUrl);
-  const headers = new Headers(options.headers || {});
-  if (!headers.has('X-Client')) {
-    headers.set('X-Client', 'frontend');
+  function resolveApiBase() {
+    const globalBase = typeof HEROESVAULT_API_BASE === 'string' ? HEROESVAULT_API_BASE : '';
+    const windowBase =
+      typeof window !== 'undefined' && typeof window.HEROESVAULT_API_BASE === 'string'
+        ? window.HEROESVAULT_API_BASE
+        : '';
+    const base = (windowBase && windowBase.trim()) || (globalBase && globalBase.trim()) || DEFAULT_API_BASE;
+    return String(base || '').trim().replace(/\/+$/, '');
   }
 
-  return fetch(url, {
-    ...options,
-    headers,
-  });
-}
-
-async function fetchJsonWithFallback(
-  remotePath,
-  localPath,
-  { cacheKey = '', force = false, fetchOptions = {} } = {}
-) {
-  if (!force && cacheKey && JSON_CACHE.has(cacheKey)) {
-    return JSON_CACHE.get(cacheKey);
-  }
-  if (!force && cacheKey && INFLIGHT_JSON.has(cacheKey)) {
-    return INFLIGHT_JSON.get(cacheKey);
+  function buildApiUrl(pathOrUrl) {
+    const raw = String(pathOrUrl || '').trim();
+    if (!raw) return '';
+    if (/^https?:\/\//i.test(raw)) return raw;
+    const base = resolveApiBase();
+    const cleanPath = raw.startsWith('/') ? raw : `/${raw}`;
+    return base ? `${base}${cleanPath}` : cleanPath;
   }
 
-  const task = (async () => {
-    let data = null;
-
-    if (resolveApiBase() && remotePath) {
-      try {
-        const res = await apiFetch(remotePath, fetchOptions);
-        if (res.ok) {
-          data = await res.json();
-        }
-      } catch (err) {
-        console.warn(`[api] Remote JSON failed for ${remotePath}, trying fallback:`, err);
-      }
+  /**
+   * Single fetch funnel for frontend API calls.
+   * Always stamps X-Client: frontend so telemetry filters internal/non-frontend traffic.
+   */
+  async function apiFetch(pathOrUrl, options = {}) {
+    const url = buildApiUrl(pathOrUrl);
+    const headers = new Headers(options.headers || {});
+    if (!headers.has('X-Client')) {
+      headers.set('X-Client', 'frontend');
     }
 
-    if (data === null && localPath) {
-      try {
-        const localRes = await fetch(localPath, fetchOptions);
-        if (localRes.ok) {
-          data = await localRes.json();
-        }
-      } catch (err) {
-        console.warn(`[api] Local JSON failed for ${localPath}:`, err);
-      }
-    }
-
-    if (data !== null && cacheKey) {
-      JSON_CACHE.set(cacheKey, data);
-    }
-    return data;
-  })().finally(() => {
-    if (cacheKey && INFLIGHT_JSON.get(cacheKey) === task) {
-      INFLIGHT_JSON.delete(cacheKey);
-    }
-  });
-
-  if (cacheKey) {
-    INFLIGHT_JSON.set(cacheKey, task);
-  }
-  return task;
-}
-
-async function fetchTextWithFallback(
-  remotePath,
-  localPath,
-  { cacheKey = '', force = false, fetchOptions = {} } = {}
-) {
-  if (!force && cacheKey && TEXT_CACHE.has(cacheKey)) {
-    return TEXT_CACHE.get(cacheKey);
-  }
-  if (!force && cacheKey && INFLIGHT_TEXT.has(cacheKey)) {
-    return INFLIGHT_TEXT.get(cacheKey);
+    return fetch(url, {
+      ...options,
+      headers,
+    });
   }
 
-  const task = (async () => {
-    let text = '';
-
-    if (resolveApiBase() && remotePath) {
-      try {
-        const res = await apiFetch(remotePath, fetchOptions);
-        if (res.ok) {
-          text = await res.text();
-        }
-      } catch (err) {
-        console.warn(`[api] Remote text failed for ${remotePath}, trying fallback:`, err);
-      }
-    }
-
-    if (!text && localPath) {
-      try {
-        const localRes = await fetch(localPath, fetchOptions);
-        if (localRes.ok) {
-          text = await localRes.text();
-        }
-      } catch (err) {
-        console.warn(`[api] Local text failed for ${localPath}:`, err);
-      }
-    }
-
-    if (text && cacheKey) {
-      TEXT_CACHE.set(cacheKey, text);
-    }
-    return text;
-  })().finally(() => {
-    if (cacheKey && INFLIGHT_TEXT.get(cacheKey) === task) {
-      INFLIGHT_TEXT.delete(cacheKey);
-    }
-  });
-
-  if (cacheKey) {
-    INFLIGHT_TEXT.set(cacheKey, task);
-  }
-  return task;
-}
-
-export function clearApiCache(prefix = '') {
-  if (!prefix) {
-    JSON_CACHE.clear();
-    TEXT_CACHE.clear();
-    return;
-  }
-  for (const key of JSON_CACHE.keys()) {
-    if (key.startsWith(prefix)) JSON_CACHE.delete(key);
-  }
-  for (const key of TEXT_CACHE.keys()) {
-    if (key.startsWith(prefix)) TEXT_CACHE.delete(key);
-  }
-}
-
-// --- Patchnotes endpoints ---
-
-export function fetchPatchMasterFeed(file, { force = false } = {}) {
-  const safeFile = String(file || '').trim();
-  return fetchJsonWithFallback(
-    `/api/patchnotes/${encodeURIComponent(safeFile)}`,
-    `${PATCH_DATA_DIR}/${safeFile}`,
-    { cacheKey: `patch-master:${safeFile}`, force }
-  );
-}
-
-export function fetchAllPatchMasterFeeds({ force = false } = {}) {
-  return Promise.all(
-    MASTER_PATCH_FILES.map(async (file) => ({
-      file,
-      data: await fetchPatchMasterFeed(file, { force }),
-    }))
-  );
-}
-
-export function fetchPatchDetailRaw(detailPath, { force = false } = {}) {
-  const raw = String(detailPath || '').trim();
-  if (!raw) return Promise.resolve('');
-
-  const cleaned = raw
-    .replace(/^\.\/+/, '')
-    .replace(/^\/+/, '')
-    .replace(/^data\/patchnotes\//, '')
-    .replace(/^patchnotes\//, '');
-
-  const encodedSubpath = cleaned
-    ? cleaned.split('/').filter(Boolean).map(encodeURIComponent).join('/')
-    : '';
-
-  const localPath = raw.startsWith('./') || raw.startsWith('data/')
-    ? raw
-    : `${PATCH_DATA_DIR}/${cleaned}`;
-
-  return fetchTextWithFallback(
-    encodedSubpath ? `/api/patchnotes/detail/${encodedSubpath}` : '',
+  async function fetchJsonWithFallback(
+    remotePath,
     localPath,
-    { cacheKey: `patch-detail:${cleaned || raw}`, force }
-  );
-}
+    { cacheKey = '', force = false, fetchOptions = {} } = {}
+  ) {
+    if (!force && cacheKey && JSON_CACHE.has(cacheKey)) {
+      return JSON_CACHE.get(cacheKey);
+    }
+    if (!force && cacheKey && INFLIGHT_JSON.has(cacheKey)) {
+      return INFLIGHT_JSON.get(cacheKey);
+    }
 
-// --- Maps endpoints ---
+    const task = (async () => {
+      let data = null;
 
-export async function fetchMapDetails(id, { force = false } = {}) {
-  const cleanId = String(id || '').trim();
-  if (!cleanId) return {};
-
-  const encodedId = encodeURIComponent(cleanId);
-  const data = await fetchJsonWithFallback(
-    `/api/maps/${encodedId}`,
-    `${MAP_DATA_DIR}/${encodedId}.json`,
-    { cacheKey: `map:detail:${cleanId}`, force }
-  );
-
-  return data && typeof data === 'object' ? data : {};
-}
-
-// --- Rotation endpoints ---
-
-export async function fetchRotationData(
-  { force = false, timeoutMs = DEFAULT_ROTATION_TIMEOUT_MS } = {}
-) {
-  const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
-  const timer = controller
-    ? setTimeout(() => controller.abort(), timeoutMs)
-    : null;
-
-  try {
-    const data = await fetchJsonWithFallback(
-      '/api/rotation',
-      `${ROTATION_DATA_DIR}/rotation.json`,
-      {
-        cacheKey: 'rotation:current',
-        force,
-        fetchOptions: {
-          cache: 'no-store',
-          signal: controller ? controller.signal : undefined,
-        },
+      if (resolveApiBase() && remotePath) {
+        try {
+          const res = await apiFetch(remotePath, fetchOptions);
+          if (res.ok) {
+            data = await res.json();
+          }
+        } catch (err) {
+          console.warn(`[api] Remote JSON failed for ${remotePath}, trying fallback:`, err);
+        }
       }
+
+      if (data === null && localPath) {
+        try {
+          const localRes = await fetch(localPath, fetchOptions);
+          if (localRes.ok) {
+            data = await localRes.json();
+          }
+        } catch (err) {
+          console.warn(`[api] Local JSON failed for ${localPath}:`, err);
+        }
+      }
+
+      if (data !== null && cacheKey) {
+        JSON_CACHE.set(cacheKey, data);
+      }
+      return data;
+    })().finally(() => {
+      if (cacheKey && INFLIGHT_JSON.get(cacheKey) === task) {
+        INFLIGHT_JSON.delete(cacheKey);
+      }
+    });
+
+    if (cacheKey) {
+      INFLIGHT_JSON.set(cacheKey, task);
+    }
+    return task;
+  }
+
+  async function fetchTextWithFallback(
+    remotePath,
+    localPath,
+    { cacheKey = '', force = false, fetchOptions = {} } = {}
+  ) {
+    if (!force && cacheKey && TEXT_CACHE.has(cacheKey)) {
+      return TEXT_CACHE.get(cacheKey);
+    }
+    if (!force && cacheKey && INFLIGHT_TEXT.has(cacheKey)) {
+      return INFLIGHT_TEXT.get(cacheKey);
+    }
+
+    const task = (async () => {
+      let text = '';
+
+      if (resolveApiBase() && remotePath) {
+        try {
+          const res = await apiFetch(remotePath, fetchOptions);
+          if (res.ok) {
+            text = await res.text();
+          }
+        } catch (err) {
+          console.warn(`[api] Remote text failed for ${remotePath}, trying fallback:`, err);
+        }
+      }
+
+      if (!text && localPath) {
+        try {
+          const localRes = await fetch(localPath, fetchOptions);
+          if (localRes.ok) {
+            text = await localRes.text();
+          }
+        } catch (err) {
+          console.warn(`[api] Local text failed for ${localPath}:`, err);
+        }
+      }
+
+      if (text && cacheKey) {
+        TEXT_CACHE.set(cacheKey, text);
+      }
+      return text;
+    })().finally(() => {
+      if (cacheKey && INFLIGHT_TEXT.get(cacheKey) === task) {
+        INFLIGHT_TEXT.delete(cacheKey);
+      }
+    });
+
+    if (cacheKey) {
+      INFLIGHT_TEXT.set(cacheKey, task);
+    }
+    return task;
+  }
+
+  function clearApiCache(prefix = '') {
+    if (!prefix) {
+      JSON_CACHE.clear();
+      TEXT_CACHE.clear();
+      return;
+    }
+    for (const key of JSON_CACHE.keys()) {
+      if (key.startsWith(prefix)) JSON_CACHE.delete(key);
+    }
+    for (const key of TEXT_CACHE.keys()) {
+      if (key.startsWith(prefix)) TEXT_CACHE.delete(key);
+    }
+  }
+
+  // --- Patchnotes endpoints ---
+
+  function fetchPatchMasterFeed(file, { force = false } = {}) {
+    const safeFile = String(file || '').trim();
+    return fetchJsonWithFallback(
+      `/api/patchnotes/${encodeURIComponent(safeFile)}`,
+      `${PATCH_DATA_DIR}/${safeFile}`,
+      { cacheKey: `patch-master:${safeFile}`, force }
+    );
+  }
+
+  function fetchAllPatchMasterFeeds({ force = false } = {}) {
+    return Promise.all(
+      MASTER_PATCH_FILES.map(async (file) => ({
+        file,
+        data: await fetchPatchMasterFeed(file, { force }),
+      }))
+    );
+  }
+
+  function fetchPatchDetailRaw(detailPath, { force = false } = {}) {
+    const raw = String(detailPath || '').trim();
+    if (!raw) return Promise.resolve('');
+
+    const cleaned = raw
+      .replace(/^\.\/+/, '')
+      .replace(/^\/+/, '')
+      .replace(/^data\/patchnotes\//, '')
+      .replace(/^patchnotes\//, '');
+
+    const encodedSubpath = cleaned
+      ? cleaned.split('/').filter(Boolean).map(encodeURIComponent).join('/')
+      : '';
+
+    const localPath = raw.startsWith('./') || raw.startsWith('data/')
+      ? raw
+      : `${PATCH_DATA_DIR}/${cleaned}`;
+
+    return fetchTextWithFallback(
+      encodedSubpath ? `/api/patchnotes/detail/${encodedSubpath}` : '',
+      localPath,
+      { cacheKey: `patch-detail:${cleaned || raw}`, force }
+    );
+  }
+
+  // --- Maps endpoints ---
+
+  async function fetchMapDetails(id, { force = false } = {}) {
+    const cleanId = String(id || '').trim();
+    if (!cleanId) return {};
+
+    const encodedId = encodeURIComponent(cleanId);
+    const data = await fetchJsonWithFallback(
+      `/api/maps/${encodedId}`,
+      `${MAP_DATA_DIR}/${encodedId}.json`,
+      { cacheKey: `map:detail:${cleanId}`, force }
     );
 
     return data && typeof data === 'object' ? data : {};
-  } finally {
-    if (timer) clearTimeout(timer);
   }
-}
 
-// --- Academy endpoints ---
+  // --- Rotation endpoints ---
 
-export function fetchAcademyList({ force = false } = {}) {
-  return fetchJsonWithFallback('/api/academy', '', {
-    cacheKey: 'academy:list',
-    force,
-  });
-}
+  async function fetchRotationData(
+    { force = false, timeoutMs = DEFAULT_ROTATION_TIMEOUT_MS } = {}
+  ) {
+    const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    const timer = controller
+      ? setTimeout(() => controller.abort(), timeoutMs)
+      : null;
 
-export function fetchAcademyArticleById(id, { force = false } = {}) {
-  const cleanId = String(id || '').trim();
-  if (!cleanId) return Promise.resolve(null);
-  return fetchJsonWithFallback(`/api/academy/${encodeURIComponent(cleanId)}`, '', {
-    cacheKey: `academy:item:${cleanId}`,
-    force,
-  });
-}
+    try {
+      const data = await fetchJsonWithFallback(
+        '/api/rotation',
+        `${ROTATION_DATA_DIR}/rotation.json`,
+        {
+          cacheKey: 'rotation:current',
+          force,
+          fetchOptions: {
+            cache: 'no-store',
+            signal: controller ? controller.signal : undefined,
+          },
+        }
+      );
 
-// --- Catalog / other endpoints ---
+      return data && typeof data === 'object' ? data : {};
+    } finally {
+      if (timer) clearTimeout(timer);
+    }
+  }
 
-export function fetchHeroesMasterCatalog({ force = false } = {}) {
-  return fetchJsonWithFallback('/api/catalog/heroes-master', '', {
-    cacheKey: 'catalog:heroes-master',
-    force,
-  });
-}
+  // --- Academy endpoints ---
 
-export function fetchBuildsCatalog({ force = false } = {}) {
-  return fetchJsonWithFallback('/api/builds', '', {
-    cacheKey: 'catalog:builds',
-    force,
-  });
-}
+  function fetchAcademyList({ force = false } = {}) {
+    return fetchJsonWithFallback('/api/academy', '', {
+      cacheKey: 'academy:list',
+      force,
+    });
+  }
 
-export function fetchMapsCatalog({ force = false } = {}) {
-  return fetchJsonWithFallback('/api/maps', '', {
-    cacheKey: 'catalog:maps',
-    force,
-  });
-}
+  function fetchAcademyArticleById(id, { force = false } = {}) {
+    const cleanId = String(id || '').trim();
+    if (!cleanId) return Promise.resolve(null);
+    return fetchJsonWithFallback(`/api/academy/${encodeURIComponent(cleanId)}`, '', {
+      cacheKey: `academy:item:${cleanId}`,
+      force,
+    });
+  }
 
-export function fetchTierListCatalog({ force = false } = {}) {
-  return fetchJsonWithFallback('/api/tierlist', '', {
-    cacheKey: 'catalog:tierlist',
-    force,
-  });
-}
+  // --- Catalog / other endpoints ---
 
-export function getApiController() {
-  return {
-    resolveApiBase,
-    apiFetch,
-    clearApiCache,
-    fetchPatchMasterFeed,
-    fetchAllPatchMasterFeeds,
-    fetchPatchDetailRaw,
-    fetchMapDetails,
-    fetchRotationData,
-    fetchAcademyList,
-    fetchAcademyArticleById,
-    fetchHeroesMasterCatalog,
-    fetchBuildsCatalog,
-    fetchMapsCatalog,
-    fetchTierListCatalog,
-  };
-}
+  function fetchHeroesMasterCatalog({ force = false } = {}) {
+    return fetchJsonWithFallback('/api/catalog/heroes-master', '', {
+      cacheKey: 'catalog:heroes-master',
+      force,
+    });
+  }
 
-if (typeof window !== 'undefined') {
-  window.HeroesVaultApi = Object.assign(window.HeroesVaultApi || {}, getApiController());
-}
+  function fetchBuildsCatalog({ force = false } = {}) {
+    return fetchJsonWithFallback('/api/builds', '', {
+      cacheKey: 'catalog:builds',
+      force,
+    });
+  }
+
+  function fetchMapsCatalog({ force = false } = {}) {
+    return fetchJsonWithFallback('/api/maps', '', {
+      cacheKey: 'catalog:maps',
+      force,
+    });
+  }
+
+  function fetchTierListCatalog({ force = false } = {}) {
+    return fetchJsonWithFallback('/api/tierlist', '', {
+      cacheKey: 'catalog:tierlist',
+      force,
+    });
+  }
+
+  function getApiController() {
+    return {
+      resolveApiBase,
+      apiFetch,
+      clearApiCache,
+      fetchPatchMasterFeed,
+      fetchAllPatchMasterFeeds,
+      fetchPatchDetailRaw,
+      fetchMapDetails,
+      fetchRotationData,
+      fetchAcademyList,
+      fetchAcademyArticleById,
+      fetchHeroesMasterCatalog,
+      fetchBuildsCatalog,
+      fetchMapsCatalog,
+      fetchTierListCatalog,
+    };
+  }
+
+  if (typeof window !== 'undefined') {
+    window.HeroesVaultApi = Object.assign(window.HeroesVaultApi || {}, getApiController());
+  }
+})();
