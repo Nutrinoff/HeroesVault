@@ -2,8 +2,6 @@
 // 1. PATCH REPOSITORY, CACHING & NORMALIZATION
 // ============================================
 
-import { fetchAllPatchMasterFeeds, fetchPatchDetailRaw } from './api.js';
-
 let CACHED_MASTER_PATCHES = null;
 let MASTER_PATCHES_INFLIGHT = null;
 const PATCH_RAW_NOTES_CACHE = new Map();
@@ -25,6 +23,12 @@ const MASTER_SOURCES = [
     { file: 'live-master.json',  defaultFeed: 'live', sourceEra: 'live' },
     { file: 'ptr-master.json',   defaultFeed: 'ptr',  sourceEra: 'ptr' }
 ];
+
+function getPatchApi() {
+    return typeof window !== 'undefined' && window.HeroesVaultApi && typeof window.HeroesVaultApi === 'object'
+        ? window.HeroesVaultApi
+        : null;
+}
 
 function safeUrlCheck(rawUrl) {
     if (typeof isSafeUrl === 'function') {
@@ -356,7 +360,10 @@ async function fetchAllMasterPatches({ force = false } = {}) {
 
     MASTER_PATCHES_INFLIGHT = (async () => {
         try {
-            const feedResults = await fetchAllPatchMasterFeeds({ force });
+            const api = getPatchApi();
+            const feedResults = typeof api?.fetchAllPatchMasterFeeds === 'function'
+                ? await api.fetchAllPatchMasterFeeds({ force })
+                : [];
             const byFile = new Map(
                 (Array.isArray(feedResults) ? feedResults : []).map(entry => [entry.file, entry.data])
             );
@@ -403,9 +410,10 @@ async function fetchPatchRawNotesText(item, { force = false } = {}) {
 
     const loadPromise = (async () => {
         let notesText = '';
-        if (item.detailPath) {
+        const api = getPatchApi();
+        if (item.detailPath && typeof api?.fetchPatchDetailRaw === 'function') {
             try {
-                const rawBody = await fetchPatchDetailRaw(item.detailPath, { force });
+                const rawBody = await api.fetchPatchDetailRaw(item.detailPath, { force });
                 if (rawBody && rawBody.trim()) {
                     notesText = item.detailPath.endsWith('.json')
                         ? extractPatchNotesText(JSON.parse(rawBody))
