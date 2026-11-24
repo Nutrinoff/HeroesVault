@@ -45,6 +45,24 @@ function toTierHeroKey(value) {
         .replace(/[^a-z0-9]/g, '');
 }
 
+function resolveTierGroupLetter(rawKey) {
+    const clean = String(rawKey || '').trim().toUpperCase();
+    if (clean === 'STIER' || clean === 'S') return 'S';
+    if (clean === 'ATIER' || clean === 'A') return 'A';
+    if (clean === 'BTIER' || clean === 'B') return 'B';
+    if (clean === 'CTIER' || clean === 'C') return 'C';
+    if (clean === 'DTIER' || clean === 'D') return 'D';
+
+    if (typeof tierLetter === 'function') {
+        const mapped = String(tierLetter(rawKey) || '').trim().toUpperCase();
+        if (['S', 'A', 'B', 'C', 'D'].includes(mapped)) {
+            return mapped;
+        }
+    }
+
+    return 'D';
+}
+
 function getTierRosterIndex() {
     const roster = Array.isArray(MASTER_HERO_LIST) ? MASTER_HERO_LIST : [];
     if (
@@ -242,11 +260,13 @@ function renderTierList() {
     const seenKeys = new Set();
 
     Object.entries(MASTER_TIERS || {}).forEach(([k, ids]) => {
-        (ids || []).forEach(id => {
+        const t = resolveTierGroupLetter(k);
+        if (!Array.isArray(ids) || !groups[t]) return;
+
+        ids.forEach(id => {
             const h = resolveTierHeroEntry(id);
-            const t = typeof tierLetter === 'function' ? tierLetter(k) : String(k || 'D').toUpperCase();
             const heroKey = toTierHeroKey(h?.id);
-            if (h && heroKey && groups[t] && !seenKeys.has(heroKey)) {
+            if (h && heroKey && !seenKeys.has(heroKey)) {
                 seenKeys.add(heroKey);
                 groups[t].push(h);
             }
