@@ -3,6 +3,7 @@
 // ==========================================
 
 const HEROESVAULT_API_BASE = 'https://thesaurus-sage-headphones-meets.trycloudflare.com';
+window.HEROESVAULT_API_BASE = HEROESVAULT_API_BASE;
 
 
 // ==========================================
@@ -103,20 +104,20 @@ async function fetchJsonSafe(url) {
     }
 }
 
-async function fetchHeroesMasterWithFallback() {
+async function fetchWithApiFallback(apiPath, localPath) {
     const cleanBase = typeof HEROESVAULT_API_BASE === 'string'
         ? HEROESVAULT_API_BASE.trim().replace(/\/+$/, '')
         : '';
 
-    if (cleanBase) {
-        const remoteData = await fetchJsonSafe(`${cleanBase}/api/catalog/heroes-master`);
+    if (cleanBase && apiPath) {
+        const remoteData = await fetchJsonSafe(`${cleanBase}${apiPath}`);
         if (remoteData) {
             return remoteData;
         }
-        console.warn('[HeroesVault] Remote heroes-master unavailable, falling back to ./data/heroes-master.json');
+        console.warn(`[HeroesVault] Remote ${apiPath} unavailable, falling back to ${localPath}`);
     }
 
-    return await fetchJsonSafe('./data/heroes-master.json');
+    return await fetchJsonSafe(localPath);
 }
 
 async function loadInitialData({ force = false } = {}) {
@@ -130,9 +131,9 @@ async function loadInitialData({ force = false } = {}) {
     initialDataPromise = (async () => {
         try {
             const [masterData, buildsData, mapsData, tiersData] = await Promise.all([
-                fetchHeroesMasterWithFallback(),
+                fetchWithApiFallback('/api/catalog/heroes-master', './data/heroes-master.json'),
                 fetchJsonSafe('./data/builds.json'),
-                fetchJsonSafe('./data/maps.json'),
+                fetchWithApiFallback('/api/maps', './data/maps.json'),
                 fetchJsonSafe('./data/tiers.json')
             ]);
 
