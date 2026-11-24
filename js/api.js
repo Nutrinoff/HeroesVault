@@ -4,6 +4,7 @@
 
 const DEFAULT_API_BASE = 'https://s-st-01.anteater-bushmaster.ts.net';
 const PATCH_DATA_DIR = './data/patchnotes';
+const MAP_DATA_DIR = './data/maps';
 
 const MASTER_PATCH_FILES = [
   'alpha-master.json',
@@ -212,6 +213,22 @@ export function fetchPatchDetailRaw(detailPath, { force = false } = {}) {
   );
 }
 
+// --- Maps endpoints ---
+
+export async function fetchMapDetails(id, { force = false } = {}) {
+  const cleanId = String(id || '').trim();
+  if (!cleanId) return {};
+
+  const encodedId = encodeURIComponent(cleanId);
+  const data = await fetchJsonWithFallback(
+    `/api/maps/${encodedId}`,
+    `${MAP_DATA_DIR}/${encodedId}.json`,
+    { cacheKey: `map:detail:${cleanId}`, force }
+  );
+
+  return data && typeof data === 'object' ? data : {};
+}
+
 // --- Academy endpoints ---
 
 export function fetchAcademyList({ force = false } = {}) {
@@ -247,6 +264,7 @@ export function getApiController() {
     fetchPatchMasterFeed,
     fetchAllPatchMasterFeeds,
     fetchPatchDetailRaw,
+    fetchMapDetails,
     fetchAcademyList,
     fetchAcademyArticleById,
     fetchHeroesMasterCatalog,
