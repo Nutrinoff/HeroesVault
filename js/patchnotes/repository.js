@@ -36,6 +36,31 @@ const MASTER_SOURCES = [
     { file: 'ptr-master.json',   defaultFeed: 'ptr',  sourceEra: 'ptr' }
 ];
 
+function safeUrlCheck(rawUrl) {
+    if (typeof isSafeUrl === 'function') {
+        return Boolean(isSafeUrl(rawUrl));
+    }
+    const clean = String(rawUrl || '').trim();
+    if (!clean) return false;
+    try {
+        const parsed = new URL(clean, typeof window !== 'undefined' ? window.location.origin : 'https://localhost');
+        return parsed.protocol === 'http:' || parsed.protocol === 'https:';
+    } catch {
+        return false;
+    }
+}
+
+function safeHtmlEscape(value) {
+    if (typeof escapeHtml === 'function') {
+        return escapeHtml(value);
+    }
+    return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+}
+
 function getPatchCacheKey(item) {
     const feed = String(item?.feedType || 'live').trim().toLowerCase();
     const id = String(item?.id || '').trim().toLowerCase();
@@ -296,7 +321,7 @@ function normalizeMasterEntry(item, sourceMeta, index) {
     const displayTitle = formatBlizzDisplayTitle(rawTitle, displayDate, feedType, era);
 
     const rawLink = item.Link ?? item.link ?? item.officialLink ?? item.alternateLink ?? '';
-    const link = isSafeUrl(rawLink) ? String(rawLink).trim() : DEFAULT_HOTS_URL;
+    const link = safeUrlCheck(rawLink) ? String(rawLink).trim() : DEFAULT_HOTS_URL;
 
     const patchVersion = String(item.PatchVersion ?? item.patchVersion ?? item.gameVersion ?? '').trim() || null;
     const fullVersion = String(item.FullVersion ?? item.fullVersion ?? '').trim() || null;
@@ -342,7 +367,7 @@ function deduplicateAndSortPatches(items) {
 }
 
 async function fetchMasterFeedJson(file) {
-    const apiBase = resolvePatchApiBase();
+    const apiBase = PATCH_API_BASE || resolvePatchApiBase();
     if (apiBase) {
         try {
             const remoteRes = await fetch(`${apiBase}/api/patchnotes/${encodeURIComponent(file)}`);
@@ -422,7 +447,7 @@ async function fetchPatchRawNotesText(item) {
     const loadPromise = (async () => {
         let notesText = '';
         const subPath = toDetailApiSubpath(item.detailPath);
-        const apiBase = resolvePatchApiBase();
+        const apiBase = PATCH_API_BASE || resolvePatchApiBase();
 
         if (apiBase && subPath) {
             try {
@@ -482,13 +507,13 @@ async function fetchPatchDetailHtml(item) {
 
     const renderPromise = (async () => {
         const notesText = await fetchPatchRawNotesText(item);
-        if (notesText) {
+        if (notesText && typeof formatBlizzlikePatchNotesHtml === 'function') {
             const html = formatBlizzlikePatchNotesHtml(notesText);
             PATCH_DETAIL_CACHE.set(cacheKey, html);
             return html;
         }
 
-        return `<p class="text-slate-400">No patch note details found for <span class="font-mono text-slate-300">${escapeHtml(item.detailPath || item.id)}</span>.</p>`;
+        return `<p class="text-slate-400">No patch note details found for <span class="font-mono text-slate-300">${safeHtmlEscape(item.detailPath || item.id)}</span>.</p>`;
     })().finally(() => {
         if (PATCH_DETAIL_INFLIGHT.get(cacheKey) === renderPromise) {
             PATCH_DETAIL_INFLIGHT.delete(cacheKey);
