@@ -1,278 +1,17 @@
-// ============================================
-// HEROESVAULT FRONTEND API CONTROLLER (FUNNEL)
-// ============================================
+// ==========================================
+// NEXUS ACADEMY MODULE (UI & RENDERING)
+// ==========================================
 
-(function () {
-  const DEFAULT_API_BASE = 'https://s-st-01.anteater-bushmaster.ts.net';
-  const PATCH_DATA_DIR = './data/patchnotes';
-  const MAP_DATA_DIR = './data/maps';
-  const ROTATION_DATA_DIR = './data';
-  const DEFAULT_ROTATION_TIMEOUT_MS = 4000;
+let academyState = {
+  level: 'all',
+  category: 'All',
+  search: '',
+  activeId: null,
+};
 
-  const MASTER_PATCH_FILES = [
-    'alpha-master.json',
-    'beta-master.json',
-    'live-master.json',
-    'ptr-master.json',
-  ];
-
-  const JSON_CACHE = new Map();
-  const INFLIGHT_JSON = new Map();
-  const TEXT_CACHE = new Map();
-  const INFLIGHT_TEXT = new Map();
-
-  function resolveApiBase() {
-    const globalBase = typeof HEROESVAULT_API_BASE === 'string' ? HEROESVAULT_API_BASE : '';
-    const windowBase =
-      typeof window !== 'undefined' && typeof window.HEROESVAULT_API_BASE === 'string'
-        ? window.HEROESVAULT_API_BASE
-        : '';
-    const base = (windowBase && windowBase.trim()) || (globalBase && globalBase.trim()) || DEFAULT_API_BASE;
-    return String(base || '').trim().replace(/\/+$/, '');
-  }
-
-  function buildApiUrl(pathOrUrl) {
-    const raw = String(pathOrUrl || '').trim();
-    if (!raw) return '';
-    if (/^https?:\/\//i.test(raw)) return raw;
-    const base = resolveApiBase();
-    const cleanPath = raw.startsWith('/') ? raw : `/${raw}`;
-    return base ? `${base}${cleanPath}` : cleanPath;
-  }
-
-  /**
-   * Single fetch funnel for frontend API calls.
-   * Always stamps X-Client: frontend so telemetry filters internal/non-frontend traffic.
-   */
-  async function apiFetch(pathOrUrl, options = {}) {
-    const url = buildApiUrl(pathOrUrl);
-    const headers = new Headers(options.headers || {});
-    if (!headers.has('X-Client')) {
-      headers.set('X-Client', 'frontend');
-    }
-
-    return fetch(url, {
-      ...options,
-      headers,
-    });
-  }
-
-  async function fetchJsonWithFallback(
-    remotePath,
-    localPath,
-    { cacheKey = '', force = false, fetchOptions = {} } = {}
-  ) {
-    if (!force && cacheKey && JSON_CACHE.has(cacheKey)) {
-      return JSON_CACHE.get(cacheKey);
-    }
-    if (!force && cacheKey && INFLIGHT_JSON.has(cacheKey)) {
-      return INFLIGHT_JSON.get(cacheKey);
-    }
-
-    const task = (async () => {
-      let data = null;
-
-      if (resolveApiBase() && remotePath) {
-        try {
-          const res = await apiFetch(remotePath, fetchOptions);
-          if (res.ok) {
-            data = await res.json();
-          }
-        } catch (err) {
-          console.warn(`[api] Remote JSON failed for ${remotePath}, trying fallback:`, err);
-        }
-      }
-
-      if (data === null && localPath) {
-        try {
-          const localRes = await fetch(localPath, fetchOptions);
-          if (localRes.ok) {
-            data = await localRes.json();
-          }
-        } catch (err) {
-          console.warn(`[api] Local JSON failed for ${localPath}:`, err);
-        }
-      }
-
-      if (data !== null && cacheKey) {
-        JSON_CACHE.set(cacheKey, data);
-      }
-      return data;
-    })().finally(() => {
-      if (cacheKey && INFLIGHT_JSON.get(cacheKey) === task) {
-        INFLIGHT_JSON.delete(cacheKey);
-      }
-    });
-
-    if (cacheKey) {
-      INFLIGHT_JSON.set(cacheKey, task);
-    }
-    return task;
-  }
-
-  async function fetchTextWithFallback(
-    remotePath,
-    localPath,
-    { cacheKey = '', force = false, fetchOptions = {} } = {}
-  ) {
-    if (!force && cacheKey && TEXT_CACHE.has(cacheKey)) {
-      return TEXT_CACHE.get(cacheKey);
-    }
-    if (!force && cacheKey && INFLIGHT_TEXT.has(cacheKey)) {
-      return INFLIGHT_TEXT.get(cacheKey);
-    }
-
-    const task = (async () => {
-      let text = '';
-
-      if (resolveApiBase() && remotePath) {
-        try {
-          const res = await apiFetch(remotePath, fetchOptions);
-          if (res.ok) {
-            text = await res.text();
-          }
-        } catch (err) {
-          console.warn(`[api] Remote text failed for ${remotePath}, trying fallback:`, err);
-        }
-      }
-
-      if (!text && localPath) {
-        try {
-          const localRes = await fetch(localPath, fetchOptions);
-          if (localRes.ok) {
-            text = await localRes.text();
-          }
-        } catch (err) {
-          console.warn(`[api] Local text failed for ${localPath}:`, err);
-        }
-      }
-
-      if (text && cacheKey) {
-        TEXT_CACHE.set(cacheKey, text);
-      }
-      return text;
-    })().finally(() => {
-      if (cacheKey && INFLIGHT_TEXT.get(cacheKey) === task) {
-        INFLIGHT_TEXT.delete(cacheKey);
-      }
-    });
-
-    if (cacheKey) {
-      INFLIGHT_TEXT.set(cacheKey, task);
-    }
-    return task;
-  }
-
-  function clearApiCache(prefix = '') {
-    if (!prefix) {
-      JSON_CACHE.clear();
-      TEXT_CACHE.clear();
-      return;
-    }
-    for (const key of JSON_CACHE.keys()) {
-      if (key.startsWith(prefix)) JSON_CACHE.delete(key);
-    }
-    for (const key of TEXT_CACHE.keys()) {
-      if (key.startsWith(prefix)) TEXT_CACHE.delete(key);
-    }
-  }
-
-  // --- Patchnotes endpoints ---
-
-  function fetchPatchMasterFeed(file, { force = false } = {}) {
-    const safeFile = String(file || '').trim();
-    return fetchJsonWithFallback(
-      `/api/patchnotes/${encodeURIComponent(safeFile)}`, `${PATCH_DATA_DIR}/${safeFile}`, { cacheKey: `patch-master:${safeFile}`, force }
-    );
-  }
-
-  function fetchAllPatchMasterFeeds({ force = false } = {}) {
-    return Promise.all(
-      MASTER_PATCH_FILES.map(async (file) => ({
-        file,
-        data: await fetchPatchMasterFeed(file, { force }),
-      }))
-    );
-  }
-
-  function fetchPatchDetailRaw(detailPath, { force = false } = {}) {
-    const raw = String(detailPath || '').trim();
-    if (!raw) return Promise.resolve('');
-
-    const cleaned = raw
-      .replace(/^\.\/+/, '')
-      .replace(/^\/+/, '')
-      .replace(/^data\/patchnotes\//, '')
-      .replace(/^patchnotes\//, '');
-
-    const encodedSubpath = cleaned
-      ? cleaned.split('/').filter(Boolean).map(encodeURIComponent).join('/')
-      : '';
-
-    const localPath = raw.startsWith('./') || raw.startsWith('data/')
-      ? raw
-      : `${PATCH_DATA_DIR}/${cleaned}`;
-
-    return fetchTextWithFallback(
-      encodedSubpath ? `/api/patchnotes/detail/${encodedSubpath}` : '', localPath, { cacheKey: `patch-detail:${cleaned || raw}`, force }
-    );
-  }
-
-  // --- Maps endpoints ---
-
-  async function fetchMapDetails(id, { force = false } = {}) {
-    const cleanId = String(id || '').trim();
-    if (!cleanId) return {};
-
-    const encodedId = encodeURIComponent(cleanId);
-    const data = await fetchJsonWithFallback(
-      `/api/maps/${encodedId}`, `${MAP_DATA_DIR}/${encodedId}.json`, { cacheKey: `map:detail:${cleanId}`, force }
-    );
-
-    return data && typeof data === 'object' ? data : {};
-  }
-
-  // --- Rotation endpoints ---
-
-  async function fetchRotationData(
-    { force = false, timeoutMs = DEFAULT_ROTATION_TIMEOUT_MS } = {}
-  ) {
-    const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
-    const timer = controller
-      ? setTimeout(() => controller.abort(), timeoutMs)
-      : null;
-
-    try {
-      const data = await fetchJsonWithFallback(
-        '/api/rotation',
-        `${ROTATION_DATA_DIR}/rotation.json`, { cacheKey: 'rotation:current', force, fetchOptions: { cache: 'no-store', signal: controller ? controller.signal : undefined, }, } );  return data && typeof data === 'object' ? data : {}; } finally { if (timer) clearTimeout(timer); } }  // --- Academy endpoints ---  function fetchAcademyList({ force = false } = {}) { return fetchJsonWithFallback('/api/academy', './data/academy.json', { cacheKey: 'academy:list', force, }); }  function fetchAcademyArticleById(id, { force = false } = {}) { const cleanId = String(id \vert{}\vert{} '').trim(); if (!cleanId) return Promise.resolve(null); return fetchJsonWithFallback(`/api/academy/${encodeURIComponent(cleanId)}`, '', {
-      cacheKey: `academy:item:${cleanId}`, force, }); }  // --- Catalog / other endpoints ---  function fetchHeroesMasterCatalog({ force = false } = {}) { return fetchJsonWithFallback('/api/catalog/heroes-master', '', { cacheKey: 'catalog:heroes-master', force, }); }  function fetchBuildsCatalog({ force = false } = {}) { return fetchJsonWithFallback('/api/builds', '', { cacheKey: 'catalog:builds', force, }); }  function fetchMapsCatalog({ force = false } = {}) { return fetchJsonWithFallback('/api/maps', '', { cacheKey: 'catalog:maps', force, }); }  function fetchTierListCatalog({ force = false } = {}) { return fetchJsonWithFallback('/api/tierlist', '', { cacheKey: 'catalog:tierlist', force, }); }  function getApiController() { return { resolveApiBase, apiFetch, clearApiCache, fetchPatchMasterFeed, fetchAllPatchMasterFeeds, fetchPatchDetailRaw, fetchMapDetails, fetchRotationData, fetchAcademyList, fetchAcademyArticleById, fetchHeroesMasterCatalog, fetchBuildsCatalog, fetchMapsCatalog, fetchTierListCatalog, }; }  if (typeof window !== 'undefined') { window.HeroesVaultApi = Object.assign(window.HeroesVaultApi \vert{}\vert{} {}, getApiController()); } })(); ```  ---  ### `academy.js`  ```javascript // ========================================== // NEXUS ACADEMY MODULE (UI & RENDERING) // ==========================================  let academyState = { level: 'all', category: 'All', search: '', activeId: null, };  let academyIndexCache = null; let academyIndexInflight = null; let lastRenderedAcademySignature = null;  function extractAcademyArticlesArray(payload) { if (Array.isArray(payload)) return payload; if (payload && typeof payload === 'object') { if (Array.isArray(payload.articles)) return payload.articles; if (Array.isArray(payload.guides)) return payload.guides; if (Array.isArray(payload.items)) return payload.items; } return []; }  function normalizeAcademyArticle(raw, index = 0) { if (!raw \vert{}\vert{} typeof raw !== 'object') return null; const id = String(raw.id ?? raw.slug ?? raw.title ?? `guide-${index}`).trim();
-  if (!id) return null;
-
-  const levelRaw = String(raw.level ?? raw.difficulty ?? 'Basic').trim();
-  const level = levelRaw.toLowerCase() === 'advanced' ? 'Advanced' : 'Basic';
-
-  const markdown =
-    typeof raw.markdown === 'string'
-      ? raw.markdown
-      : typeof raw.content === 'string'
-        ? raw.content
-        : typeof raw.body === 'string'
-          ? raw.body
-          : undefined;
-
-  return {
-    ...raw,
-    id,
-    title: String(raw.title ?? raw.name ?? 'Untitled Guide').trim(),
-    category: String(raw.category ?? raw.topic ?? 'General').trim() || 'General',
-    level,
-    summary: String(raw.summary ?? raw.excerpt ?? raw.description ?? '').trim(),
-    readTime: raw.readTime || raw.read_time || '',
-    tags: Array.isArray(raw.tags) ? raw.tags : [],
-    markdown,
-  };
-}
+let academyIndexCache = null;
+let academyIndexInflight = null;
+let lastRenderedAcademySignature = null;
 
 function getAcademyArticlesList() {
   return Array.isArray(academyIndexCache) ? academyIndexCache : [];
@@ -286,42 +25,25 @@ function ensureAcademyIndexLoaded({ force = false } = {}) {
     return academyIndexInflight;
   }
 
-  const api = typeof window !== 'undefined' ? window.HeroesVaultApi : null;
-  const fetcher = api && typeof api.fetchAcademyList === 'function'
-    ? api.fetchAcademyList.bind(api)
-    : null;
-
-  if (!fetcher) {
+  const fetcher = window.HeroesVaultApi?.fetchAcademyList;
+  if (typeof fetcher !== 'function') {
     academyIndexCache = [];
     return Promise.resolve([]);
   }
 
   academyIndexInflight = Promise.resolve(fetcher({ force }))
-    .then((payload) => {
-      const normalized = extractAcademyArticlesArray(payload)
-        .map((item, idx) => normalizeAcademyArticle(item, idx))
-        .filter(Boolean);
-
-      if (Array.isArray(academyIndexCache) && academyIndexCache.length > 0) {
-        const existingById = new Map(academyIndexCache.map((a) => [a.id, a]));
-        academyIndexCache = normalized.map((item) => {
-          const prev = existingById.get(item.id);
-          if (typeof item.markdown !== 'string' && prev && typeof prev.markdown === 'string') {
-            return { ...item, markdown: prev.markdown };
-          }
-          return item;
-        });
-      } else {
-        academyIndexCache = normalized;
-      }
-
+    .then((data) => {
+      const list = Array.isArray(data)
+        ? data
+        : Array.isArray(data?.articles)
+          ? data.articles
+          : [];
+      academyIndexCache = list;
       return academyIndexCache;
     })
     .catch((err) => {
       console.warn('[academy] Failed to load academy index:', err);
-      if (!Array.isArray(academyIndexCache)) {
-        academyIndexCache = [];
-      }
+      if (!Array.isArray(academyIndexCache)) academyIndexCache = [];
       return academyIndexCache;
     })
     .finally(() => {
@@ -341,35 +63,22 @@ async function fetchAcademyArticleDetail(id, { force = false } = {}) {
     return existing;
   }
 
-  const api = typeof window !== 'undefined' ? window.HeroesVaultApi : null;
-  const fetcher = api && typeof api.fetchAcademyArticleById === 'function'
-    ? api.fetchAcademyArticleById.bind(api)
-    : null;
-
-  if (!fetcher) return existing;
+  const fetcher = window.HeroesVaultApi?.fetchAcademyArticleById;
+  if (typeof fetcher !== 'function') return existing;
 
   try {
-    const rawDetail = await fetcher(cleanId, { force });
-    const candidate =
-      rawDetail && typeof rawDetail === 'object' && rawDetail.article && typeof rawDetail.article === 'object'
-        ? rawDetail.article
-        : rawDetail;
-    const normalized = normalizeAcademyArticle(
-      { ...(existing || {}), ...(candidate || {}), id: candidate?.id || cleanId }
-    );
-
-    if (normalized && Array.isArray(academyIndexCache)) {
+    const detail = await fetcher(cleanId, { force });
+    const articleData = detail && typeof detail === 'object' && detail.article
+      ? detail.article
+      : detail;
+    if (articleData && typeof articleData === 'object' && Array.isArray(academyIndexCache)) {
       const idx = academyIndexCache.findIndex((a) => a.id === cleanId);
       if (idx >= 0) {
-        academyIndexCache[idx] = {
-          ...academyIndexCache[idx],
-          ...normalized,
-        };
+        academyIndexCache[idx] = { ...academyIndexCache[idx], ...articleData };
         return academyIndexCache[idx];
       }
     }
-
-    return normalized || existing;
+    return articleData || existing;
   } catch (err) {
     console.warn(`[academy] Failed to load article detail for ${cleanId}:`, err);
     return existing;
@@ -377,8 +86,7 @@ async function fetchAcademyArticleDetail(id, { force = false } = {}) {
 }
 
 function getAcademyArticlesSafe() {
-  const list = getAcademyArticlesList();
-  return Array.isArray(list) ? list : [];
+  return getAcademyArticlesList();
 }
 
 function getAcademyIndexLoaderSafe() {
