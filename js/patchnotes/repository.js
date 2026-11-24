@@ -2,6 +2,8 @@
 // 1. PATCH REPOSITORY, CACHING & NORMALIZATION
 // ============================================
 
+import { fetchAllPatchMasterFeeds, fetchPatchDetailRaw } from './api.js';
+
 let CACHED_MASTER_PATCHES = null;
 let MASTER_PATCHES_INFLIGHT = null;
 const PATCH_RAW_NOTES_CACHE = new Map();
@@ -10,18 +12,6 @@ const PATCH_DETAIL_CACHE = new Map();
 const PATCH_DETAIL_INFLIGHT = new Map();
 
 const PATCH_DATA_DIR = './data/patchnotes';
-const DEFAULT_PATCH_API_BASE = 'https://s-st-01.anteater-bushmaster.ts.net';
-
-function resolvePatchApiBase() {
-    const base = (typeof window !== 'undefined' && typeof window.HEROESVAULT_API_BASE === 'string' && window.HEROESVAULT_API_BASE.trim())
-        ? window.HEROESVAULT_API_BASE
-        : ((typeof HEROESVAULT_API_BASE === 'string' && HEROESVAULT_API_BASE.trim())
-            ? HEROESVAULT_API_BASE
-            : DEFAULT_PATCH_API_BASE);
-    return String(base || '').trim().replace(/\/+$/, '');
-}
-
-const PATCH_API_BASE = resolvePatchApiBase();
 const DEFAULT_HOTS_URL = 'https://news.blizzard.com/en-us/heroes-of-the-storm';
 
 // Technical Alpha ended Jan 12, 2015; Closed/Open Beta ran Jan 13 – Jun 1, 2015; Live started Jun 2, 2015
@@ -201,17 +191,6 @@ function resolveDetailPath(item, era) {
     return `${PATCH_DATA_DIR}/${safeFolder}/${clean}`;
 }
 
-function toDetailApiSubpath(detailPath) {
-    if (!detailPath) return null;
-    const cleaned = String(detailPath)
-        .replace(/^\.\/+/, '')
-        .replace(/^\/+/, '')
-        .replace(/^data\/patchnotes\//, '')
-        .replace(/^patchnotes\//, '');
-    if (!cleaned) return null;
-    return cleaned.split('/').map(encodeURIComponent).join('/');
-}
-
 function extractPatchNotesText(payload) {
     if (!payload) return '';
 
@@ -366,49 +345,27 @@ function deduplicateAndSortPatches(items) {
     });
 }
 
-async function fetchMasterFeedJson(file) {
-    const apiBase = PATCH_API_BASE || resolvePatchApiBase();
-    if (apiBase) {
-        try {
-            const remoteRes = await fetch(`${apiBase}/api/patchnotes/${encodeURIComponent(file)}`);
-            if (remoteRes.ok) {
-                return await remoteRes.json();
-            }
-        } catch (err) {
-            console.warn(`Remote patch feed failed for ${file}, falling back to local:`, err);
-        }
-    }
-
-    try {
-        const localRes = await fetch(`${PATCH_DATA_DIR}/${file}`);
-        if (!localRes.ok) return null;
-        return await localRes.json();
-    } catch (err) {
-        console.warn(`Invalid or missing patch feed ${file}:`, err);
-        return null;
-    }
-}
-
-async function fetchAllMasterPatches() {
-    if (Array.isArray(CACHED_MASTER_PATCHES)) {
+async function fetchAllMasterPatches({ force = false } = {}) {
+    if (!force && Array.isArray(CACHED_MASTER_PATCHES)) {
         return CACHED_MASTER_PATCHES;
     }
 
-    if (MASTER_PATCHES_INFLIGHT) {
+    if (!force && MASTER_PATCHES_INFLIGHT) {
         return MASTER_PATCHES_INFLIGHT;
     }
 
     MASTER_PATCHES_INFLIGHT = (async () => {
         try {
-            const payloads = await Promise.all(
-                MASTER_SOURCES.map(src => fetchMasterFeedJson(src.file))
+            const feedResults = await fetchAllPatchMasterFeeds({ force });
+            const byFile = new Map(
+                (Array.isArray(feedResults) ? feedResults : []).map(entry => [entry.file, entry.data])
             );
 
             const normalized = [];
 
             for (let i = 0; i < MASTER_SOURCES.length; i++) {
-                const data = payloads[i];
                 const meta = MASTER_SOURCES[i];
+                const data = byFile.get(meta.file);
                 if (!data) continue;
 
                 const rows = Array.isArray(data)
@@ -431,48 +388,28 @@ async function fetchAllMasterPatches() {
     return MASTER_PATCHES_INFLIGHT;
 }
 
-async function fetchPatchRawNotesText(item) {
+async function fetchPatchRawNotesText(item, { force = false } = {}) {
     if (!item) return '';
     if (item.inlineNotes) return item.inlineNotes;
 
     const cacheKey = getPatchCacheKey(item);
-    if (PATCH_RAW_NOTES_CACHE.has(cacheKey)) {
+    if (!force && PATCH_RAW_NOTES_CACHE.has(cacheKey)) {
         return PATCH_RAW_NOTES_CACHE.get(cacheKey);
     }
 
-    if (PATCH_RAW_NOTES_INFLIGHT.has(cacheKey)) {
+    if (!force && PATCH_RAW_NOTES_INFLIGHT.has(cacheKey)) {
         return PATCH_RAW_NOTES_INFLIGHT.get(cacheKey);
     }
 
     const loadPromise = (async () => {
         let notesText = '';
-        const subPath = toDetailApiSubpath(item.detailPath);
-        const apiBase = PATCH_API_BASE || resolvePatchApiBase();
-
-        if (apiBase && subPath) {
+        if (item.detailPath) {
             try {
-                const apiRes = await fetch(`${apiBase}/api/patchnotes/detail/${subPath}`);
-                if (apiRes.ok) {
-                    const rawBody = await apiRes.text();
-                    if (rawBody.trim()) {
-                        notesText = extractPatchNotesText(rawBody);
-                    }
-                }
-            } catch (err) {
-                console.warn(`Remote patch detail failed for ${subPath}, falling back to local:`, err);
-            }
-        }
-
-        if (!notesText && item.detailPath) {
-            try {
-                const res = await fetch(item.detailPath);
-                if (res.ok) {
-                    const rawBody = await res.text();
-                    if (rawBody.trim()) {
-                        notesText = item.detailPath.endsWith('.json')
-                            ? extractPatchNotesText(JSON.parse(rawBody))
-                            : extractPatchNotesText(rawBody);
-                    }
+                const rawBody = await fetchPatchDetailRaw(item.detailPath, { force });
+                if (rawBody && rawBody.trim()) {
+                    notesText = item.detailPath.endsWith('.json')
+                        ? extractPatchNotesText(JSON.parse(rawBody))
+                        : extractPatchNotesText(rawBody);
                 }
             } catch (err) {
                 console.warn(`Failed to load patch detail ${item.detailPath}:`, err);
@@ -493,20 +430,20 @@ async function fetchPatchRawNotesText(item) {
     return loadPromise;
 }
 
-async function fetchPatchDetailHtml(item) {
+async function fetchPatchDetailHtml(item, { force = false } = {}) {
     if (!item) return '';
 
     const cacheKey = getPatchCacheKey(item);
-    if (PATCH_DETAIL_CACHE.has(cacheKey)) {
+    if (!force && PATCH_DETAIL_CACHE.has(cacheKey)) {
         return PATCH_DETAIL_CACHE.get(cacheKey);
     }
 
-    if (PATCH_DETAIL_INFLIGHT.has(cacheKey)) {
+    if (!force && PATCH_DETAIL_INFLIGHT.has(cacheKey)) {
         return PATCH_DETAIL_INFLIGHT.get(cacheKey);
     }
 
     const renderPromise = (async () => {
-        const notesText = await fetchPatchRawNotesText(item);
+        const notesText = await fetchPatchRawNotesText(item, { force });
         if (notesText && typeof formatBlizzlikePatchNotesHtml === 'function') {
             const html = formatBlizzlikePatchNotesHtml(notesText);
             PATCH_DETAIL_CACHE.set(cacheKey, html);
