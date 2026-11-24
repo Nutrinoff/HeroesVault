@@ -2,6 +2,13 @@
 // 0. BACKEND / TUNNEL CONFIGURATION
 // ==========================================
 
+import {
+    fetchHeroesMasterCatalog,
+    fetchBuildsCatalog,
+    fetchMapsCatalog,
+    fetchTierListCatalog
+} from './api.js';
+
 const HEROESVAULT_API_BASE = 'https://s-st-01.anteater-bushmaster.ts.net';
 window.HEROESVAULT_API_BASE = HEROESVAULT_API_BASE;
 
@@ -93,36 +100,6 @@ function syncHomeSummaryCounts() {
     }
 }
 
-function getApiBaseUrl() {
-    return typeof HEROESVAULT_API_BASE === 'string'
-        ? HEROESVAULT_API_BASE.trim().replace(/\/+$/, '')
-        : '';
-}
-
-async function fetchJsonSafe(url) {
-    try {
-        const res = await fetch(url);
-        if (!res.ok) {
-            console.warn(`[HeroesVault] HTTP ${res.status} fetching ${url}`);
-            return null;
-        }
-        return await res.json();
-    } catch (err) {
-        console.warn(`[HeroesVault] Failed fetching ${url}:`, err);
-        return null;
-    }
-}
-
-async function fetchApiEndpoint(apiPath) {
-    const base = getApiBaseUrl();
-    if (!base || !apiPath) {
-        console.warn(`[HeroesVault] Missing API base or path for ${apiPath}`);
-        return null;
-    }
-    const cleanPath = apiPath.startsWith('/') ? apiPath : `/${apiPath}`;
-    return await fetchJsonSafe(`${base}${cleanPath}`);
-}
-
 function normalizeBuildsPayload(raw) {
     if (Array.isArray(raw)) return raw;
     if (raw && typeof raw === 'object') {
@@ -186,10 +163,10 @@ async function loadInitialData({ force = false } = {}) {
     initialDataPromise = (async () => {
         try {
             const [masterData, buildsRaw, mapsData, tiersRaw] = await Promise.all([
-                fetchApiEndpoint('/api/catalog/heroes-master'),
-                fetchApiEndpoint('/api/builds'),
-                fetchApiEndpoint('/api/maps'),
-                fetchApiEndpoint('/api/tierlist')
+                fetchHeroesMasterCatalog({ force }),
+                fetchBuildsCatalog({ force }),
+                fetchMapsCatalog({ force }),
+                fetchTierListCatalog({ force })
             ]);
 
             if (masterData) {
