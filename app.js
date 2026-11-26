@@ -81,8 +81,8 @@ function validateLoadedDataShapes() {
     if (typeof PERSONAL_BUILDS === 'undefined' || !Array.isArray(PERSONAL_BUILDS)) {
         console.warn('[HeroesVault] PERSONAL_BUILDS is not an array.');
     }
-    if (typeof MASTER_MAP_LIST === 'undefined' || !Array.isArray(MASTER_MAP_LIST)) {
-        console.warn('[HeroesVault] MASTER_MAP_LIST is not an array.');
+    if (typeof MASTER_MAP_LIST === 'undefined' || !Array.isArray(MASTER_MAP_LIST) || MASTER_MAP_LIST.length === 0) {
+        console.warn('[HeroesVault] MASTER_MAP_LIST is empty or invalid.');
     }
 }
 
@@ -116,6 +116,10 @@ function normalizeBuildsPayload(raw) {
         if (Array.isArray(raw.builds)) return raw.builds;
         if (Array.isArray(raw.items)) return raw.items;
         if (Array.isArray(raw.data)) return raw.data;
+        if (raw.data && typeof raw.data === 'object') {
+            if (Array.isArray(raw.data.builds)) return raw.data.builds;
+            if (Array.isArray(raw.data.items)) return raw.data.items;
+        }
     }
     return null;
 }
@@ -162,32 +166,93 @@ function normalizeTiersPayload(raw) {
     return matchedAnyTierKey ? normalized : null;
 }
 
+function extractHeroesCollection(masterData) {
+    if (!masterData) return null;
+    if (Array.isArray(masterData)) return masterData;
+    if (typeof masterData !== 'object') return null;
+
+    const candidates = [
+        masterData.items,
+        masterData.heroes,
+        masterData.data?.items,
+        masterData.data?.heroes,
+        masterData.data,
+        masterData
+    ];
+
+    for (const src of candidates) {
+        if (Array.isArray(src) && src.length > 0) {
+            return src;
+        }
+        if (src && typeof src === 'object' && !Array.isArray(src)) {
+            const vals = Object.values(src).filter(
+                v => v && typeof v === 'object' && (v.name || v.id || v.hyperlinkId || v.attributeId)
+            );
+            if (vals.length > 0) {
+                return vals;
+            }
+        }
+    }
+
+    return null;
+}
+
+function extractMapsCollection(mapsData) {
+    if (!mapsData) return null;
+    if (Array.isArray(mapsData)) return mapsData;
+    if (typeof mapsData !== 'object') return null;
+
+    const candidates = [
+        mapsData.maps,
+        mapsData.items,
+        mapsData.battlegrounds,
+        mapsData.data?.maps,
+        mapsData.data?.items,
+        mapsData.data,
+        mapsData
+    ];
+
+    for (const src of candidates) {
+        if (Array.isArray(src) && src.length > 0) {
+            return src;
+        }
+        if (src && typeof src === 'object' && !Array.isArray(src)) {
+            const vals = Object.entries(src)
+                .filter(([, v]) => v && typeof v === 'object' && (v.name || v.id || v.mapId || v.slug))
+                .map(([key, v]) => ({ id: v.id || v.mapId || v.slug || key, ...v }));
+            if (vals.length > 0) {
+                return vals;
+            }
+        }
+    }
+
+    return null;
+}
+
 function applyHeroesCatalog(masterData) {
-    if (!masterData) return;
-    const rawSource = masterData.items || masterData;
-    window.HOTS_MASTER_DATA = rawSource;
+    const rawHeroes = extractHeroesCollection(masterData);
+    if (!rawHeroes || rawHeroes.length === 0) {
+        console.warn('[HeroesVault] Heroes catalog payload was empty or unrecognized:', masterData);
+        return;
+    }
 
-    const rawHeroes = Array.isArray(rawSource)
-        ? rawSource
-        : (rawSource && typeof rawSource === 'object' ? Object.values(rawSource) : []);
+    window.HOTS_MASTER_DATA = masterData.items || masterData.heroes || masterData;
 
-    window.MASTER_HERO_LIST = rawHeroes
-        .filter(Boolean)
-        .map(h => {
-            const id = h.id || h.hyperlinkId || h.attributeId;
-            const portraitPath = typeof getHeroPortrait === 'function'
-                ? getHeroPortrait(h)
-                : (typeof extractPortraitPath === 'function' ? extractPortraitPath(h) : (h.portrait || ''));
+    window.MASTER_HERO_LIST = rawHeroes.map(h => {
+        const id = h.id || h.hyperlinkId || h.attributeId;
+        const portraitPath = typeof getHeroPortrait === 'function'
+            ? getHeroPortrait(h)
+            : (typeof extractPortraitPath === 'function' ? extractPortraitPath(h) : (h.portrait || ''));
 
-            return {
-                id,
-                name: h.name || 'Unknown Hero',
-                title: h.title || 'Nexus Combatant',
-                role: (Array.isArray(h.roles) && h.roles[0]) || h.expandedRole || 'Nexus Combatant',
-                portrait: portraitPath,
-                searchText: `${h.name || ''} ${id || ''}`.toLowerCase()
-            };
-        });
+        return {
+            id,
+            name: h.name || 'Unknown Hero',
+            title: h.title || 'Nexus Combatant',
+            role: (Array.isArray(h.roles) && h.roles[0]) || h.role || h.expandedRole || 'Nexus Combatant',
+            portrait: portraitPath,
+            searchText: `${h.name || ''} ${id || ''}`.toLowerCase()
+        };
+    });
 
     if (window.HeroesVaultCatalog && typeof window.HeroesVaultCatalog.rebuild === 'function') {
         window.HeroesVaultCatalog.rebuild(true);
@@ -204,11 +269,15 @@ function applyBuildsCatalog(buildsRaw) {
 }
 
 function applyMapsCatalog(mapsData) {
-    if (Array.isArray(mapsData)) {
-        window.MASTER_MAP_LIST = mapsData;
-        if (typeof populateMapsDropdown === 'function') {
-            populateMapsDropdown();
-        }
+    const mapsList = extractMapsCollection(mapsData);
+    if (!mapsList || mapsList.length === 0) {
+        console.warn('[HeroesVault] Maps catalog payload was empty or unrecognized:', mapsData);
+        return;
+    }
+
+    window.MASTER_MAP_LIST = mapsList;
+    if (typeof populateMapsDropdown === 'function') {
+        populateMapsDropdown();
     }
 }
 
@@ -298,7 +367,6 @@ async function ensureDataForTab(tab, { force = false } = {}) {
 async function loadInitialData({ force = false, priorityTab = 'home' } = {}) {
     const initialGroups = getGroupsForTab(priorityTab);
     await Promise.all(initialGroups.map(group => loadCatalogGroup(group, { force })));
-    validateLoadedDataShapes();
 }
 
 
@@ -369,6 +437,8 @@ function startSoftBackgroundTrickle(priorityTab = 'home') {
             await runFeatureSafe(step.key, step.run);
             await waitForTrickleSlot(160);
         }
+
+        validateLoadedDataShapes();
     })();
 }
 
@@ -436,7 +506,6 @@ function initRouterOnce() {
 
 async function hydratePriorityRoute(initialRoute) {
     const tab = initialRoute?.tab || 'home';
-    const params = initialRoute?.params || {};
 
     if (tab === 'home') {
         await Promise.allSettled([
@@ -520,14 +589,12 @@ async function bootstrapApp() {
                 : { tab: 'home', params: {} };
             const priorityTab = initialRoute.tab || 'home';
 
-            // Show the target tab shell immediately while keeping non-target tabs hidden
             await runFeatureSafe('initializeRouter', initRouterOnce);
             if (typeof switchTabUI === 'function') {
                 switchTabUI(priorityTab, { force: true });
             }
             await runFeatureSafe('lucide.createIcons:preData', refreshLucideIcons);
 
-            // Load only the data required for the landing route first
             await loadInitialData({ priorityTab });
             await initializeFeatures({ priorityTab });
             await hydratePriorityRoute(initialRoute);
@@ -535,7 +602,6 @@ async function bootstrapApp() {
 
             appBootstrapped = true;
 
-            // Softly trickle in the remaining catalogs and views in the background
             startSoftBackgroundTrickle(priorityTab);
         } catch (e) {
             console.error('[HeroesVault] Failed initializing app:', e);
