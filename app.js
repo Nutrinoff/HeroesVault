@@ -10,12 +10,14 @@ window.HEROESVAULT_API_BASE = HEROESVAULT_API_BASE;
 // 1. REQUIRED GLOBALS & RUNTIME VALIDATION
 // ==========================================
 
-let initialDataPromise = null;
-let initialDataLoaded = false;
+const LOADED_CATALOG_GROUPS = new Set();
+const INFLIGHT_CATALOG_GROUPS = new Map();
+
 let featuresInitPromise = null;
 let featuresInitialized = false;
 let appBootstrapPromise = null;
 let appBootstrapped = false;
+let trickleScheduled = false;
 
 const featureInitDiagnostics = new Map();
 window.__HEROESVAULT_FEATURE_HEALTH__ = featureInitDiagnostics;
@@ -86,7 +88,7 @@ function validateLoadedDataShapes() {
 
 
 // ==========================================
-// 2. INITIAL DATA LOADING
+// 2. TARGETED & TRICKLED DATA LOADING
 // ==========================================
 
 function syncHomeSummaryCounts() {
@@ -160,94 +162,219 @@ function normalizeTiersPayload(raw) {
     return matchedAnyTierKey ? normalized : null;
 }
 
-function applyCatalogData({ masterData, buildsRaw, mapsData, tiersRaw }) {
-    if (masterData) {
-        const rawSource = masterData.items || masterData;
-        window.HOTS_MASTER_DATA = rawSource;
+function applyHeroesCatalog(masterData) {
+    if (!masterData) return;
+    const rawSource = masterData.items || masterData;
+    window.HOTS_MASTER_DATA = rawSource;
 
-        const rawHeroes = Array.isArray(rawSource)
-            ? rawSource
-            : (rawSource && typeof rawSource === 'object' ? Object.values(rawSource) : []);
+    const rawHeroes = Array.isArray(rawSource)
+        ? rawSource
+        : (rawSource && typeof rawSource === 'object' ? Object.values(rawSource) : []);
 
-        window.MASTER_HERO_LIST = rawHeroes
-            .filter(Boolean)
-            .map(h => {
-                const id = h.id || h.hyperlinkId || h.attributeId;
-                const portraitPath = typeof getHeroPortrait === 'function'
-                    ? getHeroPortrait(h)
-                    : (typeof extractPortraitPath === 'function' ? extractPortraitPath(h) : (h.portrait || ''));
+    window.MASTER_HERO_LIST = rawHeroes
+        .filter(Boolean)
+        .map(h => {
+            const id = h.id || h.hyperlinkId || h.attributeId;
+            const portraitPath = typeof getHeroPortrait === 'function'
+                ? getHeroPortrait(h)
+                : (typeof extractPortraitPath === 'function' ? extractPortraitPath(h) : (h.portrait || ''));
 
-                return {
-                    id,
-                    name: h.name || 'Unknown Hero',
-                    title: h.title || 'Nexus Combatant',
-                    role: (Array.isArray(h.roles) && h.roles[0]) || h.expandedRole || 'Nexus Combatant',
-                    portrait: portraitPath,
-                    searchText: `${h.name || ''} ${id || ''}`.toLowerCase()
-                };
-            });
+            return {
+                id,
+                name: h.name || 'Unknown Hero',
+                title: h.title || 'Nexus Combatant',
+                role: (Array.isArray(h.roles) && h.roles[0]) || h.expandedRole || 'Nexus Combatant',
+                portrait: portraitPath,
+                searchText: `${h.name || ''} ${id || ''}`.toLowerCase()
+            };
+        });
+
+    if (window.HeroesVaultCatalog && typeof window.HeroesVaultCatalog.rebuild === 'function') {
+        window.HeroesVaultCatalog.rebuild(true);
     }
+    syncHomeSummaryCounts();
+}
 
+function applyBuildsCatalog(buildsRaw) {
     const buildsData = normalizeBuildsPayload(buildsRaw);
     if (Array.isArray(buildsData)) {
         window.PERSONAL_BUILDS = buildsData;
     }
+    syncHomeSummaryCounts();
+}
 
+function applyMapsCatalog(mapsData) {
     if (Array.isArray(mapsData)) {
         window.MASTER_MAP_LIST = mapsData;
         if (typeof populateMapsDropdown === 'function') {
             populateMapsDropdown();
         }
     }
+}
 
+function applyTiersCatalog(tiersRaw) {
     const tiersData = normalizeTiersPayload(tiersRaw);
     if (tiersData && typeof tiersData === 'object') {
         window.MASTER_TIERS = tiersData;
+        if (window.HeroesVaultCatalog && typeof window.HeroesVaultCatalog.rebuild === 'function') {
+            window.HeroesVaultCatalog.rebuild(true);
+        }
     }
-
-    syncHomeSummaryCounts();
-    validateLoadedDataShapes();
 }
 
-async function loadInitialData({ force = false } = {}) {
-    if (!force && initialDataLoaded) {
+async function loadCatalogGroup(group, { force = false } = {}) {
+    if (!force && LOADED_CATALOG_GROUPS.has(group)) {
         return;
     }
-    if (!force && initialDataPromise) {
-        return initialDataPromise;
+    if (!force && INFLIGHT_CATALOG_GROUPS.has(group)) {
+        return INFLIGHT_CATALOG_GROUPS.get(group);
     }
 
-    initialDataPromise = (async () => {
+    const api = getAppApi();
+    const task = (async () => {
         try {
-            const api = getAppApi();
-            const [masterData, buildsRaw, mapsData, tiersRaw] = await Promise.all([
-                typeof api?.fetchHeroesMasterCatalog === 'function'
-                    ? api.fetchHeroesMasterCatalog({ force })
-                    : Promise.resolve(null),
-                typeof api?.fetchBuildsCatalog === 'function'
-                    ? api.fetchBuildsCatalog({ force })
-                    : Promise.resolve(null),
-                typeof api?.fetchMapsCatalog === 'function'
-                    ? api.fetchMapsCatalog({ force })
-                    : Promise.resolve(null),
-                typeof api?.fetchTierListCatalog === 'function'
-                    ? api.fetchTierListCatalog({ force })
-                    : Promise.resolve(null)
-            ]);
+            if (group === 'heroes') {
+                const masterData = typeof api?.fetchHeroesMasterCatalog === 'function'
+                    ? await api.fetchHeroesMasterCatalog({ force })
+                    : null;
+                applyHeroesCatalog(masterData);
+            } else if (group === 'builds') {
+                const buildsRaw = typeof api?.fetchBuildsCatalog === 'function'
+                    ? await api.fetchBuildsCatalog({ force })
+                    : null;
+                applyBuildsCatalog(buildsRaw);
+            } else if (group === 'maps') {
+                const mapsData = typeof api?.fetchMapsCatalog === 'function'
+                    ? await api.fetchMapsCatalog({ force })
+                    : null;
+                applyMapsCatalog(mapsData);
+            } else if (group === 'tiers') {
+                const tiersRaw = typeof api?.fetchTierListCatalog === 'function'
+                    ? await api.fetchTierListCatalog({ force })
+                    : null;
+                applyTiersCatalog(tiersRaw);
+            } else if (group === 'academy') {
+                if (typeof api?.fetchAcademyList === 'function') {
+                    await api.fetchAcademyList({ force });
+                }
+                syncHomeSummaryCounts();
+            }
 
-            applyCatalogData({ masterData, buildsRaw, mapsData, tiersRaw });
-            initialDataLoaded = true;
+            LOADED_CATALOG_GROUPS.add(group);
         } finally {
-            initialDataPromise = null;
+            if (INFLIGHT_CATALOG_GROUPS.get(group) === task) {
+                INFLIGHT_CATALOG_GROUPS.delete(group);
+            }
         }
     })();
 
-    return initialDataPromise;
+    INFLIGHT_CATALOG_GROUPS.set(group, task);
+    return task;
+}
+
+function getGroupsForTab(tab) {
+    switch (tab) {
+        case 'builder':
+        case 'builds':
+            return ['heroes', 'builds'];
+        case 'map':
+            return ['maps'];
+        case 'tierlist':
+            return ['heroes', 'tiers'];
+        case 'academy':
+            return ['academy'];
+        case 'home':
+        case 'patchnotes':
+        default:
+            return ['heroes'];
+    }
+}
+
+async function ensureDataForTab(tab, { force = false } = {}) {
+    const groups = getGroupsForTab(tab);
+    await Promise.all(groups.map(group => loadCatalogGroup(group, { force })));
+}
+
+async function loadInitialData({ force = false, priorityTab = 'home' } = {}) {
+    const initialGroups = getGroupsForTab(priorityTab);
+    await Promise.all(initialGroups.map(group => loadCatalogGroup(group, { force })));
+    validateLoadedDataShapes();
 }
 
 
 // ==========================================
-// 3. FEATURE & ROUTER BOOTSTRAP
+// 3. SOFT BACKGROUND TRICKLE
+// ==========================================
+
+function waitForTrickleSlot(delayMs = 140) {
+    return new Promise(resolve => {
+        const finish = () => setTimeout(resolve, delayMs);
+        if (typeof window.requestIdleCallback === 'function') {
+            window.requestIdleCallback(() => finish(), { timeout: 600 });
+        } else {
+            finish();
+        }
+    });
+}
+
+function startSoftBackgroundTrickle(priorityTab = 'home') {
+    if (trickleScheduled) return;
+    trickleScheduled = true;
+
+    const trickleSteps = [
+        {
+            key: 'home-widgets',
+            run: async () => {
+                if (priorityTab === 'home') return;
+                await Promise.allSettled([
+                    runFeatureSafe('trickle:rotation', async () => {
+                        if (typeof loadAndRenderRotation === 'function') {
+                            await loadAndRenderRotation();
+                        }
+                    }),
+                    runFeatureSafe('trickle:home-patches', async () => {
+                        if (typeof initPatchNotes === 'function') {
+                            await initPatchNotes({ hydrateHome: true });
+                        }
+                    })
+                ]);
+            }
+        },
+        {
+            key: 'catalog:heroes',
+            run: () => loadCatalogGroup('heroes')
+        },
+        {
+            key: 'catalog:builds',
+            run: () => loadCatalogGroup('builds')
+        },
+        {
+            key: 'catalog:maps',
+            run: () => loadCatalogGroup('maps')
+        },
+        {
+            key: 'catalog:tiers',
+            run: () => loadCatalogGroup('tiers')
+        },
+        {
+            key: 'catalog:academy',
+            run: () => loadCatalogGroup('academy')
+        }
+    ];
+
+    (async () => {
+        await waitForTrickleSlot(220);
+
+        for (const step of trickleSteps) {
+            await runFeatureSafe(step.key, step.run);
+            await waitForTrickleSlot(160);
+        }
+    })();
+}
+
+
+// ==========================================
+// 4. FEATURE & ROUTER BOOTSTRAP
 // ==========================================
 
 async function runFeatureSafe(label, fn) {
@@ -303,11 +430,38 @@ function initRouterOnce() {
         if (document.body) {
             document.body.dataset.routerInitialized = 'true';
         }
-        initializeRouter();
+        initializeRouter({ deferInitialRoute: true });
     }
 }
 
-async function initializeFeatures({ force = false } = {}) {
+async function hydratePriorityRoute(initialRoute) {
+    const tab = initialRoute?.tab || 'home';
+    const params = initialRoute?.params || {};
+
+    if (tab === 'home') {
+        await Promise.allSettled([
+            runFeatureSafe('loadAndRenderRotation', async () => {
+                if (typeof loadAndRenderRotation === 'function') {
+                    await loadAndRenderRotation();
+                }
+            }),
+            runFeatureSafe('initPatchNotes:home', async () => {
+                if (typeof initPatchNotes === 'function') {
+                    await initPatchNotes({ hydrateHome: true });
+                } else if (typeof initPatchFilterControls === 'function') {
+                    await initPatchFilterControls();
+                }
+            })
+        ]);
+        return;
+    }
+
+    if (typeof handleRoute === 'function') {
+        await handleRoute({ force: true });
+    }
+}
+
+async function initializeFeatures({ force = false, priorityTab = 'home' } = {}) {
     if (!force && featuresInitialized) {
         return;
     }
@@ -319,7 +473,6 @@ async function initializeFeatures({ force = false } = {}) {
         try {
             featureInitDiagnostics.clear();
 
-            // Render initial icons and bind global shell handlers right away
             await runFeatureSafe('bindGlobalDismissHandlers', bindGlobalDismissHandlers);
             await runFeatureSafe('syncHomeSummaryCounts', syncHomeSummaryCounts);
             await runFeatureSafe('lucide.createIcons:initial', refreshLucideIcons);
@@ -330,39 +483,18 @@ async function initializeFeatures({ force = false } = {}) {
                 }
             });
 
-            await runFeatureSafe('initializeHeroSidebar', () => {
-                const list = typeof MASTER_HERO_LIST !== 'undefined' ? MASTER_HERO_LIST : [];
-                if (typeof initializeHeroSidebar === 'function') {
-                    return initializeHeroSidebar(list);
-                }
-                if (typeof renderHeroSidebar === 'function') {
-                    return renderHeroSidebar(list);
-                }
-            });
-
-            await runFeatureSafe('renderTierList', () => {
-                if (typeof renderTierList === 'function') {
-                    return renderTierList();
-                }
-            });
-
-            // Let slower network-backed sections run without blocking earlier UI setup
-            const asyncWidgets = Promise.allSettled([
-                runFeatureSafe('loadAndRenderRotation', async () => {
-                    if (typeof loadAndRenderRotation === 'function') {
-                        await loadAndRenderRotation();
+            if (priorityTab === 'builds' || priorityTab === 'builder') {
+                await runFeatureSafe('initializeHeroSidebar', () => {
+                    const list = typeof MASTER_HERO_LIST !== 'undefined' ? MASTER_HERO_LIST : [];
+                    if (typeof initializeHeroSidebar === 'function') {
+                        return initializeHeroSidebar(list);
                     }
-                }),
-                runFeatureSafe('initPatchNotes', async () => {
-                    if (typeof initPatchNotes === 'function') {
-                        await initPatchNotes({ hydrateHome: true });
-                    } else if (typeof initPatchFilterControls === 'function') {
-                        await initPatchFilterControls();
+                    if (typeof renderHeroSidebar === 'function') {
+                        return renderHeroSidebar(list);
                     }
-                })
-            ]);
+                });
+            }
 
-            await asyncWidgets;
             await runFeatureSafe('lucide.createIcons:postHydration', refreshLucideIcons);
 
             logFeatureInitializationSummary();
@@ -383,14 +515,28 @@ async function bootstrapApp() {
         try {
             assertRequiredGlobals();
 
-            // Start router early so navigation and UI controls respond immediately
+            const initialRoute = typeof parseCurrentRouteLocation === 'function'
+                ? parseCurrentRouteLocation()
+                : { tab: 'home', params: {} };
+            const priorityTab = initialRoute.tab || 'home';
+
+            // Show the target tab shell immediately while keeping non-target tabs hidden
             await runFeatureSafe('initializeRouter', initRouterOnce);
+            if (typeof switchTabUI === 'function') {
+                switchTabUI(priorityTab, { force: true });
+            }
             await runFeatureSafe('lucide.createIcons:preData', refreshLucideIcons);
 
-            await loadInitialData();
-            await initializeFeatures();
+            // Load only the data required for the landing route first
+            await loadInitialData({ priorityTab });
+            await initializeFeatures({ priorityTab });
+            await hydratePriorityRoute(initialRoute);
+            await runFeatureSafe('lucide.createIcons:afterPriorityRoute', refreshLucideIcons);
 
             appBootstrapped = true;
+
+            // Softly trickle in the remaining catalogs and views in the background
+            startSoftBackgroundTrickle(priorityTab);
         } catch (e) {
             console.error('[HeroesVault] Failed initializing app:', e);
         } finally {
