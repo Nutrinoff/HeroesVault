@@ -34,7 +34,7 @@
         }
         const raw = global.HOTS_MASTER_DATA;
         if (!raw) return null;
-        return raw.items || raw;
+        return (typeof raw === 'object' && !Array.isArray(raw) && raw.items) ? raw.items : raw;
     }
 
     function resolveRawEntry(idOrKey) {
@@ -54,14 +54,16 @@
             ) || null;
         }
         if (typeof source === 'object') {
-            if (source[idOrKey]) return source[idOrKey];
+            if (source[idOrKey] && typeof source[idOrKey] === 'object') return source[idOrKey];
             const target = normalizeKey(idOrKey);
-            return Object.values(source).find(item =>
-                item &&
-                (normalizeKey(item.id) === target ||
+            return Object.entries(source)
+                .filter(([key, item]) => key !== 'meta' && item && typeof item === 'object')
+                .map(([, item]) => item)
+                .find(item =>
+                    normalizeKey(item.id) === target ||
                     normalizeKey(item.hyperlinkId) === target ||
-                    normalizeKey(item.name) === target)
-            ) || null;
+                    normalizeKey(item.name) === target
+                ) || null;
         }
         return null;
     }
