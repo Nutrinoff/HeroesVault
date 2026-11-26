@@ -12,6 +12,8 @@ window.HEROESVAULT_API_BASE = HEROESVAULT_API_BASE;
 
 let initialDataPromise = null;
 let initialDataLoaded = false;
+let secondaryDataPromise = null;
+let secondaryDataLoaded = false;
 let featuresInitPromise = null;
 let featuresInitialized = false;
 let appBootstrapPromise = null;
@@ -80,7 +82,7 @@ function validateLoadedDataShapes() {
 
 
 // ==========================================
-// 2. INITIAL DATA LOADING
+// 2. DATA LOADING (CORE FIRST, CATALOGS TRICKLE)
 // ==========================================
 
 function syncHomeSummaryCounts() {
@@ -151,6 +153,55 @@ function normalizeTiersPayload(raw) {
     return matchedAnyTierKey ? normalized : null;
 }
 
+async function loadSecondaryData({ force = false } = {}) {
+    if (!force && secondaryDataLoaded) {
+        return;
+    }
+    if (!force && secondaryDataPromise) {
+        return secondaryDataPromise;
+    }
+
+    secondaryDataPromise = (async () => {
+        try {
+            const api = getAppApi();
+            const [buildsRaw, tiersRaw] = await Promise.all([
+                typeof api?.fetchBuildsCatalog === 'function'
+                    ? api.fetchBuildsCatalog({ force })
+                    : Promise.resolve(null),
+                typeof api?.fetchTierListCatalog === 'function'
+                    ? api.fetchTierListCatalog({ force })
+                    : Promise.resolve(null)
+            ]);
+
+            const buildsData = normalizeBuildsPayload(buildsRaw);
+            if (Array.isArray(buildsData)) {
+                PERSONAL_BUILDS = buildsData;
+            }
+
+            const tiersData = normalizeTiersPayload(tiersRaw);
+            if (tiersData && typeof tiersData === 'object') {
+                MASTER_TIERS = tiersData;
+            }
+
+            syncHomeSummaryCounts();
+
+            if (typeof renderTierList === 'function') {
+                renderTierList();
+            }
+
+            secondaryDataLoaded = true;
+        } catch (err) {
+            console.warn('[HeroesVault] Background builds/tierlist load failed:', err);
+        } finally {
+            secondaryDataPromise = null;
+        }
+    })();
+
+    return secondaryDataPromise;
+}
+
+window.loadSecondaryData = loadSecondaryData;
+
 async function loadInitialData({ force = false } = {}) {
     if (!force && initialDataLoaded) {
         return;
@@ -162,18 +213,12 @@ async function loadInitialData({ force = false } = {}) {
     initialDataPromise = (async () => {
         try {
             const api = getAppApi();
-            const [masterData, buildsRaw, mapsData, tiersRaw] = await Promise.all([
+            const [masterData, mapsData] = await Promise.all([
                 typeof api?.fetchHeroesMasterCatalog === 'function'
                     ? api.fetchHeroesMasterCatalog({ force })
                     : Promise.resolve(null),
-                typeof api?.fetchBuildsCatalog === 'function'
-                    ? api.fetchBuildsCatalog({ force })
-                    : Promise.resolve(null),
                 typeof api?.fetchMapsCatalog === 'function'
                     ? api.fetchMapsCatalog({ force })
-                    : Promise.resolve(null),
-                typeof api?.fetchTierListCatalog === 'function'
-                    ? api.fetchTierListCatalog({ force })
                     : Promise.resolve(null)
             ]);
 
@@ -204,11 +249,6 @@ async function loadInitialData({ force = false } = {}) {
                     });
             }
 
-            const buildsData = normalizeBuildsPayload(buildsRaw);
-            if (Array.isArray(buildsData)) {
-                PERSONAL_BUILDS = buildsData;
-            }
-
             if (Array.isArray(mapsData)) {
                 MASTER_MAP_LIST = mapsData;
                 if (typeof populateMapsDropdown === 'function') {
@@ -216,13 +256,11 @@ async function loadInitialData({ force = false } = {}) {
                 }
             }
 
-            const tiersData = normalizeTiersPayload(tiersRaw);
-            if (tiersData && typeof tiersData === 'object') {
-                MASTER_TIERS = tiersData;
-            }
-
             validateLoadedDataShapes();
             initialDataLoaded = true;
+
+            // Trickle builds and tierlist catalogs in shortly after core data loads
+            loadSecondaryData({ force });
         } finally {
             initialDataPromise = null;
         }
@@ -283,6 +321,14 @@ function bindGlobalDismissHandlers() {
     });
 }
 
+function refreshIcons(root = document) {
+    if (window.lucide && typeof window.lucide.createIcons === 'function') {
+        window.lucide.createIcons({ root });
+    }
+}
+
+window.refreshHeroesVaultIcons = refreshIcons;
+
 async function initializeFeatures({ force = false } = {}) {
     if (!force && featuresInitialized) {
         return;
@@ -310,12 +356,6 @@ async function initializeFeatures({ force = false } = {}) {
                 }
             });
 
-            await runFeatureSafe('renderTierList', () => {
-                if (typeof renderTierList === 'function') {
-                    return renderTierList();
-                }
-            });
-
             await runFeatureSafe('syncHomeSummaryCounts', syncHomeSummaryCounts);
 
             await runFeatureSafe('loadAndRenderRotation', async () => {
@@ -336,9 +376,7 @@ async function initializeFeatures({ force = false } = {}) {
             await runFeatureSafe('bindGlobalDismissHandlers', bindGlobalDismissHandlers);
 
             await runFeatureSafe('lucide.createIcons', () => {
-                if (window.lucide && typeof window.lucide.createIcons === 'function') {
-                    return window.lucide.createIcons();
-                }
+                refreshIcons(document.body || document);
             });
 
             logFeatureInitializationSummary();
