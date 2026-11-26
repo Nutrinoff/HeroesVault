@@ -153,6 +153,26 @@ function normalizeTiersPayload(raw) {
     return matchedAnyTierKey ? normalized : null;
 }
 
+function extractHeroCatalogEntries(masterData) {
+    if (!masterData) return [];
+
+    const rawSource = (typeof masterData === 'object' && !Array.isArray(masterData) && masterData.items)
+        ? masterData.items
+        : masterData;
+
+    if (Array.isArray(rawSource)) {
+        return rawSource.filter(entry => entry && typeof entry === 'object');
+    }
+
+    if (rawSource && typeof rawSource === 'object') {
+        return Object.entries(rawSource)
+            .filter(([key, val]) => key !== 'meta' && val && typeof val === 'object')
+            .map(([key, val]) => (val.id ? val : { ...val, id: key }));
+    }
+
+    return [];
+}
+
 function ensureActiveHeroViewHydrated() {
     if (!Array.isArray(MASTER_HERO_LIST) || MASTER_HERO_LIST.length === 0) return;
 
@@ -262,30 +282,32 @@ async function loadInitialData({ force = false } = {}) {
                 : null;
 
             if (masterData) {
-                const rawSource = masterData.items || masterData;
+                if (masterData && typeof masterData === 'object' && masterData.meta) {
+                    window.HEROES_MASTER_META = masterData.meta;
+                }
+
+                const rawSource = (masterData && typeof masterData === 'object' && !Array.isArray(masterData) && masterData.items)
+                    ? masterData.items
+                    : masterData;
                 HOTS_MASTER_DATA = rawSource;
 
-                const rawHeroes = Array.isArray(rawSource)
-                    ? rawSource
-                    : (rawSource && typeof rawSource === 'object' ? Object.values(rawSource) : []);
+                const rawHeroes = extractHeroCatalogEntries(masterData);
 
-                MASTER_HERO_LIST = rawHeroes
-                    .filter(Boolean)
-                    .map(h => {
-                        const id = h.id || h.hyperlinkId || h.attributeId;
-                        const portraitPath = typeof getHeroPortrait === 'function'
-                            ? getHeroPortrait(h)
-                            : (typeof extractPortraitPath === 'function' ? extractPortraitPath(h) : (h.portrait || ''));
+                MASTER_HERO_LIST = rawHeroes.map(h => {
+                    const id = h.id || h.hyperlinkId || h.attributeId;
+                    const portraitPath = typeof getHeroPortrait === 'function'
+                        ? getHeroPortrait(h)
+                        : (typeof extractPortraitPath === 'function' ? extractPortraitPath(h) : (h.portrait || ''));
 
-                        return {
-                            id,
-                            name: h.name || 'Unknown Hero',
-                            title: h.title || 'Nexus Combatant',
-                            role: (Array.isArray(h.roles) && h.roles[0]) || h.expandedRole || 'Nexus Combatant',
-                            portrait: portraitPath,
-                            searchText: `${h.name || ''} ${id || ''}`.toLowerCase()
-                        };
-                    });
+                    return {
+                        id,
+                        name: h.name || 'Unknown Hero',
+                        title: h.title || 'Nexus Combatant',
+                        role: (Array.isArray(h.roles) && h.roles[0]) || h.expandedRole || 'Nexus Combatant',
+                        portrait: portraitPath,
+                        searchText: `${h.name || ''} ${id || ''}`.toLowerCase()
+                    };
+                });
             }
 
             validateLoadedDataShapes();
