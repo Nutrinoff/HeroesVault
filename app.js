@@ -82,7 +82,7 @@ function validateLoadedDataShapes() {
 
 
 // ==========================================
-// 2. DATA LOADING (ASYNC / NON-BLOCKING)
+// 2. DATA LOADING (HEROES FIRST, REST TRICKLES)
 // ==========================================
 
 function syncHomeSummaryCounts() {
@@ -265,7 +265,12 @@ async function loadInitialData({ force = false } = {}) {
 
             initialDataLoaded = true;
 
-            // Trickle maps, builds, and tierlist catalogs in right after heroes arrive
+            // Rotation depends on the master hero list being loaded first
+            if (typeof loadAndRenderRotation === 'function') {
+                runFeatureSafe('loadAndRenderRotation', () => loadAndRenderRotation());
+            }
+
+            // Trickle maps, builds, and tierlist catalogs in right after heroes load
             loadSecondaryData({ force });
         } finally {
             initialDataPromise = null;
@@ -347,7 +352,6 @@ async function initializeFeatures({ force = false } = {}) {
         try {
             featureInitDiagnostics.clear();
 
-            // Immediate UI setup so clicks, tooltips, and navigation work right away
             await runFeatureSafe('initializeTooltips', () => {
                 if (typeof initializeTooltips === 'function') {
                     return initializeTooltips();
@@ -361,24 +365,12 @@ async function initializeFeatures({ force = false } = {}) {
                 refreshIcons(document.body || document);
             });
 
-            // Let slower network/data features update in the background without blocking startup
-            Promise.all([
-                runFeatureSafe('loadAndRenderRotation', async () => {
-                    if (typeof loadAndRenderRotation === 'function') {
-                        await loadAndRenderRotation();
-                    }
-                }),
-                runFeatureSafe('initPatchNotes', async () => {
-                    if (typeof initPatchNotes === 'function') {
-                        return await initPatchNotes({ hydrateHome: true });
-                    }
-                    if (typeof initPatchFilterControls === 'function') {
-                        return initPatchFilterControls();
-                    }
-                })
-            ]).then(() => {
-                logFeatureInitializationSummary();
-            });
+            // Patch notes can run right away in the background without blocking startup
+            if (typeof initPatchNotes === 'function') {
+                runFeatureSafe('initPatchNotes', () => initPatchNotes({ hydrateHome: true }));
+            } else if (typeof initPatchFilterControls === 'function') {
+                runFeatureSafe('initPatchFilterControls', () => initPatchFilterControls());
+            }
 
             featuresInitialized = true;
         } finally {
@@ -403,8 +395,10 @@ async function bootstrapApp() {
                 initializeRouter();
             }
 
-            // Load hero catalog first, then maps/builds/tierlist trickle in right after
-            loadInitialData();
+            // Load hero catalog first; rotation runs right after it, and maps/builds/tierlist trickle in
+            loadInitialData().then(() => {
+                logFeatureInitializationSummary();
+            });
 
             appBootstrapped = true;
         } catch (e) {
