@@ -82,7 +82,7 @@ function validateLoadedDataShapes() {
 
 
 // ==========================================
-// 2. DATA LOADING (CORE FIRST, CATALOGS TRICKLE)
+// 2. DATA LOADING (ASYNC / NON-BLOCKING)
 // ==========================================
 
 function syncHomeSummaryCounts() {
@@ -164,7 +164,10 @@ async function loadSecondaryData({ force = false } = {}) {
     secondaryDataPromise = (async () => {
         try {
             const api = getAppApi();
-            const [buildsRaw, tiersRaw] = await Promise.all([
+            const [mapsData, buildsRaw, tiersRaw] = await Promise.all([
+                typeof api?.fetchMapsCatalog === 'function'
+                    ? api.fetchMapsCatalog({ force })
+                    : Promise.resolve(null),
                 typeof api?.fetchBuildsCatalog === 'function'
                     ? api.fetchBuildsCatalog({ force })
                     : Promise.resolve(null),
@@ -172,6 +175,13 @@ async function loadSecondaryData({ force = false } = {}) {
                     ? api.fetchTierListCatalog({ force })
                     : Promise.resolve(null)
             ]);
+
+            if (Array.isArray(mapsData)) {
+                MASTER_MAP_LIST = mapsData;
+                if (typeof populateMapsDropdown === 'function') {
+                    populateMapsDropdown();
+                }
+            }
 
             const buildsData = normalizeBuildsPayload(buildsRaw);
             if (Array.isArray(buildsData)) {
@@ -191,7 +201,7 @@ async function loadSecondaryData({ force = false } = {}) {
 
             secondaryDataLoaded = true;
         } catch (err) {
-            console.warn('[HeroesVault] Background builds/tierlist load failed:', err);
+            console.warn('[HeroesVault] Background secondary catalog load failed:', err);
         } finally {
             secondaryDataPromise = null;
         }
@@ -213,14 +223,9 @@ async function loadInitialData({ force = false } = {}) {
     initialDataPromise = (async () => {
         try {
             const api = getAppApi();
-            const [masterData, mapsData] = await Promise.all([
-                typeof api?.fetchHeroesMasterCatalog === 'function'
-                    ? api.fetchHeroesMasterCatalog({ force })
-                    : Promise.resolve(null),
-                typeof api?.fetchMapsCatalog === 'function'
-                    ? api.fetchMapsCatalog({ force })
-                    : Promise.resolve(null)
-            ]);
+            const masterData = typeof api?.fetchHeroesMasterCatalog === 'function'
+                ? await api.fetchHeroesMasterCatalog({ force })
+                : null;
 
             if (masterData) {
                 const rawSource = masterData.items || masterData;
@@ -249,17 +254,18 @@ async function loadInitialData({ force = false } = {}) {
                     });
             }
 
-            if (Array.isArray(mapsData)) {
-                MASTER_MAP_LIST = mapsData;
-                if (typeof populateMapsDropdown === 'function') {
-                    populateMapsDropdown();
-                }
+            validateLoadedDataShapes();
+            syncHomeSummaryCounts();
+
+            if (typeof initializeHeroSidebar === 'function') {
+                initializeHeroSidebar(MASTER_HERO_LIST);
+            } else if (typeof renderHeroSidebar === 'function') {
+                renderHeroSidebar(MASTER_HERO_LIST);
             }
 
-            validateLoadedDataShapes();
             initialDataLoaded = true;
 
-            // Trickle builds and tierlist catalogs in shortly after core data loads
+            // Trickle maps, builds, and tierlist catalogs in right after heroes arrive
             loadSecondaryData({ force });
         } finally {
             initialDataPromise = null;
@@ -341,45 +347,39 @@ async function initializeFeatures({ force = false } = {}) {
         try {
             featureInitDiagnostics.clear();
 
+            // Immediate UI setup so clicks, tooltips, and navigation work right away
             await runFeatureSafe('initializeTooltips', () => {
                 if (typeof initializeTooltips === 'function') {
                     return initializeTooltips();
                 }
             });
 
-            await runFeatureSafe('initializeHeroSidebar', () => {
-                if (typeof initializeHeroSidebar === 'function') {
-                    return initializeHeroSidebar(MASTER_HERO_LIST);
-                }
-                if (typeof renderHeroSidebar === 'function') {
-                    return renderHeroSidebar(MASTER_HERO_LIST);
-                }
-            });
-
             await runFeatureSafe('syncHomeSummaryCounts', syncHomeSummaryCounts);
-
-            await runFeatureSafe('loadAndRenderRotation', async () => {
-                if (typeof loadAndRenderRotation === 'function') {
-                    await loadAndRenderRotation();
-                }
-            });
-
-            await runFeatureSafe('initPatchNotes', () => {
-                if (typeof initPatchNotes === 'function') {
-                    return initPatchNotes({ hydrateHome: true });
-                }
-                if (typeof initPatchFilterControls === 'function') {
-                    return initPatchFilterControls();
-                }
-            });
-
             await runFeatureSafe('bindGlobalDismissHandlers', bindGlobalDismissHandlers);
 
             await runFeatureSafe('lucide.createIcons', () => {
                 refreshIcons(document.body || document);
             });
 
-            logFeatureInitializationSummary();
+            // Let slower network/data features update in the background without blocking startup
+            Promise.all([
+                runFeatureSafe('loadAndRenderRotation', async () => {
+                    if (typeof loadAndRenderRotation === 'function') {
+                        await loadAndRenderRotation();
+                    }
+                }),
+                runFeatureSafe('initPatchNotes', async () => {
+                    if (typeof initPatchNotes === 'function') {
+                        return await initPatchNotes({ hydrateHome: true });
+                    }
+                    if (typeof initPatchFilterControls === 'function') {
+                        return initPatchFilterControls();
+                    }
+                })
+            ]).then(() => {
+                logFeatureInitializationSummary();
+            });
+
             featuresInitialized = true;
         } finally {
             featuresInitPromise = null;
@@ -396,11 +396,16 @@ async function bootstrapApp() {
     appBootstrapPromise = (async () => {
         try {
             assertRequiredGlobals();
-            await loadInitialData();
+
+            // Start UI + router immediately instead of waiting on network requests first
             await initializeFeatures();
             if (typeof initializeRouter === 'function') {
                 initializeRouter();
             }
+
+            // Load hero catalog first, then maps/builds/tierlist trickle in right after
+            loadInitialData();
+
             appBootstrapped = true;
         } catch (e) {
             console.error('[HeroesVault] Failed initializing app:', e);
