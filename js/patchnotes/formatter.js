@@ -12,7 +12,8 @@ const MAJOR_SECTION_TITLES = new Set([
     'heroes',
     'maps',
     'releases',
-    'updates'
+    'updates',
+    'warning'
 ]);
 
 const SUB_CATEGORY_TITLES = new Set([
@@ -25,7 +26,10 @@ const SUB_CATEGORY_TITLES = new Set([
     'overview',
     'general',
     'updates',
-    'bug fixes'
+    'bug fixes',
+    'maps & ui',
+    'gameplay',
+    'maps'
 ]);
 
 function escapeHtml(str) {
@@ -51,6 +55,18 @@ function isSafeUrl(url) {
 
 function isLevelHeader(text) {
     return /^level\s+\d+$/i.test(String(text || '').trim());
+}
+
+function isGroupColonLabel(text) {
+    const clean = String(text || '').trim();
+    if (!clean.endsWith(':')) return false;
+    const withoutColon = clean.slice(0, -1).trim();
+    if (!withoutColon || withoutColon.length > 40) return false;
+    if (/[.!?]$/.test(withoutColon)) return false;
+    if (/\b(increased|reduced|decreased|added|removed|fixed|updated|now|when|while|after|before)\b/i.test(withoutColon)) {
+        return false;
+    }
+    return true;
 }
 
 function isHeroSubheading(text, nextText, currentMajor) {
@@ -169,10 +185,22 @@ function normalizeBlizzlikePatchText(rawText) {
         }
 
         const existingBullet = line.match(/^(\s*)(?:•|[-*])\s+(.*)$/);
+        const bulletPayload = existingBullet ? existingBullet[2].trim() : '';
+
+        if (existingBullet && isGroupColonLabel(bulletPayload)) {
+            normalized.push(`[${bulletPayload.replace(/:+$/, '').trim()}]`);
+            continue;
+        }
+
+        if (!existingBullet && isGroupColonLabel(trimmed)) {
+            normalized.push(`[${trimmed.replace(/:+$/, '').trim()}]`);
+            continue;
+        }
+
         if (existingBullet) {
             const spaces = existingBullet[1].replace(/\t/g, '  ').length;
             const indent = '  '.repeat(Math.floor(spaces / 2));
-            normalized.push(`${indent}- ${existingBullet[2].trim()}`);
+            normalized.push(`${indent}- ${bulletPayload}`);
             continue;
         }
 
@@ -202,6 +230,8 @@ function normalizeBlizzlikePatchText(rawText) {
 
 function formatBlizzLine(text) {
     let safe = escapeHtml(text);
+
+    safe = safe.replace(/(\d+(?:\.\d+)?%?)\s+0\.04\b/gi, '$1');
 
     safe = safe.replace(
         /\[Undocumented\]/gi,
