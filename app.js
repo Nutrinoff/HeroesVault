@@ -153,6 +153,33 @@ function normalizeTiersPayload(raw) {
     return matchedAnyTierKey ? normalized : null;
 }
 
+function ensureActiveHeroViewHydrated() {
+    if (!Array.isArray(MASTER_HERO_LIST) || MASTER_HERO_LIST.length === 0) return;
+
+    const buildsView = document.getElementById('view-builds');
+    const builderView = document.getElementById('view-builder');
+    const isBuildsActive = Boolean(buildsView && !buildsView.classList.contains('hidden'));
+    const isBuilderActive = Boolean(builderView && !builderView.classList.contains('hidden'));
+
+    if (!isBuildsActive && !isBuilderActive) return;
+
+    const currentHeroId =
+        window.currentSelectedHeroId ||
+        window.selectedHeroId ||
+        window.activeHeroId ||
+        null;
+
+    if (currentHeroId && typeof selectHero === 'function') {
+        selectHero(currentHeroId);
+        return;
+    }
+
+    const fallbackHero = MASTER_HERO_LIST[0];
+    if (fallbackHero?.id && typeof selectHero === 'function') {
+        selectHero(fallbackHero.id);
+    }
+}
+
 async function loadSecondaryData({ force = false } = {}) {
     if (!force && secondaryDataLoaded) {
         return;
@@ -186,6 +213,7 @@ async function loadSecondaryData({ force = false } = {}) {
             const buildsData = normalizeBuildsPayload(buildsRaw);
             if (Array.isArray(buildsData)) {
                 PERSONAL_BUILDS = buildsData;
+                ensureActiveHeroViewHydrated();
             }
 
             const tiersData = normalizeTiersPayload(tiersRaw);
@@ -264,6 +292,7 @@ async function loadInitialData({ force = false } = {}) {
             }
 
             initialDataLoaded = true;
+            ensureActiveHeroViewHydrated();
 
             // Rotation depends on the master hero list being loaded first
             if (typeof loadAndRenderRotation === 'function') {
