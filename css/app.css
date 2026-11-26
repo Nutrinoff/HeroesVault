@@ -655,13 +655,13 @@
   --tier-glow: rgba(0, 140, 255, 0.52);
 }
 
-/* Single-row ability strips with compact fit for high-ability heroes */
+/* Single-row ability strips: readable size with clean fit on 1080p and 1440p */
 #hero-abilities,
 #builder-abilities {
   display: flex;
   flex-wrap: nowrap;
-  align-items: center;
-  gap: 0.35rem;
+  align-items: stretch;
+  gap: 0.45rem;
   max-width: 100%;
   min-width: 0;
   overflow-x: auto;
@@ -673,7 +673,58 @@
 #builder-abilities > div {
   flex: 0 0 auto;
   margin: 0;
-  padding: 0.32rem 0.4rem;
+  padding: 0.45rem 0.5rem;
+  min-width: 3.1rem;
+  gap: 0.25rem;
+}
+
+#hero-abilities > div img,
+#builder-abilities > div img {
+  width: 2.25rem;
+  height: 2.25rem;
+}
+
+#hero-abilities > div span:nth-of-type(1),
+#builder-abilities > div span:nth-of-type(1) {
+  font-size: 0.72rem;
+  line-height: 1.15;
+}
+
+#hero-abilities > div span:nth-of-type(2),
+#builder-abilities > div span:nth-of-type(2) {
+  font-size: 0.62rem;
+  line-height: 1.15;
+  max-width: 4.5rem;
+}
+
+@media (min-width: 1440px) {
+  #hero-abilities,
+  #builder-abilities {
+    gap: 0.55rem;
+  }
+
+  #hero-abilities > div,
+  #builder-abilities > div {
+    padding: 0.5rem 0.6rem;
+    min-width: 3.4rem;
+  }
+
+  #hero-abilities > div img,
+  #builder-abilities > div img {
+    width: 2.45rem;
+    height: 2.45rem;
+  }
+
+  #hero-abilities > div span:nth-of-type(1),
+  #builder-abilities > div span:nth-of-type(1) {
+    font-size: 0.76rem;
+  }
+
+  #hero-abilities > div span:nth-of-type(2),
+  #builder-abilities > div span:nth-of-type(2) {
+    font-size: 0.66rem;
+    max-width: 5rem;
+  }
 }
 
 /* Hexagon portrait (~15% larger than w-24/96px -> 110px) with outer hex border & no backing */
