@@ -655,12 +655,25 @@
   --tier-glow: rgba(0, 140, 255, 0.52);
 }
 
-/* Scale up ability strip items (boxes, icons, and text) by ~25% */
+/* Single-row ability strips with compact fit for high-ability heroes */
+#hero-abilities,
+#builder-abilities {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 0.35rem;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 0.25rem;
+}
+
 #hero-abilities > div,
 #builder-abilities > div {
-  transform: scale(1.25);
-  transform-origin: center;
-  margin: 0.5rem 0.75rem;
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 0.32rem 0.4rem;
 }
 
 /* Hexagon portrait (~15% larger than w-24/96px -> 110px) with outer hex border & no backing */
