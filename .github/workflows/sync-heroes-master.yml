@@ -15,7 +15,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Fetch and validate heroes-master.json
+      - name: Sync heroes-master.json when version changes
         env:
           API_BASE: https://s-st-01.anteater-bushmaster.ts.net
           TARGET_FILE: data/heroes-master.json
@@ -27,25 +27,44 @@ jobs:
           curl --fail --silent --show-error --location \
             --retry 3 --retry-delay 2 \
             "${API_BASE}/api/catalog/heroes-master" \
-            -o .sync-tmp/raw.json
+            -o .sync-tmp/remote.json
 
           node -e '
             const fs = require("fs");
-            const raw = fs.readFileSync(".sync-tmp/raw.json", "utf8");
-            const parsed = JSON.parse(raw);
-            const items = Array.isArray(parsed)
-              ? parsed
-              : (parsed && Array.isArray(parsed.items) ? parsed.items : null);
 
-            if (!items || items.length === 0) {
-              throw new Error("Fetched heroes-master catalog is empty or missing hero entries.");
+            function extractBuildId(filePath) {
+              if (!fs.existsSync(filePath)) return null;
+              const data = JSON.parse(fs.readFileSync(filePath, "utf8"));
+              const heroesVersion = data?.meta?.heroesVersion ?? null;
+              const hdpVersion = data?.meta?.hdpVersion ?? null;
+              if (!heroesVersion) return null;
+              return `${heroesVersion}|${hdpVersion ?? ""}`;
             }
 
-            fs.writeFileSync(".sync-tmp/next.json", JSON.stringify(parsed) + "\n", "utf8");
+            const remoteParsed = JSON.parse(fs.readFileSync(".sync-tmp/remote.json", "utf8"));
+            const remoteVersion = remoteParsed?.meta?.heroesVersion ?? null;
+            const remoteHdp = remoteParsed?.meta?.hdpVersion ?? null;
+
+            if (!remoteVersion) {
+              throw new Error("Remote payload is missing meta.heroesVersion.");
+            }
+
+            const remoteBuildId = `${remoteVersion}|${remoteHdp ?? ""}`;
+            const localBuildId = extractBuildId(process.env.TARGET_FILE);
+
+            console.log(`Frontend build ID: ${localBuildId || "(none)"}`);
+            console.log(`Backend build ID:  ${remoteBuildId}`);
+
+            if (localBuildId === remoteBuildId) {
+              console.log("Build IDs match; skipping download/update.");
+              process.exit(0);
+            }
+
+            fs.writeFileSync(".sync-tmp/next.json", JSON.stringify(remoteParsed) + "\n", "utf8");
+            fs.writeFileSync(".sync-tmp/should_write", "1", "utf8");
           '
 
-          if [ -f "$TARGET_FILE" ] && cmp -s ".sync-tmp/next.json" "$TARGET_FILE"; then
-            echo "No changes detected in $TARGET_FILE."
+          if [ ! -f .sync-tmp/should_write ]; then
             exit 0
           fi
 
