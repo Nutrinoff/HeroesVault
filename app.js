@@ -22,6 +22,18 @@ let appBootstrapped = false;
 const featureInitDiagnostics = new Map();
 window.__HEROESVAULT_FEATURE_HEALTH__ = featureInitDiagnostics;
 
+const googleFontsLink = document.getElementById('google-fonts-css');
+if (googleFontsLink) {
+  const enableFonts = () => {
+    googleFontsLink.media = 'all';
+  };
+  if (googleFontsLink.sheet) {
+    enableFonts();
+  } else {
+    googleFontsLink.addEventListener('load', enableFonts, { once: true });
+  }
+}
+
 function getAppApi() {
     return typeof window !== 'undefined' && window.HeroesVaultApi && typeof window.HeroesVaultApi === 'object'
         ? window.HeroesVaultApi
