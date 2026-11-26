@@ -301,8 +301,10 @@ function renderAbilityStrip(abilitiesList, containerId, options = {}) {
     if (!box) return;
 
     // Keep the ability strip on a single row and allow horizontal scroll only if needed
-    box.classList.add('flex-nowrap', 'overflow-x-auto', 'overflow-y-hidden', 'max-w-full');
-    box.classList.remove('flex-wrap');
+    if (!box.classList.contains('flex-nowrap')) {
+        box.classList.add('flex-nowrap', 'overflow-x-auto', 'overflow-y-hidden', 'max-w-full');
+        box.classList.remove('flex-wrap');
+    }
 
     const isVikings = Boolean(options.isLostVikings);
     let hasTrait = false;
@@ -375,11 +377,15 @@ function renderAbilityStrip(abilitiesList, containerId, options = {}) {
         .map(entry => entry.item);
 
     if (!list.length) {
-        box.innerHTML = '<span class="text-xs text-[#8c83a2]">No abilities configured</span>';
+        const emptyEl = document.createElement('span');
+        emptyEl.className = 'text-xs text-[#8c83a2]';
+        emptyEl.textContent = 'No abilities configured';
+        box.replaceChildren(emptyEl);
         return;
     }
 
     const useCompactDensity = list.length >= 7;
+    const iconPx = useCompactDensity ? 28 : 32;
     const frag = document.createDocumentFragment();
 
     list.forEach(a => {
@@ -399,6 +405,8 @@ function renderAbilityStrip(abilitiesList, containerId, options = {}) {
         iconImg.className = useCompactDensity
             ? 'w-7 h-7 rounded-[2px] border border-[#5c42b8]/75 object-cover bg-[#070412]'
             : 'w-8 h-8 rounded-[2px] border border-[#5c42b8]/75 object-cover bg-[#070412]';
+        iconImg.width = iconPx;
+        iconImg.height = iconPx;
         iconImg.alt = a.name || a.key || 'Ability icon';
         setSafeImageSrc(
             iconImg,
@@ -446,9 +454,9 @@ function renderHeroHeader(heroData, activeTalents = []) {
         portraitEl.alt = `${heroData.name} portrait`;
         setSafeImageSrc(portraitEl, portraitUrl, HERO_VIEW_PORTRAIT_FALLBACK);
     }
-    if (nameEl) nameEl.innerText = heroData.name;
-    if (roleEl) roleEl.innerText = heroData.role;
-    if (titleEl) titleEl.innerText = heroData.title;
+    if (nameEl && nameEl.textContent !== heroData.name) nameEl.textContent = heroData.name;
+    if (roleEl && roleEl.textContent !== heroData.role) roleEl.textContent = heroData.role;
+    if (titleEl && titleEl.textContent !== heroData.title) titleEl.textContent = heroData.title;
 
     renderAbilityStrip(heroData.abilities, 'hero-abilities', {
         isLostVikings: isLostVikingsHero(rawEntry || heroData),
@@ -477,9 +485,9 @@ function renderBuilderHeader(heroData, activeTalents = []) {
         portraitEl.alt = `${heroData.name} portrait`;
         setSafeImageSrc(portraitEl, portraitUrl, HERO_VIEW_PORTRAIT_FALLBACK);
     }
-    if (nameEl) nameEl.innerText = heroData.name;
-    if (roleEl) roleEl.innerText = heroData.role;
-    if (titleEl) titleEl.innerText = heroData.title;
+    if (nameEl && nameEl.textContent !== heroData.name) nameEl.textContent = heroData.name;
+    if (roleEl && roleEl.textContent !== heroData.role) roleEl.textContent = heroData.role;
+    if (titleEl && titleEl.textContent !== heroData.title) titleEl.textContent = heroData.title;
 
     if (bgModel) {
         bgModel.alt = `${heroData.name} loading screen background`;
@@ -523,6 +531,8 @@ function renderBuildStrip(h, code) {
 
             const talentImg = document.createElement('img');
             talentImg.className = 'w-11 h-11 rounded-[2px] border border-[#5c42b8]/75 object-cover bg-[#070412]';
+            talentImg.width = 44;
+            talentImg.height = 44;
             talentImg.alt = t.name || `Level ${l} talent`;
             setSafeImageSrc(
                 talentImg,
@@ -541,7 +551,10 @@ function renderBuildStrip(h, code) {
 
             el.append(talentImg, lvlSpan, nameSpan);
         } else {
-            el.innerHTML = `<span class="text-[10px] text-[#8c83a2]">Lv ${l} · none</span>`;
+            const emptyTalentSpan = document.createElement('span');
+            emptyTalentSpan.className = 'text-[10px] text-[#8c83a2]';
+            emptyTalentSpan.textContent = `Lv ${l} · none`;
+            el.appendChild(emptyTalentSpan);
         }
 
         frag.appendChild(el);
@@ -581,8 +594,8 @@ function renderActiveBuild() {
     if (!tabs || !notes) return;
 
     if (!d?.builds?.length) {
-        tabs.innerHTML = '';
-        notes.innerText = 'No notes added for this hero yet.';
+        tabs.replaceChildren();
+        notes.textContent = 'No notes added for this hero yet.';
         renderHeroHeader(h, []);
         renderBuildStrip(h, null);
         return;
@@ -597,7 +610,7 @@ function renderActiveBuild() {
                 ? 'bg-[#1a2956]/80 text-[#cbe8ff] border-[#58baff]/75 shadow-[0_0_12px_rgba(0,156,255,0.25)]'
                 : 'hots-subpanel text-[#9cb6ff]/80 border-[#38247a] hover:border-[#58baff]/55 hover:text-[#e6ecff]'
         }`;
-        b.innerText = `Build ${i + 1}: ${v.buildName || 'Unnamed'}`;
+        b.textContent = `Build ${i + 1}: ${v.buildName || 'Unnamed'}`;
         b.addEventListener('click', () => {
             currentBuildIndex = i;
             renderActiveBuild();
@@ -608,9 +621,11 @@ function renderActiveBuild() {
     tabs.replaceChildren(frag);
 
     const v = d.builds[currentBuildIndex] || d.builds[0];
-    notes.innerHTML = v.notes
-        ? sanitizeBuildNotesHtml(v.notes)
-        : 'No notes added yet.';
+    if (v.notes) {
+        notes.innerHTML = sanitizeBuildNotesHtml(v.notes);
+    } else {
+        notes.textContent = 'No notes added yet.';
+    }
     renderHeroHeader(h, getSelectedTalentsForBuild(h, v.buildCode));
     renderBuildStrip(h, v.buildCode);
 }
@@ -638,6 +653,5 @@ async function selectHero(id, update = true) {
     filterHeroes();
 
     currentHeroData = heroData;
-    renderHeroHeader(currentHeroData, []);
     renderActiveBuild();
 }

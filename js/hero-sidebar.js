@@ -17,6 +17,8 @@ let observedHeroElements = new WeakSet();
 let heroScrollIdleTimer = null;
 let isHeroListScrolling = false;
 let sidebarHeightResizeObserver = null;
+let sidebarHeightRafId = null;
+let desktopSidebarMediaQuery = null;
 let lastRenderedOrderKey = null;
 let lastRenderedActiveKey = null;
 
@@ -257,41 +259,54 @@ function getSidebarTargetBottomEl() {
     return null;
 }
 
+function isDesktopSidebarViewport() {
+    if (!desktopSidebarMediaQuery && typeof window.matchMedia === 'function') {
+        desktopSidebarMediaQuery = window.matchMedia('(min-width: 1024px)');
+    }
+    return desktopSidebarMediaQuery ? desktopSidebarMediaQuery.matches : window.innerWidth >= 1024;
+}
+
 function syncSidebarHeightToContent() {
     const sidebar = document.getElementById('sidebar-container');
     if (!sidebar) return;
 
-    const isDesktop = window.matchMedia('(min-width: 1024px)').matches;
-    if (!isDesktop || sidebar.classList.contains('hidden')) {
-        sidebar.style.height = '';
+    if (!isDesktopSidebarViewport() || sidebar.classList.contains('hidden')) {
+        if (sidebar.style.height) sidebar.style.height = '';
         return;
     }
 
     const targetEl = getSidebarTargetBottomEl();
     if (!targetEl) {
-        sidebar.style.height = '';
+        if (sidebar.style.height) sidebar.style.height = '';
         return;
     }
 
     const sidebarRect = sidebar.getBoundingClientRect();
     const targetRect = targetEl.getBoundingClientRect();
     const matchedHeight = Math.round(targetRect.bottom - sidebarRect.top);
+    const nextHeight = matchedHeight > 200 ? `${matchedHeight}px` : '';
 
-    sidebar.style.height = matchedHeight > 200 ? `${matchedHeight}px` : '';
+    if (sidebar.style.height !== nextHeight) {
+        sidebar.style.height = nextHeight;
+    }
+}
+
+function scheduleSidebarHeightSync() {
+    if (sidebarHeightRafId !== null) return;
+    sidebarHeightRafId = requestAnimationFrame(() => {
+        sidebarHeightRafId = null;
+        syncSidebarHeightToContent();
+    });
 }
 
 function bindSidebarHeightSync() {
     if (window._hotsSidebarHeightBound) return;
     window._hotsSidebarHeightBound = true;
 
-    window.addEventListener('resize', () => {
-        requestAnimationFrame(syncSidebarHeightToContent);
-    }, { passive: true });
+    window.addEventListener('resize', scheduleSidebarHeightSync, { passive: true });
 
     if (typeof ResizeObserver !== 'undefined') {
-        sidebarHeightResizeObserver = new ResizeObserver(() => {
-            requestAnimationFrame(syncSidebarHeightToContent);
-        });
+        sidebarHeightResizeObserver = new ResizeObserver(scheduleSidebarHeightSync);
 
         ['view-builder', 'view-builds'].forEach(id => {
             const el = document.getElementById(id);
@@ -407,7 +422,7 @@ function ensureHeroListObserver(listEl) {
     return heroListObserver;
 }
 
-function syncHeroListObserverTargets(listEl, { resetAll = false } = {}) {
+function syncHeroListObserverTargets(listEl, buttons = null, { resetAll = false } = {}) {
     const observer = ensureHeroListObserver(listEl);
     if (!observer) return;
 
@@ -417,12 +432,14 @@ function syncHeroListObserverTargets(listEl, { resetAll = false } = {}) {
         cancelPendingVisibleHeroPreload();
     }
 
-    listEl.querySelectorAll('[data-hero-id]').forEach(btn => {
+    const targets = buttons || listEl.querySelectorAll('[data-hero-id]');
+    for (let i = 0; i < targets.length; i++) {
+        const btn = targets[i];
         if (!observedHeroElements.has(btn)) {
             observedHeroElements.add(btn);
             observer.observe(btn);
         }
-    });
+    }
 }
 
 function navigateFromSidebar(heroId, isBuilderView) {
@@ -449,7 +466,9 @@ function applyHeroSidebarPortraitFallback(imgEl, fallbackUrl) {
 }
 
 function syncSidebarSelectionInDom(listEl, activeKey, isBuilder) {
-    listEl.querySelectorAll('button[data-hero-id]').forEach(btn => {
+    const buttons = listEl.querySelectorAll('button[data-hero-id]');
+    for (let i = 0; i < buttons.length; i++) {
+        const btn = buttons[i];
         const btnId = btn.dataset.heroId || '';
         const btnKey = toNormalizedHeroKey(btnId);
         const isSelected = Boolean(activeKey) && btnKey === activeKey;
@@ -460,7 +479,7 @@ function syncSidebarSelectionInDom(listEl, activeKey, isBuilder) {
             btn.removeAttribute('aria-current');
         }
         btn.dataset.sidebarBuilderMode = isBuilder ? 'true' : 'false';
-    });
+    }
 }
 
 function renderPreparedHeroSidebar(entries, byKey = heroIndexCache.byKey) {
@@ -486,14 +505,15 @@ function renderPreparedHeroSidebar(entries, byKey = heroIndexCache.byKey) {
     if (hasSameStructure) {
         syncSidebarSelectionInDom(list, activeKey, isBuilder);
         lastRenderedActiveKey = activeKey;
-        syncHeroListObserverTargets(list, { resetAll: false });
+        syncHeroListObserverTargets(list, null, { resetAll: false });
         bindSidebarHeightSync();
-        requestAnimationFrame(syncSidebarHeightToContent);
+        scheduleSidebarHeightSync();
         return;
     }
 
     const fallbackPortrait = getSidebarFallbackPortrait();
     const frag = document.createDocumentFragment();
+    const createdButtons = [];
 
     sortedEntries.forEach(entry => {
         const isSelected = Boolean(activeKey) && (
@@ -545,6 +565,7 @@ function renderPreparedHeroSidebar(entries, byKey = heroIndexCache.byKey) {
             img.src = entry.portraitUrl;
         }
 
+        createdButtons.push(btn);
         frag.appendChild(btn);
     });
 
@@ -552,15 +573,15 @@ function renderPreparedHeroSidebar(entries, byKey = heroIndexCache.byKey) {
     lastRenderedOrderKey = orderKey;
     lastRenderedActiveKey = activeKey;
 
-    syncHeroListObserverTargets(list, { resetAll: true });
+    syncHeroListObserverTargets(list, createdButtons, { resetAll: true });
 
     const countEl = document.getElementById('hero-count');
     if (countEl) {
-        countEl.innerText = `${sortedEntries.length} Heroes`;
+        countEl.textContent = `${sortedEntries.length} Heroes`;
     }
 
     bindSidebarHeightSync();
-    requestAnimationFrame(syncSidebarHeightToContent);
+    scheduleSidebarHeightSync();
 }
 
 function renderHeroSidebar(heroes) {

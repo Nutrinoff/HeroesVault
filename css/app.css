@@ -302,7 +302,7 @@
   line-height: 1.2;
   letter-spacing: 0.04em;
   text-transform: none;
-  transition: color 0.16s ease, font-size 0.16s ease, text-shadow 0.16s ease, filter 0.16s ease;
+  transition: color 0.16s ease, text-shadow 0.16s ease, filter 0.16s ease;
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
@@ -335,7 +335,7 @@
 /* Selected / Toggled state (cbe8ff-ffffff gradient + 0063c8 blue glow) */
 .nav-active {
   color: #ffffff !important;
-  font-size: 1.02rem;
+  font-size: 0.92rem;
   font-weight: 700;
   background: transparent !important;
   border: none !important;
@@ -824,9 +824,9 @@
   background:
     linear-gradient(
       180deg,
-      rgba(26, 17, 64, 0.96) 0%,
-      rgba(16, 10, 41, 0.97) 45%,
-      rgba(9, 5, 25, 0.99) 100%
+      rgba(26, 17, 64, 0.98) 0%,
+      rgba(16, 10, 41, 0.99) 45%,
+      rgba(9, 5, 25, 1) 100%
     );
   border: 1px solid rgba(112, 148, 224, 0.52);
   border-radius: 3px;
@@ -834,7 +834,6 @@
     inset 0 1px 0 rgba(203, 232, 255, 0.14),
     0 14px 36px rgba(0, 0, 0, 0.88),
     0 0 20px rgba(0, 99, 200, 0.26);
-  backdrop-filter: blur(4px);
 }
 
 .hots-talent-slot {
@@ -940,9 +939,5 @@
   .f2p-row-item:hover,
   .hots-brand-emblem:hover svg {
     transform: none;
-  }
-
-  .hots-talent-tooltip {
-    backdrop-filter: none;
   }
 }

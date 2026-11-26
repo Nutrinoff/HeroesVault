@@ -191,9 +191,9 @@ function renderPatchSidebar(items) {
 function resetPatchSidebarLayout() {
     const box = document.getElementById('patch-sidebar-sticky-box');
     if (box) {
-        box.style.position = '';
-        box.style.top = '';
-        box.style.maxHeight = '';
+        if (box.style.position) box.style.position = '';
+        if (box.style.top) box.style.top = '';
+        if (box.style.maxHeight) box.style.maxHeight = '';
     }
 }
 
@@ -204,7 +204,7 @@ function syncPatchSidebarBurger() {
     const box = document.getElementById('patch-sidebar-sticky-box');
     if (!view || !box) return;
 
-    const isVisible = !view.classList.contains('hidden') && view.offsetParent !== null;
+    const isVisible = !view.classList.contains('hidden');
     const isDesktop = window.innerWidth >= 1024;
 
     if (!isVisible || !isDesktop) {
@@ -228,9 +228,12 @@ function syncPatchSidebarBurger() {
         ? Math.max(topOffset + 180, footerTop - gap)
         : window.innerHeight - gap;
 
-    box.style.position = 'sticky';
-    box.style.top = `${topOffset}px`;
-    box.style.maxHeight = `${Math.max(180, bottomLimit - topOffset)}px`;
+    const nextTop = `${topOffset}px`;
+    const nextMaxHeight = `${Math.max(180, bottomLimit - topOffset)}px`;
+
+    if (box.style.position !== 'sticky') box.style.position = 'sticky';
+    if (box.style.top !== nextTop) box.style.top = nextTop;
+    if (box.style.maxHeight !== nextMaxHeight) box.style.maxHeight = nextMaxHeight;
 }
 
 function schedulePatchSidebarSync() {

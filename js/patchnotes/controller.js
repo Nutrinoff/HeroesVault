@@ -15,6 +15,8 @@ const DANGEROUS_PATCH_TAGS = new Set([
     'SCRIPT', 'STYLE', 'IFRAME', 'OBJECT', 'EMBED', 'LINK', 'META', 'BASE', 'FORM', 'INPUT', 'BUTTON'
 ]);
 
+let sharedPatchDomParser = null;
+
 const patchState = {
     filter: 'all',
     items: [],
@@ -31,6 +33,22 @@ const patchState = {
     homeHydrateSequence: 0,
     listenersBound: false
 };
+
+function getPatchDomParser() {
+    if (typeof DOMParser === 'undefined') return null;
+    if (!sharedPatchDomParser) {
+        sharedPatchDomParser = new DOMParser();
+    }
+    return sharedPatchDomParser;
+}
+
+function setStatusMessage(el, message, className = 'text-xs text-[#8c83a2] p-3') {
+    if (!el) return;
+    const div = document.createElement('div');
+    div.className = className;
+    div.textContent = message;
+    el.replaceChildren(div);
+}
 
 function sanitizeSafeUrl(rawUrl, { allowDataImage = false } = {}) {
     const val = String(rawUrl || '').trim();
@@ -53,17 +71,19 @@ function sanitizePatchDetailHtml(rawHtml) {
     const htmlStr = String(rawHtml || '');
     if (!htmlStr.trim()) return '';
 
-    if (typeof DOMParser === 'undefined') {
+    const parser = getPatchDomParser();
+    if (!parser) {
         return escapeHtml(htmlStr);
     }
 
-    const doc = new DOMParser().parseFromString(htmlStr, 'text/html');
+    const doc = parser.parseFromString(htmlStr, 'text/html');
     const body = doc.body;
     if (!body) return '';
 
     const walk = node => {
         const children = Array.from(node.childNodes);
-        for (const child of children) {
+        for (let i = 0; i < children.length; i++) {
+            const child = children[i];
             if (child.nodeType === Node.COMMENT_NODE) {
                 child.remove();
                 continue;
@@ -90,7 +110,9 @@ function sanitizePatchDetailHtml(rawHtml) {
                 continue;
             }
 
-            for (const attr of Array.from(child.attributes)) {
+            const attrs = Array.from(child.attributes);
+            for (let j = 0; j < attrs.length; j++) {
+                const attr = attrs[j];
                 const attrName = attr.name.toLowerCase();
                 if (attrName.startsWith('on') || attrName === 'srcdoc') {
                     child.removeAttribute(attr.name);
@@ -385,8 +407,7 @@ async function loadLivePatchNotes(options = {}) {
     const seq = ++patchState.loadSequence;
 
     const runLoad = (async () => {
-        listContainer.innerHTML = `<div class="text-xs text-[#8c83a2] p-3">Loading patch notes...</div>`;
-        schedulePatchSidebarSync();
+        setStatusMessage(listContainer, 'Loading patch notes...');
 
         try {
             const allPatches = await fetchAllMasterPatches();
@@ -400,11 +421,12 @@ async function loadLivePatchNotes(options = {}) {
                 patchState.pendingSelectionId = null;
                 patchState.lastRenderedFilter = activeFilter;
                 patchState.lastRenderedSelectionId = null;
-                listContainer.innerHTML = `<div class="text-xs text-[#8c83a2] p-3">No patches found in this feed.</div>`;
-                const mainContent = document.getElementById('patch-main-content');
-                if (mainContent) {
-                    mainContent.innerHTML = `<div class="p-6 text-[#8c83a2] text-sm">No patch notes available.</div>`;
-                }
+                setStatusMessage(listContainer, 'No patches found in this feed.');
+                setStatusMessage(
+                    document.getElementById('patch-main-content'),
+                    'No patch notes available.',
+                    'p-6 text-[#8c83a2] text-sm'
+                );
                 schedulePatchSidebarSync();
                 return;
             }

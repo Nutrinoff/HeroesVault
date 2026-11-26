@@ -481,6 +481,8 @@ function createFreeHeroRow(hero) {
 
     var img = document.createElement('img');
     img.alt = hero.name + ' portrait';
+    img.width = ROTATION_PORTRAIT_SIZE_PX;
+    img.height = ROTATION_PORTRAIT_SIZE_PX;
     img.className = 'hex-sidebar-img';
     img.loading = 'eager';
     img.decoding = 'async';
@@ -534,8 +536,10 @@ function renderFreeRotationHeroes(data) {
 
     var sortedHeroes = sortRotationHeroesF2pFirst((data.heroes || []).slice(0, 14));
     if (!sortedHeroes.length) {
-        grid.innerHTML =
-            '<div class="col-span-2 text-xs text-violet-200/70 py-2">No free rotation heroes available right now.</div>';
+        var emptyEl = document.createElement('div');
+        emptyEl.className = 'col-span-2 text-xs text-violet-200/70 py-2';
+        emptyEl.textContent = 'No free rotation heroes available right now.';
+        grid.replaceChildren(emptyEl);
         return;
     }
 
