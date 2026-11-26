@@ -97,13 +97,6 @@ function normalizeTierBadge(rawTier) {
 }
 
 function resolveSidebarHeroTier(hero, catalogHero = null, normHero = null, resolvedId = '') {
-    const directTier = normalizeTierBadge(
-        catalogHero?.tier
-        ?? normHero?.tier
-        ?? hero?.tier
-    );
-    if (directTier) return directTier;
-
     const catalog = getCatalogApi();
     const candidates = [
         resolvedId,
@@ -115,19 +108,26 @@ function resolveSidebarHeroTier(hero, catalogHero = null, normHero = null, resol
         normHero?.name
     ].filter(Boolean);
 
-    if (catalog && typeof catalog.getTier === 'function') {
-        for (const candidate of candidates) {
-            const tier = normalizeTierBadge(catalog.getTier(candidate));
-            if (tier) return tier;
-        }
-    }
-
     if (typeof getHeroTier === 'function') {
         for (const candidate of candidates) {
             const tier = normalizeTierBadge(getHeroTier(candidate));
-            if (tier) return tier;
+            if (tier && tier !== 'D') return tier;
         }
     }
+
+    if (catalog && typeof catalog.getTier === 'function') {
+        for (const candidate of candidates) {
+            const tier = normalizeTierBadge(catalog.getTier(candidate));
+            if (tier && tier !== 'D') return tier;
+        }
+    }
+
+    const directTier = normalizeTierBadge(
+        catalogHero?.tier
+        ?? normHero?.tier
+        ?? hero?.tier
+    );
+    if (directTier) return directTier;
 
     return 'D';
 }
@@ -258,10 +258,6 @@ function getPreparedHeroRoster(heroes) {
             numeric: true
         });
     });
-
-    if (heroIndexCache.snapshotSignature && heroIndexCache.snapshotSignature !== snapshotSignature) {
-        lastRenderedOrderKey = null;
-    }
 
     heroIndexCache = {
         sourceRef: list,
@@ -499,13 +495,18 @@ function applyHeroSidebarPortraitFallback(imgEl, fallbackUrl) {
     }, { once: true });
 }
 
-function syncSidebarSelectionInDom(listEl, activeKey, isBuilder) {
+function syncSidebarItemsInDom(listEl, sortedEntries, activeKey, isBuilder) {
     const buttons = listEl.querySelectorAll('button[data-hero-id]');
     for (let i = 0; i < buttons.length; i++) {
         const btn = buttons[i];
+        const entry = sortedEntries[i];
         const btnId = btn.dataset.heroId || '';
         const btnKey = toNormalizedHeroKey(btnId);
-        const isSelected = Boolean(activeKey) && btnKey === activeKey;
+        const isSelected = Boolean(activeKey) && (
+            btnKey === activeKey ||
+            Boolean(entry?.aliasKeys?.has(activeKey))
+        );
+
         btn.classList.toggle('is-selected', isSelected);
         if (isSelected) {
             btn.setAttribute('aria-current', 'true');
@@ -513,6 +514,14 @@ function syncSidebarSelectionInDom(listEl, activeKey, isBuilder) {
             btn.removeAttribute('aria-current');
         }
         btn.dataset.sidebarBuilderMode = isBuilder ? 'true' : 'false';
+
+        if (entry) {
+            const tierBadge = btn.querySelector('[data-tier]');
+            if (tierBadge && tierBadge.dataset.tier !== entry.tier) {
+                tierBadge.dataset.tier = entry.tier;
+                tierBadge.textContent = `${entry.tier} Tier`;
+            }
+        }
     }
 }
 
@@ -537,7 +546,7 @@ function renderPreparedHeroSidebar(entries, byKey = heroIndexCache.byKey) {
         lastRenderedOrderKey === orderKey;
 
     if (hasSameStructure) {
-        syncSidebarSelectionInDom(list, activeKey, isBuilder);
+        syncSidebarItemsInDom(list, sortedEntries, activeKey, isBuilder);
         lastRenderedActiveKey = activeKey;
         syncHeroListObserverTargets(list, null, { resetAll: false });
         bindSidebarHeightSync();

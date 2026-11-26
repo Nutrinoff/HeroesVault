@@ -200,6 +200,20 @@ function extractHeroCatalogEntries(masterData) {
     return [];
 }
 
+function refreshHeroSidebarAfterCatalogUpdate() {
+    if (!Array.isArray(MASTER_HERO_LIST) || MASTER_HERO_LIST.length === 0) return;
+
+    const searchInput = document.getElementById('hero-search');
+    if (searchInput && searchInput.value.trim() && typeof filterHeroes === 'function') {
+        filterHeroes();
+        return;
+    }
+
+    if (typeof renderHeroSidebar === 'function') {
+        renderHeroSidebar(MASTER_HERO_LIST);
+    }
+}
+
 function ensureActiveHeroViewHydrated() {
     if (!Array.isArray(MASTER_HERO_LIST) || MASTER_HERO_LIST.length === 0) return;
 
@@ -272,6 +286,7 @@ async function loadSecondaryData({ force = false } = {}) {
             const tiersData = normalizeTiersPayload(tiersRaw);
             if (tiersData && typeof tiersData === 'object') {
                 MASTER_TIERS = tiersData;
+                refreshHeroSidebarAfterCatalogUpdate();
             }
 
             syncHomeSummaryCounts();
