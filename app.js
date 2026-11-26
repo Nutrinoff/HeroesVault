@@ -26,6 +26,12 @@ function getAppApi() {
         : null;
 }
 
+function refreshLucideIcons() {
+    if (window.lucide && typeof window.lucide.createIcons === 'function') {
+        window.lucide.createIcons();
+    }
+}
+
 function assertRequiredGlobals() {
     const requiredFunctions = [
         'normalizeTalentSelections',
@@ -67,13 +73,13 @@ function assertRequiredGlobals() {
 }
 
 function validateLoadedDataShapes() {
-    if (!Array.isArray(MASTER_HERO_LIST) || MASTER_HERO_LIST.length === 0) {
+    if (typeof MASTER_HERO_LIST === 'undefined' || !Array.isArray(MASTER_HERO_LIST) || MASTER_HERO_LIST.length === 0) {
         console.warn('[HeroesVault] MASTER_HERO_LIST is empty or invalid.');
     }
-    if (!Array.isArray(PERSONAL_BUILDS)) {
+    if (typeof PERSONAL_BUILDS === 'undefined' || !Array.isArray(PERSONAL_BUILDS)) {
         console.warn('[HeroesVault] PERSONAL_BUILDS is not an array.');
     }
-    if (!Array.isArray(MASTER_MAP_LIST)) {
+    if (typeof MASTER_MAP_LIST === 'undefined' || !Array.isArray(MASTER_MAP_LIST)) {
         console.warn('[HeroesVault] MASTER_MAP_LIST is not an array.');
     }
 }
@@ -88,14 +94,17 @@ function syncHomeSummaryCounts() {
     const buildCountEl = document.getElementById('home-build-count');
     const guideCountEl = document.getElementById('home-guide-count');
 
-    if (heroCountEl) {
+    if (heroCountEl && typeof MASTER_HERO_LIST !== 'undefined' && Array.isArray(MASTER_HERO_LIST)) {
         heroCountEl.textContent = `${MASTER_HERO_LIST.length} Heroes`;
     }
-    if (buildCountEl) {
+    if (buildCountEl && typeof PERSONAL_BUILDS !== 'undefined' && Array.isArray(PERSONAL_BUILDS)) {
         buildCountEl.textContent = `${PERSONAL_BUILDS.length} Sets`;
     }
     if (guideCountEl && typeof getAcademyArticlesList === 'function') {
-        guideCountEl.textContent = `${getAcademyArticlesList().length} Guides`;
+        const guides = getAcademyArticlesList();
+        if (Array.isArray(guides)) {
+            guideCountEl.textContent = `${guides.length} Guides`;
+        }
     }
 }
 
@@ -151,6 +160,55 @@ function normalizeTiersPayload(raw) {
     return matchedAnyTierKey ? normalized : null;
 }
 
+function applyCatalogData({ masterData, buildsRaw, mapsData, tiersRaw }) {
+    if (masterData) {
+        const rawSource = masterData.items || masterData;
+        window.HOTS_MASTER_DATA = rawSource;
+
+        const rawHeroes = Array.isArray(rawSource)
+            ? rawSource
+            : (rawSource && typeof rawSource === 'object' ? Object.values(rawSource) : []);
+
+        window.MASTER_HERO_LIST = rawHeroes
+            .filter(Boolean)
+            .map(h => {
+                const id = h.id || h.hyperlinkId || h.attributeId;
+                const portraitPath = typeof getHeroPortrait === 'function'
+                    ? getHeroPortrait(h)
+                    : (typeof extractPortraitPath === 'function' ? extractPortraitPath(h) : (h.portrait || ''));
+
+                return {
+                    id,
+                    name: h.name || 'Unknown Hero',
+                    title: h.title || 'Nexus Combatant',
+                    role: (Array.isArray(h.roles) && h.roles[0]) || h.expandedRole || 'Nexus Combatant',
+                    portrait: portraitPath,
+                    searchText: `${h.name || ''} ${id || ''}`.toLowerCase()
+                };
+            });
+    }
+
+    const buildsData = normalizeBuildsPayload(buildsRaw);
+    if (Array.isArray(buildsData)) {
+        window.PERSONAL_BUILDS = buildsData;
+    }
+
+    if (Array.isArray(mapsData)) {
+        window.MASTER_MAP_LIST = mapsData;
+        if (typeof populateMapsDropdown === 'function') {
+            populateMapsDropdown();
+        }
+    }
+
+    const tiersData = normalizeTiersPayload(tiersRaw);
+    if (tiersData && typeof tiersData === 'object') {
+        window.MASTER_TIERS = tiersData;
+    }
+
+    syncHomeSummaryCounts();
+    validateLoadedDataShapes();
+}
+
 async function loadInitialData({ force = false } = {}) {
     if (!force && initialDataLoaded) {
         return;
@@ -177,51 +235,7 @@ async function loadInitialData({ force = false } = {}) {
                     : Promise.resolve(null)
             ]);
 
-            if (masterData) {
-                const rawSource = masterData.items || masterData;
-                HOTS_MASTER_DATA = rawSource;
-
-                const rawHeroes = Array.isArray(rawSource)
-                    ? rawSource
-                    : (rawSource && typeof rawSource === 'object' ? Object.values(rawSource) : []);
-
-                MASTER_HERO_LIST = rawHeroes
-                    .filter(Boolean)
-                    .map(h => {
-                        const id = h.id || h.hyperlinkId || h.attributeId;
-                        const portraitPath = typeof getHeroPortrait === 'function'
-                            ? getHeroPortrait(h)
-                            : (typeof extractPortraitPath === 'function' ? extractPortraitPath(h) : (h.portrait || ''));
-
-                        return {
-                            id,
-                            name: h.name || 'Unknown Hero',
-                            title: h.title || 'Nexus Combatant',
-                            role: (Array.isArray(h.roles) && h.roles[0]) || h.expandedRole || 'Nexus Combatant',
-                            portrait: portraitPath,
-                            searchText: `${h.name || ''} ${id || ''}`.toLowerCase()
-                        };
-                    });
-            }
-
-            const buildsData = normalizeBuildsPayload(buildsRaw);
-            if (Array.isArray(buildsData)) {
-                PERSONAL_BUILDS = buildsData;
-            }
-
-            if (Array.isArray(mapsData)) {
-                MASTER_MAP_LIST = mapsData;
-                if (typeof populateMapsDropdown === 'function') {
-                    populateMapsDropdown();
-                }
-            }
-
-            const tiersData = normalizeTiersPayload(tiersRaw);
-            if (tiersData && typeof tiersData === 'object') {
-                MASTER_TIERS = tiersData;
-            }
-
-            validateLoadedDataShapes();
+            applyCatalogData({ masterData, buildsRaw, mapsData, tiersRaw });
             initialDataLoaded = true;
         } finally {
             initialDataPromise = null;
@@ -283,6 +297,16 @@ function bindGlobalDismissHandlers() {
     });
 }
 
+function initRouterOnce() {
+    if (document.body?.dataset.routerInitialized === 'true') return;
+    if (typeof initializeRouter === 'function') {
+        if (document.body) {
+            document.body.dataset.routerInitialized = 'true';
+        }
+        initializeRouter();
+    }
+}
+
 async function initializeFeatures({ force = false } = {}) {
     if (!force && featuresInitialized) {
         return;
@@ -295,6 +319,11 @@ async function initializeFeatures({ force = false } = {}) {
         try {
             featureInitDiagnostics.clear();
 
+            // Render initial icons and bind global shell handlers right away
+            await runFeatureSafe('bindGlobalDismissHandlers', bindGlobalDismissHandlers);
+            await runFeatureSafe('syncHomeSummaryCounts', syncHomeSummaryCounts);
+            await runFeatureSafe('lucide.createIcons:initial', refreshLucideIcons);
+
             await runFeatureSafe('initializeTooltips', () => {
                 if (typeof initializeTooltips === 'function') {
                     return initializeTooltips();
@@ -302,11 +331,12 @@ async function initializeFeatures({ force = false } = {}) {
             });
 
             await runFeatureSafe('initializeHeroSidebar', () => {
+                const list = typeof MASTER_HERO_LIST !== 'undefined' ? MASTER_HERO_LIST : [];
                 if (typeof initializeHeroSidebar === 'function') {
-                    return initializeHeroSidebar(MASTER_HERO_LIST);
+                    return initializeHeroSidebar(list);
                 }
                 if (typeof renderHeroSidebar === 'function') {
-                    return renderHeroSidebar(MASTER_HERO_LIST);
+                    return renderHeroSidebar(list);
                 }
             });
 
@@ -316,30 +346,24 @@ async function initializeFeatures({ force = false } = {}) {
                 }
             });
 
-            await runFeatureSafe('syncHomeSummaryCounts', syncHomeSummaryCounts);
+            // Let slower network-backed sections run without blocking earlier UI setup
+            const asyncWidgets = Promise.allSettled([
+                runFeatureSafe('loadAndRenderRotation', async () => {
+                    if (typeof loadAndRenderRotation === 'function') {
+                        await loadAndRenderRotation();
+                    }
+                }),
+                runFeatureSafe('initPatchNotes', async () => {
+                    if (typeof initPatchNotes === 'function') {
+                        await initPatchNotes({ hydrateHome: true });
+                    } else if (typeof initPatchFilterControls === 'function') {
+                        await initPatchFilterControls();
+                    }
+                })
+            ]);
 
-            await runFeatureSafe('loadAndRenderRotation', async () => {
-                if (typeof loadAndRenderRotation === 'function') {
-                    await loadAndRenderRotation();
-                }
-            });
-
-            await runFeatureSafe('initPatchNotes', () => {
-                if (typeof initPatchNotes === 'function') {
-                    return initPatchNotes({ hydrateHome: true });
-                }
-                if (typeof initPatchFilterControls === 'function') {
-                    return initPatchFilterControls();
-                }
-            });
-
-            await runFeatureSafe('bindGlobalDismissHandlers', bindGlobalDismissHandlers);
-
-            await runFeatureSafe('lucide.createIcons', () => {
-                if (window.lucide && typeof window.lucide.createIcons === 'function') {
-                    return window.lucide.createIcons();
-                }
-            });
+            await asyncWidgets;
+            await runFeatureSafe('lucide.createIcons:postHydration', refreshLucideIcons);
 
             logFeatureInitializationSummary();
             featuresInitialized = true;
@@ -358,11 +382,14 @@ async function bootstrapApp() {
     appBootstrapPromise = (async () => {
         try {
             assertRequiredGlobals();
+
+            // Start router early so navigation and UI controls respond immediately
+            await runFeatureSafe('initializeRouter', initRouterOnce);
+            await runFeatureSafe('lucide.createIcons:preData', refreshLucideIcons);
+
             await loadInitialData();
             await initializeFeatures();
-            if (typeof initializeRouter === 'function') {
-                initializeRouter();
-            }
+
             appBootstrapped = true;
         } catch (e) {
             console.error('[HeroesVault] Failed initializing app:', e);
