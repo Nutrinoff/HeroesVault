@@ -1,0 +1,63 @@
+name: Sync Heroes Master Catalog
+
+on:
+  schedule:
+    - cron: '0 */12 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  sync-catalog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Fetch and validate heroes-master.json
+        env:
+          API_BASE: https://s-st-01.anteater-bushmaster.ts.net
+          TARGET_FILE: data/heroes-master.json
+        run: |
+          set -euo pipefail
+          mkdir -p "$(dirname "$TARGET_FILE")"
+          mkdir -p .sync-tmp
+
+          curl --fail --silent --show-error --location \
+            --retry 3 --retry-delay 2 \
+            "${API_BASE}/api/catalog/heroes-master" \
+            -o .sync-tmp/raw.json
+
+          node -e '
+            const fs = require("fs");
+            const raw = fs.readFileSync(".sync-tmp/raw.json", "utf8");
+            const parsed = JSON.parse(raw);
+            const items = Array.isArray(parsed)
+              ? parsed
+              : (parsed && Array.isArray(parsed.items) ? parsed.items : null);
+
+            if (!items || items.length === 0) {
+              throw new Error("Fetched heroes-master catalog is empty or missing hero entries.");
+            }
+
+            fs.writeFileSync(".sync-tmp/next.json", JSON.stringify(parsed) + "\n", "utf8");
+          '
+
+          if [ -f "$TARGET_FILE" ] && cmp -s ".sync-tmp/next.json" "$TARGET_FILE"; then
+            echo "No changes detected in $TARGET_FILE."
+            exit 0
+          fi
+
+          cp ".sync-tmp/next.json" "$TARGET_FILE"
+          echo "CHANGED=true" >> "$GITHUB_ENV"
+
+      - name: Commit updated catalog
+        if: env.CHANGED == 'true'
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/heroes-master.json
+          git commit -m "chore(data): sync heroes-master.json"
+          git push
