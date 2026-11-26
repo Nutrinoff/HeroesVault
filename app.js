@@ -97,6 +97,21 @@ function validateLoadedDataShapes() {
 // 2. DATA LOADING (HEROES FIRST, REST TRICKLES)
 // ==========================================
 
+async function loadFooterVersion() {
+    const badgeEl = document.getElementById('app-version-badge');
+    if (!badgeEl) return;
+
+    const res = await fetch('./version.json', { cache: 'no-store' });
+    if (!res.ok) return;
+
+    const data = await res.json();
+    const ver = String(data?.version ?? '').trim();
+    if (!ver) return;
+
+    badgeEl.textContent = ver.startsWith('v') ? ver : `v${ver}`;
+    badgeEl.classList.remove('hidden');
+}
+
 function syncHomeSummaryCounts() {
     const heroCountEl = document.getElementById('home-hero-count');
     const buildCountEl = document.getElementById('home-build-count');
@@ -429,6 +444,7 @@ async function initializeFeatures({ force = false } = {}) {
 
             await runFeatureSafe('syncHomeSummaryCounts', syncHomeSummaryCounts);
             await runFeatureSafe('bindGlobalDismissHandlers', bindGlobalDismissHandlers);
+            runFeatureSafe('loadFooterVersion', loadFooterVersion);
 
             await runFeatureSafe('lucide.createIcons', () => {
                 refreshIcons(document.body || document);

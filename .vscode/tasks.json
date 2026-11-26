@@ -1,0 +1,23 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Git Quick Commit & Push",
+      "type": "shell",
+      "command": "$verPath = 'version.json'; $verObj = if (Test-Path $verPath) { Get-Content $verPath -Raw | ConvertFrom-Json } else { [pscustomobject]@{ version = '1.0.0' } }; $bump = Read-Host 'Bump version? (y/N)'; if ($bump -match '^(y|yes)$') { Write-Host \"Current version: $($verObj.version)\"; $newVer = (Read-Host 'New version').Trim(); if (-not [string]::IsNullOrWhiteSpace($newVer)) { $verObj.version = $newVer; $verObj | ConvertTo-Json -Depth 10 | Set-Content $verPath -Encoding utf8 } }; git add -A; $msg = Read-Host 'Enter commit message'; if ([string]::IsNullOrWhiteSpace($msg)) { $msg = 'chore: update' }; git commit -m $msg; git pull --rebase; git push",
+      "group": "none",
+      "presentation": {
+        "panel": "shared",
+        "focus": true,
+        "reveal": "always"
+      },
+      "options": {
+        "statusbar": {
+          "label": "$(rocket) Commit & Push",
+          "color": "#4ade80",
+          "hide": false
+        }
+      }
+    }
+  ]
+}
