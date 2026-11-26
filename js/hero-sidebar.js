@@ -89,10 +89,52 @@ function resolveCatalogHeroRecord(hero) {
     return catalog.getHero(hero.id) || catalog.getHero(hero.name) || null;
 }
 
+function normalizeTierBadge(rawTier) {
+    const str = String(rawTier ?? '').trim();
+    if (!str) return '';
+    const match = str.match(/\b([SABCDF])\b/i) || str.match(/^([SABCDF])\s*(?:tier)?$/i);
+    return match ? match[1].toUpperCase() : '';
+}
+
+function resolveSidebarHeroTier(hero, catalogHero = null, normHero = null, resolvedId = '') {
+    const directTier = normalizeTierBadge(
+        catalogHero?.tier
+        ?? normHero?.tier
+        ?? hero?.tier
+    );
+    if (directTier) return directTier;
+
+    const catalog = getCatalogApi();
+    const candidates = [
+        resolvedId,
+        hero?.id,
+        catalogHero?.id,
+        normHero?.id,
+        hero?.name,
+        catalogHero?.name,
+        normHero?.name
+    ].filter(Boolean);
+
+    if (catalog && typeof catalog.getTier === 'function') {
+        for (const candidate of candidates) {
+            const tier = normalizeTierBadge(catalog.getTier(candidate));
+            if (tier) return tier;
+        }
+    }
+
+    if (typeof getHeroTier === 'function') {
+        for (const candidate of candidates) {
+            const tier = normalizeTierBadge(getHeroTier(candidate));
+            if (tier) return tier;
+        }
+    }
+
+    return 'D';
+}
+
 function buildHeroRosterSnapshotSignature(list) {
     if (!Array.isArray(list) || list.length === 0) return '';
 
-    const catalog = getCatalogApi();
     return list
         .map(hero => {
             if (!hero || typeof hero !== 'object') return '';
@@ -100,11 +142,7 @@ function buildHeroRosterSnapshotSignature(list) {
             const normHero = catalogHero?.normHero
                 || (typeof getNormalizedHeroData === 'function' ? getNormalizedHeroData(hero.id) : null);
             const resolvedId = String(catalogHero?.id || normHero?.id || hero.id || '').trim();
-            const tier = String(
-                catalogHero?.tier
-                || (catalog && typeof catalog.getTier === 'function' ? catalog.getTier(resolvedId) : '')
-                || (typeof getHeroTier === 'function' ? getHeroTier(resolvedId) : '')
-            ).toUpperCase();
+            const tier = resolveSidebarHeroTier(hero, catalogHero, normHero, resolvedId);
             return [
                 resolvedId,
                 hero.id || '',
@@ -138,11 +176,7 @@ function buildHeroSidebarEntry(hero, fallbackPortrait) {
 
     const displayName = getHeroDisplayName(catalogHero || normHero || hero) || 'Hero';
     const role = catalogHero?.role || normHero?.role || hero.role || 'Nexus Combatant';
-    const tier = String(
-        catalogHero?.tier
-        || (catalog && typeof catalog.getTier === 'function' ? catalog.getTier(resolvedId) : '')
-        || (typeof getHeroTier === 'function' ? getHeroTier(resolvedId) : 'D')
-    ).toUpperCase();
+    const tier = resolveSidebarHeroTier(hero, catalogHero, normHero, resolvedId);
 
     const catalogAsset = catalog && typeof catalog.getAssetMeta === 'function'
         ? catalog.getAssetMeta(resolvedId || hero.id)
