@@ -7,6 +7,7 @@
   const PATCH_DATA_DIR = './data/patchnotes';
   const MAP_DATA_DIR = './data/maps';
   const ROTATION_DATA_DIR = './data';
+  const HEROES_MASTER_LOCAL_PATH = './data/heroes-master.json';
   const DEFAULT_ROTATION_TIMEOUT_MS = 4000;
 
   const MASTER_PATCH_FILES = [
@@ -289,9 +290,10 @@
   // --- Catalog / other endpoints ---
 
   function fetchHeroesMasterCatalog({ force = false } = {}) {
-    return fetchJsonWithFallback('/api/catalog/heroes-master', '', {
+    return fetchJsonWithFallback('', HEROES_MASTER_LOCAL_PATH, {
       cacheKey: 'catalog:heroes-master',
       force,
+      fetchOptions: force ? { cache: 'reload' } : {},
     });
   }
 
