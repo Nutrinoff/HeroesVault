@@ -216,8 +216,20 @@ function flattenHeroAbilities(h) {
 // 3. GAME TEXT FORMATTING
 // ==========================================
 
+function stripScalingToken(text) {
+    return String(text || '')
+        .replace(/(<span\b[^>]*>)?\s*\b0\.04\b\s*(%?\s*<\/span>)?/gi, (_, openSpan, closeWithPct) => {
+            if (openSpan && closeWithPct) return '';
+            if (openSpan) return openSpan;
+            if (closeWithPct) return closeWithPct.replace(/^\s*%?\s*/, '');
+            return '';
+        });
+}
+
 function formatGameText(value) {
-    const source = String(value || '').replace(/<img\b[^>]*\/?>/gi, '');
+    const source = String(value || '')
+        .replace(/<img\b[^>]*\/?>/gi, '')
+        .replace(/(\d+(?:\.\d+)?%?)\s+(?:<[^>]+>\s*)*0\.04(?:\s*<[^>]+>)*/gi, '$1');
     if (!source) return '';
 
     const escapeHtml = s => s
@@ -284,5 +296,5 @@ function formatGameText(value) {
         output += '</span>';
     }
 
-    return output;
+    return stripScalingToken(output);
 }
