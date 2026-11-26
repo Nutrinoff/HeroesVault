@@ -143,12 +143,18 @@ async function openBuilder(id = null, selections = null, update = true) {
         lastAppliedBuilderSignature = sessionSig;
     }
 
-    switchTabUI('builder');
+    if (typeof switchTabUI === 'function') {
+        switchTabUI('builder', { force: true });
+    }
 
     if (typeof filterHeroes === 'function') {
         filterHeroes();
     } else if (typeof renderHeroSidebar === 'function') {
         renderHeroSidebar(MASTER_HERO_LIST);
+    }
+
+    if (typeof switchTabUI === 'function') {
+        switchTabUI('builder', { force: true });
     }
 
     if (!alreadyRendered || !builderHeroData) {
