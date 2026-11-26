@@ -300,6 +300,10 @@ function renderAbilityStrip(abilitiesList, containerId, options = {}) {
     const box = document.getElementById(containerId);
     if (!box) return;
 
+    // Keep the ability strip on a single row and allow horizontal scroll only if needed
+    box.classList.add('flex-nowrap', 'overflow-x-auto', 'overflow-y-hidden', 'max-w-full');
+    box.classList.remove('flex-wrap');
+
     const isVikings = Boolean(options.isLostVikings);
     let hasTrait = false;
     let hasMountZ = false;
@@ -375,10 +379,15 @@ function renderAbilityStrip(abilitiesList, containerId, options = {}) {
         return;
     }
 
+    const useCompactDensity = list.length >= 7;
     const frag = document.createDocumentFragment();
+
     list.forEach(a => {
         const el = document.createElement('div');
-        el.className = 'hots-subpanel flex flex-col items-center gap-1 p-1.5 min-w-12 rounded-[2px] border border-[#38247a]';
+        el.className = useCompactDensity
+            ? 'hots-subpanel shrink-0 flex flex-col items-center gap-0.5 p-1 min-w-10 rounded-[2px] border border-[#38247a]'
+            : 'hots-subpanel shrink-0 flex flex-col items-center gap-1 p-1.5 min-w-12 rounded-[2px] border border-[#38247a]';
+
         if (typeof showAbilityTooltip === 'function') {
             el.addEventListener('mouseenter', e => showAbilityTooltip(e, a));
         }
@@ -387,7 +396,9 @@ function renderAbilityStrip(abilitiesList, containerId, options = {}) {
         }
 
         const iconImg = document.createElement('img');
-        iconImg.className = 'w-8 h-8 rounded-[2px] border border-[#5c42b8]/75 object-cover bg-[#070412]';
+        iconImg.className = useCompactDensity
+            ? 'w-7 h-7 rounded-[2px] border border-[#5c42b8]/75 object-cover bg-[#070412]'
+            : 'w-8 h-8 rounded-[2px] border border-[#5c42b8]/75 object-cover bg-[#070412]';
         iconImg.alt = a.name || a.key || 'Ability icon';
         setSafeImageSrc(
             iconImg,
@@ -396,14 +407,18 @@ function renderAbilityStrip(abilitiesList, containerId, options = {}) {
         );
 
         const keySpan = document.createElement('span');
-        keySpan.className = 'text-[10px] font-mono font-bold text-[#58baff]';
+        keySpan.className = useCompactDensity
+            ? 'text-[9px] leading-tight font-mono font-bold text-[#58baff]'
+            : 'text-[10px] leading-tight font-mono font-bold text-[#58baff]';
         keySpan.textContent = a.key || a.abilityType || 'Z';
 
         el.append(iconImg, keySpan);
 
         if (a.variant) {
             const variantSpan = document.createElement('span');
-            variantSpan.className = 'text-[8px] text-[#9cb6ff]/80 max-w-16 truncate';
+            variantSpan.className = useCompactDensity
+                ? 'text-[7px] leading-tight text-[#9cb6ff]/80 max-w-12 truncate'
+                : 'text-[8px] leading-tight text-[#9cb6ff]/80 max-w-16 truncate';
             variantSpan.title = a.variant;
             variantSpan.textContent = a.variant;
             el.appendChild(variantSpan);
