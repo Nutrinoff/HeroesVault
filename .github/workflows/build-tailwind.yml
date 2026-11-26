@@ -10,7 +10,9 @@ on:
       - "js/**"
       - "css/app.css"
       - "css/tailwind.input.css"
+      - "tailwind.config.js"
       - ".github/workflows/build-tailwind.yml"
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -26,7 +28,7 @@ jobs:
           node-version: "20"
 
       - name: Compile Tailwind CSS
-        run: npx tailwindcss@3 -i ./css/tailwind.input.css -o ./css/tailwind.css --minify
+        run: npx tailwindcss@3 -c ./tailwind.config.js -i ./css/tailwind.input.css -o ./css/tailwind.css --minify
 
       - name: Commit updated tailwind.css if changed
         run: |
