@@ -163,20 +163,24 @@ function ensureActiveHeroViewHydrated() {
 
     if (!isBuildsActive && !isBuilderActive) return;
 
-    const currentHeroId =
-        window.currentSelectedHeroId ||
-        window.selectedHeroId ||
-        window.activeHeroId ||
-        null;
+    const routeInfo = typeof parseCurrentRouteLocation === 'function'
+        ? parseCurrentRouteLocation()
+        : { tab: isBuilderActive ? 'builder' : 'builds', params: {} };
+    const fallbackHeroId = MASTER_HERO_LIST[0]?.id;
+    if (!fallbackHeroId) return;
 
-    if (currentHeroId && typeof selectHero === 'function') {
-        selectHero(currentHeroId);
-        return;
-    }
-
-    const fallbackHero = MASTER_HERO_LIST[0];
-    if (fallbackHero?.id && typeof selectHero === 'function') {
-        selectHero(fallbackHero.id);
+    if (isBuildsActive && !currentHeroData && typeof selectHero === 'function') {
+        const targetId = typeof resolveRouteHeroId === 'function'
+            ? resolveRouteHeroId(routeInfo.params?.hero)
+            : (routeInfo.params?.hero || fallbackHeroId);
+        selectHero(targetId || fallbackHeroId, false);
+    } else if (isBuilderActive && typeof builderHeroData !== 'undefined' && !builderHeroData && typeof openBuilder === 'function') {
+        if (typeof resolveBuilderRouteParams === 'function') {
+            const { heroId, selections } = resolveBuilderRouteParams(routeInfo.params || {});
+            openBuilder(heroId || fallbackHeroId, selections, false);
+        } else {
+            openBuilder(routeInfo.params?.hero || fallbackHeroId, null, false);
+        }
     }
 }
 
@@ -213,7 +217,9 @@ async function loadSecondaryData({ force = false } = {}) {
             const buildsData = normalizeBuildsPayload(buildsRaw);
             if (Array.isArray(buildsData)) {
                 PERSONAL_BUILDS = buildsData;
-                ensureActiveHeroViewHydrated();
+                if (typeof currentHeroData !== 'undefined' && currentHeroData && typeof renderActiveBuild === 'function') {
+                    renderActiveBuild();
+                }
             }
 
             const tiersData = normalizeTiersPayload(tiersRaw);
